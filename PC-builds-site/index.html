@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>PC Builds Hub | みんなのPC構成ギャラリー</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="投稿されたPC構成を見て、ゲーミングPCや自作PCの参考にできるPC構成ギャラリー。"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#19e3ff" />
+</head>
+<body class="index-page">
+  <div class="page">
+    <header class="top-header">
+      <a href="index.html" class="site-logo">PC <span>Builds</span> Hub</a>
+      <nav class="nav-actions" aria-label="メインナビゲーション">
+        <a class="btn" href="all-posts.html">投稿一覧</a>
+        <a class="btn btn-primary" href="all-posts.html?sort=nice">人気構成</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="hero-kicker">Custom PC Gallery</p>
+          <h1 id="heroTitle" class="hero-title">
+            みんなのPC構成から、次の一台のヒントを見つけよう。
+          </h1>
+          <p class="hero-subtitle">
+            ゲーミングPC、自作PC、配信用、クリエイティブ向けまで。実際に投稿された構成のCPU、GPU、メモリ、用途、解像度を見比べて、あなたのPC選びの参考にできます。
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="all-posts.html">投稿一覧を見る</a>
+            <a class="btn" href="all-posts.html?sort=nice">人気構成を見る</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="注目PC構成">
+          <div class="hero-card-glow"></div>
+          <div class="hero-card-content">
+            <p class="hero-card-title">Featured Build</p>
+            <h2 class="hero-card-main">1440pゲーミングの定番バランス</h2>
+            <div class="hero-specs">
+              <div>
+                <div class="hero-spec-label">CPU</div>
+                <div class="hero-spec-value">Ryzen 7 5700X3D</div>
+              </div>
+              <div>
+                <div class="hero-spec-label">GPU</div>
+                <div class="hero-spec-value">RTX 4070 SUPER</div>
+              </div>
+              <div>
+                <div class="hero-spec-label">RAM</div>
+                <div class="hero-spec-value">32GB DDR4</div>
+              </div>
+              <div>
+                <div class="hero-spec-label">Target</div>
+                <div class="hero-spec-value">1440p / ゲーム</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-card-image">
+            <img src="images/Test1.jpg" alt="青紫のライティングが映えるPC構成" />
+          </div>
+        </aside>
+      </section>
+
+      <section class="home-section" aria-labelledby="latestTitle">
+        <div class="section-header">
+          <div>
+            <h2 id="latestTitle" class="section-title">新着PC構成</h2>
+            <p class="section-subtitle">posts.json から最新の投稿を読み込んで表示しています。</p>
+          </div>
+          <a class="section-link" href="all-posts.html">すべて見る</a>
+        </div>
+        <div id="latestPosts" class="grid latest-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="home-section" aria-labelledby="categoryTitle">
+        <div class="section-header">
+          <div>
+            <h2 id="categoryTitle" class="section-title">カテゴリから探す</h2>
+            <p class="section-subtitle">用途や見た目の方向性から、近い構成を探せます。</p>
+          </div>
+        </div>
+        <div class="link-card-grid">
+          <a class="link-card" href="all-posts.html?use=ゲーム">
+            <span class="link-card-icon">01</span>
+            <strong>ゲーミングPC</strong>
+            <span>FHDから4Kまで、ゲーム重視の構成をチェック。</span>
+          </a>
+          <a class="link-card" href="all-posts.html?use=配信">
+            <span class="link-card-icon">02</span>
+            <strong>配信用PC</strong>
+            <span>配信、録画、ゲームを同時にこなす構成へ。</span>
+          </a>
+          <a class="link-card" href="all-posts.html?use=クリエイティブ">
+            <span class="link-card-icon">03</span>
+            <strong>クリエイティブPC</strong>
+            <span>動画編集、3D、制作向けのスペックを比較。</span>
+          </a>
+          <a class="link-card" href="all-posts.html?use=白PC・光るPC">
+            <span class="link-card-icon">04</span>
+            <strong>白PC・光るPC</strong>
+            <span>見た目にもこだわったデスク映え構成を探す。</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="home-section" aria-labelledby="relatedTitle">
+        <div class="section-header">
+          <div>
+            <h2 id="relatedTitle" class="section-title">関連サイト</h2>
+            <p class="section-subtitle">PC構成を考えるときに一緒に見たいガイドです。</p>
+          </div>
+        </div>
+        <div class="link-card-grid related-grid">
+          <a class="link-card related-card" href="#" aria-label="PC構成診断サイト">
+            <strong>PC構成診断サイト</strong>
+            <span>用途と予算から、パーツ構成の方向性を確認。</span>
+          </a>
+          <a class="link-card related-card" href="#" aria-label="グラボ比較ガイド">
+            <strong>グラボ比較ガイド</strong>
+            <span>GPUごとの性能差、価格帯、向いている解像度を比較。</span>
+          </a>
+          <a class="link-card related-card" href="#" aria-label="ゲーム別おすすめPCサイト">
+            <strong>ゲーム別おすすめPCサイト</strong>
+            <span>遊びたいタイトルから必要なPCスペックを探す。</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2025 PC Builds Hub. All rights reserved.
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="sw-register.js"></script>
+</body>
+</html>

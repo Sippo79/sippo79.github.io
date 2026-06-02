@@ -1,0 +1,341 @@
+{
+  "gpus": {
+    "rtx5090": {
+      "name": "GeForce RTX 5090",
+      "amazon": "https://amzn.to/4dtIlwP",
+      "rakuten": "https://a.r10.to/h8WZ1x",
+      "yahoo": "https://yahoo.jp/t5UQrN",
+      "status": "active"
+    },
+    "rtx5080": {
+      "name": "GeForce RTX 5080",
+      "amazon": "https://amzn.to/4dIIhIs",
+      "rakuten": "https://a.r10.to/hko5fa",
+      "yahoo": "https://yahoo.jp/gUAiP8",
+      "status": "active"
+    },
+    "rtx5070ti": {
+      "name": "GeForce RTX 5070 Ti",
+      "amazon": "https://amzn.to/42RGjAw",
+      "rakuten": "https://a.r10.to/hPcwmv",
+      "yahoo": "https://yahoo.jp/J4_fuy",
+      "status": "active"
+    },
+    "rtx5070": {
+      "name": "GeForce RTX 5070",
+      "amazon": "https://amzn.to/xxxxx",
+      "rakuten": "https://a.r10.to/hkSdhv",
+      "yahoo": "https://yahoo.jp/BRuvXb",
+      "status": "active"
+    },
+    "rtx5060ti": {
+      "name": "GeForce RTX 5060 Ti",
+      "amazon": "https://amzn.to/3RrYUR9",
+      "rakuten": "https://a.r10.to/hFAAgo",
+      "yahoo": "https://yahoo.jp/S2sFeH",
+      "status": "active"
+    },
+    "rtx5060": {
+      "name": "GeForce RTX 5060",
+      "amazon": "https://amzn.to/49ODTWY",
+      "rakuten": "https://a.r10.to/hkpsZz",
+      "yahoo": "https://yahoo.jp/ztV_6C",
+      "status": "active"
+    },
+    "rtx4080super": {
+      "name": "GeForce RTX 4080 SUPER",
+      "amazon": "https://amzn.to/49fjwSO",
+      "rakuten": "https://a.r10.to/hkys0x",
+      "yahoo": "https://yahoo.jp/Lsec9X",
+      "status": "active"
+    },
+    "rtx4070tisuper": {
+      "name": "GeForce RTX 4070 Ti SUPER",
+      "amazon": "https://amzn.to/4f5qCgd",
+      "rakuten": "https://a.r10.to/h53CJ4",
+      "yahoo": "https://yahoo.jp/uVFwYk",
+      "status": "active"
+    },
+    "rtx4070super": {
+      "name": "GeForce RTX 4070 SUPER",
+      "amazon": "",
+      "rakuten": "https://a.r10.to/h5lHSz",
+      "yahoo": "https://yahoo.jp/NS8KBZ",
+      "status": "active"
+    },
+    "rtx4070": {
+      "name": "GeForce RTX 4070",
+      "amazon": "https://amzn.to/4dvaIe4",
+      "rakuten": "https://a.r10.to/h5lQoZ",
+      "yahoo": "https://yahoo.jp/ifhvFWv",
+      "status": "active"
+    },
+    "rtx4060ti": {
+      "name": "GeForce RTX 4060 Ti",
+      "amazon": "https://amzn.to/4f61LsH",
+      "rakuten": "https://a.r10.to/hFAAqX",
+      "yahoo": "https://yahoo.jp/9iTRo9",
+      "status": "active"
+    },
+    "rtx4060": {
+      "name": "GeForce RTX 4060",
+      "amazon": "https://amzn.to/3PGja0D",
+      "rakuten": "https://a.r10.to/hkGGfE",
+      "yahoo": "https://yahoo.jp/JsWemN",
+      "status": "active"
+    },
+    "rtx3080": {
+      "name": "GeForce RTX 3080",
+      "amazon": "https://amzn.to/3REumeT",
+      "rakuten": "https://a.r10.to/hPTDw0",
+      "yahoo": "https://yahoo.jp/4pmjAN",
+      "status": "active"
+    },
+    "rtx3070ti": {
+      "name": "GeForce RTX 3070 Ti",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rtx3070": {
+      "name": "GeForce RTX 3070",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rtx3060ti": {
+      "name": "GeForce RTX 3060 Ti",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rtx3060": {
+      "name": "GeForce RTX 3060",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rx9070xt": {
+      "name": "Radeon RX 9070 XT",
+      "amazon": "https://amzn.to/4wOgOxo",
+      "rakuten": "https://a.r10.to/h5394b",
+      "yahoo": "https://yahoo.jp/_EQXSy",
+      "status": "active"
+    },
+    "rx9070": {
+      "name": "Radeon RX 9070",
+      "amazon": "https://amzn.to/49lJq7n",
+      "rakuten": "https://a.r10.to/hk2Oby",
+      "yahoo": "https://yahoo.jp/dmoCpX",
+      "status": "active"
+    },
+    "rx7900xtx": {
+      "name": "Radeon RX 7900 XTX",
+      "amazon": "https://amzn.to/4fECru3",
+      "rakuten": "https://a.r10.to/hgs8tW",
+      "yahoo": "https://yahoo.jp/mEWboU",
+      "status": "active"
+    },
+    "rx7900xt": {
+      "name": "Radeon RX 7900 XT",
+      "amazon": "https://amzn.to/4eZvZxw",
+      "rakuten": "https://a.r10.to/hPFmPH",
+      "yahoo": "https://yahoo.jp/ixo_TF",
+      "status": "active"
+    },
+    "rx7900gre": {
+      "name": "Radeon RX 7900 GRE",
+      "amazon": "https://amzn.to/4dskY6H",
+      "rakuten": "https://a.r10.to/h5wlC5",
+      "yahoo": "https://yahoo.jp/iDoC3K",
+      "status": "active"
+    },
+    "rx7800xt": {
+      "name": "Radeon RX 7800 XT",
+      "amazon": "https://amzn.to/4tQZZiM",
+      "rakuten": "https://a.r10.to/hgEfCo",
+      "yahoo": "https://yahoo.jp/sbnabe",
+      "status": "active"
+    },
+    "rx7700xt": {
+      "name": "Radeon RX 7700 XT",
+      "amazon": "https://amzn.to/4dZhzfM",
+      "rakuten": "https://a.r10.to/hgs8If",
+      "yahoo": "https://yahoo.jp/7hXLpZ",
+      "status": "active"
+    },
+    "rx7600": {
+      "name": "Radeon RX 7600",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rx6800xt": {
+      "name": "Radeon RX 6800 XT",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rx6700xt": {
+      "name": "Radeon RX 6700 XT",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    },
+    "rx6600": {
+      "name": "Radeon RX 6600",
+      "amazon": "",
+      "rakuten": "",
+      "yahoo": "",
+      "status": "preparing"
+    }
+  },
+  "bto": {
+    "rtx5060": {
+      "label": "RTX 5060搭載ゲーミングPC",
+      "url": "",
+      "dospara": "",
+      "mouse": "",
+      "pcKoubou": "",
+      "frontier": "",
+      "status": "preparing"
+    },
+    "rtx5070": {
+      "label": "RTX 5070搭載ゲーミングPC",
+      "url": "",
+      "dospara": "",
+      "mouse": "",
+      "pcKoubou": "",
+      "frontier": "",
+      "status": "preparing"
+    },
+    "rtx5070ti": {
+      "label": "RTX 5070 Ti搭載ゲーミングPC",
+      "url": "",
+      "dospara": "",
+      "mouse": "",
+      "pcKoubou": "",
+      "frontier": "",
+      "status": "preparing"
+    },
+    "rtx5080": {
+      "label": "RTX 5080搭載ゲーミングPC",
+      "url": "",
+      "dospara": "",
+      "mouse": "",
+      "pcKoubou": "",
+      "frontier": "",
+      "status": "preparing"
+    },
+    "rtx5090": {
+      "label": "RTX 5090搭載ゲーミングPC",
+      "url": "",
+      "dospara": "",
+      "mouse": "",
+      "pcKoubou": "",
+      "frontier": "",
+      "status": "preparing"
+    }
+  },
+  "monitors": {
+    "gamingMonitor144hz": {
+      "label": "144Hz以上のゲーミングモニター",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingMonitor240hz": {
+      "label": "240Hz以上のゲーミングモニター",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingMonitorWQHD": {
+      "label": "WQHDゲーミングモニター",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingMonitor4k": {
+      "label": "4Kゲーミングモニター",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    }
+  },
+  "accessories": {
+    "arcadeController": {
+      "label": "アケコン・レバーレス",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingMouse": {
+      "label": "ゲーミングマウス",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingKeyboard": {
+      "label": "ゲーミングキーボード",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    },
+    "gamingHeadset": {
+      "label": "ゲーミングヘッドセット",
+      "url": "",
+      "amazon": "",
+      "rakuten": "",
+      "status": "preparing"
+    }
+  },
+  "amazonParts": {
+    "general": {
+      "label": "Amazon PCパーツ検索",
+      "url": "",
+      "status": "preparing"
+    },
+    "rtx5060": {
+      "label": "Amazon RTX 5060関連パーツ",
+      "url": "",
+      "status": "preparing"
+    },
+    "rtx5070": {
+      "label": "Amazon RTX 5070関連パーツ",
+      "url": "",
+      "status": "preparing"
+    }
+  },
+  "rakutenParts": {
+    "general": {
+      "label": "楽天 PCパーツ検索",
+      "url": "",
+      "status": "preparing"
+    },
+    "rtx5060": {
+      "label": "楽天 RTX 5060関連パーツ",
+      "url": "",
+      "status": "preparing"
+    },
+    "rtx5070": {
+      "label": "楽天 RTX 5070関連パーツ",
+      "url": "",
+      "status": "preparing"
+    }
+  }
+}
