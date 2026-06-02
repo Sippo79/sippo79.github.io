@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sippo79.github.io/game-pc-guide/sitemap.xml

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ゲーム別おすすめゲーミングPC | 初心者向けPC選びガイド</title>
+  <meta
+  id="metaDescription"
+  name="description"
+  content="ゲーム別におすすめのゲーミングPC構成を初心者向けにわかりやすく紹介します。"
+/>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        GAME PC <span>GUIDE</span>
+      </a>
+
+      <nav class="header-nav">
+        <a href="index.html#games" class="header-link">ゲーム一覧</a>
+        <a href="index.html#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo79.github.io/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo79.github.io/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+<section class="game-detail-hero">
+    <img id="gameImage" src="" alt="" loading="eager" decoding="async">
+
+  <div class="container">
+    <a href="index.html#games" class="back-link">
+      ← ゲーム一覧に戻る
+    </a>
+
+    <p class="hero-badge" id="gameGenre">GAME</p>
+
+    <h1 id="gameTitle">ゲームタイトル</h1>
+
+    <p class="hero-text" id="gameDescription">
+      ゲーム説明が入ります。
+    </p>
+  </div>
+
+</section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">RECOMMENDED BUILDS</p>
+          <h2>おすすめPC構成</h2>
+          <p>
+            予算や遊び方に合わせて、初心者にも選びやすい目安をまとめています。
+          </p>
+        </div>
+
+        <div class="build-grid" id="buildGrid"></div>
+        <div id="detailAffiliateSection"></div>
+        <div class="game-info-grid">
+  <section class="info-card">
+    <p class="info-label">RECOMMENDED</p>
+    <h3>おすすめ環境</h3>
+    <p id="gameRecommended">-</p>
+  </section>
+
+  <section class="info-card">
+    <p class="info-label">BUDGET</p>
+    <h3>予算目安</h3>
+    <p id="gameBudget">-</p>
+  </section>
+
+  <section class="info-card info-card-wide">
+    <p class="info-label">POINT</p>
+    <h3>選び方のポイント</h3>
+    <p id="gamePoint">-</p>
+  </section>
+
+  <section class="info-card info-card-wide">
+    <p class="info-label">CAUTION</p>
+    <h3>注意点</h3>
+    <p id="gameCaution">-</p>
+          </section>
+        </div>
+
+        <div class="detail-related-sites">
+          <div class="related-site-grid">
+            <a
+              href="https://sippo79.github.io/pc-build-check/"
+              class="related-site-button related-site-build"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="related-site-mini">PC BUILD CHECK</span>
+              <span>PC構成診断</span>
+              <small>予算や用途からおすすめPC構成をチェック</small>
+            </a>
+
+            <a
+              href="https://sippo79.github.io/gpu-guide/"
+              class="related-site-button related-site-gpu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="related-site-mini">GPU GUIDE</span>
+              <span>グラボ比較ガイド</span>
+              <small>GPU性能や用途別の目安を比較</small>
+            </a>
+          </div>
+
+          <div class="detail-back-nav">
+            <a href="index.html#games" class="secondary-btn">← 他のゲームを見る</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© GAME PC GUIDE</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

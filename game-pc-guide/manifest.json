@@ -1,0 +1,44 @@
+{
+  "name": "GAME PC GUIDE",
+  "short_name": "GAME PC",
+  "description": "遊びたいゲームから、自分に合うPCを直感的に選べるゲーミングPCガイド",
+  "lang": "ja",
+  "start_url": "/game-pc-guide/",
+  "scope": "/game-pc-guide/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#090b14",
+  "theme_color": "#090b14",
+  "categories": ["games", "utilities"],
+  "icons": [
+    {
+      "src": "images/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "APEX Legends",
+      "url": "/game-pc-guide/games/apex.html",
+      "description": "APEX LegendsのおすすめPC構成"
+    },
+    {
+      "name": "VALORANT",
+      "url": "/game-pc-guide/games/valorant.html",
+      "description": "VALORANTのおすすめPC構成"
+    },
+    {
+      "name": "モンハンワイルズ",
+      "url": "/game-pc-guide/games/monster-hunter.html",
+      "description": "モンハンワイルズのおすすめPC構成"
+    }
+  ]
+}

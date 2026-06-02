@@ -1,0 +1,904 @@
+{
+  "apex": {
+    "title": "APEX Legends向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "APEX向けRTX 5070搭載BTOを探す",
+        "description": "WQHD 144fps向けのゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "高リフレッシュレートモニターでAPEXをもっと快適に"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "FPSで使いやすい軽量マウスを探す"
+      }
+    ]
+  },
+  "valorant": {
+    "title": "VALORANT向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "VALORANT向けBTOパソコンを探す",
+        "description": "FHD 144fps〜240fps向けゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor240hz",
+        "label": "240Hz対応ゲーミングモニターを見る",
+        "description": "240Hz環境でVALORANTをさらに快適に"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "VALORANTで使いやすい軽量マウスを探す"
+      }
+    ]
+  },
+  "ff14": {
+    "title": "FINAL FANTASY XIV向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "FF14向けBTOパソコンを探す",
+        "description": "FHD〜WQHD高画質向けのゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "FF14の美しい映像を高解像度で楽しむ"
+      }
+    ]
+  },
+  "mhwilds": {
+    "title": "モンハンワイルズ向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "モンハンワイルズ向けBTOパソコンを探す",
+        "description": "FHD〜WQHD高画質向けの高性能PCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "迫力あるハントをWQHD高画質で楽しむ"
+      }
+    ]
+  },
+  "gta5": {
+    "title": "GTA5 / GTA Online向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "GTA5向けBTOパソコンを探す",
+        "description": "高画質・MOD環境に対応したゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "GTA5をより美しく楽しめるモニターを探す"
+      }
+    ]
+  },
+  "cyberpunk2077": {
+    "title": "Cyberpunk 2077向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5080",
+        "label": "Cyberpunk 2077向けBTOパソコンを探す",
+        "description": "WQHD〜4K・レイトレーシング対応の高性能PCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "ハイエンドGPU・CPUをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor4k",
+        "label": "4K対応ゲーミングモニターを見る",
+        "description": "Cyberpunkの美しい夜景を4Kで堪能する"
+      }
+    ]
+  },
+  "fortnite": {
+    "title": "Fortnite向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "Fortnite向けBTOパソコンを探す",
+        "description": "FHD 144fps〜WQHD高fps向けゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "高リフレッシュレートでFortniteをより快適に"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "Fortniteで使いやすいマウスを探す"
+      }
+    ]
+  },
+  "minecraft": {
+    "title": "Minecraft向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "Minecraft向けBTOパソコンを探す",
+        "description": "影MOD・大型MOD対応のゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・メモリ・SSDなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "Minecraftを快適な環境で楽しめるモニターを探す"
+      }
+    ]
+  },
+  "tarkov": {
+    "title": "Escape from Tarkov向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "Tarkov向けBTOパソコンを探す",
+        "description": "重いマップでも安定するCPU重視PCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "CPU・GPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "Tarkovで敵を見つけやすい高品質モニターを探す"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "Tarkovで使いやすい高精度マウスを探す"
+      }
+    ]
+  },
+  "battlefield": {
+    "title": "Battlefield向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "Battlefield向けBTOパソコンを探す",
+        "description": "大規模戦闘でも安定したゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "BFの迫力ある戦場を快適なモニターで楽しむ"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "FPSで使いやすいゲーミングマウスを探す"
+      }
+    ]
+  },
+  "cod": {
+    "title": "Call of Duty向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "CoD向けBTOパソコンを探す",
+        "description": "Warzone含む高fps向けゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "高fps環境を活かせる高リフレッシュレートモニター"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "CoDで使いやすい高精度マウスを探す"
+      }
+    ]
+  },
+  "rust": {
+    "title": "Rust向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "Rust向けBTOパソコンを探す",
+        "description": "大規模サーバーでも安定するゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "Rustのサバイバル環境を快適に楽しめるモニターを探す"
+      }
+    ]
+  },
+  "ark": {
+    "title": "ARK: Survival Evolved向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "ARK向けBTOパソコンを探す",
+        "description": "高画質・建築量が増えても安定するPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "ARKの広大なフィールドを高画質で楽しめるモニター"
+      }
+    ]
+  },
+  "genshin": {
+    "title": "原神向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "原神向けBTOパソコンを探す",
+        "description": "高画質・高fps向けのゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "原神の美しいグラフィックをWQHDで堪能する"
+      }
+    ]
+  },
+  "lol": {
+    "title": "League of Legends向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "LoL向けBTOパソコンを探す",
+        "description": "FHD 144fps以上を安定させるコスパPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "LoLをより快適に遊べる高リフレッシュレートモニター"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "LoLで使いやすい精度の高いマウスを探す"
+      }
+    ]
+  },
+  "overwatch2": {
+    "title": "Overwatch 2向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "OW2向けBTOパソコンを探す",
+        "description": "FHD 144fps〜240fps対応のゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor240hz",
+        "label": "240Hz対応ゲーミングモニターを見る",
+        "description": "OW2の高fps環境を活かせるモニターを探す"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "Overwatchで使いやすい軽量マウスを探す"
+      }
+    ]
+  },
+  "eldenring": {
+    "title": "ELDEN RING向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "ELDEN RING向けBTOパソコンを探す",
+        "description": "FHD〜WQHD高画質向けのゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "ELDEN RINGの美しいフィールドをWQHDで楽しむ"
+      }
+    ]
+  },
+  "pubg": {
+    "title": "PUBG: BATTLEGROUNDS向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "PUBG向けBTOパソコンを探す",
+        "description": "FHD 144fps以上を安定させるゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "PUBGで敵を見つけやすい高品質モニターを探す"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "PUBGで使いやすい高精度マウスを探す"
+      }
+    ]
+  },
+  "palworld": {
+    "title": "Palworld向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "Palworld向けBTOパソコンを探す",
+        "description": "拠点建築・マルチプレイでも安定するPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "Palworldのオープンワールドを快適に楽しめるモニター"
+      }
+    ]
+  },
+  "rainbowsixsiege": {
+    "title": "Rainbow Six Siege向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "R6S向けBTOパソコンを探す",
+        "description": "FHD 144fps〜240fps対応のゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "R6Sの高fps環境を最大限活かすモニターを探す"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "gamingMouse",
+        "label": "ゲーミングマウスを見る",
+        "description": "Siegeで使いやすい高精度マウスを探す"
+      }
+    ]
+  },
+  "starfield": {
+    "title": "Starfield向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "Starfield向けBTOパソコンを探す",
+        "description": "FHD〜WQHD高画質向けの高性能PCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "ハイエンドGPU・CPUをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "宇宙探索をWQHD高画質で楽しめるモニターを探す"
+      }
+    ]
+  },
+  "helldivers2": {
+    "title": "HELLDIVERS 2向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "HELLDIVERS 2向けBTOパソコンを探す",
+        "description": "戦闘エフェクトが多い場面でも安定するPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "HELLDIVERS 2の迫力ある戦場を快適なモニターで"
+      }
+    ]
+  },
+  "blackdesert": {
+    "title": "黒い砂漠向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "黒い砂漠向けBTOパソコンを探す",
+        "description": "高画質設定でも安定するゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "GPU・CPU・メモリなどをまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitorWQHD",
+        "label": "WQHDゲーミングモニターを見る",
+        "description": "黒い砂漠の美しいグラフィックをWQHDで堪能する"
+      }
+    ]
+  },
+  "arma3": {
+    "title": "ARMA 3向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5070",
+        "label": "ARMA 3向けBTOパソコンを探す",
+        "description": "大規模ミッション・MOD環境に対応するPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "general",
+        "label": "AmazonでPCパーツを見る",
+        "description": "CPU重視のパーツ構成をまとめて探す"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "general",
+        "label": "楽天でPCパーツを見る",
+        "description": "ポイント還元も見ながらパーツを比較"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "ゲーミングモニターを見る",
+        "description": "ARMA 3の広大なフィールドを見渡せるモニターを探す"
+      }
+    ]
+  },
+  "streetfighter6": {
+    "title": "ストリートファイター6向けおすすめ購入先",
+    "items": [
+      {
+        "type": "bto",
+        "masterCategory": "bto",
+        "masterKey": "rtx5060",
+        "label": "ストリートファイター6向けBTOパソコンを探す",
+        "description": "RTX 5060搭載のFHD 144fps向けゲーミングPCを探す"
+      },
+      {
+        "type": "amazonParts",
+        "masterCategory": "amazonParts",
+        "masterKey": "rtx5060",
+        "label": "AmazonでRTX 5060関連パーツを見る",
+        "description": "GPUやCPUなどのPCパーツをAmazonで確認する"
+      },
+      {
+        "type": "rakutenParts",
+        "masterCategory": "rakutenParts",
+        "masterKey": "rtx5060",
+        "label": "楽天でRTX 5060関連パーツを見る",
+        "description": "GPUやCPUなどのPCパーツを楽天で確認する"
+      },
+      {
+        "type": "monitor",
+        "masterCategory": "monitors",
+        "masterKey": "gamingMonitor144hz",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "ストリートファイター6向けの高リフレッシュレートモニターを探す"
+      },
+      {
+        "type": "mouse",
+        "masterCategory": "accessories",
+        "masterKey": "arcadeController",
+        "label": "アーケードコントローラーを見る",
+        "description": "ストリートファイター6向けのアケコンを探す"
+      }
+    ]
+  }
+}

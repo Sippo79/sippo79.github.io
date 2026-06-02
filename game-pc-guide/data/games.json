@@ -1,0 +1,762 @@
+[
+  {
+    "id": "apex",
+    "title": "APEX Legends",
+    "popular": true,
+    "genre": "FPS",
+    "level": "軽め〜中量級",
+    "image": "images/apex.jpg",
+    "description": "APEX Legendsを144fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成をわかりやすく解説します。",
+    "recommended": "FHD / 144fps以上",
+    "budget": "15万〜25万円前後",
+    "point": "APEXはGPU性能も大事ですが、安定したfpsを出すにはCPUもそこそこ重要です。まずはFHD 144fpsを目標にすると失敗しにくいです。",
+    "caution": "4K高画質よりも、FHD〜WQHDでfpsを安定させる方が快適に遊びやすいです。",
+    "builds": [
+      {
+        "name": "ライト",
+        "price": "15万円前後",
+        "target": "FHD 144fps",
+        "cpu": "Ryzen 7 5700X",
+        "gpu": "RTX 5060",
+        "comment": "まずAPEXを快適に遊びたい人向け。フルHD中心なら十分狙いやすい構成です。"
+      },
+      {
+        "name": "ミドル",
+        "price": "20万円前後",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "comment": "WQHDや高fpsを安定させたい人向け。長く使うならこのあたりがかなり安心です。"
+      }
+    ]
+  },
+  {
+    "id": "valorant",
+    "title": "VALORANT",
+    "popular": true,
+    "genre": "FPS",
+    "level": "軽め",
+    "image": "images/valorant.jpg",
+    "description": "VALORANTを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。低予算でも選びやすい必要スペックを解説します。",
+    "recommended": "FHD / 144fps〜240fps",
+    "budget": "12万〜20万円前後",
+    "point": "VALORANTは比較的軽いので、まずは高リフレッシュレートモニターに合わせてfpsを安定させる構成がおすすめです。",
+    "caution": "高額GPUよりも、CPU性能やモニター環境とのバランスを意識した方が満足度が高いです。",
+    "builds": [
+      {
+        "name": "ライト",
+        "price": "12万円前後",
+        "target": "FHD 144fps",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "comment": "できるだけ予算を抑えてVALORANTを快適に遊びたい人向けです。"
+      },
+      {
+        "name": "ミドル",
+        "price": "18万円前後",
+        "target": "FHD 240fps",
+        "cpu": "Ryzen 7 5700X",
+        "gpu": "RTX 5060",
+        "comment": "240Hzモニターを活かしたい人向け。VALORANTならかなり余裕のある構成です。"
+      }
+    ]
+  },
+  {
+    "id": "ff14",
+    "title": "FINAL FANTASY XIV",
+    "popular": true,
+    "genre": "MMO",
+    "level": "中量級",
+    "image": "images/ff14.jpg",
+    "description": "FF14を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成をわかりやすく解説します。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "budget": "15万〜25万円前後",
+    "point": "FF14は画質を上げて楽しみたい人が多いので、FHDだけでなくWQHDも視野に入れると満足度が高いです。",
+    "caution": "大型アップデートや人が多い場所では負荷が上がるため、少し余裕のある構成がおすすめです。",
+    "builds": [
+      {
+        "name": "ライト",
+        "price": "15万円前後",
+        "target": "FHD 高画質",
+        "cpu": "Ryzen 7 5700X",
+        "gpu": "RTX 5060",
+        "comment": "フルHDでFF14を快適に遊びたい人向け。初心者にも選びやすい構成です。"
+      },
+      {
+        "name": "ミドル",
+        "price": "22万円前後",
+        "target": "WQHD 高画質",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "comment": "WQHDモニターで景色や戦闘を綺麗に楽しみたい人向けです。"
+      }
+    ]
+  },
+  {
+    "id": "mhwilds",
+    "title": "モンハンワイルズ",
+    "popular": true,
+    "genre": "アクション",
+    "level": "重め",
+    "image": "images/mhwilds.jpg",
+    "description": "モンハンワイルズを快適に遊ぶためのおすすめゲーミングPCを紹介。重めのゲーム向けに必要スペックやおすすめGPUを解説します。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "budget": "20万〜30万円前後",
+    "point": "モンハンワイルズは重めのゲームなので、予算を少し上げてGPU性能に余裕を持たせると安心です。",
+    "caution": "低予算構成だと画質設定を下げる必要が出やすいです。快適さ重視なら20万円以上を目安にしたいところです。",
+    "builds": [
+      {
+        "name": "ライト",
+        "price": "20万円前後",
+        "target": "FHD 快適",
+        "cpu": "Ryzen 7 5700X",
+        "gpu": "RTX 5060 Ti",
+        "comment": "フルHDで遊ぶなら現実的な入門ライン。画質調整前提なら十分狙えます。"
+      },
+      {
+        "name": "ミドル",
+        "price": "28万円前後",
+        "target": "WQHD 高画質",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "comment": "WQHDや高画質で快適に遊びたい人向け。長く使うならこのあたりが安心です。"
+      }
+    ]
+  },
+{
+  "id": "gta5",
+  "title": "GTA5 / GTA Online",
+  "genre": "オープンワールド",
+  "level": "中量級",
+  "image": "images/gta5.jpg",
+  "description": "GTA5やGTA Onlineを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。MODも考えた必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "15万〜25万円前後",
+  "point": "GTA OnlineやMOD導入を考えると、GPUだけでなくメモリ容量にも余裕を持たせると快適です。",
+  "caution": "高画質設定やMOD環境ではVRAM使用量が増えやすいため、余裕のあるGPUがおすすめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "15万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "まずGTA5を快適に遊びたい人向け。フルHD中心なら十分遊びやすい構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "22万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "高画質やMOD環境も視野に入れたい人向け。長く使いやすい構成です。"
+    }
+  ]
+},
+{
+  "id": "cyberpunk2077",
+  "title": "Cyberpunk 2077",
+  "genre": "RPG",
+  "level": "超重い",
+  "image": "images/cyberpunk2077.jpg",
+  "description": "Cyberpunk 2077を高画質やレイトレーシングで楽しむためのおすすめゲーミングPCを紹介。必要スペックやGPU選びを解説します。",
+  "recommended": "WQHD〜4K / 高画質",
+  "budget": "25万〜40万円前後",
+  "point": "Cyberpunk 2077はGPU負荷が非常に高いため、予算を掛けるならまずGPUを優先したいタイトルです。",
+  "caution": "レイトレーシングや4K環境ではかなり高性能なGPUが必要になります。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "22万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "まず高画質でCyberpunk 2077を遊びたい人向け。FHD中心なら快適に遊びやすい構成です。"
+    },
+    {
+      "name": "ハイエンド",
+      "price": "35万円前後",
+      "target": "WQHD〜4K レイトレーシング",
+      "cpu": "Ryzen 7 9800X3D",
+      "gpu": "RTX 5080",
+      "comment": "レイトレーシングや4K高画質を本格的に楽しみたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "fortnite",
+  "title": "Fortnite",
+  "popular": true,
+  "genre": "FPS",
+  "level": "軽め〜中量級",
+  "image": "images/fortnite.jpg",
+  "description": "Fortniteを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技設定や高画質向けの構成を解説します。",
+  "recommended": "FHD / 144fps〜240fps",
+  "budget": "12万〜22万円前後",
+  "point": "Fortniteは設定によって負荷差が大きいので、競技設定か高画質重視かでおすすめ構成が変わります。",
+  "caution": "高画質設定やUE5機能を有効にすると、想像以上にGPU負荷が上がります。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "12万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 5 5600",
+      "gpu": "RTX 5050",
+      "comment": "競技設定中心なら、比較的低予算でも高fpsを狙いやすい構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "高画質や高リフレッシュレートを両立したい人向けです。"
+    }
+  ]
+},
+{
+  "id": "minecraft",
+  "title": "Minecraft",
+  "popular": true,
+  "genre": "サンドボックス",
+  "level": "軽め",
+  "image": "images/minecraft.jpg",
+  "description": "MinecraftをMODや影MOD込みで快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックを解説します。",
+  "recommended": "FHD / MOD対応",
+  "budget": "10万〜22万円前後",
+  "point": "通常プレイだけなら軽めですが、影MODや大型MOD環境ではGPU性能とメモリ容量が重要になります。",
+  "caution": "Java版の大型MOD環境ではメモリ不足になりやすいため、32GB構成もおすすめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "10万円前後",
+      "target": "通常プレイ向け",
+      "cpu": "Ryzen 5 5600G",
+      "gpu": "RTX 3050",
+      "comment": "通常プレイ中心なら十分遊びやすい、コスパ重視構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "影MOD・高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "影MODや高解像度テクスチャも快適に楽しみたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "tarkov",
+  "title": "Escape from Tarkov",
+  "genre": "FPS",
+  "level": "重め",
+  "image": "images/tarkov.jpg",
+  "description": "Escape from Tarkovを快適に遊ぶためのおすすめゲーミングPCを紹介。重いマップでも安定しやすいCPU・GPU構成を解説します。",
+  "recommended": "FHD〜WQHD / 高fps",
+  "budget": "18万〜30万円前後",
+  "point": "TarkovはGPUだけでなくCPU性能やメモリ容量の影響も大きいゲームです。",
+  "caution": "特にStreets of Tarkovなどの重いマップでは、CPUやメモリ不足がfps低下の原因になりやすいです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "まずTarkovを快適に遊びたい人向け。CPU重視で安定感を狙った構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "28万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "重いマップや高fps環境でも余裕を持たせたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "battlefield",
+  "title": "Battlefield",
+  "genre": "FPS",
+  "level": "重め",
+  "image": "images/battlefield.jpg",
+  "description": "Battlefieldを高画質・高fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。大規模戦闘向けの必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高fps",
+  "budget": "18万〜30万円前後",
+  "point": "Battlefieldシリーズは大人数戦でCPU負荷が高くなりやすいため、CPU性能も重視したいゲームです。",
+  "caution": "高画質設定ではGPU使用率がかなり高くなるため、余裕のある構成がおすすめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 高fps",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "フルHD中心でBattlefieldを快適に遊びたい人向けです。"
+    },
+    {
+      "name": "ミドル",
+      "price": "28万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDや高画質でも安定したfpsを狙いたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "cod",
+  "title": "Call of Duty",
+  "genre": "FPS",
+  "level": "重め",
+  "image": "images/cod.jpg",
+  "description": "Call of DutyやWarzoneを144fps以上で快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックや予算別構成を解説します。",
+  "recommended": "FHD〜WQHD / 144fps以上",
+  "budget": "18万〜30万円前後",
+  "point": "CoDシリーズは高fpsを出すことで操作感がかなり良くなるため、144fps以上を目標にするのがおすすめです。",
+  "caution": "WarzoneではVRAM使用量が増えやすく、GPU性能不足がfps低下に直結しやすいです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "まずCoDを高fpsで遊びたい人向け。競技系設定とも相性の良い構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "30万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070 Ti",
+      "comment": "高画質やWQHD環境でも快適さを維持したい人向けです。"
+    }
+  ]
+},
+{
+  "id": "rust",
+  "title": "Rust",
+  "genre": "サバイバル",
+  "level": "重め",
+  "image": "images/rust.jpg",
+  "description": "Rustを快適に遊ぶためのおすすめゲーミングPCを紹介。大規模サーバーや建築量が多い環境向けの必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高fps",
+  "budget": "18万〜28万円前後",
+  "point": "RustはCPU負荷やメモリ使用量も高めなので、バランスの良い構成がおすすめです。",
+  "caution": "大規模サーバーではCPU性能不足によるカクつきが出やすいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060",
+      "comment": "まずRustを快適に遊びたい人向け。フルHDなら十分狙いやすい構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "26万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "重めサーバーや高画質設定でも余裕を持たせたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "ark",
+  "title": "ARK: Survival Evolved",
+  "genre": "サバイバル",
+  "level": "超重い",
+  "image": "images/ark.jpg",
+  "description": "ARKを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。重いサバイバルゲーム向けの必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "20万〜35万円前後",
+  "point": "ARKはゲーム自体が重いため、GPUだけでなくCPUやメモリ容量にも余裕を持たせるのがおすすめです。",
+  "caution": "高画質設定ではfpsが大きく低下しやすく、PC性能差がかなり出やすいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "20万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "まずARKを遊びたい人向け。画質調整前提なら十分楽しめる構成です。"
+    },
+    {
+      "name": "ハイエンド",
+      "price": "35万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 9800X3D",
+      "gpu": "RTX 5080",
+      "comment": "高画質設定や大型建築環境でも快適さを重視したい人向けです。"
+    }
+  ]
+},
+{
+  "id": "genshin",
+  "title": "原神",
+  "popular": true,
+  "genre": "オープンワールド",
+  "level": "軽め〜中量級",
+  "image": "images/genshin.jpg",
+  "description": "原神を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。PC版を綺麗に楽しむための必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "12万〜22万円前後",
+  "point": "原神は比較的軽めですが、高解像度や高fpsを狙うならGPU性能にも余裕を持たせたいです。",
+  "caution": "スマホ版よりPC版の方が高画質で楽しめるため、モニター環境も重要になります。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "12万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 5 5600",
+      "gpu": "RTX 5050",
+      "comment": "コスパ重視で原神を快適に遊びたい人向けです。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "高解像度モニターで綺麗な景色を楽しみたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "lol",
+  "title": "League of Legends",
+  "popular": true,
+  "genre": "MOBA",
+  "level": "軽い",
+  "image": "images/lol.jpg",
+  "description": "League of Legendsを高fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。低予算でも選びやすい必要スペックを解説します。",
+  "recommended": "FHD / 144fps以上",
+  "budget": "10万〜18万円前後",
+  "point": "LoLは比較的軽いため、高価なGPUよりも高fps環境やモニターに予算を回すのもおすすめです。",
+  "caution": "競技系タイトルなので、fps安定や入力遅延の少なさを重視したいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "10万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 5 5600G",
+      "gpu": "RTX 3050",
+      "comment": "LoLを快適に遊ぶだけなら十分コスパの良い構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "18万円前後",
+      "target": "FHD 高fps",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "240Hz環境や配信も視野に入れたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "overwatch2",
+  "title": "Overwatch 2",
+  "popular": true,
+  "genre": "FPS",
+  "level": "軽め〜中量級",
+  "image": "images/overwatch2.jpg",
+  "description": "Overwatch 2を144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技向けの必要スペックを解説します。",
+  "recommended": "FHD / 144fps〜240fps",
+  "budget": "12万〜22万円前後",
+  "point": "Overwatch 2は高fpsを維持すると操作感がかなり良くなるため、競技向け構成とも相性が良いです。",
+  "caution": "高fps重視ならGPUだけでなくCPU性能も重要になります。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "12万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 5 5600",
+      "gpu": "RTX 5050",
+      "comment": "まずOverwatch 2を快適に遊びたい人向けのコスパ構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "FHD 240fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "240Hzモニターを活かしたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "eldenring",
+  "title": "ELDEN RING",
+  "genre": "アクションRPG",
+  "level": "中量級",
+  "image": "images/eldenring.jpg",
+  "description": "ELDEN RINGを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。FHD〜WQHD向けの必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "15万〜25万円前後",
+  "point": "ELDEN RINGは超重量級ではありませんが、安定した動作を重視するならCPUとGPUのバランスが大切です。",
+  "caution": "高解像度や高画質設定ではGPU負荷が上がるため、余裕のあるグラフィックボードを選ぶと安心です。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "15万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "フルHDでELDEN RINGを快適に遊びたい人向けのバランス構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "22万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDモニターで美しいフィールドを楽しみたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "pubg",
+  "title": "PUBG: BATTLEGROUNDS",
+  "genre": "FPS",
+  "level": "中量級",
+  "image": "images/pubg.jpg",
+  "description": "PUBGを144fps以上で快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成を解説します。",
+  "recommended": "FHD / 144fps以上",
+  "budget": "15万〜25万円前後",
+  "point": "PUBGは競技性が高いため、画質よりもfpsの安定を重視した構成がおすすめです。",
+  "caution": "アイテムが多い場面や市街地では負荷が上がることがあるため、メモリやCPUにも余裕を持たせたいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "15万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "フルHDでPUBGを快適に遊びたい人向け。144fpsを狙いやすい構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "23万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDや高リフレッシュレート環境で遊びたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "palworld",
+  "title": "Palworld",
+  "genre": "サバイバル",
+  "level": "中量級〜重め",
+  "image": "images/palworld.jpg",
+  "description": "Palworldを快適に遊ぶためのおすすめゲーミングPCを紹介。拠点建築やマルチプレイも考えた必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 快適",
+  "budget": "15万〜25万円前後",
+  "point": "Palworldは通常プレイなら中量級ですが、拠点が大きくなるとCPUやメモリへの負荷も増えやすいです。",
+  "caution": "マルチプレイや大規模拠点では重くなることがあるため、メモリは32GBあると安心です。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "15万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "フルHDでPalworldを遊びたい人向け。通常プレイなら十分狙いやすい構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "24万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "マルチプレイや拠点拡張も考えて、余裕を持たせたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "rainbowsixsiege",
+  "title": "Rainbow Six Siege",
+  "genre": "FPS",
+  "level": "軽め〜中量級",
+  "image": "images/rainbowsixsiege.jpg",
+  "description": "Rainbow Six Siegeを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技向けの必要スペックを解説します。",
+  "recommended": "FHD / 144fps〜240fps",
+  "budget": "12万〜22万円前後",
+  "point": "Rainbow Six Siegeは高fps環境との相性が良いため、144Hz以上のモニターを活かせる構成がおすすめです。",
+  "caution": "高fpsを安定させたい場合は、GPUだけでなくCPU性能もある程度重視したいです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "12万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 5 5600",
+      "gpu": "RTX 5050",
+      "comment": "低予算でも高fpsを狙いやすい、初心者向けの構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "FHD 240fps",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "240Hzモニターを活かして遊びたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "starfield",
+  "title": "Starfield",
+  "genre": "RPG",
+  "level": "重め",
+  "image": "images/starfield.jpg",
+  "description": "Starfieldを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。重量級RPG向けの必要スペックやGPU選びを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "20万〜35万円前後",
+  "point": "Starfieldは負荷が高めなので、快適に遊ぶなら20万円以上の構成を目安にしたいゲームです。",
+  "caution": "高解像度や高画質設定ではfpsが落ちやすいため、余裕のあるGPUを選ぶのがおすすめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "20万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "フルHDでStarfieldを快適に遊びたい人向け。画質調整も視野に入れた構成です。"
+    },
+    {
+      "name": "ハイエンド",
+      "price": "35万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 9800X3D",
+      "gpu": "RTX 5080",
+      "comment": "WQHD高画質で宇宙探索を楽しみたい人向けの余裕ある構成です。"
+    }
+  ]
+},
+{
+  "id": "helldivers2",
+  "title": "HELLDIVERS 2",
+  "genre": "TPS",
+  "level": "重め",
+  "image": "images/helldivers2.jpg",
+  "description": "HELLDIVERS 2を快適に遊ぶためのおすすめゲーミングPCを紹介。大量の敵やエフェクトが多い場面向けの必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 快適",
+  "budget": "18万〜30万円前後",
+  "point": "HELLDIVERS 2は戦闘中のエフェクトや敵の数が多く、GPU性能に余裕があると快適です。",
+  "caution": "高画質設定では負荷が高くなりやすいため、フルHDでもある程度のGPU性能が欲しいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 快適",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060 Ti",
+      "comment": "フルHDでHELLDIVERS 2を快適に遊びたい人向けです。"
+    },
+    {
+      "name": "ミドル",
+      "price": "28万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDや高画質でも安定して遊びたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "blackdesert",
+  "title": "黒い砂漠",
+  "genre": "MMO",
+  "level": "中量級〜重め",
+  "image": "images/blackdesert.jpg",
+  "description": "黒い砂漠を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。美しいグラフィックを楽しむための必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "18万〜30万円前後",
+  "point": "黒い砂漠は画質設定によって負荷が大きく変わるため、綺麗な映像で遊びたいならGPU性能を重視したいゲームです。",
+  "caution": "人が多い場所や高画質設定ではfpsが下がりやすいため、少し余裕のある構成がおすすめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060 Ti",
+      "comment": "フルHDで黒い砂漠を綺麗に楽しみたい人向けです。"
+    },
+    {
+      "name": "ミドル",
+      "price": "28万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDで美しいグラフィックを楽しみたい人向けです。"
+    }
+  ]
+},
+{
+  "id": "streetfighter6",
+  "title": "ストリートファイター6",
+  "popular": true,
+  "genre": "格闘ゲーム",
+  "level": "軽量〜中量級",
+  "image": "images/streetfighter6.jpg",
+  "description": "ストリートファイター6を144fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。高fps・低遅延環境を目指す初心者向けに必要スペックを解説します。",
+  "recommended": "FHD / 144fps以上",
+  "budget": "15万〜25万円前後",
+  "point": "スト6はCPUとGPUのバランスが大切です。まずはFHD 144fps環境を目標にすると失敗しにくく、高Hzモニターと合わせると快適さが大きく上がります。",
+  "caution": "4K環境よりもFHD〜WQHDで高fps・低遅延を安定させる方が、スト6では快適に感じやすいです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "15万円前後",
+      "target": "FHD 144fps",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060",
+      "comment": "FHD 144fps環境を狙いやすい構成。スト6を快適に遊びたい初心者向けです。"
+    },
+    {
+      "name": "ミドル",
+      "price": "20万円前後",
+      "target": "WQHD 高fps",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDでも快適に遊びやすく、長く使いやすい定番構成です。高Hzモニターとも相性が良いです。"
+    }
+  ]
+},
+{
+  "id": "arma3",
+  "title": "ARMA 3",
+  "genre": "シミュレーション",
+  "level": "重め",
+  "image": "images/arma3.jpg",
+  "description": "ARMA 3をMODや大規模ミッション込みで快適に遊ぶためのおすすめゲーミングPCを紹介。CPU重視の必要スペックを解説します。",
+  "recommended": "FHD / MOD対応",
+  "budget": "18万〜28万円前後",
+  "point": "ARMA 3は古めのゲームながらCPU負荷が高く、大規模戦闘やMOD環境では性能差が出やすいです。",
+  "caution": "GPUだけ強くしても伸びにくい場面があるため、CPU性能やメモリ容量も意識したいゲームです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD MOD対応",
+      "cpu": "Ryzen 7 5700X3D",
+      "gpu": "RTX 5060",
+      "comment": "MODや協力プレイを楽しみたい人向けのバランス構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "26万円前後",
+      "target": "大規模ミッション向け",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "大人数ミッションや重いMOD環境でも余裕を持たせたい人向けです。"
+    }
+  ]
+}
+]

@@ -1,0 +1,277 @@
+{
+  "apex": {
+    "title": "APEX Legends向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "APEX向けBTOパソコンを探す",         "description": "FHD 144fps〜WQHD対応のゲーミングPCを探す",    "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "高リフレッシュレートモニターでAPEXをもっと快適に", "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "FPSで使いやすい軽量マウスを探す",               "url": "", "status": "preparing" }
+    ]
+  },
+  "valorant": {
+    "title": "VALORANT向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "VALORANT向けBTOパソコンを探す",    "description": "FHD 144fps〜240fps向けゲーミングPCを探す",     "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "240Hz対応ゲーミングモニターを見る", "description": "240Hz環境でVALORANTをさらに快適に",            "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "VALORANTで使いやすい軽量マウスを探す",         "url": "", "status": "preparing" }
+    ]
+  },
+  "ff14": {
+    "title": "FINAL FANTASY XIV向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "FF14向けBTOパソコンを探す",        "description": "FHD〜WQHD高画質向けのゲーミングPCを探す",     "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",      "description": "FF14の美しい映像を高解像度で楽しむ",            "url": "", "status": "preparing" }
+    ]
+  },
+  "mhwilds": {
+    "title": "モンハンワイルズ向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "モンハンワイルズ向けBTOパソコンを探す", "description": "FHD〜WQHD高画質向けの高性能PCを探す",        "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",               "description": "GPU・CPU・メモリなどをまとめて探す",          "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",                 "description": "ポイント還元も見ながらパーツを比較",            "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",          "description": "迫力あるハントをWQHD高画質で楽しむ",           "url": "", "status": "preparing" }
+    ]
+  },
+  "gta5": {
+    "title": "GTA5 / GTA Online向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "GTA5向けBTOパソコンを探す",        "description": "高画質・MOD環境に対応したゲーミングPCを探す",   "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "GTA5をより美しく楽しめるモニターを探す",         "url": "", "status": "preparing" }
+    ]
+  },
+  "cyberpunk2077": {
+    "title": "Cyberpunk 2077向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Cyberpunk 2077向けBTOパソコンを探す", "description": "WQHD〜4K・レイトレーシング対応の高性能PCを探す", "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",              "description": "ハイエンドGPU・CPUをまとめて探す",              "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",                "description": "ポイント還元も見ながらパーツを比較",              "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "4K対応ゲーミングモニターを見る",       "description": "Cyberpunkの美しい夜景を4Kで堪能する",           "url": "", "status": "preparing" }
+    ]
+  },
+  "fortnite": {
+    "title": "Fortnite向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Fortnite向けBTOパソコンを探す",    "description": "FHD 144fps〜WQHD高fps向けゲーミングPCを探す",  "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "高リフレッシュレートでFortniteをより快適に",    "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "Fortniteで使いやすいマウスを探す",              "url": "", "status": "preparing" }
+    ]
+  },
+  "minecraft": {
+    "title": "Minecraft向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Minecraft向けBTOパソコンを探す",   "description": "影MOD・大型MOD対応のゲーミングPCを探す",       "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・メモリ・SSDなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "Minecraftを快適な環境で楽しめるモニターを探す",  "url": "", "status": "preparing" }
+    ]
+  },
+  "tarkov": {
+    "title": "Escape from Tarkov向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Tarkov向けBTOパソコンを探す",      "description": "重いマップでも安定するCPU重視PCを探す",         "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "CPU・GPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "Tarkovで敵を見つけやすい高品質モニターを探す",  "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "Tarkovで使いやすい高精度マウスを探す",          "url": "", "status": "preparing" }
+    ]
+  },
+  "battlefield": {
+    "title": "Battlefield向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Battlefield向けBTOパソコンを探す", "description": "大規模戦闘でも安定したゲーミングPCを探す",       "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "BFの迫力ある戦場を快適なモニターで楽しむ",      "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "FPSで使いやすいゲーミングマウスを探す",          "url": "", "status": "preparing" }
+    ]
+  },
+  "cod": {
+    "title": "Call of Duty向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "CoD向けBTOパソコンを探す",         "description": "Warzone含む高fps向けゲーミングPCを探す",        "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "高fps環境を活かせる高リフレッシュレートモニター", "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "CoDで使いやすい高精度マウスを探す",             "url": "", "status": "preparing" }
+    ]
+  },
+  "rust": {
+    "title": "Rust向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Rust向けBTOパソコンを探す",        "description": "大規模サーバーでも安定するゲーミングPCを探す",   "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "Rustのサバイバル環境を快適に楽しめるモニターを探す", "url": "", "status": "preparing" }
+    ]
+  },
+  "ark": {
+    "title": "ARK: Survival Evolved向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "ARK向けBTOパソコンを探す",         "description": "高画質・建築量が増えても安定するPCを探す",       "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "ARKの広大なフィールドを高画質で楽しめるモニター",  "url": "", "status": "preparing" }
+    ]
+  },
+  "genshin": {
+    "title": "原神向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "原神向けBTOパソコンを探す",        "description": "高画質・高fps向けのゲーミングPCを探す",          "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",      "description": "原神の美しいグラフィックをWQHDで堪能する",       "url": "", "status": "preparing" }
+    ]
+  },
+  "lol": {
+    "title": "League of Legends向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "LoL向けBTOパソコンを探す",         "description": "FHD 144fps以上を安定させるコスパPCを探す",       "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "LoLをより快適に遊べる高リフレッシュレートモニター", "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "LoLで使いやすい精度の高いマウスを探す",          "url": "", "status": "preparing" }
+    ]
+  },
+  "overwatch2": {
+    "title": "Overwatch 2向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "OW2向けBTOパソコンを探す",         "description": "FHD 144fps〜240fps対応のゲーミングPCを探す",    "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "240Hz対応ゲーミングモニターを見る", "description": "OW2の高fps環境を活かせるモニターを探す",         "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "Overwatchで使いやすい軽量マウスを探す",          "url": "", "status": "preparing" }
+    ]
+  },
+  "eldenring": {
+    "title": "ELDEN RING向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "ELDEN RING向けBTOパソコンを探す",  "description": "FHD〜WQHD高画質向けのゲーミングPCを探す",     "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",      "description": "ELDEN RINGの美しいフィールドをWQHDで楽しむ",   "url": "", "status": "preparing" }
+    ]
+  },
+  "pubg": {
+    "title": "PUBG: BATTLEGROUNDS向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "PUBG向けBTOパソコンを探す",        "description": "FHD 144fps以上を安定させるゲーミングPCを探す",  "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "PUBGで敵を見つけやすい高品質モニターを探す",   "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "PUBGで使いやすい高精度マウスを探す",            "url": "", "status": "preparing" }
+    ]
+  },
+  "palworld": {
+    "title": "Palworld向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Palworld向けBTOパソコンを探す",    "description": "拠点建築・マルチプレイでも安定するPCを探す",     "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "Palworldのオープンワールドを快適に楽しめるモニター", "url": "", "status": "preparing" }
+    ]
+  },
+  "rainbowsixsiege": {
+    "title": "Rainbow Six Siege向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "R6S向けBTOパソコンを探す",         "description": "FHD 144fps〜240fps対応のゲーミングPCを探す",    "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "144Hz以上のゲーミングモニターを見る", "description": "R6Sの高fps環境を最大限活かすモニターを探す",    "url": "", "status": "preparing" },
+      { "type": "mouse",        "label": "ゲーミングマウスを見る",            "description": "Siegeで使いやすい高精度マウスを探す",            "url": "", "status": "preparing" }
+    ]
+  },
+  "starfield": {
+    "title": "Starfield向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "Starfield向けBTOパソコンを探す",   "description": "FHD〜WQHD高画質向けの高性能PCを探す",          "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "ハイエンドGPU・CPUをまとめて探す",              "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",      "description": "宇宙探索をWQHD高画質で楽しめるモニターを探す",   "url": "", "status": "preparing" }
+    ]
+  },
+  "helldivers2": {
+    "title": "HELLDIVERS 2向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "HELLDIVERS 2向けBTOパソコンを探す", "description": "戦闘エフェクトが多い場面でも安定するPCを探す",   "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",            "description": "GPU・CPU・メモリなどをまとめて探す",          "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",              "description": "ポイント還元も見ながらパーツを比較",            "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",           "description": "HELLDIVERS 2の迫力ある戦場を快適なモニターで",   "url": "", "status": "preparing" }
+    ]
+  },
+  "blackdesert": {
+    "title": "黒い砂漠向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "黒い砂漠向けBTOパソコンを探す",    "description": "高画質設定でも安定するゲーミングPCを探す",       "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "GPU・CPU・メモリなどをまとめて探す",           "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "WQHDゲーミングモニターを見る",      "description": "黒い砂漠の美しいグラフィックをWQHDで堪能する",  "url": "", "status": "preparing" }
+    ]
+  },
+  "arma3": {
+    "title": "ARMA 3向けおすすめ購入先",
+    "links": [
+      { "type": "bto",          "label": "ARMA 3向けBTOパソコンを探す",      "description": "大規模ミッション・MOD環境に対応するPCを探す",    "url": "", "status": "preparing" },
+      { "type": "amazonParts",  "label": "AmazonでPCパーツを見る",           "description": "CPU重視のパーツ構成をまとめて探す",             "url": "", "status": "preparing" },
+      { "type": "rakutenParts", "label": "楽天でPCパーツを見る",             "description": "ポイント還元も見ながらパーツを比較",             "url": "", "status": "preparing" },
+      { "type": "monitor",      "label": "ゲーミングモニターを見る",          "description": "ARMA 3の広大なフィールドを見渡せるモニターを探す", "url": "", "status": "preparing" }
+    ]
+  },
+  "streetfighter6": {
+    "title": "ストリートファイター6向けおすすめ購入先",
+    "summary": "ストリートファイター6をFHD 144fps向けで遊びたい人向けに、RTX 5060搭載PCや関連パーツを探しやすくまとめています。",
+    "recommendedGpu": "RTX 5060",
+    "budget": "15万円前後",
+    "useCase": "FHD 144fps向け",
+    "links": [
+      {
+        "type": "bto",
+        "label": "ストリートファイター6向けBTOパソコンを探す",
+        "description": "RTX 5060搭載のFHD 144fps向けゲーミングPCを探す",
+        "searchKeyword": "RTX 5060 ゲーミングPC",
+        "url": "",
+        "status": "preparing"
+      },
+      {
+        "type": "amazonParts",
+        "label": "AmazonでRTX 5060関連パーツを見る",
+        "description": "GPUやCPUなどのPCパーツをAmazonで確認する",
+        "searchKeyword": "RTX 5060",
+        "url": "",
+        "status": "preparing"
+      },
+      {
+        "type": "rakutenParts",
+        "label": "楽天でRTX 5060関連パーツを見る",
+        "description": "GPUやCPUなどのPCパーツを楽天で確認する",
+        "searchKeyword": "RTX 5060",
+        "url": "",
+        "status": "preparing"
+      },
+      {
+        "type": "monitor",
+        "label": "144Hz以上のゲーミングモニターを見る",
+        "description": "ストリートファイター6向けの高リフレッシュレートモニターを探す",
+        "searchKeyword": "ゲーミングモニター 180Hz",
+        "url": "",
+        "status": "preparing"
+      },
+      {
+        "type": "mouse",
+        "label": "アーケードコントローラーを見る",
+        "description": "ストリートファイター6向けのアケコンを探す",
+        "searchKeyword": "アーケードコントローラー ストリートファイター",
+        "url": "",
+        "status": "preparing"
+      }
+    ]
+  }
+}

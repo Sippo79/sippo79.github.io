@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>オフライン｜GAME PC GUIDE</title>
+  <meta name="theme-color" content="#090b14" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #090b14;
+      color: #f5f7fb;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      background-image:
+        radial-gradient(circle at top left, rgba(25,227,255,0.12), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(123,97,255,0.12), transparent 40%);
+    }
+    .icon {
+      font-size: 56px;
+      margin-bottom: 24px;
+      opacity: 0.7;
+    }
+    .logo {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #19e3ff;
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    p {
+      color: #cfd6e6;
+      line-height: 1.8;
+      max-width: 320px;
+      margin: 0 auto 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #19e3ff, #7b61ff);
+      color: #fff;
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn:active { opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <p class="logo">GAME PC GUIDE</p>
+  <div class="icon">📡</div>
+  <h1>オフラインです</h1>
+  <p>ネットワークに接続してから再度お試しください。一度開いたページはオフラインでも表示できます。</p>
+  <button class="btn" onclick="location.reload()">再読み込みする</button>
+</body>
+</html>

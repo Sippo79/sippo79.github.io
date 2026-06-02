@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ゲーム別おすすめゲーミングPC｜必要スペックと選び方ガイド</title>
+  <meta name="description" content="APEX、VALORANT、FF14、モンハンワイルズなど、人気ゲーム別におすすめゲーミングPCと必要スペックを初心者向けに解説。FHD、WQHD、4Kの構成目安もわかります。" />
+
+  <meta property="og:title" content="ゲーム別おすすめゲーミングPC｜GAME PC GUIDE" />
+  <meta property="og:description" content="遊びたいゲームごとに必要スペックとおすすめPC構成をチェック。FPS、MMO、重量級ゲームにも対応しています。" />
+  <meta property="og:image" content="https://sippo79.github.io/game-pc-guide/images/ogp.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sippo79.github.io/game-pc-guide/" />
+  <meta property="og:site_name" content="GAME PC GUIDE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ゲーム別おすすめゲーミングPC｜GAME PC GUIDE" />
+  <meta name="twitter:description" content="遊びたいゲームごとに必要スペックとおすすめPC構成をチェック。FPS、MMO、重量級ゲームにも対応しています。" />
+  <meta name="twitter:image" content="https://sippo79.github.io/game-pc-guide/images/ogp.jpg" />
+  <link rel="canonical" href="https://sippo79.github.io/game-pc-guide/" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="images/favicon.png" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        GAME PC <span>GUIDE</span>
+      </a>
+
+      <nav class="header-nav">
+        <a href="#games" class="header-link">ゲーム一覧</a>
+        <a href="#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo79.github.io/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo79.github.io/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <p class="hero-badge">初心者向けゲーミングPCガイド</p>
+
+          <h1>
+            遊びたいゲームから<br />
+            おすすめPCを探そう
+          </h1>
+
+          <p class="hero-text">
+            APEX、VALORANT、FF14、モンハンワイルズなど、人気ゲームを快適に遊ぶためのPC構成を
+            初心者にもわかりやすく紹介します。
+          </p>
+
+          <div class="hero-actions">
+            <a href="#games" class="primary-btn">ゲーム一覧を見る</a>
+            <a href="#beginner" class="secondary-btn">選び方を知る</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <p class="hero-card-label">まずはここから</p>
+          <p class="hero-card-title">おすすめの見方</p>
+
+          <ul class="hero-check-list">
+            <li>遊びたいゲームを選ぶ</li>
+            <li>フルHD / WQHD / 4Kを確認</li>
+            <li>「迷ったらこの構成」で決める</li>
+            <li>予算が合うか確認する</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="games" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">GAME LIST</p>
+          <h2>ゲーム別おすすめPC</h2>
+          <p>
+            遊びたいゲームを選ぶだけで、必要な性能やおすすめ構成の目安がわかります。
+          </p>
+        </div>
+
+        <div class="game-filter" id="gameFilter"></div>
+
+        <div class="game-search">
+          <input
+            type="text"
+            id="gameSearchInput"
+            placeholder="ゲーム名やジャンルで検索"
+          />
+        </div>
+
+        <div class="game-grid" id="gameGrid"></div>
+
+        <nav class="static-game-links" aria-label="ゲーム別おすすめPCページ一覧">
+          <p class="section-label">STATIC LINKS</p>
+          <h2>ゲーム別おすすめPCページ</h2>
+          <div>
+            <a href="games/apex.html">APEX Legends おすすめPC</a>
+            <a href="games/valorant.html">VALORANT おすすめPC</a>
+            <a href="games/ff14.html">FINAL FANTASY XIV おすすめPC</a>
+            <a href="games/monster-hunter.html">モンハンワイルズ おすすめPC</a>
+            <a href="games/gta5.html">GTA5 / GTA Online おすすめPC</a>
+            <a href="games/cyberpunk2077.html">Cyberpunk 2077 おすすめPC</a>
+            <a href="games/fortnite.html">Fortnite おすすめPC</a>
+            <a href="games/minecraft.html">Minecraft おすすめPC</a>
+            <a href="games/tarkov.html">Escape from Tarkov おすすめPC</a>
+            <a href="games/battlefield.html">Battlefield おすすめPC</a>
+            <a href="games/cod.html">Call of Duty おすすめPC</a>
+            <a href="games/rust.html">Rust おすすめPC</a>
+            <a href="games/ark.html">ARK: Survival Evolved おすすめPC</a>
+            <a href="games/genshin.html">原神 おすすめPC</a>
+            <a href="games/lol.html">League of Legends おすすめPC</a>
+            <a href="games/overwatch2.html">Overwatch 2 おすすめPC</a>
+            <a href="games/eldenring.html">ELDEN RING おすすめPC</a>
+            <a href="games/pubg.html">PUBG: BATTLEGROUNDS おすすめPC</a>
+            <a href="games/palworld.html">Palworld おすすめPC</a>
+            <a href="games/rainbowsixsiege.html">Rainbow Six Siege おすすめPC</a>
+            <a href="games/starfield.html">Starfield おすすめPC</a>
+            <a href="games/helldivers2.html">HELLDIVERS 2 おすすめPC</a>
+            <a href="games/blackdesert.html">黒い砂漠 おすすめPC</a>
+            <a href="games/arma3.html">ARMA 3 おすすめPC</a>
+            <a href="games/streetfighter6.html">ストリートファイター6 おすすめPC</a>
+          </div>
+        </nav>
+
+        <div id="affiliateSection"></div>
+      </div>
+    </section>
+
+    <section id="beginner" class="section beginner-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">BEGINNER GUIDE</p>
+          <h2>初心者はここだけ見ればOK</h2>
+          <p>「どのPCを選べばいい？」と迷ったら、まず遊びたいゲームのページを開いて「迷ったらこの構成」を確認してください。</p>
+        </div>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3>① ゲームを選ぶ</h3>
+            <p>上のゲーム一覧から遊びたいゲームをクリック。各ゲームの必要スペックと推奨構成が確認できます。</p>
+          </div>
+
+          <div class="guide-card">
+            <h3>② 解像度を決める</h3>
+            <p>まずはフルHD（FHD）がおすすめ。コスパよく快適に遊べます。画質にこだわるならWQHDも選択肢です。</p>
+          </div>
+
+          <div class="guide-card">
+            <h3>③ 構成を決める</h3>
+            <p>各ゲームページの「迷ったらこの構成」を参考に。予算が合わない場合はPC構成診断サイトも活用できます。</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px;">
+          <a href="https://sippo79.github.io/pc-build-check/" class="secondary-btn" target="_blank" rel="noopener noreferrer">予算からPCを探す →</a>
+          <a href="https://sippo79.github.io/gpu-guide/" class="secondary-btn" target="_blank" rel="noopener noreferrer">GPUを比較する →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section related-sites-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">RELATED SITES</p>
+          <h2>関連サイト</h2>
+          <p>
+            PC構成診断やGPU性能比較もあわせて確認できます。
+          </p>
+        </div>
+
+        <div class="related-site-grid">
+          <a href="https://sippo79.github.io/pc-build-check/" class="related-site-button related-site-build" target="_blank" rel="noopener noreferrer">
+            <span class="related-site-mini">PC BUILD CHECK</span>
+            <span>PC構成診断</span>
+            <small>予算・用途・解像度からおすすめPC構成をチェック。迷ったらまずここ。</small>
+          </a>
+
+          <a href="https://sippo79.github.io/gpu-guide/" class="related-site-button related-site-gpu" target="_blank" rel="noopener noreferrer">
+            <span class="related-site-mini">GPU GUIDE</span>
+            <span>GPU性能比較</span>
+            <small>グラボ性能・VRAM・用途別の目安を比較。GPU選びに迷ったらここ。</small>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© GAME PC GUIDE</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
