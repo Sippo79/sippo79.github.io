@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>予算別おすすめゲーミングPC | 初心者向けPC選びサイト</title>
+
+  <meta
+    name="description"
+    content="予算・用途・解像度から初心者にも分かりやすくおすすめゲーミングPC構成を診断。FPS、MMO、配信、動画編集向けのPC選びをサポートします。"
+  />
+  <meta name="keywords" content="PC構成,ゲーミングPC,自作PC,PC診断,おすすめPC,初心者向けPC" />
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="./style.css" as="style" />
+  <link rel="preload" href="./script.js" as="script" />
+  <link rel="preload" href="./builds.json" as="fetch" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- OGP -->
+  <meta property="og:title" content="予算別おすすめゲーミングPC | PC BUILD CHECK" />
+  <meta property="og:description" content="予算・用途・解像度から初心者にも分かりやすくおすすめゲーミングPC構成を診断します。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sippo79.github.io/pc-build-check/" />
+  <meta property="og:image" content="https://sippo79.github.io/pc-build-check/ogp.jpg" />
+  <meta property="og:site_name" content="PC BUILD CHECK" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Sippo79" />
+  <meta name="twitter:title" content="予算別おすすめゲーミングPC | PC BUILD CHECK" />
+  <meta name="twitter:description" content="予算・用途・解像度を選ぶだけで、自分に合うゲーミングPC構成を診断。初心者でも分かりやすく、FPSや配信・動画編集向けのPC選びをサポートします。" />
+  <meta name="twitter:image" content="https://sippo79.github.io/pc-build-check/ogp.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+
+  <!-- PWA / iOS -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PC CHECK" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://sippo79.github.io/pc-build-check/" />
+  <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
+
+  <!-- Service Worker 登録 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
+      <nav class="header-nav">
+        <a href="#diagnosis" class="header-link">診断する</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <p class="hero-label">Gaming PC Build Checker</p>
+          <h1 class="hero-title">
+            予算から<br />
+            <span>おすすめPCを<br />チェック</span>
+          </h1>
+          <p class="hero-text">
+            予算・用途・解像度を選ぶだけで、ゲーミングPCや作業用PCのおすすめ構成を分かりやすく診断できます。
+          </p>
+
+          <div class="hero-actions">
+            <a href="#diagnosis" class="primary-button">診断をはじめる</a>
+            <a href="#popular-builds" class="secondary-button">人気構成ランキングを見る</a>
+            <a href="#about" class="tertiary-button">このサイトについて</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <p class="card-label">Sample Result</p>
+          <h2>WQHDゲーミング向け</h2>
+          <ul>
+            <li><span>CPU</span> Ryzen 7 / Core i7クラス</li>
+            <li><span>GPU</span> RTX 4070 / RX 7800 XTクラス</li>
+            <li><span>メモリ</span> 32GB</li>
+            <li><span>予算</span> 25万円前後</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnosis" class="diagnosis-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">Build Diagnosis</p>
+          <h2 class="section-title">PC構成診断</h2>
+          <p class="section-text">
+            予算・用途・解像度を選ぶだけで、あなたに合いそうなPC構成を分かりやすく診断します。
+          </p>
+        </div>
+
+        <div class="form-hint">
+          <span class="form-hint-icon">💡</span>
+          <span>迷ったら <strong>「15万円前後・FPSゲーム・フルHD」</strong> から試してみてください</span>
+        </div>
+
+        <form class="diagnosis-form">
+          <div class="form-grid">
+            <label class="form-field">
+              <span>予算 <small class="field-note">目安の合計金額</small></span>
+              <select name="budget">
+                <option value="">選択してください</option>
+                <option value="100000">10万円前後（入門・最低限）</option>
+                <option value="150000">15万円前後（コスパ重視）★人気</option>
+                <option value="200000">20万円前後（快適ゲーミング）</option>
+                <option value="250000">25万円前後（ハイスペック）</option>
+                <option value="300000">30万円前後（最上位クラス）</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>用途 <small class="field-note">メインの使い方</small></span>
+              <select name="usage">
+                <option value="">選択してください</option>
+                <option value="fps">FPSゲーム（Apex・VALORANT等）</option>
+                <option value="mmo">MMO・RPG（FF14・原神等）</option>
+                <option value="stream">配信・録画（ゲーム実況等）</option>
+                <option value="creative">動画編集・制作</option>
+                <option value="daily">普段使い・軽めのゲーム ★初心者におすすめ</option>
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>解像度 <small class="field-note">モニターの画質</small></span>
+              <select name="resolution">
+                <option value="">選択してください</option>
+                <option value="fhd">フルHD / 1080p ★定番・コスパ最高</option>
+                <option value="wqhd">WQHD / 1440p（高精細）</option>
+                <option value="4k">4K / 2160p（最高画質）</option>
+              </select>
+            </label>
+          </div>
+
+          <button type="submit" class="diagnosis-button" id="diagnosis-button">
+            この条件で診断する
+          </button>
+        </form>
+
+        <div id="result-area"></div>
+
+        <div id="affiliate-section" class="affiliate-section hidden">
+          <p class="section-label">おすすめ購入先</p>
+          <h3 class="affiliate-title">診断結果に近い購入先を確認する</h3>
+          <div class="affiliate-buttons">
+            <a id="affiliate-bto" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
+              このスペックに近いBTOパソコンを探す
+            </a>
+            <a id="affiliate-amazon" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
+              AmazonでPCパーツを見る
+            </a>
+            <a id="affiliate-rakuten" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
+              楽天でPCパーツを見る
+            </a>
+            <a id="affiliate-monitor" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
+              ゲーミングモニターも確認する
+            </a>
+          </div>
+          <p class="affiliate-description">
+            診断結果をもとに、近い構成や必要なパーツを確認できます。
+          </p>
+          <p class="affiliate-link-note">
+            ※ 一部リンクは検索ページへ移動します。順次最適化予定です。
+          </p>
+          <p class="affiliate-footnote">
+            当サイトではアフィリエイト広告を利用しています。リンク先で商品を購入すると、運営者に収益が発生する場合があります。
+          </p>
+        </div>
+
+        <div id="popular-jump-section" class="popular-jump-section hidden">
+          <button id="popular-jump-button" class="popular-jump-button" type="button">
+            人気構成ランキングを見る
+          </button>
+        </div>
+
+        <section id="popular-builds" class="popular-builds-section" aria-labelledby="popular-builds-title">
+          <div class="popular-builds-heading">
+            <p class="section-label">Popular Builds</p>
+            <h2 id="popular-builds-title" class="section-title">人気構成ランキング</h2>
+            <p class="popular-builds-note">当サイトおすすめの人気構成です。</p>
+          </div>
+
+          <div class="popular-builds-grid">
+            <article class="popular-build-card">
+              <div class="popular-rank">1位</div>
+              <div class="popular-build-body">
+                <div class="build-badges">
+                  <span class="build-badge badge-popular">人気No.1</span>
+                  <span class="build-badge badge-fps">FPS重視</span>
+                </div>
+                <h3>WQHD FPSゲーム向け ハイスペック構成</h3>
+                <dl class="popular-build-specs">
+                  <div>
+                    <dt>予算目安</dt>
+                    <dd>25万円前後</dd>
+                  </div>
+                  <div>
+                    <dt>用途</dt>
+                    <dd>FPSゲーム</dd>
+                  </div>
+                  <div>
+                    <dt>CPU</dt>
+                    <dd>Ryzen 7 7800X3D</dd>
+                  </div>
+                  <div>
+                    <dt>GPU（グラボ）</dt>
+                    <dd>GeForce RTX 4070 SUPER</dd>
+                  </div>
+                </dl>
+                <p>WQHDで高fpsを狙いやすい、ゲーマー向け人気構成。</p>
+                <a href="./builds/wqhd-fps-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
+              </div>
+            </article>
+
+            <article class="popular-build-card">
+              <div class="popular-rank">2位</div>
+              <div class="popular-build-body">
+                <div class="build-badges">
+                  <span class="build-badge badge-cospa">コスパ重視</span>
+                  <span class="build-badge badge-beginner">初心者向け</span>
+                </div>
+                <h3>FHD 配信・録画向け 快適構成</h3>
+                <dl class="popular-build-specs">
+                  <div>
+                    <dt>予算目安</dt>
+                    <dd>15万円前後</dd>
+                  </div>
+                  <div>
+                    <dt>用途</dt>
+                    <dd>配信・録画</dd>
+                  </div>
+                  <div>
+                    <dt>CPU</dt>
+                    <dd>Ryzen 7 7700</dd>
+                  </div>
+                  <div>
+                    <dt>GPU（グラボ）</dt>
+                    <dd>GeForce RTX 4060</dd>
+                  </div>
+                </dl>
+                <p>ゲーム配信や録画を始めたい人向けのバランス構成。</p>
+                <a href="./builds/fhd-stream-15man.html" class="popular-detail-link">この構成の詳細を見る →</a>
+              </div>
+            </article>
+
+            <article class="popular-build-card">
+              <div class="popular-rank">3位</div>
+              <div class="popular-build-body">
+                <div class="build-badges">
+                  <span class="build-badge badge-creative">クリエイター向け</span>
+                  <span class="build-badge badge-longrun">長く使える</span>
+                </div>
+                <h3>WQHD 動画編集・制作向け ハイスペック構成</h3>
+                <dl class="popular-build-specs">
+                  <div>
+                    <dt>予算目安</dt>
+                    <dd>25万円前後</dd>
+                  </div>
+                  <div>
+                    <dt>用途</dt>
+                    <dd>動画編集・制作</dd>
+                  </div>
+                  <div>
+                    <dt>CPU</dt>
+                    <dd>Ryzen 9 7900</dd>
+                  </div>
+                  <div>
+                    <dt>GPU（グラボ）</dt>
+                    <dd>GeForce RTX 4070 SUPER</dd>
+                  </div>
+                </dl>
+                <p>動画編集や制作作業も視野に入れたクリエイター向け構成。</p>
+                <a href="./builds/wqhd-creative-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div class="shop-links">
+        <h3>大手BTO PCメーカーから探す</h3>
+        <div class="shop-buttons">
+          <a href="https://www.dospara.co.jp/" target="_blank" rel="noopener" class="shop-btn dospara">
+            <span class="shop-glow-icon">D</span>
+            <span class="shop-name">ドスパラ</span>
+            <span class="shop-line"></span>
+            <span class="shop-copy">GALLERIAシリーズでおなじみ<br />ゲーミングPCなら定番の選択肢</span>
+            <span class="shop-cta">公式サイトへ <span>→</span></span>
+          </a>
+
+          <a href="https://www.mouse-jp.co.jp/" target="_blank" rel="noopener" class="shop-btn mouse">
+            <span class="shop-glow-icon">M</span>
+            <span class="shop-name">マウスコンピューター</span>
+            <span class="shop-line"></span>
+            <span class="shop-copy">安心の国内生産とサポート<br />幅広いラインナップが魅力</span>
+            <span class="shop-cta">公式サイトへ <span>→</span></span>
+          </a>
+
+          <a href="https://www.pc-koubou.jp/" target="_blank" rel="noopener" class="shop-btn koubou">
+            <span class="shop-glow-icon">P</span>
+            <span class="shop-name">パソコン工房</span>
+            <span class="shop-line"></span>
+            <span class="shop-copy">コスパに優れたモデルが豊富<br />カスタマイズ性も高め</span>
+            <span class="shop-cta">公式サイトへ <span>→</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2 class="section-title">このサイトについて</h2>
+        <p class="section-text">
+          「PC選びが難しい」を少しでも分かりやすくするための診断サイトです。予算・用途・解像度を選ぶだけで、初心者にもおすすめ構成をシンプルに確認できます。
+        </p>
+      </div>
+    </section>
+
+    <section class="section related-sites-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">RELATED SITES</p>
+          <h2>関連サイト</h2>
+          <p>
+            PCのおすすめ構成やGPU性能比較もあわせて確認できます。
+          </p>
+        </div>
+
+        <div class="related-site-grid">
+          <a href="https://sippo79.github.io/pc-build-check/" class="related-site-button">
+            <span class="related-site-mini">PC BUILD CHECK</span>
+            <span>PC構成診断</span>
+            <small>予算・用途・解像度からおすすめ構成を診断</small>
+          </a>
+
+          <a href="https://sippo79.github.io/game-pc-guide/" class="related-site-button">
+            <span class="related-site-mini">GAME PC GUIDE</span>
+            <span>ゲーム別おすすめPC</span>
+            <small>遊びたいゲームごとに必要スペックを確認</small>
+          </a>
+
+          <a href="https://sippo79.github.io/gpu-guide/" class="related-site-button">
+            <span class="related-site-mini">GPU GUIDE</span>
+            <span>GPU性能比較</span>
+            <small>グラボの性能・メモリ容量・用途を比較</small>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 PC BUILD CHECK</p>
+    </div>
+  </footer>
+
+  <!-- PWA Install Prompt -->
+  <div id="install-prompt" class="install-prompt" role="dialog" aria-label="アプリとして追加">
+    <span class="install-prompt-icon">📱</span>
+    <div class="install-prompt-text">
+      <strong>ホーム画面に追加</strong>
+      <small>アプリのように素早く使えます</small>
+    </div>
+    <div class="install-prompt-actions">
+      <button class="install-btn-yes" id="install-btn-yes">追加</button>
+      <button class="install-btn-no" id="install-btn-no">後で</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
