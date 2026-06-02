@@ -1,0 +1,759 @@
+[
+  {
+    "id": "rtx-3060",
+    "name": "GeForce RTX 3060",
+    "brand": "NVIDIA",
+    "vram": 12,
+    "target": "FHD",
+    "score": 43,
+    "price": 28980,
+    "power": 170,
+    "summary": "フルHD向けの定番GPU。型落ちだがVRAM 12GBで、軽めのゲームや設定調整前提ならまだ使いやすい。",
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-4060",
+      "rx-6600",
+      "rtx-3060-ti"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 5 7500F",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-3060-ti",
+    "name": "GeForce RTX 3060 Ti",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "FHD",
+    "score": 53,
+    "price": 28980,
+    "power": 200,
+    "summary": "フルHD高画質向けの型落ち人気GPU。軽めのWQHDも狙えるが、VRAM 8GBなので最新重量級では設定調整したい。",
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-3070",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-3070",
+    "name": "GeForce RTX 3070",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "WQHD",
+    "score": 60,
+    "price": 31980,
+    "power": 220,
+    "summary": "WQHD入門向けの型落ち上位GPU。性能は今でも十分だが、VRAM 8GBがネックになる場面もある。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-3070-ti",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 5 7500F",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-3070-ti",
+    "name": "GeForce RTX 3070 Ti",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "WQHD",
+    "score": 64,
+    "price": 35980,
+    "power": 290,
+    "summary": "RTX 3070より少し高性能なWQHD向けGPU。消費電力はやや高めで、VRAM容量には注意したい。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-3070",
+      "rtx-4060-ti",
+      "rx-7700-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 5 7500F",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-3080",
+    "name": "GeForce RTX 3080",
+    "brand": "NVIDIA",
+    "vram": 10,
+    "target": "WQHD",
+    "score": 72,
+    "price": 40980,
+    "power": 320,
+    "summary": "型落ちだがWQHD高画質でまだ強いGPU。中古人気も高く、電源容量と発熱には注意したい。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-4070",
+      "rtx-4070-super",
+      "rx-6800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rtx-4060",
+    "name": "GeForce RTX 4060",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "FHD",
+    "score": 46,
+    "price": 34980,
+    "power": 115,
+    "summary": "省電力なフルHD向けGPU。軽めのゲームや初めてのゲーミングPCに向き、消費電力を抑えやすい。",
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-3060",
+      "rtx-4060-ti",
+      "rx-7600"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 5 7500F",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-4060-ti",
+    "name": "GeForce RTX 4060 Ti",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "FHD",
+    "score": 56,
+    "price": 40980,
+    "power": 160,
+    "summary": "フルHD高画質向けのミドルGPU。WQHDも軽めなら狙えるが、8GBモデルは最新ゲームで設定調整したい。",
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rtx-3060-ti",
+      "rtx-5060",
+      "rx-7700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 7500F",
+      "Ryzen 7 5700X3D",
+      "Core i5-14400F"
+    ]
+  },
+  {
+    "id": "rtx-4070",
+    "name": "GeForce RTX 4070",
+    "brand": "NVIDIA",
+    "vram": 12,
+    "target": "WQHD",
+    "score": 70,
+    "price": 64980,
+    "power": 200,
+    "summary": "WQHD向けのバランス型GPU。消費電力を抑えつつ、画質とフレームレートを両立しやすい。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-4070-super",
+      "rtx-5070",
+      "rx-7800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rtx-4070-super",
+    "name": "GeForce RTX 4070 SUPER",
+    "brand": "NVIDIA",
+    "vram": 12,
+    "target": "WQHD",
+    "score": 75,
+    "price": 72980,
+    "power": 220,
+    "summary": "WQHD高画質で使いやすい人気GPU。RTX 4070より余裕があり、長く使いやすい性能帯。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-4070",
+      "rtx-4070-ti-super",
+      "rtx-5070"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rtx-4070-ti-super",
+    "name": "GeForce RTX 4070 Ti SUPER",
+    "brand": "NVIDIA",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 84,
+    "price": 104980,
+    "power": 285,
+    "summary": "WQHD高画質から4K入門まで狙える上位GPU。VRAM 16GBで重量級ゲームにも対応しやすい。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "モンスターハンターワイルズ",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-4070-super",
+      "rtx-4080-super",
+      "rtx-5070-ti"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rtx-4080-super",
+    "name": "GeForce RTX 4080 SUPER",
+    "brand": "NVIDIA",
+    "vram": 16,
+    "target": "4K",
+    "score": 92,
+    "price": 134980,
+    "power": 320,
+    "summary": "4Kゲーミング向けのハイエンドGPU。高画質設定や重量級ゲームで余裕を持ちやすい。",
+    "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-4070-ti-super",
+      "rtx-5080",
+      "rx-7900-xtx"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rtx-5060",
+    "name": "GeForce RTX 5060",
+    "brand": "NVIDIA",
+    "vram": 8,
+    "target": "FHD",
+    "score": 58,
+    "price": 44980,
+    "power": 145,
+    "summary": "フルHD向けのミドルクラスGPU。軽めのFPSや普段使い、価格を抑えたゲーミングPC向け。",
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-5060-ti",
+      "rx-7600"
+    ],
+    "cpus": [
+      "Ryzen 5 7500F",
+      "Ryzen 7 5700X3D",
+      "Core i5-14400F"
+    ]
+  },
+  {
+    "id": "rtx-5060-ti",
+    "name": "GeForce RTX 5060 Ti",
+    "brand": "NVIDIA",
+    "vram": 16,
+    "target": "FHD",
+    "score": 68,
+    "price": 71980,
+    "power": 180,
+    "summary": "フルHD高画質やWQHD入門向け。VRAMに余裕があるモデルなら長く使いやすい。",
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rtx-5060",
+      "rtx-5070",
+      "rx-7700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 7500F",
+      "Ryzen 7 5700X3D",
+      "Core i5-14400F"
+    ]
+  },
+  {
+    "id": "rtx-5070",
+    "name": "GeForce RTX 5070",
+    "brand": "NVIDIA",
+    "vram": 12,
+    "target": "WQHD",
+    "score": 78,
+    "price": 79480,
+    "power": 250,
+    "summary": "WQHDゲーミング向けの中心クラス。画質とフレームレートのバランスを取りやすい。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-4070-super",
+      "rtx-5070-ti",
+      "rx-9070-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rtx-5070-ti",
+    "name": "GeForce RTX 5070 Ti",
+    "brand": "NVIDIA",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 88,
+    "price": 125800,
+    "power": 300,
+    "summary": "WQHD高画質や一部4Kも狙える上位GPU。重めのゲームでも余裕を持ちやすい。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Escape from Tarkov",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-5070",
+      "rtx-5080",
+      "rx-9070-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rtx-5080",
+    "name": "GeForce RTX 5080",
+    "brand": "NVIDIA",
+    "vram": 16,
+    "target": "4K",
+    "score": 96,
+    "price": 169800,
+    "power": 360,
+    "summary": "4Kゲーミングや重量級ゲーム向けのハイエンドGPU。高画質設定で遊びたい人向け。",
+    "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-4080-super",
+      "rtx-5090",
+      "rx-7900-xtx"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 9 9950X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rtx-5090",
+    "name": "GeForce RTX 5090",
+    "brand": "NVIDIA",
+    "vram": 32,
+    "target": "4K",
+    "score": 100,
+    "price": 422200,
+    "power": 575,
+    "summary": "最上位クラスのGPU。4K高画質、クリエイティブ用途、最高性能を求める人向け。",
+    "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-5080",
+      "rtx-4080-super",
+      "rx-7900-xtx"
+    ],
+    "cpus": [
+      "Ryzen 7 9800X3D",
+      "Ryzen 9 9950X3D",
+      "Core Ultra 9"
+    ]
+  },
+  {
+    "id": "rx-6600",
+    "name": "Radeon RX 6600",
+    "brand": "AMD",
+    "vram": 8,
+    "target": "FHD",
+    "score": 38,
+    "price": 29980,
+    "power": 132,
+    "summary": "価格を抑えたフルHD向けGPU。軽めのゲームや中古・低予算構成で選びやすい。",
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-3060",
+      "rx-7600",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 5 7500F",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-6700-xt",
+    "name": "Radeon RX 6700 XT",
+    "brand": "AMD",
+    "vram": 12,
+    "target": "FHD",
+    "score": 57,
+    "price": 32980,
+    "power": 230,
+    "summary": "フルHD高画質からWQHD入門まで狙える型落ち人気GPU。VRAM 12GBで扱いやすい。",
+    "games": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-3060-ti",
+      "rtx-3070",
+      "rx-7700-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 5 7500F",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-6800-xt",
+    "name": "Radeon RX 6800 XT",
+    "brand": "AMD",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 74,
+    "price": 45980,
+    "power": 300,
+    "summary": "WQHD高画質向けの型落ち上位Radeon。VRAM 16GBで重量級ゲームにも対応しやすい。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-3080",
+      "rtx-4070-super",
+      "rx-7800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-7600",
+    "name": "Radeon RX 7600",
+    "brand": "AMD",
+    "vram": 8,
+    "target": "FHD",
+    "score": 50,
+    "price": 33980,
+    "power": 165,
+    "summary": "価格を抑えたフルHD向けGPU。軽めのゲームや初めてのゲーミングPCに向いている。",
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-4060",
+      "rtx-5060",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 5 7500F",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-7700-xt",
+    "name": "Radeon RX 7700 XT",
+    "brand": "AMD",
+    "vram": 12,
+    "target": "WQHD",
+    "score": 70,
+    "price": 53980,
+    "power": 245,
+    "summary": "WQHD入門から中級向けのRadeon GPU。コスパ重視で選びやすい。",
+    "games": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-5070",
+      "rx-7800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 5 7500F",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-7800-xt",
+    "name": "Radeon RX 7800 XT",
+    "brand": "AMD",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 80,
+    "price": 69980,
+    "power": 263,
+    "summary": "WQHD高画質向け。VRAM 16GBで重量級ゲームにも対応しやすい。",
+    "games": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-4070",
+      "rx-6800-xt",
+      "rx-9070-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-7900-gre",
+    "name": "Radeon RX 7900 GRE",
+    "brand": "AMD",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 84,
+    "price": 69980,
+    "power": 260,
+    "summary": "WQHD高画質で使いやすいRadeon上位GPU。VRAM 16GBでコスパ重視の構成にも向いている。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rx-7800-xt",
+      "rx-7900-xt",
+      "rtx-4070-ti-super"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 5700X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-7900-xt",
+    "name": "Radeon RX 7900 XT",
+    "brand": "AMD",
+    "vram": 20,
+    "target": "4K",
+    "score": 90,
+    "price": 79980,
+    "power": 315,
+    "summary": "4K入門から高画質WQHD向け。VRAM容量が大きく、長く使いやすいGPU。",
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Starfield",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rx-7900-gre",
+      "rx-7900-xtx",
+      "rx-9070-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rx-7900-xtx",
+    "name": "Radeon RX 7900 XTX",
+    "brand": "AMD",
+    "vram": 24,
+    "target": "4K",
+    "score": 94,
+    "price": 87980,
+    "power": 355,
+    "summary": "Radeonの上位GPU。4KゲーミングやVRAMを使うゲームに強い。",
+    "games": [
+      "Cyberpunk 2077",
+      "Starfield",
+      "4K重量級ゲーム",
+      "クリエイティブ用途"
+    ],
+    "compare": [
+      "rx-7900-xt",
+      "rtx-4080-super",
+      "rtx-5080"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  },
+  {
+    "id": "rx-9070",
+    "name": "Radeon RX 9070",
+    "brand": "AMD",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 82,
+    "price": 89980,
+    "power": 220,
+    "summary": "WQHD高画質向けのRadeon GPU。RX 9070 XTより価格を抑えつつ、VRAM 16GBの余裕がある。",
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rx-7800-xt",
+      "rx-7900-gre",
+      "rx-9070-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-9070-xt",
+    "name": "Radeon RX 9070 XT",
+    "brand": "AMD",
+    "vram": 16,
+    "target": "WQHD",
+    "score": 89,
+    "price": 94800,
+    "power": 304,
+    "summary": "WQHD高画質から4K入門まで狙えるRadeon GPU。価格と性能のバランスを重視したい人向け。",
+    "games": [
+      "Battlefield",
+      "Escape from Tarkov",
+      "Cyberpunk 2077",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-5070-ti",
+      "rx-7900-xt",
+      "rx-9070"
+    ],
+    "cpus": [
+      "Ryzen 7 7800X3D",
+      "Ryzen 7 9800X3D",
+      "Core Ultra 7"
+    ]
+  }
+]

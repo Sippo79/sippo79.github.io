@@ -1,0 +1,35 @@
+{
+  "name": "GPU GUIDE - グラボ性能比較",
+  "short_name": "GPU GUIDE",
+  "description": "GPU・グラフィックボードの性能を初心者でも分かりやすく比較。用途・解像度・価格から最適なGPUを探せます。",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#090b14",
+  "theme_color": "#0b1020",
+  "orientation": "portrait-primary",
+  "categories": ["utilities"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+/* =========================
+   Build Page Styles
+   個別構成ページ専用 (builds/*.html)
+========================= */
+
+/* Hero */
+.build-page-hero {
+  padding: 36px 0 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 36px;
+}
+
+/* Breadcrumb */
+.build-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: #9aa7bd;
+}
+
+.build-breadcrumb a {
+  color: #19e3ff;
+}
+
+.build-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Tags */
+.build-page-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.build-tag {
+  display: inline-flex;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.14), rgba(123, 97, 255, 0.18));
+  border: 1px solid rgba(25, 227, 255, 0.25);
+  color: #d8f0ff;
+}
+
+/* Title */
+.build-page-title {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 5vw, 40px);
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.build-page-subtitle {
+  max-width: 720px;
+  margin: 0;
+  color: #cfd6e6;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* Content */
+.build-page-content {
+  display: grid;
+  gap: 22px;
+  padding-bottom: 80px;
+}
+
+/* Cards */
+.build-card {
+  padding: 26px 28px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+
+.build-card .section-label {
+  margin-bottom: 8px;
+}
+
+.build-card h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+/* Spec list */
+.build-spec-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.build-spec-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.build-spec-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.spec-key {
+  flex-shrink: 0;
+  color: #9aa7bd;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.spec-val {
+  color: #e8edf7;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.spec-budget {
+  color: #19e3ff;
+  font-size: 18px;
+}
+
+/* Comment */
+.build-comment {
+  margin: 0;
+  color: #cfd6e6;
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+/* Check list */
+.build-check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 11px;
+}
+
+.build-check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #cfd6e6;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.build-check-list li::before {
+  content: "✓";
+  flex-shrink: 0;
+  color: #19e3ff;
+  font-weight: 900;
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+/* Caution card */
+.build-caution-card {
+  background:
+    linear-gradient(135deg, rgba(255, 184, 50, 0.06), rgba(255, 100, 80, 0.04)),
+    rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 184, 50, 0.2);
+}
+
+.build-caution-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 11px;
+}
+
+.build-caution-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #e8d5b5;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.build-caution-list li::before {
+  content: "⚠";
+  flex-shrink: 0;
+  color: #ffb832;
+  font-size: 13px;
+  margin-top: 1px;
+}
+
+/* Next steps card */
+.build-next-card {
+  background:
+    linear-gradient(135deg, rgba(25, 227, 255, 0.08), rgba(123, 97, 255, 0.1)),
+    rgba(255, 255, 255, 0.02);
+  border-color: rgba(25, 227, 255, 0.22);
+}
+
+.build-next-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+}
+
+.build-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  touch-action: manipulation;
+}
+
+.build-next-btn:hover {
+  border-color: rgba(25, 227, 255, 0.38);
+  transform: translateY(-2px);
+}
+
+.build-next-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.build-next-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.build-next-text strong {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.build-next-text small {
+  color: #9aa7bd;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* Related builds */
+.build-related-section h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.build-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.related-build-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(25, 227, 255, 0.07), rgba(123, 97, 255, 0.09)),
+    rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(25, 227, 255, 0.16);
+  color: #ffffff;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  touch-action: manipulation;
+}
+
+.related-build-card:hover {
+  border-color: rgba(25, 227, 255, 0.36);
+  transform: translateY(-3px);
+}
+
+.related-build-meta {
+  color: #19e3ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.related-build-card h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #e8edf7;
+}
+
+.related-build-gpu {
+  color: #9aa7bd;
+  font-size: 12px;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 800px) {
+  .build-page-hero {
+    padding: 24px 0 20px;
+    margin-bottom: 24px;
+  }
+
+  .build-page-title {
+    font-size: clamp(20px, 7vw, 30px);
+  }
+
+  .build-page-subtitle {
+    font-size: 13px;
+  }
+
+  .build-card {
+    padding: 18px 20px;
+    border-radius: 18px;
+  }
+
+  .build-card h2 {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .build-spec-list li {
+    flex-direction: column;
+    gap: 3px;
+    padding: 11px 0;
+  }
+
+  .spec-val {
+    text-align: left;
+  }
+
+  .build-next-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .build-next-btn {
+    padding: 12px 14px;
+  }
+
+  .build-related-grid {
+    grid-template-columns: 1fr;
+  }
+}

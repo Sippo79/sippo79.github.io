@@ -1,0 +1,898 @@
+{
+  "rtx-3060": {
+    "seo_text": "GeForce RTX 3060はフルHD向けのGPUです。ミドルクラスのCPUでも十分ボトルネックなく使えるため、予算を抑えた構成が組みやすい。RTX 3060と相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "6コア・コスパ最高のゲーミングCPU。RTX 3060と組み合わせてFHD環境でのゲームプレイに必要な性能を、手頃な価格で確保できます。",
+        "use_case": "軽量FPS・普段使い",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD向けゲームではCPUボトルネックが起きにくく、GPU性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "最新AM5世代の省電力エントリーCPU。将来のプラットフォーム継続性を持ちつつ、RTX 3060のFHDゲーミング性能を安定して引き出せます。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "軽量〜中量級ゲームではCPUボトルネックはほぼなし。GPU性能を安定して引き出せます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPS向けゲームの性能が大きく向上。RTX 3060との組み合わせでフレームレートを最大限に引き出し、将来GPUをアップグレードしてもCPUが足を引っ張りません。",
+        "use_case": "FPS・バトロワ重視構成",
+        "resolution": "FHD",
+        "bottleneck_note": "このCPUがボトルネックになる可能性は極めて低く、次のGPUアップグレード時もそのまま使い続けられます。"
+      }
+    ]
+  },
+  "rx-6600": {
+    "seo_text": "Radeon RX 6600はフルHD向けの入門GPU。省電力で扱いやすく、低予算構成に向いています。RX 6600と相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "RX 6600と同世代・同価格帯のCPU。低予算でも快適なFHDゲーミングが実現でき、AMDで統一した構成にしやすいのも利点です。",
+        "use_case": "軽量FPS・普段使い",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDの軽量ゲームではCPUボトルネックが出にくく、安定したゲームプレイが可能です。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5世代の省電力CPU。RX 6600とのコスパ重視構成でありながら、将来のGPUアップグレード時に対応しやすいプラットフォーム選択です。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "このGPUのFHDゲーミングに対してボトルネックはほぼ発生しません。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPS向け性能を底上げ。RX 6600の性能を最大限引き出し、将来GPUを上位モデルに変えても継続使用できます。",
+        "use_case": "FPS・バトロワ重視",
+        "resolution": "FHD",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、将来のアップグレードにも余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-4060": {
+    "seo_text": "GeForce RTX 4060は省電力なフルHD向けGPU。消費電力115Wと低いため、小型PCや静音構成にも向いています。RTX 4060におすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "RTX 4060の省電力特性に合わせたコスパ重視構成。FHDの軽量〜中量級ゲームを快適にこなせる十分な性能を手頃な価格で確保できます。",
+        "use_case": "軽量FPS・普段使い",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDのFPS系・カジュアルゲームではCPUがボトルネックになりにくく、快適に遊べます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5プラットフォームの入門CPU。RTX 4060との省電力×高効率な組み合わせで、初めてのゲーミングPCに最適なバランス構成が作れます。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "軽量〜中量級ゲームでCPUボトルネックはほぼ起きません。RTX 4060の性能を安定して引き出せます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheによるFPS向け最強の旧世代CPU。RTX 4060と組み合わせることで最大フレームレートを狙え、将来のGPUアップグレード時にも引き続き使えます。",
+        "use_case": "FPS・高フレームレート重視",
+        "resolution": "FHD",
+        "bottleneck_note": "このCPUがボトルネックになる可能性は低く、RTX 4060以上のGPUにアップグレード後も余裕で対応できます。"
+      }
+    ]
+  },
+  "rx-7600": {
+    "seo_text": "Radeon RX 7600はフルHD向けのコスパ優秀なGPU。初めてのゲーミングPCや低予算構成に向いています。RX 7600と相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "低予算でも快適なFHDゲーミングが可能な組み合わせ。RX 7600と同価格帯のCPUで、コストを抑えつつ必要な性能を確保できます。",
+        "use_case": "軽量FPS・普段使い",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDの軽量ゲームではCPUボトルネックが発生しにくく、安定したプレイが可能です。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "最新世代エントリーCPUとRX 7600の組み合わせは、現役世代のコスパ最良構成。将来のアップグレード余地を残しつつFHDを快適に楽しめます。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD向けゲームでCPUがボトルネックになることはほぼありません。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPS系ゲームを最大フレームレートで楽しめる構成。RX 7600の性能を使い切りながら、将来の上位GPUへの切り替えにも対応できます。",
+        "use_case": "FPS・高フレームレート重視",
+        "resolution": "FHD",
+        "bottleneck_note": "将来GPUをアップグレードしてもこのCPUが制約になりにくく、長く使い続けられます。"
+      }
+    ]
+  },
+  "rtx-3060-ti": {
+    "seo_text": "GeForce RTX 3060 TiはFHD高画質からWQHD入門まで使える性能帯のGPUです。ある程度のCPU性能があるとより快適に使えます。RTX 3060 Tiと相性の良いCPUを紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "FHD高画質ゲーミングをカバーする最低限の構成。RTX 3060 TiのFHD性能を引き出しながら、コストを最大限に抑えられます。",
+        "use_case": "FHD高画質ゲーミング",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDのゲームではCPUボトルネックが起きにくいですが、WQHD寄りのゲームではやや差が出ることがあります。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheのゲーミングCPUでRTX 3060 Tiの性能を最大限引き出す定番構成。FHD高画質はもちろんWQHD入門環境でも快適にプレイできます。",
+        "use_case": "FHD〜WQHD入門",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHD・WQHD共にCPUボトルネックは起きにくく、このGPUの性能を引き出しやすい組み合わせです。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPU。RTX 3060 TiのWQHD入門での使用においてボトルネックを完全に排除し、将来の上位GPUへの交換時も十分なCPU性能を維持できます。",
+        "use_case": "FHD〜WQHD・将来のアップグレード想定",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUがボトルネックになる可能性はほぼゼロ。RTX 4070クラスへのアップグレード後も快適に使えます。"
+      }
+    ]
+  },
+  "rtx-4060-ti": {
+    "seo_text": "GeForce RTX 4060 TiはFHD高画質向けのミドルGPUです。WQHD軽量ゲームにも対応できる性能帯。RTX 4060 Tiにおすすめのボトルネックを避けやすいCPU構成を紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5世代エントリーCPUとRTX 4060 Tiの組み合わせ。FHD高画質ゲーミングに十分な性能を持ちながら、省電力で静音構成も作りやすい。",
+        "use_case": "FHD高画質ゲーミング",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD環境ではCPUボトルネックが起きにくく、RTX 4060 Tiの性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPSゲームの最大フレームレートを引き上げる定番構成。RTX 4060 TiのFHD高画質性能をフルに発揮でき、一部WQHD軽量ゲームにも対応できます。",
+        "use_case": "FHD高画質・FPS重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHD・WQHD入門環境ではCPUボトルネックはほぼ起きず、GPU性能を最大限に活かせます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代ゲーミング向けトップCPU。RTX 4060 Tiの性能を完全に引き出すとともに、RTX 5060 TiやRTX 5070への将来アップグレードにも余裕で対応します。",
+        "use_case": "FHD〜WQHD・将来性重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUが性能の足を引っ張ることはなく、次世代GPUへのアップグレード後も長く活躍します。"
+      }
+    ]
+  },
+  "rx-6700-xt": {
+    "seo_text": "Radeon RX 6700 XTはVRAM 12GBでFHD高画質からWQHD入門まで使いやすいGPUです。RX 6700 XTと相性の良いCPUをコスパ・バランス・ハイエンドの3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 5600",
+        "reason": "FHD高画質向けの低コスト構成。RX 6700 XTの性能をFHD環境で十分に引き出しながら、全体のコストを抑えた構成が作れます。",
+        "use_case": "FHD高画質ゲーミング",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD環境ではCPUボトルネックが起きにくく、RX 6700 XTの性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPSとWQHD入門の両方に対応できる構成。RX 6700 XTのWQHD入門性能をしっかり引き出せる定番の組み合わせです。",
+        "use_case": "FHD〜WQHD入門",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHD・WQHD入門ではCPUボトルネックがほぼなく、このGPUの性能を最大限に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "RX 6700 XTのWQHD入門性能をフルに活かし、将来の上位GPUへのアップグレード後も対応できるCPU。RX 7800 XTやRX 9070クラスへの交換時にもCPU側の制約が出にくい。",
+        "use_case": "FHD〜WQHD・将来性重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、将来の上位GPUへの換装にも余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-5060": {
+    "seo_text": "GeForce RTX 5060はフルHD向けの最新世代GPU。省電力で扱いやすく、今から組む入門〜ミドル構成に向いています。RTX 5060におすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "最新世代CPUと最新世代GPUの組み合わせ。RTX 5060のFHD性能を無駄なく引き出せる省電力構成で、初めてのゲーミングPCに最適です。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD環境ではCPUボトルネックがほぼ起きず、RTX 5060の性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPS向けフレームレートを最大化する定番構成。RTX 5060のFHD性能を最大限引き出しながら、WQHD入門にも余裕を持てます。",
+        "use_case": "FHD高画質・FPS重視",
+        "resolution": "FHD〜WQHD入門",
+        "bottleneck_note": "FHDのFPS系ゲームでCPUがボトルネックになることはなく、フレームレートを安定させやすい組み合わせです。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPU。RTX 5060の性能をフルに引き出しつつ、将来のRTX 5060 Ti・RTX 5070へのアップグレード時もCPU側の制約が出にくい長期使用向き構成です。",
+        "use_case": "FHD〜WQHD・将来性重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUが性能の足を引っ張ることはなく、次世代GPUへの換装時も継続使用できます。"
+      }
+    ]
+  },
+  "rtx-3070": {
+    "seo_text": "GeForce RTX 3070はWQHD入門〜中級向けのGPUです。WQHD環境では一定のCPU性能が必要になります。RTX 3070と相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "コスパ重視のWQHD入門構成。RTX 3070のWQHD性能をある程度引き出せる最低限のCPU性能を、手頃な価格で確保できます。",
+        "use_case": "WQHD入門・FHD高画質",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHDと軽量WQHDゲームではCPUボトルネックが出にくいですが、FPS系では7800X3Dの方がフレームレートで有利です。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでWQHD・FPS向け性能を底上げ。RTX 3070の性能を最大限引き出せる定番の組み合わせで、FPSゲームでも高フレームレートを維持しやすい。",
+        "use_case": "WQHD・FPS重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "WQHD環境でもCPUボトルネックが起きにくく、このGPUの性能を安定して発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代の最強ゲーミングCPU。RTX 3070の性能を完全に引き出しながら、将来RTX 4070・RTX 5070クラスへのアップグレード時もCPU側の制約が出にくい長期運用向き構成。",
+        "use_case": "WQHD・長期運用重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUが性能の足を引っ張ることはなく、次世代GPUへの換装後も長く活躍します。"
+      }
+    ]
+  },
+  "rtx-3070-ti": {
+    "seo_text": "GeForce RTX 3070 TiはRTX 3070より高性能なWQHD向けGPUです。消費電力はやや高めですが、WQHDゲーミングの快適さを高めたい人向け。RTX 3070 Tiと相性の良いCPUを紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "RTX 3070 TiのWQHD性能を最低限引き出せるコスパ重視構成。FHD高画質をメインにWQHD軽量ゲームもこなしたい人向けの低コスト選択肢です。",
+        "use_case": "FHD〜WQHD入門",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHDと軽量WQHDではCPUボトルネックが出にくいですが、FPS系の高フレームレートを狙うなら7800X3Dが有利です。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-Cacheによるゲーミング特化CPUでRTX 3070 TiのWQHD性能をしっかり引き出す定番構成。FPSゲームでの高フレームレート維持にも効果的です。",
+        "use_case": "WQHDゲーミング・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でのCPUボトルネックを大幅に軽減し、GPU性能を安定して発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUでRTX 3070 Tiの性能を余すことなく引き出す最強構成。将来の上位GPUへの換装時もCPU側の制約が出にくく、長く使い続けられます。",
+        "use_case": "WQHD・将来性重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼゼロ。RTX 4070 SUPER以上へのアップグレードにも安心して対応できます。"
+      }
+    ]
+  },
+  "rtx-5060-ti": {
+    "seo_text": "GeForce RTX 5060 TiはFHD高画質からWQHD入門まで対応できる最新世代GPU。VRAMに余裕があるモデルを選ぶと長く使いやすい。RTX 5060 Tiにおすすめのボトルネックを避けやすいCPU構成を紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5世代の省電力CPUとRTX 5060 Tiの組み合わせ。FHD高画質を快適にこなしながら、コストを抑えた現役世代構成が作れます。",
+        "use_case": "FHD高画質ゲーミング",
+        "resolution": "FHD",
+        "bottleneck_note": "FHD環境ではCPUボトルネックはほぼ起きず、RTX 5060 Tiの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPSとWQHD両方の性能を底上げ。RTX 5060 TiのFHD高画質〜WQHD入門性能をフルに活用できる人気の構成です。",
+        "use_case": "FHD〜WQHD入門・FPS重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "FHD・WQHD入門でCPUボトルネックが起きにくく、RTX 5060 Tiの性能を安定して発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPU。RTX 5060 Tiの性能を完全に引き出しながら、RTX 5070へのアップグレード時もCPU側の制約なしに移行できる将来性の高い構成です。",
+        "use_case": "FHD〜WQHD・将来性重視",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、将来のGPUアップグレード後も長く使い続けられます。"
+      }
+    ]
+  },
+  "rtx-3080": {
+    "seo_text": "GeForce RTX 3080は型落ちながらWQHD高画質でまだ強いGPUです。3D V-Cache搭載CPUと組み合わせることで、このGPUのポテンシャルを最大限引き出せます。RTX 3080と相性の良いCPUを紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "コスパ重視でRTX 3080のWQHD性能を引き出す定番構成。3D V-CacheがFPSゲームのフレームレートを底上げし、WQHD高画質を快適にこなせます。",
+        "use_case": "WQHD高画質・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でのCPUボトルネックを抑えられ、RTX 3080の性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUでRTX 3080のWQHD性能をフルに引き出す最適解。重量級ゲームでも安定したフレームレートを維持しやすい組み合わせです。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼ起きず、GPU性能を最大限に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core i5-14600KF",
+        "reason": "高クロック・14コアの強力なCPU。RTX 3080のWQHD性能を完全に引き出しながら、将来RTX 5070クラスへのアップグレード時も余裕で対応できます。",
+        "use_case": "WQHD高画質・長期運用",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、上位GPUへの換装時も安心して使い続けられます。"
+      }
+    ]
+  },
+  "rtx-4070": {
+    "seo_text": "GeForce RTX 4070はWQHDゲーミングのバランス型GPU。消費電力200Wと比較的省電力なため、静音構成にも向いています。RTX 4070と相性が良くボトルネックしにくいCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでWQHDゲーミングのフレームレートを底上げするコスパ重視構成。RTX 4070の省電力・高効率な特性に合わせた定番の組み合わせです。",
+        "use_case": "WQHDゲーミング・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でのCPUボトルネックを抑えられ、RTX 4070の性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRTX 4070の組み合わせ。WQHDでの画質・フレームレートのバランスを最大限に発揮でき、重量級ゲームでも安定したパフォーマンスを維持します。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼ起きず、RTX 4070の性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core i5-14600KF",
+        "reason": "高コアクロック・マルチスレッド性能に優れたCPU。RTX 4070の性能をフルに引き出しながら、将来RTX 5070・RX 9070 XTクラスへの換装にも余裕で対応できます。",
+        "use_case": "WQHD高画質・将来性重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、次世代上位GPUへのアップグレード後も長く使えます。"
+      }
+    ]
+  },
+  "rx-6800-xt": {
+    "seo_text": "Radeon RX 6800 XTはVRAM 16GBでWQHD高画質に強い型落ち上位GPU。3D V-Cache搭載CPUとの相性が特に良好です。RX 6800 XTにおすすめのCPUをコスパ・バランス・ハイエンドで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでWQHD性能を底上げするコスパ重視の定番構成。RX 6800 XTのVRAM 16GBを活かした重量級ゲームでも安定した性能を発揮できます。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックが起きにくく、RX 6800 XTの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUでRX 6800 XTの性能をフルに引き出す最適な組み合わせ。WQHDでの高画質ゲームを余裕を持って楽しめます。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼゼロ。GPU性能を最大限に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core i5-14600KF",
+        "reason": "高コアクロックの強力なCPU。RX 6800 XTの性能を完全に引き出し、将来RX 9070・RTX 5070クラスへの換装時もボトルネックなく対応できます。",
+        "use_case": "WQHD高画質・将来性重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、上位GPUへのアップグレード時も長く活躍します。"
+      }
+    ]
+  },
+  "rx-7700-xt": {
+    "seo_text": "Radeon RX 7700 XTはWQHD入門から中級向けのコスパ重視GPU。RX 7700 XTと組み合わせてボトルネックを避けやすいCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "RX 7700 XTのWQHD性能をコスパよく引き出す定番構成。3D V-CacheでFPS系ゲームのフレームレートも底上げでき、コストを抑えながら快適なWQHDゲーミングが実現できます。",
+        "use_case": "WQHDゲーミング・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックが起きにくく、このGPUの性能を安定して発揮できます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUでRX 7700 XTの性能を最大限に引き出す構成。WQHDの高画質設定でも安定したフレームレートを維持しやすい組み合わせです。",
+        "use_case": "WQHD高画質ゲーミング",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼなく、RX 7700 XTの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core i5-14600KF",
+        "reason": "高クロックの14コアCPU。RX 7700 XTの性能を完全に引き出しながら、将来RX 9070・RTX 5070クラスへのアップグレードにも余裕で対応できます。",
+        "use_case": "WQHD・将来性重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、上位GPUへの換装時も継続使用できます。"
+      }
+    ]
+  },
+  "rtx-4070-super": {
+    "seo_text": "GeForce RTX 4070 SUPERはWQHD高画質で人気の高い定番GPU。長く使いやすい性能帯で、3D V-Cache CPUとの相性が非常に良好です。RTX 4070 SUPERにおすすめのCPU構成を紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでWQHD高画質のフレームレートを底上げするコスパ最強の選択肢。RTX 4070 SUPERのバランス型性能をFPSゲームでも最大限活かせます。",
+        "use_case": "WQHD高画質・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、このGPUの性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "RTX 4070 SUPERと7800X3Dの組み合わせはWQHD高画質ゲーミングの現行最強コスパ構成のひとつ。重量級タイトルでも余裕を持ったプレイが可能です。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRTX 4070 SUPERの性能を極限まで引き出す最強構成。将来RTX 5070 Ti・RX 9070 XTクラスへのアップグレード時もCPU制約なしに移行できます。",
+        "use_case": "WQHD〜4K入門・将来性重視",
+        "resolution": "WQHD〜4K入門",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、次世代ハイエンドGPUへの換装にも余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-5070": {
+    "seo_text": "GeForce RTX 5070はWQHDゲーミングの中心クラスとして画質とフレームレートのバランスが取りやすいGPUです。RTX 5070と相性が良くボトルネックしにくいCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "RTX 5070のWQHD性能をコスパよく引き出せる選択肢。3D V-CacheでFPS向けフレームレートも底上げされ、予算を抑えながらWQHD高画質ゲーミングを楽しめます。",
+        "use_case": "WQHD高画質・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、RTX 5070の性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "RTX 5070 × 7800X3Dはバランス良くWQHDゲーミングの限界を引き出す人気構成。重量級タイトルでのフレームレート安定性にも優れています。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼなく、RTX 5070の性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUで現時点での最高のゲーミングパフォーマンスを実現。RTX 5070をフルに活かしながら、RTX 5070 Ti・RX 9070 XTへのアップグレードにもCPU制約なく対応できます。",
+        "use_case": "WQHD〜4K入門・最高性能",
+        "resolution": "WQHD〜4K入門",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、次世代上位GPUへの換装後も長く活躍します。"
+      }
+    ]
+  },
+  "rx-7800-xt": {
+    "seo_text": "Radeon RX 7800 XTはVRAM 16GBで重量級ゲームにも対応しやすいWQHD高画質GPU。RX 7800 XTと相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでWQHD高画質のフレームレートを底上げするコスパ重視の構成。RX 7800 XTのVRAM 16GBを活かした重量級ゲームでも快適にプレイできます。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、RX 7800 XTの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUでRX 7800 XTの性能をフルに引き出す定番構成。WQHD高画質・重量級タイトルで余裕のあるフレームレートを維持できます。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼゼロ。RX 7800 XTの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core i5-14600KF",
+        "reason": "高コアクロックの強力なCPU。RX 7800 XTの性能を完全に引き出しながら、将来RX 9070・RTX 5070クラスへのアップグレード時もCPU制約なく対応できます。",
+        "use_case": "WQHD・将来性重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、上位GPUへの換装時も長く使えます。"
+      }
+    ]
+  },
+  "rx-9070": {
+    "seo_text": "Radeon RX 9070はVRAM 16GBでWQHD高画質向けのRadeon GPU。コスパを重視しながら高画質ゲーミングを楽しみたい人に向いています。RX 9070と相性の良いCPUを紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "RX 9070のWQHD性能をコスパよく引き出せる構成。3D V-CacheがFPS向けフレームレートを底上げし、WQHD高画質ゲーミングを予算を抑えて実現できます。",
+        "use_case": "WQHD高画質・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、RX 9070の性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "RX 9070 × 7800X3DはWQHD高画質コスパ構成の最良解のひとつ。重量級ゲームでも安定したフレームレートを維持しやすく、バランス重視の人に最適です。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼなく、RX 9070の性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRX 9070の性能を限界まで引き出す最強構成。将来RX 9070 XT・RTX 5070 Tiへのアップグレード時もCPU制約なく移行できます。",
+        "use_case": "WQHD〜4K入門・将来性重視",
+        "resolution": "WQHD〜4K入門",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、次世代上位GPUへのアップグレード後も長く活躍します。"
+      }
+    ]
+  },
+  "rx-7900-gre": {
+    "seo_text": "Radeon RX 7900 GREはVRAM 16GBでWQHD高画質とコスパを両立したRadeon上位GPU。RX 7900 GREにおすすめのCPUをコスパ・バランス・ハイエンドで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "コスパを維持しながらRX 7900 GREのWQHD高画質性能を引き出す構成。3D V-CacheでFPS系ゲームのフレームレートも底上げされ、総合的に高いゲーミング体験が得られます。",
+        "use_case": "WQHD高画質・FPS重視",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、このGPUの性能を安定して活かせます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "RX 7900 GRE × 7800X3DはWQHD高画質ゲーミングの理想的な組み合わせ。重量級タイトルでも安定したフレームレートを維持でき、VRAM 16GBの余裕もフルに活かせます。",
+        "use_case": "WQHD高画質・重量級ゲーム",
+        "resolution": "WQHD",
+        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼゼロ。RX 7900 GREの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRX 7900 GREの性能を完全に引き出す最強構成。将来RX 9070 XT・RTX 5070 Tiへのアップグレード時もCPU制約なく対応できます。",
+        "use_case": "WQHD〜4K入門・将来性重視",
+        "resolution": "WQHD〜4K入門",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼなく、上位GPUへの換装後も長く活躍します。"
+      }
+    ]
+  },
+  "rtx-4070-ti-super": {
+    "seo_text": "GeForce RTX 4070 Ti SUPERはVRAM 16GBでWQHD高画質から4K入門まで対応できる上位GPU。RTX 4070 Ti SUPERにおすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRTX 4070 Ti SUPERの組み合わせ。コスパを意識しながらも、WQHD高画質〜4K入門でのボトルネックを最小化した構成です。",
+        "use_case": "WQHD高画質〜4K入門",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K入門でCPUボトルネックが起きにくく、このGPUの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRTX 4070 Ti SUPERの性能をフルに引き出す構成。4K入門環境でも安定したフレームレートを維持でき、重量級タイトルにも対応しやすい。",
+        "use_case": "WQHD〜4K入門・重量級ゲーム",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K環境でCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RTX 4070 Ti SUPERの性能を余すことなく引き出し、RTX 5080クラスへの将来アップグレード時もCPU制約なく対応できる長期使用向け構成。",
+        "use_case": "WQHD〜4K・クリエイティブ用途",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、ハイエンドGPUへのアップグレード後も余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-5070-ti": {
+    "seo_text": "GeForce RTX 5070 TiはVRAM 16GBでWQHD高画質から一部4Kまで狙える上位GPU。RTX 5070 TiにおすすめのボトルネックしにくいCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRTX 5070 Tiの組み合わせ。コスパを意識しながらもWQHD高画質・4K入門でのボトルネックを最小化した実用的な構成です。",
+        "use_case": "WQHD高画質〜4K入門",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K入門環境でCPUボトルネックが起きにくく、RTX 5070 Tiの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRTX 5070 Tiの高い性能をフルに引き出す最適な組み合わせ。WQHD高画質・重量級ゲームでも余裕あるフレームレートを維持できます。",
+        "use_case": "WQHD〜4K入門・重量級ゲーム",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K環境ではCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の強力なCPU。RTX 5070 Tiの性能を余すことなく引き出し、将来RTX 5080・RTX 5090クラスへのアップグレード時もCPU制約なく対応できる将来性の高い構成。",
+        "use_case": "4K・クリエイティブ・将来性重視",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、最上位GPUへの換装後も余裕で使い続けられます。"
+      }
+    ]
+  },
+  "rx-9070-xt": {
+    "seo_text": "Radeon RX 9070 XTはVRAM 16GBでWQHD高画質から4K入門まで狙えるRadeon GPU。価格と性能のバランスが良く人気の高い1枚です。RX 9070 XTにおすすめのCPU構成を紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRX 9070 XTの組み合わせはコスパ重視の高性能構成。WQHD高画質〜4K入門でのCPUボトルネックを最小化しながら、価格面でも無理のない選択肢です。",
+        "use_case": "WQHD高画質〜4K入門",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K入門でCPUボトルネックが起きにくく、RX 9070 XTの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "RX 9070 XT × 9800X3DはWQHD〜4K入門での最強コスパ構成のひとつ。重量級タイトルでも安定したパフォーマンスを維持でき、AMDで統一した高性能構成が作れます。",
+        "use_case": "WQHD〜4K入門・重量級ゲーム",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K環境でCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RX 9070 XTの性能を余すことなく引き出し、将来の上位GPUへの換装にも余裕で対応できる長期運用向き構成です。",
+        "use_case": "4K・将来性重視",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、将来ハイエンドGPUへのアップグレード後も長く活躍します。"
+      }
+    ]
+  },
+  "rx-7900-xt": {
+    "seo_text": "Radeon RX 7900 XTはVRAM 20GBで4K入門から高画質WQHDまで使いやすいGPUです。VRAM容量が大きく長く使いやすい。RX 7900 XTと相性の良いCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRX 7900 XTの組み合わせ。4K入門でのCPUボトルネックを最小化しながら、コスパを意識した4K・WQHD高画質構成が作れます。",
+        "use_case": "WQHD〜4K入門ゲーミング",
+        "resolution": "WQHD〜4K",
+        "bottleneck_note": "WQHD・4K環境でCPUボトルネックが起きにくく、RX 7900 XTの性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRX 7900 XTの4K性能をフルに引き出す最適な構成。4K高画質ゲームでも安定したフレームレートを維持でき、VRAM 20GBの余裕も活かせます。",
+        "use_case": "4K高画質・重量級ゲーム",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RX 7900 XTの4K性能を余すことなく引き出し、将来のハイエンドGPUへのアップグレード時もCPU制約なく対応できます。",
+        "use_case": "4K・クリエイティブ・長期運用",
+        "resolution": "4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、最上位GPUへの換装後も余裕で使い続けられます。"
+      }
+    ]
+  },
+  "rtx-4080-super": {
+    "seo_text": "GeForce RTX 4080 SUPERは4KゲーミングやVRAM 16GBでの重量級用途向けのハイエンドGPUです。RTX 4080 SUPERにおすすめのボトルネックしにくいCPUを紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRTX 4080 SUPERの4Kゲーミング構成。CPUボトルネックを最小化しながら、コストを意識した4Kハイエンド構成が作れます。",
+        "use_case": "4Kゲーミング・重量級タイトル",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUよりGPU依存が高まるため、CPUボトルネックは起きにくくなります。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRTX 4080 SUPERの4K性能をフルに引き出す最適な組み合わせ。WQHD高画質・4K・重量級タイトルすべてで最高のパフォーマンスを発揮します。",
+        "use_case": "4K高画質・重量級ゲーム",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックがほぼゼロ。このGPUの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RTX 4080 SUPERの4Kフルポテンシャルを引き出し、将来RTX 5080・RTX 5090へのアップグレード時もCPU制約なしに対応できる最強構成。",
+        "use_case": "4K・クリエイティブ・最高性能",
+        "resolution": "4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、将来の最上位GPUへの換装後も余裕で対応できます。"
+      }
+    ]
+  },
+  "rx-7900-xtx": {
+    "seo_text": "Radeon RX 7900 XTXはVRAM 24GBで4Kゲーミングに強いRadeonの上位GPU。RX 7900 XTXにおすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "現世代最強ゲーミングCPUとRX 7900 XTXの4Kゲーミング構成。CPUボトルネックを最小化しながら、VRAM 24GBの余裕もフルに活かせる実用的な構成です。",
+        "use_case": "4Kゲーミング・重量級タイトル",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUよりGPU依存が高まるため、CPUボトルネックは発生しにくくなります。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRX 7900 XTXの4K性能をフルに引き出す最適な組み合わせ。4K高画質・重量級タイトル・クリエイティブ用途すべてでの最高パフォーマンスを実現します。",
+        "use_case": "4K高画質・重量級ゲーム",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックがほぼゼロ。RX 7900 XTXの性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RX 7900 XTXの性能を余すことなく引き出し、将来の最上位GPUへのアップグレード時もCPU制約なく対応できる最強の長期運用構成。",
+        "use_case": "4K・クリエイティブ・長期運用",
+        "resolution": "4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、将来の最ハイエンドGPUへの換装後も余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-5080": {
+    "seo_text": "GeForce RTX 5080はVRAM 16GBで4Kゲーミングや重量級ゲームに向けたハイエンドGPU。このクラスのGPUにはCPUもハイエンドが必要です。RTX 5080にふさわしいCPU構成を3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUとRTX 5080の組み合わせ。このクラスのGPUに見合ったCPU性能を確保しながら、コスト面での無駄を抑えた構成です。",
+        "use_case": "4K高画質・重量級ゲーム",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックが起きにくく、RTX 5080の高い性能を安定して引き出せます。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 9 9950X3D",
+        "reason": "高コア数×3D V-Cacheの最強AMD CPU。RTX 5080の4K・クリエイティブ性能をフルに引き出し、ゲーミングとクリエイティブ用途の両方で最高のパフォーマンスを発揮します。",
+        "use_case": "4K・クリエイティブ・配信",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックがほぼゼロ。RTX 5080の性能を完全に発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 7",
+        "reason": "Intel最新世代の高性能CPU。RTX 5080の4K・クリエイティブ性能を余すことなく引き出し、将来RTX 5090へのアップグレード時もCPU制約なく対応できる最強の長期運用構成。",
+        "use_case": "4K・クリエイティブ・最高性能",
+        "resolution": "4K",
+        "bottleneck_note": "このCPUがボトルネックになることはなく、現行最強GPUへの換装にも余裕で対応できます。"
+      }
+    ]
+  },
+  "rtx-5090": {
+    "seo_text": "GeForce RTX 5090は現行最高性能のGPUです。4K高画質・クリエイティブ用途・最高性能を求める人向け。RTX 5090のポテンシャルを最大限に引き出せるCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 7 9800X3D",
+        "reason": "最新世代3D V-Cache CPUでRTX 5090の4Kゲーミング性能を最大限引き出せる最低ラインの構成。このクラスのGPUに対応しつつ、コスト面での合理性を保った選択肢です。",
+        "use_case": "4K高画質ゲーミング",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUよりGPU依存が非常に高くなるため、CPUボトルネックは起きにくくなります。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 9 9950X3D",
+        "reason": "高コア数×3D V-Cacheの最強AMD CPUでRTX 5090の全ポテンシャルを引き出す構成。4K高画質ゲームはもちろん、動画編集・3DCGなどのクリエイティブ用途でも圧倒的な性能を発揮します。",
+        "use_case": "4K・クリエイティブ・配信",
+        "resolution": "4K",
+        "bottleneck_note": "4K環境ではCPUボトルネックがほぼゼロ。RTX 5090の全性能を余すことなく発揮できます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Core Ultra 9",
+        "reason": "現行最強クラスのIntel CPU。RTX 5090との組み合わせで、ゲーミング・クリエイティブ・AIワークロードすべてにおいて現時点での最高性能を実現する究極の構成です。",
+        "use_case": "4K・クリエイティブ・AI・最高性能",
+        "resolution": "4K",
+        "bottleneck_note": "このCPUがボトルネックになることはほぼあり得ず、現行最高スペックGPUの全ポテンシャルを引き出せます。"
+      }
+    ]
+  }
+}
