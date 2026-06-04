@@ -1,0 +1,54 @@
+# GAME PC GUIDE
+
+> ゲーム別のおすすめゲーミングPC構成と必要スペックを初心者向けに解説する日本語サイト。APEX Legends、VALORANT、FF14など人気ゲームごとにFHD・WQHD・4Kの予算別PC構成を紹介しています。
+
+## 概要
+
+- URL: https://sippo79.github.io/game-pc-guide/
+- 言語: 日本語
+- 対象: ゲーミングPC購入を検討している初心者
+- 内容: 各ゲームに最適なCPU・GPU・予算の目安
+
+## 掲載ゲーム一覧
+
+- [APEX Legends おすすめPC](https://sippo79.github.io/game-pc-guide/games/apex.html): FPS / 軽め〜中量級。FHD 144fps向け構成を中心に解説
+- [VALORANT おすすめPC](https://sippo79.github.io/game-pc-guide/games/valorant.html): FPS / 軽量級。144fps〜240fps向け構成
+- [FINAL FANTASY XIV おすすめPC](https://sippo79.github.io/game-pc-guide/games/ff14.html): MMO / 中量級。快適プレイ向け構成
+- [モンハンワイルズ おすすめPC](https://sippo79.github.io/game-pc-guide/games/monster-hunter.html): アクション / 重量級。高設定向け構成
+- [GTA5 / GTA Online おすすめPC](https://sippo79.github.io/game-pc-guide/games/gta5.html): オープンワールド / 中量級
+- [Cyberpunk 2077 おすすめPC](https://sippo79.github.io/game-pc-guide/games/cyberpunk2077.html): オープンワールド / 重量級。レイトレ対応構成も掲載
+- [Fortnite おすすめPC](https://sippo79.github.io/game-pc-guide/games/fortnite.html): FPS / 軽め〜中量級。高fpsを狙いやすい構成
+- [Minecraft おすすめPC](https://sippo79.github.io/game-pc-guide/games/minecraft.html): サンドボックス / 軽量〜中量級
+- [Escape from Tarkov おすすめPC](https://sippo79.github.io/game-pc-guide/games/tarkov.html): FPS / 重量級。CPU性能が重要
+- [Battlefield おすすめPC](https://sippo79.github.io/game-pc-guide/games/battlefield.html): FPS / 重量級
+- [Call of Duty おすすめPC](https://sippo79.github.io/game-pc-guide/games/cod.html): FPS / 中量級
+- [Rust おすすめPC](https://sippo79.github.io/game-pc-guide/games/rust.html): サバイバル / 重量級
+- [ARK: Survival Evolved おすすめPC](https://sippo79.github.io/game-pc-guide/games/ark.html): サバイバル / 重量級
+- [原神 おすすめPC](https://sippo79.github.io/game-pc-guide/games/genshin.html): RPG / 軽め〜中量級
+- [League of Legends おすすめPC](https://sippo79.github.io/game-pc-guide/games/lol.html): MOBA / 軽量級
+- [Overwatch 2 おすすめPC](https://sippo79.github.io/game-pc-guide/games/overwatch2.html): FPS / 軽め〜中量級
+- [ELDEN RING おすすめPC](https://sippo79.github.io/game-pc-guide/games/eldenring.html): アクションRPG / 中量級
+- [PUBG: BATTLEGROUNDS おすすめPC](https://sippo79.github.io/game-pc-guide/games/pubg.html): FPS / 中〜重量級
+- [Palworld おすすめPC](https://sippo79.github.io/game-pc-guide/games/palworld.html): サバイバル / 中〜重量級
+- [Rainbow Six Siege おすすめPC](https://sippo79.github.io/game-pc-guide/games/rainbowsixsiege.html): FPS / 軽め〜中量級
+- [Starfield おすすめPC](https://sippo79.github.io/game-pc-guide/games/starfield.html): RPG / 重量級
+- [HELLDIVERS 2 おすすめPC](https://sippo79.github.io/game-pc-guide/games/helldivers2.html): TPS / 中〜重量級
+- [黒い砂漠 おすすめPC](https://sippo79.github.io/game-pc-guide/games/blackdesert.html): MMO / 重量級
+- [ARMA 3 おすすめPC](https://sippo79.github.io/game-pc-guide/games/arma3.html): ミリタリーFPS / 重量級
+- [ストリートファイター6 おすすめPC](https://sippo79.github.io/game-pc-guide/games/streetfighter6.html): 格闘ゲーム / 中量級
+
+## 各ゲームページの構成
+
+各ゲームページには以下の情報が含まれています：
+
+- おすすめPC構成（ライト・ミドル・ハイの3段階、またはゲームに応じた構成数）
+- 各構成の予算目安・CPU・GPU
+- 「迷ったらこの構成」として最もバランスの良い構成を推奨
+- FHD / WQHD / 4K の解像度別の予算・スペック目安
+- GPU選びの目安（どのGPUグレードが適切か）
+- 初心者向けの注意点
+
+## 関連サイト
+
+- [GPU GUIDE](https://sippo79.github.io/gpu-guide/): GPU性能比較
+- [PC BUILD CHECK](https://sippo79.github.io/pc-build-check/): PC構成診断

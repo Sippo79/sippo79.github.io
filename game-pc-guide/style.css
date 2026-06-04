@@ -679,9 +679,12 @@ a {
   }
 
   .hero-card,
-  .game-card,
   .guide-card {
     padding: 20px;
+    border-radius: 22px;
+  }
+
+  .game-card {
     border-radius: 22px;
   }
 
