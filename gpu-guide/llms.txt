@@ -1,0 +1,36 @@
+# GPU GUIDE
+
+> グラフィックボード(GPU)の性能を初心者向けに比較する日本語サイト。FHD・WQHD・4Kの解像度別、FPS・MMO・重量級ゲームなど用途別に、どのGPUを選べばいいかを解説しています。
+
+## 概要
+
+- URL: https://sippo79.github.io/gpu-guide/
+- 言語: 日本語
+- 対象: GPU選びに迷っているゲーミングPC購入検討者
+- 内容: GPU性能ランキング・比較表・用途別おすすめ・選び方ガイド
+
+## コンテンツ構成
+
+### GPU性能ランキング
+総合・FHD・WQHD・4K・コスパの5カテゴリで性能スコア順にランキング表示。
+各GPUの性能スコア・目安価格・用途の目安を掲載。
+
+### GPU比較表
+主要GPU一覧を性能スコア・VRAM・価格帯・推奨解像度でフィルタリング・検索可能。
+
+### 用途別おすすめGPU
+FHD 60fps / FHD 144fps / WQHD / 4K / 配信・動画編集など用途ごとに推奨GPUを掲載。
+
+### GPU選び方ガイド
+解像度・用途・予算からGPUを選ぶ手順を初心者向けに解説。
+
+## GPU性能の目安（掲載情報の概要）
+
+- エントリー帯（〜5万円）: FHD 60fps程度を狙える構成
+- ミドル帯（5〜8万円）: FHD 144fps・WQHD 60fpsを狙える構成
+- ハイエンド帯（8万円〜）: WQHD高fpsや4K対応構成
+
+## 関連サイト
+
+- [GAME PC GUIDE](https://sippo79.github.io/game-pc-guide/): ゲーム別おすすめPC構成
+- [PC BUILD CHECK](https://sippo79.github.io/pc-build-check/): PC構成診断

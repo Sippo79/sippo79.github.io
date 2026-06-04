@@ -1,7 +1,7 @@
 // GPU GUIDE Service Worker
 // キャッシュバージョンを上げるとデプロイ時に古いキャッシュが自動削除されます
-// v2: affiliate-master.json を gpu-guide 直下に配置する方式へ変更
-const CACHE_NAME = 'gpu-guide-v2';
+// v3: OGP・manifest・icon 刷新に合わせてキャッシュリストを更新
+const CACHE_NAME = 'gpu-guide-v3';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -15,11 +15,14 @@ const ASSETS_TO_CACHE = [
   './affiliate-master.json',
   './gpus.json',
   './cpu-recommendations.json',
+  './site.webmanifest',
+  './ogp.png',
   './favicon.ico',
   './favicon-32x32.png',
   './favicon-16x16.png',
   './apple-touch-icon.png',
-  './site.webmanifest',
+  './icon-192.png',
+  './icon-512.png',
 ];
 
 // インストール時: 静的アセットをキャッシュ
