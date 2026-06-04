@@ -1,9 +1,9 @@
 /* =========================
-   PC BUILD CHECK — Service Worker
+   ジサコ！ — Service Worker
    バージョンを上げるたびに CACHE_NAME を更新してください
 ========================= */
 
-const CACHE_NAME = 'pc-build-check-v1';
+const CACHE_NAME = 'jisako-v2';
 
 const STATIC_ASSETS = [
   './',
@@ -11,11 +11,14 @@ const STATIC_ASSETS = [
   './style.css',
   './script.js',
   './builds.json',
-  './site.webmanifest',
-  './favicon.ico',
-  './favicon-32x32.png',
-  './favicon-16x16.png',
-  './apple-touch-icon.png',
+  './manifest.json',
+  './ogp.jpg',
+  './icons/favicon.ico',
+  './icons/favicon-32x32.png',
+  './icons/favicon-16x16.png',
+  './icons/apple-touch-icon.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
 ];
 
 /* インストール — 静的アセットをキャッシュ */
