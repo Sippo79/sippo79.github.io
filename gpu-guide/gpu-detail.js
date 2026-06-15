@@ -214,6 +214,14 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
       </aside>
     </div>
 
+    <div class="hint-box" style="margin-top:18px;">
+      <div class="hint-box-icon" aria-hidden="true">💡</div>
+      <p class="hint-box-body">
+        <strong>かんたん解説。</strong> 「性能スコア」は強さのざっくり目安（最大100）、「GPU RANK」はそのランク帯です。
+        価格は時期で変わるので、あくまで目安として見てくださいね。
+      </p>
+    </div>
+
     <section class="section">
       <div class="gpu-info-grid">
         <article class="gpu-info-card">

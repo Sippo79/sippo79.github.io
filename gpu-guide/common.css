@@ -9,21 +9,28 @@
   --brand-bg: #090b14;
   --brand-bg-card: #07111f;
   --brand-text: #f5f7fb;
-  --brand-text-muted: #cfd6e6;
-  --brand-text-dim: #dbe3f3;
-  --brand-text-subtle: #9aa7bd;
+  --brand-text-muted: #d7deec;
+  --brand-text-dim: #e2e8f5;
+  --brand-text-subtle: #aab6cc;
 
-  /* Glass layers */
-  --glass-high: rgba(255, 255, 255, 0.095);
-  --glass-mid: rgba(255, 255, 255, 0.055);
-  --glass-low: rgba(255, 255, 255, 0.035);
+  /* Glass layers（カードを一段明るく＝可読性向上） */
+  --glass-high: rgba(255, 255, 255, 0.115);
+  --glass-mid: rgba(255, 255, 255, 0.07);
+  --glass-low: rgba(255, 255, 255, 0.05);
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.12);
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Gradient */
   --brand-gradient: linear-gradient(135deg, var(--brand-cyan), var(--brand-violet));
+
+  /* UI refresh 2026 — 読みやすさ＆親しみやすさ用トークン */
+  --surface-card: linear-gradient(180deg, rgba(255, 255, 255, 0.125), rgba(255, 255, 255, 0.05));
+  --surface-card-border: rgba(255, 255, 255, 0.17);
+  --hint-bg: linear-gradient(135deg, rgba(25, 227, 255, 0.1), rgba(123, 97, 255, 0.08));
+  --hint-border: rgba(25, 227, 255, 0.3);
+  --mascot-ring: linear-gradient(135deg, #19e3ff, #7b61ff);
 
   /* Layout */
   --header-height: 68px;
@@ -161,9 +168,9 @@ a {
 
 .hero-text {
   max-width: 620px;
-  color: #cfd6e6;
+  color: #d7deec;
   font-size: 17px;
-  line-height: 1.9;
+  line-height: 1.95;
 }
 
 .hero-actions {
@@ -178,28 +185,36 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  padding: 0 22px;
+  min-height: 54px;
+  padding: 0 28px;
   border-radius: 999px;
-  font-weight: 800;
-  transition: 0.2s ease;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .primary-btn {
-  color: #fff;
-  background: linear-gradient(135deg, #19e3ff, #7b61ff);
-  box-shadow: 0 18px 40px rgba(25, 227, 255, 0.18);
+  color: #07111f;
+  background: linear-gradient(135deg, #2ee9ff, #8a72ff);
+  box-shadow: 0 16px 38px rgba(25, 227, 255, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .secondary-btn {
-  color: #dbe3f3;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #eaf0fb;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.primary-btn:hover,
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 50px rgba(25, 227, 255, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
 .secondary-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(25, 227, 255, 0.4);
 }
 
 /* Hero Card */
@@ -264,23 +279,36 @@ a {
 }
 
 .section-label {
-  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
   color: #19e3ff;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.1em;
 }
 
+.section-label::before {
+  content: "";
+  width: 22px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #19e3ff, #7b61ff);
+}
+
 .section-heading h2 {
   margin: 0 0 14px;
   font-size: 34px;
+  line-height: 1.25;
   letter-spacing: -0.03em;
 }
 
 .section-heading p {
   margin: 0;
-  color: #cfd6e6;
-  line-height: 1.8;
+  color: #d7deec;
+  font-size: 15.5px;
+  line-height: 1.85;
 }
 
 /* Guide Cards */
@@ -292,21 +320,40 @@ a {
 }
 
 .guide-card {
-  padding: 24px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  padding: 26px 24px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.guide-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #19e3ff, #7b61ff);
+  opacity: 0.85;
+}
+
+.guide-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(25, 227, 255, 0.32);
 }
 
 .guide-card h3 {
   margin: 0 0 12px;
   font-size: 21px;
+  line-height: 1.4;
 }
 
 .guide-card p {
   margin: 0;
-  color: #cfd6e6;
-  line-height: 1.75;
+  color: #d7deec;
+  line-height: 1.8;
 }
 
 /* Footer */
@@ -316,6 +363,46 @@ a {
   padding: 34px 0 calc(34px + env(safe-area-inset-bottom));
   color: #9aa7bd;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   Sippo 親サイトへの導線（ヘッダー内リンク / 全PCサイト共通スタイル）
+   ※ URL 差し替え時は HTML 側の href / src を変更
+========================================================= */
+.sippo-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.18), rgba(123, 97, 255, 0.18));
+  border: 1px solid rgba(123, 97, 255, 0.5);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.sippo-nav:hover,
+.sippo-nav:focus-visible {
+  border-color: rgba(25, 227, 255, 0.7);
+  box-shadow: 0 0 0 1px rgba(25, 227, 255, 0.25), 0 8px 22px rgba(25, 227, 255, 0.16);
+  transform: translateY(-1px);
+}
+.sippo-nav__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+@media (max-width: 520px) {
+  .sippo-nav { padding: 6px; gap: 0; }
+  .sippo-nav__icon { width: 20px; height: 20px; }
+  .sippo-nav__text { display: none; }
 }
 
 /* Mobile */
@@ -350,7 +437,7 @@ a {
 
 @media (max-width: 520px) {
   .container {
-    width: min(100% - 24px, 1120px);
+    width: min(100% - 28px, 1120px);
   }
 
   .header-inner {
@@ -375,7 +462,7 @@ a {
 
   .hero-card,
   .guide-card {
-    padding: 20px;
+    padding: 22px 20px;
     border-radius: 22px;
   }
 
@@ -383,7 +470,23 @@ a {
     padding: 44px 0;
   }
 
+  .section-heading {
+    margin-bottom: 26px;
+  }
+
   .section-heading h2 {
-    font-size: 28px;
+    font-size: 27px;
+  }
+
+  /* スマホで文字が詰まりすぎないよう、本文の行間・サイズを確保 */
+  .hero-text,
+  .section-heading p,
+  .guide-card p {
+    font-size: 15.5px;
+    line-height: 1.9;
+  }
+
+  .hero-check-list li {
+    padding: 13px 0 13px 30px;
   }
 }
