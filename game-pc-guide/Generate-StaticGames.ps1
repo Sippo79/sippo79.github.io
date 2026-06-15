@@ -2,6 +2,16 @@
 
 $baseUrl = "https://sippo79.github.io/game-pc-guide"
 $today = "2026-05-29"
+
+# Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
+$sippoHomeUrl = "https://sippo79.github.io/sippo-home/"
+$sippoMascot  = "https://sippo79.github.io/sippo-home/assets/sippo/sippo-normal.webp"
+$sippoHeaderLink = @"
+        <a class="sippo-nav" href="$sippoHomeUrl" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
+          <img class="sippo-nav__icon" src="$sippoMascot" alt="" width="22" height="22" loading="lazy" decoding="async">
+          <span class="sippo-nav__text">Sippoに相談</span>
+        </a>
+"@
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $gamesDir = Join-Path $root "games"
 $dataPath = Join-Path $root "data\games.json"
@@ -247,6 +257,7 @@ foreach ($game in $games) {
       </a>
 
       <nav class="header-nav">
+$sippoHeaderLink
         <a href="../index.html#games" class="header-link">ゲーム一覧</a>
         <a href="../index.html#beginner" class="header-link">初心者向け</a>
       </nav>

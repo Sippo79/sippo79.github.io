@@ -4,12 +4,19 @@
   --purple: #7b61ff;
   --bg: #090b14;
   --text: #f5f7fb;
-  --text-muted: #cfd6e6;
-  --text-dim: #9aa7bd;
+  --text-muted: #d7deec;
+  --text-dim: #aab6cc;
   --glass: rgba(255, 255, 255, 0.095);
   --glass-border: rgba(255, 255, 255, 0.11);
   --cyan-glow: rgba(25, 227, 255, 0.18);
   --purple-glow: rgba(123, 97, 255, 0.18);
+
+  /* Brighter, more readable card surfaces (keeps the dark/neon mood) */
+  --card-grad: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055));
+  --card-border: rgba(255, 255, 255, 0.16);
+  --card-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+
   --radius-card: 26px;
   --radius-pill: 999px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -148,7 +155,7 @@ a {
 .header-link {
   padding: 10px 14px;
   border-radius: 999px;
-  color: #cfd6e6;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -201,7 +208,7 @@ a {
 
 .hero-text {
   max-width: 620px;
-  color: #cfd6e6;
+  color: var(--text-muted);
   font-size: 17px;
   line-height: 1.9;
 }
@@ -218,28 +225,38 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
-  padding: 0 22px;
+  min-height: 52px;
+  padding: 0 26px;
   border-radius: 999px;
   font-weight: 800;
   transition: 0.2s ease;
 }
 
 .primary-btn {
-  color: #fff;
+  color: #06121f;
   background: linear-gradient(135deg, #19e3ff, #7b61ff);
-  box-shadow: 0 18px 40px rgba(25, 227, 255, 0.18);
+  box-shadow:
+    0 14px 34px rgba(25, 227, 255, 0.32),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
 }
 
 .secondary-btn {
-  color: #dbe3f3;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #eaf0fb;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.primary-btn:hover,
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 44px rgba(25, 227, 255, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+}
+
 .secondary-btn:hover {
   transform: translateY(-2px);
+  border-color: rgba(25, 227, 255, 0.4);
+  background: rgba(25, 227, 255, 0.08);
 }
 
 /* Hero Card */
@@ -248,9 +265,10 @@ a {
   padding: 28px;
   border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+    radial-gradient(circle at top right, rgba(25, 227, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35), var(--card-highlight);
 }
 
 .hero-card-label {
@@ -296,20 +314,31 @@ a {
 /* Section */
 
 .section {
-  padding: 10px 0;
+  padding: 40px 0;
 }
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 .section-label {
-  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 12px;
   color: #19e3ff;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.1em;
+}
+
+.section-label::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #19e3ff, rgba(25, 227, 255, 0));
 }
 
 .section-heading h2 {
@@ -320,8 +349,9 @@ a {
 
 .section-heading p {
   margin: 0;
-  color: #cfd6e6;
-  line-height: 1.8;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.9;
 }
 
 /* Game Filter */
@@ -341,7 +371,7 @@ a {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.055);
-  color: #cfd6e6;
+  color: var(--text-muted);
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
@@ -390,19 +420,19 @@ a {
   min-height: 240px;
   padding: 24px;
   border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035));
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+  background: var(--card-grad);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow), var(--card-highlight);
   transition: 0.22s ease;
 }
 
 .game-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(25, 227, 255, 0.38);
+  border-color: rgba(25, 227, 255, 0.45);
   box-shadow:
     0 24px 70px rgba(0, 0, 0, 0.34),
-    0 0 28px rgba(25, 227, 255, 0.08);
+    0 0 28px rgba(25, 227, 255, 0.12),
+    var(--card-highlight);
 }
 
 /* Mobile tap active state */
@@ -449,7 +479,7 @@ a {
 
 .game-card p {
   margin: 0 0 22px;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.75;
 }
 
@@ -540,20 +570,26 @@ a {
 }
 
 .guide-card {
-  padding: 24px;
+  padding: 26px;
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-grad);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow), var(--card-highlight);
 }
 
 .guide-card h3 {
   margin: 0 0 12px;
   font-size: 21px;
+  color: #f5f7fb;
+}
+
+.guide-card h3::first-letter {
+  color: #19e3ff;
 }
 
 .guide-card p {
   margin: 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.75;
 }
 
@@ -563,6 +599,46 @@ a {
   padding: 34px 0 calc(34px + var(--safe-bottom));
   color: var(--text-dim);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   Sippo 親サイトへの導線（ヘッダー内リンク / 全PCサイト共通スタイル）
+   ※ URL 差し替え時は HTML 側の href / src を変更
+========================================================= */
+.sippo-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.18), rgba(123, 97, 255, 0.18));
+  border: 1px solid rgba(123, 97, 255, 0.5);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.sippo-nav:hover,
+.sippo-nav:focus-visible {
+  border-color: rgba(25, 227, 255, 0.7);
+  box-shadow: 0 0 0 1px rgba(25, 227, 255, 0.25), 0 8px 22px rgba(25, 227, 255, 0.16);
+  transform: translateY(-1px);
+}
+.sippo-nav__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+@media (max-width: 520px) {
+  .sippo-nav { padding: 6px; gap: 0; }
+  .sippo-nav__icon { width: 20px; height: 20px; }
+  .sippo-nav__text { display: none; }
 }
 
 /* Mobile */
@@ -670,8 +746,26 @@ a {
   }
 
   .game-card p {
-    font-size: 13px;
+    font-size: 14px;
+    line-height: 1.7;
     margin-bottom: 14px;
+  }
+
+  .hero-text {
+    line-height: 1.85;
+  }
+
+  .section-heading p {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .build-comment,
+  .info-card p,
+  .resolution-card p,
+  .seo-guide-panel p {
+    font-size: 14.5px;
+    line-height: 1.8;
   }
 
   .game-thumb {
@@ -747,10 +841,9 @@ a {
 .build-card {
   padding: 26px;
   border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+  background: var(--card-grad);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28), var(--card-highlight);
 }
 
 .build-label {
@@ -784,7 +877,7 @@ a {
 }
 
 .build-specs span {
-  color: #9aa7bd;
+  color: var(--text-dim);
 }
 
 .build-specs strong {
@@ -793,7 +886,7 @@ a {
 
 .build-comment {
   margin: 18px 0 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.75;
 }
 
@@ -837,13 +930,13 @@ a {
 
 .seo-guide-panel,
 .resolution-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--card-border);
   background:
-    radial-gradient(circle at top left, rgba(25, 227, 255, 0.15), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
+    radial-gradient(circle at top left, rgba(25, 227, 255, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
   box-shadow:
     0 18px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .seo-guide-panel {
@@ -863,7 +956,7 @@ a {
 .seo-guide-panel p,
 .resolution-card p {
   margin: 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
@@ -888,10 +981,9 @@ a {
 .info-card {
   padding: 24px;
   border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+  background: var(--card-grad);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow), var(--card-highlight);
 }
 
 .info-card-wide {
@@ -913,7 +1005,7 @@ a {
 
 .info-card p {
   margin: 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
@@ -973,10 +1065,9 @@ a {
 .info-card {
   padding: 24px;
   border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+  background: var(--card-grad);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow), var(--card-highlight);
 }
 
 .info-card-wide {
@@ -998,13 +1089,13 @@ a {
 
 .info-card p {
   margin: 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
 .build-comment {
   margin: 18px 0 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.75;
 }
 
@@ -1064,7 +1155,7 @@ a {
   grid-column: 1 / -1;
   padding: 28px;
   border-radius: 24px;
-  color: #cfd6e6;
+  color: var(--text-muted);
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -1086,7 +1177,7 @@ a {
 
 .related-guide-box p {
   margin: 0 0 16px;
-  color: #cfd6e6;
+  color: var(--text-muted);
 }
 
 /* Affiliate Links */
@@ -1114,7 +1205,7 @@ a {
 
 .affiliate-heading p {
   margin: 0;
-  color: #cfd6e6;
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
@@ -1177,7 +1268,7 @@ a {
 
 .affiliate-button small {
   margin-top: 8px;
-  color: #cfd6e6;
+  color: var(--text-muted);
   font-size: 12px;
   line-height: 1.55;
 }
@@ -1357,5 +1448,195 @@ a {
   .affiliate-button {
     min-height: auto;
     padding: 15px 16px;
+  }
+}
+
+/* === Hint / Tip boxes (beginner-friendly) === */
+
+.hint-box {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 22px 0 0;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(25, 227, 255, 0.12), rgba(25, 227, 255, 0.045));
+  border: 1px solid rgba(25, 227, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.hint-box::before {
+  content: "💡";
+  flex: 0 0 auto;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+.hint-box-body {
+  min-width: 0;
+}
+
+.hint-box-title {
+  margin: 0 0 4px;
+  color: #19e3ff;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.hint-box p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+/* Warning variant (purple) for cautions */
+.hint-box.is-caution {
+  background:
+    linear-gradient(180deg, rgba(123, 97, 255, 0.16), rgba(123, 97, 255, 0.05));
+  border-color: rgba(123, 97, 255, 0.36);
+}
+
+.hint-box.is-caution::before {
+  content: "⚠️";
+}
+
+.hint-box.is-caution .hint-box-title {
+  color: #b3a3ff;
+}
+
+/* Turn each game page's "初心者向けの注意点" note into a friendly hint box
+   (CSS-only, applies to every games/*.html without markup changes). */
+.seo-guide-section[aria-labelledby="beginnerCautionTitle"] .section-heading > p {
+  position: relative;
+  margin-top: 16px;
+  padding: 18px 20px 18px 54px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(25, 227, 255, 0.12), rgba(25, 227, 255, 0.045));
+  border: 1px solid rgba(25, 227, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.seo-guide-section[aria-labelledby="beginnerCautionTitle"] .section-heading > p::before {
+  content: "💡";
+  position: absolute;
+  left: 18px;
+  top: 15px;
+  font-size: 20px;
+}
+
+/* === Sippo-style guide character === */
+
+.guide-mascot {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 32px;
+  padding: 24px 26px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at left center, rgba(25, 227, 255, 0.14), transparent 55%),
+    linear-gradient(135deg, rgba(123, 97, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow), var(--card-highlight);
+}
+
+.guide-mascot-avatar {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 28%, #122036, #0a0e1a);
+  border: 1px solid rgba(25, 227, 255, 0.45);
+  box-shadow:
+    0 0 0 4px rgba(25, 227, 255, 0.08),
+    0 0 26px rgba(25, 227, 255, 0.22);
+  animation: mascotFloat 4.5s ease-in-out infinite;
+}
+
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+.guide-mascot-avatar svg {
+  width: 62px;
+  height: 62px;
+  display: block;
+}
+
+/* Speech bubble next to the mascot */
+.guide-mascot-bubble {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--card-border);
+}
+
+.guide-mascot-bubble::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 32px;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border-left: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  transform: rotate(45deg);
+}
+
+.guide-mascot-name {
+  margin: 0 0 6px;
+  color: #19e3ff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.guide-mascot-bubble p {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.guide-mascot-bubble p + p {
+  margin-top: 8px;
+}
+
+@media (max-width: 560px) {
+  .guide-mascot {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .guide-mascot-avatar {
+    margin: 0 auto;
+  }
+
+  .guide-mascot-bubble::before {
+    left: 50%;
+    top: -9px;
+    margin-left: -8px;
+    border-left: 1px solid var(--card-border);
+    border-bottom: none;
+    border-top: 1px solid var(--card-border);
+    border-right: 1px solid var(--card-border);
+  }
+
+  .hint-box {
+    padding: 16px;
   }
 }
