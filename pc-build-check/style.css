@@ -1740,6 +1740,46 @@ a {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* =========================================================
+   Sippo 親サイトへの導線（ヘッダー内リンク / 全PCサイト共通スタイル）
+   ※ URL 差し替え時は HTML 側の href / src を変更
+========================================================= */
+.sippo-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.18), rgba(123, 97, 255, 0.18));
+  border: 1px solid rgba(123, 97, 255, 0.5);
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.sippo-nav:hover,
+.sippo-nav:focus-visible {
+  border-color: rgba(25, 227, 255, 0.7);
+  box-shadow: 0 0 0 1px rgba(25, 227, 255, 0.25), 0 8px 22px rgba(25, 227, 255, 0.16);
+  transform: translateY(-1px);
+}
+.sippo-nav__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+@media (max-width: 520px) {
+  .sippo-nav { padding: 6px; gap: 0; }
+  .sippo-nav__icon { width: 20px; height: 20px; }
+  .sippo-nav__text { display: none; }
+}
+
 /* =========================
    Skeleton UI (ローディング中のプレースホルダー)
 ========================= */

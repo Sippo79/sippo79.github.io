@@ -3,7 +3,7 @@
    バージョンを上げるたびに CACHE_NAME を更新してください
 ========================= */
 
-const CACHE_NAME = 'jisako-v2';
+const CACHE_NAME = 'jisako-v3';
 
 const STATIC_ASSETS = [
   './',

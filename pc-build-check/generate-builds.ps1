@@ -10,6 +10,16 @@ $ErrorActionPreference = "Stop"
 $builds    = Get-Content -Raw -Path "./builds.json" -Encoding UTF8 | ConvertFrom-Json
 $SITE_BASE = "https://2tom.jp"
 
+# Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
+$sippoHomeUrl = "https://sippo79.github.io/sippo-home/"
+$sippoMascot  = "https://sippo79.github.io/sippo-home/assets/sippo/sippo-normal.webp"
+$sippoHeaderLink = @"
+        <a class="sippo-nav" href="$sippoHomeUrl" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
+          <img class="sippo-nav__icon" src="$sippoMascot" alt="" width="22" height="22" loading="lazy" decoding="async">
+          <span class="sippo-nav__text">Sippoに相談</span>
+        </a>
+"@
+
 $budgetLabel = @{ "100000"="10万円"; "150000"="15万円"; "200000"="20万円"; "250000"="25万円"; "300000"="30万円" }
 $budgetSlug  = @{ "100000"="10man";  "150000"="15man";  "200000"="20man";  "250000"="25man";  "300000"="30man"  }
 $usageLabel  = @{ "fps"="FPSゲーム"; "mmo"="MMO・RPG"; "stream"="配信・録画"; "creative"="動画編集・制作"; "daily"="普段使い" }
@@ -157,6 +167,7 @@ function Build-Html($build, $allBuilds) {
     <div class="container header-inner">
       <a href="../index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
       <nav class="header-nav">
+$sippoHeaderLink
         <a href="../index.html#diagnosis" class="header-link">診断する</a>
       </nav>
     </div>
