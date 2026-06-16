@@ -1,13 +1,13 @@
 ﻿$ErrorActionPreference = "Stop"
 
-$baseUrl = "https://sippo79.github.io/game-pc-guide"
+$baseUrl = "https://sippo-pc.jp/game-pc-guide"
 $today = "2026-05-29"
 
 # Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
-$sippoHomeUrl = "https://sippo79.github.io/sippo-home/"
-$sippoMascot  = "https://sippo79.github.io/sippo-home/assets/sippo/sippo-normal.webp"
+$sippoHomeUrl = "https://sippo-pc.jp/"
+$sippoMascot  = "https://sippo-pc.jp/assets/sippo/sippo-normal.webp"
 $sippoHeaderLink = @"
-        <a class="sippo-nav" href="$sippoHomeUrl" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
+        <a class="sippo-nav" href="${sippoHomeUrl}#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
           <img class="sippo-nav__icon" src="$sippoMascot" alt="" width="22" height="22" loading="lazy" decoding="async">
           <span class="sippo-nav__text">Sippoに相談</span>
         </a>
@@ -411,7 +411,7 @@ $($resolutionCards -join "`r`n")
         <div class="detail-related-sites">
           <div class="related-site-grid">
             <a
-              href="https://sippo79.github.io/pc-build-check/"
+              href="https://sippo-pc.jp/pc-build-check/"
               class="related-site-button related-site-build"
               target="_blank"
               rel="noopener noreferrer"
@@ -422,7 +422,7 @@ $($resolutionCards -join "`r`n")
             </a>
 
             <a
-              href="https://sippo79.github.io/gpu-guide/"
+              href="https://sippo-pc.jp/gpu-guide/"
               class="related-site-button related-site-gpu"
               target="_blank"
               rel="noopener noreferrer"

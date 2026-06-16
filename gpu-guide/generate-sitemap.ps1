@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $rootDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sitemapPath = Join-Path $rootDir "sitemap.xml"
-$defaultBaseUrl = "https://sippo79.github.io/gpu-guide/"
+$defaultBaseUrl = "https://sippo-pc.jp/gpu-guide/"
 $ignoredDirs = @(".git", ".github", "node_modules")
 
 function Normalize-BaseUrl {

@@ -109,7 +109,7 @@ function setMetaTag(attr, attrValue, content) {
 function updateOgp(gpu) {
   const title = `${gpu.name}の性能スコア・VRAM・用途｜GPU GUIDE`;
   const description = `${gpu.name}（${gpu.brand}）の性能スコア${gpu.score}、VRAM ${gpu.vram}GB。${gpu.summary}`;
-  const url = `https://sippo79.github.io/gpu-guide/gpu.html?id=${gpu.id}`;
+  const url = `https://sippo-pc.jp/gpu-guide/gpu.html?id=${gpu.id}`;
 
   document.title = title;
   setMetaTag("name", "description", description);
@@ -152,7 +152,7 @@ function renderCpuSection(gpu, cpuData) {
         ${cardsHtml}
       </div>
       <div class="cpu-rec-links">
-        <a href="https://sippo79.github.io/pc-build-check/"
+        <a href="https://sippo-pc.jp/pc-build-check/"
            class="related-site-button"
            target="_blank"
            rel="noopener noreferrer">
@@ -160,7 +160,7 @@ function renderCpuSection(gpu, cpuData) {
           <span>PC構成診断で確認する</span>
           <small>予算・用途からおすすめ構成を診断</small>
         </a>
-        <a href="https://sippo79.github.io/game-pc-guide/"
+        <a href="https://sippo-pc.jp/game-pc-guide/"
            class="related-site-button"
            target="_blank"
            rel="noopener noreferrer">

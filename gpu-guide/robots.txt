@@ -27,4 +27,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://sippo79.github.io/gpu-guide/sitemap.xml
+Sitemap: https://sippo-pc.jp/gpu-guide/sitemap.xml
