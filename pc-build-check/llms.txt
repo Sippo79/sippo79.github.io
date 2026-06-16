@@ -4,7 +4,7 @@
 
 ## 概要
 
-- URL: https://sippo79.github.io/pc-build-check/
+- URL: https://sippo-pc.jp/pc-build-check/
 - 言語: 日本語
 - 対象: ゲーミングPC購入を検討している初心者
 - 内容: 予算・用途・解像度を選んでPC構成を診断
@@ -39,5 +39,5 @@
 
 ## 関連サイト
 
-- [GAME PC GUIDE](https://sippo79.github.io/game-pc-guide/): ゲーム別おすすめPC構成
-- [GPU GUIDE](https://sippo79.github.io/gpu-guide/): GPU性能比較
+- [GAME PC GUIDE](https://sippo-pc.jp/game-pc-guide/): ゲーム別おすすめPC構成
+- [GPU GUIDE](https://sippo-pc.jp/gpu-guide/): GPU性能比較

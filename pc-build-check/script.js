@@ -354,7 +354,7 @@ function getResolutionLabel(resolution) {
 }
 
 function createGpuGuideUrl(gpu) {
-  return `https://sippo79.github.io/gpu-guide/?gpu=${encodeURIComponent(gpu)}`;
+  return `https://sippo-pc.jp/gpu-guide/?gpu=${encodeURIComponent(gpu)}`;
 }
 
 function renderFpsItems(fpsByGame) {
@@ -405,7 +405,7 @@ function renderNextActions(gpuGuideUrl) {
             <small>グラボの性能・比較情報</small>
           </span>
         </a>
-        <a class="next-action-btn" href="https://sippo79.github.io/game-pc-guide/" target="_blank" rel="noopener">
+        <a class="next-action-btn" href="https://sippo-pc.jp/game-pc-guide/" target="_blank" rel="noopener">
           <span class="next-action-icon">🎮</span>
           <span class="next-action-text">
             <strong>ゲーム別おすすめPCを見る</strong>

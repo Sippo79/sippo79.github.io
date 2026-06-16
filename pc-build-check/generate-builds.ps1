@@ -11,10 +11,10 @@ $builds    = Get-Content -Raw -Path "./builds.json" -Encoding UTF8 | ConvertFrom
 $SITE_BASE = "https://2tom.jp"
 
 # Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
-$sippoHomeUrl = "https://sippo79.github.io/sippo-home/"
-$sippoMascot  = "https://sippo79.github.io/sippo-home/assets/sippo/sippo-normal.webp"
+$sippoHomeUrl = "https://sippo-pc.jp/"
+$sippoMascot  = "https://sippo-pc.jp/assets/sippo/sippo-normal.webp"
 $sippoHeaderLink = @"
-        <a class="sippo-nav" href="$sippoHomeUrl" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
+        <a class="sippo-nav" href="${sippoHomeUrl}#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
           <img class="sippo-nav__icon" src="$sippoMascot" alt="" width="22" height="22" loading="lazy" decoding="async">
           <span class="sippo-nav__text">Sippoに相談</span>
         </a>
@@ -106,7 +106,7 @@ function Build-Html($build, $allBuilds) {
     $seoTitle  = Get-SeoTitle $build
     $seoDesc   = Get-SeoDesc $build
     $canonical = "$SITE_BASE/builds/$slug.html"
-    $gpuGuide  = "https://sippo79.github.io/gpu-guide/?gpu=$([Uri]::EscapeDataString($build.gpu))"
+    $gpuGuide  = "https://sippo-pc.jp/gpu-guide/?gpu=$([Uri]::EscapeDataString($build.gpu))"
     $bgLabel   = $budgetLabel[$build.budget.ToString()]
     $resStr    = $resLabel[$build.resolution]
     $usageStr  = $usageLabel[$build.usage]
@@ -240,7 +240,7 @@ $cautionHtml
               <small>GPU GUIDEでスペック・比較を確認</small>
             </div>
           </a>
-          <a href="https://sippo79.github.io/game-pc-guide/" target="_blank" rel="noopener" class="build-next-btn">
+          <a href="https://sippo-pc.jp/game-pc-guide/" target="_blank" rel="noopener" class="build-next-btn">
             <span class="build-next-icon">🎮</span>
             <div class="build-next-text">
               <strong>ゲーム別おすすめPCを見る</strong>
