@@ -1,47 +1,23 @@
 {
-  "name": "ジサコ！",
-  "short_name": "ジサコ！",
-  "description": "予算・用途・解像度からおすすめゲーミングPC構成を診断できる無料サービスです。",
-  "start_url": "https://sippo-pc.jp/pc-build-check/",
-  "scope": "https://sippo-pc.jp/pc-build-check/",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "name": "Sippo（シッポ）- PC初心者の相棒",
+  "short_name": "Sippo",
+  "description": "PC初心者のための比較・診断・相談サービスブランド",
   "lang": "ja",
-  "categories": ["utilities", "entertainment"],
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFDF7",
+  "theme_color": "#FFFDF7",
   "icons": [
     {
-      "src": "/icons/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-192.png",
+      "src": "assets/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ]
 }

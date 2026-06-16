@@ -1,425 +1,531 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-  <title>予算別おすすめゲーミングPC | 初心者向けPC選びサイト</title>
-
-  <meta
-    name="description"
-    content="予算・用途・解像度から初心者にも分かりやすくおすすめゲーミングPC構成を診断。FPS、MMO、配信、動画編集向けのPC選びをサポートします。"
-  />
-  <meta name="keywords" content="PC構成,ゲーミングPC,自作PC,PC診断,おすすめPC,初心者向けPC" />
-
-  <!-- Preload critical resources -->
-  <link rel="preload" href="./style.css" as="style" />
-  <link rel="preload" href="./script.js" as="script" />
-  <link rel="preload" href="./builds.json" as="fetch" crossorigin="anonymous" />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sippo（シッポ）| あなたにぴったりのPC選びを。PC初心者のための比較・診断・相談</title>
+  <meta name="description" content="Sippo（シッポ）はPC初心者のためのブランドです。GPU比較・PC構成診断・ゲーム別おすすめPCの3サービスで、白黒チワワの相棒があなたのPC選びを最後まで案内します。">
+  <meta name="keywords" content="Sippo,シッポ,ゲーミングPC,初心者,GPU比較,PC構成診断,PC相談">
+  <link rel="canonical" href="https://sippo-pc.jp/">
 
   <!-- OGP -->
-  <meta property="og:title" content="ジサコ！ — AI自作PC構成チェック | 初心者向け無料PC診断" />
-  <meta property="og:description" content="予算・用途・解像度から初心者にも分かりやすくおすすめゲーミングPC構成を診断します。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sippo-pc.jp/pc-build-check/" />
-  <meta property="og:image" content="https://sippo-pc.jp/pc-build-check/ogp.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="ジサコ！" />
-  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sippo（シッポ）">
+  <meta property="og:title" content="Sippo | あなたにぴったりのPC選びを。">
+  <meta property="og:description" content="PC初心者のための比較・診断・相談サービス。白黒チワワの相棒が、あなたのPC選びを最後まで案内します。">
+  <meta property="og:url" content="https://sippo-pc.jp/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@Sippo79" />
-  <meta name="twitter:title" content="ジサコ！ — AI自作PC構成チェック | 初心者向け無料PC診断" />
-  <meta name="twitter:description" content="予算・用途・解像度を選ぶだけで、自分に合うゲーミングPC構成を診断。初心者でも分かりやすく、FPSや配信・動画編集向けのPC選びをサポートします。" />
-  <meta name="twitter:image" content="https://sippo-pc.jp/pc-build-check/ogp.jpg" />
+  <meta name="theme-color" content="#FFFDF7">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
 
-  <!-- PWA / iOS -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#0f172a" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="ジサコ！" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="style.css">
 
-  <!-- SEO -->
-  <link rel="canonical" href="https://sippo-pc.jp/pc-build-check/" />
-  <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
-
-  <!-- JSON-LD: WebSite -->
+  <!-- 構造化データ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sippo",
+    "alternateName": "シッポ",
+    "url": "https://sippo-pc.jp/",
+    "description": "PC初心者のための比較・診断・相談サービスブランド",
+    "sameAs": []
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "ジサコ！",
-    "alternateName": "AI自作PC構成チェック",
-    "url": "https://sippo-pc.jp/pc-build-check/",
-    "description": "予算・用途・解像度から初心者にも分かりやすくおすすめゲーミングPC構成を診断できる無料サービスです。",
-    "inLanguage": "ja",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://sippo-pc.jp/pc-build-check/?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "name": "Sippo（シッポ）",
+    "url": "https://sippo-pc.jp/"
   }
-  </script>
-
-  <!-- Service Worker 登録 -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
-    }
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
-      <nav class="header-nav">
-        <a class="sippo-nav" href="https://sippo-pc.jp/#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
-          <img class="sippo-nav__icon" src="https://sippo-pc.jp/assets/sippo/sippo-normal.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
-          <span class="sippo-nav__text">Sippoに相談</span>
-        </a>
-        <a href="#diagnosis" class="header-link">診断する</a>
-      </nav>
-    </div>
+
+  <!-- =====================================================================
+       TODO: 独自ドメイン公開前に、以下の仮リンクを本番URLへ差し替える
+       ---------------------------------------------------------------------
+       COCONALA_URL : https://coconala.com/services/4240996 → 自分のココナラ出品URL
+                      （該当箇所：相談STEP3 / フッター「ココナラ」の2箇所）
+       X_URL        : https://x.com/Sippo79_           → 自分のXアカウントURL
+                      （該当箇所：相談STEP2 / フッター「X（旧Twitter）」）
+       INSTAGRAM_URL: https://www.instagram.com/sippo_79/ → 自分のInstagramアカウントURL
+                      （該当箇所：相談STEP2）
+       CONTACT_EMAIL: qoo.shixtu@gmail.com             → 公開用の問い合わせアドレス
+                      （該当箇所：フッター の mailto:）
+
+       SITE_BASE_URL: https://sippo-pc.jp/        → 独自ドメインに変更する場合は
+                      canonical / og:url / og:image / 構造化データ / 各サービスリンク
+                      （gpu-guide・pc-build-check・game-pc-guide）/ sitemap.xml も併せて更新
+       ===================================================================== -->
+
+  <!-- マウス追従グロー -->
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="メインナビゲーション">
+      <a href="#top" class="nav__brand" aria-label="Sippo ホーム">
+        <img class="nav__logo" src="assets/icon-192.png" alt="" width="38" height="38">
+        <span class="nav__name">Sippo</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="#services">サービス</a></li>
+        <li><a href="#consult">PC相談</a></li>
+        <li><a href="#why">Sippoについて</a></li>
+        <li><a href="#roadmap">ロードマップ</a></li>
+        <li><a href="#consult" class="nav__cta">無料チェックへ</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <p class="hero-label">Gaming PC Build Checker</p>
-          <h1 class="hero-title">
-            予算から<br />
-            <span>おすすめPCを<br />チェック</span>
-          </h1>
-          <p class="hero-text">
-            予算・用途・解像度を選ぶだけで、ゲーミングPCや作業用PCのおすすめ構成を分かりやすく診断できます。
+  <main id="top">
+
+    <!-- ===== ① Hero ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="blob blob--sky" data-depth="30"></div>
+        <div class="blob blob--mint" data-depth="50"></div>
+        <div class="blob blob--gold" data-depth="20"></div>
+        <div class="hero__grid"></div>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <p class="hero__badge reveal">
+            <span class="hero__badge-dot"></span>
+            PC初心者の相棒ブランド
           </p>
-
-          <div class="hero-actions">
-            <a href="#diagnosis" class="primary-button">診断をはじめる</a>
-            <a href="#popular-builds" class="secondary-button">人気構成ランキングを見る</a>
-            <a href="#about" class="tertiary-button">このサイトについて</a>
+          <h1 class="hero__title">
+            <span class="hero__line"><span>あなたに</span></span>
+            <span class="hero__line"><span><em class="grad-text">ぴったり</em>の</span></span>
+            <span class="hero__line"><span>PC選びを。</span></span>
+          </h1>
+          <p class="hero__sub reveal">
+            PC初心者のための比較・診断・相談サービス。<br>
+            むずかしい専門用語はいりません。<br class="sp-only">
+            白黒チワワの「シッポ」が、最後まで一緒に選びます。
+          </p>
+          <div class="hero__actions reveal">
+            <a href="#services" class="btn btn--primary">
+              サービスを見る
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#consult" class="btn btn--ghost">
+              無料チェックへ
+            </a>
           </div>
-        </div>
-
-        <div class="hero-card">
-          <p class="card-label">Sample Result</p>
-          <h2>WQHDゲーミング向け</h2>
-          <ul>
-            <li><span>CPU</span> Ryzen 7 / Core i7クラス</li>
-            <li><span>GPU</span> RTX 4070 / RX 7800 XTクラス</li>
-            <li><span>メモリ</span> 32GB</li>
-            <li><span>予算</span> 25万円前後</li>
+          <ul class="hero__trust reveal" aria-label="Sippoの特徴">
+            <li>🐾 全サービス無料</li>
+            <li>🐾 登録不要</li>
+            <li>🐾 初心者専用設計</li>
           </ul>
         </div>
+
+        <!-- マスコット -->
+        <div class="hero__mascot" id="mascotStage">
+          <div class="mascot-ring" aria-hidden="true"></div>
+          <div class="mascot-wrap" id="mascot" role="img" aria-label="Sippoの案内役、大きな耳のかわいい白黒チワワのシッポ">
+            <img id="sippoMascot" class="sippo-mascot" src="assets/sippo/sippo-normal.webp" alt="シッポ" width="380" height="360" draggable="false">
+          </div>
+
+          <!-- 浮遊チップ -->
+          <div class="chip chip--1 float-1" aria-hidden="true">
+            <span class="chip__icon chip__icon--sky">📊</span> GPU性能 比較中…
+          </div>
+          <div class="chip chip--2 float-2" aria-hidden="true">
+            <span class="chip__icon chip__icon--teal">✅</span> 相性チェック OK!
+          </div>
+          <div class="chip chip--3 float-3" aria-hidden="true">
+            <span class="chip__icon chip__icon--gold">💰</span> 予算 15万円ならコレ
+          </div>
+          <p class="mascot__hint" aria-hidden="true">🐾 なでてみてね</p>
+        </div>
       </div>
+
+      <a href="#services" class="hero__scroll" aria-label="下へスクロール">
+        <span class="hero__scroll-text">scroll</span>
+        <span class="hero__scroll-bar"></span>
+      </a>
     </section>
 
-    <section id="diagnosis" class="diagnosis-section">
+    <!-- 波の区切り -->
+    <div class="wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,48 C240,90 480,0 720,32 C960,64 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FFF6E9"/></svg>
+    </div>
+
+    <!-- ===== ② Services ===== -->
+    <section class="services section section--cream" id="services">
       <div class="container">
-        <div class="section-heading">
-          <p class="section-label">Build Diagnosis</p>
-          <h2 class="section-title">PC構成診断</h2>
-          <p class="section-text">
-            予算・用途・解像度を選ぶだけで、あなたに合いそうなPC構成を分かりやすく診断します。
-          </p>
-        </div>
+        <p class="section__label reveal">Services</p>
+        <h2 class="section__title reveal">3つの無料サービスで、<br class="sp-only">迷わないPC選び。</h2>
+        <p class="section__lead reveal">「比べる」「診断する」「ゲームから選ぶ」。<br>どこから始めても、シッポが案内します。</p>
 
-        <div class="form-hint">
-          <span class="form-hint-icon">💡</span>
-          <span>迷ったら <strong>「15万円前後・FPSゲーム・フルHD」</strong> から試してみてください</span>
-        </div>
-
-        <form class="diagnosis-form">
-          <div class="form-grid">
-            <label class="form-field">
-              <span>予算 <small class="field-note">目安の合計金額</small></span>
-              <select name="budget">
-                <option value="">選択してください</option>
-                <option value="100000">10万円前後（入門・最低限）</option>
-                <option value="150000">15万円前後（コスパ重視）★人気</option>
-                <option value="200000">20万円前後（快適ゲーミング）</option>
-                <option value="250000">25万円前後（ハイスペック）</option>
-                <option value="300000">30万円前後（最上位クラス）</option>
-              </select>
-            </label>
-
-            <label class="form-field">
-              <span>用途 <small class="field-note">メインの使い方</small></span>
-              <select name="usage">
-                <option value="">選択してください</option>
-                <option value="fps">FPSゲーム（Apex・VALORANT等）</option>
-                <option value="mmo">MMO・RPG（FF14・原神等）</option>
-                <option value="stream">配信・録画（ゲーム実況等）</option>
-                <option value="creative">動画編集・制作</option>
-                <option value="daily">普段使い・軽めのゲーム ★初心者におすすめ</option>
-              </select>
-            </label>
-
-            <label class="form-field">
-              <span>解像度 <small class="field-note">モニターの画質</small></span>
-              <select name="resolution">
-                <option value="">選択してください</option>
-                <option value="fhd">フルHD / 1080p ★定番・コスパ最高</option>
-                <option value="wqhd">WQHD / 1440p（高精細）</option>
-                <option value="4k">4K / 2160p（最高画質）</option>
-              </select>
-            </label>
-          </div>
-
-          <button type="submit" class="diagnosis-button" id="diagnosis-button">
-            この条件で診断する
-          </button>
-        </form>
-
-        <div id="result-area"></div>
-
-        <div id="affiliate-section" class="affiliate-section hidden">
-          <p class="section-label">おすすめ購入先</p>
-          <h3 class="affiliate-title">診断結果に近い購入先を確認する</h3>
-          <div class="affiliate-buttons">
-            <a id="affiliate-bto" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              このスペックに近いBTOパソコンを探す
-            </a>
-            <a id="affiliate-amazon" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              AmazonでPCパーツを見る
-            </a>
-            <a id="affiliate-rakuten" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              楽天でPCパーツを見る
-            </a>
-            <a id="affiliate-monitor" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              ゲーミングモニターも確認する
-            </a>
-          </div>
-          <p class="affiliate-description">
-            診断結果をもとに、近い構成や必要なパーツを確認できます。
-          </p>
-          <p class="affiliate-link-note">
-            ※ 一部リンクは検索ページへ移動します。順次最適化予定です。
-          </p>
-          <p class="affiliate-footnote">
-            当サイトではアフィリエイト広告を利用しています。リンク先で商品を購入すると、運営者に収益が発生する場合があります。
-          </p>
-        </div>
-
-        <div id="popular-jump-section" class="popular-jump-section hidden">
-          <button id="popular-jump-button" class="popular-jump-button" type="button">
-            人気構成ランキングを見る
-          </button>
-        </div>
-
-        <section id="popular-builds" class="popular-builds-section" aria-labelledby="popular-builds-title">
-          <div class="popular-builds-heading">
-            <p class="section-label">Popular Builds</p>
-            <h2 id="popular-builds-title" class="section-title">人気構成ランキング</h2>
-            <p class="popular-builds-note">当サイトおすすめの人気構成です。</p>
-          </div>
-
-          <div class="popular-builds-grid">
-            <article class="popular-build-card">
-              <div class="popular-rank">1位</div>
-              <div class="popular-build-body">
-                <div class="build-badges">
-                  <span class="build-badge badge-popular">人気No.1</span>
-                  <span class="build-badge badge-fps">FPS重視</span>
+        <div class="services__grid">
+          <!-- GPU GUIDE -->
+          <a href="https://sippo-pc.jp/gpu-guide/" class="service-card tilt reveal" data-accent="sky">
+            <div class="service-card__visual" aria-hidden="true">
+              <div class="mini-ui mini-ui--dark">
+                <div class="mini-ui__dots"><i></i><i></i><i></i></div>
+                <div class="bar-chart">
+                  <div class="bar-chart__row"><span>RTX 5090</span><div class="bar" style="--w:96%"></div></div>
+                  <div class="bar-chart__row"><span>RTX 5070</span><div class="bar" style="--w:68%"></div></div>
+                  <div class="bar-chart__row"><span>RTX 3060</span><div class="bar" style="--w:43%"></div></div>
                 </div>
-                <h3>WQHD FPSゲーム向け ハイスペック構成</h3>
-                <dl class="popular-build-specs">
-                  <div>
-                    <dt>予算目安</dt>
-                    <dd>25万円前後</dd>
-                  </div>
-                  <div>
-                    <dt>用途</dt>
-                    <dd>FPSゲーム</dd>
-                  </div>
-                  <div>
-                    <dt>CPU</dt>
-                    <dd>Ryzen 7 7800X3D</dd>
-                  </div>
-                  <div>
-                    <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4070 SUPER</dd>
-                  </div>
-                </dl>
-                <p>WQHDで高fpsを狙いやすい、ゲーマー向け人気構成。</p>
-                <a href="./builds/wqhd-fps-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
               </div>
-            </article>
-
-            <article class="popular-build-card">
-              <div class="popular-rank">2位</div>
-              <div class="popular-build-body">
-                <div class="build-badges">
-                  <span class="build-badge badge-cospa">コスパ重視</span>
-                  <span class="build-badge badge-beginner">初心者向け</span>
-                </div>
-                <h3>FHD 配信・録画向け 快適構成</h3>
-                <dl class="popular-build-specs">
-                  <div>
-                    <dt>予算目安</dt>
-                    <dd>15万円前後</dd>
-                  </div>
-                  <div>
-                    <dt>用途</dt>
-                    <dd>配信・録画</dd>
-                  </div>
-                  <div>
-                    <dt>CPU</dt>
-                    <dd>Ryzen 7 7700</dd>
-                  </div>
-                  <div>
-                    <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4060</dd>
-                  </div>
-                </dl>
-                <p>ゲーム配信や録画を始めたい人向けのバランス構成。</p>
-                <a href="./builds/fhd-stream-15man.html" class="popular-detail-link">この構成の詳細を見る →</a>
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__tags">
+                <span class="service-card__tag">運営中</span>
+                <span class="service-card__num">GPU 28枚掲載</span>
               </div>
-            </article>
-
-            <article class="popular-build-card">
-              <div class="popular-rank">3位</div>
-              <div class="popular-build-body">
-                <div class="build-badges">
-                  <span class="build-badge badge-creative">クリエイター向け</span>
-                  <span class="build-badge badge-longrun">長く使える</span>
-                </div>
-                <h3>WQHD 動画編集・制作向け ハイスペック構成</h3>
-                <dl class="popular-build-specs">
-                  <div>
-                    <dt>予算目安</dt>
-                    <dd>25万円前後</dd>
-                  </div>
-                  <div>
-                    <dt>用途</dt>
-                    <dd>動画編集・制作</dd>
-                  </div>
-                  <div>
-                    <dt>CPU</dt>
-                    <dd>Ryzen 9 7900</dd>
-                  </div>
-                  <div>
-                    <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4070 SUPER</dd>
-                  </div>
-                </dl>
-                <p>動画編集や制作作業も視野に入れたクリエイター向け構成。</p>
-                <a href="./builds/wqhd-creative-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
-              </div>
-            </article>
-          </div>
-        </section>
-      </div>
-
-      <div class="shop-links">
-        <h3>大手BTO PCメーカーから探す</h3>
-        <div class="shop-buttons">
-          <a href="https://www.dospara.co.jp/" target="_blank" rel="noopener" class="shop-btn dospara">
-            <span class="shop-glow-icon">D</span>
-            <span class="shop-name">ドスパラ</span>
-            <span class="shop-line"></span>
-            <span class="shop-copy">GALLERIAシリーズでおなじみ<br />ゲーミングPCなら定番の選択肢</span>
-            <span class="shop-cta">公式サイトへ <span>→</span></span>
+              <h3 class="service-card__name">GPU GUIDE</h3>
+              <p class="service-card__desc">グラボ28枚を性能スコア・VRAM・価格・消費電力で比較。FHD / WQHD / 4Kの解像度別ランキングと、相性のいいCPUまで分かります。</p>
+              <span class="service-card__url">sippo-pc.jp/gpu-guide</span>
+              <span class="service-card__link">性能を比較する
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
           </a>
 
-          <a href="https://www.mouse-jp.co.jp/" target="_blank" rel="noopener" class="shop-btn mouse">
-            <span class="shop-glow-icon">M</span>
-            <span class="shop-name">マウスコンピューター</span>
-            <span class="shop-line"></span>
-            <span class="shop-copy">安心の国内生産とサポート<br />幅広いラインナップが魅力</span>
-            <span class="shop-cta">公式サイトへ <span>→</span></span>
+          <!-- PC BUILD CHECK -->
+          <a href="https://sippo-pc.jp/pc-build-check/" class="service-card tilt reveal" data-accent="teal">
+            <div class="service-card__visual" aria-hidden="true">
+              <div class="mini-ui mini-ui--dark">
+                <div class="mini-ui__dots"><i></i><i></i><i></i></div>
+                <ul class="check-list">
+                  <li class="check-item"><span class="check-item__box">✓</span>予算：15万円</li>
+                  <li class="check-item"><span class="check-item__box">✓</span>用途：ゲーム配信</li>
+                  <li class="check-item"><span class="check-item__box">✓</span>解像度：WQHD</li>
+                  <li class="check-item check-item--result">🎉 最適な構成が見つかりました</li>
+                </ul>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__tags">
+                <span class="service-card__tag">運営中</span>
+                <span class="service-card__num">75構成を診断</span>
+              </div>
+              <h3 class="service-card__name">PC BUILD CHECK</h3>
+              <p class="service-card__desc">予算（10〜30万円）・用途（FPS / MMO / 配信 / 動画編集 / 普段使い）・解像度を選ぶだけ。75構成からあなたに最適な1台を自動診断します。</p>
+              <span class="service-card__url">sippo-pc.jp/pc-build-check</span>
+              <span class="service-card__link">30秒で診断する
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
           </a>
 
-          <a href="https://www.pc-koubou.jp/" target="_blank" rel="noopener" class="shop-btn koubou">
-            <span class="shop-glow-icon">P</span>
-            <span class="shop-name">パソコン工房</span>
-            <span class="shop-line"></span>
-            <span class="shop-copy">コスパに優れたモデルが豊富<br />カスタマイズ性も高め</span>
-            <span class="shop-cta">公式サイトへ <span>→</span></span>
+          <!-- GAME GUIDE -->
+          <a href="https://sippo-pc.jp/game-pc-guide/" class="service-card tilt reveal" data-accent="gold">
+            <div class="service-card__visual" aria-hidden="true">
+              <div class="mini-ui mini-ui--dark">
+                <div class="mini-ui__dots"><i></i><i></i><i></i></div>
+                <div class="game-ui">
+                  <div class="game-ui__fps"><b class="count" data-count="144">0</b><span>FPS</span></div>
+                  <div class="game-ui__tags"><i>Apex</i><i>VALORANT</i><i>モンハン</i><i>FF14</i></div>
+                </div>
+              </div>
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__tags">
+                <span class="service-card__tag">運営中</span>
+                <span class="service-card__num">人気25タイトル</span>
+              </div>
+              <h3 class="service-card__name">GAME GUIDE</h3>
+              <p class="service-card__desc">Apex・VALORANT・FF14・モンハンワイルズなど25タイトルを掲載。遊びたいゲームから必要スペックとおすすめ構成を逆引きできます。</p>
+              <span class="service-card__url">sippo-pc.jp/game-pc-guide</span>
+              <span class="service-card__link">ゲームから探す
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
           </a>
         </div>
-      </div>
-    </section>
 
-    <section id="about" class="about-section">
-      <div class="container">
-        <h2 class="section-title">このサイトについて</h2>
-        <p class="section-text">
-          「PC選びが難しい」を少しでも分かりやすくするための診断サイトです。予算・用途・解像度を選ぶだけで、初心者にもおすすめ構成をシンプルに確認できます。
+        <p class="services__note reveal">
+          🐾 3サイト共通：<b>登録不要・全機能無料・スマホ対応</b>。プレビューのとおり、本編は目に優しいダークUIです。
         </p>
       </div>
     </section>
 
-    <section class="section related-sites-section">
+    <div class="wave wave--flip" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,48 C240,90 480,0 720,32 C960,64 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FFF6E9"/></svg>
+    </div>
+
+    <!-- ===== ③ PC相談 ===== -->
+    <section class="consult section" id="consult">
       <div class="container">
-        <div class="section-heading">
-          <p class="section-label">RELATED SITES</p>
-          <h2>関連サイト</h2>
-          <p>
-            PCのおすすめ構成やGPU性能比較もあわせて確認できます。
-          </p>
-        </div>
+        <p class="section__label reveal">Consultation</p>
+        <h2 class="section__title reveal">ひとりで悩まないで。<br class="sp-only">シッポに相談しよう。</h2>
+        <p class="section__lead reveal">「診断結果、これで本当に大丈夫？」——そんな不安に、人がちゃんと答えます。</p>
 
-        <div class="related-site-grid">
-          <a href="https://sippo-pc.jp/pc-build-check/" class="related-site-button">
-            <span class="related-site-mini">PC BUILD CHECK</span>
-            <span>PC構成診断</span>
-            <small>予算・用途・解像度からおすすめ構成を診断</small>
-          </a>
+        <ol class="flow">
+          <li class="flow__step reveal" style="--i:0">
+            <div class="flow__num">STEP 1</div>
+            <div class="flow__icon flow__icon--sky" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 38h16M24 32v6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M16 19l5 5 9-9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="flow__name">無料診断</h3>
+            <p class="flow__desc">PC BUILD CHECKで、まずはあなたに合う構成を診断。30秒で完了します。</p>
+            <a href="https://sippo-pc.jp/pc-build-check/" class="flow__link">診断をはじめる →</a>
+          </li>
+          <li class="flow__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+          <li class="flow__step reveal" style="--i:1">
+            <div class="flow__num">STEP 2</div>
+            <div class="flow__icon flow__icon--teal" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M10 12h28v20H26l-8 8v-8h-8z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="18" cy="22" r="1.8" fill="currentColor"/><circle cx="24" cy="22" r="1.8" fill="currentColor"/><circle cx="30" cy="22" r="1.8" fill="currentColor"/></svg>
+            </div>
+            <h3 class="flow__name">診断結果を無料チェック</h3>
+            <p class="flow__desc">診断結果のスクショを送るだけ。「この方向で大丈夫？」をかんたんに確認します。具体的な構成提案・比較・見た目の相談・購入サポートは、ココナラ相談で対応します。</p>
+            <button type="button" class="flow__copy" id="copyTemplate" data-template="【Sippo PC無料チェック】&#10;・診断結果：（PC BUILD CHECKのスクショを添付）&#10;・予算：　万円くらい&#10;・やりたいこと：（例：Apexを快適に / 配信もしたい）&#10;・今のPC：（あれば機種名、なければ「なし」）&#10;・確認したいこと：（例：この方向で大丈夫？）&#10;※構成提案・比較・見た目の相談・購入サポートは、ココナラ相談で対応します。">
+              📋 相談テンプレをコピー
+            </button>
+            <div class="flow__contacts" aria-label="無料チェックと有料相談の連絡方法">
+              <a href="https://x.com/Sippo79_" class="flow__contact" rel="noopener noreferrer" target="_blank">Xで無料チェック →</a>
+              <a href="https://www.instagram.com/sippo_79/" class="flow__contact" rel="noopener noreferrer" target="_blank">Instagramで無料チェック →</a>
+              <a href="https://coconala.com/services/4240996" class="flow__contact" rel="noopener noreferrer" target="_blank">ココナラで依頼 →</a>
+            </div>
+          </li>
+          <li class="flow__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+          <li class="flow__step reveal" style="--i:2">
+            <div class="flow__num">STEP 3</div>
+            <div class="flow__icon flow__icon--gold" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M24 6l5.2 10.6L41 18.2l-8.5 8.3 2 11.6L24 32.6l-10.5 5.5 2-11.6L7 18.2l11.8-1.6z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="flow__name">じっくり伴走はココナラで</h3>
+            <p class="flow__desc">「全部選んでほしい」「買う前に確認してほしい」方向け。予算・用途・ゲームに合わせて、構成選びから購入前チェックまで伴走。ケースやカラー、光り方など、見た目の方向性も一緒に相談できます。</p>
+            <a href="https://coconala.com/services/4240996" class="flow__link" rel="noopener noreferrer" target="_blank">ココナラで依頼 →</a>
+          </li>
+        </ol>
 
-          <a href="https://sippo-pc.jp/game-pc-guide/" class="related-site-button">
-            <span class="related-site-mini">GAME PC GUIDE</span>
-            <span>ゲーム別おすすめPC</span>
-            <small>遊びたいゲームごとに必要スペックを確認</small>
-          </a>
-
-          <a href="https://sippo-pc.jp/gpu-guide/" class="related-site-button">
-            <span class="related-site-mini">GPU GUIDE</span>
-            <span>GPU性能比較</span>
-            <small>グラボの性能・メモリ容量・用途を比較</small>
-          </a>
+        <div class="consult__cta glass reveal">
+          <svg class="consult__paw" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="30" rx="10" ry="8.5" fill="#2DD4BF"/>
+            <circle cx="12" cy="20" r="4.5" fill="#2DD4BF"/><circle cx="20" cy="14" r="4.5" fill="#2DD4BF"/>
+            <circle cx="28" cy="14" r="4.5" fill="#2DD4BF"/><circle cx="36" cy="20" r="4.5" fill="#2DD4BF"/>
+          </svg>
+          <p class="consult__cta-text"><b>診断と結果チェックは無料。</b><br class="sp-only">じっくり選ぶ相談はココナラで伴走します。</p>
+          <div class="consult__cta-actions">
+            <a href="https://sippo-pc.jp/pc-build-check/" class="btn btn--primary">まず無料診断から</a>
+            <a href="https://coconala.com/services/4240996" class="btn btn--ghost" rel="noopener noreferrer" target="_blank">ココナラで依頼</a>
+          </div>
         </div>
       </div>
     </section>
+
+    <div class="wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,48 C240,90 480,0 720,32 C960,64 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FFF6E9"/></svg>
+    </div>
+
+    <!-- ===== ④ Why Sippo ===== -->
+    <section class="why section section--cream" id="why">
+      <div class="container">
+        <p class="section__label reveal">Why Sippo</p>
+        <h2 class="section__title reveal">なぜ、初心者は<br class="sp-only">Sippoだと安心なのか。</h2>
+        <p class="section__lead reveal">しっぽを振って駆け寄ってくる相棒のように。<br>Sippoのすべては「はじめての人」のために設計されています。</p>
+
+        <div class="why__grid">
+          <div class="why-card glass reveal" style="--i:0">
+            <div class="why-card__icon why-card__icon--sky" aria-hidden="true">🔰</div>
+            <h3 class="why-card__title">専門用語を使わない</h3>
+            <p class="why-card__desc">「VRAM」「ボトルネック」…分からなくて当然。Sippoはすべて日常の言葉に翻訳して伝えます。</p>
+          </div>
+          <div class="why-card glass reveal" style="--i:1">
+            <div class="why-card__icon why-card__icon--teal" aria-hidden="true">🧭</div>
+            <h3 class="why-card__title">売りつけない</h3>
+            <p class="why-card__desc">Sippoは特定メーカーの代理店ではありません。あなたの予算と目的だけを基準に提案します。</p>
+          </div>
+          <div class="why-card glass reveal" style="--i:2">
+            <div class="why-card__icon why-card__icon--gold" aria-hidden="true">🤝</div>
+            <h3 class="why-card__title">買ったあとも相棒</h3>
+            <p class="why-card__desc">PC選びはゴールじゃなくスタート。設定・トラブル・買い替えまで、ずっとそばにいます。</p>
+          </div>
+          <div class="why-card glass reveal" style="--i:3">
+            <div class="why-card__icon why-card__icon--pink" aria-hidden="true">🎨</div>
+            <h3 class="why-card__title">見た目も相談できる</h3>
+            <p class="why-card__desc">ケースの形やカラー、LEDの有無や光り方まで。白系・黒系・光るPC・落ち着いたPCなど、“気に入って使える”見た目も一緒に考えます。</p>
+          </div>
+        </div>
+
+        <dl class="stats reveal" aria-label="Sippoの実績">
+          <div class="stats__item"><dt>比較できるGPU</dt><dd><b class="count" data-count="28">0</b><span>枚</span></dd></div>
+          <div class="stats__item"><dt>診断パターン</dt><dd><b class="count" data-count="75">0</b><span>構成</span></dd></div>
+          <div class="stats__item"><dt>対応ゲーム</dt><dd><b class="count" data-count="25">0</b><span>タイトル</span></dd></div>
+          <div class="stats__item"><dt>利用料金</dt><dd><b>¥0</b><span>ずっと無料</span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="wave wave--flip" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,48 C240,90 480,0 720,32 C960,64 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FFF6E9"/></svg>
+    </div>
+
+    <!-- ===== ⑤ Future Roadmap ===== -->
+    <section class="roadmap section" id="roadmap">
+      <div class="container">
+        <p class="section__label reveal">Future Roadmap</p>
+        <h2 class="section__title reveal">シッポの冒険は、<br class="sp-only">まだ始まったばかり。</h2>
+        <p class="section__lead reveal">「比較・診断」から「相談・代行・お店」へ。<br>Sippoはこれから、こんな未来へ歩いていきます。</p>
+
+        <div class="trail">
+          <svg class="trail__path" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path id="trailLine" d="M50 0 C 20 100, 80 180, 50 280 C 20 380, 80 460, 50 560 C 20 660, 80 740, 50 840 C 30 910, 60 960, 50 1000"
+                  fill="none" stroke="#2DD4BF" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+          </svg>
+
+          <ol class="trail__items">
+            <li class="trail__item reveal">
+              <div class="trail__marker trail__marker--done" aria-hidden="true">🐾</div>
+              <div class="trail__card glass">
+                <div class="trail__head">
+                  <span class="trail__status trail__status--done">運営中</span>
+                  <span class="trail__when">いま</span>
+                </div>
+                <h3>比較・診断の3サービス</h3>
+                <p>GPU GUIDE / PC BUILD CHECK / GAME GUIDE を公開中。まずは「自分で選べる」道具を無料で。</p>
+                <ul class="trail__todo">
+                  <li>GPU 28枚・診断75構成・25タイトルを掲載</li>
+                  <li>新GPU発売・ゲーム発売のたびにデータ更新</li>
+                </ul>
+              </div>
+            </li>
+            <li class="trail__item reveal">
+              <div class="trail__marker" aria-hidden="true">💬</div>
+              <div class="trail__card glass">
+                <div class="trail__head">
+                  <span class="trail__status trail__status--next">準備中</span>
+                  <span class="trail__when">2026年内 目標</span>
+                </div>
+                <h3>PC相談サービス 正式オープン</h3>
+                <p>X DM・Instagram DMでの無料チェックを入口に、ココナラで有料プランを開始します。</p>
+                <ul class="trail__todo">
+                  <li>無料：診断結果へのひとことアドバイス</li>
+                  <li>有料：構成の総チェック／フル選定＋購入リスト作成</li>
+                </ul>
+              </div>
+            </li>
+            <li class="trail__item reveal">
+              <div class="trail__marker" aria-hidden="true">📝</div>
+              <div class="trail__card glass">
+                <div class="trail__head">
+                  <span class="trail__status trail__status--next">準備中</span>
+                  <span class="trail__when">2026年内 目標</span>
+                </div>
+                <h3>PCブログ 開設</h3>
+                <p>「初心者がつまずく順番」どおりに読める連載型ブログ。3サイトの解説をさらに深掘りします。</p>
+                <ul class="trail__todo">
+                  <li>第1弾：「はじめてのゲーミングPC」全10回</li>
+                  <li>届いた日にやる初期設定・トラブル対処も網羅</li>
+                </ul>
+              </div>
+            </li>
+            <li class="trail__item reveal">
+              <div class="trail__marker" aria-hidden="true">🔧</div>
+              <div class="trail__card glass">
+                <div class="trail__head">
+                  <span class="trail__status trail__status--future">構想中</span>
+                  <span class="trail__when">2027年 目標</span>
+                </div>
+                <h3>PC組立代行</h3>
+                <p>「パーツは決まった。でも組むのが怖い」を解決する組立サービス。</p>
+                <ul class="trail__todo">
+                  <li>組立＋配線＋動作確認＋OS・初期設定まで込み</li>
+                  <li>診断・相談からそのまま依頼できる一気通貫の導線</li>
+                </ul>
+              </div>
+            </li>
+            <li class="trail__item reveal">
+              <div class="trail__marker" aria-hidden="true">🏪</div>
+              <div class="trail__card glass">
+                <div class="trail__head">
+                  <span class="trail__status trail__status--future">構想中</span>
+                  <span class="trail__when">その先へ</span>
+                </div>
+                <h3>PCショップ & コミュニティ</h3>
+                <p>初心者が安心して買えるお店と、買ったあとに集まれる場所。Sippoの最終目的地です。</p>
+                <ul class="trail__todo">
+                  <li>動作確認済みのセミオーダーPC販売</li>
+                  <li>購入者が質問し合えるコミュニティ運営</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ⑥ Footer前 CTA ===== -->
+    <section class="final-cta">
+      <div class="container">
+        <div class="final-cta__box reveal">
+          <img class="final-cta__dog" src="assets/icon-192.png" alt="" width="76" height="76" loading="lazy">
+          <h2 class="final-cta__title">さあ、いっしょにPC選びを始めよう。</h2>
+          <p class="final-cta__sub">30秒の無料診断から。シッポが待っています。</p>
+          <a href="https://sippo-pc.jp/pc-build-check/" class="btn btn--primary btn--lg">無料診断をはじめる 🐾</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2026 PC BUILD CHECK</p>
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <p class="footer__logo">Sippo<span>.</span></p>
+        <p class="footer__tagline">PC初心者の相棒ブランド。<br>白黒チワワの「シッポ」が、あなたのPC選びを案内します。</p>
+      </div>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <div class="footer__col">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="https://sippo-pc.jp/gpu-guide/">GPU GUIDE</a></li>
+            <li><a href="https://sippo-pc.jp/pc-build-check/">PC BUILD CHECK</a></li>
+            <li><a href="https://sippo-pc.jp/game-pc-guide/">GAME GUIDE</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h3>Sippo</h3>
+          <ul>
+            <li><a href="#why">Sippoについて</a></li>
+            <li><a href="#roadmap">ロードマップ</a></li>
+            <li><a href="#consult">PC相談</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="https://x.com/Sippo79_" rel="noopener noreferrer" target="_blank">X（旧Twitter）</a></li>
+            <li><a href="https://coconala.com/services/4240996" rel="noopener noreferrer" target="_blank">ココナラ</a></li>
+            <li><a href="mailto:qoo.shixtu@gmail.com">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Sippo. All rights reserved. 🐾</p>
     </div>
   </footer>
 
-  <!-- PWA Install Prompt -->
-  <div id="install-prompt" class="install-prompt" role="dialog" aria-label="アプリとして追加">
-    <span class="install-prompt-icon">📱</span>
-    <div class="install-prompt-text">
-      <strong>ホーム画面に追加</strong>
-      <small>アプリのように素早く使えます</small>
-    </div>
-    <div class="install-prompt-actions">
-      <button class="install-btn-yes" id="install-btn-yes">追加</button>
-      <button class="install-btn-no" id="install-btn-no">後で</button>
-    </div>
-  </div>
+  <!-- 追従の相談ボタン -->
+  <a href="#consult" class="consult-fab" id="consultFab" aria-label="PC相談セクションへ">
+    <img src="assets/icon-192.png" alt="" width="34" height="34">
+    <span>PC相談</span>
+  </a>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
