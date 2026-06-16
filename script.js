@@ -17,19 +17,39 @@
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
   if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      const open = navMenu.classList.toggle('is-open');
+    const setMenu = (open) => {
+      navMenu.classList.toggle('is-open', open);
       navToggle.setAttribute('aria-expanded', String(open));
       navToggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
       document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    navToggle.addEventListener('click', () => {
+      setMenu(!navMenu.classList.contains('is-open'));
     });
 
+    // メニュー内リンク → 閉じてから遷移／スクロール
     navMenu.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', () => {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
+      a.addEventListener('click', () => setMenu(false));
+    });
+
+    // 余白（リンク以外）タップで閉じる
+    navMenu.addEventListener('click', (event) => {
+      if (event.target === navMenu) setMenu(false);
+    });
+
+    // Esc キーで閉じる
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && navMenu.classList.contains('is-open')) {
+        setMenu(false);
+        navToggle.focus();
+      }
+    });
+
+    // モバイル幅を抜けたらメニュー状態をリセット（スクロールロック残り防止）
+    const mqMobile = window.matchMedia('(max-width: 820px)');
+    mqMobile.addEventListener('change', (event) => {
+      if (!event.matches) setMenu(false);
     });
   }
 
