@@ -1,5 +1,5 @@
 /* Sippo Brand Site — Service Worker（軽量キャッシュ） */
-const CACHE_NAME = 'sippo-home-v7';
+const CACHE_NAME = 'sippo-pc-v8';
 const ASSETS = [
   './',
   './index.html',

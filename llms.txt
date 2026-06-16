@@ -1,12 +1,12 @@
-# sippo79.github.io
+# sippo-pc.jp
 
 > ゲーミングPCに関する日本語情報サイト群。ゲーム別おすすめPC構成・GPU性能比較・PC構成診断の3サイトで構成されています。
 
 ## サイト一覧
 
-- [GAME PC GUIDE](https://sippo79.github.io/game-pc-guide/): ゲーム別のおすすめゲーミングPC構成と必要スペックを解説
-- [GPU GUIDE](https://sippo79.github.io/gpu-guide/): グラフィックボード(GPU)の性能比較と選び方ガイド
-- [PC BUILD CHECK](https://sippo79.github.io/pc-build-check/): 予算・用途・解像度から最適なPC構成を診断
+- [GAME PC GUIDE](https://sippo-pc.jp/game-pc-guide/): ゲーム別のおすすめゲーミングPC構成と必要スペックを解説
+- [GPU GUIDE](https://sippo-pc.jp/gpu-guide/): グラフィックボード(GPU)の性能比較と選び方ガイド
+- [PC BUILD CHECK](https://sippo-pc.jp/pc-build-check/): 予算・用途・解像度から最適なPC構成を診断
 
 ## 対象ユーザー
 
