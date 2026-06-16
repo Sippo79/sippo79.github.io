@@ -8,7 +8,7 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"
 
 $builds    = Get-Content -Raw -Path "./builds.json" -Encoding UTF8 | ConvertFrom-Json
-$SITE_BASE = "https://2tom.jp"
+$SITE_BASE = "https://sippo-pc.jp/pc-build-check"
 
 # Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
 $sippoHomeUrl = "https://sippo-pc.jp/"
@@ -148,11 +148,11 @@ function Build-Html($build, $allBuilds) {
   <meta name="twitter:title" content="$seoTitle" />
   <meta name="twitter:description" content="$seoDesc" />
   <meta name="twitter:image" content="$SITE_BASE/ogp.jpg" />
-  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/x-icon" href="../icons/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png" />
+  <link rel="manifest" href="../manifest.json" />
   <meta name="theme-color" content="#0f172a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

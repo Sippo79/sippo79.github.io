@@ -27,4 +27,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://2tom.jp/sitemap.xml
+Sitemap: https://sippo-pc.jp/pc-build-check/sitemap.xml
