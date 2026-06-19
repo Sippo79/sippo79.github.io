@@ -8,7 +8,7 @@
     "score": 43,
     "price": 27000,
     "power": 170,
-    "summary": "フルHD向けの定番だった旧世代GPU。現在は新品がほぼ終売で中古中心。VRAM 12GBがあり、軽めのゲームや設定を少し下げる前提なら今でも使いやすい。価格は中古相場の目安。",
+    "summary": "GeForce RTX 3060はVRAM 12GB重視なら中古でも強い。FHDで長く使いやすい定番候補。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "VALORANT",
       "Apex Legends",
@@ -21,9 +21,48 @@
       "rtx-3060-ti"
     ],
     "cpus": [
+      "Ryzen 5 3600",
       "Ryzen 5 5600",
-      "Ryzen 5 7500F",
       "Core i5-12400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "recommendedResolution": "FHD",
+    "performanceScore": 43,
+    "usedPriceMin": 23000,
+    "usedPriceMax": 33000,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "DLSS対応",
+      "VRAM多め",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "VRAM 12GB重視なら中古でも強い。FHDで長く使いやすい定番候補。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
     ]
   },
   {
@@ -35,7 +74,7 @@
     "score": 53,
     "price": 30000,
     "power": 200,
-    "summary": "フルHD高画質で人気だった旧世代GPU。新品は終売で中古中心。軽めのWQHDも狙えるが、VRAM 8GBなので最新の重い3Dゲームは設定を下げたい。価格は中古相場の目安。",
+    "summary": "GeForce RTX 3060 TiはFHD高画質からWQHD入門まで狙える。VRAM 8GBなので最新ゲームは設定調整も考える。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Apex Legends",
       "Fortnite",
@@ -50,7 +89,45 @@
     "cpus": [
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
-      "Core i5-12400F"
+      "Core i5-13400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "recommendedResolution": "FHD",
+    "performanceScore": 53,
+    "usedPriceMin": 27000,
+    "usedPriceMax": 38000,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "WQHDも可",
+      "DLSS対応",
+      "VRAM注意"
+    ],
+    "usedRecommendRank": "A",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意"
+    ],
+    "usedNote": "FHD高画質からWQHD入門まで狙える。VRAM 8GBなので最新ゲームは設定調整も考える。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
     ]
   },
   {
@@ -62,7 +139,7 @@
     "score": 60,
     "price": 35000,
     "power": 220,
-    "summary": "WQHD入門に使えた旧世代の上位GPU。新品は終売で中古中心。性能は今でも十分だが、VRAM 8GB（ゲーム用の作業メモリ）が重いゲームでネックになることも。価格は中古相場の目安。",
+    "summary": "GeForce RTX 3070はWQHD入門として優秀。ただしVRAM 8GBが重いゲームでネックになることがある。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Apex Legends",
       "Battlefield",
@@ -75,9 +152,47 @@
       "rx-6700-xt"
     ],
     "cpus": [
+      "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
-      "Ryzen 5 7500F",
       "Core i5-13400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 60,
+    "usedPriceMin": 32000,
+    "usedPriceMax": 45000,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "DLSS対応",
+      "VRAM注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意"
+    ],
+    "usedNote": "WQHD入門として優秀。ただしVRAM 8GBが重いゲームでネックになることがある。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
     ]
   },
   {
@@ -89,7 +204,7 @@
     "score": 64,
     "price": 38000,
     "power": 290,
-    "summary": "RTX 3070より少し速い旧世代のWQHD向けGPU。新品は終売で中古中心。消費電力はやや高めで、VRAM 8GBにも注意したい。価格は中古相場の目安。",
+    "summary": "GeForce RTX 3070 TiはRTX 3070より少し速いが、消費電力と発熱が高め。価格差が小さい時向け。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Apex Legends",
       "Battlefield",
@@ -102,9 +217,48 @@
       "rx-7700-xt"
     ],
     "cpus": [
+      "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
-      "Ryzen 5 7500F",
       "Core i5-13400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 64,
+    "usedPriceMin": 35000,
+    "usedPriceMax": 50000,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "DLSS対応",
+      "補助電源注意",
+      "VRAM注意"
+    ],
+    "usedRecommendRank": "B",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "RTX 3070より少し速いが、消費電力と発熱が高め。価格差が小さい時向け。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
     ]
   },
   {
@@ -116,7 +270,7 @@
     "score": 72,
     "price": 48000,
     "power": 320,
-    "summary": "旧世代ながらWQHD高画質で今も通用するGPU。新品は終売で中古中心、中古人気も高い。消費電力が大きいので電源容量と冷却には余裕を持たせたい。価格は中古相場の目安。",
+    "summary": "GeForce RTX 3080は性能は高いが消費電力・発熱・中古個体差に注意。状態確認が特に大切。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Battlefield",
       "Cyberpunk 2077",
@@ -132,6 +286,44 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 72,
+    "usedPriceMin": 43000,
+    "usedPriceMax": 65000,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "4K向け",
+      "DLSS対応",
+      "補助電源注意"
+    ],
+    "usedRecommendRank": "B",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "性能は高いが消費電力・発熱・中古個体差に注意。状態確認が特に大切。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
     ]
   },
   {
@@ -159,6 +351,17 @@
       "Ryzen 5 5600",
       "Ryzen 5 7500F",
       "Core i5-13400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "FHD",
+    "performanceScore": 46,
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
     ]
   },
   {
@@ -186,6 +389,17 @@
       "Ryzen 5 7500F",
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "FHD",
+    "performanceScore": 56,
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
     ]
   },
   {
@@ -213,6 +427,17 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 70,
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
     ]
   },
   {
@@ -240,6 +465,17 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 75,
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
     ]
   },
   {
@@ -267,6 +503,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 84,
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "モンスターハンターワイルズ",
+      "重量級ゲーム"
     ]
   },
   {
@@ -294,6 +541,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
+    "recommendedResolution": "4K",
+    "performanceScore": 92,
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
     ]
   },
   {
@@ -321,6 +579,17 @@
       "Ryzen 5 7500F",
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "FHD",
+    "performanceScore": 58,
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
     ]
   },
   {
@@ -348,6 +617,17 @@
       "Ryzen 5 7500F",
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "FHD",
+    "performanceScore": 68,
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
     ]
   },
   {
@@ -376,6 +656,18 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 78,
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ",
+      "Escape from Tarkov"
     ]
   },
   {
@@ -403,6 +695,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 88,
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Escape from Tarkov",
+      "重量級ゲーム"
     ]
   },
   {
@@ -430,6 +733,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 9 9950X3D",
       "Core Ultra 7"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "4K",
+    "performanceScore": 96,
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
     ]
   },
   {
@@ -457,6 +771,17 @@
       "Ryzen 7 9800X3D",
       "Ryzen 9 9950X3D",
       "Core Ultra 9"
+    ],
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
+    "recommendedResolution": "4K",
+    "performanceScore": 100,
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
     ]
   },
   {
@@ -468,7 +793,7 @@
     "score": 38,
     "price": 22000,
     "power": 132,
-    "summary": "価格を抑えたフルHD向けの旧世代GPU。新品は減り中古中心。軽めのゲームや低予算・省電力構成で選びやすい。価格は中古相場の目安。",
+    "summary": "Radeon RX 6600は省電力で中古FHD用として優秀。低予算で失敗しにくい有力候補。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "VALORANT",
       "Apex Legends",
@@ -477,13 +802,51 @@
     ],
     "compare": [
       "rtx-3060",
-      "rx-7600",
-      "rx-6700-xt"
+      "rx-6650-xt",
+      "rx-7600"
     ],
     "cpus": [
+      "Ryzen 5 3600",
       "Ryzen 5 5600",
-      "Ryzen 5 7500F",
       "Core i5-12400F"
+    ],
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "recommendedResolution": "FHD",
+    "performanceScore": 38,
+    "usedPriceMin": 18000,
+    "usedPriceMax": 26000,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "低予算向け",
+      "省電力",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "S",
+    "pros": [
+      "消費電力が控えめ",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "省電力で中古FHD用として優秀。低予算で失敗しにくい有力候補。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
     ]
   },
   {
@@ -491,26 +854,63 @@
     "name": "Radeon RX 6700 XT",
     "brand": "AMD",
     "vram": 12,
-    "target": "FHD",
+    "target": "WQHD",
     "score": 57,
     "price": 32000,
     "power": 230,
-    "summary": "フルHD高画質からWQHD入門まで狙えた旧世代の人気GPU。新品は減り中古中心。VRAM 12GBで扱いやすい。価格は中古相場の目安。",
+    "summary": "Radeon RX 6700 XTは中古WQHD用としてコスパが良い。VRAM 12GBでRTX 3070よりメモリ面に余裕。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Apex Legends",
-      "CoD",
+      "Battlefield",
       "FF14",
-      "モンスターハンターワイルズ"
+      "Escape from Tarkov"
     ],
     "compare": [
       "rtx-3060-ti",
       "rtx-3070",
-      "rx-7700-xt"
+      "rx-6750-xt"
     ],
     "cpus": [
+      "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
-      "Ryzen 5 7500F",
       "Core i5-13400F"
+    ],
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 57,
+    "usedPriceMin": 28000,
+    "usedPriceMax": 40000,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "VRAM多め",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "S",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "中古WQHD用としてコスパが良い。VRAM 12GBでRTX 3070よりメモリ面に余裕。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
     ]
   },
   {
@@ -522,7 +922,7 @@
     "score": 74,
     "price": 50000,
     "power": 300,
-    "summary": "WQHD高画質向けの旧世代上位Radeon。新品は終売で中古中心。VRAM 16GBで重量級ゲームにも対応しやすい。消費電力は大きめ。価格は中古相場の目安。",
+    "summary": "Radeon RX 6800 XTはWQHD高画質向けの旧世代上位Radeon。VRAM 16GBで強いが消費電力に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
     "games": [
       "Battlefield",
       "Cyberpunk 2077",
@@ -531,13 +931,51 @@
     ],
     "compare": [
       "rtx-3080",
-      "rtx-4070-super",
+      "rx-6800",
       "rx-7800-xt"
     ],
     "cpus": [
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 74,
+    "usedPriceMin": 43000,
+    "usedPriceMax": 62000,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "4K向け",
+      "VRAM多め",
+      "補助電源注意"
+    ],
+    "usedRecommendRank": "A",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "WQHD高画質向けの旧世代上位Radeon。VRAM 16GBで強いが消費電力に注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
     ]
   },
   {
@@ -565,6 +1003,17 @@
       "Ryzen 5 5600",
       "Ryzen 5 7500F",
       "Core i5-13400F"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "FHD",
+    "performanceScore": 50,
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
     ]
   },
   {
@@ -592,6 +1041,17 @@
       "Ryzen 7 5700X3D",
       "Ryzen 5 7500F",
       "Core i5-14600KF"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 70,
+    "targetGames": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
     ]
   },
   {
@@ -619,6 +1079,17 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 80,
+    "targetGames": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
     ]
   },
   {
@@ -646,6 +1117,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 5700X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 84,
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
     ]
   },
   {
@@ -673,6 +1155,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "4K",
+    "performanceScore": 90,
+    "targetGames": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Starfield",
+      "重量級ゲーム"
     ]
   },
   {
@@ -700,6 +1193,17 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
+    "recommendedResolution": "4K",
+    "performanceScore": 94,
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Starfield",
+      "4K重量級ゲーム",
+      "クリエイティブ用途"
     ]
   },
   {
@@ -727,6 +1231,17 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
+    ],
+    "maker": "AMD",
+    "series": "RX 9000",
+    "generation": "RX 9000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 82,
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
     ]
   },
   {
@@ -754,6 +1269,2316 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
+    ],
+    "maker": "AMD",
+    "series": "RX 9000",
+    "generation": "RX 9000",
+    "recommendedResolution": "WQHD",
+    "performanceScore": 89,
+    "targetGames": [
+      "Battlefield",
+      "Escape from Tarkov",
+      "Cyberpunk 2077",
+      "重量級ゲーム"
+    ]
+  },
+  {
+    "id": "gtx-1060-6gb",
+    "name": "GeForce GTX 1060 6GB",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 10",
+    "generation": "GTX 10",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 20,
+    "performanceScore": 20,
+    "price": 12000,
+    "usedPriceMin": 8000,
+    "usedPriceMax": 15000,
+    "power": 120,
+    "releaseYear": 2016,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "VRAM注意",
+      "非推奨気味"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce GTX 1060 6GBは最低ライン。軽めのFHDゲーム向け。高値なら非推奨で、GTX 1660 SUPERやRTX 2060も比較推奨。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意",
+      "高値なら上位中古GPUを比較したい"
+    ],
+    "usedNote": "最低ライン。軽めのFHDゲーム向け。高値なら非推奨で、GTX 1660 SUPERやRTX 2060も比較推奨。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "Minecraft"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "Minecraft"
+    ],
+    "compare": [
+      "gtx-1650-super",
+      "gtx-1660-super",
+      "rx-580-8gb"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1070",
+    "name": "GeForce GTX 1070",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 10",
+    "generation": "GTX 10",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 27,
+    "performanceScore": 27,
+    "price": 15000,
+    "usedPriceMin": 11000,
+    "usedPriceMax": 19000,
+    "power": 150,
+    "releaseYear": 2016,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "VRAM注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce GTX 1070はFHD中設定ならまだ使える旧世代GPU。価格が上がるならRTX 2060以上も比較したい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD中設定ならまだ使える旧世代GPU。価格が上がるならRTX 2060以上も比較したい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "compare": [
+      "gtx-1660-super",
+      "gtx-1070-ti",
+      "rtx-2060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1070-ti",
+    "name": "GeForce GTX 1070 Ti",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 10",
+    "generation": "GTX 10",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 30,
+    "performanceScore": 30,
+    "price": 17000,
+    "usedPriceMin": 13000,
+    "usedPriceMax": 22000,
+    "power": 180,
+    "releaseYear": 2017,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "補助電源注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce GTX 1070 TiはGTX 1070より少し余裕があるFHD向け。安ければ有りだが、消費電力と年式に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "GTX 1070より少し余裕があるFHD向け。安ければ有りだが、消費電力と年式に注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "gtx-1070",
+      "gtx-1080",
+      "gtx-1660-super"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1080",
+    "name": "GeForce GTX 1080",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 10",
+    "generation": "GTX 10",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 33,
+    "performanceScore": 33,
+    "price": 19000,
+    "usedPriceMin": 15000,
+    "usedPriceMax": 25000,
+    "power": 180,
+    "releaseYear": 2016,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "補助電源注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce GTX 1080はFHD高設定まで狙える旧世代上位GPU。高値ならRTX 2060 SUPER以上も比較推奨。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD高設定まで狙える旧世代上位GPU。高値ならRTX 2060 SUPER以上も比較推奨。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Battlefield"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Battlefield"
+    ],
+    "compare": [
+      "gtx-1070-ti",
+      "gtx-1080-ti",
+      "rtx-2060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1080-ti",
+    "name": "GeForce GTX 1080 Ti",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 10",
+    "generation": "GTX 10",
+    "vram": 11,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 44,
+    "performanceScore": 44,
+    "price": 28000,
+    "usedPriceMin": 22000,
+    "usedPriceMax": 35000,
+    "power": 250,
+    "releaseYear": 2017,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "旧世代",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce GTX 1080 TiはVRAM 11GBでWQHDも狙えるが、古さと消費電力の注意点が大きい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "VRAM 11GBでWQHDも狙えるが、古さと消費電力の注意点が大きい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-2060-super",
+      "rtx-3060",
+      "rtx-2070-super"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "gtx-1650",
+    "name": "GeForce GTX 1650",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 16",
+    "generation": "GTX 16",
+    "vram": 4,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 18,
+    "performanceScore": 18,
+    "price": 13000,
+    "usedPriceMin": 9000,
+    "usedPriceMax": 16000,
+    "power": 75,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "VRAM注意",
+      "省電力"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce GTX 1650は補助電源なしモデルも多い省電力GPU。軽いFHDゲーム向けで、重いゲームは厳しい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "消費電力が控えめ",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "補助電源なしモデルも多い省電力GPU。軽いFHDゲーム向けで、重いゲームは厳しい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Minecraft",
+      "Fortnite",
+      "League of Legends"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Minecraft",
+      "Fortnite",
+      "League of Legends"
+    ],
+    "compare": [
+      "gtx-1060-6gb",
+      "gtx-1650-super",
+      "rx-6500-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1650-super",
+    "name": "GeForce GTX 1650 SUPER",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 16",
+    "generation": "GTX 16",
+    "vram": 4,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 26,
+    "performanceScore": 26,
+    "price": 15000,
+    "usedPriceMin": 11000,
+    "usedPriceMax": 19000,
+    "power": 100,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "VRAM注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce GTX 1650 SUPERは軽めのFHDゲームならまだ使いやすい。VRAM 4GBなので最新ゲームは設定を下げたい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "軽めのFHDゲームならまだ使いやすい。VRAM 4GBなので最新ゲームは設定を下げたい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "gtx-1060-6gb",
+      "gtx-1660",
+      "rx-580-8gb"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1660",
+    "name": "GeForce GTX 1660",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 16",
+    "generation": "GTX 16",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 29,
+    "performanceScore": 29,
+    "price": 16000,
+    "usedPriceMin": 12000,
+    "usedPriceMax": 21000,
+    "power": 120,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "低予算向け",
+      "旧世代",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce GTX 1660はFHD中設定向けの堅実な中古GPU。SUPERとの差額が小さいならSUPER版を優先。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD中設定向けの堅実な中古GPU。SUPERとの差額が小さいならSUPER版を優先。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "compare": [
+      "gtx-1650-super",
+      "gtx-1660-super",
+      "rtx-2060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1660-super",
+    "name": "GeForce GTX 1660 SUPER",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 16",
+    "generation": "GTX 16",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 32,
+    "performanceScore": 32,
+    "price": 18000,
+    "usedPriceMin": 14000,
+    "usedPriceMax": 24000,
+    "power": 125,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "低予算向け",
+      "旧世代",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "GeForce GTX 1660 SUPERは中古FHD用としてかなり現実的。APEXやVALORANTなら設定調整で現役。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "中古FHD用としてかなり現実的。APEXやVALORANTなら設定調整で現役。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "compare": [
+      "gtx-1660",
+      "gtx-1660-ti",
+      "rtx-2060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "gtx-1660-ti",
+    "name": "GeForce GTX 1660 Ti",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "GTX 16",
+    "generation": "GTX 16",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 33,
+    "performanceScore": 33,
+    "price": 19000,
+    "usedPriceMin": 15000,
+    "usedPriceMax": 25000,
+    "power": 120,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "GeForce GTX 1660 TiはGTX 1660 SUPERに近いFHD向けGPU。安い方・状態が良い方を選びたい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "GTX 1660 SUPERに近いFHD向けGPU。安い方・状態が良い方を選びたい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "gtx-1660-super",
+      "rtx-2060",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-2060",
+    "name": "GeForce RTX 2060",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 35,
+    "performanceScore": 35,
+    "price": 20000,
+    "usedPriceMin": 16000,
+    "usedPriceMax": 26000,
+    "power": 160,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "DLSS対応",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "GeForce RTX 2060はDLSS対応の中古入門として有力。FHDなら設定調整しながらまだ遊びやすい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "DLSS対応の中古入門として有力。FHDなら設定調整しながらまだ遊びやすい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "gtx-1660-super",
+      "rtx-2060-super",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-2060-super",
+    "name": "GeForce RTX 2060 SUPER",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 41,
+    "performanceScore": 41,
+    "price": 24000,
+    "usedPriceMin": 20000,
+    "usedPriceMax": 30000,
+    "power": 175,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "DLSS対応",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "GeForce RTX 2060 SUPERはVRAM 8GBでFHD高設定に使いやすい中古GPU。RTX 3060 12GBとの差額も確認。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "VRAM 8GBでFHD高設定に使いやすい中古GPU。RTX 3060 12GBとの差額も確認。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-2060",
+      "rtx-2070",
+      "rtx-3060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-2070",
+    "name": "GeForce RTX 2070",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 43,
+    "performanceScore": 43,
+    "price": 26000,
+    "usedPriceMin": 21000,
+    "usedPriceMax": 32000,
+    "power": 175,
+    "releaseYear": 2018,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "DLSS対応",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce RTX 2070はFHD高設定から軽めのWQHDまで狙える。価格次第ではRTX 3060やRX 6600 XTも候補。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD高設定から軽めのWQHDまで狙える。価格次第ではRTX 3060やRX 6600 XTも候補。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rtx-2060-super",
+      "rtx-2070-super",
+      "rtx-3060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-2070-super",
+    "name": "GeForce RTX 2070 SUPER",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 8,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 49,
+    "performanceScore": 49,
+    "price": 30000,
+    "usedPriceMin": 25000,
+    "usedPriceMax": 38000,
+    "power": 215,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "WQHDも可",
+      "旧世代",
+      "DLSS対応"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "GeForce RTX 2070 SUPERはFHD高設定からWQHD入門まで使える。VRAM 8GBと消費電力には注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD高設定からWQHD入門まで使える。VRAM 8GBと消費電力には注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-2070",
+      "rtx-3060-ti",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-2080",
+    "name": "GeForce RTX 2080",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 8,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 52,
+    "performanceScore": 52,
+    "price": 33000,
+    "usedPriceMin": 28000,
+    "usedPriceMax": 42000,
+    "power": 215,
+    "releaseYear": 2018,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "旧世代",
+      "DLSS対応",
+      "補助電源注意"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce RTX 2080はWQHD入門まで狙える旧世代ハイエンド。高値ならRTX 3060 TiやRX 6700 XTを比較。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "WQHD入門まで狙える旧世代ハイエンド。高値ならRTX 3060 TiやRX 6700 XTを比較。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rtx-2070-super",
+      "rtx-2080-super",
+      "rtx-3060-ti"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-2080-super",
+    "name": "GeForce RTX 2080 SUPER",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 8,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 55,
+    "performanceScore": 55,
+    "price": 36000,
+    "usedPriceMin": 30000,
+    "usedPriceMax": 45000,
+    "power": 250,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "旧世代",
+      "DLSS対応",
+      "補助電源注意"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce RTX 2080 SUPERはWQHDも狙える旧世代上位GPU。消費電力と中古価格を見て慎重に。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "WQHDも狙える旧世代上位GPU。消費電力と中古価格を見て慎重に。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-2080",
+      "rtx-2080-ti",
+      "rtx-3070"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-2080-ti",
+    "name": "GeForce RTX 2080 Ti",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 20",
+    "generation": "RTX 20",
+    "vram": 11,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 61,
+    "performanceScore": 61,
+    "price": 45000,
+    "usedPriceMin": 38000,
+    "usedPriceMax": 55000,
+    "power": 250,
+    "releaseYear": 2018,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "旧世代",
+      "DLSS対応",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce RTX 2080 TiはVRAM 11GBでWQHD向けにまだ使えるが、古い高額中古になりやすい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "VRAM 11GBでWQHD向けにまだ使えるが、古い高額中古になりやすい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14"
+    ],
+    "compare": [
+      "rtx-3070",
+      "rtx-3080",
+      "rx-6800-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rtx-3050",
+    "name": "GeForce RTX 3050",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 28,
+    "performanceScore": 28,
+    "price": 20000,
+    "usedPriceMin": 15000,
+    "usedPriceMax": 25000,
+    "power": 130,
+    "releaseYear": 2022,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "DLSS対応",
+      "VRAM注意"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "GeForce RTX 3050はDLSS対応のFHD軽量向け。RTX 2060やRX 6600が近い価格なら比較必須。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意"
+    ],
+    "usedNote": "DLSS対応のFHD軽量向け。RTX 2060やRX 6600が近い価格なら比較必須。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "Minecraft"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "Minecraft"
+    ],
+    "compare": [
+      "gtx-1660-super",
+      "rtx-2060",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rtx-3080-ti",
+    "name": "GeForce RTX 3080 Ti",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "vram": 12,
+    "target": "4K",
+    "recommendedResolution": "4K",
+    "score": 78,
+    "performanceScore": 78,
+    "price": 65000,
+    "usedPriceMin": 55000,
+    "usedPriceMax": 80000,
+    "power": 350,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "4K向け",
+      "DLSS対応",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce RTX 3080 Tiは4K入門まで狙える旧世代ハイエンド。保証なし高額中古は慎重に。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "4K入門まで狙える旧世代ハイエンド。保証なし高額中古は慎重に。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "FF14",
+      "4K重量級ゲーム"
+    ],
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "FF14",
+      "4K重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-3080",
+      "rtx-3090",
+      "rtx-4070-ti-super"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rtx-3090",
+    "name": "GeForce RTX 3090",
+    "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 30",
+    "generation": "RTX 30",
+    "vram": 24,
+    "target": "4K",
+    "recommendedResolution": "4K",
+    "score": 82,
+    "performanceScore": 82,
+    "price": 80000,
+    "usedPriceMin": 70000,
+    "usedPriceMax": 110000,
+    "power": 350,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "4K向け",
+      "DLSS対応",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "GeForce RTX 3090はVRAM 24GBが強み。ゲームだけなら消費電力と価格が重いので用途を選ぶ。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "DLSS対応ゲームで軽くしやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "VRAM 24GBが強み。ゲームだけなら消費電力と価格が重いので用途を選ぶ。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Cyberpunk 2077",
+      "4K重量級ゲーム",
+      "クリエイティブ用途",
+      "AI画像生成"
+    ],
+    "targetGames": [
+      "Cyberpunk 2077",
+      "4K重量級ゲーム",
+      "クリエイティブ用途",
+      "AI画像生成"
+    ],
+    "compare": [
+      "rtx-3080-ti",
+      "rtx-4070-ti-super",
+      "rtx-4080-super"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-570",
+    "name": "Radeon RX 570",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 500",
+    "generation": "RX 500",
+    "vram": 4,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 16,
+    "performanceScore": 16,
+    "price": 8000,
+    "usedPriceMin": 5000,
+    "usedPriceMax": 12000,
+    "power": 150,
+    "releaseYear": 2017,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "VRAM注意",
+      "非推奨気味"
+    ],
+    "usedRecommendRank": "D",
+    "summary": "Radeon RX 570はかなり古い低予算向け。軽いFHDゲーム用に格安で割り切るなら候補。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意",
+      "高値なら上位中古GPUを比較したい"
+    ],
+    "usedNote": "かなり古い低予算向け。軽いFHDゲーム用に格安で割り切るなら候補。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Minecraft",
+      "League of Legends",
+      "Fortnite"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Minecraft",
+      "League of Legends",
+      "Fortnite"
+    ],
+    "compare": [
+      "rx-580-8gb",
+      "gtx-1060-6gb",
+      "gtx-1650"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-580-8gb",
+    "name": "Radeon RX 580 8GB",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 500",
+    "generation": "RX 500",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 21,
+    "performanceScore": 21,
+    "price": 11000,
+    "usedPriceMin": 8000,
+    "usedPriceMax": 16000,
+    "power": 185,
+    "releaseYear": 2017,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 580 8GBは安ければ有り。VRAM 8GBは魅力だが、消費電力と古さに注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "安ければ有り。VRAM 8GBは魅力だが、消費電力と古さに注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "gtx-1060-6gb",
+      "rx-590",
+      "gtx-1660-super"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-590",
+    "name": "Radeon RX 590",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 500",
+    "generation": "RX 500",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 23,
+    "performanceScore": 23,
+    "price": 13000,
+    "usedPriceMin": 9000,
+    "usedPriceMax": 18000,
+    "power": 225,
+    "releaseYear": 2018,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "旧世代",
+      "補助電源注意",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "C",
+    "summary": "Radeon RX 590はRX 580より少し速いが消費電力が大きめ。安さ重視で選びたい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "RX 580より少し速いが消費電力が大きめ。安さ重視で選びたい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "VALORANT"
+    ],
+    "compare": [
+      "rx-580-8gb",
+      "gtx-1660",
+      "rx-5500-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-5500-xt",
+    "name": "Radeon RX 5500 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 5000",
+    "generation": "RX 5000",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 25,
+    "performanceScore": 25,
+    "price": 14000,
+    "usedPriceMin": 10000,
+    "usedPriceMax": 19000,
+    "power": 130,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "旧世代",
+      "VRAM多め"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 5500 XTは8GB版なら低予算FHD用に使いやすい。4GB版と間違えないよう注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "8GB版なら低予算FHD用に使いやすい。4GB版と間違えないよう注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "compare": [
+      "rx-580-8gb",
+      "gtx-1650-super",
+      "rx-5600-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-5600-xt",
+    "name": "Radeon RX 5600 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 5000",
+    "generation": "RX 5000",
+    "vram": 6,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 34,
+    "performanceScore": 34,
+    "price": 18000,
+    "usedPriceMin": 14000,
+    "usedPriceMax": 24000,
+    "power": 150,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "旧世代",
+      "まだ使える",
+      "VRAM注意"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 5600 XTはFHD向けとしてまだ使える。VRAM 6GBなので重いゲームは設定調整が必要。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD向けとしてまだ使える。VRAM 6GBなので重いゲームは設定調整が必要。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "gtx-1660-super",
+      "rtx-2060",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-5700",
+    "name": "Radeon RX 5700",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 5000",
+    "generation": "RX 5000",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 40,
+    "performanceScore": 40,
+    "price": 22000,
+    "usedPriceMin": 17000,
+    "usedPriceMax": 28000,
+    "power": 180,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "WQHDも可",
+      "旧世代",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 5700はFHD高設定から軽めのWQHDまで狙える。RX 6600やRTX 2060 SUPERも比較。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD高設定から軽めのWQHDまで狙える。RX 6600やRTX 2060 SUPERも比較。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Battlefield"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "Battlefield"
+    ],
+    "compare": [
+      "rx-5600-xt",
+      "rx-5700-xt",
+      "rtx-2060-super"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-5700-xt",
+    "name": "Radeon RX 5700 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 5000",
+    "generation": "RX 5000",
+    "vram": 8,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 46,
+    "performanceScore": 46,
+    "price": 26000,
+    "usedPriceMin": 21000,
+    "usedPriceMax": 33000,
+    "power": 225,
+    "releaseYear": 2019,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "WQHDも可",
+      "旧世代",
+      "補助電源注意"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 5700 XTはFHD高設定からWQHD入門まで狙える。安ければ性能は魅力。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意",
+      "古い個体はファン劣化や保証切れに注意"
+    ],
+    "usedNote": "FHD高設定からWQHD入門まで狙える。安ければ性能は魅力。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rx-5700",
+      "rtx-2070-super",
+      "rx-6600-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-6500-xt",
+    "name": "Radeon RX 6500 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 4,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 19,
+    "performanceScore": 19,
+    "price": 13000,
+    "usedPriceMin": 9000,
+    "usedPriceMax": 16000,
+    "power": 107,
+    "releaseYear": 2022,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD軽量",
+      "低予算向け",
+      "VRAM注意",
+      "非推奨気味"
+    ],
+    "usedRecommendRank": "D",
+    "summary": "Radeon RX 6500 XTはVRAM 4GBと仕様の制限があり、今から買うならかなり価格重視。RX 6600との差額に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "VRAM容量に注意",
+      "高値なら上位中古GPUを比較したい"
+    ],
+    "usedNote": "VRAM 4GBと仕様の制限があり、今から買うならかなり価格重視。RX 6600との差額に注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "VALORANT",
+      "Minecraft",
+      "Fortnite",
+      "League of Legends"
+    ],
+    "targetGames": [
+      "VALORANT",
+      "Minecraft",
+      "Fortnite",
+      "League of Legends"
+    ],
+    "compare": [
+      "gtx-1650",
+      "rx-5500-xt",
+      "rx-6600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-6600-xt",
+    "name": "Radeon RX 6600 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 44,
+    "performanceScore": 44,
+    "price": 25000,
+    "usedPriceMin": 21000,
+    "usedPriceMax": 32000,
+    "power": 160,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "低予算向け",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 6600 XTはFHD高設定向け。RX 6600より余裕があり、価格差が小さいなら狙いやすい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "FHD高設定向け。RX 6600より余裕があり、価格差が小さいなら狙いやすい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rx-6600",
+      "rx-6650-xt",
+      "rtx-3060"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-6650-xt",
+    "name": "Radeon RX 6650 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 8,
+    "target": "FHD",
+    "recommendedResolution": "FHD",
+    "score": 47,
+    "performanceScore": 47,
+    "price": 28000,
+    "usedPriceMin": 23000,
+    "usedPriceMax": 35000,
+    "power": 180,
+    "releaseYear": 2022,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "低予算向け",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 6650 XTはFHD高設定向けとしてまだ強い。RX 7600の新品価格も比較したい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "価格次第で低予算構成に使いやすい",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "FHD高設定向けとしてまだ強い。RX 7600の新品価格も比較したい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "compare": [
+      "rx-6600-xt",
+      "rtx-3060",
+      "rx-6700"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
+    ]
+  },
+  {
+    "id": "rx-6700",
+    "name": "Radeon RX 6700",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 10,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 51,
+    "performanceScore": 51,
+    "price": 30000,
+    "usedPriceMin": 25000,
+    "usedPriceMax": 38000,
+    "power": 175,
+    "releaseYear": 2021,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "FHD向け",
+      "WQHDも可",
+      "VRAM多め",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 6700はVRAM 10GBでFHD高設定からWQHD入門まで狙える。RX 6700 XTとの差額に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "VRAM 10GBでFHD高設定からWQHD入門まで狙える。RX 6700 XTとの差額に注意。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rx-6650-xt",
+      "rx-6700-xt",
+      "rtx-3060-ti"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-6750-xt",
+    "name": "Radeon RX 6750 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 12,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 61,
+    "performanceScore": 61,
+    "price": 36000,
+    "usedPriceMin": 30000,
+    "usedPriceMax": 45000,
+    "power": 250,
+    "releaseYear": 2022,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "VRAM多め",
+      "補助電源注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 6750 XTはRX 6700 XTを少し強化したWQHD向け。価格差が小さいなら選びやすい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "RX 6700 XTを少し強化したWQHD向け。価格差が小さいなら選びやすい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "compare": [
+      "rx-6700-xt",
+      "rtx-3070",
+      "rx-6800"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-6800",
+    "name": "Radeon RX 6800",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 16,
+    "target": "WQHD",
+    "recommendedResolution": "WQHD",
+    "score": 68,
+    "performanceScore": 68,
+    "price": 45000,
+    "usedPriceMin": 38000,
+    "usedPriceMax": 55000,
+    "power": 250,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "WQHDも可",
+      "4K向け",
+      "VRAM多め",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "A",
+    "summary": "Radeon RX 6800はVRAM 16GBが強いWQHD向け。重量級ゲームでもメモリ面に余裕。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "中古個体差に注意"
+    ],
+    "usedNote": "VRAM 16GBが強いWQHD向け。重量級ゲームでもメモリ面に余裕。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Battlefield",
+      "FF14",
+      "Cyberpunk 2077",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
+      "Battlefield",
+      "FF14",
+      "Cyberpunk 2077",
+      "重量級ゲーム"
+    ],
+    "compare": [
+      "rx-6750-xt",
+      "rx-6800-xt",
+      "rtx-3080"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
+    ]
+  },
+  {
+    "id": "rx-6900-xt",
+    "name": "Radeon RX 6900 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 16,
+    "target": "4K",
+    "recommendedResolution": "4K",
+    "score": 79,
+    "performanceScore": 79,
+    "price": 60000,
+    "usedPriceMin": 50000,
+    "usedPriceMax": 75000,
+    "power": 300,
+    "releaseYear": 2020,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "4K向け",
+      "VRAM多め",
+      "補助電源注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 6900 XTは4K入門まで狙える上位GPU。高値なら新しめGPUも比較推奨。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "4K入門まで狙える上位GPU。高値なら新しめGPUも比較推奨。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "4K重量級ゲーム",
+      "FF14"
+    ],
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "4K重量級ゲーム",
+      "FF14"
+    ],
+    "compare": [
+      "rx-6800-xt",
+      "rx-6950-xt",
+      "rtx-3080-ti"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
+    ]
+  },
+  {
+    "id": "rx-6950-xt",
+    "name": "Radeon RX 6950 XT",
+    "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 6000",
+    "generation": "RX 6000",
+    "vram": 16,
+    "target": "4K",
+    "recommendedResolution": "4K",
+    "score": 82,
+    "performanceScore": 82,
+    "price": 68000,
+    "usedPriceMin": 58000,
+    "usedPriceMax": 85000,
+    "power": 335,
+    "releaseYear": 2022,
+    "market": "used",
+    "tags": [
+      "中古向け",
+      "4K向け",
+      "VRAM多め",
+      "補助電源注意",
+      "まだ使える"
+    ],
+    "usedRecommendRank": "B",
+    "summary": "Radeon RX 6950 XTはRX 6000世代の上位GPU。性能は高いが消費電力と発熱が大きい。 価格は中古相場の目安で、時期や状態によって変わります。",
+    "pros": [
+      "VRAM容量に余裕がある",
+      "中古価格が合えば現実的な選択肢"
+    ],
+    "cons": [
+      "補助電源と電源容量に注意"
+    ],
+    "usedNote": "RX 6000世代の上位GPU。性能は高いが消費電力と発熱が大きい。",
+    "caution": "中古ではファン異音・高温・サビ・分解歴・マイニング利用歴を確認してください。補助電源コネクタと電源容量、保証の有無も購入前に見るのがおすすめです。",
+    "usedCheckPoints": [
+      "ファン異音・高温・サビ・分解歴を確認",
+      "マイニング利用歴がある個体に注意",
+      "補助電源コネクタと電源容量を確認",
+      "古いGPUは保証が短い、または無いことが多い"
+    ],
+    "games": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "4K重量級ゲーム",
+      "クリエイティブ用途"
+    ],
+    "targetGames": [
+      "Cyberpunk 2077",
+      "Battlefield",
+      "4K重量級ゲーム",
+      "クリエイティブ用途"
+    ],
+    "compare": [
+      "rx-6900-xt",
+      "rtx-3090",
+      "rx-7900-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
     ]
   }
 ]

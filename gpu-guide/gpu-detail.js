@@ -101,6 +101,55 @@ function getPowerSupply(power) {
   return "550W-650W以上";
 }
 
+function renderGpuTags(tags = [], limit = 8) {
+  if (!Array.isArray(tags) || tags.length === 0) return "";
+
+  return `
+    <div class="gpu-tag-list detail-tag-list">
+      ${tags.slice(0, limit).map((tag) => `<span>${tag}</span>`).join("")}
+    </div>
+  `;
+}
+
+function formatUsedPriceRange(gpu) {
+  const min = Number(gpu.usedPriceMin);
+  const max = Number(gpu.usedPriceMax);
+
+  if (!Number.isFinite(min) || !Number.isFinite(max)) return "";
+
+  return `中古目安：${min.toLocaleString()}円〜${max.toLocaleString()}円前後`;
+}
+
+function renderUsedCautionSection(gpu) {
+  if (!gpu.usedNote && !gpu.caution) return "";
+
+  const checkPoints = Array.isArray(gpu.usedCheckPoints) && gpu.usedCheckPoints.length > 0
+    ? gpu.usedCheckPoints
+    : [
+        "ファン異音・高温・サビ・分解歴を確認",
+        "マイニング利用歴がある個体に注意",
+        "補助電源コネクタと電源容量を確認",
+        "古いGPUは保証が短い、または無いことが多い",
+      ];
+  const priceRange = formatUsedPriceRange(gpu);
+
+  return `
+    <section class="section">
+      <article class="gpu-extra-card gpu-used-caution-card">
+        <p class="info-label">USED GPU CHECK</p>
+        <h2>中古で買うときの注意</h2>
+        ${priceRange ? `<p class="used-price-range">${priceRange}</p>` : ""}
+        ${gpu.usedRecommendRank ? `<p class="used-rank">中古おすすめ度：<strong>${gpu.usedRecommendRank}</strong></p>` : ""}
+        ${gpu.usedNote ? `<p>${gpu.usedNote}</p>` : ""}
+        ${gpu.caution ? `<p>${gpu.caution}</p>` : ""}
+        <ul class="gpu-list">
+          ${checkPoints.map((point) => `<li>${point}</li>`).join("")}
+        </ul>
+      </article>
+    </section>
+  `;
+}
+
 function setMetaTag(attr, attrValue, content) {
   const el = document.querySelector(`meta[${attr}="${attrValue}"]`);
   if (el) el.setAttribute("content", content);
@@ -178,6 +227,7 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
   // shared/affiliate/affiliate-master.json 参照方式（新方式）
   const purchaseLinks = window.gpuGuideAffiliate.renderPurchaseSearchLinksFromMaster(gpu.name, masterData);
   const affiliateDisclosure = window.gpuGuideAffiliate.renderAffiliateDisclosure();
+  const tagHtml = renderGpuTags(gpu.tags);
 
   updateOgp(gpu);
 
@@ -194,6 +244,8 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
         <p class="gpu-detail-lead">
           ${gpu.summary}
         </p>
+
+        ${tagHtml}
 
         <div class="gpu-score-box detail-score">
           <div class="gpu-score-head">
@@ -249,6 +301,8 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
         </article>
       </div>
     </section>
+
+    ${renderUsedCautionSection(gpu)}
 
     <section class="section purchase-section">
       <div class="section-heading">

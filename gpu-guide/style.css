@@ -197,6 +197,10 @@
   min-width: 260px;
 }
 
+.gpu-controls select {
+  flex: 0 1 180px;
+}
+
 .gpu-controls input::placeholder {
   color: #8f9bb0;
 }
@@ -273,6 +277,26 @@
 .gpu-card h3 {
   margin: 0 0 10px;
   font-size: 23px;
+}
+
+.gpu-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+
+.gpu-tag-list span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  color: #dbe3f3;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .gpu-summary {
@@ -901,6 +925,29 @@ a.recommend-card:hover {
   left: 0;
   color: #19e3ff;
   font-weight: 900;
+}
+
+.detail-tag-list {
+  margin: 0 0 20px;
+}
+
+.gpu-used-caution-card h2 {
+  margin: 0 0 14px;
+  font-size: 28px;
+}
+
+.gpu-used-caution-card p {
+  color: #dbe3f3;
+  line-height: 1.8;
+}
+
+.used-price-range,
+.used-rank {
+  margin: 0 0 10px;
+}
+
+.used-rank strong {
+  color: #19e3ff;
 }
 
 .compare-link-grid {

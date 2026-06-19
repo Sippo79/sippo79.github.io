@@ -314,6 +314,10 @@ const gpuGrid = document.getElementById("gpuGrid");
 const gpuSearch = document.getElementById("gpuSearch");
 const brandFilter = document.getElementById("brandFilter");
 const resolutionFilter = document.getElementById("resolutionFilter");
+const marketFilter = document.getElementById("marketFilter");
+const seriesFilter = document.getElementById("seriesFilter");
+const useFilter = document.getElementById("useFilter");
+const budgetFilter = document.getElementById("budgetFilter");
 const sortSelect = document.getElementById("sortSelect");
 const gpuRankingList = document.getElementById("gpuRankingList");
 const rankingTabs = document.querySelectorAll(".ranking-tab");
@@ -426,15 +430,29 @@ function renderGpus() {
   const searchValue = gpuSearch.value.trim().toLowerCase();
   const brandValue = brandFilter.value;
   const resolutionValue = resolutionFilter.value;
+  const marketValue = marketFilter ? marketFilter.value : "all";
+  const seriesValue = seriesFilter ? seriesFilter.value : "all";
+  const useValue = useFilter ? useFilter.value : "all";
+  const budgetValue = budgetFilter ? budgetFilter.value : "all";
   const sortValue = sortSelect.value;
 
   let filteredGpus = [...gpus];
 
   if (searchValue !== "") {
-    filteredGpus = filteredGpus.filter((gpu) =>
-      gpu.name.toLowerCase().includes(searchValue) ||
-      gpu.id.toLowerCase().includes(searchValue)
-    );
+    filteredGpus = filteredGpus.filter((gpu) => {
+      const searchableText = [
+        gpu.name,
+        gpu.id,
+        gpu.brand,
+        gpu.series,
+        gpu.generation,
+        gpu.summary,
+        ...(gpu.tags || []),
+        ...(gpu.games || []),
+      ].join(" ").toLowerCase();
+
+      return searchableText.includes(searchValue);
+    });
   }
 
   if (brandValue !== "all") {
@@ -443,6 +461,41 @@ function renderGpus() {
 
   if (resolutionValue !== "all") {
     filteredGpus = filteredGpus.filter((gpu) => gpu.target === resolutionValue);
+  }
+
+  if (marketValue !== "all") {
+    filteredGpus = filteredGpus.filter((gpu) => {
+      const isUsed = gpu.market === "used" || (gpu.tags || []).includes("中古向け");
+      return marketValue === "used" ? isUsed : !isUsed;
+    });
+  }
+
+  if (seriesValue !== "all") {
+    filteredGpus = filteredGpus.filter((gpu) => gpu.series === seriesValue || gpu.generation === seriesValue);
+  }
+
+  if (useValue !== "all") {
+    filteredGpus = filteredGpus.filter((gpu) => {
+      const tags = gpu.tags || [];
+      if (useValue === "fhd-light") return tags.includes("FHD軽量");
+      if (useValue === "fhd-medium") return gpu.target === "FHD" || tags.includes("FHD向け");
+      if (useValue === "wqhd") return gpu.target === "WQHD" || tags.includes("WQHDも可");
+      if (useValue === "4k") return gpu.target === "4K" || tags.includes("4K向け");
+      return true;
+    });
+  }
+
+  if (budgetValue !== "all") {
+    filteredGpus = filteredGpus.filter((gpu) => {
+      const price = getGpuPrice(gpu);
+      if (!price) return false;
+      if (budgetValue === "under20000") return price < 20000;
+      if (budgetValue === "20000") return price >= 20000 && price < 30000;
+      if (budgetValue === "30000") return price >= 30000 && price < 40000;
+      if (budgetValue === "40000") return price >= 40000 && price < 50000;
+      if (budgetValue === "50000") return price >= 50000;
+      return true;
+    });
   }
 
   filteredGpus.sort((a, b) => {
@@ -469,6 +522,7 @@ function createGpuCard(gpu) {
   const labelHtml = label
     ? `<span class="gpu-label gpu-label-${label.type}">${label.text}</span>`
     : "";
+  const tagHtml = renderGpuTags(gpu.tags, 4);
 
   return `
     <a href="gpu.html?id=${gpu.id}" class="gpu-card">
@@ -479,6 +533,7 @@ function createGpuCard(gpu) {
 
       ${labelHtml}
       <h3>${gpu.name}</h3>
+      ${tagHtml}
 
       <p class="gpu-summary">${gpu.summary}</p>
 
@@ -510,6 +565,16 @@ function createGpuCard(gpu) {
         </div>
       </div>
     </a>
+  `;
+}
+
+function renderGpuTags(tags = [], limit = 6) {
+  if (!Array.isArray(tags) || tags.length === 0) return "";
+
+  return `
+    <div class="gpu-tag-list">
+      ${tags.slice(0, limit).map((tag) => `<span>${tag}</span>`).join("")}
+    </div>
   `;
 }
 
@@ -612,6 +677,10 @@ if (gpuGrid && gpuSearch && brandFilter && resolutionFilter && sortSelect) {
   gpuSearch.addEventListener("input", renderGpus);
   brandFilter.addEventListener("change", renderGpus);
   resolutionFilter.addEventListener("change", renderGpus);
+  if (marketFilter) marketFilter.addEventListener("change", renderGpus);
+  if (seriesFilter) seriesFilter.addEventListener("change", renderGpus);
+  if (useFilter) useFilter.addEventListener("change", renderGpus);
+  if (budgetFilter) budgetFilter.addEventListener("change", renderGpus);
   sortSelect.addEventListener("change", renderGpus);
 }
 
