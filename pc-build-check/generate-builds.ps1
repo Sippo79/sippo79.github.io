@@ -101,6 +101,36 @@ function Build-RelatedHtml($related) {
     return $html
 }
 
+function Build-MotherboardGuideHtml($build) {
+    $guide = $build.motherboardGuide
+    if ($null -eq $guide) {
+        return @"
+
+      <section class="build-card build-motherboard-card">
+        <p class="section-label">Motherboard</p>
+        <h2>マザーボード目安</h2>
+        <p class="build-motherboard-fallback">CPUに対応したソケットの製品を選択してください。</p>
+        <p class="build-motherboard-note">※マザーボードはCPUソケット・チップセット・メモリ規格の互換性を確認してください。</p>
+      </section>
+"@
+    }
+
+    return @"
+
+      <section class="build-card build-motherboard-card">
+        <p class="section-label">Motherboard</p>
+        <h2>マザーボード目安</h2>
+        <dl class="build-motherboard-list">
+          <div><dt>ソケット</dt><dd>$($guide.socket)</dd></div>
+          <div><dt>チップセット</dt><dd>$($guide.chipset)</dd></div>
+          <div><dt>メモリ規格</dt><dd>$($guide.memoryType)</dd></div>
+          <div><dt>注意点</dt><dd>$($guide.note)</dd></div>
+        </dl>
+        <p class="build-motherboard-note">※マザーボードはCPUソケット・チップセット・メモリ規格の互換性を確認してください。同じチップセットでもDDR4版とDDR5版があるため、メモリ規格に注意してください。</p>
+      </section>
+"@
+}
+
 function Build-Html($build, $allBuilds) {
     $slug      = Get-Slug $build
     $seoTitle  = Get-SeoTitle $build
@@ -112,6 +142,7 @@ function Build-Html($build, $allBuilds) {
     $usageStr  = $usageLabel[$build.usage]
     $related   = Get-Related $build $allBuilds
     $relHtml   = Build-RelatedHtml $related
+    $motherboardHtml = Build-MotherboardGuideHtml $build
 
     $suitedHtml  = ($suitedFor[$build.usage]  | ForEach-Object { "          <li>$_</li>" }) -join "`n"
     $cautionHtml = ($cautions[$build.usage] | ForEach-Object { "          <li>$_</li>" }) -join "`n"
@@ -212,6 +243,7 @@ $sippoHeaderLink
         <h2>構成のポイント</h2>
         <p class="build-comment">$($build.comment)</p>
       </section>
+$motherboardHtml
 
       <section class="build-card">
         <p class="section-label">For You</p>

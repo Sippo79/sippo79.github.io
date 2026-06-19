@@ -621,6 +621,46 @@ a {
   border: 1px solid rgba(25, 227, 255, 0.22);
 }
 
+.motherboard-guide-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.motherboard-guide-list div {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.motherboard-guide-list div:last-child {
+  border-bottom: none;
+}
+
+.motherboard-guide-list dt {
+  color: #9aa7bd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.motherboard-guide-list dd,
+.motherboard-fallback {
+  margin: 0;
+  color: #e8edf7;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.motherboard-note {
+  margin: 14px 0 0;
+  color: #9aa7bd;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
 .gpu-detail-button {
   display: inline-flex;
   align-items: center;
@@ -1035,6 +1075,11 @@ a {
   .capability-list {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .motherboard-guide-list div {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .gpu-detail-button {

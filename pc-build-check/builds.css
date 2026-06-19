@@ -139,6 +139,51 @@
   line-height: 1.95;
 }
 
+/* Motherboard guide */
+.build-motherboard-card {
+  border-color: rgba(25, 227, 255, 0.18);
+}
+
+.build-motherboard-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.build-motherboard-list div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.build-motherboard-list div:last-child {
+  border-bottom: none;
+}
+
+.build-motherboard-list dt {
+  color: #9aa7bd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.build-motherboard-list dd,
+.build-motherboard-fallback {
+  margin: 0;
+  color: #e8edf7;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.build-motherboard-note {
+  margin: 14px 0 0;
+  color: #9aa7bd;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
 /* Check list */
 .build-check-list {
   list-style: none;
@@ -345,6 +390,11 @@
 
   .spec-val {
     text-align: left;
+  }
+
+  .build-motherboard-list div {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 
   .build-next-grid {
