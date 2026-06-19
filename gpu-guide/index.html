@@ -150,25 +150,26 @@
       <div class="container">
         <div class="section-heading">
           <p class="section-label">RANKING</p>
-          <h2>GPU性能ランキング</h2>
+          <h2>GPUゲーム性能ランキング</h2>
           <p>
-            性能スコアが高い順にGPUを自動ソート。目安価格や用途もあわせて、性能差を一目で比較できます。
+            通常のゲーム描画性能を表す「ゲーム性能スコア」を中心にGPUを自動ソート。総合評価や中古おすすめ度も切り替えて確認できます。
           </p>
         </div>
 
         <div class="hint-box">
           <div class="hint-box-icon" aria-hidden="true">💡</div>
           <p class="hint-box-body">
-            <strong>性能スコアって？</strong> このサイト独自の「ざっくり強さの目安」です（最大100）。
-            数字が大きいほど高画質・高フレームレートに向いています。まずは順位と数字の差を眺めるだけでOK。
+            <strong>スコアの見方</strong> 通常のゲーム性能を重視する場合は「ゲーム性能スコア」、DLSSやレイトレなど機能面も含める場合は「総合スコア」、中古で選ぶ場合は「中古おすすめ度」を目安にしてください。
           </p>
         </div>
 
         <div class="ranking-tabs" aria-label="GPUランキング切り替え">
-          <button type="button" class="ranking-tab is-active" data-ranking-type="overall">総合</button>
+          <button type="button" class="ranking-tab is-active" data-ranking-type="raster">ゲーム性能</button>
+          <button type="button" class="ranking-tab" data-ranking-type="overall">総合</button>
           <button type="button" class="ranking-tab" data-ranking-type="fhd">FHD</button>
           <button type="button" class="ranking-tab" data-ranking-type="wqhd">WQHD</button>
           <button type="button" class="ranking-tab" data-ranking-type="4k">4K</button>
+          <button type="button" class="ranking-tab" data-ranking-type="used">中古おすすめ</button>
           <button type="button" class="ranking-tab" data-ranking-type="value">コスパ</button>
         </div>
 
@@ -176,7 +177,7 @@
           <div class="ranking-header">
             <span>順位</span>
             <span>GPU名</span>
-            <span>性能スコア</span>
+            <span>表示中のスコア</span>
             <span>目安価格</span>
             <span>用途の目安</span>
           </div>
@@ -194,7 +195,7 @@
           <p class="section-label">COMPARE</p>
           <h2>GPU性能比較表</h2>
           <p>
-            主要GPUを性能順に比較できます。
+            主要GPUをゲーム性能・機能・中古おすすめ・総合の4軸で比較できます。
             まずは「どのGPUがどのくらいの位置づけなのか」をざっくり掴むのがおすすめです。
           </p>
         </div>
@@ -266,7 +267,9 @@
           </select>
 
           <select id="sortSelect">
-            <option value="performance">性能順</option>
+            <option value="performance">ゲーム性能順</option>
+            <option value="overall">総合スコア順</option>
+            <option value="used">中古おすすめ順</option>
             <option value="price">価格目安が安い順</option>
             <option value="vram">VRAM多い順</option>
           </select>

@@ -5,7 +5,7 @@
     "brand": "NVIDIA",
     "vram": 12,
     "target": "FHD",
-    "score": 43,
+    "score": 52,
     "price": 27000,
     "power": 170,
     "summary": "GeForce RTX 3060はVRAM 12GB重視なら中古でも強い。FHDで長く使いやすい定番候補。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -29,7 +29,7 @@
     "series": "RTX 30",
     "generation": "RTX 30",
     "recommendedResolution": "FHD",
-    "performanceScore": 43,
+    "performanceScore": 52,
     "usedPriceMin": 23000,
     "usedPriceMax": 33000,
     "releaseYear": 2021,
@@ -63,7 +63,11 @@
       "Apex Legends",
       "Fortnite",
       "FF14"
-    ]
+    ],
+    "rasterScore": 43,
+    "featureScore": 70,
+    "usedScore": 74,
+    "scoreNote": "VRAM 12GBは強みですが、純粋なゲーム性能はRTX 2070 SUPER、RTX 2080、RTX 3060 Tiより下になる場面があります。"
   },
   {
     "id": "rtx-3060-ti",
@@ -71,7 +75,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "FHD",
-    "score": 53,
+    "score": 61,
     "price": 30000,
     "power": 200,
     "summary": "GeForce RTX 3060 TiはFHD高画質からWQHD入門まで狙える。VRAM 8GBなので最新ゲームは設定調整も考える。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -95,7 +99,7 @@
     "series": "RTX 30",
     "generation": "RTX 30",
     "recommendedResolution": "FHD",
-    "performanceScore": 53,
+    "performanceScore": 61,
     "usedPriceMin": 27000,
     "usedPriceMax": 38000,
     "releaseYear": 2020,
@@ -128,7 +132,11 @@
       "Fortnite",
       "FF14",
       "CoD"
-    ]
+    ],
+    "rasterScore": 55,
+    "featureScore": 72,
+    "usedScore": 76,
+    "scoreNote": ""
   },
   {
     "id": "rtx-3070",
@@ -136,7 +144,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "WQHD",
-    "score": 60,
+    "score": 64,
     "price": 35000,
     "power": 220,
     "summary": "GeForce RTX 3070はWQHD入門として優秀。ただしVRAM 8GBが重いゲームでネックになることがある。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -160,7 +168,7 @@
     "series": "RTX 30",
     "generation": "RTX 30",
     "recommendedResolution": "WQHD",
-    "performanceScore": 60,
+    "performanceScore": 64,
     "usedPriceMin": 32000,
     "usedPriceMax": 45000,
     "releaseYear": 2020,
@@ -193,7 +201,11 @@
       "Battlefield",
       "FF14",
       "Escape from Tarkov"
-    ]
+    ],
+    "rasterScore": 62,
+    "featureScore": 73,
+    "usedScore": 72,
+    "scoreNote": ""
   },
   {
     "id": "rtx-3070-ti",
@@ -201,7 +213,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "WQHD",
-    "score": 64,
+    "score": 65,
     "price": 38000,
     "power": 290,
     "summary": "GeForce RTX 3070 TiはRTX 3070より少し速いが、消費電力と発熱が高め。価格差が小さい時向け。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -225,7 +237,7 @@
     "series": "RTX 30",
     "generation": "RTX 30",
     "recommendedResolution": "WQHD",
-    "performanceScore": 64,
+    "performanceScore": 65,
     "usedPriceMin": 35000,
     "usedPriceMax": 50000,
     "releaseYear": 2021,
@@ -259,7 +271,11 @@
       "Battlefield",
       "FF14",
       "モンスターハンターワイルズ"
-    ]
+    ],
+    "rasterScore": 65,
+    "featureScore": 73,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-3080",
@@ -324,7 +340,11 @@
       "Cyberpunk 2077",
       "FF14",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 74,
+    "featureScore": 75,
+    "usedScore": 58,
+    "scoreNote": ""
   },
   {
     "id": "rtx-4060",
@@ -332,7 +352,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "FHD",
-    "score": 46,
+    "score": 57,
     "price": 52000,
     "power": 115,
     "summary": "省電力で扱いやすいフルHD向けGPU。軽めのゲームや初めてのゲーミングPCに向く。2026年はメモリ高騰と在庫減で新品価格がやや上がっている点に注意（価格は目安）。",
@@ -356,13 +376,17 @@
     "series": "RTX 40",
     "generation": "RTX 40",
     "recommendedResolution": "FHD",
-    "performanceScore": 46,
+    "performanceScore": 57,
     "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
       "FF14"
-    ]
+    ],
+    "rasterScore": 45,
+    "featureScore": 86,
+    "usedScore": 70,
+    "scoreNote": "新しい世代でDLSS 3と省電力は強みですが、純粋なラスタライズ性能ではRTX 3060 TiやRTX 3070より下です。"
   },
   {
     "id": "rtx-4060-ti",
@@ -370,7 +394,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "FHD",
-    "score": 56,
+    "score": 62,
     "price": 56000,
     "power": 160,
     "summary": "フルHD高画質向けのミドルGPU。軽めならWQHDも狙える。新品流通は減りつつあり中古も選択肢に。VRAM 8GBは最新ゲームで設定調整したい（価格は目安・要確認）。",
@@ -394,13 +418,17 @@
     "series": "RTX 40",
     "generation": "RTX 40",
     "recommendedResolution": "FHD",
-    "performanceScore": 56,
+    "performanceScore": 62,
     "targetGames": [
       "Apex Legends",
       "Fortnite",
       "FF14",
       "CoD"
-    ]
+    ],
+    "rasterScore": 56,
+    "featureScore": 87,
+    "usedScore": 66,
+    "scoreNote": ""
   },
   {
     "id": "rtx-4070",
@@ -408,7 +436,7 @@
     "brand": "NVIDIA",
     "vram": 12,
     "target": "WQHD",
-    "score": 70,
+    "score": 76,
     "price": 72000,
     "power": 200,
     "summary": "WQHD向けのバランス型GPU。消費電力を抑えつつ画質とフレームレートを両立しやすい。後継のRTX 5070登場で新品流通は減少し中古も候補に（価格は目安・要確認）。",
@@ -432,13 +460,17 @@
     "series": "RTX 40",
     "generation": "RTX 40",
     "recommendedResolution": "WQHD",
-    "performanceScore": 70,
+    "performanceScore": 76,
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "Escape from Tarkov"
-    ]
+    ],
+    "rasterScore": 70,
+    "featureScore": 90,
+    "usedScore": 70,
+    "scoreNote": ""
   },
   {
     "id": "rtx-4070-super",
@@ -446,7 +478,7 @@
     "brand": "NVIDIA",
     "vram": 12,
     "target": "WQHD",
-    "score": 75,
+    "score": 80,
     "price": 82000,
     "power": 220,
     "summary": "WQHD高画質で人気だったGPU。現在は生産終了で新品流通が減り中古中心。RTX 4070より余裕があり今でも実用十分。価格は目安・要確認（中古相場寄り）。",
@@ -470,13 +502,17 @@
     "series": "RTX 40",
     "generation": "RTX 40",
     "recommendedResolution": "WQHD",
-    "performanceScore": 75,
+    "performanceScore": 80,
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "モンスターハンターワイルズ"
-    ]
+    ],
+    "rasterScore": 76,
+    "featureScore": 91,
+    "usedScore": 70,
+    "scoreNote": ""
   },
   {
     "id": "rtx-4070-ti-super",
@@ -484,7 +520,7 @@
     "brand": "NVIDIA",
     "vram": 16,
     "target": "WQHD",
-    "score": 84,
+    "score": 87,
     "price": 115000,
     "power": 285,
     "summary": "WQHD高画質から4K入門まで狙えた上位GPU。生産終了で新品流通は減少し中古中心。VRAM 16GBで重量級ゲームにも対応しやすい。価格は目安・要確認。",
@@ -508,13 +544,17 @@
     "series": "RTX 40",
     "generation": "RTX 40",
     "recommendedResolution": "WQHD",
-    "performanceScore": 84,
+    "performanceScore": 87,
     "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "モンスターハンターワイルズ",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 84,
+    "featureScore": 93,
+    "usedScore": 68,
+    "scoreNote": ""
   },
   {
     "id": "rtx-4080-super",
@@ -552,7 +592,11 @@
       "Black Myth: Wukong",
       "Starfield",
       "4K重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 92,
+    "featureScore": 94,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5060",
@@ -560,7 +604,7 @@
     "brand": "NVIDIA",
     "vram": 8,
     "target": "FHD",
-    "score": 58,
+    "score": 67,
     "price": 57000,
     "power": 145,
     "summary": "フルHD向けの現行ミドルクラスGPU。軽めのFPSや普段使い、価格を抑えたゲーミングPC向け。2026年はメモリ高騰で価格がやや上昇傾向（価格は目安）。",
@@ -584,13 +628,17 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "FHD",
-    "performanceScore": 58,
+    "performanceScore": 67,
     "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
       "FF14"
-    ]
+    ],
+    "rasterScore": 58,
+    "featureScore": 91,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5060-ti",
@@ -598,7 +646,7 @@
     "brand": "NVIDIA",
     "vram": 16,
     "target": "FHD",
-    "score": 68,
+    "score": 75,
     "price": 89000,
     "power": 180,
     "summary": "フルHD高画質やWQHD入門向けの現行GPU。VRAM 16GBモデルなら長く使いやすい。メモリ高騰の影響で価格上昇・在庫変動が大きい点に注意（価格は16GB版の目安・要確認）。",
@@ -622,13 +670,17 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "FHD",
-    "performanceScore": 68,
+    "performanceScore": 75,
     "targetGames": [
       "Apex Legends",
       "Fortnite",
       "FF14",
       "CoD"
-    ]
+    ],
+    "rasterScore": 68,
+    "featureScore": 92,
+    "usedScore": 64,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5070",
@@ -636,7 +688,7 @@
     "brand": "NVIDIA",
     "vram": 12,
     "target": "WQHD",
-    "score": 78,
+    "score": 83,
     "price": 118000,
     "power": 250,
     "summary": "WQHDゲーミングの中心となる現行GPU。画質とフレームレートのバランスが良い。2026年はメモリ高騰で価格が大きく上がっているため、購入前に最新価格の確認を（価格は目安・要確認）。",
@@ -661,14 +713,18 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "WQHD",
-    "performanceScore": 78,
+    "performanceScore": 83,
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "モンスターハンターワイルズ",
       "Escape from Tarkov"
-    ]
+    ],
+    "rasterScore": 78,
+    "featureScore": 94,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5070-ti",
@@ -676,7 +732,7 @@
     "brand": "NVIDIA",
     "vram": 16,
     "target": "WQHD",
-    "score": 88,
+    "score": 90,
     "price": 158000,
     "power": 300,
     "summary": "WQHD高画質や一部4Kも狙える現行上位GPU。VRAM 16GBで重めのゲームも余裕。メモリ高騰で価格上昇・在庫減の傾向があるため最新価格の確認を（価格は目安・要確認）。",
@@ -700,13 +756,17 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "WQHD",
-    "performanceScore": 88,
+    "performanceScore": 90,
     "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "Escape from Tarkov",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 88,
+    "featureScore": 95,
+    "usedScore": 60,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5080",
@@ -714,7 +774,7 @@
     "brand": "NVIDIA",
     "vram": 16,
     "target": "4K",
-    "score": 96,
+    "score": 95,
     "price": 198000,
     "power": 360,
     "summary": "4Kゲーミングや重量級ゲーム向けの現行ハイエンドGPU。高画質設定で快適に遊びたい人向け。2026年はメモリ高騰で価格が上昇している（価格は目安・要確認）。",
@@ -738,13 +798,17 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "4K",
-    "performanceScore": 96,
+    "performanceScore": 95,
     "targetGames": [
       "Cyberpunk 2077",
       "Black Myth: Wukong",
       "Starfield",
       "4K重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 96,
+    "featureScore": 97,
+    "usedScore": 54,
+    "scoreNote": ""
   },
   {
     "id": "rtx-5090",
@@ -752,7 +816,7 @@
     "brand": "NVIDIA",
     "vram": 32,
     "target": "4K",
-    "score": 100,
+    "score": 98,
     "price": 650000,
     "power": 575,
     "summary": "現行最上位クラスのGPU。4K最高画質やクリエイティブ・AI用途で最高性能を求める人向け。2026年は世界的な品薄とメモリ高騰で価格が大きく高騰中（価格は目安・要確認）。",
@@ -776,13 +840,17 @@
     "series": "RTX 50",
     "generation": "RTX 50",
     "recommendedResolution": "4K",
-    "performanceScore": 100,
+    "performanceScore": 98,
     "targetGames": [
       "Cyberpunk 2077",
       "Black Myth: Wukong",
       "Starfield",
       "4K重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 100,
+    "featureScore": 100,
+    "usedScore": 45,
+    "scoreNote": ""
   },
   {
     "id": "rx-6600",
@@ -790,7 +858,7 @@
     "brand": "AMD",
     "vram": 8,
     "target": "FHD",
-    "score": 38,
+    "score": 49,
     "price": 22000,
     "power": 132,
     "summary": "Radeon RX 6600は省電力で中古FHD用として優秀。低予算で失敗しにくい有力候補。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -814,7 +882,7 @@
     "series": "RX 6000",
     "generation": "RX 6000",
     "recommendedResolution": "FHD",
-    "performanceScore": 38,
+    "performanceScore": 49,
     "usedPriceMin": 18000,
     "usedPriceMax": 26000,
     "releaseYear": 2021,
@@ -847,7 +915,11 @@
       "Apex Legends",
       "Fortnite",
       "FF14"
-    ]
+    ],
+    "rasterScore": 42,
+    "featureScore": 56,
+    "usedScore": 82,
+    "scoreNote": "RTX 2060よりゲーム性能・省電力・VRAM面で有利寄り。FHD中古GPUとして評価しやすいです。ただしPCIe x8やレイトレ性能は注意。"
   },
   {
     "id": "rx-6700-xt",
@@ -855,7 +927,7 @@
     "brand": "AMD",
     "vram": 12,
     "target": "WQHD",
-    "score": 57,
+    "score": 64,
     "price": 32000,
     "power": 230,
     "summary": "Radeon RX 6700 XTは中古WQHD用としてコスパが良い。VRAM 12GBでRTX 3070よりメモリ面に余裕。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -879,7 +951,7 @@
     "series": "RX 6000",
     "generation": "RX 6000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 57,
+    "performanceScore": 64,
     "usedPriceMin": 28000,
     "usedPriceMax": 40000,
     "releaseYear": 2021,
@@ -911,7 +983,11 @@
       "Battlefield",
       "FF14",
       "Escape from Tarkov"
-    ]
+    ],
+    "rasterScore": 58,
+    "featureScore": 61,
+    "usedScore": 82,
+    "scoreNote": "中古WQHD向けとしてかなり強く、RTX 3060 TiからRTX 3070付近と比較される性能帯です。VRAM 12GBも強みです。"
   },
   {
     "id": "rx-6800-xt",
@@ -919,7 +995,7 @@
     "brand": "AMD",
     "vram": 16,
     "target": "WQHD",
-    "score": 74,
+    "score": 75,
     "price": 50000,
     "power": 300,
     "summary": "Radeon RX 6800 XTはWQHD高画質向けの旧世代上位Radeon。VRAM 16GBで強いが消費電力に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
@@ -943,7 +1019,7 @@
     "series": "RX 6000",
     "generation": "RX 6000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 74,
+    "performanceScore": 75,
     "usedPriceMin": 43000,
     "usedPriceMax": 62000,
     "releaseYear": 2020,
@@ -976,7 +1052,11 @@
       "Cyberpunk 2077",
       "FF14",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 74,
+    "featureScore": 64,
+    "usedScore": 70,
+    "scoreNote": ""
   },
   {
     "id": "rx-7600",
@@ -984,7 +1064,7 @@
     "brand": "AMD",
     "vram": 8,
     "target": "FHD",
-    "score": 50,
+    "score": 55,
     "price": 42000,
     "power": 165,
     "summary": "価格を抑えたフルHD向けの現行下位GPU。軽めのゲームや初めてのゲーミングPCに向く。2026年はメモリ高騰でやや値上がり傾向（価格は目安）。",
@@ -1008,13 +1088,17 @@
     "series": "RX 7000",
     "generation": "RX 7000",
     "recommendedResolution": "FHD",
-    "performanceScore": 50,
+    "performanceScore": 55,
     "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
       "FF14"
-    ]
+    ],
+    "rasterScore": 48,
+    "featureScore": 70,
+    "usedScore": 66,
+    "scoreNote": ""
   },
   {
     "id": "rx-7700-xt",
@@ -1022,7 +1106,7 @@
     "brand": "AMD",
     "vram": 12,
     "target": "WQHD",
-    "score": 70,
+    "score": 73,
     "price": 58000,
     "power": 245,
     "summary": "WQHD入門から中級向けのRadeon。コスパ重視で選びやすい。後継世代の登場で新品流通は減少傾向、中古も選択肢に（価格は目安・要確認）。",
@@ -1046,13 +1130,17 @@
     "series": "RX 7000",
     "generation": "RX 7000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 70,
+    "performanceScore": 73,
     "targetGames": [
       "Apex Legends",
       "CoD",
       "FF14",
       "モンスターハンターワイルズ"
-    ]
+    ],
+    "rasterScore": 70,
+    "featureScore": 73,
+    "usedScore": 68,
+    "scoreNote": ""
   },
   {
     "id": "rx-7800-xt",
@@ -1060,7 +1148,7 @@
     "brand": "AMD",
     "vram": 16,
     "target": "WQHD",
-    "score": 80,
+    "score": 81,
     "price": 78000,
     "power": 263,
     "summary": "WQHD高画質向けのRadeon。VRAM 16GBで重量級ゲームにも対応しやすい。RX 9070世代の登場で新品流通は減りつつあり中古も候補に（価格は目安・要確認）。",
@@ -1084,13 +1172,17 @@
     "series": "RX 7000",
     "generation": "RX 7000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 80,
+    "performanceScore": 81,
     "targetGames": [
       "Apex Legends",
       "CoD",
       "FF14",
       "モンスターハンターワイルズ"
-    ]
+    ],
+    "rasterScore": 80,
+    "featureScore": 75,
+    "usedScore": 70,
+    "scoreNote": ""
   },
   {
     "id": "rx-7900-gre",
@@ -1128,7 +1220,11 @@
       "Cyberpunk 2077",
       "FF14",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 84,
+    "featureScore": 76,
+    "usedScore": 68,
+    "scoreNote": ""
   },
   {
     "id": "rx-7900-xt",
@@ -1136,7 +1232,7 @@
     "brand": "AMD",
     "vram": 20,
     "target": "4K",
-    "score": 90,
+    "score": 89,
     "price": 110000,
     "power": 315,
     "summary": "4K入門から高画質WQHD向けの旧世代上位Radeon。生産終了で新品は品薄・中古中心。VRAM 20GBと大容量で長く使いやすい。価格は目安・要確認。",
@@ -1160,13 +1256,17 @@
     "series": "RX 7000",
     "generation": "RX 7000",
     "recommendedResolution": "4K",
-    "performanceScore": 90,
+    "performanceScore": 89,
     "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "Starfield",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 90,
+    "featureScore": 78,
+    "usedScore": 64,
+    "scoreNote": ""
   },
   {
     "id": "rx-7900-xtx",
@@ -1174,7 +1274,7 @@
     "brand": "AMD",
     "vram": 24,
     "target": "4K",
-    "score": 94,
+    "score": 93,
     "price": 135000,
     "power": 355,
     "summary": "旧世代Radeonの最上位GPU。生産終了で新品は品薄・中古中心。VRAM 24GBで4KやVRAMを多く使う用途に強い。メモリ高騰で中古も高めの傾向（価格は目安・要確認）。",
@@ -1198,13 +1298,17 @@
     "series": "RX 7000",
     "generation": "RX 7000",
     "recommendedResolution": "4K",
-    "performanceScore": 94,
+    "performanceScore": 93,
     "targetGames": [
       "Cyberpunk 2077",
       "Starfield",
       "4K重量級ゲーム",
       "クリエイティブ用途"
-    ]
+    ],
+    "rasterScore": 94,
+    "featureScore": 79,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rx-9070",
@@ -1212,7 +1316,7 @@
     "brand": "AMD",
     "vram": 16,
     "target": "WQHD",
-    "score": 82,
+    "score": 86,
     "price": 88000,
     "power": 220,
     "summary": "WQHD高画質向けの現行Radeon。RX 9070 XTより価格を抑えつつVRAM 16GBの余裕がある。価格は需給で変動しやすいので購入前に最新価格の確認を（価格は目安）。",
@@ -1236,13 +1340,17 @@
     "series": "RX 9000",
     "generation": "RX 9000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 82,
+    "performanceScore": 86,
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "モンスターハンターワイルズ"
-    ]
+    ],
+    "rasterScore": 84,
+    "featureScore": 88,
+    "usedScore": 64,
+    "scoreNote": ""
   },
   {
     "id": "rx-9070-xt",
@@ -1250,7 +1358,7 @@
     "brand": "AMD",
     "vram": 16,
     "target": "WQHD",
-    "score": 89,
+    "score": 91,
     "price": 96000,
     "power": 304,
     "summary": "WQHD高画質から4K入門まで狙える現行Radeon。価格と性能のバランス重視向き。発売後は値下がりも需給で変動するため、購入前に最新価格の確認を（価格は目安）。",
@@ -1274,13 +1382,17 @@
     "series": "RX 9000",
     "generation": "RX 9000",
     "recommendedResolution": "WQHD",
-    "performanceScore": 89,
+    "performanceScore": 91,
     "targetGames": [
       "Battlefield",
       "Escape from Tarkov",
       "Cyberpunk 2077",
       "重量級ゲーム"
-    ]
+    ],
+    "rasterScore": 91,
+    "featureScore": 90,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1060-6gb",
@@ -1292,8 +1404,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 20,
-    "performanceScore": 20,
+    "score": 22,
+    "performanceScore": 22,
     "price": 12000,
     "usedPriceMin": 8000,
     "usedPriceMax": 15000,
@@ -1348,7 +1460,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 20,
+    "featureScore": 22,
+    "usedScore": 38,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1070",
@@ -1360,8 +1476,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 27,
-    "performanceScore": 27,
+    "score": 32,
+    "performanceScore": 32,
     "price": 15000,
     "usedPriceMin": 11000,
     "usedPriceMax": 19000,
@@ -1414,7 +1530,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 30,
+    "featureScore": 26,
+    "usedScore": 50,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1070-ti",
@@ -1426,8 +1546,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 30,
-    "performanceScore": 30,
+    "score": 35,
+    "performanceScore": 35,
     "price": 17000,
     "usedPriceMin": 13000,
     "usedPriceMax": 22000,
@@ -1480,7 +1600,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 34,
+    "featureScore": 27,
+    "usedScore": 48,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1080",
@@ -1492,8 +1616,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 33,
-    "performanceScore": 33,
+    "score": 39,
+    "performanceScore": 39,
     "price": 19000,
     "usedPriceMin": 15000,
     "usedPriceMax": 25000,
@@ -1546,7 +1670,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 38,
+    "featureScore": 28,
+    "usedScore": 48,
+    "scoreNote": "RTX 2060より古い世代ですが、通常のゲーム性能では同等〜やや上です。VRAM 8GBも強み。ただしDLSS非対応で、中古では年式・発熱・ファン劣化に注意。"
   },
   {
     "id": "gtx-1080-ti",
@@ -1558,8 +1686,8 @@
     "vram": 11,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 44,
-    "performanceScore": 44,
+    "score": 51,
+    "performanceScore": 51,
     "price": 28000,
     "usedPriceMin": 22000,
     "usedPriceMax": 35000,
@@ -1612,7 +1740,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 53,
+    "featureScore": 30,
+    "usedScore": 42,
+    "scoreNote": "古いGPUですがラスタライズ性能は非常に高く、RTX 2070やRTX 3060より上に来る場面があります。VRAM 11GBは強みですが、DLSS非対応・消費電力・中古リスクは慎重に見たいGPUです。"
   },
   {
     "id": "gtx-1650",
@@ -1624,8 +1756,8 @@
     "vram": 4,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 18,
-    "performanceScore": 18,
+    "score": 22,
+    "performanceScore": 22,
     "price": 13000,
     "usedPriceMin": 9000,
     "usedPriceMax": 16000,
@@ -1679,7 +1811,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 18,
+    "featureScore": 32,
+    "usedScore": 42,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1650-super",
@@ -1691,8 +1827,8 @@
     "vram": 4,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 26,
-    "performanceScore": 26,
+    "score": 30,
+    "performanceScore": 30,
     "price": 15000,
     "usedPriceMin": 11000,
     "usedPriceMax": 19000,
@@ -1746,7 +1882,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 27,
+    "featureScore": 34,
+    "usedScore": 52,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1660",
@@ -1758,8 +1898,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 29,
-    "performanceScore": 29,
+    "score": 34,
+    "performanceScore": 34,
     "price": 16000,
     "usedPriceMin": 12000,
     "usedPriceMax": 21000,
@@ -1811,7 +1951,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 31,
+    "featureScore": 36,
+    "usedScore": 56,
+    "scoreNote": ""
   },
   {
     "id": "gtx-1660-super",
@@ -1823,8 +1967,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 32,
-    "performanceScore": 32,
+    "score": 38,
+    "performanceScore": 38,
     "price": 18000,
     "usedPriceMin": 14000,
     "usedPriceMax": 24000,
@@ -1876,7 +2020,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 34,
+    "featureScore": 38,
+    "usedScore": 62,
+    "scoreNote": "RTX 3050より純粋なゲーム性能で近い、または上になる場面があります。DLSSやRTはありませんが、中古FHD用として評価できます。"
   },
   {
     "id": "gtx-1660-ti",
@@ -1888,8 +2036,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 33,
-    "performanceScore": 33,
+    "score": 39,
+    "performanceScore": 39,
     "price": 19000,
     "usedPriceMin": 15000,
     "usedPriceMax": 25000,
@@ -1940,7 +2088,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 35,
+    "featureScore": 39,
+    "usedScore": 60,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2060",
@@ -1952,8 +2104,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 35,
-    "performanceScore": 35,
+    "score": 42,
+    "performanceScore": 42,
     "price": 20000,
     "usedPriceMin": 16000,
     "usedPriceMax": 26000,
@@ -2005,7 +2157,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 35,
+    "featureScore": 63,
+    "usedScore": 62,
+    "scoreNote": "通常性能はGTX 1080と近いですが、DLSS対応が強みです。対応ゲームでは快適性が上がる一方、VRAM 6GBは重いゲームで注意が必要です。"
   },
   {
     "id": "rtx-2060-super",
@@ -2017,8 +2173,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 41,
-    "performanceScore": 41,
+    "score": 48,
+    "performanceScore": 48,
     "price": 24000,
     "usedPriceMin": 20000,
     "usedPriceMax": 30000,
@@ -2070,7 +2226,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 42,
+    "featureScore": 65,
+    "usedScore": 66,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2070",
@@ -2082,8 +2242,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 43,
-    "performanceScore": 43,
+    "score": 50,
+    "performanceScore": 50,
     "price": 26000,
     "usedPriceMin": 21000,
     "usedPriceMax": 32000,
@@ -2135,7 +2295,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 45,
+    "featureScore": 66,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2070-super",
@@ -2147,8 +2311,8 @@
     "vram": 8,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 49,
-    "performanceScore": 49,
+    "score": 55,
+    "performanceScore": 55,
     "price": 30000,
     "usedPriceMin": 25000,
     "usedPriceMax": 38000,
@@ -2200,7 +2364,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 51,
+    "featureScore": 67,
+    "usedScore": 62,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2080",
@@ -2212,8 +2380,8 @@
     "vram": 8,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 52,
-    "performanceScore": 52,
+    "score": 56,
+    "performanceScore": 56,
     "price": 33000,
     "usedPriceMin": 28000,
     "usedPriceMax": 42000,
@@ -2266,7 +2434,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 53,
+    "featureScore": 68,
+    "usedScore": 58,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2080-super",
@@ -2278,8 +2450,8 @@
     "vram": 8,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 55,
-    "performanceScore": 55,
+    "score": 59,
+    "performanceScore": 59,
     "price": 36000,
     "usedPriceMin": 30000,
     "usedPriceMax": 45000,
@@ -2332,7 +2504,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 56,
+    "featureScore": 69,
+    "usedScore": 56,
+    "scoreNote": ""
   },
   {
     "id": "rtx-2080-ti",
@@ -2344,8 +2520,8 @@
     "vram": 11,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 61,
-    "performanceScore": 61,
+    "score": 64,
+    "performanceScore": 64,
     "price": 45000,
     "usedPriceMin": 38000,
     "usedPriceMax": 55000,
@@ -2400,7 +2576,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 62,
+    "featureScore": 70,
+    "usedScore": 50,
+    "scoreNote": ""
   },
   {
     "id": "rtx-3050",
@@ -2412,8 +2592,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 28,
-    "performanceScore": 28,
+    "score": 35,
+    "performanceScore": 35,
     "price": 20000,
     "usedPriceMin": 15000,
     "usedPriceMax": 25000,
@@ -2465,7 +2645,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 27,
+    "featureScore": 68,
+    "usedScore": 58,
+    "scoreNote": "DLSS対応は強みですが、純粋なゲーム性能は控えめ。GTX 1660 SUPER、GTX 1070、GTX 1080より上に置きすぎない方が安全です。"
   },
   {
     "id": "rtx-3080-ti",
@@ -2531,7 +2715,11 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
-    ]
+    ],
+    "rasterScore": 80,
+    "featureScore": 76,
+    "usedScore": 52,
+    "scoreNote": ""
   },
   {
     "id": "rtx-3090",
@@ -2543,8 +2731,8 @@
     "vram": 24,
     "target": "4K",
     "recommendedResolution": "4K",
-    "score": 82,
-    "performanceScore": 82,
+    "score": 80,
+    "performanceScore": 80,
     "price": 80000,
     "usedPriceMin": 70000,
     "usedPriceMax": 110000,
@@ -2597,7 +2785,11 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
-    ]
+    ],
+    "rasterScore": 82,
+    "featureScore": 78,
+    "usedScore": 50,
+    "scoreNote": ""
   },
   {
     "id": "rx-570",
@@ -2609,8 +2801,8 @@
     "vram": 4,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 16,
-    "performanceScore": 16,
+    "score": 17,
+    "performanceScore": 17,
     "price": 8000,
     "usedPriceMin": 5000,
     "usedPriceMax": 12000,
@@ -2665,7 +2857,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 16,
+    "featureScore": 18,
+    "usedScore": 30,
+    "scoreNote": ""
   },
   {
     "id": "rx-580-8gb",
@@ -2677,8 +2873,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 21,
-    "performanceScore": 21,
+    "score": 24,
+    "performanceScore": 24,
     "price": 11000,
     "usedPriceMin": 8000,
     "usedPriceMax": 16000,
@@ -2732,7 +2928,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 22,
+    "featureScore": 20,
+    "usedScore": 42,
+    "scoreNote": ""
   },
   {
     "id": "rx-590",
@@ -2744,8 +2944,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 23,
-    "performanceScore": 23,
+    "score": 25,
+    "performanceScore": 25,
     "price": 13000,
     "usedPriceMin": 9000,
     "usedPriceMax": 18000,
@@ -2798,7 +2998,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 24,
+    "featureScore": 21,
+    "usedScore": 36,
+    "scoreNote": ""
   },
   {
     "id": "rx-5500-xt",
@@ -2810,8 +3014,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 25,
-    "performanceScore": 25,
+    "score": 29,
+    "performanceScore": 29,
     "price": 14000,
     "usedPriceMin": 10000,
     "usedPriceMax": 19000,
@@ -2863,7 +3067,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 25,
+    "featureScore": 32,
+    "usedScore": 46,
+    "scoreNote": ""
   },
   {
     "id": "rx-5600-xt",
@@ -2875,8 +3083,8 @@
     "vram": 6,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 34,
-    "performanceScore": 34,
+    "score": 39,
+    "performanceScore": 39,
     "price": 18000,
     "usedPriceMin": 14000,
     "usedPriceMax": 24000,
@@ -2929,7 +3137,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 35,
+    "featureScore": 36,
+    "usedScore": 56,
+    "scoreNote": ""
   },
   {
     "id": "rx-5700",
@@ -2941,8 +3153,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 40,
-    "performanceScore": 40,
+    "score": 45,
+    "performanceScore": 45,
     "price": 22000,
     "usedPriceMin": 17000,
     "usedPriceMax": 28000,
@@ -2994,7 +3206,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 42,
+    "featureScore": 38,
+    "usedScore": 58,
+    "scoreNote": ""
   },
   {
     "id": "rx-5700-xt",
@@ -3006,8 +3222,8 @@
     "vram": 8,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 46,
-    "performanceScore": 46,
+    "score": 52,
+    "performanceScore": 52,
     "price": 26000,
     "usedPriceMin": 21000,
     "usedPriceMax": 33000,
@@ -3060,7 +3276,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 50,
+    "featureScore": 39,
+    "usedScore": 60,
+    "scoreNote": "DLSSやレイトレは弱い一方、ラスタライズ性能はRTX 2060 SUPER、RTX 2070、RTX 3060級として見られます。"
   },
   {
     "id": "rx-6500-xt",
@@ -3072,8 +3292,8 @@
     "vram": 4,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 19,
-    "performanceScore": 19,
+    "score": 23,
+    "performanceScore": 23,
     "price": 13000,
     "usedPriceMin": 9000,
     "usedPriceMax": 16000,
@@ -3126,7 +3346,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 19,
+    "featureScore": 34,
+    "usedScore": 28,
+    "scoreNote": ""
   },
   {
     "id": "rx-6600-xt",
@@ -3138,8 +3362,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 44,
-    "performanceScore": 44,
+    "score": 52,
+    "performanceScore": 52,
     "price": 25000,
     "usedPriceMin": 21000,
     "usedPriceMax": 32000,
@@ -3190,7 +3414,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 46,
+    "featureScore": 58,
+    "usedScore": 78,
+    "scoreNote": ""
   },
   {
     "id": "rx-6650-xt",
@@ -3202,8 +3430,8 @@
     "vram": 8,
     "target": "FHD",
     "recommendedResolution": "FHD",
-    "score": 47,
-    "performanceScore": 47,
+    "score": 55,
+    "performanceScore": 55,
     "price": 28000,
     "usedPriceMin": 23000,
     "usedPriceMax": 35000,
@@ -3254,7 +3482,11 @@
       "Ryzen 5 3600",
       "Ryzen 5 5600",
       "Core i5-12400F"
-    ]
+    ],
+    "rasterScore": 49,
+    "featureScore": 59,
+    "usedScore": 76,
+    "scoreNote": ""
   },
   {
     "id": "rx-6700",
@@ -3266,8 +3498,8 @@
     "vram": 10,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 51,
-    "performanceScore": 51,
+    "score": 58,
+    "performanceScore": 58,
     "price": 30000,
     "usedPriceMin": 25000,
     "usedPriceMax": 38000,
@@ -3319,7 +3551,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 53,
+    "featureScore": 60,
+    "usedScore": 76,
+    "scoreNote": ""
   },
   {
     "id": "rx-6750-xt",
@@ -3331,8 +3567,8 @@
     "vram": 12,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 61,
-    "performanceScore": 61,
+    "score": 66,
+    "performanceScore": 66,
     "price": 36000,
     "usedPriceMin": 30000,
     "usedPriceMax": 45000,
@@ -3384,7 +3620,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 61,
+    "featureScore": 62,
+    "usedScore": 76,
+    "scoreNote": ""
   },
   {
     "id": "rx-6800",
@@ -3396,8 +3636,8 @@
     "vram": 16,
     "target": "WQHD",
     "recommendedResolution": "WQHD",
-    "score": 68,
-    "performanceScore": 68,
+    "score": 70,
+    "performanceScore": 70,
     "price": 45000,
     "usedPriceMin": 38000,
     "usedPriceMax": 55000,
@@ -3449,7 +3689,11 @@
       "Ryzen 5 5600",
       "Ryzen 7 5700X3D",
       "Core i5-13400F"
-    ]
+    ],
+    "rasterScore": 68,
+    "featureScore": 63,
+    "usedScore": 74,
+    "scoreNote": ""
   },
   {
     "id": "rx-6900-xt",
@@ -3461,8 +3705,8 @@
     "vram": 16,
     "target": "4K",
     "recommendedResolution": "4K",
-    "score": 79,
-    "performanceScore": 79,
+    "score": 78,
+    "performanceScore": 78,
     "price": 60000,
     "usedPriceMin": 50000,
     "usedPriceMax": 75000,
@@ -3514,7 +3758,11 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
-    ]
+    ],
+    "rasterScore": 79,
+    "featureScore": 64,
+    "usedScore": 60,
+    "scoreNote": ""
   },
   {
     "id": "rx-6950-xt",
@@ -3526,8 +3774,8 @@
     "vram": 16,
     "target": "4K",
     "recommendedResolution": "4K",
-    "score": 82,
-    "performanceScore": 82,
+    "score": 80,
+    "performanceScore": 80,
     "price": 68000,
     "usedPriceMin": 58000,
     "usedPriceMax": 85000,
@@ -3579,6 +3827,10 @@
       "Ryzen 7 5700X3D",
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
-    ]
+    ],
+    "rasterScore": 82,
+    "featureScore": 65,
+    "usedScore": 58,
+    "scoreNote": ""
   }
 ]

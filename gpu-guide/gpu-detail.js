@@ -111,6 +111,50 @@ function renderGpuTags(tags = [], limit = 8) {
   `;
 }
 
+function getGpuScore(gpu) {
+  return Number(gpu.performanceScore ?? gpu.score ?? gpu.benchmarkScore ?? 0);
+}
+
+function getGpuRasterScore(gpu) {
+  return Number(gpu.rasterScore ?? gpu.performanceScore ?? gpu.score ?? gpu.benchmarkScore ?? 0);
+}
+
+function getGpuFeatureScore(gpu) {
+  const score = Number(gpu.featureScore);
+  return Number.isFinite(score) ? score : NaN;
+}
+
+function getGpuUsedScore(gpu) {
+  const score = Number(gpu.usedScore);
+  return Number.isFinite(score) ? score : NaN;
+}
+
+function renderScoreBreakdown(gpu) {
+  const items = [
+    ["ゲーム性能", getGpuRasterScore(gpu), "通常のゲームFPSの目安"],
+    ["機能", getGpuFeatureScore(gpu), "DLSS・レイトレ・省電力など"],
+    ["中古おすすめ", getGpuUsedScore(gpu), "中古価格・年式・故障リスク込み"],
+    ["総合", getGpuScore(gpu), "ゲーム性能と機能面を含めた目安"],
+  ].filter(([, score]) => Number.isFinite(score));
+
+  return `
+    <div class="score-breakdown" aria-label="スコア内訳">
+      ${items.map(([label, score, description]) => `
+        <div class="score-breakdown-item">
+          <div class="score-breakdown-head">
+            <span>${label}</span>
+            <strong>${score}/100</strong>
+          </div>
+          <div class="performance-bar">
+            <span style="width: ${score}%;"></span>
+          </div>
+          <p>${description}</p>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
 function formatUsedPriceRange(gpu) {
   const min = Number(gpu.usedPriceMin);
   const max = Number(gpu.usedPriceMax);
@@ -156,8 +200,8 @@ function setMetaTag(attr, attrValue, content) {
 }
 
 function updateOgp(gpu) {
-  const title = `${gpu.name}の性能スコア・VRAM・用途｜GPU GUIDE`;
-  const description = `${gpu.name}（${gpu.brand}）の性能スコア${gpu.score}、VRAM ${gpu.vram}GB。${gpu.summary}`;
+  const title = `${gpu.name}のゲーム性能スコア・VRAM・用途｜GPU GUIDE`;
+  const description = `${gpu.name}（${gpu.brand}）のゲーム性能スコア${getGpuRasterScore(gpu)}、総合スコア${getGpuScore(gpu)}、VRAM ${gpu.vram}GB。${gpu.summary}`;
   const url = `https://sippo-pc.jp/gpu-guide/gpu.html?id=${gpu.id}`;
 
   document.title = title;
@@ -223,7 +267,9 @@ function renderCpuSection(gpu, cpuData) {
 }
 
 function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
-  const rank = getRank(gpu.score);
+  const rasterScore = getGpuRasterScore(gpu);
+  const overallScore = getGpuScore(gpu);
+  const rank = getRank(rasterScore);
   // shared/affiliate/affiliate-master.json 参照方式（新方式）
   const purchaseLinks = window.gpuGuideAffiliate.renderPurchaseSearchLinksFromMaster(gpu.name, masterData);
   const affiliateDisclosure = window.gpuGuideAffiliate.renderAffiliateDisclosure();
@@ -249,14 +295,16 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
 
         <div class="gpu-score-box detail-score">
           <div class="gpu-score-head">
-            <span>性能スコア</span>
-            <strong>${gpu.score}/100</strong>
+            <span>ゲーム性能スコア</span>
+            <strong>${rasterScore}/100</strong>
           </div>
 
           <div class="performance-bar">
-            <span style="width: ${gpu.score}%;"></span>
+            <span style="width: ${rasterScore}%;"></span>
           </div>
         </div>
+
+        ${renderScoreBreakdown(gpu)}
       </article>
 
       <aside class="gpu-detail-side">
@@ -269,10 +317,18 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
     <div class="hint-box" style="margin-top:18px;">
       <div class="hint-box-icon" aria-hidden="true">💡</div>
       <p class="hint-box-body">
-        <strong>かんたん解説。</strong> 「性能スコア」は強さのざっくり目安（最大100）、「GPU RANK」はそのランク帯です。
-        価格は時期で変わるので、あくまで目安として見てくださいね。
+        <strong>スコアの見方。</strong> ゲーム性能は通常のゲームFPSの目安、機能はDLSS・レイトレ・省電力などの評価、
+        中古おすすめは中古価格・年式・故障リスク込みの目安です。総合スコア（${overallScore}/100）はゲーム性能と機能面を含めた評価です。
       </p>
     </div>
+
+    ${gpu.scoreNote ? `
+      <div class="hint-box score-note-box" style="margin-top:18px;">
+        <p class="hint-box-body">
+          <strong>このGPUの注意。</strong> ${gpu.scoreNote}
+        </p>
+      </div>
+    ` : ""}
 
     <section class="section">
       <div class="gpu-info-grid">

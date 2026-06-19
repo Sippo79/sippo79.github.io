@@ -323,7 +323,7 @@ const gpuRankingList = document.getElementById("gpuRankingList");
 const rankingTabs = document.querySelectorAll(".ranking-tab");
 
 let gpus = [];
-let activeRankingType = "overall";
+let activeRankingType = "raster";
 
 const GPU_LABELS = {
   "rtx-4060":       { text: "初心者向け",   type: "entry" },
@@ -337,24 +337,46 @@ function getGpuLabel(gpu) {
 }
 
 const rankingConfigs = {
+  raster: {
+    filter: () => true,
+    score: getGpuRasterScore,
+    label: "ゲーム性能",
+    sort: (a, b) => getGpuRasterScore(b) - getGpuRasterScore(a),
+  },
   overall: {
     filter: () => true,
+    score: getGpuScore,
+    label: "総合",
     sort: (a, b) => getGpuScore(b) - getGpuScore(a),
   },
   fhd: {
     filter: (gpu) => gpu.target === "FHD",
-    sort: (a, b) => getGpuScore(b) - getGpuScore(a),
+    score: getGpuRasterScore,
+    label: "ゲーム性能",
+    sort: (a, b) => getGpuRasterScore(b) - getGpuRasterScore(a),
   },
   wqhd: {
     filter: (gpu) => gpu.target === "WQHD",
-    sort: (a, b) => getGpuScore(b) - getGpuScore(a),
+    score: getGpuRasterScore,
+    label: "ゲーム性能",
+    sort: (a, b) => getGpuRasterScore(b) - getGpuRasterScore(a),
   },
   "4k": {
     filter: (gpu) => gpu.target === "4K",
-    sort: (a, b) => getGpuScore(b) - getGpuScore(a),
+    score: getGpuRasterScore,
+    label: "ゲーム性能",
+    sort: (a, b) => getGpuRasterScore(b) - getGpuRasterScore(a),
+  },
+  used: {
+    filter: (gpu) => Number.isFinite(getGpuUsedScore(gpu)),
+    score: getGpuUsedScore,
+    label: "中古おすすめ",
+    sort: (a, b) => getGpuUsedScore(b) - getGpuUsedScore(a),
   },
   value: {
     filter: (gpu) => Number(getGpuPrice(gpu)) > 0,
+    score: getGpuValueScore,
+    label: "コスパ",
     sort: (a, b) => getGpuValueScore(b) - getGpuValueScore(a),
   },
 };
@@ -499,7 +521,9 @@ function renderGpus() {
   }
 
   filteredGpus.sort((a, b) => {
-    if (sortValue === "performance") return b.score - a.score;
+    if (sortValue === "performance") return getGpuRasterScore(b) - getGpuRasterScore(a);
+    if (sortValue === "overall") return getGpuScore(b) - getGpuScore(a);
+    if (sortValue === "used") return getGpuUsedScore(b) - getGpuUsedScore(a);
     if (sortValue === "price") return a.price - b.price;
     if (sortValue === "vram") return b.vram - a.vram;
     return 0;
@@ -523,6 +547,16 @@ function createGpuCard(gpu) {
     ? `<span class="gpu-label gpu-label-${label.type}">${label.text}</span>`
     : "";
   const tagHtml = renderGpuTags(gpu.tags, 4);
+  const rasterScore = getGpuRasterScore(gpu);
+  const featureScore = getGpuFeatureScore(gpu);
+  const usedScore = getGpuUsedScore(gpu);
+  const overallScore = getGpuScore(gpu);
+  const scoreDetailsHtml = renderScoreMiniGrid([
+    ["ゲーム性能", rasterScore],
+    ["機能", featureScore],
+    ["中古おすすめ", usedScore],
+    ["総合", overallScore],
+  ]);
 
   return `
     <a href="gpu.html?id=${gpu.id}" class="gpu-card">
@@ -556,15 +590,33 @@ function createGpuCard(gpu) {
 
       <div class="gpu-score-box">
         <div class="gpu-score-head">
-          <span>性能スコア</span>
-          <strong>${gpu.score}/100</strong>
+          <span>ゲーム性能スコア</span>
+          <strong>${rasterScore}/100</strong>
         </div>
 
         <div class="performance-bar">
-          <span style="width: ${gpu.score}%;"></span>
+          <span style="width: ${rasterScore}%;"></span>
         </div>
       </div>
+
+      ${scoreDetailsHtml}
     </a>
+  `;
+}
+
+function renderScoreMiniGrid(items) {
+  const visibleItems = items.filter(([, score]) => Number.isFinite(score));
+  if (visibleItems.length === 0) return "";
+
+  return `
+    <div class="score-mini-grid">
+      ${visibleItems.map(([label, score]) => `
+        <div class="score-mini-item">
+          <span>${label}</span>
+          <strong>${score}</strong>
+        </div>
+      `).join("")}
+    </div>
   `;
 }
 
@@ -579,7 +631,21 @@ function renderGpuTags(tags = [], limit = 6) {
 }
 
 function getGpuScore(gpu) {
-  return Number(gpu.score ?? gpu.benchmarkScore ?? 0);
+  return Number(gpu.performanceScore ?? gpu.score ?? gpu.benchmarkScore ?? 0);
+}
+
+function getGpuRasterScore(gpu) {
+  return Number(gpu.rasterScore ?? gpu.performanceScore ?? gpu.score ?? gpu.benchmarkScore ?? 0);
+}
+
+function getGpuFeatureScore(gpu) {
+  const score = Number(gpu.featureScore);
+  return Number.isFinite(score) ? score : NaN;
+}
+
+function getGpuUsedScore(gpu) {
+  const score = Number(gpu.usedScore);
+  return Number.isFinite(score) ? score : NaN;
 }
 
 function getGpuPrice(gpu) {
@@ -603,11 +669,11 @@ function formatGpuPrice(gpu) {
 
 function getGpuValueScore(gpu) {
   const price = getGpuPrice(gpu);
-  return price ? getGpuScore(gpu) / (price / 10000) : 0;
+  return price ? getGpuRasterScore(gpu) / (price / 10000) : 0;
 }
 
 function getGpuUseCase(gpu) {
-  const score = getGpuScore(gpu);
+  const score = getGpuRasterScore(gpu);
 
   if (score >= 92) return "4K高画質・重量級ゲーム・クリエイティブ用途";
   if (score >= 84) return "WQHD高画質・4K入門・重めのゲーム";
@@ -617,10 +683,10 @@ function getGpuUseCase(gpu) {
 }
 
 function getRankingGpus(type = activeRankingType) {
-  const config = rankingConfigs[type] || rankingConfigs.overall;
+  const config = rankingConfigs[type] || rankingConfigs.raster;
 
   return [...gpus]
-    .filter((gpu) => Number.isFinite(getGpuScore(gpu)) && config.filter(gpu))
+    .filter((gpu) => Number.isFinite(config.score(gpu)) && config.filter(gpu))
     .sort(config.sort);
 }
 
@@ -644,6 +710,9 @@ function renderGpuRanking() {
 function createRankingRow(gpu, index) {
   const rank = index + 1;
   const topRankClass = rank <= 3 ? ` ranking-row-top ranking-row-top-${rank}` : "";
+  const config = rankingConfigs[activeRankingType] || rankingConfigs.raster;
+  const rankingScore = config.score(gpu);
+  const scoreLabel = `${config.label}スコア`;
   const label = getGpuLabel(gpu);
   const rankingLabelHtml = label
     ? `<span class="ranking-label ranking-label-${label.type}">${label.text}</span>`
@@ -660,10 +729,10 @@ function createRankingRow(gpu, index) {
         <small>${gpu.brand}</small>
       </span>
 
-      <span class="ranking-score" data-label="性能スコア">
-        <strong>${getGpuScore(gpu)}</strong>
+      <span class="ranking-score" data-label="${scoreLabel}">
+        <strong>${formatRankingScore(rankingScore)}</strong>
         <span class="ranking-score-bar">
-          <span style="width: ${getGpuScore(gpu)}%;"></span>
+          <span style="width: ${getRankingBarWidth(rankingScore)}%;"></span>
         </span>
       </span>
 
@@ -671,6 +740,15 @@ function createRankingRow(gpu, index) {
       <span class="ranking-use" data-label="用途の目安">${getGpuUseCase(gpu)}</span>
     </a>
   `;
+}
+
+function formatRankingScore(score) {
+  return Number.isInteger(score) ? score : score.toFixed(1);
+}
+
+function getRankingBarWidth(score) {
+  if (!Number.isFinite(score)) return 0;
+  return Math.max(0, Math.min(100, score));
 }
 
 if (gpuGrid && gpuSearch && brandFilter && resolutionFilter && sortSelect) {
@@ -687,7 +765,7 @@ if (gpuGrid && gpuSearch && brandFilter && resolutionFilter && sortSelect) {
 if (rankingTabs.length > 0) {
   rankingTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      activeRankingType = tab.dataset.rankingType || "overall";
+      activeRankingType = tab.dataset.rankingType || "raster";
 
       rankingTabs.forEach((item) => {
         item.classList.toggle("is-active", item === tab);
