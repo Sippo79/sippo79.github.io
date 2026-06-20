@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>構成の詳細 - PC Builds Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#19e3ff" />
+</head>
+<body class="post-detail-page">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="site-logo">
+      PC <span>Builds</span> Hub
+    </a>
+    <nav class="header-nav">
+      <a href="index.html" class="header-link">トップに戻る</a>
+      <a href="all-posts.html" class="header-link">一覧へ</a>
+      <span class="auth-actions" data-auth-ui></span>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div id="post-detail"></div>
+  </div>
+</main>
+
+<!-- Supabase（任意）: config はダミー値の間 posts.json で動作。詳細は SETUP_SUPABASE.md -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="post.js"></script>
+<script src="sw-register.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "PC Builds Hub",
+  "short_name": "PC Builds",
+  "id": "/pc-builds-hub/",
+  "description": "みんなのPC構成ギャラリー。ゲーミングPC・自作PCの参考に。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050709",
+  "theme_color": "#19e3ff",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "./images/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

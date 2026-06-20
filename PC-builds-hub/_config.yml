@@ -1,0 +1,37 @@
+# =====================================================================
+#  GitHub Pages (Jekyll) 設定
+#  目的：開発・運用用ファイルを「公開サイトに含めない」。
+#        ※ GitHub Pages は既定で Jekyll を使うため exclude が効く。
+#        ※ .nojekyll を置いている場合は exclude が無効になるので、
+#           その場合はこれらのファイルをリポジトリから別管理にすること。
+#        ※ exclude はあくまで情報漏えい低減（多層防御）。本当の防御は RLS。
+# =====================================================================
+exclude:
+  # --- Supabase 管理用 SQL / 手順書（本番に出さない） ---
+  - supabase-schema.sql          # スキーマ/RLS 定義（攻撃者へのヒントになる）
+  - supabase-seed.sql            # 初期投入 SQL
+  - supabase-verify.sql          # 検証クエリ
+  - supabase-rls-optional.sql    # 追加 RLS（任意）
+  - supabase-config.example.js   # テンプレ（不要に公開しない）
+  - SETUP_SUPABASE.md            # 構築手順
+  # --- RLS テストハーネス（ローカル開発用に残すが本番には出さない） ---
+  - rls-test.html                # RLS テストハーネス（本番に出さない）
+  - rls-test.js
+  # --- リポジトリ管理ファイル ---
+  - .gitignore
+  - README.md
+  # --- sitemap 生成スクリプト（ビルド/開発用。公開サイトには出さない） ---
+  #     ※ sitemap.xml / robots.txt は配信が必要なので exclude しないこと。
+  - generate-sitemap.js
+  - generate-sitemap.ps1
+  # --- ワイルドカード / 開発用ディレクトリ（多層防御） ---
+  - "*.sql"
+  - "*.bak"
+  - "*.old"
+  - "*~"
+  - test/
+  - dev/
+  - docs/
+  - old/
+  - backup/
+  - tmp/

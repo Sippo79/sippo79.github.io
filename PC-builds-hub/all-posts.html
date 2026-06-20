@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>構成ギャラリー - PC Builds Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#19e3ff" />
+</head>
+<body class="all-posts-page">
+  <div class="page">
+
+    <header class="top-header">
+      <a href="index.html" class="site-logo">PC <span>Builds</span> Hub</a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn">トップに戻る</a>
+        <span class="auth-actions" data-auth-ui></span>
+      </div>
+    </header>
+
+    <section class="page-header">
+      <div>
+        <h1 class="page-title">構成ギャラリー</h1>
+        <p class="page-subtitle">
+          タグ・解像度・用途で絞り込み、お気に入りの構成を探してみよう。
+        </p>
+      </div>
+
+      <div class="filters">
+        <div class="filter-group">
+          <span class="filter-label">解像度:</span>
+          <button class="chip" data-res="all" type="button">すべて</button>
+          <button class="chip" data-res="FHD" type="button">FHD</button>
+          <button class="chip" data-res="1440p" type="button">1440p</button>
+          <button class="chip" data-res="4K" type="button">4K</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">用途:</span>
+          <button class="chip" data-use="all" type="button">すべて</button>
+          <button class="chip" data-use="ゲーム" type="button">ゲーミング</button>
+          <button class="chip" data-use="配信" type="button">配信</button>
+          <button class="chip" data-use="クリエイティブ" type="button">クリエイティブ</button>
+
+          <button id="resetFilters" class="chip chip-reset" type="button">リセット</button>
+
+          <label for="sortSelect" class="filter-label">並び順:</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="new">新着順</option>
+            <option value="nice">お気に入り順（この端末）</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <input
+            id="searchBox"
+            class="search-box"
+            type="text"
+            placeholder="CPU / GPU / ユーザー名 / タグで検索"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- 掲載受付導線（ログイン状態で auth.js が中身を差し替え。Phase 3 で submit.html へ） -->
+    <div class="submit-cta" data-submit-cta role="note"></div>
+
+    <p class="nice-hint">♥ Nice はこの端末だけに保存される、あなた専用のお気に入りです。</p>
+
+    <!-- 人気タグバー -->
+    <div class="popular-tags-bar" aria-label="人気タグで絞り込む">
+      <span class="popular-tags-label">人気タグ</span>
+      <div class="popular-tags-list" id="popularTagsList" aria-live="polite"></div>
+    </div>
+
+    <section>
+      <div class="grid" id="postsGrid"></div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+
+    <footer class="page-footer">
+      &copy; 2026 PC Builds Hub. All rights reserved.
+    </footer>
+
+  </div>
+
+  <!-- Supabase（任意）: config はダミー値の間 posts.json で動作。詳細は SETUP_SUPABASE.md -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
+  <script src="main.js"></script>
+  <script src="sw-register.js"></script>
+</body>
+</html>

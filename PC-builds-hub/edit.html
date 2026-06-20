@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>投稿を編集する - PC Builds Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#19e3ff" />
+</head>
+<body class="submit-page">
+  <div class="page">
+    <header class="top-header">
+      <a href="index.html" class="site-logo">PC <span>Builds</span> Hub</a>
+      <div class="nav-actions">
+        <a href="mypage.html" class="btn">マイページ</a>
+        <a href="all-posts.html" class="btn">構成一覧</a>
+        <span class="auth-actions" data-auth-ui></span>
+      </div>
+    </header>
+
+    <main class="submit-main">
+      <section class="page-header">
+        <div>
+          <h1 class="page-title">投稿を編集する</h1>
+          <p class="page-subtitle">
+            公開中（approved）の投稿を編集すると、<strong>再審査</strong>のため一時的に非公開（承認待ち）になります。
+          </p>
+        </div>
+      </section>
+
+      <!-- 状態メッセージ（取得失敗・編集不可・成功・エラー） -->
+      <div class="auth-message" id="editMessage" role="status" hidden></div>
+
+      <!-- 他人の投稿 / 未ログイン / 見つからない時の案内 -->
+      <div class="submit-done" id="editBlocked" hidden>
+        <a href="mypage.html" class="btn btn-primary">マイページへ戻る</a>
+        <a href="all-posts.html" class="btn">構成一覧へ</a>
+      </div>
+
+      <form id="editForm" class="submit-form" novalidate hidden>
+        <fieldset class="form-section">
+          <legend>基本情報 <span class="req-note">* は必須</span></legend>
+
+          <div class="form-field">
+            <label for="title">構成タイトル <span class="req">*</span></label>
+            <input id="title" name="title" type="text" maxlength="120" required
+              placeholder="例：静音×バランス 1440p構成" />
+            <p class="field-hint">どんな構成か一言で。最大120文字。</p>
+          </div>
+
+          <div class="form-field">
+            <label for="description">コメント / 説明</label>
+            <textarea id="description" name="description" rows="4" maxlength="2000"
+              placeholder="こだわりポイント、用途、組んだ感想など"></textarea>
+            <p class="field-hint">任意。最大2000文字。</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>主要パーツ</legend>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="cpu">CPU <span class="req">*</span></label>
+              <input id="cpu" name="cpu" type="text" maxlength="100" required
+                placeholder="例：Ryzen 7 7800X3D" />
+            </div>
+            <div class="form-field">
+              <label for="gpu">GPU <span class="req">*</span></label>
+              <input id="gpu" name="gpu" type="text" maxlength="100" required
+                placeholder="例：RTX 4070 SUPER" />
+            </div>
+            <div class="form-field">
+              <label for="memory">メモリ <span class="req">*</span></label>
+              <input id="memory" name="memory" type="text" maxlength="100" required
+                placeholder="例：32GB DDR5-6000" />
+            </div>
+            <div class="form-field">
+              <label for="motherboard">マザーボード</label>
+              <input id="motherboard" name="motherboard" type="text" maxlength="100"
+                placeholder="例：B650 Tomahawk WIFI" />
+            </div>
+            <div class="form-field">
+              <label for="storage">ストレージ</label>
+              <input id="storage" name="storage" type="text" maxlength="100"
+                placeholder="例：1TB NVMe SSD" />
+            </div>
+            <div class="form-field">
+              <label for="case_name">ケース</label>
+              <input id="case_name" name="case_name" type="text" maxlength="100"
+                placeholder="例：Lian Li O11" />
+            </div>
+            <div class="form-field">
+              <label for="psu">電源</label>
+              <input id="psu" name="psu" type="text" maxlength="100"
+                placeholder="例：850W Gold" />
+            </div>
+            <div class="form-field">
+              <label for="cooler">CPUクーラー</label>
+              <input id="cooler" name="cooler" type="text" maxlength="100"
+                placeholder="例：360mm水冷AIO" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>用途・スペック</legend>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="resolution">想定解像度 <span class="req">*</span></label>
+              <select id="resolution" name="resolution" required>
+                <option value="">選択してください</option>
+                <option value="FHD">FHD</option>
+                <option value="1440p">1440p</option>
+                <option value="4K">4K</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="usage">用途 <span class="req">*</span></label>
+              <select id="usage" name="usage" required>
+                <option value="">選択してください</option>
+                <option value="ゲーム">ゲーム</option>
+                <option value="配信">配信</option>
+                <option value="クリエイティブ">クリエイティブ</option>
+                <option value="白PC・光るPC">白PC・光るPC</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="budget">想定予算（円）</label>
+              <input id="budget" name="budget" type="number" min="0" step="1000"
+                inputmode="numeric" placeholder="例：200000" />
+            </div>
+            <div class="form-field">
+              <label for="tags">タグ</label>
+              <input id="tags" name="tags" type="text" maxlength="200"
+                placeholder="例：AMD, 水冷, ゲーミング（カンマ/空白区切り）" />
+              <p class="field-hint">最大10個。# は付けなくてOK。</p>
+            </div>
+            <div class="form-field">
+              <label for="bench_title">ベンチマークタイトル</label>
+              <input id="bench_title" name="bench_title" type="text" maxlength="120"
+                placeholder="例：Cyberpunk 2077 (WQHD/高)" />
+            </div>
+            <div class="form-field">
+              <label for="bench_score">ベンチマークスコア</label>
+              <input id="bench_score" name="bench_score" type="number" min="0" step="1"
+                inputmode="numeric" placeholder="例：118" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>画像</legend>
+          <div class="form-field">
+            <label for="imageFile">画像ファイル（差し替える場合のみ）</label>
+            <input id="imageFile" name="imageFile" type="file" multiple
+              accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
+            <p class="field-hint">
+              jpg / jpeg / png / webp、5MBまで（メイン画像1枚）。選ばなければ現在の画像URLのまま保存されます。
+            </p>
+          </div>
+          <div class="form-field">
+            <label for="image_url">画像URL（1行に1URL・最大5枚）</label>
+            <textarea id="image_url" name="image_url" rows="4" maxlength="2500"
+              placeholder="https://example.com/your-pc-front.jpg&#10;https://example.com/your-pc-inside.jpg"></textarea>
+            <p class="field-hint">現在登録されている画像URL一覧です。行を削除するとその画像を外せます。新しいファイルは先頭に追加されます。</p>
+          </div>
+        </fieldset>
+
+        <div class="submit-actions">
+          <button type="submit" class="btn btn-primary" id="editSubmitBtn">変更を保存する</button>
+          <a href="mypage.html" class="btn">キャンセル</a>
+        </div>
+        <p class="submit-note">
+          ※ 公開中の投稿を編集すると、再審査のため一時的に非公開（承認待ち）になります。
+        </p>
+      </form>
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2026 PC Builds Hub. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Supabase（任意）: config はダミー値の間 編集機能は無効。詳細は SETUP_SUPABASE.md -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
+  <script src="edit.js"></script>
+  <script src="sw-register.js"></script>
+</body>
+</html>

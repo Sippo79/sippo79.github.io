@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>RLS テスト - PC Builds Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .rls-wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
+    .rls-form { display: grid; gap: 10px; max-width: 480px; margin: 16px 0; }
+    .rls-form label { font-size: .9rem; display: grid; gap: 4px; }
+    .rls-form input { padding: 8px; border-radius: 8px; border: 1px solid #345; background: #0d1117; color: #e6edf3; }
+    table.rls { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: .9rem; }
+    table.rls th, table.rls td { border: 1px solid #2a3a4a; padding: 8px 10px; text-align: left; vertical-align: top; }
+    .rls-pass { color: #2ecc71; font-weight: 700; }
+    .rls-fail { color: #ff5c5c; font-weight: 700; }
+    .rls-info { color: #f0c000; font-weight: 700; }
+    .rls-sum { margin-top: 14px; font-size: 1.05rem; }
+    .rls-note { background: #0d1117; border: 1px solid #2a3a4a; border-radius: 10px; padding: 14px 18px; margin-top: 24px; }
+    .rls-note ol { margin: 8px 0 0 18px; line-height: 1.7; }
+    code { background: #11202b; padding: 1px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body class="auth-page">
+  <div class="page">
+    <header class="top-header">
+      <a href="index.html" class="site-logo">PC <span>Builds</span> Hub</a>
+      <div class="nav-actions"><a href="index.html" class="btn">トップへ戻る</a></div>
+    </header>
+
+    <main class="rls-wrap">
+      <h1>RLS テスト</h1>
+      <p>
+        anon / 一般ユーザー / 管理者の 3 クライアントで Supabase を直接叩き、
+        <code>supabase-schema.sql</code> の RLS・列保護トリガーを検証します。
+        事前に 2 アカウント（管理者は <code>profiles.role='admin'</code>）を用意してください。
+        入力したパスワードはこのページ内でのみ使用し、保存・送信しません。
+      </p>
+
+      <form class="rls-form" id="rlsForm">
+        <label>一般ユーザー email
+          <input id="userEmail" type="email" autocomplete="off" placeholder="user@example.com" />
+        </label>
+        <label>一般ユーザー password
+          <input id="userPassword" type="password" autocomplete="off" />
+        </label>
+        <label>管理者 email
+          <input id="adminEmail" type="email" autocomplete="off" placeholder="admin@example.com" />
+        </label>
+        <label>管理者 password
+          <input id="adminPassword" type="password" autocomplete="off" />
+        </label>
+        <button class="btn btn-primary" id="runBtn" type="submit">テストを実行</button>
+      </form>
+
+      <div class="rls-sum" id="rlsSummary"></div>
+      <table class="rls" id="rlsTable" hidden>
+        <thead><tr><th>#</th><th>結果</th><th>項目</th><th>詳細</th></tr></thead>
+        <tbody id="rlsBody"></tbody>
+      </table>
+
+      <div class="rls-note">
+        <strong>9・10 の手動確認（ページ遷移を伴うため自動テストの対象外の部分）</strong>
+        <ol>
+          <li><strong>未ログインのリダイレクト（要件9）</strong>：
+            ログアウト状態（またはシークレットウィンドウ）で
+            <code>mypage.html</code> / <code>submit.html</code> / <code>admin.html</code> を直接開き、
+            いずれも <code>login.html?redirect=...</code> へ自動遷移することを確認。
+            管理者以外で <code>admin.html</code> を開くと「管理者のみ」表示になることも確認。</li>
+          <li><strong>posts.json フォールバック（要件10）</strong>：
+            上の表の「10」が PASS なら posts.json は読めています。実際のフォールバック切替は、
+            <code>supabase-config.js</code> をダミー値（<code>YOUR_...</code>）に戻して任意のページを再読込し、
+            一覧が表示され、コンソールに <code>posts.json で動作します</code> 系のログが出ることで確認できます。</li>
+        </ol>
+        <p style="margin-top:10px">
+          コンソールから直接実行する場合：
+          <code>runRlsTests({userEmail:'…',userPassword:'…',adminEmail:'…',adminPassword:'…'})</code>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="rls-test.js"></script>
+  <script>
+    (function () {
+      function esc(s) {
+        return String(s == null ? "" : s)
+          .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+      }
+      window.__renderRlsResults = function (results, sum) {
+        var body = document.getElementById("rlsBody");
+        var table = document.getElementById("rlsTable");
+        body.innerHTML = results.map(function (r) {
+          var cls = r.pass === true ? "rls-pass" : r.pass === false ? "rls-fail" : "rls-info";
+          var label = r.pass === true ? "PASS" : r.pass === false ? "FAIL" : "INFO";
+          return "<tr><td>" + esc(r.id) + "</td><td class='" + cls + "'>" + label +
+            "</td><td>" + esc(r.name) + "</td><td>" + esc(r.detail) + "</td></tr>";
+        }).join("");
+        table.hidden = false;
+        document.getElementById("rlsSummary").innerHTML =
+          "<span class='rls-pass'>PASS " + sum.pass + "</span> / " +
+          "<span class='rls-fail'>FAIL " + sum.fail + "</span> / " +
+          "<span class='rls-info'>INFO " + sum.info + "</span>";
+      };
+
+      document.getElementById("rlsForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var btn = document.getElementById("runBtn");
+        btn.disabled = true; btn.textContent = "実行中…";
+        document.getElementById("rlsSummary").textContent = "実行中… コンソールにも経過を出力します。";
+        window.runRlsTests({
+          userEmail: document.getElementById("userEmail").value.trim(),
+          userPassword: document.getElementById("userPassword").value,
+          adminEmail: document.getElementById("adminEmail").value.trim(),
+          adminPassword: document.getElementById("adminPassword").value,
+        }).finally(function () {
+          btn.disabled = false; btn.textContent = "テストを実行";
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
