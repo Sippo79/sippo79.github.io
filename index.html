@@ -329,9 +329,35 @@
             <div class="flow__icon flow__icon--gold" aria-hidden="true">
               <svg viewBox="0 0 48 48"><path d="M24 6l5.2 10.6L41 18.2l-8.5 8.3 2 11.6L24 32.6l-10.5 5.5 2-11.6L7 18.2l11.8-1.6z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>
             </div>
-            <h3 class="flow__name">じっくり伴走はココナラで</h3>
-            <p class="flow__desc">「全部選んでほしい」「買う前に確認してほしい」方向け。予算・用途・ゲームに合わせて、構成選びから購入前チェックまで伴走。ケースやカラー、光り方など、見た目の方向性も一緒に相談できます。</p>
-            <a href="https://coconala.com/services/4240996" class="flow__link" rel="noopener noreferrer" target="_blank">ココナラで依頼 →</a>
+            <h3 class="flow__name">必要なら、さらに相談する</h3>
+            <p class="flow__desc">「全部選んでほしい」「買う前にもう少し確認したい」方向け。予算・用途・ゲームに合わせた相談や、購入前の不安チェックを受けられます。</p>
+
+            <!-- ===== PC相談室 × ココナラ 2導線 ===== -->
+            <style>
+              .consult-options{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+              .consult-option{display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;border-radius:18px;background:rgba(255,255,255,.6);border:1px solid rgba(124,131,255,.22);box-shadow:0 6px 18px rgba(99,102,241,.08)}
+              .consult-option__icon{font-size:24px;line-height:1}
+              .consult-option__name{font-size:1.04rem;font-weight:800;margin:0;color:#3f3f8a}
+              .consult-option__desc{font-size:.86rem;line-height:1.6;color:#6b6b7a;margin:0;flex:1 1 auto}
+              .consult-option__btn{display:inline-flex;align-items:center;justify-content:center;margin-top:4px;padding:10px 14px;border-radius:999px;font-weight:800;font-size:.88rem;text-decoration:none;white-space:nowrap}
+              .consult-option__btn--primary{background:linear-gradient(120deg,#7C83FF,#9D7CFF);color:#fff}
+              .consult-option__btn--ghost{background:rgba(124,131,255,.1);color:#5b5bd6;border:1px solid rgba(124,131,255,.32)}
+              @media(max-width:560px){.consult-options{grid-template-columns:1fr}}
+            </style>
+            <div class="consult-options">
+              <div class="consult-option">
+                <span class="consult-option__icon" aria-hidden="true">🐾</span>
+                <h4 class="consult-option__name">PC相談室</h4>
+                <p class="consult-option__desc">シッポ内で気軽に相談したい方向け。PC購入前チェックや構成相談はこちら。</p>
+                <a href="/pc-consult/" class="consult-option__btn consult-option__btn--primary">PC相談室を見る →</a>
+              </div>
+              <div class="consult-option">
+                <span class="consult-option__icon" aria-hidden="true">💼</span>
+                <h4 class="consult-option__name">ココナラ</h4>
+                <p class="consult-option__desc">サービスページ経由でしっかり依頼したい方向け。見積もり相談や伴走相談はこちら。</p>
+                <a href="https://coconala.com/services/4240996" class="consult-option__btn consult-option__btn--ghost" rel="noopener noreferrer" target="_blank">ココナラで依頼 →</a>
+              </div>
+            </div>
           </li>
         </ol>
 
