@@ -37,7 +37,8 @@
      -------------------------------------------------------- */
   function initStagger() {
     var groups = document.querySelectorAll(
-      '.worry-grid, .service-grid, .flow-list, .note-grid'
+      '.worry-grid, .service-grid, .diag-grid, .case-grid, ' +
+      '.prepare-grid, .flow-list, .cannot-grid, .note-grid'
     );
     groups.forEach(function (group) {
       var items = group.querySelectorAll('.reveal');

@@ -279,6 +279,25 @@ section { scroll-margin-top: 84px; }
 /* ==========================================================
    ③ サービス一覧
    ========================================================== */
+.price-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 720px;
+  margin: 0 auto 40px;
+  padding: 16px 22px;
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  font-size: .92rem;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--c-ink-soft);
+  text-align: left;
+}
+.price-note__icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.5; }
+
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -361,6 +380,166 @@ section { scroll-margin-top: 84px; }
   border-radius: 50%;
 }
 .service-card__btn { margin-top: auto; width: 100%; }
+
+/* ==========================================================
+   ③-b 診断できるもの
+   ========================================================== */
+.diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.diag-card {
+  background: var(--c-white);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--c-line);
+  transition: transform .35s var(--ease-bounce), box-shadow .35s ease;
+}
+.diag-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
+.diag-card__icon {
+  display: grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  font-size: 1.7rem;
+  background: var(--grad-soft);
+  border-radius: 18px;
+  margin-bottom: 16px;
+}
+.diag-card__name { font-size: 1.12rem; font-weight: 800; margin-bottom: 8px; }
+.diag-card__text { color: var(--c-ink-soft); font-size: .94rem; line-height: 1.7; }
+
+/* ==========================================================
+   ④-b 相談事例・診断サンプル
+   ========================================================== */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+.case-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-white);
+  border-radius: var(--radius-lg);
+  padding: 30px 28px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--c-line);
+  transition: transform .35s var(--ease-bounce), box-shadow .35s ease;
+}
+.case-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-card); }
+.case-card__labels { display: flex; gap: 8px; margin-bottom: 16px; }
+.case-card__label {
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+.case-card__label--sample { color: var(--c-purple-deep); background: var(--c-soft); }
+.case-card__label--soon {
+  color: var(--c-ink-soft);
+  background: var(--c-white);
+  border: 1px dashed var(--c-line);
+}
+.case-card__emoji { font-size: 2rem; margin-bottom: 10px; }
+.case-card__title { font-size: 1.14rem; font-weight: 800; line-height: 1.45; margin-bottom: 10px; }
+.case-card__text { color: var(--c-ink-soft); font-size: .94rem; line-height: 1.7; margin-bottom: 18px; }
+.case-card__verdict {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: .86rem;
+  font-weight: 800;
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+.case-card__verdict--ok   { background: var(--c-ok);   box-shadow: 0 8px 18px rgba(52, 199, 123, .26); }
+.case-card__verdict--warn { background: var(--c-warn); box-shadow: 0 8px 18px rgba(240, 169, 59, .26); }
+.case-card__verdict--ng   { background: var(--c-ng);   box-shadow: 0 8px 18px rgba(242, 106, 126, .26); }
+.case-note {
+  margin-top: 28px;
+  text-align: center;
+  font-size: .86rem;
+  color: var(--c-ink-soft);
+}
+
+/* ==========================================================
+   ④-c 相談前に用意してほしいもの
+   ========================================================== */
+.prepare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 18px;
+}
+.prepare-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--c-white);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--c-line);
+  transition: transform .35s var(--ease-bounce), box-shadow .35s ease;
+}
+.prepare-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); }
+.prepare-card__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 48px; height: 48px;
+  font-size: 1.4rem;
+  background: var(--grad-soft);
+  border-radius: 14px;
+}
+.prepare-card__name { font-size: 1.04rem; font-weight: 800; line-height: 1.5; margin-bottom: 4px; }
+.prepare-card__text { color: var(--c-ink-soft); font-size: .92rem; line-height: 1.65; }
+
+/* ==========================================================
+   ⑤-b 診断できないこと
+   ========================================================== */
+.cannot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.cannot-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--c-white);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--c-line);
+  transition: transform .35s var(--ease-bounce), box-shadow .35s ease;
+}
+.cannot-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.cannot-card__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  font-size: 1.3rem;
+  background: rgba(242, 106, 126, .12);
+  border-radius: 50%;
+}
+.cannot-card__text {
+  position: relative;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+.cannot-card__text::before {
+  content: "×";
+  color: var(--c-ng);
+  font-weight: 800;
+  margin-right: 6px;
+}
 
 /* ==========================================================
    ④ 診断結果サンプル
@@ -494,7 +673,29 @@ section { scroll-margin-top: 84px; }
   margin: 8px 0 18px;
   line-height: 1.4;
 }
-.apply__lead { color: rgba(255, 255, 255, .9); font-size: 1.02rem; margin-bottom: 36px; }
+.apply__lead { color: rgba(255, 255, 255, .9); font-size: 1.02rem; margin-bottom: 28px; }
+.apply__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+  padding: 11px 20px;
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: 999px;
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1.6;
+  color: #fff;
+}
+.apply__status-dot {
+  flex: 0 0 auto;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--c-mint);
+  box-shadow: 0 0 0 5px rgba(142, 227, 216, .25);
+}
 .apply__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .apply .btn--primary {
   color: var(--c-purple-deep);
@@ -529,4 +730,25 @@ section { scroll-margin-top: 84px; }
   .result-card__body { padding: 22px; }
   .result-card__foot { padding: 16px 22px; }
   .flow-step { padding: 20px; gap: 16px; }
+
+  /* ヘッダーが詰まらないように余白・サイズを調整 */
+  .nav__brand { font-size: 1rem; gap: 6px; }
+  .nav__paw { font-size: 1.1rem; }
+  .nav__cta { font-size: .82rem; padding: 9px 15px; }
+
+  /* 申し込み導線まわり */
+  .apply__status { font-size: .86rem; padding: 11px 18px; }
+
+  /* フッターナビが間延びしないように詰める */
+  .footer__nav { gap: 12px 16px; }
+  .footer__nav a { font-size: .88rem; }
+}
+
+/* さらに狭い画面（小型スマホ）向けの微調整 */
+@media (max-width: 400px) {
+  .nav__name { font-size: .96rem; }
+  .nav__cta { font-size: .78rem; padding: 8px 12px; }
+  /* 価格の大きな数字がはみ出さないように */
+  .service-card__price .num { font-size: 2.1rem; }
+  .case-card__title { font-size: 1.06rem; }
 }
