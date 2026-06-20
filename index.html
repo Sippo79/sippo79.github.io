@@ -269,7 +269,13 @@
           .consult-promo__desc{font-size:.94rem;line-height:1.65;color:#6b6b60;margin:0}
           .consult-promo__btn{flex:0 0 auto;white-space:nowrap}
           @media(max-width:640px){.consult-promo{flex-direction:column;text-align:center;padding:26px 22px}.consult-promo__btn{width:100%;justify-content:center}}
+          /* PC構成投稿サイト導線（パープル系アクセント） */
+          .consult-promo--builds{border:1px solid rgba(124,131,255,.24);box-shadow:0 10px 30px rgba(99,102,241,.1)}
+          .consult-promo--builds .consult-promo__eyebrow{color:#7C7CFF}
         </style>
+
+        <p class="services__note reveal" style="margin-bottom:0;font-weight:800;color:#5b5bd6">🔗 PC選びをサポートする関連サービス</p>
+
         <div class="consult-promo glass reveal">
           <div class="consult-promo__icon" aria-hidden="true">🐾</div>
           <div class="consult-promo__body">
@@ -279,6 +285,20 @@
           </div>
           <a href="/pc-consult/" class="btn btn--primary consult-promo__btn">
             シッポPC相談室を見る
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <!-- ===== PC構成投稿サイト 導線カード ===== -->
+        <div class="consult-promo consult-promo--builds glass reveal" style="margin-top:20px">
+          <div class="consult-promo__icon" aria-hidden="true">🖥️</div>
+          <div class="consult-promo__body">
+            <p class="consult-promo__eyebrow">みんなのPC構成を参考に</p>
+            <h3 class="consult-promo__title">PC構成投稿サイト</h3>
+            <p class="consult-promo__desc">ゲーミングPC・自作PC・中古PCなど、実際の構成例をチェックできる投稿サイト。<br class="sp-only">気になる構成は、PC相談室で購入前チェックもできます。</p>
+          </div>
+          <a href="/pc-builds-hub/" class="btn btn--primary consult-promo__btn">
+            PC投稿サイトを見る
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
