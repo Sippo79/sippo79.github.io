@@ -240,7 +240,7 @@
     if (!btn) return;
     e.preventDefault();
     signOut().finally(function () {
-      global.location.href = "index.html";
+      global.location.href = "./";
     });
   });
 
