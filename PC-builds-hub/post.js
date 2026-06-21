@@ -245,6 +245,20 @@ function renderConsultCard() {
   `;
 }
 
+// 親サイト「シッポ」への回遊導線カード（静的・外部API不使用・同一ドメイン内リンク）
+function renderSippoCard() {
+  return `
+    <aside class="sippo-cta sippo-cta--detail" aria-label="シッポサイトへの案内">
+      <span class="sippo-cta__icon" aria-hidden="true">🐾</span>
+      <div class="sippo-cta__body">
+        <h2 class="sippo-cta__title">この構成を見てPC選びに迷ったら</h2>
+        <p class="sippo-cta__desc">シッポのPC比較・構成診断も参考にできます。</p>
+      </div>
+      <a class="btn btn-primary sippo-cta__btn" href="/">シッポでPC選びを見る →</a>
+    </aside>
+  `;
+}
+
 function renderMessageCard(title, message) {
   const container = document.querySelector("#post-detail");
   if (!container) return;
@@ -322,7 +336,7 @@ function renderPost(post, index = 0) {
   // 初期描画を軽くするため、最初のペイント後に 1 回だけ追記する。
   const article = container.querySelector(".post-detail-card");
   if (article) {
-    const deferredHtml = renderBenchmarkSection(post) + renderCommentSection(post) + renderConsultCard();
+    const deferredHtml = renderBenchmarkSection(post) + renderCommentSection(post) + renderConsultCard() + renderSippoCard();
     requestAnimationFrame(() => {
       article.insertAdjacentHTML("beforeend", deferredHtml);
     });
