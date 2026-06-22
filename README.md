@@ -25,7 +25,7 @@ PC構成診断・GPU比較・ゲーム別おすすめPC・PC構成投稿・PC購
 | GAME PC GUIDE | <https://sippo-pc.jp/game-pc-guide/> | ゲーム別におすすめPC構成を探せるサイト |
 
 > ⚠️ **要確認（ディレクトリ名の大文字小文字）**
-> ローカルでは PC構成投稿サイトのフォルダが `PC-builds-hub/`（先頭が大文字）で見えていますが、
+> ローカルでは PC構成投稿サイトのフォルダが `pc-builds-hub/`（小文字）で見えます。
 > 公開 URL は小文字 `/pc-builds-hub/` です。GitHub Pages（Linux）は大文字小文字を区別するため、
 > **リポジトリ上のディレクトリ名が `pc-builds-hub`（小文字）になっているか**を確認してください。
 > 一致していないと `/pc-builds-hub/` が 404 になります。
