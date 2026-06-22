@@ -2,7 +2,7 @@
 // PC Builds Hub — Service Worker
 // Cache name はサイト固有にすること（他サイトとの混線防止）
 // =====================
-const CACHE_NAME = "pc-builds-cache-v9";
+const CACHE_NAME = "pc-builds-cache-v10";
 
 const PRECACHE_ASSETS = [
   "./",
