@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>マイページ - PC Builds Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#19e3ff" />
+</head>
+<body class="mypage-page">
+  <div class="page">
+    <header class="top-header">
+      <a href="./" class="site-logo">PC <span>Builds</span> Hub</a>
+      <div class="nav-actions">
+        <a href="./" class="btn">トップへ戻る</a>
+        <a href="all-posts.html" class="btn">構成一覧</a>
+      </div>
+    </header>
+
+    <main class="mypage-main">
+      <section class="page-header">
+        <div>
+          <h1 class="page-title">マイページ</h1>
+          <p class="page-subtitle">アカウント情報と、これからの投稿機能の入り口です。</p>
+        </div>
+      </section>
+
+      <!-- 状態に応じて差し替わる領域 -->
+      <div class="mypage-message" id="mypageMessage" role="status" hidden></div>
+
+      <section class="mypage-grid" id="mypageContent" hidden>
+        <div class="mypage-card">
+          <h2 class="mypage-card-title">アカウント情報</h2>
+          <dl class="mypage-info">
+            <div class="mypage-info-row">
+              <dt>メールアドレス</dt>
+              <dd id="infoEmail">-</dd>
+            </div>
+            <div class="mypage-info-row">
+              <dt>表示名</dt>
+              <dd id="infoDisplayName">-</dd>
+            </div>
+          </dl>
+          <button type="button" class="btn" data-auth-logout>ログアウト</button>
+        </div>
+
+        <div class="mypage-card mypage-card-wide admin-menu-card" id="adminMenu" hidden>
+          <h2 class="mypage-card-title">管理メニュー</h2>
+          <p class="mypage-hint">承認待ちの投稿を確認できます。</p>
+          <a href="admin.html" class="btn btn-primary">投稿承認画面へ</a>
+        </div>
+
+        <div class="mypage-card mypage-card-wide">
+          <div class="mypage-posts-head">
+            <h2 class="mypage-card-title">あなたの投稿</h2>
+            <a href="submit.html" class="btn btn-primary">構成を投稿する</a>
+          </div>
+          <p class="mypage-hint">
+            投稿は承認制です。送信後、管理者の確認を経て公開（approved）されます。
+          </p>
+          <div id="myPostsList" class="my-posts-list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      &copy; 2026 PC Builds Hub. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Supabase（任意）: config はダミー値の間 Auth は無効。詳細は SETUP_SUPABASE.md -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
+  <script src="mypage.js"></script>
+  <script src="sw-register.js"></script>
+</body>
+</html>
