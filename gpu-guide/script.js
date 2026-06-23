@@ -321,9 +321,14 @@ const budgetFilter = document.getElementById("budgetFilter");
 const sortSelect = document.getElementById("sortSelect");
 const gpuRankingList = document.getElementById("gpuRankingList");
 const rankingTabs = document.querySelectorAll(".ranking-tab");
+const rankingMoreBtn = document.getElementById("rankingMoreBtn");
 
 let gpus = [];
 let activeRankingType = "raster";
+
+// スマホ表示で最初に見せるランキング件数（これ以上は「もっと見る」で展開）
+const RANKING_VISIBLE = 10;
+let rankingExpanded = false;
 
 const GPU_LABELS = {
   "rtx-4060":       { text: "初心者向け",   type: "entry" },
@@ -701,10 +706,33 @@ function renderGpuRanking() {
         表示できるGPUランキングがありません。
       </div>
     `;
+    updateRankingMore(0);
     return;
   }
 
   gpuRankingList.innerHTML = rankingGpus.map(createRankingRow).join("");
+  rankingExpanded = false;
+  updateRankingMore(rankingGpus.length);
+}
+
+// スマホ版ランキングの「もっと見る / 閉じる」表示を更新する（PC表示には影響しない）
+function updateRankingMore(total) {
+  if (!gpuRankingList) return;
+
+  const hasMore = total > RANKING_VISIBLE;
+  gpuRankingList.classList.toggle("is-collapsed", hasMore && !rankingExpanded);
+
+  if (!rankingMoreBtn) return;
+
+  rankingMoreBtn.classList.toggle("is-active", hasMore);
+
+  if (!hasMore) return;
+
+  const remaining = total - RANKING_VISIBLE;
+  rankingMoreBtn.setAttribute("aria-expanded", String(rankingExpanded));
+  rankingMoreBtn.innerHTML = rankingExpanded
+    ? "閉じる"
+    : `もっと見る<span class="ranking-more-count">残り${remaining}件</span>`;
 }
 
 function createRankingRow(gpu, index) {
@@ -738,6 +766,8 @@ function createRankingRow(gpu, index) {
 
       <span class="ranking-price" data-label="目安価格">${formatGpuPrice(gpu)}</span>
       <span class="ranking-use" data-label="用途の目安">${getGpuUseCase(gpu)}</span>
+
+      <span class="ranking-detail" data-label="詳細">詳細<span class="ranking-detail-arrow" aria-hidden="true">›</span></span>
     </a>
   `;
 }
@@ -773,6 +803,13 @@ if (rankingTabs.length > 0) {
 
       renderGpuRanking();
     });
+  });
+}
+
+if (rankingMoreBtn) {
+  rankingMoreBtn.addEventListener("click", () => {
+    rankingExpanded = !rankingExpanded;
+    updateRankingMore(getRankingGpus().length);
   });
 }
 
