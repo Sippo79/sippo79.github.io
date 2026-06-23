@@ -767,9 +767,17 @@ function createRankingRow(gpu, index) {
       <span class="ranking-price" data-label="目安価格">${formatGpuPrice(gpu)}</span>
       <span class="ranking-use" data-label="用途の目安">${getGpuUseCase(gpu)}</span>
 
+      <span class="ranking-meta" data-label="スペック">${getRankingMeta(gpu)}</span>
       <span class="ranking-detail" data-label="詳細">詳細<span class="ranking-detail-arrow" aria-hidden="true">›</span></span>
     </a>
   `;
+}
+
+// スマホ版ランキングの2行目に出す簡易スペック（VRAM・消費電力・用途目安）
+function getRankingMeta(gpu) {
+  const parts = [`${gpu.vram}GB`, `${gpu.power}W`];
+  if (gpu.target) parts.push(`${gpu.target}向け`);
+  return parts.join(" ・ ");
 }
 
 function formatRankingScore(score) {

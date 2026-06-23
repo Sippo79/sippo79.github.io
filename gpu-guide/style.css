@@ -177,6 +177,10 @@
   display: none;
 }
 
+.ranking-meta {
+  display: none;
+}
+
 .ranking-more {
   display: none;
 }
@@ -690,25 +694,25 @@ a.recommend-card:hover {
     box-shadow: none;
   }
 
+  /* スマホ：コンパクトなリスト型ランキング（行全体がリンク） */
   .ranking-list {
-    gap: 12px;
+    gap: 8px;
   }
 
-  /* スマホ：コンパクトなリスト型ランキング（行全体がリンク） */
   .ranking-row {
-    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-columns: 38px minmax(0, 1fr) auto;
     grid-template-areas:
       "rank name  score"
-      "rank use   detail";
-    column-gap: 12px;
-    row-gap: 3px;
-    min-height: 64px;
-    padding: 12px 14px;
-    border-radius: 16px;
+      "rank meta  detail";
+    column-gap: 10px;
+    row-gap: 2px;
+    min-height: 56px;
+    padding: 9px 12px;
+    border-radius: 14px;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035));
     border: 1px solid rgba(255, 255, 255, 0.11);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
@@ -737,7 +741,9 @@ a.recommend-card:hover {
     content: none;
   }
 
+  /* 用途の長文・価格・スコアバー・ブランド名はスマホでは省略 */
   .ranking-price,
+  .ranking-use,
   .ranking-score-bar,
   .ranking-gpu small {
     display: none;
@@ -749,9 +755,9 @@ a.recommend-card:hover {
   }
 
   .ranking-rank strong {
-    width: 34px;
-    height: 34px;
-    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 
   .ranking-gpu {
@@ -761,8 +767,8 @@ a.recommend-card:hover {
   }
 
   .ranking-gpu strong {
-    font-size: 15px;
-    line-height: 1.3;
+    font-size: 14px;
+    line-height: 1.25;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
@@ -776,16 +782,19 @@ a.recommend-card:hover {
   }
 
   .ranking-score strong {
-    font-size: 17px;
-    line-height: 1.2;
+    font-size: 16px;
+    line-height: 1.15;
   }
 
-  .ranking-use {
-    grid-area: use;
+  /* VRAM・消費電力・用途目安の簡易スペック行 */
+  .ranking-meta {
+    display: block;
+    grid-area: meta;
     align-self: center;
-    color: #aeb8cc;
-    font-size: 12px;
-    line-height: 1.35;
+    color: #9aa7bd;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
     overflow-wrap: anywhere;
   }
 
@@ -798,18 +807,18 @@ a.recommend-card:hover {
     gap: 2px;
     white-space: nowrap;
     color: #19e3ff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 900;
   }
 
   .ranking-detail-arrow {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1;
   }
 
   .ranking-label {
-    margin-left: 6px;
-    padding: 1px 6px;
+    margin-left: 5px;
+    padding: 1px 5px;
     font-size: 9px;
   }
 
@@ -820,10 +829,10 @@ a.recommend-card:hover {
     justify-content: center;
     gap: 8px;
     width: 100%;
-    min-height: 48px;
-    margin-top: 14px;
+    min-height: 44px;
+    margin-top: 12px;
     padding: 0 18px;
-    border-radius: 14px;
+    border-radius: 12px;
     border: 1px solid rgba(25, 227, 255, 0.32);
     background: rgba(25, 227, 255, 0.08);
     color: #19e3ff;
@@ -874,9 +883,9 @@ a.recommend-card:hover {
     flex: none;
     min-width: 0;
     min-height: 0;
-    height: 48px;
+    height: 44px;
     padding: 0 14px;
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 16px; /* iOSでフォーカス時に自動ズームしないよう16px */
     line-height: normal;
   }
@@ -896,20 +905,86 @@ a.recommend-card:hover {
 }
 
 @media (max-width: 520px) {
-  .gpu-card,
   .recommend-card,
   .related-site-card {
     padding: 20px;
     border-radius: 22px;
   }
 
+  /* スマホ：比較表カードの情報密度を上げる（余白・文字・行間を圧縮） */
+  .gpu-card {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
   .gpu-card h3 {
-    font-size: 21px;
+    margin: 0 0 8px;
+    font-size: 17px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .gpu-card-top {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .gpu-brand,
+  .gpu-resolution {
+    min-height: 24px;
+    font-size: 11px;
+  }
+
+  .gpu-tag-list {
+    gap: 5px;
+    margin: 0 0 10px;
+  }
+
+  /* 長い説明文は2行までに省略して縦の長さを抑える */
+  .gpu-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .gpu-specs {
+    gap: 6px;
+    margin: 0 0 12px;
+  }
+
+  .gpu-spec {
+    padding: 6px 0;
+  }
+
+  .gpu-spec span,
+  .gpu-spec strong {
+    font-size: 13px;
+  }
+
+  .gpu-score-box {
+    margin-top: 12px;
+  }
+
+  .gpu-score-head {
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .score-mini-grid {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .score-mini-item {
+    padding: 6px 8px;
   }
 
   .detail-cta-inner {
