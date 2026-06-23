@@ -1431,6 +1431,9 @@ textarea {
   color: rgba(248, 250, 252, 0.88);
   line-height: 1.8;
   white-space: pre-wrap;
+  /* 長いURLや英数字の連続でも横にはみ出さない（スマホでの横スクロール防止） */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .post-detail-card .nice-btn {
@@ -3230,6 +3233,10 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-sm, 8px);
   padding: 8px 10px;
+  /* 長文コメントが管理カードからはみ出さないように */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .admin-actions {
@@ -3467,5 +3474,186 @@ textarea {
   .sippo-cta__btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =====================================================================
+   UI改善（追記）: 横スクロール防止 / 押せる要素の明確化 / スマホ操作性
+   既存ルールは変更せず、ここに集約。機能(JSのクラス名・data属性)は不変。
+   ===================================================================== */
+
+/* --- 1. 横スクロール保険（全ページ） -------------------------------
+   .index-page 以外のページにも overflow ガードを付与。
+   overflow-x: clip は hidden と違い position: sticky を壊さないため、
+   post.html の固定ヘッダーを維持したまま横はみ出しだけを抑制できる。 */
+html {
+  overflow-x: clip;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* ページ全体ラッパーが画面幅を超えないように（保険） */
+.page,
+.page-shell,
+.container {
+  max-width: 100%;
+}
+
+/* 長い英数字・URLの連続でカードや行が崩れるのを防ぐ */
+.card-title,
+.card-user,
+.my-post-title,
+.admin-card-title,
+.post-spec-value,
+.post-detail-tagline,
+.auth-message,
+.mypage-message {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* --- 2. キーボード操作のフォーカス可視化（focus-visible） ----------
+   マウスクリック時は出さず、Tab操作時だけ明確なリングを表示。 */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.header-link:focus-visible,
+.detail-link:focus-visible,
+.nice-btn:focus-visible,
+.chip:focus-visible,
+.pop-tag:focus-visible,
+.page-btn:focus-visible,
+.sort-select:focus-visible,
+.section-link:focus-visible,
+.auth-link:focus-visible,
+.auth-link-btn:focus-visible,
+.my-post-btn:focus-visible,
+.card:focus-visible,
+.link-card:focus-visible,
+.consult-banner:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+/* 入力欄は既存の focus リング(box-shadow)に加えて、
+   キーボード時だけ枠を強調（マウス時の見た目は維持） */
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible,
+.auth-field input:focus-visible,
+.search-box:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+/* --- 3. 押した時のフィードバック（:active） ------------------------
+   タップ/クリックで沈み込み、押せたことが分かるように。 */
+.btn:active,
+.header-link:active,
+.detail-link:active,
+.nice-btn:active,
+.chip:active,
+.pop-tag:active,
+.page-btn:active,
+.my-post-btn:active,
+.link-card:active,
+.consult-banner:active {
+  transform: translateY(1px);
+}
+
+.card:active {
+  transform: translateY(-3px) scale(0.995);
+}
+
+/* テキストリンクは押した時に下線を出してリンクと分かりやすく */
+.section-link:active,
+.auth-link:active,
+.auth-link-btn:active {
+  text-decoration: underline;
+}
+
+/* タップ時の青い半透明ハイライトを抑え、:active のフィードバックに統一 */
+a,
+button,
+.card,
+.chip,
+.pop-tag,
+[tabindex] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- 4. スマホ（hoverが効かない端末）での常時アフォーダンス --------
+   通常時から「押せる感」を出す。デスクトップ(hover可)の見た目は変えない。 */
+@media (hover: none) {
+  /* 透明だった枠線ボタンだけに薄い背景を付けてボタンらしく。
+     primary / sippo / reject など色付きボタンは既存の見た目を維持。 */
+  .btn:not(.btn-primary):not(.btn-sippo):not(.btn-reject) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* テキストだけのリンクは下線で「押せる」と分かるように */
+  .section-link,
+  .auth-link,
+  .auth-link-btn {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* カードは押せることを示すため、わずかな枠アクセントを常時表示 */
+  .card,
+  .link-card {
+    border-color: rgba(25, 227, 255, 0.18);
+  }
+}
+
+/* --- 5. スマホでのタップ領域確保（指で押しやすく） ----------------- */
+@media (max-width: 640px) {
+  .btn,
+  .header-link {
+    min-height: 44px;
+  }
+
+  .detail-link,
+  .nice-btn,
+  .chip,
+  .pop-tag,
+  .my-post-btn,
+  .page-btn,
+  .sort-select {
+    min-height: 40px;
+  }
+
+  /* ヘッダー導線が窮屈にならないよう内側余白を微調整 */
+  .header-link {
+    padding: 0 14px;
+  }
+
+  /* 投稿/管理の操作ボタンは押しやすいよう横いっぱい寄りに */
+  .submit-actions .btn,
+  .submit-done .btn,
+  .auth-actions-row .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* --- 6. ヘッダーのロゴ折れ防止（スマホ） ---------------------------
+   狭幅でナビボタンにロゴが圧迫され「PC / Builds / Hub」と2〜3行に
+   折れていたのを修正。ロゴは常に1行で表示し、入りきらない場合は
+   ナビ側を下段へ回り込ませる（post.html の sticky ヘッダーも同様）。 */
+@media (max-width: 600px) {
+  .top-header,
+  .header-inner {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .site-logo {
+    white-space: nowrap;
   }
 }
