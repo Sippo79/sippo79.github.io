@@ -57,6 +57,24 @@ ul, ol { list-style: none; }
 button { font-family: inherit; border: none; background: none; cursor: pointer; }
 section { scroll-margin-top: 84px; }
 
+/* タップ時のハイライト・長文の折り返し安全策（1文字ずつの折り返し防止） */
+a, button { -webkit-tap-highlight-color: rgba(124, 92, 230, .18); }
+h1, h2, h3, p, li, a { overflow-wrap: break-word; word-break: normal; }
+
+/* キーボード操作で押せる場所が分かるフォーカスリング */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid var(--c-purple-deep);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+/* 濃い背景セクションでは白いリングにする */
+.apply a:focus-visible,
+.apply button:focus-visible,
+.apply .btn:focus-visible,
+.footer a:focus-visible { outline-color: #fff; }
+
 .container { width: min(1080px, 100% - 44px); margin-inline: auto; }
 .sp-only { display: none; }
 
@@ -121,6 +139,10 @@ section { scroll-margin-top: 84px; }
 }
 .btn--ghost-light:hover { transform: translateY(-2px); background: rgba(255, 255, 255, .2); }
 
+/* スマホは hover が効かないので、押した感は :active で出す */
+.btn:active { transform: translateY(1px) scale(.98); }
+.btn { min-height: 48px; }
+
 /* ---------- 共通：セクション ---------- */
 .section { padding: 96px 0; position: relative; }
 .section--soft { background: var(--grad-soft); }
@@ -170,11 +192,32 @@ section { scroll-margin-top: 84px; }
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--c-line);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.nav__brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.08rem; }
-.nav__paw { font-size: 1.2rem; }
+/* flex-wrap = どんな狭い画面でも横スクロールを出さない安全網 */
+.nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; row-gap: 8px; min-height: 64px; }
+.nav__brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.08rem; min-width: 0; }
+.nav__paw { font-size: 1.2rem; flex: 0 0 auto; }
 .nav__name { background: linear-gradient(120deg, var(--c-blue-deep), var(--c-purple-deep)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav__actions { display: flex; align-items: center; gap: 8px; }
+
+/* ヘッダー内リンク・ボタンは1文字ずつ折り返さない */
+.nav__brand, .nav__back, .nav__cta { white-space: nowrap; word-break: keep-all; overflow-wrap: normal; }
+
+.nav__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--c-ink-soft);
+  transition: color .25s ease, background .25s ease;
+}
+.nav__back:hover { color: var(--c-purple-deep); background: var(--c-soft); }
 .nav__cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-weight: 800;
   font-size: .9rem;
   color: #fff;
@@ -185,6 +228,7 @@ section { scroll-margin-top: 84px; }
   transition: transform .3s var(--ease-bounce);
 }
 .nav__cta:hover { transform: translateY(-2px); }
+.nav__cta:active { transform: translateY(1px) scale(.99); }
 
 /* ==========================================================
    ① ファーストビュー（Hero）
@@ -704,6 +748,18 @@ section { scroll-margin-top: 84px; }
 }
 .apply .btn--primary:hover { background: #F4F0FF; }
 .apply__note { margin-top: 26px; font-size: .88rem; color: rgba(255, 255, 255, .8); }
+.apply__back { margin-top: 14px; }
+.apply__back a {
+  display: inline-block;
+  min-height: 44px;
+  padding: 10px 8px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.apply__back a:hover { color: #F4F0FF; }
 
 /* ==========================================================
    フッター
@@ -711,8 +767,17 @@ section { scroll-margin-top: 84px; }
 .footer { background: var(--c-ink); color: #fff; padding: 50px 0 40px; text-align: center; }
 .footer__brand { font-weight: 800; font-size: 1.15rem; margin-bottom: 6px; }
 .footer__copy { color: rgba(255, 255, 255, .7); font-size: .92rem; margin-bottom: 24px; }
-.footer__nav { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
-.footer__nav a { font-size: .92rem; font-weight: 700; color: rgba(255, 255, 255, .85); transition: color .25s ease; }
+.footer__nav { display: flex; gap: 6px 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.footer__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 8px;
+  font-size: .92rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, .85);
+  transition: color .25s ease;
+}
 .footer__nav a:hover { color: var(--c-blue); }
 .footer__small { color: rgba(255, 255, 255, .5); font-size: .8rem; }
 
@@ -721,11 +786,15 @@ section { scroll-margin-top: 84px; }
    ========================================================== */
 @media (max-width: 720px) {
   .sp-only { display: inline; }
-  .section { padding: 72px 0; }
-  .hero { padding: 64px 0 76px; }
+  /* 左右の余白を少し詰めて、本文の表示幅を確保（横スクロール防止） */
+  .container { width: min(1080px, 100% - 32px); }
+  .section { padding: 64px 0; }
+  .section__lead { margin-bottom: 36px; }
+  .hero { padding: 56px 0 68px; }
   .hero__actions .btn,
   .apply__actions .btn { width: 100%; }
   .service-card--feature { order: -1; }
+  .service-card { padding: 30px 24px; }
   .result-card__head { padding: 22px 22px; }
   .result-card__body { padding: 22px; }
   .result-card__foot { padding: 16px 22px; }
@@ -734,21 +803,28 @@ section { scroll-margin-top: 84px; }
   /* ヘッダーが詰まらないように余白・サイズを調整 */
   .nav__brand { font-size: 1rem; gap: 6px; }
   .nav__paw { font-size: 1.1rem; }
+  .nav__back { font-size: .84rem; padding: 8px 10px; }
   .nav__cta { font-size: .82rem; padding: 9px 15px; }
 
   /* 申し込み導線まわり */
   .apply__status { font-size: .86rem; padding: 11px 18px; }
 
   /* フッターナビが間延びしないように詰める */
-  .footer__nav { gap: 12px 16px; }
+  .footer__nav { gap: 4px 14px; }
   .footer__nav a { font-size: .88rem; }
 }
 
-/* さらに狭い画面（小型スマホ）向けの微調整 */
+/* さらに狭い画面（小型スマホ：360〜400px）向けの微調整 */
 @media (max-width: 400px) {
-  .nav__name { font-size: .96rem; }
-  .nav__cta { font-size: .78rem; padding: 8px 12px; }
+  .container { width: min(1080px, 100% - 28px); }
+  .nav__name { font-size: .94rem; }
+  .nav__back { font-size: .8rem; padding: 8px 8px; }
+  .nav__cta { font-size: .78rem; padding: 9px 13px; }
   /* 価格の大きな数字がはみ出さないように */
   .service-card__price .num { font-size: 2.1rem; }
+  .service-card { padding: 28px 20px; }
   .case-card__title { font-size: 1.06rem; }
+  .prepare-card { padding: 20px 18px; gap: 12px; }
+  /* カード内の見出しが大きすぎないように */
+  .service-card__name { font-size: 1.3rem; }
 }
