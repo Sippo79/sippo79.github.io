@@ -1560,10 +1560,14 @@ textarea {
   }
 
   .index-page .nav-actions .btn {
-    flex: 1 1 0;
-    min-width: 0;
-    padding-inline: 12px;
+    /* flex:1 1 0 + min-width:0 でボタンを等幅に潰すと、日本語ラベルが
+       1文字ずつ改行され「縦書き」のように見えていた。内容幅を基準に
+       折り返す方式へ変更（ナビ全体は flex-wrap で複数行になる）。 */
+    flex: 0 1 auto;
+    min-width: max-content;
+    padding-inline: 14px;
     font-size: 0.9rem;
+    white-space: nowrap;
   }
 
   .index-page .hero-actions .btn {
@@ -3656,4 +3660,74 @@ button,
   .site-logo {
     white-space: nowrap;
   }
+}
+
+/* --- 7. ヘッダーナビが「縦書き化・1文字改行・重なり」する問題の修正 ---
+   原因：日本語ラベルは既定で任意の文字位置で折り返せるため、ボタン/リンクが
+   flex で内容幅より狭く潰されると 1 文字ずつ改行され縦書きのように見える。
+   （前回追加の overflow-wrap 系がボタン文字に効きすぎる懸念への対処も兼ねる）
+
+   方針（案A）：ロゴは1行、ナビは横一列に詰め込まず、
+   読みやすい幅のボタンを「折り返して」複数行に並べる。横スクロールは出さない。 */
+@media (max-width: 600px) {
+  /* ナビ親：入りきらないボタンは次の行へ回り込ませる */
+  .header-nav,
+  .nav-actions,
+  .auth-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ナビ内のボタン/リンク：文字は必ず横書き1行、内容幅より狭く潰さない */
+  .header-nav .header-link,
+  .header-nav .btn,
+  .nav-actions .btn,
+  .nav-actions .header-link,
+  .auth-actions .btn,
+  .auth-actions .header-link {
+    flex: 0 1 auto;          /* 内容幅基準。足りなければ折り返す（潰さない） */
+    min-width: max-content;  /* 1文字改行・縦書き化を防ぐ */
+    white-space: nowrap;     /* ラベルを横1行に固定 */
+    word-break: keep-all;    /* 単語/語句の途中で割らない */
+    overflow-wrap: normal;   /* 前回の anywhere がボタンに波及しても無効化 */
+  }
+
+  /* ログイン中のユーザー名は長くても折り返さず省略表示（重なり防止） */
+  .auth-actions .auth-name {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* --- 8. ヘッダー/ナビ/ボタンの文字折り返しガード（全幅・無条件） ----
+   前回追加の overflow-wrap: anywhere などが万一ヘッダーのリンクやボタンに
+   波及して「1文字ずつ改行（縦書き化）」しないよう、ここで明示的に打ち消す。
+   画面幅に関係なく、ナビのラベルは常に横書き1行で表示する。
+   折り返しは「文字単位」ではなく「ボタン単位」で行い（親の flex-wrap）、
+   画面全体の横スクロールは出さない。 */
+.header-link,
+.header-nav a,
+.header-nav button,
+.site-header .btn,
+.top-header .btn,
+.nav-actions a,
+.nav-actions button,
+.auth-actions a,
+.auth-actions button {
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* ナビ親はボタン単位で折り返す（横スクロールを出さずに収める） */
+.header-nav,
+.nav-actions,
+.auth-actions {
+  flex-wrap: wrap;
 }
