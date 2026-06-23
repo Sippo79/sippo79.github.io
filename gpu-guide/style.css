@@ -861,14 +861,37 @@ a.recommend-card:hover {
     grid-template-columns: 1fr;
   }
 
+  /* スマホ：比較表フィルターを巨大カプセルからコンパクトな入力に */
   .gpu-controls {
     flex-direction: column;
-    margin-bottom: 32px;
+    gap: 10px;
+    margin-bottom: 28px;
   }
 
   .gpu-controls input,
   .gpu-controls select {
     width: 100%;
+    flex: none;
+    min-width: 0;
+    min-height: 0;
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 14px;
+    font-size: 16px; /* iOSでフォーカス時に自動ズームしないよう16px */
+    line-height: normal;
+  }
+
+  /* select をネイティブ依存にせず一定の高さ＋プルダウン用キャレット表示 */
+  .gpu-controls select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 38px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23aab6cc' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px 8px;
+    text-overflow: ellipsis;
   }
 }
 
