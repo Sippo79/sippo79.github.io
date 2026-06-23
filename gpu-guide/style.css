@@ -696,6 +696,7 @@ a.recommend-card:hover {
 
   /* スマホ：コンパクトなリスト型ランキング（行全体がリンク） */
   .ranking-list {
+    grid-template-columns: minmax(0, 1fr); /* 行が max-content で画面外に伸びるのを防ぐ */
     gap: 8px;
   }
 
