@@ -152,10 +152,41 @@
     <div class="container">
       <a class="consult-banner" href="/pc-consult/">
         <span class="consult-banner__icon" aria-hidden="true">🐾</span>
-        <span class="consult-banner__text">このPC・GPU構成で迷ったら、購入前チェックへ</span>
-        <span class="consult-banner__btn">無料モニター受付準備中 →</span>
+        <span class="consult-banner__text">このゲームが遊べるPCで迷ったら、購入前にやさしくチェック</span>
+        <span class="consult-banner__btn">シッポに相談する →</span>
       </a>
     </div>
+
+    <!-- ===== 初心者向けカード要素＋相談導線のスタイル ===== -->
+    <style>
+      /* ゲームカードの快適度ラベル（.game-card 配下で .game-card p より優先させる） */
+      .game-card .game-comfort{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:800;line-height:1.3}
+      .game-card .game-comfort--light{color:#0a1f1c;background:#7ef0d6}
+      .game-card .game-comfort--mid{color:#07111f;background:#5fd0ff}
+      .game-card .game-comfort--hard{color:#1d1330;background:#c9b3ff}
+      /* 説明文は2行までに抑えてカードを読みやすく */
+      .game-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      /* 価格・環境の目安メタ */
+      .game-meta{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:8px}
+      .game-meta li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09)}
+      .game-meta li span{font-size:11.5px;font-weight:800;color:var(--text-dim);letter-spacing:.02em}
+      .game-meta li strong{font-size:13.5px;color:var(--text);font-weight:800;line-height:1.45}
+      /* 「PC選びのかんたんな見方」2×2グリッド */
+      .howto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+      @media(max-width:640px){.howto-grid{grid-template-columns:1fr}}
+      /* ゲーム別 相談導線CTA */
+      .game-consult-cta{margin-top:28px;padding:26px 24px;border-radius:24px;background:linear-gradient(135deg,rgba(45,212,191,.14),rgba(124,92,255,.12)),rgba(255,255,255,.04);border:1px solid rgba(45,212,191,.3)}
+      .game-consult-cta__head{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+      .game-consult-cta__emoji{font-size:26px;line-height:1}
+      .game-consult-cta__title{margin:0;font-size:20px;font-weight:900;color:var(--text)}
+      .game-consult-cta__text{margin:0 0 18px;color:var(--text-muted);line-height:1.8;font-size:15px}
+      .game-consult-cta__list{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .game-consult-cta__list li{display:flex;align-items:flex-start;gap:8px;font-size:14px;font-weight:700;color:var(--text-muted);line-height:1.55}
+      .game-consult-cta__list li::before{content:"\2713";color:#2DD4BF;font-weight:900;flex:0 0 auto}
+      .game-consult-cta__btn{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border-radius:999px;background:linear-gradient(135deg,#2DD4BF,#19e3ff);color:#06231f;font-weight:900;font-size:15px;text-decoration:none}
+      .game-consult-cta__btn:hover{filter:brightness(1.05)}
+      @media(max-width:560px){.game-consult-cta__list{grid-template-columns:1fr}.game-consult-cta__btn{width:100%;justify-content:center}}
+    </style>
 
     <section id="games" class="section">
       <div class="container">
@@ -178,6 +209,25 @@
         </div>
 
         <div class="game-grid" id="gameGrid"></div>
+
+        <!-- ゲーム別 → 相談窓口への自然な導線 -->
+        <div class="game-consult-cta">
+          <div class="game-consult-cta__head">
+            <span class="game-consult-cta__emoji" aria-hidden="true">🐾</span>
+            <h3 class="game-consult-cta__title">遊びたいゲームは決まったけど、PC選びが不安な方へ</h3>
+          </div>
+          <p class="game-consult-cta__text">
+            「この構成で本当に大丈夫？」「予算内だとどれがいい？」——PCにくわしくなくて大丈夫。<br>
+            やさしい言葉で、あなたに合う1台をいっしょに考えます。
+          </p>
+          <ul class="game-consult-cta__list">
+            <li>このゲームが快適に遊べるPCを一緒に選ぶ</li>
+            <li>中古PCの候補がアリかチェックしてもらう</li>
+            <li>予算内でどれを選べばいいか相談する</li>
+            <li>パーツ名が分からなくてもOK</li>
+          </ul>
+          <a class="game-consult-cta__btn" href="/pc-consult/">シッポに相談してみる →</a>
+        </div>
 
         <nav class="static-game-links" aria-label="ゲーム別おすすめPCページ一覧">
           <p class="section-label">STATIC LINKS</p>
@@ -286,6 +336,31 @@
           <div class="hint-box-body">
             <p class="hint-box-title">スペックは「盛りすぎ」に注意</p>
             <p>4Kや最高画質を狙うと一気に予算が上がります。まずは遊びたい解像度とfpsを決めてから構成を選ぶと、ムダなく決められます。</p>
+          </div>
+        </div>
+
+        <div class="section-heading" style="margin-top:48px">
+          <p class="section-label">HOW TO CHOOSE</p>
+          <h2>PC選びのかんたんな見方</h2>
+          <p>むずかしい数字はあとまわしでOK。まずはこの4つだけ押さえれば、失敗しにくくなります。</p>
+        </div>
+
+        <div class="howto-grid">
+          <div class="guide-card">
+            <h3>フルHDならGPUを重視</h3>
+            <p>一般的な画面サイズ（フルHD）で遊ぶなら、まずは<strong>GPU（ゲーム画面を描く部品）</strong>を重視。ここが「ぬるぬる動くか」に直結します。</p>
+          </div>
+          <div class="guide-card">
+            <h3>配信・編集はCPUとメモリも</h3>
+            <p>ゲームしながら配信や動画編集もするなら、<strong>CPU（全体の処理役）</strong>と<strong>メモリ（作業の広さ）</strong>も少し多めだと安心です。</p>
+          </div>
+          <div class="guide-card">
+            <h3>中古は安いけど状態確認を</h3>
+            <p>中古PCは価格が魅力。ただし使用状態や保証はバラバラなので、不安なときは買う前にチェックすると安心です。</p>
+          </div>
+          <div class="guide-card">
+            <h3>迷ったら「おすすめ構成」以上</h3>
+            <p>各ゲームページの構成より<strong>少し上</strong>を選ぶと、長く快適に使えて失敗しにくくなります。迷ったらこれが目安。</p>
           </div>
         </div>
 

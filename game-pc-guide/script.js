@@ -195,6 +195,27 @@ async function loadGames() {
   }
 }
 
+// 遊びやすさ（快適度）を初心者向けの一言ラベルに変換する
+function getComfortBadge(game) {
+  const lv = game.level || "";
+  let text = "フルHDで遊びやすい";
+  let tier = "mid";
+  if (lv.indexOf("超重") > -1) {
+    text = "高性能PCがおすすめ";
+    tier = "hard";
+  } else if (lv.indexOf("重") > -1) {
+    text = "しっかりめのPCだと安心";
+    tier = "hard";
+  } else if (lv.indexOf("中量") > -1) {
+    text = "フルHDなら快適に遊びやすい";
+    tier = "mid";
+  } else if (lv.indexOf("軽") > -1) {
+    text = "軽快に動かしやすい";
+    tier = "light";
+  }
+  return `<p class="game-comfort game-comfort--${tier}">\u{1F60A} ${text}</p>`;
+}
+
 function renderGames(games) {
   if (games.length === 0) {
     gameGrid.innerHTML = `
@@ -237,8 +258,14 @@ function renderGames(games) {
           <span class="game-level">${game.level}</span>
         </div>
 
+        ${getComfortBadge(game)}
         <h3>${game.title}</h3>
-        <p>${game.description}</p>
+        <p class="game-desc">${game.description}</p>
+
+        <ul class="game-meta">
+          <li><span>\u{1F4B0} \u4e88\u7b97\u306e\u76ee\u5b89</span><strong>${game.budget || "-"}</strong></li>
+          <li><span>\u{1F3AE} \u304a\u3059\u3059\u3081\u74b0\u5883</span><strong>${game.recommended || "-"}</strong></li>
+        </ul>
 
         <span class="game-link">\u304a\u3059\u3059\u3081PC\u3092\u898b\u308b &rarr;</span>
       </div>
