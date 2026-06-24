@@ -232,17 +232,98 @@ function renderCommentSection(post) {
 }
 
 // シッポPC相談室への控えめな導線カード（静的・外部API不使用）
-function renderConsultCard() {
+function renderConsultCard(post) {
+  const title = post && post.title ? String(post.title) : "";
+  const copyHtml = title
+    ? `
+      <div class="consult-copy">
+        <span class="consult-copy__label">相談するときは、この投稿タイトルを送ってください：<br>
+          <span class="consult-copy__title">「${escapeHtml(title)}」</span>
+        </span>
+        <button type="button" class="consult-copy__btn" data-consult-copy="${escapeHtml(title)}">📋 タイトルをコピー</button>
+      </div>`
+    : "";
+
   return `
     <aside class="consult-card" aria-label="シッポPC相談室への案内">
       <div class="consult-card__icon" aria-hidden="true">🐾</div>
       <div class="consult-card__body">
-        <h2 class="consult-card__title">この構成、買う前に不安なら</h2>
-        <p class="consult-card__desc">この投稿と似たPCを買う前に、価格・用途・ゲームとの相性をチェックできます。</p>
+        <h2 class="consult-card__title">この構成で相談する</h2>
+        <p class="consult-card__desc">「この構成に近いPCが欲しい」と思ったら、PCにくわしくなくて大丈夫。やさしい言葉で、いっしょに確認します。</p>
+        <ul class="consult-card__list">
+          <li>この構成に近いPCが欲しい</li>
+          <li>このPCを参考に、自分用の構成を相談したい</li>
+          <li>中古PC候補がこの構成に近いか見てほしい</li>
+          <li>パーツ名が分からなくてもOK</li>
+        </ul>
+        ${copyHtml}
       </div>
       <a class="btn btn-primary consult-card__btn" href="/pc-consult/">PC相談室で確認する →</a>
     </aside>
   `;
+}
+
+// スペックの読み替え説明（初心者向け・静的）
+function renderSpecGuide() {
+  const items = [
+    ["🧠", "CPU", "PC全体の処理を担当する部品。動作の速さに関わります。"],
+    ["🎮", "GPU（グラボ）", "ゲーム画面を描くために大事な部品。ゲーム性能に直結します。"],
+    ["🗂️", "メモリ（RAM）", "作業スペースの広さ。ゲームなら16GB以上あると安心です。"],
+    ["⚡", "SSD（ストレージ）", "WindowsやゲームをしまうPCの保存場所。起動や読み込みの速さに関わります。"],
+    ["🔌", "電源（PSU）", "PC全体に電気を送る部品。安定して動くために大事です。"],
+    ["📦", "ケース", "見た目や冷却、組み立てやすさに関わる外側の箱です。"],
+  ];
+
+  const cards = items
+    .map(
+      (it) => `
+      <div class="spec-guide-item">
+        <h3><span aria-hidden="true">${it[0]}</span>${escapeHtml(it[1])}</h3>
+        <p>${escapeHtml(it[2])}</p>
+      </div>`
+    )
+    .join("");
+
+  return `
+    <section class="post-detail-section">
+      <h2>スペックの見方（かんたん解説）</h2>
+      <div class="spec-guide-grid">
+        ${cards}
+      </div>
+    </section>
+  `;
+}
+
+// 投稿タイトルのコピーボタン（依存なし・失敗しても壊さない）
+function bindConsultCopy() {
+  const btn = document.querySelector("[data-consult-copy]");
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    const text = btn.getAttribute("data-consult-copy") || "";
+    const label = btn.textContent;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      btn.textContent = "✓ コピーしました";
+      btn.classList.add("is-copied");
+      setTimeout(() => {
+        btn.textContent = label;
+        btn.classList.remove("is-copied");
+      }, 1800);
+    } catch (_) {
+      /* コピー失敗時は何もしない（既存機能を壊さない） */
+    }
+  });
 }
 
 // 親サイト「シッポ」への回遊導線カード（静的・外部API不使用・同一ドメイン内リンク）
@@ -336,9 +417,15 @@ function renderPost(post, index = 0) {
   // 初期描画を軽くするため、最初のペイント後に 1 回だけ追記する。
   const article = container.querySelector(".post-detail-card");
   if (article) {
-    const deferredHtml = renderBenchmarkSection(post) + renderCommentSection(post) + renderConsultCard() + renderSippoCard();
+    const deferredHtml =
+      renderBenchmarkSection(post) +
+      renderCommentSection(post) +
+      renderSpecGuide() +
+      renderConsultCard(post) +
+      renderSippoCard();
     requestAnimationFrame(() => {
       article.insertAdjacentHTML("beforeend", deferredHtml);
+      bindConsultCopy();
     });
   }
 }

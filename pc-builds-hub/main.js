@@ -406,6 +406,50 @@ function getResClass(res) {
   return map[res] || "res-default";
 }
 
+// 既存データ（用途・解像度・tags）だけから、初心者向けの「こんな人向け」とバッジを安全に導く。
+// データに無い情報は断定しない（構造化フィールドと明確なタグ語のみを根拠にする）。
+function getBuildBeginnerInfo(post) {
+  const usage = String(post.usage || "");
+  const res = String(post.resolution || "");
+  const tags = (Array.isArray(post.tags) ? post.tags : []).map((t) => String(t));
+  const tagText = tags.join(" ");
+  const has = (...kw) => kw.some((k) => tagText.indexOf(k) > -1);
+
+  let forWhom = "";
+  if (usage.indexOf("配信") > -1) forWhom = "ゲーム配信や録画もしてみたい人向けのPCです。";
+  else if (usage.indexOf("クリエ") > -1) forWhom = "動画編集などの制作にも使いたい人向けのPCです。";
+  else if (usage.indexOf("白") > -1 || usage.indexOf("光") > -1) forWhom = "見た目にもこだわりたい人向けのPCです。";
+  else if (usage.indexOf("ゲーム") > -1) {
+    forWhom = (res === "4K" || res === "1440p")
+      ? "高画質でゲームを楽しみたい人向けのPCです。"
+      : "フルHDで人気ゲームを楽しみたい人向けのPCです。";
+  } else if (res) {
+    forWhom = res + "で遊びたい人の参考になるPCです。";
+  }
+
+  const badges = [];
+  if (res === "FHD") badges.push({ t: "フルHDで遊びたい人向け", soft: false });
+  if (res === "4K" || res === "1440p") badges.push({ t: "画質重視", soft: false });
+  if (usage.indexOf("配信") > -1) badges.push({ t: "配信も少しやりたい人向け", soft: true });
+  if (usage.indexOf("白") > -1 || usage.indexOf("光") > -1 || has("白", "光", "RGB", "ホワイト")) badges.push({ t: "見た目重視", soft: true });
+  if (has("静音")) badges.push({ t: "静音重視", soft: true });
+  if (has("コスパ", "格安", "低予算", "安い")) badges.push({ t: "コスパ重視", soft: true });
+
+  return { forWhom: forWhom, badges: badges.slice(0, 3) };
+}
+
+function renderCardForWhom(post) {
+  const info = getBuildBeginnerInfo(post);
+  if (!info.forWhom && info.badges.length === 0) return "";
+  const fw = info.forWhom ? `<p class="card-forwhom">${escapeHtml(info.forWhom)}</p>` : "";
+  const bs = info.badges.length
+    ? `<div class="card-beginner-badges">${info.badges
+        .map((b) => `<span class="card-beginner-badge${b.soft ? " is-soft" : ""}">${escapeHtml(b.t)}</span>`)
+        .join("")}</div>`
+    : "";
+  return fw + bs;
+}
+
 function buildCardHTML(post, index) {
   const postId    = String(post.id ?? post.slug ?? post.title ?? index);
   const niceCount = Number(post.niceCount ?? post.nice ?? post.likes ?? 0) || 0;
@@ -469,6 +513,8 @@ function buildCardHTML(post, index) {
       <div class="card-content">
         <h3 class="card-title">${escapeHtml(post.title || "無題のPC構成")}</h3>
         <p class="card-user">by ${escapeHtml(post.user || "unknown")}</p>
+
+        ${renderCardForWhom(post)}
 
         <div class="spec-gpu-feature">
           <span class="spec-gpu-label">GPU</span>
