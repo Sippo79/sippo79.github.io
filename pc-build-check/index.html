@@ -32,7 +32,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@Sippo79_" />
+  <meta name="twitter:site" content="@Sippo79" />
   <meta name="twitter:title" content="ジサコ！ — AI自作PC構成チェック | 初心者向け無料PC診断" />
   <meta name="twitter:description" content="予算・用途・解像度を選ぶだけで、自分に合うゲーミングPC構成を診断。初心者でも分かりやすく、FPSや配信・動画編集向けのPC選びをサポートします。" />
   <meta name="twitter:image" content="https://sippo-pc.jp/pc-build-check/ogp.jpg" />
@@ -144,10 +144,46 @@
     <div class="container">
       <a class="consult-banner" href="/pc-consult/">
         <span class="consult-banner__icon" aria-hidden="true">🐾</span>
-        <span class="consult-banner__text">このPC・GPU構成で迷ったら、購入前チェックへ</span>
-        <span class="consult-banner__btn">無料モニター受付準備中 →</span>
+        <span class="consult-banner__text">診断結果やPC構成で迷ったら、購入前にやさしくチェック</span>
+        <span class="consult-banner__btn">シッポに相談する →</span>
       </a>
     </div>
+
+    <!-- ===== 初心者向け：診断結果・フォーム補足・見方セクションのスタイル ===== -->
+    <style>
+      /* 診断結果カードの初心者向け要素 */
+      .result-summary{margin:6px 0 20px}
+      .result-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+      .result-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:800;line-height:1.3;color:#e7ecff;background:rgba(123,97,255,.2);border:1px solid rgba(123,97,255,.42)}
+      .result-badge--comfort{color:#07111f;background:linear-gradient(135deg,#19e3ff,#5fd0ff);border:1px solid transparent}
+      .result-forwhom{margin:0;font-size:16px;line-height:1.8;font-weight:700;color:var(--color-text)}
+      .specs-label{display:flex;flex-direction:column;gap:3px;margin:0 0 10px;font-size:14px;font-weight:800;color:var(--color-text-dim);letter-spacing:.02em}
+      .specs-label small{font-size:11.5px;font-weight:600;color:var(--color-text-dim);opacity:.85}
+      /* 診断結果の下の相談CTA */
+      .result-consult{margin-top:24px;padding:24px 22px;border-radius:20px;background:linear-gradient(135deg,rgba(45,212,191,.14),rgba(123,97,255,.12)),rgba(255,255,255,.04);border:1px solid rgba(45,212,191,.32)}
+      .result-consult-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+      .result-consult-emoji{font-size:24px;line-height:1}
+      .result-consult-head h4{margin:0;font-size:18px;font-weight:900;color:var(--color-text)}
+      .result-consult-text{margin:0 0 16px;font-size:14.5px;line-height:1.8;color:var(--color-text-muted)}
+      .result-consult-list{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+      .result-consult-list li{display:flex;align-items:flex-start;gap:7px;font-size:13.5px;font-weight:700;color:var(--color-text-muted);line-height:1.5}
+      .result-consult-list li::before{content:"\2713";color:#2DD4BF;font-weight:900;flex:0 0 auto}
+      .result-consult-btn{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 22px;border-radius:999px;background:linear-gradient(135deg,#2DD4BF,#19e3ff);color:#06231f;font-weight:900;font-size:15px;text-decoration:none}
+      .result-consult-btn:hover{filter:brightness(1.05)}
+      @media(max-width:560px){.result-consult-list{grid-template-columns:1fr}.result-consult-btn{width:100%;justify-content:center}}
+      /* フォームの初心者向け補足 */
+      .field-help{display:block;margin:-2px 0 10px;font-size:12px;line-height:1.65;color:var(--color-text-dim)}
+      /* PC選びのかんたんな見方 セクション */
+      .howto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+      .howto-card{padding:20px;border-radius:18px;background:var(--color-bg-card);border:1px solid var(--color-border)}
+      .howto-card h3{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:17px;color:var(--color-text)}
+      .howto-card p{margin:0;font-size:14px;line-height:1.75;color:var(--color-text-muted)}
+      .howto-tips{margin-top:16px;padding:18px 20px;border-radius:16px;background:rgba(25,227,255,.06);border:1px solid rgba(25,227,255,.22)}
+      .howto-tips p{margin:0 0 8px;font-size:14px;line-height:1.75;color:var(--color-text-muted)}
+      .howto-tips p:last-child{margin-bottom:0}
+      .howto-tips strong{color:var(--color-text)}
+      @media(max-width:640px){.howto-grid{grid-template-columns:1fr}}
+    </style>
 
     <section id="diagnosis" class="diagnosis-section">
       <div class="container">
@@ -168,6 +204,7 @@
           <div class="form-grid">
             <label class="form-field">
               <span>予算 <small class="field-note">目安の合計金額</small></span>
+              <small class="field-help">なるべく安く＝10〜15万円／失敗しにくい定番＝15〜20万円／長く使いたい・高画質＝20万円以上が目安です。</small>
               <select name="budget">
                 <option value="">選択してください</option>
                 <option value="100000">10万円前後（入門・最低限）</option>
@@ -180,6 +217,7 @@
 
             <label class="form-field">
               <span>用途 <small class="field-note">メインの使い方</small></span>
+              <small class="field-help">いちばんやりたいことを選んでOK。配信や動画編集もするなら、その用途を選ぶとCPU・メモリに余裕を持たせた構成になります。</small>
               <select name="usage">
                 <option value="">選択してください</option>
                 <option value="fps">FPSゲーム（Apex・VALORANT等）</option>
@@ -192,6 +230,7 @@
 
             <label class="form-field">
               <span>解像度 <small class="field-note">モニターの画質</small></span>
+              <small class="field-help">フルHD＝一般的なモニターで遊ぶならここ／WQHD＝少し大きめできれいな画面向け／4K＝かなり高性能なPCが必要です。迷ったらフルHDが安心。</small>
               <select name="resolution">
                 <option value="">選択してください</option>
                 <option value="fhd">フルHD / 1080p ★定番・コスパ最高</option>
@@ -372,6 +411,43 @@
             <span class="shop-copy">コスパに優れたモデルが豊富<br />カスタマイズ性も高め</span>
             <span class="shop-cta">公式サイトへ <span>→</span></span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PC選びのかんたんな見方（共通説明） ===== -->
+    <section id="howto" class="diagnosis-section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">How To Read</p>
+          <h2 class="section-title">PC選びのかんたんな見方</h2>
+          <p class="section-text">
+            パーツ名がむずかしく見えても大丈夫。役割をざっくり知っておくと、診断結果がぐっと分かりやすくなります。
+          </p>
+        </div>
+
+        <div class="howto-grid">
+          <div class="howto-card">
+            <h3><span class="howto-emoji" aria-hidden="true">🎮</span>GPU（グラボ）</h3>
+            <p>ゲーム画面を描く、いちばん大事な部品。ここが強いほどゲームがなめらかに動きます。</p>
+          </div>
+          <div class="howto-card">
+            <h3><span class="howto-emoji" aria-hidden="true">🧠</span>CPU</h3>
+            <p>PC全体の処理役。ゲームはもちろん、配信や動画編集でも活躍する頭脳です。</p>
+          </div>
+          <div class="howto-card">
+            <h3><span class="howto-emoji" aria-hidden="true">🗂️</span>メモリ</h3>
+            <p>作業スペースの広さ。多いほど、たくさんの作業を同時にしても余裕が出ます。</p>
+          </div>
+          <div class="howto-card">
+            <h3><span class="howto-emoji" aria-hidden="true">⚡</span>SSD（ストレージ）</h3>
+            <p>WindowsやゲームのデータをしまうPCの保存場所。起動や読み込みの速さに関わります。</p>
+          </div>
+        </div>
+
+        <div class="howto-tips">
+          <p>💡 <strong>迷ったら、診断の「おすすめ構成」以上を目安に</strong>すると、長く快適に使えて失敗しにくいです。</p>
+          <p>🏷️ <strong>中古PCは安く買えるのが魅力</strong>。ただし使用年数や保証はバラバラなので、状態の確認が大事です。不安なときは <a href="/pc-consult/" style="color:#2DD4BF;text-decoration:underline">購入前チェック</a> で相談もできます。</p>
         </div>
       </div>
     </section>

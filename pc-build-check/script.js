@@ -393,6 +393,70 @@ function getComfortMessage(usage, resolution) {
   return usageMap[resolution] || usageMap.fhd || null;
 }
 
+// 解像度から快適度ラベル（短い一言）を作る
+function getComfortLabel(resolution) {
+  if (resolution === "4k") return "4K高画質も楽しめる";
+  if (resolution === "wqhd") return "WQHDの高画質で快適";
+  return "フルHDで快適に遊べる";
+}
+
+// 予算・用途・解像度から初心者向けバッジを組み立てる
+function getBeginnerBadges(result, profile) {
+  const badges = [];
+  const budget = parseInt(result.budget, 10) || 0;
+  const caps = (profile && profile.capabilities) || [];
+  const res = result.resolution;
+  const usage = result.usage;
+  const isGaming = usage === "fps" || usage === "mmo" || usage === "stream";
+
+  if (budget <= 130000) badges.push("コスパ重視");
+  if (budget <= 150000 && isGaming && res === "fhd") badges.push("はじめてのゲーミングPC向け");
+  if (budget >= 150000 && budget <= 200000 && res === "fhd") badges.push("迷ったらこれ");
+  if (budget >= 220000) badges.push("長く使える");
+  if (usage === "stream" || caps.indexOf("配信可能") > -1) badges.push("配信も少しやりたい人向け");
+  if (res === "wqhd" || res === "4k") badges.push("画質重視");
+  if (usage === "fps") badges.push("高フレームレート向き");
+
+  const unique = badges.filter((b, i) => badges.indexOf(b) === i);
+  if (unique.length === 0) unique.push("迷ったらこれ");
+  return unique.slice(0, 4);
+}
+
+// 用途・解像度から「こんな人に向いています」を作る
+function getForWhomText(usage, resolution) {
+  const base = {
+    fps: "フルHDでApexやフォートナイトなどの人気FPSを、安心して遊びたい人に向いています。",
+    mmo: "FF14や原神などを、きれいな画面でゆったり遊びたい人に向いています。",
+    stream: "ゲームをしながら、配信や録画も少しやってみたい人に向いています。",
+    creative: "ゲームに加えて、動画編集などの作業もこなしたい人に向いています。",
+    daily: "ネットや動画が中心で、軽めのゲームも楽しみたい人に向いています。",
+  };
+  let text = base[usage] || "自分に合うPCを無理なく選びたい人に向いています。";
+  if (resolution === "wqhd") text += " 少し大きめできれいな画面（WQHD）で遊びたい人にもおすすめです。";
+  if (resolution === "4k") text += " 4Kの最高画質で遊びたいなら、このクラス以上が安心です。";
+  return text;
+}
+
+// 診断結果の下に置く相談導線（既存の /pc-consult/ へ誘導）
+function renderConsultCta() {
+  return `
+    <div class="result-consult">
+      <div class="result-consult-head">
+        <span class="result-consult-emoji" aria-hidden="true">🐾</span>
+        <h4>この構成で迷ったら、相談できます</h4>
+      </div>
+      <p class="result-consult-text">「この構成で本当に大丈夫？」と思ったら、PCにくわしくなくて大丈夫。やさしい言葉で、いっしょに確認します。</p>
+      <ul class="result-consult-list">
+        <li>この構成で本当に大丈夫か確認したい</li>
+        <li>中古PC候補がこの性能に近いか見てほしい</li>
+        <li>予算内でどれを選べばいいか相談したい</li>
+        <li>パーツ名が分からなくてもOK</li>
+      </ul>
+      <a class="result-consult-btn" href="/pc-consult/">シッポに相談してみる →</a>
+    </div>
+  `;
+}
+
 function renderMotherboardGuide(motherboardGuide) {
   if (!motherboardGuide) {
     return `
@@ -611,12 +675,25 @@ form.addEventListener("submit", async (e) => {
   const whyMessage = getWhyMessage(usage, resolution, result.gpu);
   const comfortMessage = getComfortMessage(usage, resolution);
 
+  const beginnerBadges = getBeginnerBadges(result, performanceProfile);
+  const comfortLabel = getComfortLabel(resolution);
+  const forWhomText = getForWhomText(usage, resolution);
+  const badgesHtml =
+    `<span class="result-badge result-badge--comfort">😊 ${comfortLabel}</span>` +
+    beginnerBadges.map((b) => `<span class="result-badge">${b}</span>`).join("");
+
   resultArea.innerHTML = `
     <div class="result-card">
       <p class="result-label">Diagnosis Result</p>
 
       <h3>${result.title}</h3>
 
+      <div class="result-summary">
+        <div class="result-badges">${badgesHtml}</div>
+        <p class="result-forwhom">${forWhomText}</p>
+      </div>
+
+      <p class="specs-label">詳しい構成（パーツ）<small>むずかしい用語は下の「PC選びのかんたんな見方」で説明しています</small></p>
       <ul class="result-specs">
         <li><span>CPU</span>${result.cpu}</li>
         <li><span>GPU（グラボ）</span>${result.gpu}</li>
@@ -682,6 +759,8 @@ form.addEventListener("submit", async (e) => {
       </div>
 
       ${renderNextActions(gpuGuideUrl)}
+
+      ${renderConsultCta()}
     </div>
   `;
 
