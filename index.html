@@ -16,10 +16,7 @@
   <meta property="og:description" content="PC初心者のための比較・診断・相談サービス。白黒チワワの相棒が、あなたのPC選びを最後まで案内します。">
   <meta property="og:url" content="https://sippo-pc.jp/">
   <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
 
   <meta name="theme-color" content="#FFFDF7">
   <link rel="manifest" href="manifest.json">
@@ -171,6 +168,58 @@
       <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,48 C240,90 480,0 720,32 C960,64 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FFF6E9"/></svg>
     </div>
 
+    <!-- ===== ①.5 まずはここから（初心者向け3ステップ導線） ===== -->
+    <section class="section section--cream startfrom" id="startfrom">
+      <style>
+        .startfrom{padding-bottom:8px}
+        .startfrom__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:980px;margin:34px auto 0}
+        .startfrom__step{position:relative;display:flex;flex-direction:column;gap:10px;padding:26px 22px 22px;border-radius:22px;background:rgba(255,255,255,.72);border:1px solid rgba(45,212,191,.18);box-shadow:0 10px 30px rgba(13,148,136,.08);text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
+        .startfrom__step:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(13,148,136,.16);border-color:rgba(45,212,191,.45)}
+        .startfrom__no{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#2DD4BF,#38bdf8);color:#fff;font-weight:800;font-size:1.15rem}
+        .startfrom__emoji{font-size:30px;line-height:1}
+        .startfrom__name{font-size:1.18rem;font-weight:800;margin:2px 0 0}
+        .startfrom__desc{font-size:.92rem;line-height:1.65;color:#6b6b60;margin:0;flex:1 1 auto}
+        .startfrom__go{font-weight:800;font-size:.92rem;color:#0d9488}
+        .startfrom__arrow{display:flex;align-items:center;justify-content:center;color:#2DD4BF;font-size:1.4rem;font-weight:800}
+        @media(max-width:760px){
+          .startfrom__steps{grid-template-columns:1fr;gap:14px;max-width:440px}
+          .startfrom__step{flex-direction:row;align-items:center;flex-wrap:wrap;padding:18px 18px}
+          .startfrom__emoji{display:none}
+          .startfrom__name{flex:1 1 auto;font-size:1.08rem}
+          .startfrom__desc{flex-basis:100%}
+        }
+      </style>
+      <div class="container">
+        <p class="section__label reveal">Start here</p>
+        <h2 class="section__title reveal">まずはここから。<br class="sp-only">3ステップでOK。</h2>
+        <p class="section__lead reveal">PCにくわしくなくて大丈夫。<br>この順番でたどるだけで、自分に合う1台に近づけます。</p>
+
+        <div class="startfrom__steps">
+          <a class="startfrom__step reveal" href="https://sippo-pc.jp/game-pc-guide/">
+            <span class="startfrom__no">1</span>
+            <span class="startfrom__emoji" aria-hidden="true">🎮</span>
+            <h3 class="startfrom__name">遊びたいゲームを選ぶ</h3>
+            <p class="startfrom__desc">「APEXがしたい」だけでOK。やりたいことから、必要なPCの目安が分かります。</p>
+            <span class="startfrom__go">ゲームから探す →</span>
+          </a>
+          <a class="startfrom__step reveal" href="https://sippo-pc.jp/pc-build-check/">
+            <span class="startfrom__no">2</span>
+            <span class="startfrom__emoji" aria-hidden="true">💰</span>
+            <h3 class="startfrom__name">予算に合うPCを見る</h3>
+            <p class="startfrom__desc">予算と用途を選ぶだけで、あなたにちょうどいい構成を30秒で診断します。</p>
+            <span class="startfrom__go">かんたん診断する →</span>
+          </a>
+          <a class="startfrom__step reveal" href="/pc-consult/">
+            <span class="startfrom__no">3</span>
+            <span class="startfrom__emoji" aria-hidden="true">🐾</span>
+            <h3 class="startfrom__name">不安なら相談する</h3>
+            <p class="startfrom__desc">「これで本当に大丈夫？」を、PCにくわしい人がやさしくチェックします。</p>
+            <span class="startfrom__go">相談してみる →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== ② Services ===== -->
     <section class="services section section--cream" id="services">
       <div class="container">
@@ -197,6 +246,7 @@
                 <span class="service-card__num">GPU 28枚掲載</span>
               </div>
               <h3 class="service-card__name">GPU GUIDE</h3>
+              <p class="service-card__plain">🔰 グラボの強さを<br class="sp-only">かんたん比較</p>
               <p class="service-card__desc">グラボ28枚を性能スコア・VRAM・価格・消費電力で比較。FHD / WQHD / 4Kの解像度別ランキングと、相性のいいCPUまで分かります。</p>
               <span class="service-card__url">sippo-pc.jp/gpu-guide</span>
               <span class="service-card__link">性能を比較する
@@ -224,6 +274,7 @@
                 <span class="service-card__num">75構成を診断</span>
               </div>
               <h3 class="service-card__name">PC BUILD CHECK</h3>
+              <p class="service-card__plain">🔰 予算と用途から<br class="sp-only">PCを探す</p>
               <p class="service-card__desc">予算（10〜30万円）・用途（FPS / MMO / 配信 / 動画編集 / 普段使い）・解像度を選ぶだけ。75構成からあなたに最適な1台を自動診断します。</p>
               <span class="service-card__url">sippo-pc.jp/pc-build-check</span>
               <span class="service-card__link">30秒で診断する
@@ -249,6 +300,7 @@
                 <span class="service-card__num">人気25タイトル</span>
               </div>
               <h3 class="service-card__name">GAME GUIDE</h3>
+              <p class="service-card__plain">🔰 遊びたいゲームから<br class="sp-only">PCを選ぶ</p>
               <p class="service-card__desc">Apex・VALORANT・FF14・モンハンワイルズなど25タイトルを掲載。遊びたいゲームから必要スペックとおすすめ構成を逆引きできます。</p>
               <span class="service-card__url">sippo-pc.jp/game-pc-guide</span>
               <span class="service-card__link">ゲームから探す
@@ -264,6 +316,8 @@
 
         <!-- ===== シッポPC相談室 導線カード ===== -->
         <style>
+          /* サービスカードの初心者向け一言ラベル */
+          .service-card__plain{display:inline-block;margin:-2px 0 10px;padding:5px 12px;border-radius:999px;background:rgba(45,212,191,.14);color:#0d9488;font-weight:800;font-size:.92rem;line-height:1.4}
           .consult-promo{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;text-align:left;max-width:900px;margin:46px auto 0;padding:28px 32px;border-radius:24px}
           .consult-promo__icon{font-size:38px;line-height:1;flex:0 0 auto}
           .consult-promo__body{flex:1 1 300px;min-width:240px}
@@ -284,7 +338,7 @@
           <div class="consult-promo__body">
             <p class="consult-promo__eyebrow">PCを買う前に不安な方へ</p>
             <h3 class="consult-promo__title">シッポPC相談室</h3>
-            <p class="consult-promo__desc">中古PC・BTO・ゲーミングPCの購入前チェックを、<br class="sp-only">無料モニターとして受付準備中です。</p>
+            <p class="consult-promo__desc">中古PC・BTO・ゲーミングPCの購入前チェックを、<br class="sp-only">初心者目線でやさしく行います。</p>
           </div>
           <a href="/pc-consult/" class="btn btn--primary consult-promo__btn">
             シッポPC相談室を見る
