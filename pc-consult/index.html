@@ -101,7 +101,8 @@
       </div>
 
       <p class="hero__note reveal">
-        ※ <strong>ワンコイン診断（500円）受付中</strong>。まずは雰囲気を見たい方は、無料相談もどうぞ。
+        ※ <strong>ワンコイン診断（500円）受付中</strong>。まずは雰囲気を見たい方は、無料相談もどうぞ。<br>
+        🔰 <strong>PCにくわしくなくてOK。</strong>パーツ名が分からなくても、やさしい言葉でお返事します。
       </p>
     </div>
   </section>
@@ -110,6 +111,38 @@
   <!-- ===================================================================
        ② 不安訴求セクション（こんな悩み、ありませんか？）
        =================================================================== -->
+  <!-- こんな人におすすめ（初心者向けポジティブ訴求） -->
+  <section class="section" id="recommend-you">
+    <style>
+      .foryou-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:820px;margin:30px auto 0}
+      .foryou-card{display:flex;align-items:flex-start;gap:12px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.7);border:1px solid rgba(124,131,255,.2);box-shadow:0 8px 22px rgba(99,102,241,.07)}
+      .foryou-card__check{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#7C83FF,#9D7CFF);color:#fff;font-size:.95rem;font-weight:800}
+      .foryou-card__text{margin:0;font-size:.98rem;line-height:1.55;font-weight:700;color:#3f3f55}
+      .foryou-note{max-width:820px;margin:20px auto 0;text-align:center;font-size:.96rem;line-height:1.7;color:#6b6b7a}
+      @media(max-width:640px){.foryou-grid{grid-template-columns:1fr;max-width:440px}}
+    </style>
+    <div class="container">
+      <p class="section__label">FOR YOU</p>
+      <h2 class="section__title">こんな人に<em class="grad-text">おすすめ</em></h2>
+      <p class="section__lead">ひとつでも当てはまったら、気軽に相談してみてください。</p>
+
+      <div class="foryou-grid">
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">中古PCを買って失敗したくない</p></div>
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">APEXができるPCが欲しい</p></div>
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">メルカリや中古ショップの商品がアリか見てほしい</p></div>
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">予算内でどれを選べばいいか分からない</p></div>
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">パーツ名を見ても意味が分からない</p></div>
+        <div class="foryou-card reveal"><span class="foryou-card__check" aria-hidden="true">✓</span><p class="foryou-card__text">新品か中古か、どっちがいいか迷っている</p></div>
+      </div>
+
+      <p class="foryou-note">
+        🐾 「こんなこと聞いてもいいのかな？」という内容で大丈夫。<br class="sp-only">
+        <strong>PCにくわしくない人のための相談室</strong>です。
+      </p>
+    </div>
+  </section>
+
+
   <section class="section section--soft" id="worries">
     <div class="container">
       <p class="section__label">WORRIES</p>
@@ -584,6 +617,7 @@
     <p class="footer__copy">PCを買う前に、500円で失敗チェック。</p>
     <nav class="footer__nav" aria-label="フッターナビ">
       <a href="/">シッポTOP</a>
+      <a href="#recommend-you">こんな人におすすめ</a>
       <a href="#services">サービス</a>
       <a href="#can">診断できるもの</a>
       <a href="#cases">相談事例</a>
