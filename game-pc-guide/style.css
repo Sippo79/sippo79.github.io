@@ -636,8 +636,18 @@ a {
   flex: 0 0 auto;
 }
 @media (max-width: 520px) {
-  .sippo-nav { padding: 6px; gap: 0; }
-  .sippo-nav__icon { width: 20px; height: 20px; }
+  .sippo-nav {
+    justify-self: end;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 7px;
+    gap: 0;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.075);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+  }
+  .sippo-nav__icon { width: 22px; height: 22px; }
   .sippo-nav__text { display: none; }
 }
 
@@ -687,24 +697,99 @@ a {
 
 @media (max-width: 520px) {
   .container {
-    width: min(100% - 20px, 1120px);
+    width: min(100% - 24px, 1120px);
   }
 
   .header-inner {
-    height: 56px;
+    height: auto;
+    min-height: 82px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 9px 6px;
+    align-items: center;
+    padding: 10px 0 9px;
   }
 
   .site-logo {
-    font-size: 14px;
+    grid-column: 1 / 4;
+    font-size: 15px;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   .header-nav {
-    gap: 3px;
+    display: contents;
   }
 
   .header-link {
-    padding: 8px 8px;
-    font-size: 11px;
+    grid-row: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 4px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    line-height: 1;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.075);
+  }
+
+  .header-link-ext {
+    color: #8eeafa;
+    border-color: rgba(25, 227, 255, 0.18);
+    background: rgba(25, 227, 255, 0.055);
+  }
+
+  .hero {
+    padding: 34px 0 34px;
+  }
+
+  .hero-inner {
+    gap: 24px;
+  }
+
+  .hero-badge {
+    margin-bottom: 14px;
+    padding: 7px 11px;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    background: rgba(25, 227, 255, 0.055);
+    border-color: rgba(25, 227, 255, 0.18);
+  }
+
+  .hero h1 {
+    margin-bottom: 16px;
+    font-size: clamp(30px, 8.6vw, 38px);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-actions {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .hero-actions .primary-btn,
+  .hero-actions .secondary-btn {
+    min-height: 46px;
+    padding: 0 18px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    width: min(100%, 330px);
+    align-self: flex-start;
+  }
+
+  .hero-actions .primary-btn {
+    box-shadow:
+      0 10px 24px rgba(45, 212, 191, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+  }
+
+  .hero-actions .secondary-btn {
+    background: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.13);
   }
 
   .filter-btn {
@@ -735,6 +820,8 @@ a {
 
   .hero-text {
     font-size: 15px;
+    line-height: 1.82;
+    margin: 0;
   }
 
   .game-card-body {
@@ -749,10 +836,6 @@ a {
     font-size: 14px;
     line-height: 1.7;
     margin-bottom: 14px;
-  }
-
-  .hero-text {
-    line-height: 1.85;
   }
 
   .section-heading p {
@@ -775,7 +858,32 @@ a {
   .hero-card,
   .guide-card {
     padding: 20px;
-    border-radius: 22px;
+    border-radius: 18px;
+  }
+
+  .hero-card {
+    padding: 18px;
+    background:
+      radial-gradient(circle at top right, rgba(25, 227, 255, 0.07), transparent 62%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045));
+    border-color: rgba(255, 255, 255, 0.13);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.26), var(--card-highlight);
+  }
+
+  .hero-card-label {
+    margin-bottom: 8px;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-card-title {
+    margin-bottom: 14px;
+    font-size: 21px;
+  }
+
+  .hero-check-list li {
+    padding: 11px 0 11px 26px;
+    line-height: 1.55;
   }
 
   .game-card {
@@ -1639,4 +1747,43 @@ a {
   .hint-box {
     padding: 16px;
   }
+}
+
+/* ============================================================
+   Sippo ブランドレイヤー（少し親サイト寄り・ダーク維持）
+   フォント／アクセント／CTA／マスコットを親サイト「シッポ」風に。
+   末尾追記＝後勝ち。色・装飾のみで機能・レイアウトは非変更。
+   ============================================================ */
+body {
+  font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+}
+.hero-badge,
+.section-label {
+  color: #5eead4;
+}
+.site-logo span {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF, #99F6E4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.primary-btn {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF);
+  box-shadow: 0 14px 32px rgba(45, 212, 191, 0.24);
+}
+/* 案内役を実際のシッポ画像に */
+.guide-mascot-avatar {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(45, 212, 191, 0.45);
+  box-shadow:
+    0 0 0 4px rgba(45, 212, 191, 0.1),
+    0 0 26px rgba(45, 212, 191, 0.22);
+}
+.guide-mascot-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
