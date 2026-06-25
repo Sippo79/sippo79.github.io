@@ -2046,3 +2046,79 @@ a {
   scroll-margin-top: 80px;
 }
 
+/* ============================================================
+   Sippo ブランドレイヤー（親サイト「シッポ」の空気感をダーク上に重ねる・強め）
+   ・背景はダーク維持。フォント／アクセント／丸み／🐾マスコットを親サイト寄りに。
+   ・末尾追記＝同一詳細度では後勝ちのため !important 不要。
+   ・ロジック・レイアウトは非変更（色・装飾のみ）。
+   ============================================================ */
+body {
+  font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(45, 212, 191, 0.16), transparent 36%),
+    #090b14;
+}
+
+/* アクセント文字：シアン→親サイトのスカイ／ティール系（明るい青緑で視認性確保） */
+.hero-label,
+.section-label,
+.card-label,
+.result-label {
+  color: #5eead4;
+}
+
+/* ブランドグラデ：sky → teal → mint（親サイトの grad-main 同系） */
+.site-logo span,
+.hero-title span {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF, #99F6E4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 主要CTA：親サイトのスカイ→ティールに */
+.primary-button,
+.diagnosis-button {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF);
+  box-shadow: 0 16px 38px rgba(45, 212, 191, 0.24);
+}
+
+/* カードの角丸をやわらかく（親サイトの丸み寄り） */
+.hero-card,
+.diagnosis-form,
+.result-card,
+.popular-build-card {
+  border-radius: 30px;
+}
+
+/* 🐾 マスコット紹介（親サイトのシッポを登場させる） */
+.sippo-intro {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 720px;
+  margin: 0 auto 22px;
+  padding: 16px 18px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(45, 212, 191, 0.06)),
+    rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(45, 212, 191, 0.22);
+}
+.sippo-intro__img {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  object-fit: cover;
+}
+.sippo-intro__bubble { flex: 1 1 auto; min-width: 0; }
+.sippo-intro__name { margin: 0 0 4px; font-size: 12.5px; font-weight: 800; color: #5eead4; }
+.sippo-intro__text { margin: 0; font-size: 14px; line-height: 1.75; color: #dbe3f3; }
+@media (max-width: 560px) {
+  .sippo-intro { flex-direction: column; text-align: center; }
+  .sippo-intro__img { width: 64px; height: 64px; }
+}
+
