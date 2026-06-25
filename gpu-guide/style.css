@@ -1685,3 +1685,40 @@ a.recommend-card:hover {
     line-height: 1.9;
   }
 }
+
+/* ============================================================
+   Sippo ブランドレイヤー（少し親サイト寄り・ダーク維持）
+   フォント／アクセント／CTA／マスコットを親サイト「シッポ」風に。
+   末尾追記＝後勝ち。色・装飾のみで機能・レイアウトは非変更。
+   ============================================================ */
+body {
+  font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+}
+.hero-badge,
+.section-label {
+  color: #5eead4;
+}
+.site-logo span {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF, #99F6E4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.primary-btn {
+  background: linear-gradient(135deg, #38BDF8, #2DD4BF);
+  box-shadow: 0 14px 32px rgba(45, 212, 191, 0.24);
+}
+/* 案内役を実際のシッポ画像に（親サイトのマスコットを登場させる） */
+.guide-mascot-avatar {
+  overflow: hidden;
+  box-shadow:
+    0 0 0 4px rgba(45, 212, 191, 0.14),
+    0 12px 28px rgba(45, 212, 191, 0.3);
+}
+.guide-mascot-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
