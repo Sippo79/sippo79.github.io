@@ -215,7 +215,7 @@
             <li>初心者向けにやさしく解説</li>
             <li>まずはここから</li>
           </ul>
-          <a href="https://forms.gle/KfEsjsgaL49My3gu5" class="btn btn--primary service-card__btn" target="_blank" rel="noopener noreferrer">このプランで相談する</a>
+          <a href="https://forms.gle/KfEsjsgaL49My3gu5" class="btn btn--primary service-card__btn" target="_blank" rel="noopener noreferrer">500円ワンコイン相談に申し込む</a>
         </article>
 
         <!-- B. ゲーミングPC構成相談 -->
@@ -231,7 +231,7 @@
             <li>FPS／配信など用途別に</li>
             <li>将来のパーツ追加も考慮</li>
           </ul>
-          <a href="#apply" class="btn btn--ghost service-card__btn">このプランで相談する</a>
+          <span class="service-card__btn plan-button is-disabled" aria-disabled="true">受付準備中</span>
         </article>
 
         <!-- C. 中古PC探し代行・比較 -->
@@ -247,7 +247,7 @@
             <li>複数台をわかりやすく比較</li>
             <li>おすすめを1台ピックアップ</li>
           </ul>
-          <a href="#apply" class="btn btn--ghost service-card__btn">このプランで相談する</a>
+          <span class="service-card__btn plan-button is-disabled" aria-disabled="true">受付準備中</span>
         </article>
 
       </div>
@@ -583,34 +583,32 @@
 
       <p class="apply__status">
         <span class="apply__status-dot" aria-hidden="true"></span>
-        500円ワンコイン相談 受付中。まずはワンコインで気軽に相談できます。
+        いま申し込めるのは <strong>500円ワンコイン相談</strong> です。まずはワンコインで気軽に相談できます。
       </p>
 
-      <!-- 事前問い合わせ（無料）とワンコイン相談（500円）の役割の違い -->
-      <div class="apply__compare">
-        <div class="apply__plan">
-          <p class="apply__plan-name">事前問い合わせ</p>
-          <p class="apply__plan-price">無料</p>
-          <p class="apply__plan-desc">申し込み前の確認用。「この内容でも相談できる？」「どのメニューを選べばいい？」「支払い前の不明点」など。<br>※ PC構成チェック・中古PC診断・購入相談は対象外（500円相談へ）。</p>
-        </div>
-        <div class="apply__plan apply__plan--feature">
-          <p class="apply__plan-name">500円ワンコイン相談</p>
-          <p class="apply__plan-price">500円</p>
-          <p class="apply__plan-desc">候補PC 1件を購入前チェック。中古PCチェック・構成相談・予算に合わせた提案・買っていいかの判断まで。3段階判定と理由つき。</p>
+      <!-- メイン導線：500円ワンコイン相談 -->
+      <div class="apply__main">
+        <p class="apply__main-name">500円ワンコイン相談</p>
+        <p class="apply__main-price">500円</p>
+        <p class="apply__main-desc">
+          候補PC 1件を購入前チェック。中古PCチェック・構成相談・予算に合わせた提案・買っていいかの判断まで。3段階判定と理由つきでお返しします。
+        </p>
+        <div class="apply__actions">
+          <a href="https://forms.gle/KfEsjsgaL49My3gu5" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">500円ワンコイン相談を申し込む</a>
         </div>
       </div>
 
-      <div class="apply__actions">
-        <a href="https://forms.gle/KfEsjsgaL49My3gu5" class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">500円ワンコイン相談を申し込む</a>
-      </div>
-
-      <p class="apply__free">
-        申し込み前に「この内容でも相談できる？」「どのメニューを選べばいい？」を確認したい方は、
-        無料の事前問い合わせをご利用ください。<br>
-        PC構成の確認・中古PCチェック・具体的な購入相談は、500円ワンコイン相談からお願いします。
+      <p class="apply__lead apply__lead--guide">
+        PC構成チェック・中古PC診断・購入前の判断は、上の500円ワンコイン相談からお願いします。
       </p>
-      <div class="apply__actions apply__actions--sub">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdD5ZS4qKqPKsFpsDigYUfjk26591HZ-QTQ83qsd93d6GvdjA/viewform?usp=dialog" class="btn btn--ghost-light btn--lg" target="_blank" rel="noopener noreferrer">事前問い合わせ（無料）はこちら</a>
+
+      <!-- サブ（補助）導線：事前問い合わせ（無料）。申し込みではなく確認用。 -->
+      <div class="apply__presub">
+        <p class="apply__presub-text">
+          申し込み前に「この内容でも相談できる？」「どのメニューを選べばいい？」「支払い前の不明点」などを確認したい方は、
+          無料の事前問い合わせをご利用ください。
+          <a class="apply__presub-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdD5ZS4qKqPKsFpsDigYUfjk26591HZ-QTQ83qsd93d6GvdjA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">事前問い合わせ（無料）はこちら →</a>
+        </p>
       </div>
 
       <p class="apply__back">
