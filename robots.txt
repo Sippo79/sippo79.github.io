@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
 
+# サイトマップインデックス（親サイト・各子サイトの sitemap を束ねています）
 Sitemap: https://sippo-pc.jp/sitemap.xml
-Sitemap: https://sippo-pc.jp/gpu-guide/sitemap.xml
-Sitemap: https://sippo-pc.jp/pc-build-check/sitemap.xml
-Sitemap: https://sippo-pc.jp/game-pc-guide/sitemap.xml

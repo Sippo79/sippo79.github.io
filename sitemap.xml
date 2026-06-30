@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://sippo-pc.jp/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://sippo-pc.jp/pc-consult/</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://sippo-pc.jp/sitemap-main.xml</loc>
+    <lastmod>2026-06-30</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://sippo-pc.jp/gpu-guide/sitemap.xml</loc>
+    <lastmod>2026-06-30</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://sippo-pc.jp/pc-build-check/sitemap.xml</loc>
+    <lastmod>2026-06-30</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://sippo-pc.jp/game-pc-guide/sitemap.xml</loc>
+    <lastmod>2026-06-30</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://sippo-pc.jp/pc-builds-hub/sitemap.xml</loc>
+    <lastmod>2026-06-30</lastmod>
+  </sitemap>
+</sitemapindex>
