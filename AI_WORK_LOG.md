@@ -18,6 +18,24 @@
 
 ---
 
+## 2026-06-30 — sitemap 変更を本番（GitHub Pages）へデプロイ・公開確認
+
+- **修正目的**: 上記 sitemap インデックス化を本番反映し、公開URLで動作確認する。
+- **変更ファイル**: なし（既存コミットの push のみ）。
+- **変更内容**:
+  - `git pull --rebase` でリモートの先行コミット（GitHub 直アップロード分）上に作業を載せ替え、`main` へ push。
+  - push 時に GitHub のメールプライバシー保護（GH007）で一度拒否。コミット author を実メール → リポジトリ既存と同じ noreply（`284007883+Sippo79@users.noreply.github.com`）に付け替えて再 push し成功。
+- **影響範囲**: 本番公開（GitHub Pages）。公開URLで以下を確認済み:
+  - `https://sippo-pc.jp/sitemap.xml` … HTTP 200・`<sitemapindex>`・子 sitemap 5本を参照
+  - `https://sippo-pc.jp/sitemap-main.xml` … HTTP 200・親 + pc-consult の2URL
+  - `https://sippo-pc.jp/robots.txt` … `Sitemap: https://sippo-pc.jp/sitemap.xml` を指す
+  - 参照先5 sitemap すべて HTTP 200（リンク切れなし）
+- **未対応・次にやること**:
+  - Google Search Console に `https://sippo-pc.jp/sitemap.xml` を再送信（ユーザー側で実施予定）。
+- **別AIへの引き継ぎ注意点**:
+  - このリポジトリへ push する際は、コミット author メールを **noreply（`...@users.noreply.github.com`）** にすること。実メールだと GH007 で push 拒否される。
+  - `git config user.email "284007883+Sippo79@users.noreply.github.com"` をリポジトリローカルに設定済み。
+
 ## 2026-06-30 — sitemap をインデックス化して全子サイトを網羅
 
 - **修正目的**: リポジトリ直下 `sitemap.xml` が親サイトと `/pc-consult/` の 2URL のみで、gpu-guide / pc-build-check / game-pc-guide / pc-builds-hub が検索エンジンに伝わっていなかったため、全サイトを網羅させる。
