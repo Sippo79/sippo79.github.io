@@ -57,7 +57,7 @@
     links.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        alert('現在は受付準備中です。\n無料モニターの募集を開始したら、こちらでご案内します。');
+        alert('このボタンは準備中です。\n500円ワンコイン相談の受付フォームから、お気軽にご相談ください。');
       });
     });
   }

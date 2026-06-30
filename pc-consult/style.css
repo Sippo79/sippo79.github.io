@@ -739,7 +739,7 @@ button:focus-visible,
   background: var(--c-mint);
   box-shadow: 0 0 0 5px rgba(142, 227, 216, .25);
 }
-/* 無料相談 / ワンコイン診断 の違い */
+/* 事前問い合わせ（無料） / 500円ワンコイン相談 の役割の違い */
 .apply__compare {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

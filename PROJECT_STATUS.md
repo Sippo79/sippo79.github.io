@@ -41,7 +41,7 @@
 | サイト | URL | 役割 | ローカルディレクトリ |
 |---|---|---|---|
 | シッポ親サイト | https://sippo-pc.jp/ | 各子サイトへのポータル（入口） | `/`（`index.html`） |
-| シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談の**無料モニター受付** | `pc-consult/` |
+| シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（無料窓口は申し込み前の事前問い合わせ用） | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
 | GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較 | `gpu-guide/` |
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断 | `pc-build-check/` |
@@ -109,7 +109,7 @@
 - 静的 HTML/CSS/JS で運用（ビルドツールなし）。
 - **新規課金サービス・有料 API は導入しない。** 従量課金が発生する変更は実装前に必ず事前確認。
 - **決済機能・購入ボタン・カート機能は追加しない**（Stripe / PayPay 等不可）。
-- **PC相談室は「無料モニター・受付準備中」**として扱う。文言を勝手に有料化しない。
+- **PC相談室のメイン窓口は「500円ワンコイン相談」**（Googleフォーム受付・既存）。無料窓口は「申し込み前の事前問い合わせ」用に役割変更済み（PC構成チェック・中古PC診断・購入相談は500円相談へ誘導）。**新規の決済機能・カートは追加しない**。料金体系を勝手に変えない（500円を超える有料化や新サービス追加は事前確認）。
 - **中古PC販売は未実施。** 古物商許可が必要な実販売は別途確認。
 - PC環境に影響する操作（`npm install` / `git reset` / shell command 等）は事前確認。
 
