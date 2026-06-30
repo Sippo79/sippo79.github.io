@@ -18,6 +18,26 @@
 
 ---
 
+## 2026-06-30 — PROJECT_STATUS の作業前チェックリスト追加と未対応タスク整理
+
+- **修正目的**: 別AI・今後の作業者が事故らないよう、`PROJECT_STATUS.md` に作業前チェックリストを追加。あわせて未対応タスクを優先度付きに整理し、本番反映状況が一目で分かる欄を新設する（ドキュメント整備のみ）。
+- **変更ファイル**:
+  - `PROJECT_STATUS.md`
+  - `AI_WORK_LOG.md`（本記録の追記）
+- **変更内容**:
+  - `PROJECT_STATUS.md` 冒頭に **「0. 作業前チェックリスト」** を新設（git status 確認 / 対象ファイルを読んでから修正 / HTML・CSS・JS・JSON は通常修正可 / `npm install`・`pip install`・`git reset`・VSCode拡張変更・PC環境影響コマンドは事前確認 / Supabase の RLS・auth・`data-*`・id を壊さない / OGPにSVGを使わない / canonical・og:url・sitemap は正式URL / 修正後は AI_WORK_LOG へ記録 / 仕様変更時は PROJECT_STATUS も更新）。
+  - 「7. 現在の課題 / 未対応」を **優先度付き（A/B/C）に再整理**。A=Search Console 再送信、B=pc-builds-hub 専用OGP作成・pc-build-check ogp.jpg の 1200x630 化、C=親サイト内リンクの絶対/相対パス整理・`shared/gpu`/`shared/templates` の用途整理 など。既存項目は消さず再配置。
+  - 「8. 本番反映状況」を新設（sitemapインデックス化・meta/OGP/canonical総点検・「ジサコ！」削除＝本番反映済み、Search Console 再送信＝ユーザー側未実施、pc-builds-hub専用OGP・pc-build-check ogp.jpg 1200x630化＝未対応）。
+  - 旧「8. 関連ドキュメント」は **「9. 関連ドキュメント」** に繰り下げ。
+- **影響範囲**: **ドキュメントのみ**。サイト本体の HTML/CSS/JS/JSON・公開挙動・デザイン・Supabase 機能には一切影響なし。
+- **未対応・次にやること**:
+  - 優先度A: Search Console に `https://sippo-pc.jp/sitemap.xml` を再送信（ユーザー側）。
+  - 優先度B: pc-builds-hub 専用 OGP 画像（1200x630 png/jpg）作成・差し替え／ pc-build-check の `ogp.jpg` を 1200x630 に再書き出し。
+  - 優先度C: 親サイト内リンクの絶対/相対パス整理、`shared/gpu`・`shared/templates` の用途整理。
+- **別AIへの引き継ぎ注意点**:
+  - 修正前に **`PROJECT_STATUS.md` の「0. 作業前チェックリスト」を必ず確認**する。
+  - 課題に着手・解消したら、「7. 現在の課題」と「8. 本番反映状況」の両方を更新して整合を保つこと。
+
 ## 2026-06-30 — 主要ページの meta/OGP/canonical 総点検＋別サイト記述「ジサコ！」の全削除
 
 - **修正目的**:
