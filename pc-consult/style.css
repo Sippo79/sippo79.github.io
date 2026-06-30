@@ -736,22 +736,27 @@ button:focus-visible,
 }
 .apply__lead { color: rgba(255, 255, 255, .9); font-size: 1.02rem; margin-bottom: 28px; }
 .apply__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  max-width: 600px;
+  display: block;
+  max-width: 560px;
   margin: 0 auto 32px;
-  padding: 11px 20px;
+  padding: 13px 24px;
   background: rgba(255, 255, 255, .14);
   border: 1px solid rgba(255, 255, 255, .4);
-  border-radius: 999px;
-  font-size: .9rem;
+  border-radius: 20px;
+  font-size: .92rem;
   font-weight: 700;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #fff;
+  text-align: center;
+  /* 「500円ワンコイン相談」など語句の途中で改行されないように */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
+.apply__status strong { white-space: nowrap; }
 .apply__status-dot {
-  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
   width: 9px; height: 9px;
   border-radius: 50%;
   background: var(--c-mint);
@@ -897,8 +902,16 @@ button:focus-visible,
   .nav__cta { font-size: .82rem; padding: 9px 15px; }
 
   /* 申し込み導線まわり */
-  .apply__status { font-size: .86rem; padding: 11px 18px; }
+  .apply__status { font-size: .88rem; padding: 12px 18px; line-height: 1.75; }
   .apply__compare { grid-template-columns: 1fr; gap: 12px; }
+  .apply__main { padding: 22px 20px 24px; }
+  .apply__main-price { font-size: 1.65rem; }
+  .apply__main-desc { font-size: .92rem; }
+  .apply__lead--guide { font-size: .92rem; }
+  .apply__presub { padding: 13px 16px; }
+  .apply__presub-text { font-size: .85rem; }
+  /* 補助リンクは折り返し可にして、狭い画面でも溢れさせない */
+  .apply__presub-link { white-space: normal; }
 
   /* フッターナビが間延びしないように詰める */
   .footer__nav { gap: 4px 14px; }
@@ -918,4 +931,11 @@ button:focus-visible,
   .prepare-card { padding: 20px 18px; gap: 12px; }
   /* カード内の見出しが大きすぎないように */
   .service-card__name { font-size: 1.3rem; }
+  /* 申し込みセクションを小型スマホでも詰まらせない */
+  .apply__lead { font-size: .96rem; }
+  .apply__status { font-size: .85rem; padding: 11px 15px; }
+  .apply__main { padding: 20px 16px 22px; }
+  .apply__main-name { font-size: 1.08rem; }
+  .apply__main-price { font-size: 1.55rem; }
+  .plan-button.is-disabled { font-size: .94rem; padding: 14px 20px; }
 }
