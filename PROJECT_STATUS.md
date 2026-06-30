@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-06-30（sitemap インデックス化）
+最終更新: 2026-06-30（meta/OGP総点検・別サイト記述ジサコ削除）
 
 ---
 
@@ -83,7 +83,8 @@
 - **UI**: 丸みのあるカード＋グラス UI
 - **マスコット**: sippo（`assets/sippo/`）
 - 補足: 子サイト本編（GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE）は**ダーク UI**のものもある。各サイトの既存トーンに合わせ、既存デザインを壊さない。
-- **SEO**: `meta description` / OGP / semantic HTML を維持。`canonical` / `og:url` / `sitemap.xml` を正式URLに合わせる。
+- **SEO / OGP**: `meta description` / OGP / semantic HTML を維持。`canonical` / `og:url` / `sitemap.xml` を正式URLに合わせる。各 index.html は title / description / canonical / og一式（type,site_name,title,description,url,image,image:width,image:height,locale）/ Twitter Card 一式を揃える（基準 = gpu-guide）。**OGP画像に SVG は使わない**（SNSで表示されない）。png/jpg を使い、`og:image:width/height` は実画像の実寸に合わせる。
+- **ブランド名**: pc-build-check の正式名は **「PC BUILD CHECK」**。かつて誤って混入していた **「ジサコ！」「AI自作PC構成チェック」は別サイトの名称であり、本サイトでは使用しない**（2026-06-30 に全削除済み）。
 
 ---
 
@@ -102,6 +103,8 @@
 
 - ~~直下 sitemap.xml に子サイトが含まれていない~~ → **2026-06-30 解消**（インデックス化、上記「2. URL構成」参照）。公開後に Search Console で再送信・認識確認を推奨。
 - ディレクトリ名の大文字小文字（特に `pc-builds-hub`）が GitHub Pages 上で一致しているか定期確認。
+- pc-builds-hub の OGP 画像は親共通 `assets/ogp.png` を**暫定流用**中。専用 OGP 画像（1200x630 png/jpg）を作成して差し替えたい。
+- pc-build-check の `ogp.jpg` は実寸 1199x630（1px半端）。1200x630 に再書き出しできると望ましい。
 - 親サイト内リンクに絶対パスと相対パスが混在。ディレクトリURLで統一する方針途上。
 - PC相談室は決済未実装（Googleフォーム誘導のみ）。正式有料受付は未開始。
 - `shared/gpu/` `shared/templates/` は将来用でほぼ空。

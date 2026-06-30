@@ -174,7 +174,7 @@ function Build-Html($build, $allBuilds) {
   <meta property="og:type" content="article" />
   <meta property="og:url" content="$canonical" />
   <meta property="og:image" content="$SITE_BASE/ogp.jpg" />
-  <meta property="og:site_name" content="ジサコ！" />
+  <meta property="og:site_name" content="PC BUILD CHECK" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="$seoTitle" />
   <meta name="twitter:description" content="$seoDesc" />

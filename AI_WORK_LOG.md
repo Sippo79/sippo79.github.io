@@ -18,6 +18,30 @@
 
 ---
 
+## 2026-06-30 — 主要ページの meta/OGP/canonical 総点検＋別サイト記述「ジサコ！」の全削除
+
+- **修正目的**:
+  1. 主要6ページ（親 / pc-consult / pc-builds-hub / gpu-guide / pc-build-check / game-pc-guide）の title・description・OGP・canonical・Twitter Card を総点検し、SNS表示とタグ完成度を統一。
+  2. **pc-build-check に誤って混入していた別サイト「ジサコ！」「AI自作PC構成チェック」の記述をサイト全体から完全削除**し、自サイト名「PC BUILD CHECK」に統一。
+- **変更ファイル**:
+  - `pc-build-check/index.html`（og:title / og:site_name / twitter:title / apple-mobile-web-app-title / JSON-LD name 置換、alternateName 削除、title 自サイト名化、og:image:width 実寸1199へ）
+  - `pc-build-check/manifest.json`（name/short_name）, `pc-build-check/sw.js`（コメント）
+  - `pc-build-check/generate-builds.ps1` と **リポジトリ直下 `generate-builds.ps1`**（どちらも builds 生成元。og:site_name を修正）
+  - `pc-build-check/builds/*.html` **75件**（og:site_name 一括置換、生成元と一致）
+  - `pc-builds-hub/index.html`（og:image/twitter:image を SVG→`assets/ogp.png`、twitter:card/title/description・og:locale・og:image:width/height 追加）
+  - `index.html`・`pc-consult/index.html`（og:image:width/height・og:locale・twitter:title/description/image 追加）
+  - `game-pc-guide/index.html`（og:locale・og:image:width/height=1200x800 追加）
+- **変更内容**: 「ジサコ！」は**別サイト**（ユーザーのサイトではない）と判明したため、HTML/JSON/JS/PS1 から全除去（残存0件を確認）。あわせて全6ページの不足タグを、完成度の高い gpu-guide を基準に補完。OGP画像はSVGを廃止し、各ページ実在の png/jpg に統一、実寸に合わせて width/height を宣言（親/pc-consult/pc-builds-hub=1200x630、game-pc-guide=1200x800、pc-build-check=1199x630）。
+- **影響範囲**: 各ページの `<head>` メタ情報・SNSシェア表示・PWA表示名・構造化データ。本文表示・機能ロジックには影響なし。検証済み: 全サイトで「ジサコ／AI自作PC構成チェック」0件、OGPにSVG不使用、manifest.json・JSON-LD ともに妥当、各ページ title/og/twitter のブランド名が1種に整合。
+- **未対応・次にやること**:
+  - pc-builds-hub の OGP は親共通 `assets/ogp.png` を**暫定流用**。後日 pc-builds-hub 専用 OGP 画像（1200x630 png/jpg）を作成して差し替え。
+  - pc-build-check の ogp.jpg は実寸 1199x630（1px半端）。気になる場合は 1200x630 に再書き出し。
+  - 公開後、Twitter Card Validator / OGP確認ツールで pc-builds-hub・pc-build-check を確認推奨。
+- **別AIへの引き継ぎ注意点**:
+  - **「ジサコ！」は別サイトの名称。今後サイトに復活させない。** pc-build-check の正式名は「PC BUILD CHECK」。
+  - builds サブページは `generate-builds.ps1`（pc-build-check 配下版が最新／直下にも旧版あり、両方修正済み）で生成。手編集すると再生成で戻るため、文言変更は**生成スクリプト側**を直すこと。
+  - OGP画像に **SVGは使わない**（SNSで表示されない）。png/jpg を使い、og:image:width/height は実寸に合わせる。
+
 ## 2026-06-30 — sitemap 変更を本番（GitHub Pages）へデプロイ・公開確認
 
 - **修正目的**: 上記 sitemap インデックス化を本番反映し、公開URLで動作確認する。

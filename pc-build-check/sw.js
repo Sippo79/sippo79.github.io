@@ -1,5 +1,5 @@
 /* =========================
-   ジサコ！ — Service Worker
+   PC BUILD CHECK — Service Worker
    バージョンを上げるたびに CACHE_NAME を更新してください
 ========================= */
 

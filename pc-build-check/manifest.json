@@ -1,6 +1,6 @@
 {
-  "name": "ジサコ！",
-  "short_name": "ジサコ！",
+  "name": "PC BUILD CHECK",
+  "short_name": "PC BUILD",
   "description": "予算・用途・解像度からおすすめゲーミングPC構成を診断できる無料サービスです。",
   "start_url": "https://sippo-pc.jp/pc-build-check/",
   "scope": "https://sippo-pc.jp/pc-build-check/",
