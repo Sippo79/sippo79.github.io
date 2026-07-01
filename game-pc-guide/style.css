@@ -1440,6 +1440,11 @@ a {
   margin: 0 auto;
 }
 
+.related-sites-section .related-site-grid {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1320px;
+}
+
 .related-site-button {
   display: flex;
   flex-direction: column;
@@ -1525,7 +1530,8 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .related-site-grid {
+  .related-site-grid,
+  .related-sites-section .related-site-grid {
     grid-template-columns: 1fr;
     gap: 16px;
     max-width: 520px;

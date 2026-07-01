@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-06-30（作業前チェックリスト追加・未対応タスク整理・本番反映状況追加）
+最終更新: 2026-07-01（親子サイト間のSEO・内部リンク強化、ブランド名表記統一）
 
 ---
 
@@ -100,7 +100,7 @@
 - **マスコット**: sippo（`assets/sippo/`）
 - 補足: 子サイト本編（GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE）は**ダーク UI**のものもある。各サイトの既存トーンに合わせ、既存デザインを壊さない。
 - **SEO / OGP**: `meta description` / OGP / semantic HTML を維持。`canonical` / `og:url` / `sitemap.xml` を正式URLに合わせる。各 index.html は title / description / canonical / og一式（type,site_name,title,description,url,image,image:width,image:height,locale）/ Twitter Card 一式を揃える（基準 = gpu-guide）。**OGP画像に SVG は使わない**（SNSで表示されない）。png/jpg を使い、`og:image:width/height` は実画像の実寸に合わせる。
-- **ブランド名**: pc-build-check の正式名は **「PC BUILD CHECK」**。かつて誤って混入していた **「ジサコ！」「AI自作PC構成チェック」は別サイトの名称であり、本サイトでは使用しない**（2026-06-30 に全削除済み）。
+- **ブランド名**: pc-build-check の正式名は **「PC BUILD CHECK」**。かつて誤って混入していた **「ジサコ！」「AI自作PC構成チェック」は別サイトの名称であり、本サイトでは使用しない**（2026-06-30 に全削除済み）。game-pc-guide の正式名は **「GAME PC GUIDE」**（「GAME GUIDE」表記は誤り。2026-07-01 に親サイト内の表記ゆれを解消済み）。
 
 ---
 
@@ -131,9 +131,14 @@
 - `shared/gpu/` `shared/templates/` の**今後の使い道を整理**（現在はほぼ空の将来用ディレクトリ）。
 - ディレクトリ名の大文字小文字（特に `pc-builds-hub`）が GitHub Pages 上で一致しているか定期確認。
 - PC相談室は決済未実装（Googleフォーム誘導のみ）。正式有料受付は未開始（※運用方針であり、勝手に有料化しない）。
+- `pc-build-check/builds/*.html`（75件）・`game-pc-guide/games/*.html`（25件）の個別ページに、親サイトへの関連リンクが未追加（各生成スクリプト `generate-builds.ps1` / `Generate-StaticGames.ps1` 側の修正＋再生成が必要）。
+- 親サイト `#consult` セクションは、ココナラ／X・Instagram DMの旧フローと `pc-consult/`（500円ワンコイン相談）が並存中。どちらを主導線にするかは今後ユーザー判断（2026-07-01 時点ではpc-consult導線を追加するのみで両方維持）。
 
 ### 解消済み（参考）
 - ~~直下 sitemap.xml に子サイトが含まれていない~~ → **2026-06-30 解消**（インデックス化、上記「2. URL構成」参照）。
+- ~~GPU GUIDE / PC BUILD CHECK の「関連サイト」が自分自身にリンクしていた（コピペミス）~~ → **2026-07-01 解消**（親サイトへのリンクに置換）。
+- ~~game-pc-guide の関連サイトグリッドに親サイトへのリンクがなかった~~ → **2026-07-01 解消**。
+- ~~親サイト内に「GAME GUIDE」表記が残存（正式名は「GAME PC GUIDE」）~~ → **2026-07-01 解消**。
 
 ---
 

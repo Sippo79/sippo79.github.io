@@ -18,6 +18,40 @@
 
 ---
 
+## 2026-07-01 — 親子サイト間のSEO・内部リンク強化（総合ハブ導線）
+
+- **修正目的**: 統合後にSearch Consoleのクエリ・表示回数が伸び悩んでいるため、「シッポ＝PC初心者向けの総合入口」であることをGoogleとユーザーの両方に伝わりやすくする。具体的には (1) 子サイト同士の横断リンクに漏れがあった箇所の修正、(2) 親サイトの導線強化、(3) ブランド名表記ゆれの解消を行った。決済・カート・料金体系・Googleフォーム・Supabase機能には一切触れていない。
+- **変更ファイル**:
+  - `gpu-guide/index.html`（関連サイトグリッドの自己リンクバグ修正）
+  - `pc-build-check/index.html`（関連サイトグリッドの自己リンクバグ修正）
+  - `game-pc-guide/index.html`（関連サイトグリッドに親サイトカード追加）
+  - `game-pc-guide/style.css`（関連サイトグリッドを3カラム化するスコープ付きCSS追加）
+  - `index.html`（「まずはここから」を3→4ステップ化してGPU GUIDEを追加、GAME GUIDE表記統一、フッターnav追加、#consultセクションにpc-consult導線を追加）
+  - `AI_WORK_LOG.md`（本記録）
+- **変更内容**:
+  1. **関連サイトの自己リンクバグ修正**: `gpu-guide/index.html` と `pc-build-check/index.html` の「関連サイト」セクションが、それぞれ自分自身（GPU GUIDE→GPU GUIDE、PC BUILD CHECK→PC BUILD CHECK）にリンクしていた（コピペミス）。自己リンクを削除し、代わりに親サイト（`https://sippo-pc.jp/`）への「PC選びの総合ハブ」カードに置き換えた。
+  2. **game-pc-guideの関連サイトグリッドに親サイトカードを追加**: 従来はPC BUILD CHECK / GPU GUIDEの2枚のみで親サイトへのリンクがなかったため、3枚目として親サイトカードを追加。グリッドを2列→3列に変更（`.related-sites-section .related-site-grid` としてスコープを絞り、25本あるゲーム別詳細ページ側の2列グリッド `.detail-related-sites .related-site-grid` には影響しないようにした）。モバイル breakpoint（900px以下）でも同様にスコープして1列に収まるよう調整。
+  3. **これにより GAME PC GUIDE ⇄ GPU GUIDE ⇄ PC BUILD CHECK が相互リンク＋全サイトから親サイトへのリンクが揃った**（各サイトの `consult-banner` で `/pc-consult/` への導線は既存のまま維持）。
+  4. **親サイト「まずはここから」を3→4ステップに拡張**: 従来は「ゲームを選ぶ→予算診断→相談」でGPU比較が抜けていたため、「①遊びたいゲームを選ぶ→②GPU性能を比較する→③予算に合う構成をチェック→④不安なら購入前に相談する」の4ステップに変更し、GPU GUIDEへの導線を明示。アンカーテキストも「APEXやモンハンワイルズなど」「RTX 5060 / RTX 4060 / RX 7600 など」のように具体的なキーワードを含む自然な文言に。
+  5. **ブランド名表記統一**: 親サイト内に残っていた「GAME GUIDE」（正しくは「GAME PC GUIDE」）の表記4箇所（サービスカードのコメント・見出し、ロードマップ本文、フッターnav）を統一。
+  6. **フッターnavにPC構成投稿サイト・シッポPC相談室へのリンクを追加**（従来は3子サイトのみでpc-builds-hub・pc-consultが漏れていた）。
+  7. **`#consult` セクションの導線強化**: STEP2の連絡方法一覧に「500円ワンコイン相談で購入前チェック →」（`/pc-consult/`）を追加。STEP3の「PC相談室」カードの文言を「500円ワンコイン相談」を明記する形に強化（リンク先・料金体系は変更なし、文言のみ）。
+- **影響範囲**: 対象ファイルの内部リンク・見出し文言・CSSグリッド定義のみ。**canonical / og:url / sitemap / URLルールは無変更**。決済・カート・料金体系・GoogleフォームURLは無変更。Supabase（`pc-builds-hub/`）は今回未変更（既存の関連サイトリンクは変更前から実装済みと確認）。`pc-build-check/builds/*.html`（75件）・`game-pc-guide/games/*.html`（25件）の個別ページ側テンプレートは今回対象外（後述）。
+- **確認結果**:
+  - 変更4ファイルすべてdiv開閉タグ数一致を確認。
+  - ローカルサーバーで `index.html` / `gpu-guide/index.html` / `game-pc-guide/index.html` / `pc-build-check/index.html` がHTTP 200で表示できることを確認。
+  - `git diff --ignore-space-at-eol` で実質差分のみ確認済み（`game-pc-guide/style.css` は改行コード起因でraw diffが大きく見えたが、実差分は意図した7行のみ）。
+  - サイト全体で「GAME GUIDE」の表記漏れが0件になったことを確認。
+- **未対応・次にやること**:
+  - `pc-build-check/builds/*.html`（75件・`generate-builds.ps1` 生成）には関連サイトブロックが無い。追加する場合は生成スクリプト側 (`pc-build-check/generate-builds.ps1` と直下 `generate-builds.ps1`) を修正し再生成すること（手編集すると次回生成で消える）。
+  - `game-pc-guide/games/*.html`（25件・`Generate-StaticGames.ps1` 生成）の関連サイトブロックはPC BUILD CHECK・GPU GUIDEの2つのみで親サイトへのリンクなし。追加する場合は `game-pc-guide/Generate-StaticGames.ps1` を修正し再生成すること。
+  - 親サイトの `#consult` セクションは、STEP2/3でココナラ・X/Instagram DMの旧フローとpc-consult（500円ワンコイン）が並存する形になっている。今回はpc-consult導線を追加するのみに留めたが、将来的にどちらを主導線にするかはユーザー判断が必要（ユーザーに確認済み：今回はpc-consult追加のみで対応）。
+  - 優先度A/B（Search Console再送信・pc-builds-hub専用OGP・pc-build-check ogp.jpg 1200x630化）は本作業では未着手（PROJECT_STATUSの既存タスクのまま）。
+- **別AIへの引き継ぎ注意点**:
+  - **関連サイトグリッドに自己リンクを入れない**こと（今回のバグの再発防止）。各子サイトの「関連サイト」は「自分以外の子サイト2つ＋親サイト」の3枚構成に統一した。
+  - `game-pc-guide/style.css` の `.related-site-grid` は **index.html（3列）と games/*.html 詳細ページ（2列, `.detail-related-sites` 配下）で共有クラス**。詳細ページ用のグリッド列数を変えたい場合は `.detail-related-sites .related-site-grid` 側を編集し、`.related-sites-section .related-site-grid`（index用）と混同しないこと。
+  - ブランド名は「GAME PC GUIDE」が正式表記（「GAME GUIDE」は使わない）。
+
 ## 2026-06-30 — pc-consult 申し込みセクションの見た目修正＋スマホ最適化
 
 - **修正目的**: 申し込みセクションのステータスバッジ（「いま申し込めるのは 500円ワンコイン相談 です…」）が、PC・スマホで語句の途中改行や不自然な間延びを起こして崩れていたため修正。あわせて新しい申し込み導線（`.apply__main` / `.apply__presub` 等）の iPhone を含むスマホ表示を最適化する。**文言・導線の役割（500円のみ申し込み可・他は準備中・無料は補助）は変更なし、見た目のみ**。
