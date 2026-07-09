@@ -25,9 +25,9 @@
   --grad-main:   linear-gradient(120deg, var(--c-sky) 0%, var(--c-teal) 55%, var(--c-mint) 100%);
   --grad-warm:   linear-gradient(120deg, var(--c-gold), var(--c-orange));
 
-  --shadow-soft: 0 8px 30px rgba(45, 42, 38, .08);
-  --shadow-card: 0 20px 60px rgba(45, 42, 38, .10);
-  --shadow-pop:  0 30px 80px rgba(14, 165, 233, .18);
+  --shadow-soft: 0 6px 20px rgba(45, 42, 38, .08);
+  --shadow-card: 0 12px 32px rgba(45, 42, 38, .10);
+  --shadow-pop:  0 16px 40px rgba(14, 165, 233, .16);
 
   --radius: 24px;
   --radius-lg: 36px;
@@ -61,9 +61,9 @@ section { scroll-margin-top: 90px; }
 
 /* ---------- 共通：ガラス ---------- */
 .glass {
-  background: rgba(255, 255, 255, .65);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, .72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, .9);
   box-shadow: var(--shadow-soft);
 }
@@ -87,7 +87,6 @@ section { scroll-margin-top: 90px; }
   font-weight: 800;
   font-size: 1rem;
   transition: transform .35s var(--ease-bounce), box-shadow .35s ease;
-  will-change: transform;
 }
 .btn svg { width: 20px; height: 20px; transition: transform .3s var(--ease-bounce); }
 .btn:hover svg { transform: translateX(5px); }
@@ -105,9 +104,8 @@ section { scroll-margin-top: 90px; }
 .btn--primary:active { transform: translateY(-1px) scale(.99); }
 .btn--ghost {
   color: var(--c-ink);
-  background: rgba(255, 255, 255, .7);
+  background: rgba(255, 255, 255, .85);
   border: 2px solid rgba(45, 42, 38, .12);
-  backdrop-filter: blur(8px);
 }
 .btn--ghost:hover { transform: translateY(-4px); border-color: var(--c-teal); box-shadow: var(--shadow-soft); }
 .btn--lg { padding: 20px 44px; font-size: 1.15rem; }
@@ -165,12 +163,12 @@ section { scroll-margin-top: 90px; }
   position: fixed;
   inset: 0 0 auto;
   z-index: 1000;
-  transition: background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+  transition: background .35s ease, box-shadow .35s ease;
 }
 .header.is-scrolled {
-  background: rgba(255, 253, 247, .8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 253, 247, .85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 24px rgba(45, 42, 38, .07);
 }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
@@ -215,17 +213,16 @@ section { scroll-margin-top: 90px; }
   overflow: hidden;
 }
 .hero__bg { position: absolute; inset: 0; z-index: -1; }
+/* filter: blur() は使わず、透明フェードのグラデーションで「ぼかし風」を再現（描画コスト大幅減） */
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
   opacity: .55;
-  will-change: transform;
   animation: blobFloat 14s ease-in-out infinite alternate;
 }
-.blob--sky  { width: 520px; height: 520px; top: -120px; right: -100px; background: radial-gradient(circle, #BAE6FD, #7DD3FC); }
-.blob--mint { width: 440px; height: 440px; bottom: -80px; left: -120px; background: radial-gradient(circle, var(--c-mint), #5EEAD4); animation-delay: -5s; }
-.blob--gold { width: 320px; height: 320px; top: 38%; left: 34%; background: radial-gradient(circle, #FDE68A, #FCD34D); opacity: .4; animation-delay: -9s; }
+.blob--sky  { width: 520px; height: 520px; top: -120px; right: -100px; background: radial-gradient(circle, #BAE6FD 0%, rgba(125, 211, 252, .8) 40%, rgba(125, 211, 252, 0) 70%); }
+.blob--mint { width: 440px; height: 440px; bottom: -80px; left: -120px; background: radial-gradient(circle, var(--c-mint) 0%, rgba(94, 234, 212, .8) 40%, rgba(94, 234, 212, 0) 70%); animation-delay: -5s; }
+.blob--gold { width: 320px; height: 320px; top: 38%; left: 34%; background: radial-gradient(circle, #FDE68A 0%, rgba(252, 211, 77, .8) 40%, rgba(252, 211, 77, 0) 70%); opacity: .4; animation-delay: -9s; }
 @keyframes blobFloat {
   from { transform: translate(0, 0) scale(1); }
   to   { transform: translate(40px, -30px) scale(1.08); }
@@ -417,9 +414,7 @@ section { scroll-margin-top: 90px; }
   font-weight: 800;
   padding: 11px 18px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, .82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, .92);
   border: 1px solid rgba(255, 255, 255, .95);
   box-shadow: var(--shadow-card);
   white-space: nowrap;
@@ -497,7 +492,6 @@ section { scroll-margin-top: 90px; }
   overflow: hidden;
   transition: box-shadow .45s ease;
   transform-style: preserve-3d;
-  will-change: transform;
   position: relative;
 }
 .service-card::before {
@@ -813,9 +807,7 @@ section { scroll-margin-top: 90px; }
   font-weight: 800;
   font-size: .92rem;
   color: var(--c-ink);
-  background: rgba(255, 255, 255, .9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, .95);
   border: 1.5px solid rgba(45, 212, 191, .45);
   box-shadow: 0 12px 34px rgba(20, 184, 166, .28);
   opacity: 0;
@@ -1026,9 +1018,9 @@ section { scroll-margin-top: 90px; }
    ========================================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(34px);
-  transition: opacity .9s var(--ease-smooth), transform .9s var(--ease-smooth);
-  transition-delay: calc(var(--i, 0) * 90ms);
+  transform: translateY(22px);
+  transition: opacity .55s var(--ease-smooth), transform .55s var(--ease-smooth);
+  transition-delay: calc(var(--i, 0) * 60ms);
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
@@ -1118,6 +1110,24 @@ section { scroll-margin-top: 90px; }
   .footer__inner { grid-template-columns: 1fr; gap: 36px; }
   .footer__nav { grid-template-columns: 1fr 1fr; }
   .consult__cta { flex-direction: column; }
+
+  /* ---- スマホ軽量化 ----
+     常時動くアニメーションと backdrop-filter は描画負荷が大きいため、
+     スマホではマスコットのふわふわ以外を止める（見た目の要素自体は残す） */
+  .blob { animation: none; }
+  .blob--gold { display: none; }
+  .float-1, .float-2, .float-3 { animation: none; }
+  .mascot-ring { animation: none; }
+  .mascot__hint { animation: none; opacity: .7; }
+  .hero__badge-dot { animation: none; }
+  .hero__scroll-bar::after { animation: none; transform: translateY(0); }
+  .consult__paw { animation: none; }
+  .final-cta__dog { animation: none; }
+  .glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, .88);
+  }
 }
 
 @media (max-width: 480px) {

@@ -18,6 +18,38 @@
 
 ---
 
+## 2026-07-09 — サイト全体のパフォーマンス改善（スクロールのカクつき・初回表示・スマホ軽快さ）
+
+- **修正目的**: 全サイト共通で「開いた直後が重い」「スクロールが引っかかる」「スマホでのっそりする」症状を、デザインの方向性（明るめ・ガラスUI・シッポのマスコット感）を維持したまま改善する。
+- **変更ファイル**:
+  - `style.css` / `script.js` / `index.html`（親サイト）
+  - `pc-consult/style.css`
+  - `gpu-guide/common.css`
+  - `game-pc-guide/style.css` / `game-pc-guide/images/favicon.png`（512px→180pxに縮小、250KB→37KB）
+  - `pc-build-check/style.css`
+  - `pc-builds-hub/style.css`
+- **変更内容**:
+  - **`filter: blur(60〜70px)` の常時アニメする hero blob を廃止**（親サイト・pc-consult）。透明フェードの radial-gradient で「ぼかし風」を再現し、見た目をほぼ維持したまま描画コストを大幅削減。スマホでは blob のアニメーション自体も停止。
+  - **`background-attachment: fixed` を撤去**（gpu-guide/common.css・game-pc-guide）。スクロール毎の全画面再描画の原因。`body::before { position: fixed; z-index: -1 }` の固定レイヤーに置き換え、見た目は同一。
+  - **backdrop-filter の整理**: 全サイトの sticky ヘッダーの blur を 10px に統一し、スマホ（820px以下）では blur を切って不透明背景（.94〜.96）で代替。親サイトの `.glass` は 18px→10px（スマホは blur なし）、hero チップ・相談FAB は blur を外して不透明度アップで代替。pc-builds-hub のほぼ不透明なパネル2箇所は blur を除去（視認差なし）。pc-build-check のインストールプロンプトは 20px→10px。
+  - **常時アニメーションのスマホ停止**（親サイト820px以下）: blob浮遊 / チップ浮遊 / マスコットリング呼吸 / バッジ点滅 / SCROLLバー / 肉球ゆらぎ 等を停止。マスコット本体のふわふわ（mascotFloat）だけは残してマスコット感を維持。
+  - **影の軽量化**: `--shadow-card` 0 20px 60px→0 12px 32px、`--shadow-pop` 0 30px 80px→0 16px 40px 等、方向性を変えずに縮小。
+  - **出現アニメーション短縮**: `.reveal` を 0.9s/34px/90ms → 0.55s/22px/60ms に。体感の「のっそり感」を軽減。
+  - **script.js**: scroll リスナー2本（ヘッダー・相談FAB）を requestAnimationFrame 1本に統合。マスコットのアイドルタイマーが mousemove 毎に張り直されていたのを1秒間隔に間引き。`will-change` の乱用（`.btn` 全ボタン等）を削除。
+  - **index.html**: LCP のマスコット画像に `fetchpriority="high"` を追加。
+  - **prefers-reduced-motion 対応を追加**: game-pc-guide / gpu-guide / pc-build-check / pc-builds-hub（従来は親サイトと pc-consult のみ対応）。
+- **影響範囲**: 全サイトの見た目（影がやや控えめ・blob の輪郭がわずかに変化）と描画パフォーマンス。URL構造・SEO・OGP・sitemap・文言は無変更。ローカルサーバーで全ページ HTTP 200 確認、`node --check` で JS 構文確認、ヘッドレスChrome で親サイト（PC/スマホ幅）・game-pc-guide・pc-consult のスクリーンショット比較を実施し、変更前後でレイアウト差異なし。副作用チェックとして、全6ページで console error なし・スマホ幅390pxで横スクロールなし（実測 scrollWidth==clientWidth）・ハンバーガードロワー開閉正常・`.reveal` 全45要素の表示到達を確認済み。なお、ヘッドレスChromeは最小ウィンドウ幅500pxの制約があり、390px指定のスクリーンショットは「500pxで描画→390pxに切り抜き」となって右端が切れて見えるが、実レイアウトの問題ではない（検証時の注意点）。
+- **未対応・次にやること**:
+  - Google Fonts（M PLUS Rounded 1c）が親サイトでレンダリングブロック。`font-display: swap` は有効だが、サブセット化や self-host でさらに改善可能。
+  - `gpu-guide/ogp.png`（1.1MB）と `pc-build-check/ogp.jpg`（526KB）はSNS共有時のみ読まれるがサイズ過大。圧縮推奨。
+  - `assets/sippo/_originals/`・`_full/`（計約9MB）はどこからも参照されておらずページ速度に影響しないが、リポジトリ容量として整理候補。
+  - game-pc-guide の各ゲーム画像（150〜260KB のjpg）は WebP 化でさらに半減できる。
+- **別AIへの引き継ぎ注意点**:
+  - hero の blob は **`filter: blur()` を使わず透明フェードの radial-gradient で表現する方針**。blur() を復活させないこと。
+  - ダーク系サブサイトの固定背景は `body::before`（position: fixed）方式。`background-attachment: fixed` に戻さないこと（スクロールが重くなる）。
+  - スマホ（820px以下）はヘッダー等の backdrop-filter を切って不透明背景で代替する方針で全サイト統一済み。
+  - `gpu-guide/script.js` の `console.log`（affiliate デバッグ）は「問題解決後も残す」と明記されているため意図的に残した。
+
 ## 2026-07-01 — pc-consult 500円CTAのボタン文言をユーザー確認により差し戻し
 
 - **修正目的**: 直前のコミット（Square決済リンク導入）で `#apply` メインCTAの文言を「Squareで支払って相談フォームへ進む」に変更したが、ユーザーより「Squareへの遷移はすぐに支払いとなるわけではないため、以前の『ワンコイン相談へ進む』的な文言のままで良い」との指摘があり、ボタン文言のみ元に戻す。リンク先（Square決済リンク）・決済後フローの補足説明文は変更しない。

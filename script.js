@@ -7,12 +7,32 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
 
+  // スクロール処理は1本の rAF ハンドラに集約（ヘッダー + 相談FAB）
   const header = document.getElementById('header');
-  const onScrollHeader = () => {
+  const fab = document.getElementById('consultFab');
+  const consultSection = document.getElementById('consult');
+  const onScrollFrame = () => {
     header?.classList.toggle('is-scrolled', window.scrollY > 24);
+    if (fab) {
+      const pastHero = window.scrollY > window.innerHeight * 0.7;
+      let inConsult = false;
+      if (consultSection) {
+        const rect = consultSection.getBoundingClientRect();
+        inConsult = rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5;
+      }
+      fab.classList.toggle('is-shown', pastHero && !inConsult);
+    }
   };
-  window.addEventListener('scroll', onScrollHeader, { passive: true });
-  onScrollHeader();
+  let scrollRaf = null;
+  window.addEventListener('scroll', () => {
+    if (!scrollRaf) {
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = null;
+        onScrollFrame();
+      });
+    }
+  }, { passive: true });
+  onScrollFrame();
 
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
@@ -205,9 +225,14 @@
     }
   }
 
+  // mousemove 等は高頻度で発火するため、タイマーの張り直しは1秒に1回に間引く
+  let sippoIdleLastReset = 0;
   function resetSippoIdleTimer() {
-    clearTimeout(sippoIdleTimer);
     if (sippoState === 'sleepy') setSippoState('normal');
+    const now = Date.now();
+    if (now - sippoIdleLastReset < 1000) return;
+    sippoIdleLastReset = now;
+    clearTimeout(sippoIdleTimer);
     sippoIdleTimer = setTimeout(() => {
       if (sippoBusyCount === 0) setSippoState('sleepy');
     }, 30000);
@@ -317,26 +342,6 @@
       });
     }, { threshold: 0.05 });
     trailObserver.observe(trailLine.closest('.trail'));
-  }
-
-  const fab = document.getElementById('consultFab');
-  const consultSection = document.getElementById('consult');
-  if (fab) {
-    let fabRaf = null;
-    const updateFab = () => {
-      fabRaf = null;
-      const pastHero = window.scrollY > window.innerHeight * 0.7;
-      let inConsult = false;
-      if (consultSection) {
-        const rect = consultSection.getBoundingClientRect();
-        inConsult = rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5;
-      }
-      fab.classList.toggle('is-shown', pastHero && !inConsult);
-    };
-    window.addEventListener('scroll', () => {
-      if (!fabRaf) fabRaf = requestAnimationFrame(updateFab);
-    }, { passive: true });
-    updateFab();
   }
 
   const copyBtn = document.getElementById('copyTemplate');
