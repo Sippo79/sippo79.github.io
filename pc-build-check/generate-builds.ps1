@@ -192,6 +192,9 @@ function Build-Html($build, $allBuilds) {
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../builds.css" />
   <script>if('serviceWorker'in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});</script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PC BUILD CHECK", "item": "https://sippo-pc.jp/pc-build-check/"}, {"@type": "ListItem", "position": 2, "name": "人気構成", "item": "https://sippo-pc.jp/pc-build-check/#popular-builds"}, {"@type": "ListItem", "position": 3, "name": "$($build.title)"}]}
+  </script>
 </head>
 <body>
   <header class="site-header">

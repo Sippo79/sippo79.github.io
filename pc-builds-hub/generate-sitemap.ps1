@@ -29,10 +29,10 @@ $PostLimit  = 5000
 
 # サイトマップに必ず含める静的ページ（検索流入が不要なページは入れない）。
 # login.html / mypage.html / submit.html / edit.html / admin.html は除外。
+# post.html（id なしの素のURL）は「構成が見つかりません」の空シェルになるため除外。
 $StaticPages = @(
   @{ loc = "";              changefreq = "daily";  priority = "1.0" }  # = サイトルート(index)
   @{ loc = "all-posts.html"; changefreq = "daily";  priority = "0.9" }
-  @{ loc = "post.html";      changefreq = "weekly"; priority = "0.3" }
 )
 
 # --- supabase-config.js から URL / anon key を読む（単一情報源） -----

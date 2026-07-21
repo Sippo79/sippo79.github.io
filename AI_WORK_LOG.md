@@ -18,6 +18,53 @@
 
 ---
 
+## 2026-07-19 — push前SEO最終レビュー（noindex調整・空シェルURLのsitemap除外）
+
+- **修正目的**: SEO修正のpush前レビューで見つかった細部の是正。
+- **変更ファイル**: `pc-builds-hub/{login,submit,edit,mypage,admin,rls-test}.html` / `gpu-guide/gpu-detail.js` / `gpu-guide/sitemap.xml` / `pc-builds-hub/post.js` / `pc-builds-hub/sitemap.xml` / `pc-builds-hub/generate-sitemap.ps1` / `sitemap.xml`
+- **変更内容**:
+  - hub管理系6ページの `noindex, nofollow` を `noindex, follow` に変更（nofollowにする理由がないため）。
+  - gpu-detail.js の showNotFound / post.js の renderMessageCard で、ID不正・IDなし・エラー時に meta robots noindex を動的注入（空シェルのインデックス防止）。
+  - 「見つかりません」表示になる素の `gpu.html`・`post.html` を各sitemapから除外。hubのsitemap生成スクリプトからも post.html の静的エントリを削除（再生成しても復活しない）。
+- **影響範囲**: 表示・機能への影響なし。post.html / all-posts.html はindex対象のまま。
+- **未対応・次にやること**: gpu-guide/generate-sitemap.ps1 は現行の手動キュレーション版sitemapと出力形式が異なる（実運用されていない模様）。再生成運用するなら要整備。
+- **別AIへの引き継ぎ注意点**: pc-build-check/sitemap.xml の lastmod は手動付与。generate-builds.ps1 は lastmod を出力しないため、再生成すると lastmod は消える（虚偽の日付にはならない）。
+
+---
+
+## 2026-07-19 — SEO総点検（旧ドメインcanonical修正・noindex整備・内部リンク強化・構造化データ）
+
+- **修正目的**: Google検索での表示回数を増やすため、クロール・インデックスを妨げる問題を優先的に修正する。
+- **変更ファイル**:
+  - `pc-build-check/builds/*.html`（全75ファイル）
+  - `pc-build-check/index.html` / `pc-build-check/style.css` / `pc-build-check/sitemap.xml`
+  - `generate-builds.ps1` / `pc-build-check/generate-builds.ps1`
+  - `gpu-guide/sitemap.xml` / `gpu-guide/gpu-detail.js`
+  - `game-pc-guide/game.html` / `game-pc-guide/offline.html`
+  - `pc-builds-hub/{login,submit,edit,mypage,admin,rls-test}.html`（noindex追加）
+  - `pc-builds-hub/post.html` / `pc-builds-hub/all-posts.html` / `pc-builds-hub/post.js`
+  - `sitemap.xml`（index。lastmod更新）
+- **変更内容**:
+  - **【最重要】構成75ページの canonical / og:url / og:image が旧ドメイン `https://2tom.jp/...` のままだったのを `https://sippo-pc.jp/pc-build-check/...` に修正**。あわせて `/icons/`・`/manifest.json` のルート絶対パス（404になっていた）を `../icons/`・`../manifest.json` に修正。
+  - gpu-guide/sitemap.xml から gpus.json に存在しない `rx-9060-xt`（ソフト404）を削除し、存在する `rx-9070-xt` に差し替え。
+  - gpu-detail.js の updateOgp で canonical も `gpu.html?id=xxx` に動的更新するよう追加（sitemap のURLと一致させるため）。
+  - pc-builds-hub のログイン/投稿/編集/マイページ/管理/RLSテストの6ページに `noindex, nofollow` を追加。game-pc-guide の旧動的ページ `game.html`（静的25ページと重複・リンクなし）に `noindex, follow`、`offline.html` に `noindex` を追加。
+  - pc-build-check トップに「解像度別 全構成一覧」セクション（#all-builds、details/summary の静的リンク75本）を追加。従来は静的リンクが3本のみでクロール導線が弱かった。対応CSSを style.css 末尾に追加。
+  - title・H1が完全同一だった `4k-creative-30man.html` と `-2.html` を CPU名（Ryzen 9 7900 / 7900X）で差別化。
+  - 構成75ページに BreadcrumbList JSON-LD を追加（可視パンくずと同一内容）。**生成スクリプト2本のテンプレートにも同じものを追加済み**（再生成しても維持される）。
+  - pc-builds-hub: post.html / all-posts.html に meta description、all-posts.html に canonical を追加。post.js で投稿タイトルを document.title / canonical（?id=付きURL）に反映。
+  - pc-build-check/sitemap.xml の全URLに lastmod 2026-07-19 を追加。sitemap index の該当2件の lastmod を更新。
+- **影響範囲**: 見た目の変更は pc-build-check トップの一覧セクション追加のみ。Supabase・診断ロジック・URLは不変更。SWキャッシュ済みユーザーには旧HTMLが一時残る。
+- **未対応・次にやること**:
+  - Search Console で sitemap 再送信と `2tom.jp` 側のカバレッジ確認（2tom.jp が今も生きているならリダイレクト設定を検討）。
+  - gpu-guide のランキング/比較表はJS描画のみ（レンダリング依存）。必要なら主要GPUの静的リンク一覧を index に追加。
+  - game-pc-guide の game.html は noindex にしたが、不要なら将来削除を検討。
+- **別AIへの引き継ぎ注意点**:
+  - `4k-creative-30man(-2)` のtitle差別化は builds.json 由来ではなくHTML直接編集。**generate-builds.ps1 を再実行すると元に戻る**ので、再生成時は builds.json 側で差別化するか再適用が必要。
+  - 構成ページの canonical は生成スクリプト側では既に sippo-pc.jp になっており、再生成しても後退しない。
+
+---
+
 ## 2026-07-09 — サイト全体のパフォーマンス改善（スクロールのカクつき・初回表示・スマホ軽快さ）
 
 - **修正目的**: 全サイト共通で「開いた直後が重い」「スクロールが引っかかる」「スマホでのっそりする」症状を、デザインの方向性（明るめ・ガラスUI・シッポのマスコット感）を維持したまま改善する。

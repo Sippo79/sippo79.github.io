@@ -209,6 +209,10 @@ function updateOgp(gpu) {
   setMetaTag("property", "og:title", title);
   setMetaTag("property", "og:description", description);
   setMetaTag("property", "og:url", url);
+
+  // canonical も表示中のGPU（?id=）に合わせる（sitemap のURLと一致させる）
+  const canonicalEl = document.querySelector('link[rel="canonical"]');
+  if (canonicalEl) canonicalEl.setAttribute("href", url);
 }
 
 function renderCpuSection(gpu, cpuData) {
@@ -427,6 +431,12 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
 }
 
 function showNotFound() {
+  // 存在しないID・IDなしの空ページは検索結果に出さない
+  const robots = document.createElement("meta");
+  robots.setAttribute("name", "robots");
+  robots.setAttribute("content", "noindex");
+  document.head.appendChild(robots);
+
   gpuDetail.innerHTML = `
     <div class="empty-message">
       GPUが見つかりませんでした。URLを確認してください。

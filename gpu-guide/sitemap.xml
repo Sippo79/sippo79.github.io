@@ -6,11 +6,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sippo-pc.jp/gpu-guide/gpu.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://sippo-pc.jp/gpu-guide/gpu.html?id=rtx-3060</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -146,7 +141,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sippo-pc.jp/gpu-guide/gpu.html?id=rx-9060-xt</loc>
+    <loc>https://sippo-pc.jp/gpu-guide/gpu.html?id=rx-9070-xt</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

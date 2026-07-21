@@ -344,6 +344,12 @@ function renderMessageCard(title, message) {
   const container = document.querySelector("#post-detail");
   if (!container) return;
 
+  // 存在しないID・IDなし・エラー時の空ページは検索結果に出さない
+  const robots = document.createElement("meta");
+  robots.setAttribute("name", "robots");
+  robots.setAttribute("content", "noindex");
+  document.head.appendChild(robots);
+
   container.innerHTML = `
     <section class="post-detail-card">
       <h1 class="post-detail-title">${escapeHtml(title)}</h1>
@@ -359,6 +365,19 @@ function renderPost(post, index = 0) {
   if (!container) return;
 
   const postId = getPostId(post, index);
+
+  // SEO: 投稿タイトルを document.title / canonical に反映（sitemap の ?id= URLと一致させる）
+  if (post.title) {
+    document.title = `${post.title} - PC Builds Hub`;
+    const canonicalUrl = `https://sippo-pc.jp/pc-builds-hub/post.html?id=${encodeURIComponent(postId)}`;
+    let canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (!canonicalEl) {
+      canonicalEl = document.createElement("link");
+      canonicalEl.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalEl);
+    }
+    canonicalEl.setAttribute("href", canonicalUrl);
+  }
   const niceCount = Number(post.niceCount ?? post.nice ?? post.likes ?? 0) || 0;
   const images = getImages(post);
   const specsHtml = renderSpecs(post);
