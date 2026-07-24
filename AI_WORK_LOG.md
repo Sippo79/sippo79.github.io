@@ -18,6 +18,39 @@
 
 ---
 
+## 2026-07-24 — SEO(第2フェーズ): soft404の根本対策（SPA詳細ページを方針Aで検索対象外に統一）
+
+- **修正目的**: sitemap除外だけではsoft404の根治にならない（GH Pagesは静的でクエリ無効ID時も常に200、過去クロール履歴/外部/内部リンク経由で空ページに到達しうる）。方針A（GPU個別・投稿詳細を検索対象外）にコードを統一する。
+- **調査結果**: 無効ID時 `gpu.html?id=` `post.html?id=` は全て**HTTP200**。noindexは旧実装ではJSで動的挿入＝レンダリング未実行だと空ページ扱いでsoft404リスク。さらに有効ID時にJSがcanonicalをクエリURLへ書き換えており、sitemap除外(A)と**矛盾**していた。
+- **変更ファイル**:
+  - `gpu-guide/gpu.html`（初期HTMLに `<meta name="robots" content="noindex, follow">` 常設）
+  - `pc-builds-hub/post.html`（同上）
+  - `gpu-guide/gpu-detail.js`（canonicalをクエリURLへ書き換える処理を削除。title/og:urlは維持）
+  - `pc-builds-hub/post.js`（同上のcanonical書き換えを削除。document.titleは維持）
+- **変更内容**: 詳細SPAは初期HTML(静的)で確実にnoindex。canonicalは素のgpu.html/post.htmlへ固定。build/game本体・gpu-guide index・all-posts.htmlはindexableのまま（follow導線を残す）。sitemapにnoindexページ混入なしを再検証。
+- **影響範囲**: 表示・Supabase連携・投稿閲覧/いいね機能は不変（`node --check`でgpu-detail.js/post.js構文OK）。検索面ではGPU個別/投稿詳細が明示的に検索対象外になる。
+- **未対応・次にやること**: 個別GPU/投稿詳細を将来検索対象化する場合は方針B（静的HTML生成＋自己参照canonical＋静的内部リンク＋sitemap追加＋noindex除去）をセットで実装。GH Pages「Enforce HTTPS」ONは引き続き要対応。
+- **別AIへの引き継ぎ注意点**: 方針は**A（検索対象外）で確定**。gpu.html/post.htmlのnoindexを外すのは静的化とセットのときだけ。JS側の`showNotFound`/`renderMessageCard`のnoindex注入は二重でも無害なため残置。
+
+## 2026-07-24 — SEO: インデックス未登録の主要因を修正（SPAクエリURL掃除・重複H1/title一意化）
+
+- **修正目的**: GSC「検出/クロール済み・インデックス未登録」「ソフト404」「重複」の主要因を解消する。SPAのクエリURL(`gpu.html?id=` / `post.html?id=`)がsitemapに載って重複・soft404化していた点と、buildページのH1/titleが一部重複していた点が原因。
+- **変更ファイル**:
+  - `gpu-guide/sitemap.xml` / `gpu-guide/generate-sitemap.ps1`（`gpu.html?id=*` 27件と素の`gpu.html`を除外。indexはディレクトリ正規URLに統一）
+  - `pc-builds-hub/sitemap.xml` / `pc-builds-hub/generate-sitemap.ps1`（`post.html?id=*` を除外。トップ+all-postsのみ）
+  - `pc-builds-hub/post.html`（自己参照canonical追加＝素のpost.htmlへ正規化）
+  - `pc-build-check/generate-builds.ps1`（H1にCPU/GPU/予算を付与し一意化、衝突ページはtitleにもCPU付与、ページ固有の導入文を追加）
+  - `pc-build-check/builds/*.html` 75件（再生成）＋ `pc-build-check/builds.css`（`.build-intro`追加）
+  - `pc-build-check/sitemap.xml`（再生成／75件一致）
+  - `sitemap.xml`（変更した子サイトのlastmodを2026-07-24へ）
+- **変更内容**: sitemapは200を返すcanonical URLのみに整理。noindexページ混入なし。build/gameページの構造(静的・自己参照canonical・index静的リンク)は維持。重複title/H1/descriptionを全て0件に。真の重複ページ(4k-creative-30man と -2、CPUのみ違い)はCPUで区別。
+- **影響範囲**: pc-build-check配下75ページのH1/導入文の表示が変化（デザインは踏襲）。gpu-guide/pc-builds-hubのsitemap掲載URLが減少。既存の評価済みURL(build/game本体)のURL自体は不変。
+- **未対応・次にやること**:
+  - GitHub Pagesの「Enforce HTTPS」をONにする（http://が現状301せず200。コード外の設定操作）。
+  - gpu個別GPU / hub投稿詳細を検索対象にしたい場合は静的化(SSR)してから改めてsitemapへ。
+  - GSCで各sitemap再送信＋主要URLのインデックス登録リクエスト。
+- **別AIへの引き継ぎ注意点**: `generate-builds.ps1` は **`pc-build-check/` 配下が正**（root直下の同名は古い＝マザーボード欄なし。編集しない）。sitemapに `?id=` クエリURLを二度と載せないこと（重複/soft404の原因）。詳細は memory `sippo-seo-indexing-root-causes`。
+
 ## 2026-07-19 — push前SEO最終レビュー（noindex調整・空シェルURLのsitemap除外）
 
 - **修正目的**: SEO修正のpush前レビューで見つかった細部の是正。

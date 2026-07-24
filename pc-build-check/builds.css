@@ -132,6 +132,13 @@
 }
 
 /* Comment */
+.build-intro {
+  margin: 0 0 14px;
+  color: #e6ecfa;
+  font-size: 14px;
+  line-height: 1.95;
+}
+
 .build-comment {
   margin: 0;
   color: #cfd6e6;

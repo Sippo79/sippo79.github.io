@@ -42,11 +42,18 @@ $cautions = @{
 }
 
 # 全スラグを事前計算（重複は -2, -3 サフィックスで回避）
-$slugCounters = @{}
-$buildSlugMap = @{}
+# $slugBaseCount で各baseの総数を数え、2件以上ある base（=解像度×用途×予算×GPU
+# まで同じでCPU等だけ違う重複構成）を衝突として記録する。衝突ページは title に
+# CPU を足して一意化し、重複コンテンツ扱いを避ける。
+$slugCounters   = @{}
+$buildSlugMap   = @{}
+$slugBaseCount  = @{}
+$buildBaseMap   = @{}
 foreach ($b in $builds) {
     $bs   = $budgetSlug[$b.budget.ToString()]
     $base = "$($b.resolution)-$($b.usage)-$bs"
+    $buildBaseMap[$b.id] = $base
+    if ($slugBaseCount.ContainsKey($base)) { $slugBaseCount[$base]++ } else { $slugBaseCount[$base] = 1 }
     if (-not $slugCounters.ContainsKey($base)) {
         $slugCounters[$base] = 1
         $buildSlugMap[$b.id] = $base
@@ -60,14 +67,39 @@ function Get-Slug($b) {
     return $buildSlugMap[$b.id]
 }
 
+function Test-SlugCollision($b) {
+    return ($slugBaseCount[$buildBaseMap[$b.id]] -gt 1)
+}
+
 function Get-SeoTitle($b) {
     $r = $resShort[$b.resolution]; $u = $usageLabel[$b.usage]; $bg = $budgetLabel[$b.budget.ToString()]
+    # 同一スラグ衝突ページ（title/解像度/用途/予算/GPUが同じ）は CPU を足して一意化。
+    if (Test-SlugCollision $b) {
+        return "${r} ${u}向けPC構成 ${bg}前後 $($b.gpu)（$($b.cpu)） | PC BUILD CHECK"
+    }
     return "${r} ${u}向けPC構成 ${bg}前後 $($b.gpu) | PC BUILD CHECK"
 }
 
 function Get-SeoDesc($b) {
     $u = $usageLabel[$b.usage]; $r = $resLabel[$b.resolution]; $bg = $budgetLabel[$b.budget.ToString()]
     return "${r}環境で${u}を快適に楽しめるおすすめPC構成。$($b.gpu)搭載・予算${bg}前後。CPU: $($b.cpu)、メモリ: $($b.ram)。初心者にも分かりやすく解説。"
+}
+
+# H1（画面見出し）を一意にする。builds.json の title は解像度×用途で重複する
+# ことがあるため、CPU・GPU・予算を添えて他ページと確実に区別できる文言にする。
+# 同一スラグの衝突ページ（例 4k-creative-30man と -2）はCPUだけが違うため、
+# CPUを含めることで重複コンテンツ扱いを避ける。
+# 例: 「FHD 普段使い向け 定番候補｜Ryzen 5 5500 / Radeon RX 6600 / 10万円前後」
+function Get-PageHeading($b) {
+    $bg = $budgetLabel[$b.budget.ToString()]
+    return "$($b.title)｜$($b.cpu) / $($b.gpu) / ${bg}前後"
+}
+
+# ページ固有の導入文。GPU・CPU・メモリ・解像度・予算はページごとに異なるため、
+# テンプレの重複本文に対して独自性を持たせるリード文を1段落生成する。
+function Get-IntroText($b) {
+    $u = $usageLabel[$b.usage]; $r = $resLabel[$b.resolution]; $bg = $budgetLabel[$b.budget.ToString()]
+    return "予算${bg}前後で${u}向けのPCを組むなら、$($b.gpu)を中心に、CPUは$($b.cpu)、メモリ$($b.ram)、ストレージ$($b.storage)という構成が扱いやすい候補です。$($b.gpu)は${r}での${u}に狙いを定めたバランスで、価格と性能の折り合いをつけやすいのが特徴です。以下でこの構成の狙いと、購入前に確認しておきたいポイントを解説します。"
 }
 
 function Get-Related($build, $allBuilds) {
@@ -135,6 +167,8 @@ function Build-Html($build, $allBuilds) {
     $slug      = Get-Slug $build
     $seoTitle  = Get-SeoTitle $build
     $seoDesc   = Get-SeoDesc $build
+    $pageH1    = Get-PageHeading $build
+    $introText = Get-IntroText $build
     $canonical = "$SITE_BASE/builds/$slug.html"
     $gpuGuide  = "https://sippo-pc.jp/gpu-guide/?gpu=$([Uri]::EscapeDataString($build.gpu))"
     $bgLabel   = $budgetLabel[$build.budget.ToString()]
@@ -222,7 +256,7 @@ $sippoHeaderLink
           <span class="build-tag">${usageStr}向け</span>
           <span class="build-tag">${bgLabel}前後</span>
         </div>
-        <h1 class="build-page-title">$($build.title)</h1>
+        <h1 class="build-page-title">$pageH1</h1>
         <p class="build-page-subtitle">$seoDesc</p>
       </div>
     </section>
@@ -244,6 +278,7 @@ $sippoHeaderLink
       <section class="build-card">
         <p class="section-label">Build Points</p>
         <h2>構成のポイント</h2>
+        <p class="build-intro">$introText</p>
         <p class="build-comment">$($build.comment)</p>
       </section>
 $motherboardHtml

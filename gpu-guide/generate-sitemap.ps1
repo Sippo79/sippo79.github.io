@@ -5,6 +5,12 @@ $sitemapPath = Join-Path $rootDir "sitemap.xml"
 $defaultBaseUrl = "https://sippo-pc.jp/gpu-guide/"
 $ignoredDirs = @(".git", ".github", "node_modules")
 
+# sitemap から除外するHTMLファイル名。
+# gpu.html はJS描画のSPA（canonicalは常に素のgpu.html）。gpu.html?id=* を
+# 並べると全URLが1ページに正規化され重複/soft404になるため、個別GPUを
+# 静的ページ化するまでは gpu.html 自体も個別URLも sitemap に載せない。
+$ignoredHtmlFiles = @("gpu.html")
+
 function Normalize-BaseUrl {
   param([string]$Url)
 
@@ -45,27 +51,11 @@ function Get-HtmlUrlPaths {
     Where-Object {
       $relativePath = ConvertTo-UrlPath $_.FullName
       $pathParts = $relativePath -split '[\\/]'
-      -not ($pathParts | Where-Object { $ignoredDirs -contains $_ })
+      (-not ($pathParts | Where-Object { $ignoredDirs -contains $_ })) -and
+      ($ignoredHtmlFiles -notcontains $_.Name)
     } |
     ForEach-Object { ConvertTo-UrlPath $_.FullName } |
     Sort-Object @{ Expression = { if ($_ -eq "index.html") { "0" } else { "1$_" } } }
-}
-
-function Get-GpuDetailUrlPaths {
-  $gpuPagePath = Join-Path $rootDir "gpu.html"
-  $gpuDataPath = Join-Path $rootDir "gpus.json"
-
-  if (-not (Test-Path $gpuPagePath) -or -not (Test-Path $gpuDataPath)) {
-    return @()
-  }
-
-  $gpus = Get-Content -Raw -Encoding UTF8 $gpuDataPath | ConvertFrom-Json
-
-  return @(
-    $gpus |
-      Where-Object { $_.id } |
-      ForEach-Object { "gpu.html?id=$([uri]::EscapeDataString($_.id))" }
-  )
 }
 
 function Escape-Xml {
@@ -77,7 +67,6 @@ function Escape-Xml {
 $baseUrl = Get-BaseUrl
 $urlPaths = @()
 $urlPaths += Get-HtmlUrlPaths
-$urlPaths += Get-GpuDetailUrlPaths
 $urlPaths = $urlPaths | Select-Object -Unique
 
 $lines = @(
@@ -86,7 +75,10 @@ $lines = @(
 )
 
 foreach ($urlPath in $urlPaths) {
-  $loc = Escape-Xml "$baseUrl$urlPath"
+  # index.html はディレクトリ正規URL（末尾スラッシュ）に統一し、
+  # canonical / og:url（= https://sippo-pc.jp/gpu-guide/）と一致させる。
+  $normalizedPath = if ($urlPath -eq "index.html") { "" } else { $urlPath }
+  $loc = Escape-Xml "$baseUrl$normalizedPath"
   $lines += "  <url>"
   $lines += "    <loc>$loc</loc>"
   $lines += "  </url>"

@@ -47,6 +47,11 @@
   <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- SEO -->
+  <!-- gpu.html は ?id= で内容が変わるJS描画SPA。GitHub Pagesではクエリで404を
+       返せず常に200になるため、初期HTML(静的)で noindex を常設してsoft404を防ぐ。
+       follow は付けて内部リンク(一覧など)のクロールは許可する。
+       個別GPUを検索対象にする場合は静的HTML化してから noindex を外すこと。 -->
+  <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://sippo-pc.jp/gpu-guide/gpu.html" />
 </head>
 

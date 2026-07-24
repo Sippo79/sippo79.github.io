@@ -210,9 +210,8 @@ function updateOgp(gpu) {
   setMetaTag("property", "og:description", description);
   setMetaTag("property", "og:url", url);
 
-  // canonical も表示中のGPU（?id=）に合わせる（sitemap のURLと一致させる）
-  const canonicalEl = document.querySelector('link[rel="canonical"]');
-  if (canonicalEl) canonicalEl.setAttribute("href", url);
+  // canonical はクエリURLへ書き換えない（方針A: gpu.html?id= は検索対象外）。
+  // 初期HTMLの canonical=素のgpu.html / robots=noindex をそのまま維持する。
 }
 
 function renderCpuSection(gpu, cpuData) {

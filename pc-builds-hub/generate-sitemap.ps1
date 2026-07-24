@@ -99,12 +99,10 @@ try {
   foreach ($page in $StaticPages) {
     $entries.Add((New-UrlEntry ($SiteBase + $page.loc) $null $page.changefreq $page.priority))
   }
-  foreach ($post in $posts) {
-    if (-not $post.id) { continue }
-    $loc = $SiteBase + "post.html?id=" + [Uri]::EscapeDataString([string]$post.id)
-    $lastmod = ConvertTo-IsoDate ($post.updated_at, $post.created_at | Where-Object { $_ } | Select-Object -First 1)
-    $entries.Add((New-UrlEntry $loc $lastmod "weekly" "0.7"))
-  }
+  # post.html?id=* はJS描画の空SPAシェル（自己参照canonicalも無い）。
+  # クエリURLを並べると soft404 の原因になるため sitemap には載せない。
+  # 承認済み投稿数はログ表示にのみ使う（下記メッセージ）。投稿詳細を検索
+  # 対象にする場合は、SSR/静的化してcanonicalを持たせてから追加すること。
 
   $xml = '<?xml version="1.0" encoding="UTF-8"?>' + "`n" +
          "<!-- 自動生成: generate-sitemap.ps1（手で編集しないでください） -->" + "`n" +

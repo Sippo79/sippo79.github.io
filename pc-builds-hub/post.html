@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>構成の詳細 - PC Builds Hub</title>
   <meta name="description" content="投稿されたPC構成のCPU・GPU・メモリ・用途・こだわりポイントを詳しく確認できるページです。" />
+  <!-- post.html?id=* はJS描画のSPA。GitHub Pagesではクエリで404を返せず常に200に
+       なるため、初期HTML(静的)で noindex を常設してsoft404を防ぐ。follow は付けて
+       一覧などの内部リンクのクロールは許可する。投稿詳細を検索対象にする場合は
+       SSR/静的化してから noindex を外すこと。canonicalは素のpost.htmlへ集約。 -->
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://sippo-pc.jp/pc-builds-hub/post.html" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.json" />

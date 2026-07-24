@@ -366,17 +366,11 @@ function renderPost(post, index = 0) {
 
   const postId = getPostId(post, index);
 
-  // SEO: 投稿タイトルを document.title / canonical に反映（sitemap の ?id= URLと一致させる）
+  // SEO: 投稿タイトルは document.title に反映（タブ表示・共有時のUX向上）。
+  // canonical はクエリURLへ書き換えない（方針A: post.html?id= は検索対象外）。
+  // 初期HTMLの canonical=素のpost.html / robots=noindex をそのまま維持する。
   if (post.title) {
     document.title = `${post.title} - PC Builds Hub`;
-    const canonicalUrl = `https://sippo-pc.jp/pc-builds-hub/post.html?id=${encodeURIComponent(postId)}`;
-    let canonicalEl = document.querySelector('link[rel="canonical"]');
-    if (!canonicalEl) {
-      canonicalEl = document.createElement("link");
-      canonicalEl.setAttribute("rel", "canonical");
-      document.head.appendChild(canonicalEl);
-    }
-    canonicalEl.setAttribute("href", canonicalUrl);
   }
   const niceCount = Number(post.niceCount ?? post.nice ?? post.likes ?? 0) || 0;
   const images = getImages(post);
