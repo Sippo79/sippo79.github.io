@@ -358,6 +358,9 @@ a {
 
 .form-field select {
   width: 100%;
+  /* 補足テキスト(.field-help)の行数が列ごとに違っても3つのselectの高さを揃える。
+     グリッドの各セルは等高（align-items:stretch）なので、selectを下端へ寄せる。 */
+  margin-top: auto;
   padding: 14px 44px 14px 16px;
 
   border-radius: 14px;
