@@ -18,6 +18,39 @@
 
 ---
 
+## 2026-07-28 — サイト全体にGoogleタグ（GA4 gtag.js）を設置
+
+- **修正目的**: シッポPCサイト全体のページ閲覧数と、pc-consultで実装済みのクリックイベント（`click_square_500` / `click_coconala_1500`）をGA4で計測できるようにする。
+- **測定ID**: `G-NDQ8GTKGHC`（全ページ共通）
+- **変更ファイル**: HTML **115ファイル** ＋ 生成スクリプト **3ファイル**（計118／追加1298行・**削除0行**）
+  - 親サイト `index.html` / `pc-consult/` / `pc-build-check/`（+ `builds/` 75件）/ `game-pc-guide/`（+ `games/` 25件）/ `gpu-guide/` / `pc-builds-hub/`
+  - `generate-builds.ps1`, `pc-build-check/generate-builds.ps1`, `game-pc-guide/Generate-StaticGames.ps1`
+- **変更内容**:
+  - 各HTMLの `</head>` 直前にGoogle公式のgtag.jsスニペットを挿入。既存のtitle/meta/OGP/CSS/JS/構造化データには一切触れていない（**削除行0**＝純粋な追記のみ）。
+  - **生成スクリプト3本のheadテンプレートにも同じタグを追加**。これを入れないと `builds/` 75件・`games/` 25件を再生成した瞬間にタグが消えるため。PowerShellのヒアストリング内だがスニペットに `$` を含まないため補間の影響なし（構文チェック済み）。
+  - BOM有無（76ファイルBOM付き / 41なし）と CRLF をファイルごとに完全維持し、差分をタグ追加行のみに限定した。
+- **設置しなかったページ（2件）とその理由**:
+  - `pc-builds-hub/rls-test.html` … RLS動作確認用の**開発ページ**。本番の計測データを汚すため除外。
+  - `game-pc-guide/offline.html` … Service Workerの**オフライン表示専用**。ネットワーク不通時に出るページなのでGA送信自体が不可能。
+  - なお `noindex` ページ（`gpu.html` / `game.html` / hubのlogin・admin・mypage等）には**設置した**。noindexは検索インデックス制御であり、実ユーザーが閲覧する動線の計測は必要なため。`404.html` は現状リポジトリに存在しない。
+- **検証（ヘッドレスChrome + CDPネットワーク傍受で実測）**:
+  - 全115ファイルにタグあり・**重複ゼロ**（`script[src*=googletagmanager]` が全ページちょうど1個、測定IDの出現も各2回＝src/config のみ）。
+  - 6サイトすべてで `typeof window.gtag === 'function'`、`page_view` が `tid=G-NDQ8GTKGHC` で送信されることを確認。
+  - クリック計測：4リンク×1クリックで `click_square_500` 2件・`click_coconala_1500` 2件（**1クリック=1回**、重複なし）。`service_location` は `service_card` / `apply_section` を正しく区別。PC(1280px)・SP(390px)両方で確認。
+  - gtagに渡る実データも確認：`{service_location, link_url, link_text, page_path:"/pc-consult/"}` の4パラメータすべて正常。
+  - コンソールエラー **0件**、横スクロール（レイアウト崩れ）なし。生成ページ（builds/games）もPC・SP両方で正常。
+- **未対応・次にやること**:
+  - GA4管理画面で `click_square_500` / `click_coconala_1500` をカスタムイベントとして確認し、必要ならキーイベント（コンバージョン）に登録。
+  - `service_location` / `link_url` / `link_text` / `page_path` は**カスタム定義（カスタムディメンション）に登録しないと**探索レポートで分解できない。GA4側の設定作業が別途必要。
+  - データ反映はリアルタイムレポートで即時、通常レポートは24〜48時間程度かかる。
+- **別AIへの引き継ぎ注意点**:
+  - **新しいHTMLページを追加したら、同じスニペットを `</head>` 直前に入れる**こと。測定IDは `G-NDQ8GTKGHC` で全ページ共通。
+  - **`builds/` `games/` を再生成する場合は生成スクリプト側にタグが入っていることを前提にしてよい**（3本とも対応済み）。逆にスクリプトからタグを消すと再生成で全ページから消えるため注意。
+  - `gtag` 関数を他の場所で再定義しないこと（`pc-consult/main.js` は `window.gtag` を**呼ぶだけ**で定義していない）。
+  - 開発用ページ（rls-test）とオフライン用ページは意図的に除外している。安易に足さないこと。
+
+---
+
 ## 2026-07-27 — 申し込みボタンのクリック計測（GA4イベント）を実装
 
 - **修正目的**: 500円Square商品と1,500円ココナラ商品のクリック数を GA4 で個別に把握し、さらに「サービスカード」「申し込みセクション」のどちらから押されたかを識別できるようにする。

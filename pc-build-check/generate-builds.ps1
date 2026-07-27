@@ -229,6 +229,17 @@ function Build-Html($build, $allBuilds) {
   <script type="application/ld+json">
   {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PC BUILD CHECK", "item": "https://sippo-pc.jp/pc-build-check/"}, {"@type": "ListItem", "position": 2, "name": "人気構成", "item": "https://sippo-pc.jp/pc-build-check/#popular-builds"}, {"@type": "ListItem", "position": 3, "name": "$($build.title)"}]}
   </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+
 </head>
 <body>
   <header class="site-header">
