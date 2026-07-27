@@ -18,6 +18,31 @@
 
 ---
 
+## 2026-07-27 — 申し込みボタンのクリック計測（GA4イベント）を実装
+
+- **修正目的**: 500円Square商品と1,500円ココナラ商品のクリック数を GA4 で個別に把握し、さらに「サービスカード」「申し込みセクション」のどちらから押されたかを識別できるようにする。
+- **変更ファイル**:
+  - `pc-consult/index.html`（対象リンク4本に `data-track` / `data-location` を付与）
+  - `pc-consult/main.js`（`initClickTracking()` を追加）
+- **変更内容**:
+  - 計測対象4リンクに data 属性を付与。①500円Square/カード ②1,500円ココナラ/カード ③500円Square/申し込み ④1,500円ココナラ/申し込み。イベント名は `click_square_500` / `click_coconala_1500`、掲載位置は `service_card` / `apply_section`。
+  - `main.js` に `initClickTracking()` を追加し `init()` から呼び出し。`a[data-track]` のみを対象に click を購読し、`gtag('event', <data-track>, {service_location, link_url, link_text, page_path})` を送信。
+  - **preventDefault は使用しない**（外部リンクの新規タブ遷移を妨げないため）。`dataset.trackBound` フラグで同一リンクへの二重登録を防止。`typeof window.gtag !== 'function'` で早期 return し、送信処理全体を try/catch で囲って計測失敗が遷移や他機能を止めないようにした。
+  - URL・`target="_blank"`・`rel="noopener noreferrer"`・クラス名・ボタンデザインは一切変更なし。
+- **影響範囲**: `/pc-consult/` のみ。既存の reveal アニメ・stagger・スムーススクロール・仮リンク警告は未変更（回帰確認済み）。HTML/CSSの見た目に変化なし。
+- **⚠️ 重要 — GA4タグ自体は未設置**: 調査の結果、リポジトリにも本番サイトにも gtag.js / GTM / 測定ID は**存在しない**（`/` と `/pc-consult/` の実レスポンスで確認）。そのため現時点ではイベントは**送信されない**（gtag未定義で安全に何もしない）。ユーザー判断により「計測コードのみ先行実装」で確定。**GA4タグ（測定ID `G-XXXXXXXXXX`）を設置した時点から、コード変更なしで自動的に計測が始まる。**
+- **検証**: ヘッドレスChrome（CDP）で実測。①4リンク×クリック → ちょうど4イベント（PC 1280px / SP 390px 両方）②gtag未定義でクリックしても例外ゼロ ③DOMContentLoad再発火（再初期化）後も1クリック=1イベント ④同一リンク3クリック=3イベント ⑤全4リンクで `defaultPrevented === false`（遷移を妨げていない）⑥コンソールのエラー・警告ゼロ ⑦`node --check` 構文OK。
+- **未対応・次にやること**:
+  - **GA4測定IDの発行と gtag.js の設置**（これをやるまで数値は貯まらない）。設置後、GA4管理画面で `click_square_500` / `click_coconala_1500` をカスタムイベントとして確認し、必要ならキーイベント（コンバージョン）登録。
+  - `service_location` / `link_url` / `link_text` / `page_path` をGA4のカスタム定義に登録しないと、探索レポートで分解できない点に注意。
+  - 親サイトや他の子サイトには計測を入れていない（今回のスコープ外）。
+- **別AIへの引き継ぎ注意点**:
+  - 計測対象を増やすときは **HTMLに `data-track` と `data-location` を足すだけでよい**（main.js は汎用実装のため変更不要）。
+  - `initClickTracking()` では **preventDefault を絶対に足さない**。`target="_blank"` の遷移が壊れる。
+  - 計測は「おまけ」であり、GA未設置・送信失敗でもサイト機能を止めない設計。この安全側の姿勢を崩さないこと。
+
+---
+
 ## 2026-07-27 — ゲーム向けPC構成・購入相談（ココナラ 1,500円）を公開・受付開始
 
 - **修正目的**: サービス一覧2枚目の「ゲーミングPC構成相談 2,000円〜／受付準備中」カードを、ココナラで実際に出品中の1,500円商品（APEX・RUST向けゲーミングPC提案）に差し替え、実際に申し込める状態にする。あわせて「500円のみ受付中」という矛盾文言を一掃する。

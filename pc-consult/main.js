@@ -1,7 +1,8 @@
 /* ==========================================================
    シッポPC相談室 — main.js
-   外部ライブラリ不要。スクロール出現アニメ + 仮ボタンの案内のみ。
-   ※ 将来：申し込みフォーム連携・計測タグはここに追加していく。
+   外部ライブラリ不要。スクロール出現アニメ + 仮ボタンの案内
+   + 申し込みリンクのクリック計測（GA4）。
+   ※ GA4タグ（gtag.js）自体はまだ未設置。設置後に自動で送信が始まる。
    ========================================================== */
 
 (function () {
@@ -82,6 +83,44 @@
   }
 
   /* --------------------------------------------------------
+     ⑤ 申し込みリンクのクリック計測（GA4）
+        対象は data-track を持つリンクのみ。
+        イベント名 = data-track / 掲載位置 = data-location。
+        ※ GA4タグ（gtag.js）は未設置。設置されるまでこの処理は
+          何も送らずに黙って終了する（エラーにしない）。
+        ※ preventDefault はしない。外部リンクの通常遷移
+          （target="_blank" での新規タブ）を妨げないこと。
+     -------------------------------------------------------- */
+  function initClickTracking() {
+    var links = document.querySelectorAll('a[data-track]');
+
+    links.forEach(function (link) {
+      // 同じリンクへの二重登録を防ぐ（初期化が複数回走っても1回だけ）
+      if (link.dataset.trackBound === '1') return;
+      link.dataset.trackBound = '1';
+
+      link.addEventListener('click', function () {
+        // 計測は「おまけ」。何があっても遷移や他の処理を止めない。
+        try {
+          if (typeof window.gtag !== 'function') return;
+
+          var eventName = link.getAttribute('data-track');
+          if (!eventName) return;
+
+          window.gtag('event', eventName, {
+            service_location: link.getAttribute('data-location') || '',
+            link_url: link.href,
+            link_text: (link.textContent || '').trim(),
+            page_path: window.location.pathname
+          });
+        } catch (err) {
+          /* 計測失敗は無視（遷移を優先） */
+        }
+      });
+    });
+  }
+
+  /* --------------------------------------------------------
      初期化
      -------------------------------------------------------- */
   function init() {
@@ -89,6 +128,7 @@
     initReveal();
     initPlaceholderLinks();
     initSmoothAnchors();
+    initClickTracking();
   }
 
   if (document.readyState === 'loading') {
