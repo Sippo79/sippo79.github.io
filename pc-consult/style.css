@@ -350,6 +350,9 @@ button:focus-visible,
   text-align: left;
 }
 .price-note__icon { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.5; }
+/* 長い商品名（1,500円のゲーム向けPC構成・購入相談 など）でも狭い画面で横はみ出ししないように */
+.price-note { flex-wrap: wrap; }
+.price-note__body { flex: 1 1 0; min-width: 0; margin: 0; }
 
 .service-grid {
   display: grid;
@@ -824,6 +827,33 @@ button:focus-visible,
 .apply__main-desc { font-size: .96rem; line-height: 1.7; color: var(--c-ink-soft); margin-bottom: 20px; text-align: left; }
 .apply__main .apply__actions { margin: 0; }
 
+/* サブプラン：1,500円 ゲーム向けPC構成・購入相談（ココナラ）。主力の500円より控えめに見せる */
+.apply__sub {
+  max-width: 560px;
+  margin: 0 auto 22px;
+  padding: 20px 22px 22px;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: var(--radius);
+  text-align: left;
+}
+.apply__sub-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .2);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: #fff;
+}
+.apply__sub-name { font-weight: 800; font-size: 1.05rem; color: #fff; }
+.apply__sub-price { font-weight: 800; font-size: 1.5rem; line-height: 1.2; margin: 2px 0 8px; color: #fff; }
+.apply__sub-desc { font-size: .92rem; line-height: 1.7; color: rgba(255, 255, 255, .9); margin-bottom: 16px; }
+.apply__sub-desc strong { color: #fff; }
+.apply__sub .apply__actions { justify-content: flex-start; }
+
 /* 500円相談へ誘導する補足コピー */
 .apply__lead--guide {
   max-width: 560px;
@@ -917,6 +947,9 @@ button:focus-visible,
   .apply__main { padding: 22px 20px 24px; }
   .apply__main-price { font-size: 1.65rem; }
   .apply__main-desc { font-size: .92rem; }
+  .apply__sub { padding: 18px 18px 20px; }
+  .apply__sub-price { font-size: 1.4rem; }
+  .apply__sub-desc { font-size: .88rem; }
   .apply__lead--guide { font-size: .92rem; }
   .apply__presub { padding: 13px 16px; }
   .apply__presub-text { font-size: .85rem; }
@@ -947,5 +980,8 @@ button:focus-visible,
   .apply__main { padding: 20px 16px 22px; }
   .apply__main-name { font-size: 1.08rem; }
   .apply__main-price { font-size: 1.55rem; }
+  .apply__sub { padding: 18px 16px 20px; }
+  .apply__sub-name { font-size: 1rem; }
+  .apply__sub-price { font-size: 1.35rem; }
   .plan-button.is-disabled { font-size: .94rem; padding: 14px 20px; }
 }
