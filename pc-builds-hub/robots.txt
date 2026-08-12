@@ -7,6 +7,8 @@ Allow: /
 
 # 要ログイン / 管理系（検索結果に出す必要がないページ）
 Disallow: /pc-builds-hub/login.html
+Disallow: /pc-builds-hub/forgot-password.html
+Disallow: /pc-builds-hub/reset-password.html
 Disallow: /pc-builds-hub/mypage.html
 Disallow: /pc-builds-hub/submit.html
 Disallow: /pc-builds-hub/edit.html

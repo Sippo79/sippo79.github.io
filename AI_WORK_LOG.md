@@ -18,6 +18,30 @@
 
 ---
 
+## 2026-08-13 — パスワード再設定（パスワードを忘れた場合）機能の追加
+
+- **修正目的**: PC Builds Hub にログイン機能はあるが、パスワードを忘れた利用者が自力で復旧できなかった。Supabase Auth の標準機能でパスワード再設定フローを追加する。
+- **変更ファイル**:
+  - 新規: `pc-builds-hub/forgot-password.html` / `forgot-password.js` / `reset-password.html` / `reset-password.js`
+  - 変更: `pc-builds-hub/auth.js` / `login.html` / `login.js` / `style.css` / `sw.js` / `robots.txt`
+- **変更内容**:
+  - `auth.js` に `resetPasswordForEmail()` / `updatePassword()` を追加。redirectTo は既存 `getEmailRedirectTo()` と同じ考え方で `new URL("reset-password.html", location.href)` により解決するため、本番・localhost 双方でハードコードなしに動く。
+  - 入力ルール（`PASSWORD_MIN_LENGTH=6` / `validateEmail` / `validatePassword`）とエラー日本語化（`friendlyError`）を `auth.js` に集約。login.js の重複定義を削除し、新規登録と再設定で条件が二重管理にならないようにした。
+  - `login.html` にログインボタン直下の「パスワードを忘れた場合」リンクを追加（新規登録モードでは非表示）。入力済みメールを `?email=` で引き継ぐ。
+  - `reset-password.js` はリカバリー遷移（`#access_token…&type=recovery` / `?code=`）のときだけ入力欄を表示。通常ログイン中に直接開いてもパスワード変更させないため、通常ログイン導線と競合しない。変更成功後は明示的に signOut し、リカバリーセッションを残さない。
+  - メール送信結果はアカウントの有無に関わらず同一文言（存在推測の防止）。ただしレート制限・通信エラーのみ個別表示。
+  - 二重送信防止（disabled +「送信中...」/「変更中...」）。
+- **既存バグの修正（今回の実装に必要だったため）**: `style.css` に `[hidden]{display:none!important}` を追加。`.auth-form` / `.auth-field` 等が `display:flex` を持つため HTML の `hidden` 属性が打ち消され、**ログインモードでも「表示名」欄が表示されたまま**になっていた。`submit.html` / `edit.html` / `admin.html` / `mypage.html` の `hidden` 要素も同様に効いていなかったものが正常化した。
+- **影響範囲**: pc-builds-hub のみ。閲覧機能・投稿・管理画面のロジックは未変更。`sw.js` は新ページ追加のため precache に追記し `v10 → v11`。`robots.txt` に新規2ページの Disallow を追加（login.html と同方針）。
+- **検証**: ローカル配信 + ヘッドレスChrome で 33項目（新機能17 / 既存回帰16）すべてPASS。実Supabaseに対し、確認済みテストアカウントで「変更成功 → 旧PWでログイン不可(400) → 新PWでログイン可(200)」まで実測。期限切れ/無効リンク・直アクセス・確認欄不一致・6文字未満・連打も確認。
+- **未対応・次にやること**:
+  - **Supabase Dashboard 側の設定が必要**: Authentication → URL Configuration → Redirect URLs に `https://sippo-pc.jp/pc-builds-hub/reset-password.html` を追加すること（未追加だとメールのリンクが Site URL に飛び、再設定画面が開かない）。
+  - 現在 Site URL は `https://sippo-pc.jp`。メールテンプレートは既定のまま（implicit フロー = `#access_token…&type=recovery`）で動作確認済み。
+- **別AIへの引き継ぎ注意点**:
+  - CDN の supabase-js v2（UMD）は既定が `flowType: implicit`。PKCE 前提の実装例をそのまま持ち込まないこと。`reset-password.js` は両形式に対応済み。
+  - パスワード条件を変える場合は `auth.js` の `PASSWORD_MIN_LENGTH` のみを変更する（login.html の `minlength` 表示値も合わせる）。
+  - Supabase の無料SMTPはメール送信レート制限（約2通/時）があり、連続テストで 429 `over_email_send_rate_limit` になる。
+
 ## 2026-07-28 — サイト全体にGoogleタグ（GA4 gtag.js）を設置
 
 - **修正目的**: シッポPCサイト全体のページ閲覧数と、pc-consultで実装済みのクリックイベント（`click_square_500` / `click_coconala_1500`）をGA4で計測できるようにする。

@@ -2,13 +2,15 @@
 // PC Builds Hub — Service Worker
 // Cache name はサイト固有にすること（他サイトとの混線防止）
 // =====================
-const CACHE_NAME = "pc-builds-cache-v10";
+const CACHE_NAME = "pc-builds-cache-v11";
 
 const PRECACHE_ASSETS = [
   "./",
   "./index.html",
   "./all-posts.html",
   "./login.html",
+  "./forgot-password.html",
+  "./reset-password.html",
   "./mypage.html",
   "./submit.html",
   "./admin.html",
@@ -19,6 +21,8 @@ const PRECACHE_ASSETS = [
   "./main.js",
   "./post.js",
   "./login.js",
+  "./forgot-password.js",
+  "./reset-password.js",
   "./mypage.js",
   "./submit.js",
   "./admin.js",

@@ -2475,6 +2475,15 @@ textarea {
   color: #e2e8f0;
 }
 
+/* hidden 属性を常に優先する（既存バグ修正）
+   .auth-form / .auth-field などに display:flex を指定しているため、
+   HTML の hidden 属性（既定は display:none）が打ち消され、
+   ログイン時に「表示名」欄が消えない不具合があった。
+   JS 側は hidden 属性で表示制御しているので、ここで確実に効かせる。 */
+[hidden] {
+  display: none !important;
+}
+
 /* =====================
    Auth ページ（login / mypage）共通
 ===================== */
@@ -2605,6 +2614,13 @@ textarea {
 .auth-actions-row .btn {
   width: 100%;
   justify-content: center;
+}
+
+/* 「パスワードを忘れた場合」（ログインボタンの直下・控えめに） */
+.auth-forgot {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  text-align: center;
 }
 
 .auth-switch {

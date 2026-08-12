@@ -42,6 +42,34 @@
       .replaceAll("'", "&#039;");
   }
 
+  // --- 入力ルール（login / forgot / reset で共有する唯一の定義）------
+  //  Supabase Auth 側の既定（最低6文字）に合わせる。条件を変える場合は
+  //  ここだけを直せば、新規登録・パスワード再設定の両方に反映される。
+  const PASSWORD_MIN_LENGTH = 6;
+  const PASSWORD_HINT = "パスワードは" + PASSWORD_MIN_LENGTH + "文字以上で入力してください";
+
+  // 「明らかに不正な形式」を弾く程度の簡易チェック（厳密判定はSupabase側）
+  function validateEmail(email) {
+    const v = String(email == null ? "" : email).trim();
+    if (!v) return "メールアドレスを入力してください";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      return "メールアドレスの形式が正しくありません";
+    }
+    return null; // null = OK
+  }
+
+  // 新しいパスワード＋確認欄の検証。confirm を省略すると一致確認はしない。
+  function validatePassword(password, confirm) {
+    const p = String(password == null ? "" : password);
+    if (!p) return "新しいパスワードを入力してください";
+    if (p.length < PASSWORD_MIN_LENGTH) return PASSWORD_HINT;
+    if (arguments.length >= 2) {
+      if (!confirm) return "確認用のパスワードを入力してください";
+      if (p !== confirm) return "パスワードが一致しません";
+    }
+    return null; // null = OK
+  }
+
   // --- クライアント取得（api.js と共有）------------------------------
   function getClient() {
     if (
@@ -127,6 +155,32 @@
     return c.auth.signInWithPassword({ email: email, password: password });
   }
 
+  // --- パスワード再設定 -----------------------------------------------
+  // 再設定メールのリンク押下後に戻る先（= reset-password.html）。
+  // signUp の emailRedirectTo と同じく現在ページ基準で解決するため、
+  // 本番（https://sippo-pc.jp/…）でも localhost でもそのまま動く。
+  function getResetRedirectTo() {
+    try {
+      return new URL("reset-password.html", global.location.href).href;
+    } catch (_) {
+      return undefined; // 解決できない場合は Supabase の Site URL 既定にフォールバック
+    }
+  }
+
+  async function resetPasswordForEmail(email) {
+    const c = getClient();
+    if (!c) throw new Error("AUTH_UNAVAILABLE");
+    return c.auth.resetPasswordForEmail(email, {
+      redirectTo: getResetRedirectTo(),
+    });
+  }
+
+  async function updatePassword(newPassword) {
+    const c = getClient();
+    if (!c) throw new Error("AUTH_UNAVAILABLE");
+    return c.auth.updateUser({ password: newPassword });
+  }
+
   async function signOut() {
     const c = getClient();
     if (!c) return { error: null };
@@ -136,6 +190,45 @@
       log("signOut 失敗:", e);
       return { error: e };
     }
+  }
+
+  // --- エラー文言（日本語）--------------------------------------------
+  //  Supabase から返る英語メッセージを、利用者向けの日本語へ変換する。
+  //  login / forgot / reset で同じ文言を使うため、ここに集約。
+  function friendlyError(error) {
+    const msg = (error && (error.message || error.error_description)) || "";
+
+    if (/Invalid login credentials/i.test(msg)) {
+      return "メールアドレスまたはパスワードを確認してください";
+    }
+    if (/already registered|already exists|User already/i.test(msg)) {
+      return "このメールアドレスは既に登録されています";
+    }
+    if (/Password should be at least/i.test(msg)) {
+      return PASSWORD_HINT;
+    }
+    if (/New password should be different|should be different from the old/i.test(msg)) {
+      return "現在と同じパスワードは設定できません。別のパスワードを入力してください";
+    }
+    if (/Email not confirmed/i.test(msg)) {
+      return "メール認証が未完了です。確認メールのリンクを開いてください";
+    }
+    // リカバリーリンクの期限切れ / 使用済み / 改ざん
+    if (/expired|invalid|not found|otp/i.test(msg) && /token|link|code|otp/i.test(msg)) {
+      return "このリンクは無効か、有効期限が切れています。お手数ですが、もう一度メールの再送をお試しください";
+    }
+    if (/Auth session missing|session_not_found|JWT expired/i.test(msg)) {
+      return "セッションの有効期限が切れました。もう一度メールの再送をお試しください";
+    }
+    // 短時間に何度も送信した場合（Supabase のレート制限）
+    if (/rate limit|too many requests|after \d+ seconds/i.test(msg)) {
+      return "リクエストが多すぎます。しばらく時間をおいて再度お試しください";
+    }
+    // fetch 失敗（オフライン / 通信断）
+    if (/Failed to fetch|NetworkError|network request failed/i.test(msg)) {
+      return "通信に失敗しました。ネットワーク環境をご確認のうえ、再度お試しください";
+    }
+    return "エラーが発生しました。時間をおいて再度お試しください";
   }
 
   function onAuthStateChange(callback) {
@@ -284,8 +377,16 @@
     signUp: signUp,
     signIn: signIn,
     signOut: signOut,
+    resetPasswordForEmail: resetPasswordForEmail,
+    updatePassword: updatePassword,
     onAuthStateChange: onAuthStateChange,
     updateAuthUI: updateAuthUI,
     requireLogin: requireLogin,
+    // 入力ルール / エラー文言（login・forgot・reset で共有）
+    PASSWORD_MIN_LENGTH: PASSWORD_MIN_LENGTH,
+    PASSWORD_HINT: PASSWORD_HINT,
+    validateEmail: validateEmail,
+    validatePassword: validatePassword,
+    friendlyError: friendlyError,
   };
 })(window);

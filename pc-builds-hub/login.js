@@ -35,6 +35,8 @@
     switchPrompt: document.getElementById("switchPrompt"),
     switchModeBtn: document.getElementById("switchModeBtn"),
     toMypageLink: document.getElementById("toMypageLink"),
+    forgotRow: document.getElementById("forgotPasswordRow"),
+    forgotLink: document.getElementById("forgotPasswordLink"),
   };
 
   let mode = "login"; // "login" | "signup"
@@ -85,6 +87,8 @@
     els.switchModeBtn.textContent = isSignup
       ? "ログインはこちら"
       : "新規登録はこちら";
+    // 「パスワードを忘れた場合」はログイン時のみ（新規登録では不要）
+    if (els.forgotRow) els.forgotRow.hidden = isSignup;
     clearMessage();
   }
 
@@ -96,19 +100,10 @@
     );
   }
 
+  // エラー文言は auth.js に集約（forgot / reset と共通）。
   function friendlyError(error) {
-    const msg = (error && (error.message || error.error_description)) || "";
-    if (/Invalid login credentials/i.test(msg)) {
-      return "メールアドレスまたはパスワードを確認してください";
-    }
-    if (/already registered|already exists|User already/i.test(msg)) {
-      return "このメールアドレスは既に登録されています";
-    }
-    if (/Password should be at least/i.test(msg)) {
-      return "パスワードは6文字以上で入力してください";
-    }
-    if (/Email not confirmed/i.test(msg)) {
-      return "メール認証が未完了です。確認メールのリンクを開いてください";
+    if (Auth && typeof Auth.friendlyError === "function") {
+      return Auth.friendlyError(error);
     }
     return "エラーが発生しました。時間をおいて再度お試しください";
   }
@@ -172,6 +167,17 @@
     showMypageLink(false); // 既定では非表示（未ログイン時に出さない）
 
     if (els.form) els.form.addEventListener("submit", handleSubmit);
+
+    // 入力済みメールアドレスを再設定画面へ引き継ぐ（再入力の手間を省く）
+    if (els.forgotLink) {
+      els.forgotLink.addEventListener("click", function () {
+        const email = ((els.email && els.email.value) || "").trim();
+        els.forgotLink.href = email
+          ? "forgot-password.html?email=" + encodeURIComponent(email)
+          : "forgot-password.html";
+      });
+    }
+
     if (els.switchModeBtn) {
       els.switchModeBtn.addEventListener("click", function () {
         setMode(mode === "login" ? "signup" : "login");
