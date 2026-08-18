@@ -246,6 +246,7 @@ foreach ($game in $games) {
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="icon" type="image/png" href="../images/favicon.png" />
 
   <!-- Google tag (gtag.js) -->
@@ -260,7 +261,7 @@ foreach ($game in $games) {
 
 </head>
 
-<body>
+<body data-sippo-theme="dark">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="site-logo">
@@ -357,41 +358,9 @@ $($resolutionCards -join "`r`n")
           </div>
         </section>
 
-        <section class="affiliate-section" aria-labelledby="affiliateTitle">
-          <div class="affiliate-heading">
-            <p class="section-label">SHOP LINKS</p>
-            <h2 id="affiliateTitle">ショップ連携準備中</h2>
-            <p>現在、販売サイトへのリンクを準備しています。公開後はこのエリアから確認できます。</p>
-          </div>
-
-          <div class="affiliate-link-grid">
-            <span class="affiliate-button affiliate-button-bto affiliate-button-disabled" aria-disabled="true">
-              <span>このゲーム向けBTOパソコンを探す</span>
-              <small>ショップ連携準備中</small>
-              <em>近日対応予定</em>
-            </span>
-            <span class="affiliate-button affiliate-button-amazonParts affiliate-button-disabled" aria-disabled="true">
-              <span>AmazonでPCパーツを見る</span>
-              <small>ショップ連携準備中</small>
-              <em>近日対応予定</em>
-            </span>
-            <span class="affiliate-button affiliate-button-rakutenParts affiliate-button-disabled" aria-disabled="true">
-              <span>楽天でPCパーツを見る</span>
-              <small>ショップ連携準備中</small>
-              <em>近日対応予定</em>
-            </span>
-            <span class="affiliate-button affiliate-button-monitor affiliate-button-disabled" aria-disabled="true">
-              <span>ゲーミングモニターを見る</span>
-              <small>ショップ連携準備中</small>
-              <em>近日対応予定</em>
-            </span>
-            <span class="affiliate-button affiliate-button-mouse affiliate-button-disabled" aria-disabled="true">
-              <span>ゲーミングマウスを見る</span>
-              <small>ショップ連携準備中</small>
-              <em>近日対応予定</em>
-            </span>
-          </div>
-        </section>
+        <!-- 購入導線。中身は game-affiliate.js が共通基盤を使って描画する。
+             商品を特定できない場合はこのセクションごと削除される。 -->
+        <section class="affiliate-section" aria-labelledby="affiliateTitle"></section>
 
         <div class="game-info-grid">
           <section class="info-card">
@@ -450,9 +419,22 @@ $($resolutionCards -join "`r`n")
 
   <footer class="site-footer">
     <div class="container">
+      <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       <p>© GAME PC GUIDE</p>
     </div>
   </footer>
+  <!-- 共通アフィリエイト基盤（shared/affiliate）。設定→本体→利用側の順 -->
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="../game-affiliate.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/game-pc-guide/sw.js', { scope: '/game-pc-guide/' })
+          .catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
 "@

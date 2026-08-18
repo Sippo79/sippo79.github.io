@@ -1,22 +1,36 @@
 /**
  * game-affiliate.js
  *
- * 読み込むJSON（games/*.html から見た相対パス）:
- *   ../data/game-affiliate.json        … ゲームごとの参照キー定義
- *   ../../●共通/affiliate/affiliate-master.json … URL本体・status の一元管理
+ * ゲーム別ページ（games/*.html）の購入導線を描画する。
  *
- * master が取得できない場合でも全ボタンを "準備中" で表示し、
- * game-affiliate.json 自体が取得できない場合のみ汎用フォールバックを表示する。
+ * 【この版での変更点】
+ *  - 旧版は `../../●共通/affiliate/affiliate-master.json` を読もうとしていたが、
+ *    そのパスは実在しない（正しくは shared/affiliate/）。そのため全ボタンが
+ *    常に「準備中」表示のままだった。
+ *  - 共通アフィリエイト基盤 SippoAffiliate（shared/affiliate/affiliate.js）
+ *    へ移行し、パス解決とリンク生成をそちらへ任せる。
+ *
+ * 【表示するもの】
+ *  data/games.json の各ゲームの推奨構成（builds）から GPU と CPU を拾い、
+ *  商品マスターで特定できたものだけ購入ボタンを出す。
+ *  広告だらけにしないため、1ページに出すのは最大4件まで。
+ *
+ * 【フェイルセーフ】
+ *  商品マスターが読めない／商品を特定できない場合はセクションごと非表示。
+ *  壊れたボタンや「準備中」の空ボタンは出さない。
  */
 (function () {
   'use strict';
 
   // monster-hunter.html → mhwilds のような例外マッピング
   var FILENAME_TO_ID = {
-    'monster-hunter': 'mhwilds'
+    'monster-hunter': 'mhwilds',
   };
 
-  // ページのファイル名から gameId を導出する
+  // 1ページに出す購入ボタンの上限（広告だらけにしない）
+  var MAX_ITEMS = 4;
+
+  /** ページのファイル名から gameId を導出する */
   function getGameId() {
     var filename = location.pathname
       .split('/')
@@ -25,9 +39,9 @@
     return FILENAME_TO_ID[filename] || filename;
   }
 
-  // HTML 特殊文字をエスケープして XSS を防ぐ
+  /** HTML 特殊文字をエスケープして XSS を防ぐ */
   function esc(str) {
-    return String(str)
+    return String(str == null ? '' : str)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
@@ -35,130 +49,113 @@
       .replace(/'/g, '&#39;');
   }
 
-  // masterData から url と status を解決する
-  function resolveFromMaster(item, masterData) {
-    var entry = masterData[item.masterCategory] && masterData[item.masterCategory][item.masterKey];
-    return {
-      url: entry ? entry.url : '',
-      status: entry ? entry.status : 'preparing'
-    };
-  }
+  /**
+   * ゲームデータの推奨構成から、購入導線に出すパーツを組み立てる。
+   * 同じパーツが複数の構成に出てきても1回だけにする。
+   */
+  function collectParts(game) {
+    var A = window.SippoAffiliate;
+    var items = [];
+    var seen = {};
 
-  // 個別ボタンの HTML を生成する
-  function buildButton(item, masterData) {
-    var type = esc(item.type || 'other');
-    var label = esc(item.label || '');
-    var desc  = esc(item.description || '');
-    var resolved = resolveFromMaster(item, masterData);
-    var isActive = resolved.status === 'active' && resolved.url;
-
-    if (isActive) {
-      return '<a'
-        + ' class="affiliate-button affiliate-button-' + type + '"'
-        + ' href="' + esc(resolved.url) + '"'
-        + ' target="_blank"'
-        + ' rel="noopener noreferrer sponsored"'
-        + '>'
-        + '<span>' + label + '</span>'
-        + '<small>' + desc + '</small>'
-        + '</a>';
+    function push(label, name) {
+      if (!name) return;
+      var id = A.findProductIdByName(name);
+      // 商品を特定できないものは出さない（誤リンク防止）
+      if (!id || seen[id]) return;
+      seen[id] = true;
+      items.push({ id: id, label: label });
     }
 
-    return '<span'
-      + ' class="affiliate-button affiliate-button-' + type + ' affiliate-button-disabled"'
-      + ' aria-disabled="true"'
-      + '>'
-      + '<span>' + label + '</span>'
-      + '<small>ショップ連携準備中</small>'
-      + '<em>近日対応予定</em>'
-      + '</span>';
-  }
+    var builds = Array.isArray(game.builds) ? game.builds : [];
 
-  // アフィリエイトセクション全体を描画する
-  function renderSection(section, gameData, masterData) {
-    var hasActive = gameData.items.some(function (item) {
-      var resolved = resolveFromMaster(item, masterData);
-      return resolved.status === 'active' && resolved.url;
+    // GPU を優先（購入検討で最も見られるパーツ）
+    builds.forEach(function (build) {
+      push(build.name ? build.name + '構成のGPU' : 'GPU', build.gpu);
+    });
+    // 次に CPU
+    builds.forEach(function (build) {
+      push(build.name ? build.name + '構成のCPU' : 'CPU', build.cpu);
     });
 
-    var buttonsHtml = gameData.items.map(function (item) {
-      return buildButton(item, masterData);
-    }).join('');
+    return items.slice(0, MAX_ITEMS);
+  }
 
-    var disclosureHtml = hasActive
-      ? '<p class="affiliate-disclosure">'
-        + '当サイトではアフィリエイト広告を利用しています。リンク先で商品を購入すると、'
-        + '運営者に収益が発生する場合があります。'
-        + 'Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。'
-        + '</p>'
-      : '';
+  /** 購入セクションを描画する */
+  function renderSection(section, game) {
+    var A = window.SippoAffiliate;
+    var items = collectParts(game);
 
-    var subText = hasActive
-      ? '必要なスペックや周辺機器を、気になったタイミングで確認できます。'
-      : '現在、販売サイトへのリンクを準備しています。公開後はこのエリアから確認できます。';
+    var html = A.renderProductList(items, {
+      page: 'game-pc-guide',
+      placement: 'game-recommended-parts',
+    });
+
+    // 出せる商品が1件も無ければセクションごと消す（空の枠を残さない）
+    if (!html) {
+      section.remove();
+      return;
+    }
 
     section.innerHTML =
       '<div class="affiliate-heading">'
       + '<p class="section-label">SHOP LINKS</p>'
-      + '<h2 id="affiliateTitle">' + esc(gameData.title) + '</h2>'
-      + '<p>' + subText + '</p>'
+      + '<h2 id="affiliateTitle">' + esc(game.title || 'このゲーム') + ' 向けパーツの価格を見る</h2>'
+      + '<p>上のおすすめ構成で挙げたパーツの、実際の販売価格を確認できます。価格は変動するため各ショップでご確認ください。</p>'
       + '</div>'
-      + '<div class="affiliate-link-grid">' + buttonsHtml + '</div>'
-      + disclosureHtml;
+      + html;
 
     // JS 描画済みマークを付与 → CSS の自動非表示ルールから除外される
     section.setAttribute('data-affiliate', 'loaded');
   }
 
-  // フェッチ失敗・gameId 未登録時のフォールバック表示
-  function renderFallback(section) {
-    section.innerHTML =
-      '<div class="affiliate-heading">'
-      + '<p class="section-label">SHOP LINKS</p>'
-      + '<h2>ショップ連携準備中</h2>'
-      + '<p>現在、販売サイトへのリンクを準備しています。公開後はこのエリアから確認できます。</p>'
-      + '</div>';
-    section.setAttribute('data-affiliate', 'loaded');
-  }
-
-  // メイン処理
+  /** メイン処理 */
   function init() {
     var section = document.querySelector('.affiliate-section');
     if (!section) return;
 
+    // 共通基盤が読み込まれていなければ、セクションを消して終わり
+    if (!window.SippoAffiliate) {
+      section.remove();
+      return;
+    }
+
     var gameId = getGameId();
-    // games/*.html からの相対パス
-    var gameAffiliatePath = '../data/game-affiliate.json';
-    var masterPath = '../../●共通/affiliate/affiliate-master.json';
 
     Promise.all([
-      fetch(gameAffiliatePath).then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      }),
-      // master が取得できなくても表示を継続する（準備中ボタンで描画）
-      fetch(masterPath).then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      }).catch(function (err) {
-        console.warn('[game-affiliate] affiliate-master.json を取得できませんでした:', err.message);
-        return {};
-      })
+      window.SippoAffiliate.init(),
+      fetch('../data/games.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .catch(function (err) {
+          console.warn('[game-affiliate] games.json を取得できませんでした:', err.message);
+          return null;
+        }),
     ])
-    .then(function (results) {
-      var gameAffiliateData = results[0];
-      var masterData = results[1];
-      var gameData = gameAffiliateData[gameId];
-      if (gameData && Array.isArray(gameData.items) && gameData.items.length > 0) {
-        renderSection(section, gameData, masterData);
-      } else {
-        renderFallback(section);
-      }
-    })
-    .catch(function (err) {
-      console.warn('[game-affiliate] game-affiliate.json の取得に失敗しました:', err.message);
-      renderFallback(section);
-    });
+      .then(function (results) {
+        var affiliateReady = results[0];
+        var games = results[1];
+
+        if (!affiliateReady || !Array.isArray(games)) {
+          section.remove();
+          return;
+        }
+
+        var game = games.filter(function (g) { return g.id === gameId; })[0];
+        if (!game) {
+          section.remove();
+          return;
+        }
+
+        renderSection(section, game);
+      })
+      .catch(function (err) {
+        // 何があってもページ本体は壊さない
+        console.warn('[game-affiliate] 購入導線の描画に失敗しました:', err && err.message);
+        section.remove();
+      });
   }
 
   // DOM 構築後に実行

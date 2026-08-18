@@ -18,6 +18,56 @@
 
 ---
 
+## 2026-08-18 — シッポPC全体へ Amazon＋楽天アフィリエイト共通基盤を実装
+
+- **修正目的**: これまで各サイトがバラバラにアフィリエイトURLを持っていた（gpu-guide は独自コピーの `affiliate-master.json`、pc-build-check は `script.js` 内に直書き、game-pc-guide は**存在しないパス**を参照していて全ボタンが「準備中」のまま）。商品追加・リンク差し替えを1か所でできる共通基盤に統合し、GPU GUIDE / GAME PC GUIDE / PC BUILD CHECK / PC Builds Hub に購入導線を通す。将来の「PCアップグレード相談」ページでもそのまま使える土台にする。
+- **変更ファイル**:
+  - 新規: `shared/affiliate/affiliate-config.js`（アフィリエイトIDの設定＝公開してよい値のみ）
+  - 新規: `shared/affiliate/affiliate.js`（本体：リンク生成・商品検索・共通UI・クリック計測）
+  - 新規: `shared/affiliate/affiliate-recommend.js`（アップグレード提案）
+  - 新規: `shared/affiliate/affiliate.css`（購入ボタンの共通スタイル。明/暗テーマ対応）
+  - 新規: `pc-build-check/build-affiliate.js`（構成詳細75ページ用。スペック表から型番を読む）
+  - 大幅改修: `shared/affiliate/affiliate-master.json`（商品マスター。GPU中心の旧構造 → 11カテゴリ133商品）
+  - 全面書き換え: `game-pc-guide/game-affiliate.js`（壊れたパス参照を修正し共通基盤へ移行）
+  - 全面書き換え: `shared/affiliate/README.md`（管理方法・実装方式の根拠・計測仕様）
+  - 修正: `gpu-guide/gpu-detail.js` `gpu-guide/gpu.html` `gpu-guide/sw.js`
+  - 修正: `pc-build-check/script.js` `pc-build-check/index.html` `pc-build-check/sw.js`
+  - 修正: `pc-builds-hub/post.js` `pc-builds-hub/post.html` `pc-builds-hub/index.html`
+  - 修正: `pc-consult/index.html`（基盤の読み込みのみ。相談メニューは一切変更なし）
+  - 修正: 広告表記の追加 — `index.html` `style.css` / 各サイト `style.css` / 子サイト105ページ
+  - 修正: 生成スクリプト `generate-builds.ps1` `game-pc-guide/Generate-StaticGames.ps1`（再生成しても壊れないように追従）
+- **変更内容**:
+  - **商品マスターを1本化**。`shared/affiliate/affiliate-master.json` の `products` に133商品（GPU 67 / CPU 29 / メモリ・SSD・電源・クーラー・ケース・マザボ・モニター・周辺機器・ゲーミングPC）。**既存のアフィリエイトURL（`amzn.to` / `a.r10.to` / `yahoo.jp`）は1本も失わずに移行**（gpu-guide の旧マスター＋pc-build-check の直書き分をマージ）。旧構造は `legacy` キーに温存。
+  - **実行時にAPIを叩かない方式を採用**。Amazon PA-API は「直近30日で3件の適格販売」が利用条件で現時点では使えない。楽天の商品検索APIは2026年の仕様変更で秘密鍵 `accessKey` が必須になり、静的サイトのフロントからは安全に呼べない。よって「アフィリエイトID付きURLをその場で組み立てる」方式にした。**APIキーが無くてもサイトは完全に動く**。
+  - Amazonは ①登録済み個別URL → ②ASINから `/dp/{ASIN}/ref=nosim?tag=` → ③キーワード検索 の優先順。楽天は ①登録済み個別URL → ②検索URL（IDがあれば `hb.afl.rakuten.co.jp` でラップ）。
+  - **共通UI**: `SippoAffiliate.renderAffiliateButtons(productId, {page, placement})` に商品IDを渡すだけでボタンHTMLが返る。表示できるリンクが無ければ**空文字**を返すので、壊れたボタンや `#` リンクは出ない。
+  - **クリック計測**: 既存のGA4（`G-NDQ8GTKGHC`）を再利用し `affiliate_click` イベントを送る。`product_id` / `product_name` / `shop` / `page` / `placement` / `link_url` / `page_path` を記録。`placement` により「どの位置のリンクが押されるか」を分析できる。`gtag` が無くても遷移は妨げない。
+  - **誤リンク防止を最優先**。商品名は正規化して照合（`GeForce` `NVIDIA` `ASUS` 等を除去、全角→半角）。`RTX 5070` と `RTX 5070 Ti` を取り違えないよう、一致部分の直後が数字なら不一致扱い。特定できなければ**リンクを出さない**。
+  - **価格は一切ハードコードしない**（古い価格が残る事故を防ぐ）。ボタン文言は「価格を見る」「探す」。商品画像もAmazon/楽天のものは使わず、既存画像のまま。
+  - **アップグレード提案**（`SippoRecommend`）: 今のGPU → おすすめ → 期待できる改善★ → 購入ボタン。**現役の上位GPU（RTX 4070 / RTX 3080 クラス以上）には提案を出さない**、**候補は最も控えめなものを選ぶ**（RTX 5090 を押し売りしない）。PC Builds Hub の投稿詳細に導入済み。
+  - **広告表記**（景表法のステマ規制・Amazonアソシエイト規約）を親サイト＋子サイト105ページのフッターに追加。購入ボタンの直下にも表示。
+- **影響範囲**:
+  - GPU GUIDE: GPU詳細ページの購入セクションを共通基盤に置換。**63GPU全てで購入リンクが出る**（従来は「準備中」表示が多数）。一覧ページはカード全体が `<a>` のため変更なし（SEO重視でコンテンツを主役に維持）。
+  - GAME PC GUIDE: **参照パスが壊れていて全ボタンが「準備中」だった不具合を解消**。25ゲーム全ページで推奨構成のGPU/CPUの購入リンクが出るようになった（1ページ最大4件に制限し広告だらけにしない）。
+  - PC BUILD CHECK: 診断結果を構成パーツ単位のリンクに変更。構成詳細75ページにも新規で購入導線を追加。**SW のキャッシュ名が旧称 `jisako-v3` のままだったので `pc-build-check-v4` に是正**（「ジサコ！」は別サイト名）。
+  - PC Builds Hub: 投稿詳細にパーツ購入リンク＋アップグレード提案を追加。ユーザー投稿は表記ゆれが多いため、特定できたものだけ表示する。**Supabase の認証・投稿・Nice・RLS には一切触れていない**。
+  - PC相談: 基盤の読み込みのみ。**料金・プラン・申し込み導線は一切変更していない**。
+  - Service Worker のキャッシュ版数を更新（gpu-guide v4 / game-pc-guide v2 / pc-build-check v4）。
+- **未対応・次にやること**:
+  - ⚠️ **ユーザー側の作業が必要**: `shared/affiliate/affiliate-config.js` に **Amazon アソシエイトID** と **楽天アフィリエイトID** を入力する。未入力でもサイトは動くが、検索フォールバック経由のリンクが**タグ無し＝収益にならない**（既存の `amzn.to` / `a.r10.to` 短縮リンクはIDが埋め込み済みなので影響なし）。
+  - 個別商品URL（ASIN等）が未登録の商品は「検索で探す」表示。順次 `affiliate-master.json` の `amazon.asin` / `url` を埋めると商品ページ直リンクになる。
+  - 「ゲーミングPCアップグレード相談」ページは未作成。`SippoRecommend.renderUpgrade()` をそのまま使える状態にしてある。
+  - Amazon PA-API は売上実績（30日で3件）を満たしたら利用申請可能。その場合も差し替えは `buildAmazonUrl()` の1か所で済む。
+- **別AIへの引き継ぎ注意点**:
+  - **アフィリエイトURLの追加・変更は `shared/affiliate/affiliate-master.json` だけを編集する**。各HTMLにURLをベタ書きしないこと。
+  - **`affiliate-config.js` に秘密情報を書かない**。入れてよいのはアソシエイトID／楽天アフィリエイトID（どちらもURLに載る公開値）だけ。Amazon の Secret Key や楽天の `accessKey` は絶対に置かない（GitHubにpushされる）。
+  - 描画系の関数は**表示できない場合に空文字を返す**契約。呼び出し側で `if (html)` を見てセクションごと出し分けている箇所があるので、この契約を壊さないこと。
+  - **暗い背景のサイトは `<body>` に `data-sippo-theme="dark"`** が必要（無いと明るいテーマのボタンになり読みにくい）。
+  - 生成スクリプト（`generate-builds.ps1` / `Generate-StaticGames.ps1`）にも同じ変更を入れてある。**再生成する場合は先にスクリプト側を確認**すること。
+  - `pc-build-check/script.js` の `gpuAffiliateLinks` 配列は「移行済みの参考データ」としてコメント付きで残してある（現在は未参照）。削除して構わない。
+
+---
+
 ## 2026-08-13 — パスワード再設定（パスワードを忘れた場合）機能の追加
 
 - **修正目的**: PC Builds Hub にログイン機能はあるが、パスワードを忘れた利用者が自力で復旧できなかった。Supabase Auth の標準機能でパスワード再設定フローを追加する。

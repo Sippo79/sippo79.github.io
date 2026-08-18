@@ -1,7 +1,8 @@
 // GPU GUIDE Service Worker
 // キャッシュバージョンを上げるとデプロイ時に古いキャッシュが自動削除されます
 // v3: OGP・manifest・icon 刷新に合わせてキャッシュリストを更新
-const CACHE_NAME = 'gpu-guide-v3';
+// v4: 購入リンクを共通アフィリエイト基盤(shared/affiliate)へ移行
+const CACHE_NAME = 'gpu-guide-v4';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -12,7 +13,11 @@ const ASSETS_TO_CACHE = [
   './script.js',
   './gpu-detail.js',
   './affiliate-links.js',
-  './affiliate-master.json',
+  // 共通アフィリエイト基盤（サイト横断で共有。パスは絶対）
+  '/shared/affiliate/affiliate-config.js',
+  '/shared/affiliate/affiliate.js',
+  '/shared/affiliate/affiliate.css',
+  '/shared/affiliate/affiliate-master.json',
   './gpus.json',
   './cpu-recommendations.json',
   './site.webmanifest',

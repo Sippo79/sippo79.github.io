@@ -23,6 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
 
   <!-- OGP -->
   <meta property="og:title" content="PC BUILD CHECK | 初心者向けゲーミングPC構成診断" />
@@ -100,7 +101,7 @@
   </script>
 
 </head>
-<body>
+<body data-sippo-theme="dark">
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
@@ -257,29 +258,17 @@
 
         <div id="affiliate-section" class="affiliate-section hidden">
           <p class="section-label">おすすめ購入先</p>
-          <h3 class="affiliate-title">診断結果に近い購入先を確認する</h3>
-          <div class="affiliate-buttons">
-            <a id="affiliate-bto" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              このスペックに近いBTOパソコンを探す
-            </a>
-            <a id="affiliate-amazon" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              AmazonでPCパーツを見る
-            </a>
-            <a id="affiliate-rakuten" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              楽天でPCパーツを見る
-            </a>
-            <a id="affiliate-monitor" class="affiliate-button" href="#" target="_blank" rel="nofollow sponsored noopener noreferrer">
-              ゲーミングモニターも確認する
-            </a>
-          </div>
+          <h3 class="affiliate-title">診断結果のパーツの価格を見る</h3>
+
+          <!-- 中身は script.js が共通アフィリエイト基盤で描画する。
+               商品を特定できないパーツはリンクを出さない（誤リンク防止）。 -->
+          <div id="affiliate-result-links"></div>
+
           <p class="affiliate-description">
-            診断結果をもとに、近い構成や必要なパーツを確認できます。
-          </p>
-          <p class="affiliate-link-note">
-            ※ 一部リンクは検索ページへ移動します。順次最適化予定です。
+            診断結果に含まれるパーツの、実際の販売価格を確認できます。価格は変動するため各ショップでご確認ください。
           </p>
           <p class="affiliate-footnote">
-            当サイトではアフィリエイト広告を利用しています。リンク先で商品を購入すると、運営者に収益が発生する場合があります。
+            【PR】当サイトはアフィリエイト広告を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。
           </p>
         </div>
 
@@ -606,6 +595,7 @@
 
   <footer class="site-footer">
     <div class="container">
+      <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       <p>&copy; 2026 PC BUILD CHECK</p>
     </div>
   </footer>
@@ -623,6 +613,10 @@
     </div>
   </div>
 
+  <!-- 共通アフィリエイト基盤（shared/affiliate）。設定→本体→利用側の順 -->
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/affiliate/affiliate-recommend.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

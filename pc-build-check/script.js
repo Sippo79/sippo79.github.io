@@ -4,27 +4,21 @@ const affiliateSection = document.querySelector("#affiliate-section");
 const popularJumpSection = document.querySelector("#popular-jump-section");
 const popularJumpButton = document.querySelector("#popular-jump-button");
 const popularBuildsSection = document.querySelector("#popular-builds");
-const affiliateButtons = {
-  bto: document.querySelector("#affiliate-bto"),
-  amazon: document.querySelector("#affiliate-amazon"),
-  rakuten: document.querySelector("#affiliate-rakuten"),
-  monitor: document.querySelector("#affiliate-monitor"),
-};
+// 診断結果の購入導線を描画する箱（中身は共通基盤が生成する）
+const affiliateResultBox = document.querySelector("#affiliate-result-links");
 
-const affiliateLinks = {
-  bto: "",
-  amazonParts: "",
-  rakutenParts: "",
-  monitor: "",
-};
-
-const affiliateFallbackLinks = {
-  bto: "https://www.dospara.co.jp/TC30",
-  amazonParts: "https://www.amazon.co.jp/s?k=グラフィックボード",
-  rakutenParts: "https://search.rakuten.co.jp/search/mall/グラフィックボード/",
-  monitor: "https://www.amazon.co.jp/s?k=ゲーミングモニター",
-};
-
+// ============================================================
+// [参考データ] 旧方式のアフィリエイトリンク定義
+//
+// これらのURLは shared/affiliate/affiliate-master.json へ
+// すべて取り込み済みです（既存リンクは失われていません）。
+// 現在の購入導線は共通基盤 SippoAffiliate が商品マスターから
+// 生成するため、以下の定義は参照されていません。
+//
+// URLの追加・変更は shared/affiliate/affiliate-master.json を
+// 編集してください（このファイルではありません）。
+// 移行確認が完了したら、この定義ブロックは削除して構いません。
+// ============================================================
 const gpuAffiliateLinks = [
   {
     match: ["rtx 3050"],
@@ -281,53 +275,44 @@ const whyThisBuildMessages = {
 
 let builds = [];
 
+// 診断結果の購入導線は共通アフィリエイト基盤（shared/affiliate）が描画する。
+// 旧方式（#affiliate-amazon 等の固定ボタン）は使わず、診断された構成の
+// 各パーツごとにリンクを出す。商品を特定できないパーツは出さない。
+
+/** 共通基盤の読み込みを開始する（失敗してもページは壊さない） */
 function setupAffiliateLinks() {
-  affiliateButtons.bto.href = getAffiliateUrl(affiliateLinks.bto, affiliateFallbackLinks.bto);
-  affiliateButtons.amazon.href = getAffiliateUrl(
-    affiliateLinks.amazonParts,
-    affiliateFallbackLinks.amazonParts
-  );
-  affiliateButtons.rakuten.href = getAffiliateUrl(
-    affiliateLinks.rakutenParts,
-    affiliateFallbackLinks.rakutenParts
-  );
-  affiliateButtons.monitor.href = getAffiliateUrl(affiliateLinks.monitor, affiliateFallbackLinks.monitor);
+  if (window.SippoAffiliate) {
+    window.SippoAffiliate.init().catch(() => false);
+  }
 }
 
+/**
+ * 診断結果の構成から購入導線を描画する。
+ * 出せる商品が1件も無ければセクションを非表示のままにする。
+ * @returns {boolean} 描画できたか
+ */
 function updateAffiliateLinksForBuild(build) {
-  const normalizedGpu = normalizeText(build.gpu);
-  const gpuLink = gpuAffiliateLinks.find((link) => {
-    const isMatched = link.match.some((keyword) => normalizedGpu.includes(keyword));
-    const isExcluded = link.exclude?.some((keyword) => normalizedGpu.includes(keyword));
-    return isMatched && !isExcluded;
-  });
+  if (!affiliateResultBox || !window.SippoAffiliate) return false;
 
-  affiliateButtons.bto.href = getAffiliateUrl(gpuLink?.bto || affiliateLinks.bto, affiliateFallbackLinks.bto);
-  affiliateButtons.amazon.href = getAffiliateUrl(
-    gpuLink?.amazon || affiliateLinks.amazonParts,
-    affiliateFallbackLinks.amazonParts
+  const html = window.SippoAffiliate.renderProductList(
+    [
+      { label: "GPU", name: build.gpu },
+      { label: "CPU", name: build.cpu },
+    ],
+    {
+      page: "pc-build-check",
+      placement: "build-result",
+      disclosure: false, // 広告表記はセクション下部に1回だけ出す
+    }
   );
-  affiliateButtons.rakuten.href = getAffiliateUrl(
-    gpuLink?.rakuten || affiliateLinks.rakutenParts,
-    affiliateFallbackLinks.rakutenParts
-  );
-  affiliateButtons.monitor.href = getAffiliateUrl(
-    gpuLink?.monitor || affiliateLinks.monitor,
-    affiliateFallbackLinks.monitor
-  );
+
+  affiliateResultBox.innerHTML = html;
+  return Boolean(html);
 }
 
 function toggleAffiliateSection(isVisible) {
   affiliateSection.classList.toggle("hidden", !isVisible);
   popularJumpSection.classList.toggle("hidden", !isVisible);
-}
-
-function getAffiliateUrl(url, fallbackUrl) {
-  if (!url || url === "#" || url.includes("example.com")) {
-    return fallbackUrl;
-  }
-
-  return url;
 }
 
 function normalizeText(value) {
@@ -670,7 +655,8 @@ form.addEventListener("submit", async (e) => {
     performanceProfile.fps[resolution] || performanceProfile.fps.fhd || defaultPerformanceProfile.fps.fhd;
   const selectedResolutionLabel = getResolutionLabel(resolution);
   const gpuGuideUrl = createGpuGuideUrl(result.gpu);
-  updateAffiliateLinksForBuild(result);
+  // 購入導線を描画。出せる商品が無ければ false → セクションは出さない
+  const hasAffiliateLinks = updateAffiliateLinksForBuild(result);
 
   const whyMessage = getWhyMessage(usage, resolution, result.gpu);
   const comfortMessage = getComfortMessage(usage, resolution);
@@ -764,7 +750,10 @@ form.addEventListener("submit", async (e) => {
     </div>
   `;
 
-  toggleAffiliateSection(true);
+  // 購入リンクが1つも無いときはセクションを出さない（空の枠を残さない）。
+  // 「人気構成ランキングへ」ボタンは購入リンクの有無に関係なく出す。
+  affiliateSection.classList.toggle("hidden", !hasAffiliateLinks);
+  popularJumpSection.classList.remove("hidden");
 
   resultArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
 

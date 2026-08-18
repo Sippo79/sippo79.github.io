@@ -59,7 +59,16 @@ PC構成診断・GPU比較・ゲーム別おすすめPC・PC構成投稿・PC購
 ```
 
 補足:
-- `shared/` 内は `affiliate/`（`affiliate-master.json` ほか）が中身あり。`shared/gpu/`・`shared/templates/` は現状ほぼ空（将来用）。
+- `shared/affiliate/` = **サイト全体のアフィリエイト共通基盤**（2026-08-18〜）。
+  Amazon・楽天の購入導線はすべてここに集約されている。**URLの追加・変更はこのフォルダの
+  `affiliate-master.json` だけを編集**すれば全サイトに反映される（各HTMLに直書きしないこと）。
+  詳しい管理方法・実装方式の根拠は **`shared/affiliate/README.md`** を参照。
+  - `affiliate-master.json` … 商品マスター（★ここを編集する）
+  - `affiliate-config.js` … アソシエイトID / 楽天アフィリエイトID（**公開してよい値のみ**。秘密鍵は置かない）
+  - `affiliate.js` … リンク生成・商品名の表記ゆれ吸収・共通UI・GA4クリック計測
+  - `affiliate-recommend.js` … アップグレード提案（今のGPU→おすすめ）
+  - `affiliate.css` … 購入ボタン共通スタイル（暗いサイトは `<body data-sippo-theme="dark">` が必要）
+- `shared/gpu/`・`shared/templates/` は現状ほぼ空（将来用）。
 - 各子サイトは基本的に `index.html` / `style.css` / `script.js`（または `main.js`）と、データ用 `*.json`、SEO 用 `robots.txt` / `sitemap.xml` / `llms.txt` を持つ独立サイト構成です。
 
 ---

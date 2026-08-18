@@ -1,4 +1,5 @@
-const CACHE_VERSION = 'v1';
+// v2: 購入導線を共通アフィリエイト基盤(shared/affiliate)へ移行
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 
@@ -11,6 +12,12 @@ const PRECACHE_ASSETS = [
   '/game-pc-guide/data/games.json',
   '/game-pc-guide/offline.html',
   '/game-pc-guide/images/favicon.png',
+  '/game-pc-guide/game-affiliate.js',
+  // 共通アフィリエイト基盤（サイト横断で共有）
+  '/shared/affiliate/affiliate-config.js',
+  '/shared/affiliate/affiliate.js',
+  '/shared/affiliate/affiliate.css',
+  '/shared/affiliate/affiliate-master.json',
 ];
 
 // Install: precache core assets

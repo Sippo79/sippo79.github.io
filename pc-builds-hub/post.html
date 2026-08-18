@@ -12,6 +12,7 @@
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://sippo-pc.jp/pc-builds-hub/post.html" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="icon" href="images/icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#19e3ff" />
@@ -27,7 +28,7 @@
   </script>
 
 </head>
-<body class="post-detail-page">
+<body class="post-detail-page" data-sippo-theme="dark">
 
 <header class="site-header">
   <div class="container header-inner">
@@ -49,11 +50,20 @@
   </div>
 </main>
 
+<footer class="page-footer">
+  <p class="page-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+  &copy; 2026 PC Builds Hub. All rights reserved.
+</footer>
+
 <!-- Supabase（任意）: config はダミー値の間 posts.json で動作。詳細は SETUP_SUPABASE.md -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script src="api.js"></script>
 <script src="auth.js"></script>
+<!-- 共通アフィリエイト基盤（shared/affiliate）。post.js より前に読む -->
+<script src="/shared/affiliate/affiliate-config.js"></script>
+<script src="/shared/affiliate/affiliate.js"></script>
+<script src="/shared/affiliate/affiliate-recommend.js"></script>
 <script src="post.js"></script>
 <script src="sw-register.js"></script>
 </body>

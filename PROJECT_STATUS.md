@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-07-27（pc-consult に1,500円「ゲーム向けPC構成・購入相談」＝ココナラ導線を追加・受付開始）
+最終更新: 2026-08-18（サイト全体に Amazon＋楽天の共通アフィリエイト基盤 `shared/affiliate/` を実装）
 
 ---
 
@@ -73,7 +73,42 @@
   - 各サイトの `generate-sitemap.ps1` / `.js`
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
 - **申し込み導線**: PC相談室の500円ワンコイン相談は **Squareの決済リンク**へ誘導。Square側で決済完了後にGoogleフォームへ自動遷移する設定が完了済み（フォーム送信まで完了して受付完了）。サイト側に決済機能・カートは実装していない（Square側の既存決済リンクへの外部遷移のみ）。無料の事前問い合わせは引き続きGoogleフォーム直リンク。
-- **アフィリエイト**: `shared/affiliate/affiliate-master.json` 等で管理
+- **アフィリエイト**: **共通基盤 `shared/affiliate/`**（2026-08-18〜）
+  - `affiliate-master.json` … 商品マスター（**URL追加・変更はここだけを編集**。全サイトへ反映）
+  - `affiliate-config.js` … アソシエイトID / 楽天アフィリエイトID（**公開してよい値のみ**）
+  - `affiliate.js` … リンク生成・商品名の表記ゆれ吸収・共通UI・クリック計測
+  - `affiliate-recommend.js` … アップグレード提案（今のGPU→おすすめ）
+  - `affiliate.css` … 購入ボタン共通スタイル（暗いサイトは `<body data-sippo-theme="dark">`）
+  - 詳しい管理方法は `shared/affiliate/README.md`
+
+---
+
+## 3-2. アフィリエイト（サイト全体 / 2026-08-18〜）
+
+- **方式**: **実行時に外部APIを呼ばない**。アフィリエイトID付きURLをその場で組み立てる。
+  - **Amazon PA-API は未使用** … 利用条件が「直近30日以内に3件以上の適格販売」。実績を作るまで使えない。
+  - **楽天の商品検索APIは未使用** … 2026年の仕様変更で秘密鍵 `accessKey` が必須になり、
+    静的サイト（GitHub Pages）のフロントからは安全に呼べないため。
+  - 結果として **APIキーが無くてもサイトは完全に動く**。API障害の影響も受けない。
+- **リンクの優先順位**:
+  - Amazon: ①商品マスターの個別URL（既存の `amzn.to`）→ ②ASIN から `/dp/{ASIN}/ref=nosim?tag=` → ③キーワード検索
+  - 楽天: ①商品マスターの個別URL（既存の `a.r10.to`）→ ②楽天市場の検索URL（IDがあれば `hb.afl.rakuten.co.jp` でラップ）
+- **導入済みサイト**: GPU GUIDE（GPU詳細）/ GAME PC GUIDE（ゲーム別25ページ）/
+  PC BUILD CHECK（診断結果＋構成詳細75ページ）/ PC Builds Hub（投稿詳細）。
+  PC相談は基盤の読み込みのみで、**相談メニュー・料金・申し込み導線は変更していない**。
+- **クリック計測**: 既存GA4（`G-NDQ8GTKGHC`）に `affiliate_click` イベント。
+  `product_id` / `product_name` / `shop` / `page` / `placement` / `link_url` / `page_path` を送る。
+  `placement` で「どの位置のリンクが押されるか」を分析できる。
+- **⚠️ 守るべきルール**:
+  - **URLの追加・変更は `shared/affiliate/affiliate-master.json` だけを編集**する。各HTMLに直書きしない。
+  - **`affiliate-config.js` に秘密情報を書かない**。Amazon の Secret Key、楽天の `accessKey` は
+    フロントに置けない（必要になったら Supabase Edge Functions の環境変数へ）。
+  - **価格をHTMLに固定表示しない**（古い価格が残る事故を防ぐ）。
+  - **Amazon / 楽天の商品画像は使わない**。既存画像＋購入ボタンのみ。
+  - **誤リンクするくらいならリンクを出さない**。商品を特定できない場合は非表示が正しい動作。
+  - **規約違反のスクレイピングはしない**。
+- **広告表記**: 景表法のステマ規制・Amazonアソシエイト規約に対応し、
+  親サイト＋子サイト105ページのフッターと購入ボタン直下に表示済み。
 
 ---
 
@@ -120,6 +155,9 @@
 優先度: **A=早めに対応 / B=できれば対応 / C=様子見・将来対応**
 
 ### 優先度A
+- **`shared/affiliate/affiliate-config.js` に Amazon アソシエイトID と 楽天アフィリエイトID を入力**する（ユーザー側で実施）。
+  未入力でもサイトは正常に動くが、検索フォールバック経由のリンクが**タグ無し＝収益にならない**。
+  既存の `amzn.to` / `a.r10.to` 短縮リンクはIDが埋め込み済みなので影響なし。
 - **Search Console に `https://sippo-pc.jp/sitemap.xml` を再送信**し、認識を確認する（インデックス化後の反映確認。ユーザー側で実施）。
 
 ### 優先度B
@@ -157,6 +195,8 @@ GitHub Pages（本番）への反映状況。「本番反映済み」= 公開URL
 | pc-build-check ogp.jpg の 1200x630 化 | ❌ 未対応 |
 | pc-consult 500円相談のSquare決済リンク化 | ⏳ コミット・push待ち（本番未反映） |
 | pc-consult 1,500円 ゲーム向けPC構成・購入相談（ココナラ導線）の追加 | ⏳ コミット・push待ち（本番未反映） |
+| 共通アフィリエイト基盤 `shared/affiliate/` の実装 | ⏳ コミット・push待ち（本番未反映） |
+| アフィリエイトID（Amazon / 楽天）の入力 | ❌ 未入力（ユーザー側で `affiliate-config.js` へ） |
 
 ---
 

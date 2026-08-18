@@ -264,6 +264,58 @@ function renderConsultCard(post) {
 }
 
 // スペックの読み替え説明（初心者向け・静的）
+/**
+ * 投稿された構成に含まれるパーツの購入導線を描画する。
+ *
+ * ⚠️ ここはユーザーが自由入力した文字列を扱うため、誤リンクの危険が最も高い。
+ *    そのため共通基盤側で「商品を確実に特定できたものだけ」を返す設計にしており、
+ *    少しでもあいまいなものはリンクを出さない（＝出ないのが正しい動作）。
+ *
+ * 表示できる商品が1件も無ければ空文字を返し、セクションごと出さない。
+ */
+function renderPartsAffiliate(post) {
+  if (!window.SippoAffiliate || !window.SippoAffiliate.isReady()) return "";
+
+  // 型番が明確なパーツのみ対象。ケースや電源は投稿の表記ゆれが大きく、
+  // 商品マスターで特定できないことが多いので無理にリンクしない。
+  const items = [
+    { label: "CPU", name: post.cpu },
+    { label: "GPU", name: post.gpu },
+  ].filter((item) => item.name);
+
+  if (items.length === 0) return "";
+
+  const html = window.SippoAffiliate.renderProductList(items, {
+    page: "pc-builds-hub",
+    placement: "post-detail-parts",
+  });
+
+  // この構成のGPUから、乗り換え候補があれば併せて提案する
+  // （提案できない＝十分新しい / 特定できない 場合は空文字）
+  const upgradeHtml = window.SippoRecommend
+    ? window.SippoRecommend.renderUpgrade({
+        currentGpu: post.gpu,
+        page: "pc-builds-hub",
+        placement: "post-detail-upgrade",
+        heading: "この構成からアップグレードするなら",
+      })
+    : "";
+
+  if (!html && !upgradeHtml) return "";
+
+  return `
+    <section class="post-detail-section">
+      <h2>同じパーツの価格を見る</h2>
+      <p class="post-detail-note">
+        この構成で使われているパーツのうち、型番を特定できたものだけを表示しています。
+        価格は変動するため各ショップでご確認ください。
+      </p>
+      ${html}
+      ${upgradeHtml}
+    </section>
+  `;
+}
+
 function renderSpecGuide() {
   const items = [
     ["🧠", "CPU", "PC全体の処理を担当する部品。動作の速さに関わります。"],
@@ -433,6 +485,7 @@ function renderPost(post, index = 0) {
     const deferredHtml =
       renderBenchmarkSection(post) +
       renderCommentSection(post) +
+      renderPartsAffiliate(post) +
       renderSpecGuide() +
       renderConsultCard(post) +
       renderSippoCard();
@@ -529,12 +582,21 @@ async function runPostDetailPage() {
       return;
     }
 
+    // 購入導線用の商品マスターを、投稿の取得と並行して読み込んでおく。
+    // 失敗しても reject しないので、投稿表示には一切影響しない。
+    const affiliateReady = window.SippoAffiliate
+      ? window.SippoAffiliate.init().catch(() => false)
+      : Promise.resolve(false);
+
     const post = await loadPostById(id);
 
     if (!post) {
       renderMessageCard("構成が見つかりませんでした", "URL の id を確認してください。");
       return;
     }
+
+    // 遅延描画（renderPartsAffiliate）より前にマスターを揃えておく
+    await affiliateReady;
 
     renderPost(post);
   } catch (error) {

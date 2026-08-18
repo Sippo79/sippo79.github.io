@@ -1,0 +1,328 @@
+/* =====================================================================
+ *  シッポPC 共通アフィリエイトUI (affiliate.css)
+ *  ---------------------------------------------------------------------
+ *  affiliate.js の renderAffiliateButtons() が出すHTMLのスタイル。
+ *
+ *  【方針】
+ *   - クラス名は sippo-aff- で始める（既存サイトのCSSと衝突させない）。
+ *   - 明るいサイト（親サイト / pc-consult）と暗いサイト（gpu-guide /
+ *     game-pc-guide / pc-build-check）の両方で読めるよう、色は
+ *     CSS変数で定義し、暗い背景側は自動で切り替える。
+ *   - 既存のレイアウトを壊さないよう、外側にマージンを持ちすぎない。
+ * ===================================================================== */
+
+.sippo-aff,
+.sippo-aff-list {
+  /* --- 明るい背景での既定色 --- */
+  --sippo-aff-bg: rgba(255, 255, 255, 0.9);
+  --sippo-aff-border: rgba(120, 130, 170, 0.28);
+  --sippo-aff-text: #2b3040;
+  --sippo-aff-muted: #6b7288;
+  --sippo-aff-shadow: 0 2px 10px rgba(60, 70, 110, 0.08);
+  --sippo-aff-shadow-hover: 0 6px 18px rgba(60, 70, 110, 0.16);
+  --sippo-aff-amazon: #ff9900;
+  --sippo-aff-rakuten: #bf0000;
+  --sippo-aff-yahoo: #ff0033;
+
+  margin: 16px 0 0;
+}
+
+/* --- 暗い背景のサイト向け（body 側のクラス／data属性で切り替え） ---
+   各サイトの <body> に data-sippo-theme="dark" を付けると暗色になる。 */
+[data-sippo-theme='dark'] .sippo-aff,
+[data-sippo-theme='dark'] .sippo-aff-list,
+.sippo-aff-dark .sippo-aff,
+.sippo-aff-dark .sippo-aff-list,
+.sippo-aff.sippo-aff-dark,
+.sippo-aff-list.sippo-aff-dark {
+  --sippo-aff-bg: rgba(255, 255, 255, 0.06);
+  --sippo-aff-border: rgba(255, 255, 255, 0.16);
+  --sippo-aff-text: #eef1f8;
+  --sippo-aff-muted: rgba(238, 241, 248, 0.62);
+  --sippo-aff-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  --sippo-aff-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------------
+ *  見出し
+ * --------------------------------------------------------------- */
+.sippo-aff-heading {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sippo-aff-muted);
+}
+
+/* ---------------------------------------------------------------
+ *  ボタンの並び
+ *  auto-fit なので、ボタンが1つでも2つでも自然に収まる。
+ * --------------------------------------------------------------- */
+.sippo-aff-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+/* ---------------------------------------------------------------
+ *  購入ボタン本体
+ * --------------------------------------------------------------- */
+.sippo-aff-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid var(--sippo-aff-border);
+  border-left: 4px solid var(--sippo-aff-border);
+  border-radius: 12px;
+  background: var(--sippo-aff-bg);
+  box-shadow: var(--sippo-aff-shadow);
+  color: var(--sippo-aff-text);
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.sippo-aff-btn:hover,
+.sippo-aff-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--sippo-aff-shadow-hover);
+}
+
+.sippo-aff-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ショップごとの識別色（左のラインだけ色を付ける＝広告臭くしすぎない） */
+.sippo-aff-btn-amazon { border-left-color: var(--sippo-aff-amazon); }
+.sippo-aff-btn-rakuten { border-left-color: var(--sippo-aff-rakuten); }
+.sippo-aff-btn-yahoo { border-left-color: var(--sippo-aff-yahoo); }
+
+.sippo-aff-btn-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.sippo-aff-btn-note {
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--sippo-aff-muted);
+}
+
+/* ---------------------------------------------------------------
+ *  コンパクト表示（PC構成の各パーツ横に並べるとき）
+ * --------------------------------------------------------------- */
+.sippo-aff-compact {
+  margin: 8px 0 0;
+}
+
+.sippo-aff-compact .sippo-aff-buttons {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.sippo-aff-compact .sippo-aff-btn {
+  padding: 8px 11px;
+  border-radius: 10px;
+}
+
+.sippo-aff-compact .sippo-aff-btn-label {
+  font-size: 0.84rem;
+}
+
+.sippo-aff-compact .sippo-aff-btn-note {
+  font-size: 0.68rem;
+}
+
+/* ---------------------------------------------------------------
+ *  複数商品リスト（PC構成のパーツ一覧）
+ * --------------------------------------------------------------- */
+.sippo-aff-row + .sippo-aff-row {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sippo-aff-border);
+}
+
+.sippo-aff-row-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.sippo-aff-row-label {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--sippo-aff-border);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sippo-aff-text);
+}
+
+.sippo-aff-row-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--sippo-aff-text);
+}
+
+/* ---------------------------------------------------------------
+ *  広告表記（PR表示）
+ *  法令上必要な表示なので、小さくしすぎず読める大きさを保つ。
+ * --------------------------------------------------------------- */
+.sippo-aff-disclosure {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--sippo-aff-muted);
+}
+
+/* ---------------------------------------------------------------
+ *  スマホ
+ * --------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .sippo-aff-buttons,
+  .sippo-aff-compact .sippo-aff-buttons {
+    /* 横に詰めると押しにくいので、スマホでは1列にする */
+    grid-template-columns: 1fr;
+  }
+
+  .sippo-aff-btn {
+    padding: 11px 13px;
+  }
+
+  .sippo-aff-btn-label {
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+ *  アニメーションを減らす設定への配慮
+ * --------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .sippo-aff-btn {
+    transition: none;
+  }
+
+  .sippo-aff-btn:hover,
+  .sippo-aff-btn:focus-visible {
+    transform: none;
+  }
+}
+
+/* =====================================================================
+ *  アップグレード提案カード (affiliate-recommend.js が出すHTML)
+ *  「今のGPU → おすすめ → 期待できる改善 → 購入ボタン」の並び。
+ * ===================================================================== */
+
+.sippo-upgrade {
+  --sippo-aff-bg: rgba(255, 255, 255, 0.9);
+  --sippo-aff-border: rgba(120, 130, 170, 0.28);
+  --sippo-aff-text: #2b3040;
+  --sippo-aff-muted: #6b7288;
+  --sippo-aff-shadow: 0 2px 10px rgba(60, 70, 110, 0.08);
+  --sippo-aff-shadow-hover: 0 6px 18px rgba(60, 70, 110, 0.16);
+  --sippo-aff-amazon: #ff9900;
+  --sippo-aff-rakuten: #bf0000;
+  --sippo-aff-yahoo: #ff0033;
+
+  margin: 16px 0 0;
+  padding: 16px;
+  border: 1px solid var(--sippo-aff-border);
+  border-radius: 14px;
+  background: var(--sippo-aff-bg);
+}
+
+[data-sippo-theme='dark'] .sippo-upgrade {
+  --sippo-aff-bg: rgba(255, 255, 255, 0.06);
+  --sippo-aff-border: rgba(255, 255, 255, 0.16);
+  --sippo-aff-text: #eef1f8;
+  --sippo-aff-muted: rgba(238, 241, 248, 0.62);
+  --sippo-aff-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  --sippo-aff-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.sippo-upgrade-heading {
+  margin: 0 0 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sippo-aff-muted);
+}
+
+.sippo-upgrade-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.sippo-upgrade-item {
+  flex: 1 1 160px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sippo-upgrade-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sippo-aff-muted);
+}
+
+.sippo-upgrade-value {
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--sippo-aff-text);
+  /* 長い製品名でも横スクロールを起こさない */
+  overflow-wrap: anywhere;
+}
+
+.sippo-upgrade-item-rec .sippo-upgrade-value {
+  color: var(--sippo-aff-text);
+}
+
+.sippo-upgrade-arrow {
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  color: var(--sippo-aff-muted);
+}
+
+.sippo-upgrade-rating {
+  margin: 12px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--sippo-aff-text);
+}
+
+.sippo-upgrade-stars {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: #f5a623;
+}
+
+.sippo-upgrade-note {
+  font-size: 0.78rem;
+  color: var(--sippo-aff-muted);
+}
+
+@media (max-width: 600px) {
+  /* スマホでは横矢印だと窮屈なので、縦並びにして矢印を下向きにする */
+  .sippo-upgrade-grid {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .sippo-upgrade-arrow {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+}

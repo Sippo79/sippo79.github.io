@@ -38,28 +38,24 @@ async function loadGpuDetail() {
 
   showDetailSkeleton();
 
-  // affiliate-master.json は gpu-guide フォルダ内に直接配置する方式
-  // （shared/ フォルダは編集の source of truth。デプロイ前にここへコピーする）
-  const AFFILIATE_MASTER_PATH = "./affiliate-master.json";
+  // 購入リンクは共通アフィリエイト基盤（shared/affiliate）が担当する。
+  // ここでは init() を待つだけ。読み込みに失敗しても reject しないので、
+  // 購入リンクが消えるだけでページ本体は通常どおり表示される。
+  const affiliateReady = window.SippoAffiliate
+    ? window.SippoAffiliate.init().catch(() => false)
+    : Promise.resolve(false);
 
   try {
-    const [gpusRes, cpuRes, masterRes] = await Promise.all([
+    const [gpusRes, cpuRes] = await Promise.all([
       fetch("gpus.json"),
       fetch("cpu-recommendations.json"),
-      fetch(AFFILIATE_MASTER_PATH),
     ]);
 
     if (!gpusRes.ok) throw new Error("GPUデータの読み込みに失敗しました");
 
     allGpus = await gpusRes.json();
     const cpuData = cpuRes.ok ? await cpuRes.json() : {};
-    // masterRes が失敗してもページ全体は崩れない（null で graceful fallback）
-    const masterData = masterRes.ok ? await masterRes.json() : null;
-
-    // デバッグ: アフィリエイトデータの読み込み状況を確認
-    if (!masterData) {
-      console.warn("[GPU GUIDE] affiliate-master.json の読み込みに失敗しました。購入リンクが非表示になります。", AFFILIATE_MASTER_PATH);
-    }
+    await affiliateReady;
 
     const gpu = allGpus.find((item) => item.id === gpuId);
 
@@ -68,7 +64,7 @@ async function loadGpuDetail() {
       return;
     }
 
-    renderGpuDetail(gpu, cpuData, masterData);
+    renderGpuDetail(gpu, cpuData);
   } catch (error) {
     gpuDetail.innerHTML = `
       <div class="empty-message">
@@ -269,13 +265,19 @@ function renderCpuSection(gpu, cpuData) {
   `;
 }
 
-function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
+function renderGpuDetail(gpu, cpuData = {}) {
   const rasterScore = getGpuRasterScore(gpu);
   const overallScore = getGpuScore(gpu);
   const rank = getRank(rasterScore);
-  // shared/affiliate/affiliate-master.json 参照方式（新方式）
-  const purchaseLinks = window.gpuGuideAffiliate.renderPurchaseSearchLinksFromMaster(gpu.name, masterData);
-  const affiliateDisclosure = window.gpuGuideAffiliate.renderAffiliateDisclosure();
+  // 購入導線は共通基盤（SippoAffiliate）が生成する。
+  // 商品を特定できない／リンクが1つも無い場合は空文字が返る
+  //  → 下の purchaseSection ごと非表示にする（壊れたボタンを出さない）。
+  const purchaseButtons = window.SippoAffiliate
+    ? window.SippoAffiliate.renderAffiliateButtonsByName(gpu.name, {
+        page: "gpu-guide",
+        placement: "gpu-detail-purchase",
+      })
+    : "";
   const tagHtml = renderGpuTags(gpu.tags);
 
   updateOgp(gpu);
@@ -363,19 +365,17 @@ function renderGpuDetail(gpu, cpuData = {}, masterData = null) {
 
     ${renderUsedCautionSection(gpu)}
 
-    <section class="section purchase-section">
-      <div class="section-heading">
-        <p class="section-label">SHOP SEARCH</p>
-        <h2>おすすめ購入先</h2>
-        <p>${gpu.name} のGPU単体、搭載BTOパソコン、相性のよいモニターを検索できます。</p>
-      </div>
+    ${purchaseButtons ? `
+      <section class="section purchase-section">
+        <div class="section-heading">
+          <p class="section-label">SHOP SEARCH</p>
+          <h2>${gpu.name} の価格を確認する</h2>
+          <p>スペックを確認したうえで、実際の販売価格をチェックできます。価格は変動するため各ショップでご確認ください。</p>
+        </div>
 
-      <div class="purchase-link-grid">
-        ${purchaseLinks}
-      </div>
-
-      ${affiliateDisclosure}
-    </section>
+        ${purchaseButtons}
+      </section>
+    ` : ""}
 
     <section class="section">
       <div class="gpu-detail-extra-grid">

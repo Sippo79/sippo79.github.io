@@ -1820,3 +1820,13 @@ body {
   }
   html { scroll-behavior: auto !important; }
 }
+
+/* アフィリエイト広告の表示（景表法のステマ規制対応）。
+   法令上必要な表示なので、読める大きさを保つこと。 */
+.site-footer__affiliate-note {
+  max-width: 760px;
+  margin: 0 auto 10px;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  opacity: 0.75;
+}

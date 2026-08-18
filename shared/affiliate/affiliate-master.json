@@ -1,341 +1,3285 @@
 {
-  "gpus": {
-    "rtx5090": {
-      "name": "GeForce RTX 5090",
-      "amazon": "https://amzn.to/4dtIlwP",
-      "rakuten": "https://a.r10.to/h8WZ1x",
-      "yahoo": "https://yahoo.jp/t5UQrN",
-      "status": "active"
-    },
-    "rtx5080": {
-      "name": "GeForce RTX 5080",
-      "amazon": "https://amzn.to/4dIIhIs",
-      "rakuten": "https://a.r10.to/hko5fa",
-      "yahoo": "https://yahoo.jp/gUAiP8",
-      "status": "active"
-    },
-    "rtx5070ti": {
-      "name": "GeForce RTX 5070 Ti",
-      "amazon": "https://amzn.to/42RGjAw",
-      "rakuten": "https://a.r10.to/hPcwmv",
-      "yahoo": "https://yahoo.jp/J4_fuy",
-      "status": "active"
-    },
-    "rtx5070": {
-      "name": "GeForce RTX 5070",
-      "amazon": "https://amzn.to/xxxxx",
-      "rakuten": "https://a.r10.to/hkSdhv",
-      "yahoo": "https://yahoo.jp/BRuvXb",
-      "status": "active"
-    },
-    "rtx5060ti": {
-      "name": "GeForce RTX 5060 Ti",
-      "amazon": "https://amzn.to/3RrYUR9",
-      "rakuten": "https://a.r10.to/hFAAgo",
-      "yahoo": "https://yahoo.jp/S2sFeH",
-      "status": "active"
-    },
-    "rtx5060": {
-      "name": "GeForce RTX 5060",
-      "amazon": "https://amzn.to/49ODTWY",
-      "rakuten": "https://a.r10.to/hkpsZz",
-      "yahoo": "https://yahoo.jp/ztV_6C",
-      "status": "active"
-    },
-    "rtx4080super": {
-      "name": "GeForce RTX 4080 SUPER",
-      "amazon": "https://amzn.to/49fjwSO",
-      "rakuten": "https://a.r10.to/hkys0x",
-      "yahoo": "https://yahoo.jp/Lsec9X",
-      "status": "active"
-    },
-    "rtx4070tisuper": {
-      "name": "GeForce RTX 4070 Ti SUPER",
-      "amazon": "https://amzn.to/4f5qCgd",
-      "rakuten": "https://a.r10.to/h53CJ4",
-      "yahoo": "https://yahoo.jp/uVFwYk",
-      "status": "active"
-    },
-    "rtx4070super": {
-      "name": "GeForce RTX 4070 SUPER",
-      "amazon": "",
-      "rakuten": "https://a.r10.to/h5lHSz",
-      "yahoo": "https://yahoo.jp/NS8KBZ",
-      "status": "active"
-    },
-    "rtx4070": {
-      "name": "GeForce RTX 4070",
-      "amazon": "https://amzn.to/4dvaIe4",
-      "rakuten": "https://a.r10.to/h5lQoZ",
-      "yahoo": "https://yahoo.jp/ifhvFWv",
-      "status": "active"
-    },
-    "rtx4060ti": {
-      "name": "GeForce RTX 4060 Ti",
-      "amazon": "https://amzn.to/4f61LsH",
-      "rakuten": "https://a.r10.to/hFAAqX",
-      "yahoo": "https://yahoo.jp/9iTRo9",
-      "status": "active"
-    },
-    "rtx4060": {
-      "name": "GeForce RTX 4060",
-      "amazon": "https://amzn.to/3PGja0D",
-      "rakuten": "https://a.r10.to/hkGGfE",
-      "yahoo": "https://yahoo.jp/JsWemN",
-      "status": "active"
-    },
-    "rtx3080": {
-      "name": "GeForce RTX 3080",
-      "amazon": "https://amzn.to/3REumeT",
-      "rakuten": "https://a.r10.to/hPTDw0",
-      "yahoo": "https://yahoo.jp/4pmjAN",
-      "status": "active"
-    },
-    "rtx3070ti": {
-      "name": "GeForce RTX 3070 Ti",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
-    },
-    "rtx3070": {
-      "name": "GeForce RTX 3070",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+  "_meta": {
+    "description": "シッポPC 共通アフィリエイト商品マスター。全サイトがこの1ファイルを参照します。編集方法は shared/affiliate/README.md を参照。",
+    "version": 2,
+    "updatedAt": "2026-08-18",
+    "statusValues": {
+      "active": "個別アフィリエイトURLが設定済み。そのURLへリンクする。",
+      "search-only": "個別URLは未設定。アソシエイトID付きの検索URLへリンクする（誤商品リンクにならない安全な導線）。",
+      "preparing": "まだ表示したくない。ボタンを出さない。",
+      "paused": "一時的に非表示。ボタンを出さない。",
+      "discontinued": "終売。ボタンを出さない。"
+    }
+  },
+  "products": {
+    "rtx3060": {
+      "name": "GeForce RTX 3060",
+      "shortName": "RTX 3060",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3060",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4vfHO7x",
+        "asin": "",
+        "keyword": "GeForce RTX 3060"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3060"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
     "rtx3060ti": {
       "name": "GeForce RTX 3060 Ti",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+      "shortName": "RTX 3060 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3060 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 3060 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3060 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
     },
-    "rtx3060": {
-      "name": "GeForce RTX 3060",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+    "rtx3070": {
+      "name": "GeForce RTX 3070",
+      "shortName": "RTX 3070",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3070",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 3070"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3070"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
     },
-    "rx9070xt": {
-      "name": "Radeon RX 9070 XT",
-      "amazon": "https://amzn.to/4wOgOxo",
-      "rakuten": "https://a.r10.to/h5394b",
-      "yahoo": "https://yahoo.jp/_EQXSy",
-      "status": "active"
+    "rtx3070ti": {
+      "name": "GeForce RTX 3070 Ti",
+      "shortName": "RTX 3070 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3070 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 3070 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3070 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
     },
-    "rx9070": {
-      "name": "Radeon RX 9070",
-      "amazon": "https://amzn.to/49lJq7n",
-      "rakuten": "https://a.r10.to/hk2Oby",
-      "yahoo": "https://yahoo.jp/dmoCpX",
-      "status": "active"
+    "rtx3080": {
+      "name": "GeForce RTX 3080",
+      "shortName": "RTX 3080",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3080",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/3REumeT",
+        "asin": "",
+        "keyword": "GeForce RTX 3080"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hPTDw0",
+        "keyword": "GeForce RTX 3080"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/4pmjAN"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7900xtx": {
-      "name": "Radeon RX 7900 XTX",
-      "amazon": "https://amzn.to/4fECru3",
-      "rakuten": "https://a.r10.to/hgs8tW",
-      "yahoo": "https://yahoo.jp/mEWboU",
-      "status": "active"
+    "rtx4060": {
+      "name": "GeForce RTX 4060",
+      "shortName": "RTX 4060",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4060",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/3PGja0D",
+        "asin": "",
+        "keyword": "GeForce RTX 4060"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hkGGfE",
+        "keyword": "GeForce RTX 4060"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/JsWemN"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7900xt": {
-      "name": "Radeon RX 7900 XT",
-      "amazon": "https://amzn.to/4eZvZxw",
-      "rakuten": "https://a.r10.to/hPFmPH",
-      "yahoo": "https://yahoo.jp/ixo_TF",
-      "status": "active"
+    "rtx4060ti": {
+      "name": "GeForce RTX 4060 Ti",
+      "shortName": "RTX 4060 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4060 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4f61LsH",
+        "asin": "",
+        "keyword": "GeForce RTX 4060 Ti"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hFAAqX",
+        "keyword": "GeForce RTX 4060 Ti"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/9iTRo9"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7900gre": {
-      "name": "Radeon RX 7900 GRE",
-      "amazon": "https://amzn.to/4dskY6H",
-      "rakuten": "https://a.r10.to/h5wlC5",
-      "yahoo": "https://yahoo.jp/iDoC3K",
-      "status": "active"
+    "rtx4070": {
+      "name": "GeForce RTX 4070",
+      "shortName": "RTX 4070",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4070",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dvaIe4",
+        "asin": "",
+        "keyword": "GeForce RTX 4070"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h5lQoZ",
+        "keyword": "GeForce RTX 4070"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/ifhvFWv"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7800xt": {
-      "name": "Radeon RX 7800 XT",
-      "amazon": "https://amzn.to/4tQZZiM",
-      "rakuten": "https://a.r10.to/hgEfCo",
-      "yahoo": "https://yahoo.jp/sbnabe",
-      "status": "active"
+    "rtx4070super": {
+      "name": "GeForce RTX 4070 SUPER",
+      "shortName": "RTX 4070 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4070 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4nTl5vy",
+        "asin": "",
+        "keyword": "GeForce RTX 4070 SUPER"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h5lHSz",
+        "keyword": "GeForce RTX 4070 SUPER"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/NS8KBZ"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7700xt": {
-      "name": "Radeon RX 7700 XT",
-      "amazon": "https://amzn.to/4dZhzfM",
-      "rakuten": "https://a.r10.to/hgs8If",
-      "yahoo": "https://yahoo.jp/7hXLpZ",
-      "status": "active"
+    "rtx4070tisuper": {
+      "name": "GeForce RTX 4070 Ti SUPER",
+      "shortName": "RTX 4070 Ti SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4070 Ti SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4f5qCgd",
+        "asin": "",
+        "keyword": "GeForce RTX 4070 Ti SUPER"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h53CJ4",
+        "keyword": "GeForce RTX 4070 Ti SUPER"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/uVFwYk"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx7600": {
-      "name": "Radeon RX 7600",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+    "rtx4080super": {
+      "name": "GeForce RTX 4080 SUPER",
+      "shortName": "RTX 4080 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4080 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/49fjwSO",
+        "asin": "",
+        "keyword": "GeForce RTX 4080 SUPER"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hkys0x",
+        "keyword": "GeForce RTX 4080 SUPER"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/Lsec9X"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx6800xt": {
-      "name": "Radeon RX 6800 XT",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+    "rtx5060": {
+      "name": "GeForce RTX 5060",
+      "shortName": "RTX 5060",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5060",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/49ODTWY",
+        "asin": "",
+        "keyword": "GeForce RTX 5060"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hkpsZz",
+        "keyword": "GeForce RTX 5060"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/ztV_6C"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
-    "rx6700xt": {
-      "name": "Radeon RX 6700 XT",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+    "rtx5060ti": {
+      "name": "GeForce RTX 5060 Ti",
+      "shortName": "RTX 5060 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5060 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/3RrYUR9",
+        "asin": "",
+        "keyword": "GeForce RTX 5060 Ti"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hFAAgo",
+        "keyword": "GeForce RTX 5060 Ti"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/S2sFeH"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx5070": {
+      "name": "GeForce RTX 5070",
+      "shortName": "RTX 5070",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5070",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/49u0cRO",
+        "asin": "",
+        "keyword": "GeForce RTX 5070"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hkSdhv",
+        "keyword": "GeForce RTX 5070"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/BRuvXb"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx5070ti": {
+      "name": "GeForce RTX 5070 Ti",
+      "shortName": "RTX 5070 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5070 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/42RGjAw",
+        "asin": "",
+        "keyword": "GeForce RTX 5070 Ti"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hPcwmv",
+        "keyword": "GeForce RTX 5070 Ti"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/J4_fuy"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx5080": {
+      "name": "GeForce RTX 5080",
+      "shortName": "RTX 5080",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5080",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dIIhIs",
+        "asin": "",
+        "keyword": "GeForce RTX 5080"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hko5fa",
+        "keyword": "GeForce RTX 5080"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/gUAiP8"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx5090": {
+      "name": "GeForce RTX 5090",
+      "shortName": "RTX 5090",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5090",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dtIlwP",
+        "asin": "",
+        "keyword": "GeForce RTX 5090"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h8WZ1x",
+        "keyword": "GeForce RTX 5090"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/t5UQrN"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
     },
     "rx6600": {
       "name": "Radeon RX 6600",
-      "amazon": "",
-      "rakuten": "",
-      "yahoo": "",
-      "status": "preparing"
+      "shortName": "RX 6600",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6600",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6600"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6600"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6700xt": {
+      "name": "Radeon RX 6700 XT",
+      "shortName": "RX 6700 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6700 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6700 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6700 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6800xt": {
+      "name": "Radeon RX 6800 XT",
+      "shortName": "RX 6800 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6800 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6800 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6800 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7600": {
+      "name": "Radeon RX 7600",
+      "shortName": "RX 7600",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7600",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4uzVPwZ",
+        "asin": "",
+        "keyword": "Radeon RX 7600"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 7600"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7700xt": {
+      "name": "Radeon RX 7700 XT",
+      "shortName": "RX 7700 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7700 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dZhzfM",
+        "asin": "",
+        "keyword": "Radeon RX 7700 XT"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hgs8If",
+        "keyword": "Radeon RX 7700 XT"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/7hXLpZ"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7800xt": {
+      "name": "Radeon RX 7800 XT",
+      "shortName": "RX 7800 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7800 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4tQZZiM",
+        "asin": "",
+        "keyword": "Radeon RX 7800 XT"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hgEfCo",
+        "keyword": "Radeon RX 7800 XT"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/sbnabe"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7900gre": {
+      "name": "Radeon RX 7900 GRE",
+      "shortName": "RX 7900 GRE",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7900 GRE",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dskY6H",
+        "asin": "",
+        "keyword": "Radeon RX 7900 GRE"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h5wlC5",
+        "keyword": "Radeon RX 7900 GRE"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/iDoC3K"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7900xt": {
+      "name": "Radeon RX 7900 XT",
+      "shortName": "RX 7900 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7900 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4eZvZxw",
+        "asin": "",
+        "keyword": "Radeon RX 7900 XT"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hPFmPH",
+        "keyword": "Radeon RX 7900 XT"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/ixo_TF"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7900xtx": {
+      "name": "Radeon RX 7900 XTX",
+      "shortName": "RX 7900 XTX",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7900 XTX",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4fECru3",
+        "asin": "",
+        "keyword": "Radeon RX 7900 XTX"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hgs8tW",
+        "keyword": "Radeon RX 7900 XTX"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/mEWboU"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx9070": {
+      "name": "Radeon RX 9070",
+      "shortName": "RX 9070",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 9070",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/49lJq7n",
+        "asin": "",
+        "keyword": "Radeon RX 9070"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hk2Oby",
+        "keyword": "Radeon RX 9070"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/dmoCpX"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx9070xt": {
+      "name": "Radeon RX 9070 XT",
+      "shortName": "RX 9070 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 9070 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4wOgOxo",
+        "asin": "",
+        "keyword": "Radeon RX 9070 XT"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/h5394b",
+        "keyword": "Radeon RX 9070 XT"
+      },
+      "yahoo": {
+        "url": "https://yahoo.jp/_EQXSy"
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx10606gb": {
+      "name": "GeForce GTX 1060 6GB",
+      "shortName": "GTX 1060 6GB",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1060 6GB",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1060 6GB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1060 6GB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1070": {
+      "name": "GeForce GTX 1070",
+      "shortName": "GTX 1070",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1070",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1070"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1070"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1070ti": {
+      "name": "GeForce GTX 1070 Ti",
+      "shortName": "GTX 1070 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1070 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1070 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1070 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1080": {
+      "name": "GeForce GTX 1080",
+      "shortName": "GTX 1080",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1080",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1080"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1080"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1080ti": {
+      "name": "GeForce GTX 1080 Ti",
+      "shortName": "GTX 1080 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1080 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1080 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1080 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1650": {
+      "name": "GeForce GTX 1650",
+      "shortName": "GTX 1650",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1650",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1650"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1650"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1650super": {
+      "name": "GeForce GTX 1650 SUPER",
+      "shortName": "GTX 1650 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1650 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1650 SUPER"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1650 SUPER"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1660": {
+      "name": "GeForce GTX 1660",
+      "shortName": "GTX 1660",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1660",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1660"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1660"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1660super": {
+      "name": "GeForce GTX 1660 SUPER",
+      "shortName": "GTX 1660 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1660 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1660 SUPER"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1660 SUPER"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gtx1660ti": {
+      "name": "GeForce GTX 1660 Ti",
+      "shortName": "GTX 1660 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce GTX 1660 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce GTX 1660 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce GTX 1660 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2060": {
+      "name": "GeForce RTX 2060",
+      "shortName": "RTX 2060",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2060",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2060"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2060"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2060super": {
+      "name": "GeForce RTX 2060 SUPER",
+      "shortName": "RTX 2060 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2060 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2060 SUPER"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2060 SUPER"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2070": {
+      "name": "GeForce RTX 2070",
+      "shortName": "RTX 2070",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2070",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2070"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2070"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2070super": {
+      "name": "GeForce RTX 2070 SUPER",
+      "shortName": "RTX 2070 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2070 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2070 SUPER"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2070 SUPER"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2080": {
+      "name": "GeForce RTX 2080",
+      "shortName": "RTX 2080",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2080",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2080"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2080"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2080super": {
+      "name": "GeForce RTX 2080 SUPER",
+      "shortName": "RTX 2080 SUPER",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2080 SUPER",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2080 SUPER"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2080 SUPER"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx2080ti": {
+      "name": "GeForce RTX 2080 Ti",
+      "shortName": "RTX 2080 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 2080 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 2080 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 2080 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx3050": {
+      "name": "GeForce RTX 3050",
+      "shortName": "RTX 3050",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3050",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4unpTv3",
+        "asin": "",
+        "keyword": "GeForce RTX 3050"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3050"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx3080ti": {
+      "name": "GeForce RTX 3080 Ti",
+      "shortName": "RTX 3080 Ti",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3080 Ti",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 3080 Ti"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3080 Ti"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx3090": {
+      "name": "GeForce RTX 3090",
+      "shortName": "RTX 3090",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 3090",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 3090"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 3090"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx570": {
+      "name": "Radeon RX 570",
+      "shortName": "RX 570",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 570",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 570"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 570"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx5808gb": {
+      "name": "Radeon RX 580 8GB",
+      "shortName": "RX 580 8GB",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 580 8GB",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 580 8GB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 580 8GB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx590": {
+      "name": "Radeon RX 590",
+      "shortName": "RX 590",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 590",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 590"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 590"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx5500xt": {
+      "name": "Radeon RX 5500 XT",
+      "shortName": "RX 5500 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 5500 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 5500 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 5500 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx5600xt": {
+      "name": "Radeon RX 5600 XT",
+      "shortName": "RX 5600 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 5600 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 5600 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 5600 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx5700": {
+      "name": "Radeon RX 5700",
+      "shortName": "RX 5700",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 5700",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 5700"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 5700"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx5700xt": {
+      "name": "Radeon RX 5700 XT",
+      "shortName": "RX 5700 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 5700 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 5700 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 5700 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6500xt": {
+      "name": "Radeon RX 6500 XT",
+      "shortName": "RX 6500 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6500 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6500 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6500 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6600xt": {
+      "name": "Radeon RX 6600 XT",
+      "shortName": "RX 6600 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6600 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6600 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6600 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6650xt": {
+      "name": "Radeon RX 6650 XT",
+      "shortName": "RX 6650 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6650 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6650 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6650 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6700": {
+      "name": "Radeon RX 6700",
+      "shortName": "RX 6700",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6700",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6700"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6700"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6750xt": {
+      "name": "Radeon RX 6750 XT",
+      "shortName": "RX 6750 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6750 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6750 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6750 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6800": {
+      "name": "Radeon RX 6800",
+      "shortName": "RX 6800",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6800",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6800"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6800"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6900xt": {
+      "name": "Radeon RX 6900 XT",
+      "shortName": "RX 6900 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6900 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6900 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6900 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx6950xt": {
+      "name": "Radeon RX 6950 XT",
+      "shortName": "RX 6950 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 6950 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 6950 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 6950 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rx9060xt": {
+      "name": "Radeon RX 9060 XT",
+      "shortName": "RX 9060 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 9060 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dX3w9t",
+        "asin": "",
+        "keyword": "Radeon RX 9060 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 9060 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "rx7600xt": {
+      "name": "Radeon RX 7600 XT",
+      "shortName": "RX 7600 XT",
+      "category": "gpu",
+      "brand": "AMD",
+      "gpu": "Radeon RX 7600 XT",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Radeon RX 7600 XT"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Radeon RX 7600 XT"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx4080": {
+      "name": "GeForce RTX 4080",
+      "shortName": "RTX 4080",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 4080",
+      "aliases": [],
+      "amazon": {
+        "url": "https://amzn.to/4dDK7vf",
+        "asin": "",
+        "keyword": "GeForce RTX 4080"
+      },
+      "rakuten": {
+        "url": "https://a.r10.to/hRijvW",
+        "keyword": "GeForce RTX 4080"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "active",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen53600": {
+      "name": "Ryzen 5 3600",
+      "shortName": "Ryzen 5 3600",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 3600"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 3600 CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 3600"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen55500": {
+      "name": "Ryzen 5 5500",
+      "shortName": "Ryzen 5 5500",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 5500"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 5500 CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 5500"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen55600": {
+      "name": "Ryzen 5 5600",
+      "shortName": "Ryzen 5 5600",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 5600"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 5600 CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 5600"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen55600g": {
+      "name": "Ryzen 5 5600G",
+      "shortName": "Ryzen 5 5600G",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 5600G"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 5600G CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 5600G"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen57500f": {
+      "name": "Ryzen 5 7500F",
+      "shortName": "Ryzen 5 7500F",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 7500F"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 7500F CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 7500F"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen57600x": {
+      "name": "Ryzen 5 7600X",
+      "shortName": "Ryzen 5 7600X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 7600X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 7600X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 7600X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen59600x": {
+      "name": "Ryzen 5 9600X",
+      "shortName": "Ryzen 5 9600X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 5 9600X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 5 9600X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 5 9600X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen75700x": {
+      "name": "Ryzen 7 5700X",
+      "shortName": "Ryzen 7 5700X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 5700X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 5700X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 5700X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen75700x3d": {
+      "name": "Ryzen 7 5700X3D",
+      "shortName": "Ryzen 7 5700X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 5700X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 5700X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 5700X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen75800x3d": {
+      "name": "Ryzen 7 5800X3D",
+      "shortName": "Ryzen 7 5800X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 5800X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 5800X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 5800X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen77700": {
+      "name": "Ryzen 7 7700",
+      "shortName": "Ryzen 7 7700",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 7700"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 7700 CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 7700"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen77800x3d": {
+      "name": "Ryzen 7 7800X3D",
+      "shortName": "Ryzen 7 7800X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 7800X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 7800X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 7800X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen79700x": {
+      "name": "Ryzen 7 9700X",
+      "shortName": "Ryzen 7 9700X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 9700X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 9700X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 9700X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen79800x3d": {
+      "name": "Ryzen 7 9800X3D",
+      "shortName": "Ryzen 7 9800X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 7 9800X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 7 9800X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 7 9800X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen97900": {
+      "name": "Ryzen 9 7900",
+      "shortName": "Ryzen 9 7900",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 9 7900"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 9 7900 CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 9 7900"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen97900x": {
+      "name": "Ryzen 9 7900X",
+      "shortName": "Ryzen 9 7900X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 9 7900X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 9 7900X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 9 7900X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen97950x3d": {
+      "name": "Ryzen 9 7950X3D",
+      "shortName": "Ryzen 9 7950X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 9 7950X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 9 7950X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 9 7950X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen99900x": {
+      "name": "Ryzen 9 9900X",
+      "shortName": "Ryzen 9 9900X",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 9 9900X"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 9 9900X CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 9 9900X"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ryzen99950x3d": {
+      "name": "Ryzen 9 9950X3D",
+      "shortName": "Ryzen 9 9950X3D",
+      "category": "cpu",
+      "brand": "AMD",
+      "aliases": [
+        "AMD Ryzen 9 9950X3D"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Ryzen 9 9950X3D CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Ryzen 9 9950X3D"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei512400f": {
+      "name": "Core i5-12400F",
+      "shortName": "Core i5-12400F",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i5-12400F",
+        "Core i5 12400F"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i5-12400F CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i5-12400F"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei513400f": {
+      "name": "Core i5-13400F",
+      "shortName": "Core i5-13400F",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i5-13400F",
+        "Core i5 13400F"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i5-13400F CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i5-13400F"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei514400f": {
+      "name": "Core i5-14400F",
+      "shortName": "Core i5-14400F",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i5-14400F",
+        "Core i5 14400F"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i5-14400F CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i5-14400F"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei514600kf": {
+      "name": "Core i5-14600KF",
+      "shortName": "Core i5-14600KF",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i5-14600KF",
+        "Core i5 14600KF"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i5-14600KF CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i5-14600KF"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei713700f": {
+      "name": "Core i7-13700F",
+      "shortName": "Core i7-13700F",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i7-13700F",
+        "Core i7 13700F"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i7-13700F CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i7-13700F"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei714700k": {
+      "name": "Core i7-14700K",
+      "shortName": "Core i7-14700K",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i7-14700K",
+        "Core i7 14700K"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i7-14700K CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i7-14700K"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "corei914900k": {
+      "name": "Core i9-14900K",
+      "shortName": "Core i9-14900K",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core i9-14900K",
+        "Core i9 14900K"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core i9-14900K CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core i9-14900K"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "coreultra5245k": {
+      "name": "Core Ultra 5 245K",
+      "shortName": "Core Ultra 5 245K",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core Ultra 5 245K",
+        "Core Ultra 5 245K"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core Ultra 5 245K CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core Ultra 5 245K"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "coreultra7265k": {
+      "name": "Core Ultra 7 265K",
+      "shortName": "Core Ultra 7 265K",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core Ultra 7 265K",
+        "Core Ultra 7 265K"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core Ultra 7 265K CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core Ultra 7 265K"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "coreultra9285k": {
+      "name": "Core Ultra 9 285K",
+      "shortName": "Core Ultra 9 285K",
+      "category": "cpu",
+      "brand": "Intel",
+      "aliases": [
+        "Intel Core Ultra 9 285K",
+        "Core Ultra 9 285K"
+      ],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "Core Ultra 9 285K CPU"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "Core Ultra 9 285K"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ddr4_16gb": {
+      "name": "DDR4 16GB (8GB×2) メモリ",
+      "shortName": "DDR4 16GB (8GB×2) メモリ",
+      "category": "memory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "DDR4 16GB 8GBx2 デスクトップ メモリ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "DDR4 16GB 8GBx2 デスクトップ メモリ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ddr4_32gb": {
+      "name": "DDR4 32GB (16GB×2) メモリ",
+      "shortName": "DDR4 32GB (16GB×2) メモリ",
+      "category": "memory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "DDR4 32GB 16GBx2 デスクトップ メモリ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "DDR4 32GB 16GBx2 デスクトップ メモリ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ddr5_16gb": {
+      "name": "DDR5 16GB (8GB×2) メモリ",
+      "shortName": "DDR5 16GB (8GB×2) メモリ",
+      "category": "memory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "DDR5 16GB 8GBx2 デスクトップ メモリ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "DDR5 16GB 8GBx2 デスクトップ メモリ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ddr5_32gb": {
+      "name": "DDR5 32GB (16GB×2) メモリ",
+      "shortName": "DDR5 32GB (16GB×2) メモリ",
+      "category": "memory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "DDR5 32GB 16GBx2 デスクトップ メモリ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "DDR5 32GB 16GBx2 デスクトップ メモリ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ddr5_64gb": {
+      "name": "DDR5 64GB (32GB×2) メモリ",
+      "shortName": "DDR5 64GB (32GB×2) メモリ",
+      "category": "memory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "DDR5 64GB 32GBx2 デスクトップ メモリ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "DDR5 64GB 32GBx2 デスクトップ メモリ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ssd_nvme_500gb": {
+      "name": "NVMe SSD 500GB",
+      "shortName": "NVMe SSD 500GB",
+      "category": "storage",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "M.2 NVMe SSD 500GB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "M.2 NVMe SSD 500GB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ssd_nvme_1tb": {
+      "name": "NVMe SSD 1TB",
+      "shortName": "NVMe SSD 1TB",
+      "category": "storage",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "M.2 NVMe SSD 1TB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "M.2 NVMe SSD 1TB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ssd_nvme_2tb": {
+      "name": "NVMe SSD 2TB",
+      "shortName": "NVMe SSD 2TB",
+      "category": "storage",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "M.2 NVMe SSD 2TB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "M.2 NVMe SSD 2TB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "ssd_nvme_4tb": {
+      "name": "NVMe SSD 4TB",
+      "shortName": "NVMe SSD 4TB",
+      "category": "storage",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "M.2 NVMe SSD 4TB"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "M.2 NVMe SSD 4TB"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_550w": {
+      "name": "550W電源ユニット (80PLUS Bronze以上)",
+      "shortName": "550W電源ユニット (80PLUS Bronze以上)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 550W 80PLUS Bronze"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 550W 80PLUS Bronze"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_650w": {
+      "name": "650W電源ユニット (80PLUS Bronze以上)",
+      "shortName": "650W電源ユニット (80PLUS Bronze以上)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 650W 80PLUS Bronze"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 650W 80PLUS Bronze"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_750w": {
+      "name": "750W電源ユニット (80PLUS Gold)",
+      "shortName": "750W電源ユニット (80PLUS Gold)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 750W 80PLUS Gold"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 750W 80PLUS Gold"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_850w": {
+      "name": "850W電源ユニット (80PLUS Gold)",
+      "shortName": "850W電源ユニット (80PLUS Gold)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 850W 80PLUS Gold"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 850W 80PLUS Gold"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_1000w": {
+      "name": "1000W電源ユニット (80PLUS Gold以上)",
+      "shortName": "1000W電源ユニット (80PLUS Gold以上)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 1000W 80PLUS Gold"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 1000W 80PLUS Gold"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "psu_1200w": {
+      "name": "1200W電源ユニット (80PLUS Platinum以上)",
+      "shortName": "1200W電源ユニット (80PLUS Platinum以上)",
+      "category": "psu",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "電源ユニット 1200W 80PLUS Platinum"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "電源ユニット 1200W 80PLUS Platinum"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "cooler_air": {
+      "name": "CPU空冷クーラー",
+      "shortName": "CPU空冷クーラー",
+      "category": "cooler",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "CPUクーラー 空冷 サイドフロー"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "CPUクーラー 空冷 サイドフロー"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "cooler_aio_240": {
+      "name": "240mm 簡易水冷CPUクーラー",
+      "shortName": "240mm 簡易水冷CPUクーラー",
+      "category": "cooler",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "簡易水冷 CPUクーラー 240mm"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "簡易水冷 CPUクーラー 240mm"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "cooler_aio_360": {
+      "name": "360mm 簡易水冷CPUクーラー",
+      "shortName": "360mm 簡易水冷CPUクーラー",
+      "category": "cooler",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "簡易水冷 CPUクーラー 360mm"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "簡易水冷 CPUクーラー 360mm"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "case_atx": {
+      "name": "ATXミドルタワPCケース",
+      "shortName": "ATXミドルタワPCケース",
+      "category": "case",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "PCケース ATX ミドルタワ エアフロー"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "PCケース ATX ミドルタワ エアフロー"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "case_matx": {
+      "name": "MicroATX PCケース",
+      "shortName": "MicroATX PCケース",
+      "category": "case",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "PCケース MicroATX"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "PCケース MicroATX"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "case_mitx": {
+      "name": "Mini-ITX PCケース",
+      "shortName": "Mini-ITX PCケース",
+      "category": "case",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "PCケース Mini-ITX 小型"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "PCケース Mini-ITX 小型"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "mb_am4_b550": {
+      "name": "AM4 B550 マザーボード",
+      "shortName": "AM4 B550 マザーボード",
+      "category": "motherboard",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "B550 マザーボード AM4"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "B550 マザーボード AM4"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "mb_am5_b650": {
+      "name": "AM5 B650 マザーボード",
+      "shortName": "AM5 B650 マザーボード",
+      "category": "motherboard",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "B650 マザーボード AM5"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "B650 マザーボード AM5"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "mb_am5_x670": {
+      "name": "AM5 X670 マザーボード",
+      "shortName": "AM5 X670 マザーボード",
+      "category": "motherboard",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "X670 マザーボード AM5"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "X670 マザーボード AM5"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "mb_lga1700_b760": {
+      "name": "LGA1700 B760 マザーボード",
+      "shortName": "LGA1700 B760 マザーボード",
+      "category": "motherboard",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "B760 マザーボード LGA1700"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "B760 マザーボード LGA1700"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "mb_lga1851_b860": {
+      "name": "LGA1851 B860 マザーボード",
+      "shortName": "LGA1851 B860 マザーボード",
+      "category": "motherboard",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "B860 マザーボード LGA1851"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "B860 マザーボード LGA1851"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "monitor_fhd_144hz": {
+      "name": "FHD 144Hz ゲーミングモニター",
+      "shortName": "FHD 144Hz ゲーミングモニター",
+      "category": "monitor",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングモニター 144Hz 24インチ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングモニター 144Hz 24インチ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "monitor_fhd_240hz": {
+      "name": "FHD 240Hz ゲーミングモニター",
+      "shortName": "FHD 240Hz ゲーミングモニター",
+      "category": "monitor",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングモニター 240Hz"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングモニター 240Hz"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "monitor_wqhd_165hz": {
+      "name": "WQHD 165Hz ゲーミングモニター",
+      "shortName": "WQHD 165Hz ゲーミングモニター",
+      "category": "monitor",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングモニター WQHD 165Hz 27インチ"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングモニター WQHD 165Hz 27インチ"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "monitor_4k_144hz": {
+      "name": "4K 144Hz ゲーミングモニター",
+      "shortName": "4K 144Hz ゲーミングモニター",
+      "category": "monitor",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングモニター 4K 144Hz"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングモニター 4K 144Hz"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_mouse": {
+      "name": "ゲーミングマウス",
+      "shortName": "ゲーミングマウス",
+      "category": "accessory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングマウス 軽量 ワイヤレス"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングマウス 軽量 ワイヤレス"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_keyboard": {
+      "name": "ゲーミングキーボード",
+      "shortName": "ゲーミングキーボード",
+      "category": "accessory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングキーボード メカニカル"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングキーボード メカニカル"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_headset": {
+      "name": "ゲーミングヘッドセット",
+      "shortName": "ゲーミングヘッドセット",
+      "category": "accessory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングヘッドセット"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングヘッドセット"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "arcade_controller": {
+      "name": "アケコン・レバーレスコントローラー",
+      "shortName": "アケコン・レバーレスコントローラー",
+      "category": "accessory",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "アケコン レバーレス 格闘ゲーム"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "アケコン レバーレス 格闘ゲーム"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_pc_entry": {
+      "name": "ゲーミングPC（エントリー / 10万円台）",
+      "shortName": "ゲーミングPC（エントリー / 10万円台）",
+      "category": "gaming-pc",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5060"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5060"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_pc_middle": {
+      "name": "ゲーミングPC（ミドル / 20万円前後）",
+      "shortName": "ゲーミングPC（ミドル / 20万円前後）",
+      "category": "gaming-pc",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5070"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5070"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "gaming_pc_high": {
+      "name": "ゲーミングPC（ハイエンド / 30万円以上）",
+      "shortName": "ゲーミングPC（ハイエンド / 30万円以上）",
+      "category": "gaming-pc",
+      "brand": "",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5080"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "ゲーミングPC デスクトップ RTX 5080"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
+    },
+    "rtx5050": {
+      "name": "GeForce RTX 5050",
+      "shortName": "RTX 5050",
+      "category": "gpu",
+      "brand": "NVIDIA",
+      "gpu": "GeForce RTX 5050",
+      "aliases": [],
+      "amazon": {
+        "url": "",
+        "asin": "",
+        "keyword": "GeForce RTX 5050"
+      },
+      "rakuten": {
+        "url": "",
+        "keyword": "GeForce RTX 5050"
+      },
+      "yahoo": {
+        "url": ""
+      },
+      "status": "search-only",
+      "updatedAt": "2026-08-18"
     }
   },
-  "bto": {
-    "rtx5060": {
-      "label": "RTX 5060搭載ゲーミングPC",
-      "url": "",
-      "dospara": "",
-      "mouse": "",
-      "pcKoubou": "",
-      "frontier": "",
-      "status": "preparing"
+  "legacy": {
+    "gpus": {
+      "rtx5090": {
+        "name": "GeForce RTX 5090",
+        "amazon": "https://amzn.to/4dtIlwP",
+        "rakuten": "https://a.r10.to/h8WZ1x",
+        "yahoo": "https://yahoo.jp/t5UQrN",
+        "status": "active"
+      },
+      "rtx5080": {
+        "name": "GeForce RTX 5080",
+        "amazon": "https://amzn.to/4dIIhIs",
+        "rakuten": "https://a.r10.to/hko5fa",
+        "yahoo": "https://yahoo.jp/gUAiP8",
+        "status": "active"
+      },
+      "rtx5070ti": {
+        "name": "GeForce RTX 5070 Ti",
+        "amazon": "https://amzn.to/42RGjAw",
+        "rakuten": "https://a.r10.to/hPcwmv",
+        "yahoo": "https://yahoo.jp/J4_fuy",
+        "status": "active"
+      },
+      "rtx5070": {
+        "name": "GeForce RTX 5070",
+        "amazon": "https://amzn.to/xxxxx",
+        "rakuten": "https://a.r10.to/hkSdhv",
+        "yahoo": "https://yahoo.jp/BRuvXb",
+        "status": "active"
+      },
+      "rtx5060ti": {
+        "name": "GeForce RTX 5060 Ti",
+        "amazon": "https://amzn.to/3RrYUR9",
+        "rakuten": "https://a.r10.to/hFAAgo",
+        "yahoo": "https://yahoo.jp/S2sFeH",
+        "status": "active"
+      },
+      "rtx5060": {
+        "name": "GeForce RTX 5060",
+        "amazon": "https://amzn.to/49ODTWY",
+        "rakuten": "https://a.r10.to/hkpsZz",
+        "yahoo": "https://yahoo.jp/ztV_6C",
+        "status": "active"
+      },
+      "rtx4080super": {
+        "name": "GeForce RTX 4080 SUPER",
+        "amazon": "https://amzn.to/49fjwSO",
+        "rakuten": "https://a.r10.to/hkys0x",
+        "yahoo": "https://yahoo.jp/Lsec9X",
+        "status": "active"
+      },
+      "rtx4070tisuper": {
+        "name": "GeForce RTX 4070 Ti SUPER",
+        "amazon": "https://amzn.to/4f5qCgd",
+        "rakuten": "https://a.r10.to/h53CJ4",
+        "yahoo": "https://yahoo.jp/uVFwYk",
+        "status": "active"
+      },
+      "rtx4070super": {
+        "name": "GeForce RTX 4070 SUPER",
+        "amazon": "",
+        "rakuten": "https://a.r10.to/h5lHSz",
+        "yahoo": "https://yahoo.jp/NS8KBZ",
+        "status": "active"
+      },
+      "rtx4070": {
+        "name": "GeForce RTX 4070",
+        "amazon": "https://amzn.to/4dvaIe4",
+        "rakuten": "https://a.r10.to/h5lQoZ",
+        "yahoo": "https://yahoo.jp/ifhvFWv",
+        "status": "active"
+      },
+      "rtx4060ti": {
+        "name": "GeForce RTX 4060 Ti",
+        "amazon": "https://amzn.to/4f61LsH",
+        "rakuten": "https://a.r10.to/hFAAqX",
+        "yahoo": "https://yahoo.jp/9iTRo9",
+        "status": "active"
+      },
+      "rtx4060": {
+        "name": "GeForce RTX 4060",
+        "amazon": "https://amzn.to/3PGja0D",
+        "rakuten": "https://a.r10.to/hkGGfE",
+        "yahoo": "https://yahoo.jp/JsWemN",
+        "status": "active"
+      },
+      "rtx3080": {
+        "name": "GeForce RTX 3080",
+        "amazon": "https://amzn.to/3REumeT",
+        "rakuten": "https://a.r10.to/hPTDw0",
+        "yahoo": "https://yahoo.jp/4pmjAN",
+        "status": "active"
+      },
+      "rtx3070ti": {
+        "name": "GeForce RTX 3070 Ti",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rtx3070": {
+        "name": "GeForce RTX 3070",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rtx3060ti": {
+        "name": "GeForce RTX 3060 Ti",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rtx3060": {
+        "name": "GeForce RTX 3060",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rx9070xt": {
+        "name": "Radeon RX 9070 XT",
+        "amazon": "https://amzn.to/4wOgOxo",
+        "rakuten": "https://a.r10.to/h5394b",
+        "yahoo": "https://yahoo.jp/_EQXSy",
+        "status": "active"
+      },
+      "rx9070": {
+        "name": "Radeon RX 9070",
+        "amazon": "https://amzn.to/49lJq7n",
+        "rakuten": "https://a.r10.to/hk2Oby",
+        "yahoo": "https://yahoo.jp/dmoCpX",
+        "status": "active"
+      },
+      "rx7900xtx": {
+        "name": "Radeon RX 7900 XTX",
+        "amazon": "https://amzn.to/4fECru3",
+        "rakuten": "https://a.r10.to/hgs8tW",
+        "yahoo": "https://yahoo.jp/mEWboU",
+        "status": "active"
+      },
+      "rx7900xt": {
+        "name": "Radeon RX 7900 XT",
+        "amazon": "https://amzn.to/4eZvZxw",
+        "rakuten": "https://a.r10.to/hPFmPH",
+        "yahoo": "https://yahoo.jp/ixo_TF",
+        "status": "active"
+      },
+      "rx7900gre": {
+        "name": "Radeon RX 7900 GRE",
+        "amazon": "https://amzn.to/4dskY6H",
+        "rakuten": "https://a.r10.to/h5wlC5",
+        "yahoo": "https://yahoo.jp/iDoC3K",
+        "status": "active"
+      },
+      "rx7800xt": {
+        "name": "Radeon RX 7800 XT",
+        "amazon": "https://amzn.to/4tQZZiM",
+        "rakuten": "https://a.r10.to/hgEfCo",
+        "yahoo": "https://yahoo.jp/sbnabe",
+        "status": "active"
+      },
+      "rx7700xt": {
+        "name": "Radeon RX 7700 XT",
+        "amazon": "https://amzn.to/4dZhzfM",
+        "rakuten": "https://a.r10.to/hgs8If",
+        "yahoo": "https://yahoo.jp/7hXLpZ",
+        "status": "active"
+      },
+      "rx7600": {
+        "name": "Radeon RX 7600",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rx6800xt": {
+        "name": "Radeon RX 6800 XT",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rx6700xt": {
+        "name": "Radeon RX 6700 XT",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      },
+      "rx6600": {
+        "name": "Radeon RX 6600",
+        "amazon": "",
+        "rakuten": "",
+        "yahoo": "",
+        "status": "preparing"
+      }
     },
-    "rtx5070": {
-      "label": "RTX 5070搭載ゲーミングPC",
-      "url": "",
-      "dospara": "",
-      "mouse": "",
-      "pcKoubou": "",
-      "frontier": "",
-      "status": "preparing"
+    "bto": {
+      "rtx5060": {
+        "label": "RTX 5060搭載ゲーミングPC",
+        "url": "",
+        "dospara": "",
+        "mouse": "",
+        "pcKoubou": "",
+        "frontier": "",
+        "status": "preparing"
+      },
+      "rtx5070": {
+        "label": "RTX 5070搭載ゲーミングPC",
+        "url": "",
+        "dospara": "",
+        "mouse": "",
+        "pcKoubou": "",
+        "frontier": "",
+        "status": "preparing"
+      },
+      "rtx5070ti": {
+        "label": "RTX 5070 Ti搭載ゲーミングPC",
+        "url": "",
+        "dospara": "",
+        "mouse": "",
+        "pcKoubou": "",
+        "frontier": "",
+        "status": "preparing"
+      },
+      "rtx5080": {
+        "label": "RTX 5080搭載ゲーミングPC",
+        "url": "",
+        "dospara": "",
+        "mouse": "",
+        "pcKoubou": "",
+        "frontier": "",
+        "status": "preparing"
+      },
+      "rtx5090": {
+        "label": "RTX 5090搭載ゲーミングPC",
+        "url": "",
+        "dospara": "",
+        "mouse": "",
+        "pcKoubou": "",
+        "frontier": "",
+        "status": "preparing"
+      }
     },
-    "rtx5070ti": {
-      "label": "RTX 5070 Ti搭載ゲーミングPC",
-      "url": "",
-      "dospara": "",
-      "mouse": "",
-      "pcKoubou": "",
-      "frontier": "",
-      "status": "preparing"
+    "monitors": {
+      "gamingMonitor144hz": {
+        "label": "144Hz以上のゲーミングモニター",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingMonitor240hz": {
+        "label": "240Hz以上のゲーミングモニター",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingMonitorWQHD": {
+        "label": "WQHDゲーミングモニター",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingMonitor4k": {
+        "label": "4Kゲーミングモニター",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      }
     },
-    "rtx5080": {
-      "label": "RTX 5080搭載ゲーミングPC",
-      "url": "",
-      "dospara": "",
-      "mouse": "",
-      "pcKoubou": "",
-      "frontier": "",
-      "status": "preparing"
+    "accessories": {
+      "arcadeController": {
+        "label": "アケコン・レバーレス",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingMouse": {
+        "label": "ゲーミングマウス",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingKeyboard": {
+        "label": "ゲーミングキーボード",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      },
+      "gamingHeadset": {
+        "label": "ゲーミングヘッドセット",
+        "url": "",
+        "amazon": "",
+        "rakuten": "",
+        "status": "preparing"
+      }
     },
-    "rtx5090": {
-      "label": "RTX 5090搭載ゲーミングPC",
-      "url": "",
-      "dospara": "",
-      "mouse": "",
-      "pcKoubou": "",
-      "frontier": "",
-      "status": "preparing"
-    }
-  },
-  "monitors": {
-    "gamingMonitor144hz": {
-      "label": "144Hz以上のゲーミングモニター",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
+    "amazonParts": {
+      "general": {
+        "label": "Amazon PCパーツ検索",
+        "url": "",
+        "status": "preparing"
+      },
+      "rtx5060": {
+        "label": "Amazon RTX 5060関連パーツ",
+        "url": "",
+        "status": "preparing"
+      },
+      "rtx5070": {
+        "label": "Amazon RTX 5070関連パーツ",
+        "url": "",
+        "status": "preparing"
+      }
     },
-    "gamingMonitor240hz": {
-      "label": "240Hz以上のゲーミングモニター",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    },
-    "gamingMonitorWQHD": {
-      "label": "WQHDゲーミングモニター",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    },
-    "gamingMonitor4k": {
-      "label": "4Kゲーミングモニター",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    }
-  },
-  "accessories": {
-    "arcadeController": {
-      "label": "アケコン・レバーレス",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    },
-    "gamingMouse": {
-      "label": "ゲーミングマウス",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    },
-    "gamingKeyboard": {
-      "label": "ゲーミングキーボード",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    },
-    "gamingHeadset": {
-      "label": "ゲーミングヘッドセット",
-      "url": "",
-      "amazon": "",
-      "rakuten": "",
-      "status": "preparing"
-    }
-  },
-  "amazonParts": {
-    "general": {
-      "label": "Amazon PCパーツ検索",
-      "url": "",
-      "status": "preparing"
-    },
-    "rtx5060": {
-      "label": "Amazon RTX 5060関連パーツ",
-      "url": "",
-      "status": "preparing"
-    },
-    "rtx5070": {
-      "label": "Amazon RTX 5070関連パーツ",
-      "url": "",
-      "status": "preparing"
-    }
-  },
-  "rakutenParts": {
-    "general": {
-      "label": "楽天 PCパーツ検索",
-      "url": "",
-      "status": "preparing"
-    },
-    "rtx5060": {
-      "label": "楽天 RTX 5060関連パーツ",
-      "url": "",
-      "status": "preparing"
-    },
-    "rtx5070": {
-      "label": "楽天 RTX 5070関連パーツ",
-      "url": "",
-      "status": "preparing"
+    "rakutenParts": {
+      "general": {
+        "label": "楽天 PCパーツ検索",
+        "url": "",
+        "status": "preparing"
+      },
+      "rtx5060": {
+        "label": "楽天 RTX 5060関連パーツ",
+        "url": "",
+        "status": "preparing"
+      },
+      "rtx5070": {
+        "label": "楽天 RTX 5070関連パーツ",
+        "url": "",
+        "status": "preparing"
+      }
     }
   }
 }

@@ -3,14 +3,22 @@
    バージョンを上げるたびに CACHE_NAME を更新してください
 ========================= */
 
-const CACHE_NAME = 'jisako-v3';
+// v4: 購入導線を共通アフィリエイト基盤(shared/affiliate)へ移行
+// ※ キャッシュ名を正式名 pc-build-check に統一（旧 'jisako-v3' は別サイト名の誤用）
+const CACHE_NAME = 'pc-build-check-v4';
 
 const STATIC_ASSETS = [
   './',
   './index.html',
   './style.css',
   './script.js',
+  './build-affiliate.js',
   './builds.json',
+  // 共通アフィリエイト基盤（サイト横断で共有）
+  '/shared/affiliate/affiliate-config.js',
+  '/shared/affiliate/affiliate.js',
+  '/shared/affiliate/affiliate.css',
+  '/shared/affiliate/affiliate-master.json',
   './manifest.json',
   './ogp.jpg',
   './icons/favicon.ico',
