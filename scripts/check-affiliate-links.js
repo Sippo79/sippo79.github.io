@@ -16,10 +16,15 @@
  *  最終判断は必ず人間がブラウザで開いて行ってください。
  *
  *  判定:
- *    正常       2xx で最終URLが正しいショップのドメイン内
- *    要確認     3xx の行き先が怪しい / 403・429（Bot対策の可能性）/
- *               タイムアウト / 商品ページからトップに飛ばされた 等
+ *    正常       2xx で最終URLが正しいショップのドメイン内、
+ *               かつ本文に売り切れ表示が無い
+ *    要確認     403・429（Bot対策の可能性）/ タイムアウト /
+ *               トップ・エラーページ着地 /
+ *               ★HTTP 200 だが本文が「取扱いがありません」等★
  *    リンク切れ  404 / 410（明確に存在しない）
+ *
+ *  ※ 楽天の商品価格ナビは商品が終わっても HTTP 200 を返すため、
+ *    ステータスコードだけでは検知できない（本文も見ている理由）。
  * ===================================================================== */
 'use strict';
 
@@ -66,6 +71,55 @@ const SHOP_HOST_PATTERN = {
   rakuten: /(^|\.)rakuten\.co\.jp$/i,
   yahoo: /(^|\.)(yahoo\.co\.jp|lohaco\.yahoo\.co\.jp)$/i,
 };
+
+/* -----------------------------------------------------------------
+ *  売り切れ・掲載終了の「本文パターン」
+ *  -----------------------------------------------------------------
+ *  ★重要★ 楽天の商品価格ナビや Amazon の商品ページは、
+ *  商品が終わっても **HTTP 200 を返す**。
+ *  （例: 「現在こちらの商品は取扱いがありません」のページも 200）
+ *  したがって HTTP ステータスだけでは絶対に検知できないため、
+ *  本文を見て判定する。ただし誤検知を避けるため、
+ *  これに当たっても「リンク切れ」ではなく「要確認」に留める。
+ * ----------------------------------------------------------------- */
+const SOLD_OUT_PATTERNS = {
+  rakuten: [
+    '現在こちらの商品は取扱いがありません',
+    'この商品は現在ご用意できません',
+    '商品が見つかりませんでした',
+    'このショップは現在この商品を取り扱っておりません',
+    '販売期間外',
+  ],
+  amazon: [
+    '現在在庫切れです',
+    'この商品は現在お取り扱いできません',
+    'お探しのページは見つかりませんでした',
+    '申し訳ございません。探しているURLは',
+  ],
+  yahoo: [
+    'この商品は現在お取り扱いできません',
+    'お探しのページは見つかりません',
+    '販売を終了しました',
+  ],
+};
+
+/* 本文に売り切れ表示があれば、その文言を返す（無ければ null） */
+function findSoldOutMark(shop, body) {
+  if (!body) return null;
+  const list = SOLD_OUT_PATTERNS[shop] || [];
+  for (const mark of list) {
+    if (body.indexOf(mark) !== -1) return mark;
+  }
+  return null;
+}
+
+/* 検索結果ページに飛ばされていないか（商品ページのつもりが検索になったケース） */
+function looksLikeSearchPage(url) {
+  try {
+    const u = new URL(url);
+    return /\/search|\/s$|[?&]k=|[?&]keyword=/.test(u.pathname + u.search);
+  } catch (e) { return false; }
+}
 
 /* 「商品が無いのでトップ/エラーに飛ばされた」ことを示唆するURLか */
 function looksLikeLandingPage(shop, url) {
@@ -122,7 +176,9 @@ async function checkOne(entry, args) {
     });
     result.httpStatus = res.status;
     result.finalUrl = res.url || '';
-    try { await res.arrayBuffer(); } catch (e) { /* 本文は使わない */ }
+    // ★本文を読む。HTTP 200 のまま「取扱いがありません」を返すケースがあるため。
+    let body = '';
+    try { body = await res.text(); } catch (e) { body = ''; }
 
     const code = res.status;
     let host = '';
@@ -140,15 +196,21 @@ async function checkOne(entry, args) {
       result.verdict = '要確認';
       result.note = 'HTTP ' + code + '（サーバー側エラー。時間をおいて再確認）';
     } else if (code >= 200 && code < 300) {
+      const soldOutMark = findSoldOutMark(shop, body);
       if (!hostOk) {
         result.verdict = '要確認';
         result.note = '想定外のドメインに着地: ' + host;
+      } else if (soldOutMark) {
+        // HTTPは200だが、本文に売り切れ表示がある
+        result.verdict = '要確認';
+        result.note = '売り切れ/掲載終了の可能性（本文: 「' + soldOutMark + '」）';
       } else if (looksLikeLandingPage(shop, result.finalUrl || url)) {
         result.verdict = '要確認';
         result.note = '商品ページではなくトップ/エラーページに着地した可能性';
       } else {
         result.verdict = '正常';
-        result.note = '';
+        // 検索ページに着地するリンクは、切れてはいないが商品ページではない
+        result.note = looksLikeSearchPage(result.finalUrl || url) ? '（検索結果ページに着地）' : '';
       }
     } else {
       result.verdict = '要確認';

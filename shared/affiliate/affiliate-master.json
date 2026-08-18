@@ -490,8 +490,11 @@
         "keyword": "Radeon RX 7700 XT"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hgs8If",
-        "keyword": "Radeon RX 7700 XT"
+        "url": "",
+        "keyword": "Radeon RX 7700 XT",
+        "retiredUrl": "https://a.r10.to/hgs8If",
+        "status": "sold-out",
+        "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/7hXLpZ"
@@ -578,8 +581,11 @@
         "keyword": "Radeon RX 7900 XTX"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hgs8tW",
-        "keyword": "Radeon RX 7900 XTX"
+        "url": "",
+        "keyword": "Radeon RX 7900 XTX",
+        "retiredUrl": "https://a.r10.to/hgs8tW",
+        "status": "sold-out",
+        "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/mEWboU"
@@ -600,8 +606,11 @@
         "keyword": "Radeon RX 9070"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hk2Oby",
-        "keyword": "Radeon RX 9070"
+        "url": "",
+        "keyword": "Radeon RX 9070",
+        "retiredUrl": "https://a.r10.to/hk2Oby",
+        "status": "sold-out",
+        "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/dmoCpX"
@@ -1458,8 +1467,11 @@
         "keyword": "GeForce RTX 4080"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hRijvW",
-        "keyword": "GeForce RTX 4080"
+        "url": "",
+        "keyword": "GeForce RTX 4080",
+        "retiredUrl": "https://a.r10.to/hRijvW",
+        "status": "sold-out",
+        "note": "2026-08-18 直リンク先が「販売期間外」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": ""
