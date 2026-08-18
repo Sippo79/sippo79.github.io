@@ -132,11 +132,70 @@ GPU GUIDE で表示したい場合は `gpu-guide/gpus.json` にもGPU情報の�
 
 ## `status` の意味
 
+リンク切れ・販売終了に備え、**直リンク → 検索リンク → 非表示** の3段階で解決します。
+
 | 値 | 動作 |
 |---|---|
-| `active` | 個別のアフィリエイトURLが登録済み。そのURLへリンクする |
-| `search-only` | 個別URL未登録。アソシエイトID付きの**検索URL**へリンクする |
-| `preparing` / `paused` / `discontinued` | **ボタンを出さない** |
+| `active` | 直リンク（`url` または `asin`）を優先。無ければ検索へフォールバック |
+| `search-only` | 直リンクを使わず、アフィリエイトID付きの**検索URL**のみ |
+| `sold-out` | 売り切れ。直リンクを捨てて**検索URLへフォールバック** |
+| `discontinued` | 販売終了。直リンクを捨てて**検索URLへフォールバック** |
+| `disabled` | **購入ボタンを一切表示しない** |
+| `preparing` / `paused` | 【旧仕様・互換維持】ボタンを出さない。新規は `disabled` 推奨 |
+
+- **未設定は `search-only` 扱い**（既存商品の挙動を変えないため）。
+- フォールバック時の検索語は `keyword`（未設定なら `name`）。
+  Amazonは `tag=` 付き、楽天はアフィリエイトID付きのURLになります。
+- `keyword: ""` を明示すると**検索フォールバックもしません**
+  （そのショップでは扱いが無い商品など、誤誘導を避けたいとき）。
+- フォールバックしたボタンは文言が自動で「〇〇で**探す**」に変わります
+  （商品ページだと誤認させないため。`isExact` で制御）。
+
+### ショップ単位の `status`
+
+`status` は商品全体だけでなく、`amazon` / `rakuten` / `yahoo` の
+**各ショップの中にも書けます**（ショップ側が優先）。
+「Amazonだけ売り切れ、楽天は在庫あり」を表現できます。
+
+```json
+"rtx5070": {
+  "name": "GeForce RTX 5070",
+  "amazon":  { "url": "https://amzn.to/xxxx", "status": "sold-out", "keyword": "GeForce RTX 5070" },
+  "rakuten": { "url": "https://a.r10.to/xxxx", "keyword": "GeForce RTX 5070" },
+  "status": "active"
+}
+```
+
+→ Amazonは「探す」（検索）、楽天は従来どおり直リンク。
+
+---
+
+## リンク切れの診断（`scripts/check-affiliate-links.js`）
+
+登録済みの**直リンクだけ**を実際に叩いて生死を一覧化します。
+検索フォールバックの商品は「切れようがない」ので対象外です。
+
+```bash
+node scripts/check-affiliate-links.js                 # 全件
+node scripts/check-affiliate-links.js --shop amazon   # Amazonだけ
+node scripts/check-affiliate-links.js --limit 20      # お試しで20件
+node scripts/check-affiliate-links.js --csv report.csv # CSV出力
+```
+
+`product_id` / 商品名 / `shop` / URL / HTTP状態 / **正常・要確認・リンク切れ**
+を表で出力します。
+
+| 判定 | 意味 |
+|---|---|
+| 正常 | 2xx で、最終URLがそのショップのドメイン内 |
+| 要確認 | 403 / 429 / タイムアウト / トップページ着地 など |
+| リンク切れ | 404 / 410（明確に存在しない） |
+
+**★このスクリプトは商品マスターを書き換えません。**
+Amazon / 楽天はBot対策やリダイレクトがあり、HTTPステータスだけでは
+「本当にリンク切れか」を確定できません。誤判定で**正常な収益リンクを
+止めてしまう方が損失が大きい**ため、自動で `sold-out` にはしません。
+必ずブラウザで目視確認してから、手で `status` を変更してください。
 
 ---
 

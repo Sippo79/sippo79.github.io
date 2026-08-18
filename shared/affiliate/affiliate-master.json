@@ -1,15 +1,18 @@
 {
   "_meta": {
     "description": "シッポPC 共通アフィリエイト商品マスター。全サイトがこの1ファイルを参照します。編集方法は shared/affiliate/README.md を参照。",
-    "version": 2,
+    "version": 3,
     "updatedAt": "2026-08-18",
     "statusValues": {
-      "active": "個別アフィリエイトURLが設定済み。そのURLへリンクする。",
-      "search-only": "個別URLは未設定。アソシエイトID付きの検索URLへリンクする（誤商品リンクにならない安全な導線）。",
-      "preparing": "まだ表示したくない。ボタンを出さない。",
-      "paused": "一時的に非表示。ボタンを出さない。",
-      "discontinued": "終売。ボタンを出さない。"
-    }
+      "active": "個別アフィリエイトURL（またはASIN）が設定済み。直リンクへ誘導する。直リンクが無ければ検索へフォールバック。",
+      "search-only": "直リンクを使わず、アフィリエイトID付きの検索URLのみを出す（誤商品リンクにならない安全な導線）。",
+      "sold-out": "売り切れ。直リンクは使わず、keyword による検索URLへフォールバックする。",
+      "discontinued": "販売終了。直リンクは使わず、keyword による検索URLへフォールバックする。",
+      "disabled": "購入ボタンを一切表示しない。",
+      "preparing": "【旧仕様・互換維持】まだ表示させない。ボタンを出さない。新規は disabled を推奨。",
+      "paused": "【旧仕様・互換維持】一時的に非表示。ボタンを出さない。新規は disabled を推奨。"
+    },
+    "statusNotes": "status は商品全体にも、amazon / rakuten / yahoo の各ショップ単位にも書ける。ショップ側の status が優先される（例: Amazonだけ sold-out、楽天は active）。未設定は search-only 扱い。フォールバック時は keyword（未設定なら name）で検索URLを生成する。"
   },
   "products": {
     "rtx3060": {

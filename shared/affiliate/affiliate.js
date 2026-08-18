@@ -92,6 +92,65 @@
   }
 
   /* ------------------------------------------------------------------
+   *  商品ステータス
+   *  ------------------------------------------------------------------
+   *  リンク切れ・販売終了に備えて「直リンク → 検索リンク → 非表示」の
+   *  3段階で解決する。判定はこの1か所に集約する（各ショップの
+   *  build*Url() はここで決まった方針に従うだけ）。
+   *
+   *    active        直リンクを優先。無ければ検索へフォールバック。
+   *    search-only   直リンクを使わず検索リンクのみ。
+   *    sold-out      売り切れ。直リンクを捨てて検索へフォールバック。
+   *    discontinued  販売終了。直リンクを捨てて検索へフォールバック。
+   *    disabled      購入ボタンを一切出さない。
+   *
+   *  【互換性】旧ステータス preparing / paused は従来どおり「非表示」。
+   *  status 未設定は従来どおり search-only 扱い（既存商品の挙動を変えない）。
+   * ------------------------------------------------------------------ */
+
+  /* 購入ボタンを一切出さないステータス */
+  var HIDDEN_STATUSES = {
+    disabled: true,
+    preparing: true,   // 旧仕様との互換（まだ表示させない）
+    paused: true,      // 旧仕様との互換（一時的に非表示）
+  };
+
+  /* 直リンクを信用せず、検索リンクへ逃がすステータス */
+  var FALLBACK_STATUSES = {
+    'search-only': true,
+    'sold-out': true,
+    discontinued: true,
+  };
+
+  /** 商品（またはショップ単位）のステータスを正規化して返す */
+  function normalizeStatus(value) {
+    if (!value) return '';
+    return String(value).trim().toLowerCase();
+  }
+
+  /**
+   * ショップ単位で有効なステータスを求める。
+   * 商品全体の status を既定値とし、ショップ側に status があれば上書きする。
+   * （例: Amazonだけ売り切れ、楽天は在庫あり —— を表現できる）
+   */
+  function resolveStatus(product, shopKey) {
+    var shop = (product && product[shopKey]) || {};
+    var shopStatus = normalizeStatus(shop.status);
+    if (shopStatus) return shopStatus;
+    return normalizeStatus(product && product.status) || 'search-only';
+  }
+
+  /** そのステータスは購入ボタンを出してよいか */
+  function isHiddenStatus(status) {
+    return HIDDEN_STATUSES[status] === true;
+  }
+
+  /** そのステータスは直リンクを使ってよいか（false なら検索へ逃がす） */
+  function canUseDirectUrl(status) {
+    return FALLBACK_STATUSES[status] !== true;
+  }
+
+  /* ------------------------------------------------------------------
    *  リンク生成 — Amazon
    * ------------------------------------------------------------------ */
 
@@ -106,20 +165,26 @@
     if (!product) return '';
     var cfg = config();
     var amazon = product.amazon || {};
+    var status = resolveStatus(product, 'amazon');
+
+    // 0. 非表示ステータス（disabled 等）ならボタンごと出さない
+    if (isHiddenStatus(status)) return '';
 
     // 1. 登録済みの個別URL（短縮URLにはタグが埋まっているのでそのまま使う）
-    if (isRealUrl(amazon.url)) return amazon.url;
+    //    売り切れ・販売終了ステータスのときは直リンクを信用せず、下の検索へ逃がす
+    if (canUseDirectUrl(status) && isRealUrl(amazon.url)) return amazon.url;
 
     var tag = cfg.amazon.associateTag || '';
     var host = cfg.amazon.host || 'https://www.amazon.co.jp';
 
     // 2. ASIN があれば商品ページへ直リンク（Amazon公式のテキストリンク形式）
-    if (amazon.asin) {
+    //    ASIN も「直リンク」なので、フォールバック対象ステータスでは使わない
+    if (canUseDirectUrl(status) && amazon.asin) {
       var dp = host + '/dp/' + encodeURIComponent(amazon.asin) + '/ref=nosim';
       return tag ? dp + '?tag=' + encodeURIComponent(tag) : dp;
     }
 
-    // 3. キーワード検索（商品を特定できないとき用の安全な導線）
+    // 3. キーワード検索（直リンクが使えないときの安全な導線）
     //    商品側で enabled:false または keyword:"" が明示されていれば出さない
     //    （Amazonでは扱っていない商品を「検索」で誤誘導しないため）
     if (amazon.enabled === false) return '';
@@ -145,9 +210,14 @@
     if (!product) return '';
     var cfg = config();
     var rakuten = product.rakuten || {};
+    var status = resolveStatus(product, 'rakuten');
+
+    // 0. 非表示ステータス（disabled 等）ならボタンごと出さない
+    if (isHiddenStatus(status)) return '';
 
     // 1. 登録済みの個別URL（短縮URLにはIDが埋まっているのでそのまま使う）
-    if (isRealUrl(rakuten.url)) return rakuten.url;
+    //    売り切れ・販売終了ステータスのときは下の検索へ逃がす
+    if (canUseDirectUrl(status) && isRealUrl(rakuten.url)) return rakuten.url;
 
     // 2. 検索URL
     //    商品側で enabled:false または keyword:"" が明示されていれば出さない
@@ -181,6 +251,12 @@
     if (!product) return '';
     if (!config().yahoo.enabled) return '';
     var yahoo = product.yahoo || {};
+    var status = resolveStatus(product, 'yahoo');
+
+    // Yahoo!は「登録済みの短縮アフィリエイトURL」のみを扱う。
+    // IDによる検索URL自動生成はしないため、直リンクが使えなければ非表示。
+    if (isHiddenStatus(status)) return '';
+    if (!canUseDirectUrl(status)) return '';
     return isRealUrl(yahoo.url) ? yahoo.url : '';
   }
 
@@ -337,30 +413,35 @@
     var product = getProduct(productId);
     if (!product) return [];
 
-    // 表示してはいけないステータスならリンクを出さない
-    var status = product.status || 'search-only';
-    if (status === 'preparing' || status === 'paused' || status === 'discontinued') return [];
+    // 商品全体が非表示ステータス（disabled / preparing / paused）なら何も出さない。
+    // ※ sold-out / discontinued はここでは切らない。各 build*Url() が
+    //    直リンクを捨てて検索リンクへフォールバックする。
+    if (isHiddenStatus(normalizeStatus(product.status))) return [];
 
     var links = [];
 
+    // isExact = 商品ページ直リンクかどうか（false は検索結果ページ）。
+    // フォールバックした場合は実態が「検索」なので必ず false になるよう、
+    // マスターの有無だけでなくステータスも見る（ボタン文言でユーザーを騙さない）。
     var amazonUrl = buildAmazonUrl(product);
     if (amazonUrl) {
+      var amazonDirect = canUseDirectUrl(resolveStatus(product, 'amazon'));
       links.push({
         shop: 'amazon',
         shopName: 'Amazon',
         url: amazonUrl,
-        // isExact = 商品ページ直リンクかどうか（false は検索結果ページ）
-        isExact: isRealUrl(product.amazon && product.amazon.url) || Boolean(product.amazon && product.amazon.asin),
+        isExact: amazonDirect && (isRealUrl(product.amazon && product.amazon.url) || Boolean(product.amazon && product.amazon.asin)),
       });
     }
 
     var rakutenUrl = buildRakutenUrl(product);
     if (rakutenUrl) {
+      var rakutenDirect = canUseDirectUrl(resolveStatus(product, 'rakuten'));
       links.push({
         shop: 'rakuten',
         shopName: '楽天市場',
         url: rakutenUrl,
-        isExact: isRealUrl(product.rakuten && product.rakuten.url),
+        isExact: rakutenDirect && isRealUrl(product.rakuten && product.rakuten.url),
       });
     }
 
@@ -648,9 +729,15 @@
     // 商品追加
     addAffiliateProduct: addAffiliateProduct,
 
+    // ステータス判定（診断スクリプト・運用ツールからも使う）
+    resolveStatus: resolveStatus,
+    isHiddenStatus: isHiddenStatus,
+    canUseDirectUrl: canUseDirectUrl,
+
     // テスト用（内部関数の公開）
     _normalize: normalize,
     _isRealUrl: isRealUrl,
+    _normalizeStatus: normalizeStatus,
   };
 
   global.SippoAffiliate = SippoAffiliate;
