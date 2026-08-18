@@ -156,15 +156,21 @@
     var keyword = rakuten.keyword === '' ? '' : (rakuten.keyword || product.name);
     if (!keyword) return '';
     var base = cfg.rakuten.searchBase || 'https://search.rakuten.co.jp/search/mall/';
+
+    // 直リンク用（アフィリエイトIDなし）はキーワードをエンコードしてそのまま使う
     var searchUrl = base + encodeURIComponent(keyword) + '/';
 
     var affiliateId = cfg.rakuten.affiliateId || '';
     if (!affiliateId) return searchUrl;
 
     // 楽天アフィリエイトのリンク形式（IDが設定されているときのみ）
+    // ★pc= / m= に渡す値は「生の検索URL」を 1回だけ encodeURIComponent する。
+    //   すでにエンコード済みの searchUrl を渡すと二重エンコードになり
+    //   （半角スペースが %20 → %2520）、楽天側で検索語が壊れて 0件になる。
+    var rawSearchUrl = base + keyword + '/';
     return 'https://hb.afl.rakuten.co.jp/hgc/' + encodeURIComponent(affiliateId) +
-      '/?pc=' + encodeURIComponent(searchUrl) +
-      '&m=' + encodeURIComponent(searchUrl);
+      '/?pc=' + encodeURIComponent(rawSearchUrl) +
+      '&m=' + encodeURIComponent(rawSearchUrl);
   }
 
   /* ------------------------------------------------------------------

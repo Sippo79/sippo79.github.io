@@ -31,7 +31,7 @@
          アソシエイト管理画面 → 右上のトラッキングID で確認できます。
          未設定の場合、Amazonリンクは「タグなしURL」になります
          （＝リンクは開くが収益にはならない）。 */
-      associateTag: '',
+      associateTag: 'sippo79-22',
 
       /* Amazon.co.jp のホスト。通常は変更不要。 */
       host: 'https://www.amazon.co.jp',
@@ -41,7 +41,7 @@
       /* 楽天アフィリエイトID。例: "1a2b3c4d.5e6f7g8h.9i0j1k2l.3m4n5o6p"
          楽天アフィリエイト管理画面 → アフィリエイトID で確認できます。
          未設定でも楽天検索URLは生成されます（＝収益にはならない）。 */
-      affiliateId: '',
+      affiliateId: '56aa006c.76706573.56aa006d.849ed47b',
 
       /* 楽天ウェブサービス（商品検索API）の applicationId。
          ★注意★ 2026年の新仕様で、APIは applicationId に加えて
