@@ -88,7 +88,7 @@ const gpuAffiliateLinks = {
   "RX 6800 XT": createEmptyAffiliateLinks(),
   "RX 7600": createEmptyAffiliateLinks(),
   "RX 7700 XT": createAffiliateLinks({
-    rakuten: "https://a.r10.to/hgs8If",
+    rakuten: "", // Radeon RX 7700 XT: 売り切れ/掲載終了のため無効化（旧URL: https://a.r10.to/hgs8If）
     amazon: "https://amzn.to/4dZhzfM",
     yahoo: "https://yahoo.jp/7hXLpZ",
   }),
@@ -108,12 +108,12 @@ const gpuAffiliateLinks = {
     yahoo: "https://yahoo.jp/ixo_TF",
   }),
   "RX 7900 XTX": createAffiliateLinks({
-    rakuten: "https://a.r10.to/hgs8tW",
+    rakuten: "", // Radeon RX 7900 XTX: 売り切れ/掲載終了のため無効化（旧URL: https://a.r10.to/hgs8tW）
     amazon: "https://amzn.to/4fECru3",
     yahoo: "https://yahoo.jp/mEWboU",
   }),
   "RX 9070": createAffiliateLinks({
-    rakuten: "https://a.r10.to/hk2Oby",
+    rakuten: "", // Radeon RX 9070: 売り切れ/掲載終了のため無効化（旧URL: https://a.r10.to/hk2Oby）
     amazon: "https://amzn.to/49lJq7n",
     yahoo: "https://yahoo.jp/dmoCpX",
   }),

@@ -3154,16 +3154,18 @@
       "rx9070": {
         "name": "Radeon RX 9070",
         "amazon": "https://amzn.to/49lJq7n",
-        "rakuten": "https://a.r10.to/hk2Oby",
+        "rakuten": "",
         "yahoo": "https://yahoo.jp/dmoCpX",
-        "status": "active"
+        "status": "sold-out",
+        "rakutenRetiredUrl": "https://a.r10.to/hk2Oby"
       },
       "rx7900xtx": {
         "name": "Radeon RX 7900 XTX",
         "amazon": "https://amzn.to/4fECru3",
-        "rakuten": "https://a.r10.to/hgs8tW",
+        "rakuten": "",
         "yahoo": "https://yahoo.jp/mEWboU",
-        "status": "active"
+        "status": "sold-out",
+        "rakutenRetiredUrl": "https://a.r10.to/hgs8tW"
       },
       "rx7900xt": {
         "name": "Radeon RX 7900 XT",
@@ -3189,9 +3191,10 @@
       "rx7700xt": {
         "name": "Radeon RX 7700 XT",
         "amazon": "https://amzn.to/4dZhzfM",
-        "rakuten": "https://a.r10.to/hgs8If",
+        "rakuten": "",
         "yahoo": "https://yahoo.jp/7hXLpZ",
-        "status": "active"
+        "status": "sold-out",
+        "rakutenRetiredUrl": "https://a.r10.to/hgs8If"
       },
       "rx7600": {
         "name": "Radeon RX 7600",

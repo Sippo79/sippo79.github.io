@@ -18,6 +18,50 @@
 
 ---
 
+## 2026-08-18 — 旧データのコピーに残っていた売り切れ楽天リンクを一掃（GPU GUIDE / PC BUILD CHECK）
+
+- **修正目的**: GPU GUIDE の RX 9070 で、楽天リンクが売り切れページのままという指摘を受けた。調べたところ、**先の修正は `shared/affiliate/affiliate-master.json` の `products` しか直しておらず、旧データのコピーに同じ死んだURLが残っていた**。リポジトリ全体を総点検して一掃する。
+- **前回の見落とし（反省点）**: 「商品マスターは `shared/affiliate/` の1ファイル」という前提で作業していたが、実際には**同じURLが5ファイルに散在**していた。前回の診断スクリプトも `shared` の `products` しか見ておらず、旧コピーは対象外だった。
+  - `shared/affiliate/affiliate-master.json` の **`legacy.gpus`**（`products` とは別系統のデータ）
+  - `gpu-guide/affiliate-master.json`（GPU GUIDE 専用の旧コピー）
+  - `gpu-guide/affiliate-links.js`（さらに古い直書きの定義）
+  - `pc-build-check/script.js`（構成診断用に直書きされた定義）
+- **変更ファイル**:
+  - 修正: `shared/affiliate/affiliate-master.json`（`legacy.gpus` の3件）
+  - 修正: `gpu-guide/affiliate-master.json`（3件）
+  - 修正: `gpu-guide/affiliate-links.js`（3件）
+  - 修正: `pc-build-check/script.js`（**新たに5件**）
+- **変更内容**:
+  - **リポジトリ全体を総点検**した。`.js` / `.json` / `.html` を走査して短縮URL（`a.r10.to` / `amzn.to` / `yahoo.jp` 等）を **94件** 抽出し、全件に実アクセスして本文まで確認した。
+  - その結果、**PC BUILD CHECK 側に未修正の売り切れが4件**見つかった（前回まで一度も点検していなかったファイル）:
+
+    | 対象 | URL | 状態 |
+    |---|---|---|
+    | RTX 5090 | `a.r10.to/hYATKB` | 販売期間外 |
+    | RTX 5070 Ti | `a.r10.to/hgOCmU` | 取扱いがありません |
+    | RX 9070 | `a.r10.to/hkxoJc` | 取扱いがありません |
+    | RTX 4060 Ti | `a.r10.to/hPZffm` | **HTTP 404** |
+
+  - 併せて、GPU GUIDE 側の旧コピー3ファイルに残っていた RX 9070 / RX 7700 XT / RX 7900 XTX の死んだURLも除去した（`pc-build-check` の RTX 4080 を含め計10か所）。
+  - **URLを別商品に差し替えることはしていない**。誤リンクを作らないため、値を空にして「その商品の楽天直リンクは無い」状態にした。`pc-build-check/script.js` は `rakuten` キー自体を省略する書き方が既存パターン（例: RTX 4070）だったので、それに合わせて行ごと削除した。
+  - 復活時に戻せるよう、JSON側は `rakutenRetiredUrl` に退避、JS側はコメントに旧URLを残した。
+  - なお **RTX 5090 / RTX 5070 Ti / RTX 4060 Ti は `shared` 側では別の生きたURLが登録済み**で、そちらは正常だった（`pc-build-check` の旧コピーだけが古かった）。
+- **影響範囲**:
+  - **実際にユーザーが見る画面は `SippoAffiliate`（shared）経由**であることをコードで確認した。`gpu-guide/script.js` の `renderPurchaseSearchLinksFromMaster()` や `renderPurchaseSearchLinks()` は**どこからも呼ばれていない死んだコード**で、GPU詳細ページは `renderAffiliateButtonsByName()` を使っている。
+  - ただし旧コピーは `gpu.html` 等から読み込まれたままなので、将来の参照ミスや再利用で復活する危険があった。今回除去したことでその危険も消えた。
+  - 該当4GPU（RX 9070 / RTX 4080 / RX 7700 XT / RX 7900 XTX）は楽天ボタンが「楽天市場で探す」＝アフィリエイトID付きの商品名検索になり、行き止まりが解消。
+  - 既存テスト96項目（フォールバック51＋linkType45）は全PASS。
+  - 修正後にリポジトリ全体を再スキャンし、**生きているリンク欄に死んだURLは0件**。残る検出はすべて `retiredUrl` / `rakutenRetiredUrl`（意図的な退避）とコメント内の記録のみ。
+- **未対応・次にやること**:
+  - **旧データのコピー4系統を整理する**のが本筋。現状 `shared` と重複しており、二重管理で今回のような取りこぼしが起きる。`gpu-guide/affiliate-links.js` / `gpu-guide/affiliate-master.json` / `pc-build-check/script.js` の直書き定義と `legacy.gpus` は、参照元が無いことを確認したうえで削除を検討する（今回は影響範囲が広いため未実施）。
+  - 診断スクリプトは現状 `shared` の `products` のみが対象。旧コピーも見るように広げるか、旧コピー自体を無くすかは上記の整理とセットで判断する。
+- **別AIへの引き継ぎ注意点**:
+  - **「マスターは1ファイル」と思い込まないこと**。アフィリエイトURLを直すときは必ず `grep -rn "<短縮URLのID>" --include=*.js --include=*.json --include=*.html .` でリポジトリ全体を確認する。今回の見落としの原因はこれ。
+  - **`pc-build-check/script.js` と `gpu-guide/affiliate-links.js` にもURLが直書きされている**。`shared` を直しただけでは終わらない。
+  - `retiredUrl` / `rakutenRetiredUrl` は復活用の控えなので消さない。総点検スクリプトを書くときはこれらを「生きたリンク」と誤検出しないよう除外すること。
+
+---
+
 ## 2026-08-18 — 短縮URLの遷移先を実測して linkType を追加し、ボタン文言を実態に統一
 
 - **修正目的**: `amzn.to` / `a.r10.to` / `yahoo.jp` の短縮URLは、見ただけでは「商品ページ行き」なのか「検索結果行き」なのか分からない。実際に調べたところ **Amazon 25件・Yahoo 20件はすべて検索結果ページ**だったのに、ボタンには「Amazonで価格を見る」と表示されており、**実態と文言が食い違っていた**。全件の遷移先を実測して `linkType` に記録し、文言を実態に合わせる。

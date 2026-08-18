@@ -128,6 +128,10 @@
   `placement` で「どの位置のリンクが押されるか」を分析できる。
 - **⚠️ 守るべきルール**:
   - **URLの追加・変更は `shared/affiliate/affiliate-master.json` だけを編集**する。各HTMLに直書きしない。
+  - ★ただし**旧データのコピーが4系統残っている**（`legacy.gpus` / `gpu-guide/affiliate-master.json` /
+    `gpu-guide/affiliate-links.js` / `pc-build-check/script.js`）。URLを直すときは
+    `grep -rn "<短縮URLのID>" --include=*.js --include=*.json --include=*.html .` で**全体を必ず確認**する。
+    実際に2026-08-18、`shared` だけ直して旧コピーに死んだURLが残る取りこぼしが発生した。
   - **`affiliate-config.js` に秘密情報を書かない**。Amazon の Secret Key、楽天の `accessKey` は
     フロントに置けない（必要になったら Supabase Edge Functions の環境変数へ）。
   - **価格をHTMLに固定表示しない**（古い価格が残る事故を防ぐ）。
@@ -234,6 +238,8 @@ GitHub Pages（本番）への反映状況。「本番反映済み」= 公開URL
 | リンク切れ診断 `scripts/check-affiliate-links.js` | ✅ 完了（手動実行・自動書き換えなし） |
 | 楽天の売り切れ直リンク4件を検索フォールバック化 | ✅ 完了（rx9070 / rtx4080 / rx7700xt / rx7900xtx） |
 | 診断スクリプトの本文判定（HTTP200の売り切れ検知） | ✅ 完了 |
+| 旧コピーに残った売り切れ楽天リンクの一掃（10か所） | ✅ 完了（GPU GUIDE / PC BUILD CHECK） |
+| 旧データコピー4系統の整理・削除 | ⏳ 未対応（二重管理。取りこぼしの温床） |
 | 実クリックの計上確認（管理画面） | ⏳ 公開後にユーザー側で確認 |
 | 短縮URLの遷移先実測と `linkType` 付与（62件） | ✅ 完了（Amazon25・Yahoo20=search / 楽天17=exact） |
 | ボタン文言の実態統一（exact=価格を見る / search=探す） | ✅ 完了（`isExactLink()` に共通化） |
