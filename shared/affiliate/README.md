@@ -151,6 +151,31 @@ GPU GUIDE で表示したい場合は `gpu-guide/gpus.json` にもGPU情報の�
 - フォールバックしたボタンは文言が自動で「〇〇で**探す**」に変わります
   （商品ページだと誤認させないため。`isExact` で制御）。
 
+### `linkType`（ボタン文言の出し分け）
+
+短縮URL（`amzn.to` / `a.r10.to` / `yahoo.jp`）は、見ただけでは
+**商品ページ行きなのか検索結果行きなのか分かりません**。
+実際に開いて確認した結果を `linkType` に記録します。
+
+| `linkType` | 遷移先 | ボタン文言 |
+|---|---|---|
+| `exact` | 商品詳細ページ | 〇〇で**価格を見る** |
+| `search` | 検索結果ページ | 〇〇で**探す** |
+
+```json
+"amazon":  { "url": "https://amzn.to/xxxx", "linkType": "search", "keyword": "GeForce RTX 5070" },
+"rakuten": { "url": "https://a.r10.to/xxxx", "linkType": "exact",  "keyword": "GeForce RTX 5070" }
+```
+
+- **未設定・不明な値は `search` 扱い**（安全側）。「価格を見る」と言って
+  検索結果を開く方がユーザーを裏切るため、迷ったら控えめな「探す」に倒します。
+- **フォールバック中（`sold-out` 等）は `linkType` に関わらず必ず `search`**。
+  実態が検索なので、`exact` と書いてあっても無視されます。
+- ASIN から組み立てた `/dp/{ASIN}` は定義上かならず商品ページなので `exact` 扱い。
+- 判定は `isExactLink()` に集約されており、**Amazon / 楽天 / Yahoo で共通**です。
+
+遷移先が変わった（商品ページを貼り直した等）ときは `linkType` も直してください。
+
 ### ショップ単位の `status`
 
 `status` は商品全体だけでなく、`amazon` / `rakuten` / `yahoo` の

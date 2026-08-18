@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "シッポPC 共通アフィリエイト商品マスター。全サイトがこの1ファイルを参照します。編集方法は shared/affiliate/README.md を参照。",
-    "version": 3,
+    "version": 4,
     "updatedAt": "2026-08-18",
     "statusValues": {
       "active": "個別アフィリエイトURL（またはASIN）が設定済み。直リンクへ誘導する。直リンクが無ければ検索へフォールバック。",
@@ -12,7 +12,12 @@
       "preparing": "【旧仕様・互換維持】まだ表示させない。ボタンを出さない。新規は disabled を推奨。",
       "paused": "【旧仕様・互換維持】一時的に非表示。ボタンを出さない。新規は disabled を推奨。"
     },
-    "statusNotes": "status は商品全体にも、amazon / rakuten / yahoo の各ショップ単位にも書ける。ショップ側の status が優先される（例: Amazonだけ sold-out、楽天は active）。未設定は search-only 扱い。フォールバック時は keyword（未設定なら name）で検索URLを生成する。"
+    "statusNotes": "status は商品全体にも、amazon / rakuten / yahoo の各ショップ単位にも書ける。ショップ側の status が優先される（例: Amazonだけ sold-out、楽天は active）。未設定は search-only 扱い。フォールバック時は keyword（未設定なら name）で検索URLを生成する。",
+    "linkTypeValues": {
+      "exact": "直リンクの遷移先が商品詳細ページ。ボタン文言は「〇〇で価格を見る」。",
+      "search": "直リンクの遷移先が検索結果ページ。ボタン文言は「〇〇で探す」。"
+    },
+    "linkTypeNotes": "linkType は amazon / rakuten / yahoo の各ノードに書く。短縮URL（amzn.to / a.r10.to / yahoo.jp）は 見ただけでは遷移先が分からないため、実際に開いて確認した結果を記録する。未設定・不明な値は search 扱い（「価格を見る」と言って検索結果を開く方がユーザーを裏切るため、安全側に倒す）。売り切れ等でフォールバック中のリンクは linkType に関わらず必ず search 扱いになる。"
   },
   "products": {
     "rtx3060": {
@@ -25,7 +30,8 @@
       "amazon": {
         "url": "https://amzn.to/4vfHO7x",
         "asin": "",
-        "keyword": "GeForce RTX 3060"
+        "keyword": "GeForce RTX 3060",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -113,14 +119,17 @@
       "amazon": {
         "url": "https://amzn.to/3REumeT",
         "asin": "",
-        "keyword": "GeForce RTX 3080"
+        "keyword": "GeForce RTX 3080",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hPTDw0",
-        "keyword": "GeForce RTX 3080"
+        "keyword": "GeForce RTX 3080",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/4pmjAN"
+        "url": "https://yahoo.jp/4pmjAN",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -135,14 +144,17 @@
       "amazon": {
         "url": "https://amzn.to/3PGja0D",
         "asin": "",
-        "keyword": "GeForce RTX 4060"
+        "keyword": "GeForce RTX 4060",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hkGGfE",
-        "keyword": "GeForce RTX 4060"
+        "keyword": "GeForce RTX 4060",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/JsWemN"
+        "url": "https://yahoo.jp/JsWemN",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -157,14 +169,17 @@
       "amazon": {
         "url": "https://amzn.to/4f61LsH",
         "asin": "",
-        "keyword": "GeForce RTX 4060 Ti"
+        "keyword": "GeForce RTX 4060 Ti",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hFAAqX",
-        "keyword": "GeForce RTX 4060 Ti"
+        "keyword": "GeForce RTX 4060 Ti",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/9iTRo9"
+        "url": "https://yahoo.jp/9iTRo9",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -179,14 +194,17 @@
       "amazon": {
         "url": "https://amzn.to/4dvaIe4",
         "asin": "",
-        "keyword": "GeForce RTX 4070"
+        "keyword": "GeForce RTX 4070",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h5lQoZ",
-        "keyword": "GeForce RTX 4070"
+        "keyword": "GeForce RTX 4070",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/ifhvFWv"
+        "url": "https://yahoo.jp/ifhvFWv",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -201,14 +219,17 @@
       "amazon": {
         "url": "https://amzn.to/4nTl5vy",
         "asin": "",
-        "keyword": "GeForce RTX 4070 SUPER"
+        "keyword": "GeForce RTX 4070 SUPER",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h5lHSz",
-        "keyword": "GeForce RTX 4070 SUPER"
+        "keyword": "GeForce RTX 4070 SUPER",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/NS8KBZ"
+        "url": "https://yahoo.jp/NS8KBZ",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -223,14 +244,17 @@
       "amazon": {
         "url": "https://amzn.to/4f5qCgd",
         "asin": "",
-        "keyword": "GeForce RTX 4070 Ti SUPER"
+        "keyword": "GeForce RTX 4070 Ti SUPER",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h53CJ4",
-        "keyword": "GeForce RTX 4070 Ti SUPER"
+        "keyword": "GeForce RTX 4070 Ti SUPER",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/uVFwYk"
+        "url": "https://yahoo.jp/uVFwYk",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -245,14 +269,17 @@
       "amazon": {
         "url": "https://amzn.to/49fjwSO",
         "asin": "",
-        "keyword": "GeForce RTX 4080 SUPER"
+        "keyword": "GeForce RTX 4080 SUPER",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hkys0x",
-        "keyword": "GeForce RTX 4080 SUPER"
+        "keyword": "GeForce RTX 4080 SUPER",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/Lsec9X"
+        "url": "https://yahoo.jp/Lsec9X",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -267,14 +294,17 @@
       "amazon": {
         "url": "https://amzn.to/49ODTWY",
         "asin": "",
-        "keyword": "GeForce RTX 5060"
+        "keyword": "GeForce RTX 5060",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hkpsZz",
-        "keyword": "GeForce RTX 5060"
+        "keyword": "GeForce RTX 5060",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/ztV_6C"
+        "url": "https://yahoo.jp/ztV_6C",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -289,14 +319,17 @@
       "amazon": {
         "url": "https://amzn.to/3RrYUR9",
         "asin": "",
-        "keyword": "GeForce RTX 5060 Ti"
+        "keyword": "GeForce RTX 5060 Ti",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hFAAgo",
-        "keyword": "GeForce RTX 5060 Ti"
+        "keyword": "GeForce RTX 5060 Ti",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/S2sFeH"
+        "url": "https://yahoo.jp/S2sFeH",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -311,14 +344,17 @@
       "amazon": {
         "url": "https://amzn.to/49u0cRO",
         "asin": "",
-        "keyword": "GeForce RTX 5070"
+        "keyword": "GeForce RTX 5070",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hkSdhv",
-        "keyword": "GeForce RTX 5070"
+        "keyword": "GeForce RTX 5070",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/BRuvXb"
+        "url": "https://yahoo.jp/BRuvXb",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -333,14 +369,17 @@
       "amazon": {
         "url": "https://amzn.to/42RGjAw",
         "asin": "",
-        "keyword": "GeForce RTX 5070 Ti"
+        "keyword": "GeForce RTX 5070 Ti",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hPcwmv",
-        "keyword": "GeForce RTX 5070 Ti"
+        "keyword": "GeForce RTX 5070 Ti",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/J4_fuy"
+        "url": "https://yahoo.jp/J4_fuy",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -355,14 +394,17 @@
       "amazon": {
         "url": "https://amzn.to/4dIIhIs",
         "asin": "",
-        "keyword": "GeForce RTX 5080"
+        "keyword": "GeForce RTX 5080",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hko5fa",
-        "keyword": "GeForce RTX 5080"
+        "keyword": "GeForce RTX 5080",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/gUAiP8"
+        "url": "https://yahoo.jp/gUAiP8",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -377,14 +419,17 @@
       "amazon": {
         "url": "https://amzn.to/4dtIlwP",
         "asin": "",
-        "keyword": "GeForce RTX 5090"
+        "keyword": "GeForce RTX 5090",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h8WZ1x",
-        "keyword": "GeForce RTX 5090"
+        "keyword": "GeForce RTX 5090",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/t5UQrN"
+        "url": "https://yahoo.jp/t5UQrN",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -465,7 +510,8 @@
       "amazon": {
         "url": "https://amzn.to/4uzVPwZ",
         "asin": "",
-        "keyword": "Radeon RX 7600"
+        "keyword": "Radeon RX 7600",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -487,7 +533,8 @@
       "amazon": {
         "url": "https://amzn.to/4dZhzfM",
         "asin": "",
-        "keyword": "Radeon RX 7700 XT"
+        "keyword": "Radeon RX 7700 XT",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -497,7 +544,8 @@
         "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/7hXLpZ"
+        "url": "https://yahoo.jp/7hXLpZ",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -512,14 +560,17 @@
       "amazon": {
         "url": "https://amzn.to/4tQZZiM",
         "asin": "",
-        "keyword": "Radeon RX 7800 XT"
+        "keyword": "Radeon RX 7800 XT",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hgEfCo",
-        "keyword": "Radeon RX 7800 XT"
+        "keyword": "Radeon RX 7800 XT",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/sbnabe"
+        "url": "https://yahoo.jp/sbnabe",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -534,14 +585,17 @@
       "amazon": {
         "url": "https://amzn.to/4dskY6H",
         "asin": "",
-        "keyword": "Radeon RX 7900 GRE"
+        "keyword": "Radeon RX 7900 GRE",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h5wlC5",
-        "keyword": "Radeon RX 7900 GRE"
+        "keyword": "Radeon RX 7900 GRE",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/iDoC3K"
+        "url": "https://yahoo.jp/iDoC3K",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -556,14 +610,17 @@
       "amazon": {
         "url": "https://amzn.to/4eZvZxw",
         "asin": "",
-        "keyword": "Radeon RX 7900 XT"
+        "keyword": "Radeon RX 7900 XT",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/hPFmPH",
-        "keyword": "Radeon RX 7900 XT"
+        "keyword": "Radeon RX 7900 XT",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/ixo_TF"
+        "url": "https://yahoo.jp/ixo_TF",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -578,7 +635,8 @@
       "amazon": {
         "url": "https://amzn.to/4fECru3",
         "asin": "",
-        "keyword": "Radeon RX 7900 XTX"
+        "keyword": "Radeon RX 7900 XTX",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -588,7 +646,8 @@
         "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/mEWboU"
+        "url": "https://yahoo.jp/mEWboU",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -603,7 +662,8 @@
       "amazon": {
         "url": "https://amzn.to/49lJq7n",
         "asin": "",
-        "keyword": "Radeon RX 9070"
+        "keyword": "Radeon RX 9070",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -613,7 +673,8 @@
         "note": "2026-08-18 直リンク先が「取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/dmoCpX"
+        "url": "https://yahoo.jp/dmoCpX",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -628,14 +689,17 @@
       "amazon": {
         "url": "https://amzn.to/4wOgOxo",
         "asin": "",
-        "keyword": "Radeon RX 9070 XT"
+        "keyword": "Radeon RX 9070 XT",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "https://a.r10.to/h5394b",
-        "keyword": "Radeon RX 9070 XT"
+        "keyword": "Radeon RX 9070 XT",
+        "linkType": "exact"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/_EQXSy"
+        "url": "https://yahoo.jp/_EQXSy",
+        "linkType": "search"
       },
       "status": "active",
       "updatedAt": "2026-08-18"
@@ -1024,7 +1088,8 @@
       "amazon": {
         "url": "https://amzn.to/4unpTv3",
         "asin": "",
-        "keyword": "GeForce RTX 3050"
+        "keyword": "GeForce RTX 3050",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -1420,7 +1485,8 @@
       "amazon": {
         "url": "https://amzn.to/4dX3w9t",
         "asin": "",
-        "keyword": "Radeon RX 9060 XT"
+        "keyword": "Radeon RX 9060 XT",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",
@@ -1464,7 +1530,8 @@
       "amazon": {
         "url": "https://amzn.to/4dDK7vf",
         "asin": "",
-        "keyword": "GeForce RTX 4080"
+        "keyword": "GeForce RTX 4080",
+        "linkType": "search"
       },
       "rakuten": {
         "url": "",

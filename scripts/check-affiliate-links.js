@@ -140,6 +140,37 @@ function looksLikeLandingPage(shop, url) {
   return false;
 }
 
+/* -----------------------------------------------------------------
+ *  遷移先の種別（linkType）を最終URLから判定する
+ *  -----------------------------------------------------------------
+ *  商品マスターの linkType が実態と合っているかを検査するために使う。
+ *  判別できないものは 'search'（安全側）に倒す。
+ * ----------------------------------------------------------------- */
+function classifyLinkType(shop, finalUrl) {
+  let u;
+  try { u = new URL(finalUrl); } catch (e) { return 'search'; }
+  const p = u.pathname, q = u.search, host = u.hostname;
+
+  if (shop === 'amazon') {
+    if (/^\/s\/?$/.test(p) || /[?&]k=/.test(q)) return 'search';
+    if (/\/dp\/[A-Z0-9]{10}/i.test(p) || /\/gp\/product\/[A-Z0-9]{10}/i.test(p)) return 'exact';
+    return 'search';
+  }
+  if (shop === 'yahoo') {
+    if (/^\/search/i.test(p)) return 'search';
+    if (/store\.shopping\.yahoo\.co\.jp$/i.test(host)) return 'exact';
+    if (/^\/products?\//i.test(p)) return 'exact';
+    return 'search';
+  }
+  if (shop === 'rakuten') {
+    if (/^\/search/i.test(p) || /search\.rakuten\.co\.jp$/i.test(host)) return 'search';
+    if (/item\.rakuten\.co\.jp$/i.test(host)) return 'exact';
+    if (/product\.rakuten\.co\.jp$/i.test(host)) return 'exact';
+    return 'search';
+  }
+  return 'search';
+}
+
 /* affiliate.js の isRealUrl と同じ判定（プレースホルダURLを除外する） */
 function isRealUrl(url) {
   if (!url) return false;
@@ -208,9 +239,16 @@ async function checkOne(entry, args) {
         result.verdict = '要確認';
         result.note = '商品ページではなくトップ/エラーページに着地した可能性';
       } else {
-        result.verdict = '正常';
-        // 検索ページに着地するリンクは、切れてはいないが商品ページではない
-        result.note = looksLikeSearchPage(result.finalUrl || url) ? '（検索結果ページに着地）' : '';
+        // 遷移先の実態と、マスターの linkType が食い違っていないか
+        const actual = classifyLinkType(shop, result.finalUrl || url);
+        result.actualLinkType = actual;
+        if (entry.linkType && entry.linkType !== actual) {
+          result.verdict = '要確認';
+          result.note = 'linkType 不一致（マスター: ' + entry.linkType + ' / 実際: ' + actual + '）';
+        } else {
+          result.verdict = '正常';
+          result.note = actual === 'search' ? '（検索結果ページに着地）' : '';
+        }
       }
     } else {
       result.verdict = '要確認';
@@ -303,6 +341,7 @@ async function main() {
         shop,
         shopLabel: SHOP_LABEL[shop] || shop,
         status: node.status || p.status || 'search-only',
+        linkType: (node.linkType || '').toLowerCase(),
         url: node.url,
       });
     });
@@ -383,11 +422,11 @@ async function main() {
 
   /* CSV出力 */
   if (args.csv) {
-    const header = ['product_id', 'name', 'shop', 'status', 'url', 'http_status', 'final_url', 'verdict', 'note'];
+    const header = ['product_id', 'name', 'shop', 'status', 'link_type', 'actual_link_type', 'url', 'http_status', 'final_url', 'verdict', 'note'];
     const lines = [header.join(',')];
     results.forEach((r) => {
       lines.push([
-        r.productId, r.name, r.shopLabel, r.status, r.url,
+        r.productId, r.name, r.shopLabel, r.status, r.linkType || '', r.actualLinkType || '', r.url,
         r.httpStatus, r.finalUrl, r.verdict, r.note,
       ].map(csvCell).join(','));
     });

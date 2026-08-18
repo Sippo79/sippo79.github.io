@@ -151,6 +151,49 @@
   }
 
   /* ------------------------------------------------------------------
+   *  リンク種別（linkType）
+   *  ------------------------------------------------------------------
+   *  商品マスターの直リンクは、短縮URL（amzn.to / a.r10.to / yahoo.jp）の
+   *  ままだと「商品ページ行き」なのか「検索結果行き」なのか分からない。
+   *  実際に遷移先を確認した結果を各ショップの linkType に持たせる。
+   *
+   *    "exact"   商品詳細ページへ飛ぶ  → ボタン文言「〇〇で価格を見る」
+   *    "search"  検索結果ページへ飛ぶ  → ボタン文言「〇〇で探す」
+   *
+   *  未設定（判別できていない）ものは **search 扱い**にする。
+   *  「価格を見る」と言って検索結果を開く方がユーザーを裏切るため、
+   *  迷ったら控えめな "探す" に倒すのが安全側。
+   * ------------------------------------------------------------------ */
+
+  /**
+   * そのショップのリンクが「商品詳細ページ直リンク」と言い切れるかを返す。
+   * ここが Amazon / 楽天 / Yahoo で共通の判定口。ボタン文言はこれだけで決まる。
+   *
+   * true になるのは次を全部満たすときだけ:
+   *   1. 売り切れ等でフォールバックしていない（＝直リンクを使っている）
+   *   2. 実際に使う直リンクが存在する（マスターのURL、またはAmazonのASIN）
+   *   3. その直リンクの遷移先が商品ページ（linkType === 'exact'）
+   *      ※ASIN から組み立てたURLは定義上かならず商品ページなので exact
+   */
+  function isExactLink(product, shopKey) {
+    if (!product) return false;
+
+    // 1. フォールバック中（sold-out 等）は実態が「検索」なので必ず false
+    if (!canUseDirectUrl(resolveStatus(product, shopKey))) return false;
+
+    var shop = product[shopKey] || {};
+
+    // 2-a. ASIN から組み立てた /dp/{ASIN} は必ず商品ページ
+    if (shopKey === 'amazon' && !isRealUrl(shop.url) && shop.asin) return true;
+
+    // 2-b. マスターに直リンクが無ければ検索フォールバック＝false
+    if (!isRealUrl(shop.url)) return false;
+
+    // 3. 実測した遷移先の種別。未設定は安全側で search 扱い（false）。
+    return normalizeStatus(shop.linkType) === 'exact';
+  }
+
+  /* ------------------------------------------------------------------
    *  リンク生成 — Amazon
    * ------------------------------------------------------------------ */
 
@@ -420,34 +463,37 @@
 
     var links = [];
 
-    // isExact = 商品ページ直リンクかどうか（false は検索結果ページ）。
-    // フォールバックした場合は実態が「検索」なので必ず false になるよう、
-    // マスターの有無だけでなくステータスも見る（ボタン文言でユーザーを騙さない）。
+    // isExact = 商品詳細ページへ飛ぶか（false は検索結果ページ）。
+    // 判定は全ショップ共通の isExactLink() に集約してある。
+    // フォールバック中・linkType 未設定は false（＝「探す」表記）になる。
     var amazonUrl = buildAmazonUrl(product);
     if (amazonUrl) {
-      var amazonDirect = canUseDirectUrl(resolveStatus(product, 'amazon'));
       links.push({
         shop: 'amazon',
         shopName: 'Amazon',
         url: amazonUrl,
-        isExact: amazonDirect && (isRealUrl(product.amazon && product.amazon.url) || Boolean(product.amazon && product.amazon.asin)),
+        isExact: isExactLink(product, 'amazon'),
       });
     }
 
     var rakutenUrl = buildRakutenUrl(product);
     if (rakutenUrl) {
-      var rakutenDirect = canUseDirectUrl(resolveStatus(product, 'rakuten'));
       links.push({
         shop: 'rakuten',
         shopName: '楽天市場',
         url: rakutenUrl,
-        isExact: rakutenDirect && isRealUrl(product.rakuten && product.rakuten.url),
+        isExact: isExactLink(product, 'rakuten'),
       });
     }
 
     var yahooUrl = buildYahooUrl(product);
     if (yahooUrl) {
-      links.push({ shop: 'yahoo', shopName: 'Yahoo!ショッピング', url: yahooUrl, isExact: true });
+      links.push({
+        shop: 'yahoo',
+        shopName: 'Yahoo!ショッピング',
+        url: yahooUrl,
+        isExact: isExactLink(product, 'yahoo'),
+      });
     }
 
     return links;
@@ -730,6 +776,7 @@
     addAffiliateProduct: addAffiliateProduct,
 
     // ステータス判定（診断スクリプト・運用ツールからも使う）
+    isExactLink: isExactLink,
     resolveStatus: resolveStatus,
     isHiddenStatus: isHiddenStatus,
     canUseDirectUrl: canUseDirectUrl,
