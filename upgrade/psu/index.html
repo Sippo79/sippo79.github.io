@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電源交換の目安｜GPU交換時に必要な電源容量の計算と選び方 - シッポPC</title>
+  <meta name="description" content="GPU交換時に見落としやすい電源容量。必要なW数の考え方、80PLUS認証、補助電源コネクタ（12VHPWR）の確認方法を解説します。">
+  <link rel="canonical" href="https://sippo-pc.jp/upgrade/psu/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="シッポPC">
+  <meta property="og:title" content="電源交換の目安｜GPU交換時に必要な電源容量の計算と選び方">
+  <meta property="og:description" content="GPU交換時に見落としやすい電源容量。必要なW数の考え方、80PLUS認証、補助電源コネクタ（12VHPWR）の確認方法を解説します。">
+  <meta property="og:url" content="https://sippo-pc.jp/upgrade/psu/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="電源交換の目安｜GPU交換時に必要な電源容量の計算と選び方">
+  <meta name="twitter:description" content="GPU交換時に見落としやすい電源容量。必要なW数の考え方、80PLUS認証、補助電源コネクタ（12VHPWR）の確認方法を解説します。">
+  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
+
+  <meta name="theme-color" content="#0B0F14">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
+  <link rel="stylesheet" href="/upgrade/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "シッポPC",
+        "item": "https://sippo-pc.jp/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PCアップグレード",
+        "item": "https://sippo-pc.jp/upgrade/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "電源ユニット交換",
+        "item": "https://sippo-pc.jp/upgrade/psu/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "電源を交換するとPCは速くなりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "なりません。電源は性能を上げるパーツではなく、他のパーツを安定して動かすためのものです。ただし容量不足の状態では性能が出ない・動作が不安定になることがあります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "容量が足りないとどうなりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "起動しない、高負荷時に突然電源が落ちる、再起動を繰り返す、といった症状が出ます。GPUを交換して不安定になった場合、電源容量が原因のことがよくあります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "容量は大きければ大きいほど良いですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "過剰に大きくても無駄になります。効率が最も良いのは定格の50〜60%付近の負荷です。必要容量に対して1.3〜1.4倍程度を目安に選ぶのが合理的です。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+</head>
+
+<body data-sippo-theme="dark" data-sippo-site="upgrade">
+
+  <header class="u-header">
+    <div class="container u-header__inner">
+      <a href="/upgrade/" class="u-logo">
+        <span class="u-logo__mark">PC UPGRADE</span>
+        <span class="u-logo__sub">シッポPC</span>
+      </a>
+      <nav class="u-header__nav" aria-label="サイト内ナビゲーション">
+        <a class="u-header__link" href="/upgrade/#diagnose">診断する</a>
+        <a class="u-header__link" href="/upgrade/#menu">交換メニュー</a>
+        <a class="u-header__link" href="/upgrade/vs-new-pc/">買い替えと比較</a>
+        <div data-sippo-servicenav></div>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="u-breadcrumb container" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="/">シッポPC</a></li>
+      <li><a href="/upgrade/">PCアップグレード</a></li>
+      <li>電源ユニット交換</li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <p class="u-label">PSU</p>
+        <h1 style="font-size:clamp(23px,5.4vw,36px);line-height:1.35;margin-bottom:16px">電源ユニット交換</h1>
+        <p style="color:var(--u-fg-soft);font-size:clamp(14.5px,3.4vw,16px);max-width:660px">電源を替えてもPCは速くなりません。しかし<strong>GPUを交換するときに見落とすと、そもそも動きません</strong>。安全に関わる部分なので、必ず確認してください。</p>
+        <p style="margin-top:22px">
+          <a href="/upgrade/#diagnose" class="u-btn u-btn--primary">自分のPCを診断する</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <div class="u-card" style="border-left:4px solid var(--u-accent);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">こんな人におすすめ</h2>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">消費電力の大きいGPUに交換したい</li>
+            <li style="margin-bottom:8px">高負荷時にPCが突然落ちる・再起動する</li>
+            <li style="margin-bottom:8px">電源を5年以上使っている</li>
+            <li style="margin-bottom:8px">補助電源コネクタの本数が足りない</li>
+          </ul>
+        </div>
+        <div class="u-card" style="border-left:4px solid var(--u-keep);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">交換しなくてよい可能性が高い人</h2>
+          <p style="color:var(--u-fg-soft);font-size:14px;margin-bottom:10px">次に当てはまる場合、交換しても効果を感じにくいことがあります。</p>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">GPUを交換する予定がなく、今の構成で問題なく動いている</li>
+            <li style="margin-bottom:8px">電源容量に十分な余裕がある</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">必要な容量の考え方</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">大まかには <strong>GPUの消費電力 + 150W（CPUやその他）</strong> を求め、そこに<strong>1.3〜1.4倍の余裕</strong>を見た値が目安になります。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">余裕を持たせる理由は2つあります。ひとつは瞬間的に大きな電力を消費する場面があること。もうひとつは、電源には<strong>定格の50〜60%付近で効率が最も良くなる</strong>特性があるためです。ぎりぎりの容量を選ぶと、効率も寿命も不利になります。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">このページ上部の<a href="/upgrade/">アップグレード診断</a>では、交換予定のGPUに対する必要容量の目安を自動で計算します。</p>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">補助電源コネクタを確認する</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">容量（W数）が足りていても、<strong>コネクタの形状と本数が合わなければ接続できません</strong>。</p>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px"><strong>8pin（PCIe）</strong>：従来から使われている形状。必要本数はGPUによります</li>
+            <li style="margin-bottom:8px"><strong>12VHPWR / 12V-2x6</strong>：新しい世代のGPUで使われる形状。変換ケーブルが付属する場合もありますが、対応電源の方が安全です</li>
+            <li style="margin-bottom:8px">購入前に、交換するGPUが要求するコネクタと、今の電源が持っているコネクタを必ず見比べてください</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">80PLUS認証について</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">80PLUSは電力変換効率の認証です。Bronze / Silver / Gold / Platinum / Titanium の順に効率が高くなります。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">ただし<strong>効率が高い＝性能が上がるわけではありません</strong>。効率が高いほど発熱と電気代が抑えられる、という違いです。一般的な用途ではBronze〜Goldで十分実用的です。</p>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">電源は寿命があるパーツです</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">電源ユニットは内部のコンデンサが劣化するため、<strong>5年程度を目安に交換を検討する</strong>パーツです。劣化した電源は、高負荷時に電力を供給しきれず、突然の電源断や再起動の原因になります。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">古い電源を使い続けたまま消費電力の大きいGPUを載せるのは避けてください。最悪の場合、他のパーツを巻き込んで故障することがあります。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">PRODUCTS</p>
+          <h2>容量別の電源ユニット</h2>
+          <p>価格は変動するため、最新の価格は各ショップでご確認ください。</p>
+        </div>
+        <div id="productList" data-products="psu_650w,psu_750w,psu_850w"></div>
+      </div>
+    </section>
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">FAQ</p>
+          <h2>よくある質問</h2>
+        </div>
+        <div class="u-faq">
+          <details class="u-faq__item">
+            <summary>電源を交換するとPCは速くなりますか？</summary>
+            <div class="u-faq__body">なりません。電源は性能を上げるパーツではなく、他のパーツを安定して動かすためのものです。ただし容量不足の状態では性能が出ない・動作が不安定になることがあります。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>容量が足りないとどうなりますか？</summary>
+            <div class="u-faq__body">起動しない、高負荷時に突然電源が落ちる、再起動を繰り返す、といった症状が出ます。GPUを交換して不安定になった場合、電源容量が原因のことがよくあります。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>容量は大きければ大きいほど良いですか？</summary>
+            <div class="u-faq__body">過剰に大きくても無駄になります。効率が最も良いのは定格の50〜60%付近の負荷です。必要容量に対して1.3〜1.4倍程度を目安に選ぶのが合理的です。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-cta">
+          <h2>迷ったら診断してみてください</h2>
+          <p>今の構成を入力すると、このパーツを交換すべきかどうかを判定します。交換が必要ない場合は、その旨をお伝えします。</p>
+          <div class="u-cta__actions">
+            <a class="u-btn u-btn--primary" href="/upgrade/#diagnose">アップグレード診断へ</a>
+            <a class="u-btn u-btn--ghost" href="/pc-consult/">シッポPCに相談する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">RELATED</p>
+          <h2>関連するページ</h2>
+        </div>
+        <div class="u-related">
+          <a class="u-related__card" href="/upgrade/gpu/">
+            <span class="u-related__en">GPU</span>
+            <strong>GPU（グラフィックボード）交換</strong>
+            <span>ゲームのFPSに最も影響するパーツです。「ゲームが重い」の原因がここにあることは多いですが、…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/cooler/">
+            <span class="u-related__en">COOLER</span>
+            <strong>CPUクーラー交換</strong>
+            <span>CPUは温度が上がりすぎると、自分を守るために性能を落とします。その状態なら、クーラーの交換…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/vs-new-pc/">
+            <span class="u-related__en">VS-NEW-PC</span>
+            <strong>買い替え vs アップグレード</strong>
+            <span>アップグレードは万能ではありません。交換するパーツが増えるほど費用は膨らみ、ある地点を超える…</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="u-footer">
+    <div class="container">
+      <div class="u-footer__grid">
+        <div class="u-footer__col">
+          <h3>UPGRADE</h3>
+          <ul>
+            <li><a href="/upgrade/">アップグレード診断</a></li>
+            <li><a href="/upgrade/gpu/">GPU交換</a></li>
+            <li><a href="/upgrade/cpu/">CPU交換</a></li>
+            <li><a href="/upgrade/memory/">メモリ増設</a></li>
+            <li><a href="/upgrade/ssd/">SSD増設</a></li>
+            <li><a href="/upgrade/psu/">電源交換</a></li>
+            <li><a href="/upgrade/cooler/">CPUクーラー交換</a></li>
+            <li><a href="/upgrade/vs-new-pc/">買い替えとの比較</a></li>
+          </ul>
+        </div>
+        <div class="u-footer__col">
+          <h3>SIPPO PC</h3>
+          <ul>
+            <li><a href="/">シッポPC トップ</a></li>
+            <li><a href="/pc-build-check/">PC BUILD CHECK</a></li>
+            <li><a href="/game-pc-guide/">GAME PC GUIDE</a></li>
+            <li><a href="/gpu-guide/">GPU GUIDE</a></li>
+            <li><a href="/pc-builds-hub/">PC構成投稿サイト</a></li>
+            <li><a href="/pc-consult/">シッポPC相談室</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-footer__bottom">
+        <p>当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+        <p style="margin-top:8px">本ページの内容は一般的な目安です。実際の性能・価格・取り付け可否を保証するものではありません。</p>
+        <p style="margin-top:8px">© 2026 シッポPC 🐾</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
+  <script src="/upgrade/upgrade-products.js" defer></script>
+</body>
+</html>

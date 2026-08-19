@@ -35,6 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
 
   <!-- 構造化データ -->
   <script type="application/ld+json">
@@ -106,6 +107,7 @@
         <li><a href="#why">Sippoについて</a></li>
         <li><a href="#roadmap">ロードマップ</a></li>
         <li><a href="#consult" class="nav__cta">無料チェックへ</a></li>
+        <li class="nav__svcnav"><div data-sippo-servicenav></div></li>
       </ul>
     </nav>
   </header>
@@ -356,6 +358,9 @@
           /* PC構成投稿サイト導線（パープル系アクセント） */
           .consult-promo--builds{border:1px solid rgba(124,131,255,.24);box-shadow:0 10px 30px rgba(99,102,241,.1)}
           .consult-promo--builds .consult-promo__eyebrow{color:#7C7CFF}
+          /* PCアップグレード導線（グリーン系アクセント＝性能が上がるイメージ） */
+          .consult-promo--upgrade{border:1px solid rgba(34,197,94,.26);box-shadow:0 10px 30px rgba(34,197,94,.1)}
+          .consult-promo--upgrade .consult-promo__eyebrow{color:#16A34A}
         </style>
 
         <p class="services__note reveal" style="margin-bottom:0;font-weight:800;color:#5b5bd6">🔗 PC選びをサポートする関連サービス</p>
@@ -383,6 +388,20 @@
           </div>
           <a href="/pc-builds-hub/" class="btn btn--primary consult-promo__btn">
             PC投稿サイトを見る
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <!-- ===== PCアップグレード 導線カード ===== -->
+        <div class="consult-promo consult-promo--upgrade glass reveal" style="margin-top:20px">
+          <div class="consult-promo__icon" aria-hidden="true">⚡</div>
+          <div class="consult-promo__body">
+            <p class="consult-promo__eyebrow">買い替える前に確認</p>
+            <h3 class="consult-promo__title">PCアップグレード診断</h3>
+            <p class="consult-promo__desc">今のPCが重い原因はGPU？メモリ？ 交換すべきパーツと費用の目安を診断します。<br class="sp-only">交換が不要な場合は「不要」とお伝えします。</p>
+          </div>
+          <a href="/upgrade/" class="btn btn--primary consult-promo__btn">
+            アップグレード診断を見る
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -651,6 +670,7 @@
             <li><a href="https://sippo-pc.jp/pc-build-check/">PC BUILD CHECK</a></li>
             <li><a href="https://sippo-pc.jp/game-pc-guide/">GAME PC GUIDE</a></li>
             <li><a href="https://sippo-pc.jp/pc-builds-hub/">PC構成投稿サイト</a></li>
+            <li><a href="/upgrade/">PCアップグレード</a></li>
             <li><a href="/pc-consult/">シッポPC相談室</a></li>
           </ul>
         </div>
@@ -685,5 +705,6 @@
   </a>
 
   <script src="script.js" defer></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
 </body>
 </html>

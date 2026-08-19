@@ -24,6 +24,7 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
 
   <!-- OGP -->
   <meta property="og:title" content="PC BUILD CHECK | 初心者向けゲーミングPC構成診断" />
@@ -101,15 +102,12 @@
   </script>
 
 </head>
-<body data-sippo-theme="dark">
+<body data-sippo-theme="dark" data-sippo-site="pc-build-check">
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
       <nav class="header-nav">
-        <a class="sippo-nav" href="https://sippo-pc.jp/#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
-          <img class="sippo-nav__icon" src="https://sippo-pc.jp/assets/sippo/sippo-normal.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
-          <span class="sippo-nav__text">Sippoに相談</span>
-        </a>
+        <div data-sippo-servicenav></div>
         <a href="#diagnosis" class="header-link">診断する</a>
       </nav>
     </div>
@@ -618,5 +616,6 @@
   <script src="/shared/affiliate/affiliate.js"></script>
   <script src="/shared/affiliate/affiliate-recommend.js"></script>
   <script src="script.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
 </body>
 </html>

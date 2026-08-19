@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSD増設・換装ガイド｜ゲームの容量不足と読み込みの遅さを解決 - シッポPC</title>
+  <meta name="description" content="ゲームの容量が足りない、読み込みが遅いときのSSD増設・換装を解説。HDDからの換装効果、NVMeとSATAの違い、増設時の確認点をまとめています。">
+  <link rel="canonical" href="https://sippo-pc.jp/upgrade/ssd/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="シッポPC">
+  <meta property="og:title" content="SSD増設・換装ガイド｜ゲームの容量不足と読み込みの遅さを解決">
+  <meta property="og:description" content="ゲームの容量が足りない、読み込みが遅いときのSSD増設・換装を解説。HDDからの換装効果、NVMeとSATAの違い、増設時の確認点をまとめています。">
+  <meta property="og:url" content="https://sippo-pc.jp/upgrade/ssd/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SSD増設・換装ガイド｜ゲームの容量不足と読み込みの遅さを解決">
+  <meta name="twitter:description" content="ゲームの容量が足りない、読み込みが遅いときのSSD増設・換装を解説。HDDからの換装効果、NVMeとSATAの違い、増設時の確認点をまとめています。">
+  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
+
+  <meta name="theme-color" content="#0B0F14">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
+  <link rel="stylesheet" href="/upgrade/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "シッポPC",
+        "item": "https://sippo-pc.jp/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PCアップグレード",
+        "item": "https://sippo-pc.jp/upgrade/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "SSD増設・換装",
+        "item": "https://sippo-pc.jp/upgrade/ssd/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "SSDを増設するとゲームは速くなりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "読み込み時間は短くなりますが、ゲーム中のFPSは基本的に変わりません。「マップの読み込みが長い」「起動が遅い」という不満には効果があります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "増設するとWindowsを入れ直す必要がありますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "増設（既存のSSDを残して追加）の場合は不要です。新しいSSDをゲームの保存先として指定するだけで使えます。Windowsごと引っ越す「換装」の場合はクローン作業か再インストールが必要です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "何TBあれば足りますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ゲームを常時5〜10本入れておきたいなら1TB、大作を多く入れる・動画も保存するなら2TB以上が目安です。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+</head>
+
+<body data-sippo-theme="dark" data-sippo-site="upgrade">
+
+  <header class="u-header">
+    <div class="container u-header__inner">
+      <a href="/upgrade/" class="u-logo">
+        <span class="u-logo__mark">PC UPGRADE</span>
+        <span class="u-logo__sub">シッポPC</span>
+      </a>
+      <nav class="u-header__nav" aria-label="サイト内ナビゲーション">
+        <a class="u-header__link" href="/upgrade/#diagnose">診断する</a>
+        <a class="u-header__link" href="/upgrade/#menu">交換メニュー</a>
+        <a class="u-header__link" href="/upgrade/vs-new-pc/">買い替えと比較</a>
+        <div data-sippo-servicenav></div>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="u-breadcrumb container" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="/">シッポPC</a></li>
+      <li><a href="/upgrade/">PCアップグレード</a></li>
+      <li>SSD増設・換装</li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <p class="u-label">SSD</p>
+        <h1 style="font-size:clamp(23px,5.4vw,36px);line-height:1.35;margin-bottom:16px">SSD増設・換装</h1>
+        <p style="color:var(--u-fg-soft);font-size:clamp(14.5px,3.4vw,16px);max-width:660px">容量不足の解消と、読み込み速度の改善に効きます。とくにHDDを使っている場合は、体感がはっきり変わる改善です。</p>
+        <p style="margin-top:22px">
+          <a href="/upgrade/#diagnose" class="u-btn u-btn--primary">自分のPCを診断する</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <div class="u-card" style="border-left:4px solid var(--u-accent);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">こんな人におすすめ</h2>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">ゲームを入れる容量が足りない</li>
+            <li style="margin-bottom:8px">ゲームを消しながら遊んでいる</li>
+            <li style="margin-bottom:8px">Windowsの起動やゲームの読み込みが遅い</li>
+            <li style="margin-bottom:8px">まだHDDにゲームを入れている</li>
+          </ul>
+        </div>
+        <div class="u-card" style="border-left:4px solid var(--u-keep);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">交換しなくてよい可能性が高い人</h2>
+          <p style="color:var(--u-fg-soft);font-size:14px;margin-bottom:10px">次に当てはまる場合、交換しても効果を感じにくいことがあります。</p>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">すでにNVMe SSDを使っていて、容量にも余裕がある</li>
+            <li style="margin-bottom:8px">不満がFPS（ゲームのなめらかさ）である（この場合はGPU側）</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">HDDからSSDへの換装は効果が大きい</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">HDDにWindowsやゲームが入っている場合、<strong>SSDへの換装は最も体感しやすい改善のひとつ</strong>です。Windowsの起動、ゲームの読み込み、マップの切り替えなどが大きく短縮されます。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">ただし<strong>ゲーム中のFPSはほとんど変わりません</strong>。FPSが不満な場合はGPU側の検討が必要です。</p>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">NVMeとSATA、どちらを選ぶか</h2>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px"><strong>NVMe SSD（M.2）</strong>：現在の主流。マザーボードに直接挿すため配線不要です</li>
+            <li style="margin-bottom:8px"><strong>SATA SSD（2.5インチ）</strong>：NVMeより低速ですが、M.2スロットが空いていない場合の選択肢になります</li>
+            <li style="margin-bottom:8px">実際のゲーム体験では、NVMeとSATAの差はHDD→SSDほど大きくは感じません</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">増設時の確認点</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>M.2スロットの空き</strong>：マザーボードのM.2スロット数は製品によって異なります。空きがあれば、既存のSSDを外さずに追加できます。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>既存SSDを残せる</strong>：増設の場合、Windowsを入れ直す必要はありません。新しいSSDをゲーム用のドライブとして使えます。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>容量の目安</strong>：最近のゲームは1本で100GBを超えるものもあります。複数のタイトルを入れておきたいなら1TB以上が現実的です。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">PRODUCTS</p>
+          <h2>増設でよく選ばれるSSD</h2>
+          <p>価格は変動するため、最新の価格は各ショップでご確認ください。</p>
+        </div>
+        <div id="productList" data-products="ssd_nvme_1tb,ssd_nvme_2tb"></div>
+      </div>
+    </section>
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">FAQ</p>
+          <h2>よくある質問</h2>
+        </div>
+        <div class="u-faq">
+          <details class="u-faq__item">
+            <summary>SSDを増設するとゲームは速くなりますか？</summary>
+            <div class="u-faq__body">読み込み時間は短くなりますが、ゲーム中のFPSは基本的に変わりません。「マップの読み込みが長い」「起動が遅い」という不満には効果があります。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>増設するとWindowsを入れ直す必要がありますか？</summary>
+            <div class="u-faq__body">増設（既存のSSDを残して追加）の場合は不要です。新しいSSDをゲームの保存先として指定するだけで使えます。Windowsごと引っ越す「換装」の場合はクローン作業か再インストールが必要です。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>何TBあれば足りますか？</summary>
+            <div class="u-faq__body">ゲームを常時5〜10本入れておきたいなら1TB、大作を多く入れる・動画も保存するなら2TB以上が目安です。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-cta">
+          <h2>迷ったら診断してみてください</h2>
+          <p>今の構成を入力すると、このパーツを交換すべきかどうかを判定します。交換が必要ない場合は、その旨をお伝えします。</p>
+          <div class="u-cta__actions">
+            <a class="u-btn u-btn--primary" href="/upgrade/#diagnose">アップグレード診断へ</a>
+            <a class="u-btn u-btn--ghost" href="/pc-consult/">シッポPCに相談する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">RELATED</p>
+          <h2>関連するページ</h2>
+        </div>
+        <div class="u-related">
+          <a class="u-related__card" href="/upgrade/memory/">
+            <span class="u-related__en">MEMORY</span>
+            <strong>メモリ（RAM）増設</strong>
+            <span>費用が比較的安く、効果が分かりやすい改善です。ただし「足りている容量をさらに増やしても速くは…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/gpu/">
+            <span class="u-related__en">GPU</span>
+            <strong>GPU（グラフィックボード）交換</strong>
+            <span>ゲームのFPSに最も影響するパーツです。「ゲームが重い」の原因がここにあることは多いですが、…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/vs-new-pc/">
+            <span class="u-related__en">VS-NEW-PC</span>
+            <strong>買い替え vs アップグレード</strong>
+            <span>アップグレードは万能ではありません。交換するパーツが増えるほど費用は膨らみ、ある地点を超える…</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="u-footer">
+    <div class="container">
+      <div class="u-footer__grid">
+        <div class="u-footer__col">
+          <h3>UPGRADE</h3>
+          <ul>
+            <li><a href="/upgrade/">アップグレード診断</a></li>
+            <li><a href="/upgrade/gpu/">GPU交換</a></li>
+            <li><a href="/upgrade/cpu/">CPU交換</a></li>
+            <li><a href="/upgrade/memory/">メモリ増設</a></li>
+            <li><a href="/upgrade/ssd/">SSD増設</a></li>
+            <li><a href="/upgrade/psu/">電源交換</a></li>
+            <li><a href="/upgrade/cooler/">CPUクーラー交換</a></li>
+            <li><a href="/upgrade/vs-new-pc/">買い替えとの比較</a></li>
+          </ul>
+        </div>
+        <div class="u-footer__col">
+          <h3>SIPPO PC</h3>
+          <ul>
+            <li><a href="/">シッポPC トップ</a></li>
+            <li><a href="/pc-build-check/">PC BUILD CHECK</a></li>
+            <li><a href="/game-pc-guide/">GAME PC GUIDE</a></li>
+            <li><a href="/gpu-guide/">GPU GUIDE</a></li>
+            <li><a href="/pc-builds-hub/">PC構成投稿サイト</a></li>
+            <li><a href="/pc-consult/">シッポPC相談室</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-footer__bottom">
+        <p>当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+        <p style="margin-top:8px">本ページの内容は一般的な目安です。実際の性能・価格・取り付け可否を保証するものではありません。</p>
+        <p style="margin-top:8px">© 2026 シッポPC 🐾</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
+  <script src="/upgrade/upgrade-products.js" defer></script>
+</body>
+</html>

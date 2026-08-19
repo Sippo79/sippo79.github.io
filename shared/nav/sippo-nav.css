@@ -1,0 +1,256 @@
+/* =====================================================================
+ *  シッポPC 共通サービスナビ (sippo-nav.css)
+ *  ---------------------------------------------------------------------
+ *  sippo-nav.js が描画するドロップダウンの見た目。
+ *
+ *  【前提】
+ *   - 明るいサイト（親 / pc-consult）と暗いサイト（gpu-guide /
+ *     game-pc-guide / pc-build-check / pc-builds-hub / upgrade）の
+ *     両方に載る。色は CSS 変数で切り替え、暗いサイトは
+ *     <body data-sippo-theme="dark"> を付ける（affiliate.css と同じ約束）。
+ *   - 既存サイトのCSSと衝突しないよう、クラスはすべて sippo-svcnav- 始まり。
+ *   - 既存の .site-header / .header-nav の中に置いても崩れないよう、
+ *     レイアウトは自己完結させる（position: relative の島を作る）。
+ * ===================================================================== */
+
+.sippo-svcnav {
+  /* 明るいサイト用の既定値。暗いサイトは下の [data-sippo-theme="dark"] で上書き */
+  --svcnav-fg:        #2D2A26;
+  --svcnav-fg-soft:   #6B645B;
+  --svcnav-bg:        #FFFFFF;
+  --svcnav-btn-bg:    rgba(45, 42, 38, .06);
+  --svcnav-btn-bg-h:  rgba(45, 42, 38, .12);
+  --svcnav-border:    rgba(45, 42, 38, .12);
+  --svcnav-shadow:    0 18px 44px rgba(45, 42, 38, .18);
+  --svcnav-hover:     rgba(56, 189, 248, .10);
+  --svcnav-accent:    #0EA5E9;
+
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+  line-height: 1.5;
+  text-align: left;
+}
+
+body[data-sippo-theme="dark"] .sippo-svcnav,
+.sippo-svcnav[data-theme="dark"] {
+  --svcnav-fg:        #EAF0FF;
+  --svcnav-fg-soft:   #A9B4CC;
+  --svcnav-bg:        #131826;
+  --svcnav-btn-bg:    rgba(255, 255, 255, .08);
+  --svcnav-btn-bg-h:  rgba(255, 255, 255, .16);
+  --svcnav-border:    rgba(255, 255, 255, .14);
+  --svcnav-shadow:    0 18px 44px rgba(0, 0, 0, .55);
+  --svcnav-hover:     rgba(25, 227, 255, .12);
+  --svcnav-accent:    #19E3FF;
+}
+
+/* ---------- トグルボタン ---------- */
+.sippo-svcnav__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--svcnav-border);
+  border-radius: 999px;
+  background: var(--svcnav-btn-bg);
+  color: var(--svcnav-fg);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  /* タップ領域を44px以上確保する（iOS/Androidのアクセシビリティ最小値） */
+  min-height: 44px;
+  transition: background .18s ease, border-color .18s ease;
+}
+
+.sippo-svcnav__toggle:hover,
+.sippo-svcnav__toggle:focus-visible {
+  background: var(--svcnav-btn-bg-h);
+  border-color: var(--svcnav-accent);
+}
+
+.sippo-svcnav__toggle-label {
+  white-space: nowrap;
+}
+
+/* 現在地のサービス名。狭い画面では隠して「サービス」だけにする */
+.sippo-svcnav__toggle-current {
+  max-width: 132px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--svcnav-fg-soft);
+  font-size: 12px;
+  font-weight: 600;
+  padding-left: 8px;
+  border-left: 1px solid var(--svcnav-border);
+}
+
+.sippo-svcnav__caret {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform .2s ease;
+  flex: none;
+}
+
+.sippo-svcnav.is-open .sippo-svcnav__caret {
+  transform: rotate(-135deg) translate(-3px, -3px);
+}
+
+/* ---------- パネル ---------- */
+.sippo-svcnav__panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  padding: 10px;
+  background: var(--svcnav-bg);
+  border: 1px solid var(--svcnav-border);
+  border-radius: 18px;
+  box-shadow: var(--svcnav-shadow);
+  /* 項目が増えても画面外に出ないようにする */
+  max-height: min(72vh, 560px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sippo-svcnav__panel[hidden] {
+  display: none;
+}
+
+.sippo-svcnav__heading {
+  margin: 4px 8px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: var(--svcnav-fg-soft);
+  text-transform: none;
+}
+
+/* ---------- 項目 ---------- */
+.sippo-svcnav__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  color: var(--svcnav-fg);
+  text-decoration: none;
+  transition: background .16s ease;
+}
+
+a.sippo-svcnav__item:hover,
+a.sippo-svcnav__item:focus-visible {
+  background: var(--svcnav-hover);
+}
+
+/* 現在地はクリックできない表示にする */
+.sippo-svcnav__item.is-current {
+  background: var(--svcnav-btn-bg);
+  cursor: default;
+}
+
+.sippo-svcnav__icon {
+  font-size: 18px;
+  line-height: 1.3;
+  flex: none;
+  width: 24px;
+  text-align: center;
+}
+
+.sippo-svcnav__text {
+  display: block;
+  min-width: 0; /* 長い文字列で親を押し広げない */
+}
+
+.sippo-svcnav__action {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sippo-svcnav__name {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--svcnav-accent);
+  letter-spacing: .02em;
+}
+
+.sippo-svcnav__desc {
+  display: block;
+  font-size: 12px;
+  color: var(--svcnav-fg-soft);
+}
+
+.sippo-svcnav__badge,
+.sippo-svcnav__here {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.sippo-svcnav__badge {
+  background: var(--svcnav-accent);
+  color: #06121B;
+}
+
+.sippo-svcnav__here {
+  background: var(--svcnav-btn-bg-h);
+  color: var(--svcnav-fg-soft);
+}
+
+/* 相談＝最終CTA。少しだけ強調して他と区別する */
+.sippo-svcnav__item--cta .sippo-svcnav__action {
+  color: var(--svcnav-accent);
+}
+
+/* ---------- スマホ ---------- */
+@media (max-width: 600px) {
+  /* 現在地名は隠し、「サービス」だけの最小幅にしてヘッダーを圧迫しない */
+  .sippo-svcnav__toggle-current {
+    display: none;
+  }
+
+  .sippo-svcnav__toggle {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* 画面が狭いときは、ビューポート基準で左右いっぱいに配置する。
+     right:0 の絶対配置のままだと 320px 幅のパネルが画面外へはみ出し、
+     横スクロールが発生してしまうため。
+
+     縦位置は「ヘッダーの下」に固定する。top:auto のままだと
+     静的位置に依存し、sticky ヘッダーの中では iOS Safari で
+     意図しない位置に出ることがある。 */
+  .sippo-svcnav__panel {
+    position: fixed;
+    top: calc(56px + env(safe-area-inset-top));
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: none;
+    margin-top: 0;
+    /* 画面下端（Safariのツールバー）にかからない高さに収める。
+       dvh は表示中のUIを除いた実際の高さになるため、
+       アドレスバーの出入りで見切れるのを防げる。 */
+    max-height: calc(100vh - 96px - env(safe-area-inset-top));
+    max-height: calc(100dvh - 96px - env(safe-area-inset-top));
+  }
+}
+
+/* 印刷時は不要 */
+@media print {
+  .sippo-svcnav { display: none; }
+}

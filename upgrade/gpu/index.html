@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU交換でFPSはどれくらい上がる？ゲーミングPCのグラボ交換ガイド - シッポPC</title>
+  <meta name="description" content="ゲームが重い原因の多くはGPUです。GPU交換で何が変わるか、交換前に確認すべき電源容量・ケースサイズ・CPUとの釣り合いを解説します。交換が不要なケースも説明します。">
+  <link rel="canonical" href="https://sippo-pc.jp/upgrade/gpu/">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="シッポPC">
+  <meta property="og:title" content="GPU交換でFPSはどれくらい上がる？ゲーミングPCのグラボ交換ガイド">
+  <meta property="og:description" content="ゲームが重い原因の多くはGPUです。GPU交換で何が変わるか、交換前に確認すべき電源容量・ケースサイズ・CPUとの釣り合いを解説します。交換が不要なケースも説明します。">
+  <meta property="og:url" content="https://sippo-pc.jp/upgrade/gpu/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GPU交換でFPSはどれくらい上がる？ゲーミングPCのグラボ交換ガイド">
+  <meta name="twitter:description" content="ゲームが重い原因の多くはGPUです。GPU交換で何が変わるか、交換前に確認すべき電源容量・ケースサイズ・CPUとの釣り合いを解説します。交換が不要なケースも説明します。">
+  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
+
+  <meta name="theme-color" content="#0B0F14">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
+  <link rel="stylesheet" href="/upgrade/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "シッポPC",
+        "item": "https://sippo-pc.jp/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "PCアップグレード",
+        "item": "https://sippo-pc.jp/upgrade/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "GPU（グラフィックボード）交換",
+        "item": "https://sippo-pc.jp/upgrade/gpu/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "GPUを交換したらFPSはどれくらい上がりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "現在のGPUと交換先の性能差によります。性能が2倍のGPUに交換しても、CPUやゲーム側の制限でFPSがそのまま2倍になるとは限りません。とくにフルHDではCPUの影響が大きく、伸びが小さくなることがあります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "古いPCに最新のGPUを付けられますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "物理的な接続（PCI Express）には下位互換があるため、多くの場合取り付け自体は可能です。ただし電源容量・ケースの大きさ・CPU性能が見合っているかの確認が必要です。古いCPUと組み合わせると、GPUの性能を出し切れない場合があります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "GPUの交換作業は難しいですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "手順自体は「古いGPUを外して新しいGPUを挿し、補助電源をつなぐ」というものです。ただし静電気対策、固定ネジやロック解除、ケーブルの取り回しなど注意点はあります。不安な場合は作業のご相談も承っています。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+</head>
+
+<body data-sippo-theme="dark" data-sippo-site="upgrade">
+
+  <header class="u-header">
+    <div class="container u-header__inner">
+      <a href="/upgrade/" class="u-logo">
+        <span class="u-logo__mark">PC UPGRADE</span>
+        <span class="u-logo__sub">シッポPC</span>
+      </a>
+      <nav class="u-header__nav" aria-label="サイト内ナビゲーション">
+        <a class="u-header__link" href="/upgrade/#diagnose">診断する</a>
+        <a class="u-header__link" href="/upgrade/#menu">交換メニュー</a>
+        <a class="u-header__link" href="/upgrade/vs-new-pc/">買い替えと比較</a>
+        <div data-sippo-servicenav></div>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="u-breadcrumb container" aria-label="パンくずリスト">
+    <ol>
+      <li><a href="/">シッポPC</a></li>
+      <li><a href="/upgrade/">PCアップグレード</a></li>
+      <li>GPU（グラフィックボード）交換</li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <p class="u-label">GPU</p>
+        <h1 style="font-size:clamp(23px,5.4vw,36px);line-height:1.35;margin-bottom:16px">GPU（グラフィックボード）交換</h1>
+        <p style="color:var(--u-fg-soft);font-size:clamp(14.5px,3.4vw,16px);max-width:660px">ゲームのFPSに最も影響するパーツです。「ゲームが重い」の原因がここにあることは多いですが、交換する前に確認すべき点がいくつかあります。</p>
+        <p style="margin-top:22px">
+          <a href="/upgrade/#diagnose" class="u-btn u-btn--primary">自分のPCを診断する</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <div class="u-card" style="border-left:4px solid var(--u-accent);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">こんな人におすすめ</h2>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">ゲームのFPSを上げたい</li>
+            <li style="margin-bottom:8px">WQHD（1440p）や4Kで遊びたい</li>
+            <li style="margin-bottom:8px">最新のゲームがカクついて遊べない</li>
+            <li style="margin-bottom:8px">レイトレーシングを有効にしたい</li>
+            <li style="margin-bottom:8px">画質設定を上げたい</li>
+          </ul>
+        </div>
+        <div class="u-card" style="border-left:4px solid var(--u-keep);margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">交換しなくてよい可能性が高い人</h2>
+          <p style="color:var(--u-fg-soft);font-size:14px;margin-bottom:10px">次に当てはまる場合、交換しても効果を感じにくいことがあります。</p>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px">解像度がフルHD・60fpsで足りていて、今のゲームが快適に動いている</li>
+            <li style="margin-bottom:8px">GPU使用率が100%に達していない（この場合はCPUやメモリが原因の可能性）</li>
+            <li style="margin-bottom:8px">重いのが「読み込み時間」だけ（この場合はSSDの問題）</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">GPU交換で変わること・変わらないこと</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">GPUを交換すると、ゲームのフレームレート（FPS）と対応できる解像度・画質設定が上がります。一方で、<strong>ゲームの読み込み時間やWindowsの起動速度はほとんど変わりません</strong>。そちらが不満な場合はSSDの見直しが有効です。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">また、アプリを多数開いたときの重さはメモリ容量の問題であることが多く、GPUを交換しても改善しません。まず「何が遅いのか」を切り分けることが大切です。</p>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">交換前に必ず確認する3点</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>1. 電源容量</strong><br>性能の高いGPUほど電力を使います。容量が足りないと、起動しない・ゲーム中に突然電源が落ちるといった症状が出ます。電源ユニット本体のラベルで定格出力（○○W）を確認してください。補助電源コネクタ（8pin / 12VHPWR）の本数も必要です。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>2. ケースに入るか（GPUの長さ）</strong><br>上位のGPUは30cmを超えるものもあり、ケースに収まらないことがあります。製品ページに記載された「カード長」と、ケースの「対応GPU長」を比べてください。厚み（2.5スロット / 3スロット）も確認が必要です。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px"><strong>3. CPUとの釣り合い</strong><br>GPUだけを大幅に強化しても、CPUが追いつかないと性能を出し切れません（ボトルネック）。とくにフルHDの高FPSを狙う場合はCPUの影響が大きくなります。逆にWQHD・4KではGPU側の負担が大きいため、CPUの影響は小さくなります。</p>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">解像度別・GPUの目安</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">同じGPUでも、解像度が上がるほど必要な性能は大きくなります。おおよその目安は次のとおりです。</p>
+          <ul class="u-menu-card__for" style="border-top:none;padding-top:0;margin-top:0">
+            <li style="margin-bottom:8px"><strong>フルHD / 60fps</strong>：エントリークラスでも十分に狙えます</li>
+            <li style="margin-bottom:8px"><strong>フルHD / 144fps</strong>：ミドルクラス以上。CPU性能も重要になります</li>
+            <li style="margin-bottom:8px"><strong>WQHD / 60〜120fps</strong>：ミドルハイクラスが目安です</li>
+            <li style="margin-bottom:8px"><strong>4K / 60fps</strong>：ハイエンドクラスが必要になります</li>
+          </ul>
+        </div>
+        <div class="u-card" style="margin-bottom:16px">
+          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">DLSS / FSRという選択肢</h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">GPUを交換しなくても、<strong>DLSS（NVIDIA）</strong>や<strong>FSR（AMD）</strong>といったアップスケーリング機能を有効にすると、画質をあまり落とさずにFPSを上げられる場合があります。対応しているゲームであれば、まずこちらを試す価値があります。</p>
+          <p style="color:var(--u-fg-soft);font-size:14.5px;margin-bottom:12px">「あと少しFPSが足りない」という状況なら、交換せずに解決することもあります。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">PRODUCTS</p>
+          <h2>交換候補としてよく選ばれるGPU</h2>
+          <p>価格は変動するため、最新の価格は各ショップでご確認ください。</p>
+        </div>
+        <div id="productList" data-products="rtx5060,rtx5060ti,rtx5070,rx9070"></div>
+      </div>
+    </section>
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">FAQ</p>
+          <h2>よくある質問</h2>
+        </div>
+        <div class="u-faq">
+          <details class="u-faq__item">
+            <summary>GPUを交換したらFPSはどれくらい上がりますか？</summary>
+            <div class="u-faq__body">現在のGPUと交換先の性能差によります。性能が2倍のGPUに交換しても、CPUやゲーム側の制限でFPSがそのまま2倍になるとは限りません。とくにフルHDではCPUの影響が大きく、伸びが小さくなることがあります。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>古いPCに最新のGPUを付けられますか？</summary>
+            <div class="u-faq__body">物理的な接続（PCI Express）には下位互換があるため、多くの場合取り付け自体は可能です。ただし電源容量・ケースの大きさ・CPU性能が見合っているかの確認が必要です。古いCPUと組み合わせると、GPUの性能を出し切れない場合があります。</div>
+          </details>
+          <details class="u-faq__item">
+            <summary>GPUの交換作業は難しいですか？</summary>
+            <div class="u-faq__body">手順自体は「古いGPUを外して新しいGPUを挿し、補助電源をつなぐ」というものです。ただし静電気対策、固定ネジやロック解除、ケーブルの取り回しなど注意点はあります。不安な場合は作業のご相談も承っています。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section">
+      <div class="container">
+        <div class="u-cta">
+          <h2>迷ったら診断してみてください</h2>
+          <p>今の構成を入力すると、このパーツを交換すべきかどうかを判定します。交換が必要ない場合は、その旨をお伝えします。</p>
+          <div class="u-cta__actions">
+            <a class="u-btn u-btn--primary" href="/upgrade/#diagnose">アップグレード診断へ</a>
+            <a class="u-btn u-btn--ghost" href="/pc-consult/">シッポPCに相談する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">RELATED</p>
+          <h2>関連するページ</h2>
+        </div>
+        <div class="u-related">
+          <a class="u-related__card" href="/upgrade/cpu/">
+            <span class="u-related__en">CPU</span>
+            <strong>CPU交換</strong>
+            <span>CPUは「GPUの性能を引き出せているか」に関わるパーツです。ただし交換範囲が広がりやすく、…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/psu/">
+            <span class="u-related__en">PSU</span>
+            <strong>電源ユニット交換</strong>
+            <span>電源を替えてもPCは速くなりません。しかしGPUを交換するときに見落とすと、そもそも動きませ…</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/vs-new-pc/">
+            <span class="u-related__en">VS-NEW-PC</span>
+            <strong>買い替え vs アップグレード</strong>
+            <span>アップグレードは万能ではありません。交換するパーツが増えるほど費用は膨らみ、ある地点を超える…</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="u-footer">
+    <div class="container">
+      <div class="u-footer__grid">
+        <div class="u-footer__col">
+          <h3>UPGRADE</h3>
+          <ul>
+            <li><a href="/upgrade/">アップグレード診断</a></li>
+            <li><a href="/upgrade/gpu/">GPU交換</a></li>
+            <li><a href="/upgrade/cpu/">CPU交換</a></li>
+            <li><a href="/upgrade/memory/">メモリ増設</a></li>
+            <li><a href="/upgrade/ssd/">SSD増設</a></li>
+            <li><a href="/upgrade/psu/">電源交換</a></li>
+            <li><a href="/upgrade/cooler/">CPUクーラー交換</a></li>
+            <li><a href="/upgrade/vs-new-pc/">買い替えとの比較</a></li>
+          </ul>
+        </div>
+        <div class="u-footer__col">
+          <h3>SIPPO PC</h3>
+          <ul>
+            <li><a href="/">シッポPC トップ</a></li>
+            <li><a href="/pc-build-check/">PC BUILD CHECK</a></li>
+            <li><a href="/game-pc-guide/">GAME PC GUIDE</a></li>
+            <li><a href="/gpu-guide/">GPU GUIDE</a></li>
+            <li><a href="/pc-builds-hub/">PC構成投稿サイト</a></li>
+            <li><a href="/pc-consult/">シッポPC相談室</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-footer__bottom">
+        <p>当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+        <p style="margin-top:8px">本ページの内容は一般的な目安です。実際の性能・価格・取り付け可否を保証するものではありません。</p>
+        <p style="margin-top:8px">© 2026 シッポPC 🐾</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
+  <script src="/upgrade/upgrade-products.js" defer></script>
+</body>
+</html>

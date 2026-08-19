@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PCアップグレード診断｜買い替える前に、交換で解決できるか調べる - シッポPC</title>
+  <meta name="description" content="今のゲーミングPCが重い・FPSが出ない。その原因がGPUなのかメモリなのかを診断します。交換不要な場合は「交換不要」とお伝えします。GPU・CPU・メモリ・SSD・電源の交換目安と費用、買い替えとの比較まで。">
+  <link rel="canonical" href="https://sippo-pc.jp/upgrade/">
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="シッポPC">
+  <meta property="og:title" content="PCアップグレード診断｜買い替える前に、交換で解決できるか調べる">
+  <meta property="og:description" content="今のPCが重い原因はGPU？メモリ？ 交換すべきパーツと費用の目安、買い替えとの比較を診断します。交換不要ならそうお伝えします。">
+  <meta property="og:url" content="https://sippo-pc.jp/upgrade/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PCアップグレード診断｜シッポPC">
+  <meta name="twitter:description" content="今のPCが重い原因はGPU？メモリ？ 交換すべきパーツと費用の目安、買い替えとの比較を診断します。">
+  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
+
+  <meta name="theme-color" content="#0B0F14">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+
+  <!-- Fonts：既存サイトと同じ1書体のみ。追加読み込みはしない -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- 構造化データ：実態のあるものだけに絞る（乱用しない） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "PCアップグレード診断",
+    "url": "https://sippo-pc.jp/upgrade/",
+    "description": "ゲーミングPCのどのパーツを交換すべきかを診断し、買い替えとの比較まで案内するページ。",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "シッポPC",
+      "url": "https://sippo-pc.jp/"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "シッポPC", "item": "https://sippo-pc.jp/" },
+      { "@type": "ListItem", "position": 2, "name": "PCアップグレード", "item": "https://sippo-pc.jp/upgrade/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "PCが重いとき、まずどのパーツを交換すればいいですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "症状によって変わります。ゲームのFPSが出ない場合はGPU、複数のアプリを開くと重い場合はメモリ、起動や読み込みが遅い場合はSSDが原因になりやすいです。診断では入力内容からどれに当てはまるかを判定します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "GPUを交換すると電源も交換が必要ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPUによります。消費電力の大きいGPUに交換する場合、電源容量が不足すると起動しない・高負荷時に電源が落ちるといった不具合が起きます。診断では交換予定のGPUに対して必要な電源容量の目安を表示します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "アップグレードと買い替えはどちらが得ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "交換が必要なパーツの数と費用によります。GPUだけの交換で済むならアップグレードが有利ですが、CPU・マザーボード・メモリまで交換が必要な場合は、費用が新しいPCの購入と変わらなくなるため買い替えをおすすめします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "自分のPCの構成が分からなくても診断できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "分かる範囲だけで診断できます。すべての項目に「分からない」を選べます。ただし情報が少ないほど判定できる範囲は狭くなり、その場合は「判定できない」と正直に表示します。構成の調べ方もページ内で案内しています。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google tag (gtag.js)：サイト全体で同一のGA4プロパティ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+</head>
+
+<body data-sippo-theme="dark" data-sippo-site="upgrade">
+
+  <header class="u-header">
+    <div class="container u-header__inner">
+      <a href="/upgrade/" class="u-logo">
+        <span class="u-logo__mark">PC UPGRADE</span>
+        <span class="u-logo__sub">シッポPC</span>
+      </a>
+      <nav class="u-header__nav" aria-label="サイト内ナビゲーション">
+        <a class="u-header__link" href="#diagnose">診断する</a>
+        <a class="u-header__link" href="#menu">交換メニュー</a>
+        <a class="u-header__link" href="#compare">買い替えと比較</a>
+        <a class="u-header__link" href="#faq">よくある質問</a>
+        <!-- 他サービスへの導線は共通ナビにまとめる（ボタンを並べない） -->
+        <div data-sippo-servicenav></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== ヒーロー ===== -->
+    <section class="u-hero">
+      <div class="container u-hero__inner">
+        <p class="u-hero__badge">PCアップグレード診断</p>
+        <h1>そのPC、買い替える前に<br><em>アップグレードで解決</em>できるかもしれません。</h1>
+        <p class="u-hero__lead">
+          「最近ゲームが重い」の原因は、PC全体ではなく<strong>特定のパーツ1つ</strong>のことがよくあります。
+          今の構成を入力すると、交換すべきパーツ・費用の目安・買い替えとの比較までを表示します。
+          <strong>交換が必要ないときは「必要ない」とお伝えします。</strong>
+        </p>
+
+        <div class="u-hero__actions">
+          <a href="#diagnose" class="u-btn u-btn--primary u-btn--lg">まずは自分のPCを診断する</a>
+          <a href="#menu" class="u-btn u-btn--ghost">交換メニューを見る</a>
+        </div>
+
+        <div class="u-worries" aria-label="よくある悩み">
+          <a class="u-worry" href="#diagnose">最近ゲームが重い</a>
+          <a class="u-worry" href="/upgrade/gpu/">FPSを上げたい</a>
+          <a class="u-worry" href="/upgrade/gpu/">WQHD・4Kで遊びたい</a>
+          <a class="u-worry" href="/upgrade/memory/">メモリが足りない</a>
+          <a class="u-worry" href="/upgrade/ssd/">SSDの容量が足りない</a>
+          <a class="u-worry" href="/upgrade/gpu/">GPUを交換したい</a>
+          <a class="u-worry" href="#diagnose">何を交換すればいいか分からない</a>
+          <a class="u-worry" href="/upgrade/psu/">電源容量が足りるか不安</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 流れ ===== -->
+    <section class="u-section u-section--tight">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">HOW IT WORKS</p>
+          <h2>診断から相談までの流れ</h2>
+        </div>
+        <div class="u-flow">
+          <div class="u-flow__item">
+            <h3>今の構成を入力</h3>
+            <p>分かる範囲でOK。「分からない」も選べます。</p>
+          </div>
+          <div class="u-flow__item">
+            <h3>交換すべき箇所を判定</h3>
+            <p>パーツごとに「交換おすすめ / 現状維持でOK」を表示します。</p>
+          </div>
+          <div class="u-flow__item">
+            <h3>費用と効果を確認</h3>
+            <p>費用の目安と、買い替えた場合との比較を確認できます。</p>
+          </div>
+          <div class="u-flow__item">
+            <h3>迷ったら相談</h3>
+            <p>互換性が不安・作業を任せたい場合はご相談ください。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 診断 ===== -->
+    <section class="u-section u-section--alt" id="diagnose">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">DIAGNOSE</p>
+          <h2>PCアップグレード診断</h2>
+          <p>
+            今のPCの構成と、遊びたい環境を入力してください。
+            すべて任意入力です。分かる項目だけで診断できます。
+          </p>
+        </div>
+
+        <form class="u-form" id="diagnoseForm" novalidate>
+          <p class="u-form__note">
+            <strong>すべて「分からない」でも構いません。</strong>
+            入力が多いほど判定の精度は上がりますが、
+            分からない項目を無理に埋める必要はありません。
+            確認できない項目は「判定できない」と正直に表示します。
+            調べ方は<a href="#how-to-check" style="color:var(--u-accent)">こちら</a>。
+          </p>
+
+          <!-- 今の構成 -->
+          <fieldset class="u-fieldset">
+            <legend>いまのPC構成</legend>
+            <p class="u-fieldset__desc">分かるものだけ入力してください。</p>
+
+            <div class="u-grid-2">
+              <label class="u-field">
+                <span class="u-field__label">
+                  GPU（グラフィックボード）
+                  <span class="u-field__hint">途中まで入力すると候補が出ます</span>
+                </span>
+                <input class="u-input" type="text" name="gpu" placeholder="例：RTX 3060（分からなければ空欄でOK）"
+                       autocomplete="off" inputmode="text" data-autocomplete="gpu">
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">
+                  CPU
+                  <span class="u-field__hint">途中まで入力すると候補が出ます</span>
+                </span>
+                <input class="u-input" type="text" name="cpu" placeholder="例：Ryzen 5 5600X（分からなければ空欄でOK）"
+                       autocomplete="off" inputmode="text" data-autocomplete="cpu">
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">メモリ容量</span>
+                <select class="u-select" name="memory">
+                  <option value="">分からない</option>
+                  <option value="8">8GB</option>
+                  <option value="16">16GB</option>
+                  <option value="32">32GB</option>
+                  <option value="64">64GB以上</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">
+                  メモリの種類
+                  <span class="u-field__hint">分からなければ「分からない」で構いません</span>
+                </span>
+                <select class="u-select" name="memoryType">
+                  <option value="unknown">分からない</option>
+                  <option value="ddr4">DDR4</option>
+                  <option value="ddr5">DDR5</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">ストレージ容量（Cドライブ）</span>
+                <select class="u-select" name="storage">
+                  <option value="">分からない</option>
+                  <option value="256">256GB</option>
+                  <option value="512">512GB</option>
+                  <option value="1000">1TB</option>
+                  <option value="2000">2TB以上</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">ストレージの種類</span>
+                <select class="u-select" name="storageType">
+                  <option value="unknown">分からない</option>
+                  <option value="ssd">SSD</option>
+                  <option value="hdd">HDD（ハードディスク）</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">
+                  電源容量
+                  <span class="u-field__hint">GPU交換の可否に関わります</span>
+                </span>
+                <select class="u-select" name="psu">
+                  <option value="">分からない</option>
+                  <option value="400">400W以下</option>
+                  <option value="500">500W</option>
+                  <option value="550">550W</option>
+                  <option value="650">650W</option>
+                  <option value="750">750W</option>
+                  <option value="850">850W</option>
+                  <option value="1000">1000W以上</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 目標 -->
+          <fieldset class="u-fieldset">
+            <legend>どんな環境で遊びたいか</legend>
+            <p class="u-fieldset__desc">ここが判定の基準になります。</p>
+
+            <div class="u-grid-2">
+              <label class="u-field">
+                <span class="u-field__label">解像度</span>
+                <select class="u-select" name="resolution">
+                  <option value="fhd">フルHD（1920×1080）</option>
+                  <option value="wqhd">WQHD（2560×1440）</option>
+                  <option value="4k">4K（3840×2160）</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">目標FPS</span>
+                <select class="u-select" name="targetFps">
+                  <option value="60">60fps（標準）</option>
+                  <option value="120">120fps</option>
+                  <option value="144">144fps</option>
+                  <option value="240">240fps（競技志向）</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">
+                  主な用途
+                  <span class="u-field__hint">遊ぶゲームの重さで必要性能が変わります</span>
+                </span>
+                <select class="u-select" name="usage">
+                  <option value="normal">一般的な3Dゲーム</option>
+                  <option value="light">軽めの競技系（VALORANT / LoL / Apex など）</option>
+                  <option value="heavy">重量級（Cyberpunk / モンハン / レイトレ有効）</option>
+                  <option value="creative">動画編集・制作</option>
+                </select>
+              </label>
+
+              <label class="u-field">
+                <span class="u-field__label">
+                  予算
+                  <span class="u-field__hint">指定すると予算内で提案します</span>
+                </span>
+                <select class="u-select" name="budget">
+                  <option value="">指定しない</option>
+                  <option value="30000">〜3万円</option>
+                  <option value="50000">〜5万円</option>
+                  <option value="80000">〜8万円</option>
+                  <option value="120000">〜12万円</option>
+                  <option value="200000">〜20万円</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="u-form__actions">
+            <button type="submit" class="u-btn u-btn--primary u-btn--lg">診断する</button>
+            <button type="reset" class="u-btn u-btn--ghost">入力をリセット</button>
+          </div>
+        </form>
+
+        <!-- 結果はここに描画される（URLは変更しない） -->
+        <div class="u-result" id="diagnoseResult" hidden aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ===== 構成の調べ方 ===== -->
+    <section class="u-section" id="how-to-check">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">HOW TO CHECK</p>
+          <h2>PC構成の調べ方</h2>
+          <p>入力する前に、今のPCの中身を確認する方法です。Windows標準の機能だけで確認できます。</p>
+        </div>
+
+        <div class="u-menu-grid">
+          <div class="u-card">
+            <h3 style="font-size:16px;margin-bottom:8px">GPU・CPU・メモリを調べる</h3>
+            <p style="font-size:13.5px;color:var(--u-fg-soft)">
+              キーボードで <strong>Ctrl + Shift + Esc</strong> を押すとタスクマネージャーが開きます。
+              <strong>［パフォーマンス］</strong>タブを選ぶと、左側にCPU・メモリ・GPUが並びます。
+              それぞれをクリックすると右上に型番が表示されます。
+            </p>
+          </div>
+          <div class="u-card">
+            <h3 style="font-size:16px;margin-bottom:8px">ストレージを調べる</h3>
+            <p style="font-size:13.5px;color:var(--u-fg-soft)">
+              タスクマネージャーの<strong>［パフォーマンス］</strong>タブに「ディスク」があり、
+              そこに <strong>SSD</strong> または <strong>HDD</strong> と表示されます。
+              容量はエクスプローラーの<strong>［PC］</strong>からも確認できます。
+            </p>
+          </div>
+          <div class="u-card">
+            <h3 style="font-size:16px;margin-bottom:8px">電源容量を調べる</h3>
+            <p style="font-size:13.5px;color:var(--u-fg-soft)">
+              電源容量はソフトでは確認できません。PCケース背面や側面パネルを開けた中にある
+              <strong>電源ユニット本体のラベル</strong>に「650W」などと記載されています。
+              BTOパソコンの場合は、購入時の構成表にも記載があります。
+            </p>
+          </div>
+          <div class="u-card">
+            <h3 style="font-size:16px;margin-bottom:8px">分からないときは</h3>
+            <p style="font-size:13.5px;color:var(--u-fg-soft)">
+              無理に調べなくても構いません。空欄のまま診断できます。
+              確認できない項目は「判定できない」と表示され、
+              勝手に問題なしとは判断しません。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 交換メニュー ===== -->
+    <section class="u-section u-section--alt" id="menu">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">UPGRADE MENU</p>
+          <h2>アップグレードメニュー</h2>
+          <p>パーツごとに「どんな人に向いているか」をまとめています。</p>
+        </div>
+
+        <div class="u-menu-grid">
+          <a class="u-menu-card" href="/upgrade/gpu/">
+            <div class="u-menu-card__icon" aria-hidden="true">🎮</div>
+            <h3>GPU（グラボ）交換</h3>
+            <span class="u-menu-card__en">GRAPHICS CARD</span>
+            <p>ゲームのFPSに最も影響するパーツ。ゲームが重い原因の多くはここです。</p>
+            <ul class="u-menu-card__for">
+              <li>FPSを上げたい</li>
+              <li>WQHD・4Kで遊びたい</li>
+              <li>最新ゲームを快適にしたい</li>
+            </ul>
+          </a>
+
+          <a class="u-menu-card" href="/upgrade/cpu/">
+            <div class="u-menu-card__icon" aria-hidden="true">⚙️</div>
+            <h3>CPU交換</h3>
+            <span class="u-menu-card__en">PROCESSOR</span>
+            <p>GPUの性能を引き出せているかに関わります。交換範囲が広がりやすい点に注意。</p>
+            <ul class="u-menu-card__for">
+              <li>GPUを替えてもFPSが伸びない</li>
+              <li>配信・録画を同時に行う</li>
+              <li>動画編集をしている</li>
+            </ul>
+          </a>
+
+          <a class="u-menu-card" href="/upgrade/memory/">
+            <div class="u-menu-card__icon" aria-hidden="true">🧠</div>
+            <h3>メモリ増設</h3>
+            <span class="u-menu-card__en">MEMORY</span>
+            <p>費用が安く効果が分かりやすい改善。8GBなら優先度は高めです。</p>
+            <ul class="u-menu-card__for">
+              <li>アプリを複数開くと重い</li>
+              <li>ゲーム中に画面が固まる</li>
+              <li>今8GBしかない</li>
+            </ul>
+          </a>
+
+          <a class="u-menu-card" href="/upgrade/ssd/">
+            <div class="u-menu-card__icon" aria-hidden="true">💾</div>
+            <h3>SSD増設・換装</h3>
+            <span class="u-menu-card__en">STORAGE</span>
+            <p>読み込みの速さと容量の改善。HDDを使っているなら効果が大きいです。</p>
+            <ul class="u-menu-card__for">
+              <li>ゲームの容量が足りない</li>
+              <li>起動・読み込みが遅い</li>
+              <li>まだHDDを使っている</li>
+            </ul>
+          </a>
+
+          <a class="u-menu-card" href="/upgrade/psu/">
+            <div class="u-menu-card__icon" aria-hidden="true">🔌</div>
+            <h3>電源交換</h3>
+            <span class="u-menu-card__en">POWER SUPPLY</span>
+            <p>単体で速くなるパーツではありませんが、GPU交換時に見落とすと動きません。</p>
+            <ul class="u-menu-card__for">
+              <li>GPUを交換したい</li>
+              <li>高負荷時にPCが落ちる</li>
+              <li>電源が古い・容量が不安</li>
+            </ul>
+          </a>
+
+          <a class="u-menu-card" href="/upgrade/cooler/">
+            <div class="u-menu-card__icon" aria-hidden="true">❄️</div>
+            <h3>CPUクーラー交換</h3>
+            <span class="u-menu-card__en">CPU COOLER</span>
+            <p>温度が高いと性能が下がります。動作音が気になる場合にも有効です。</p>
+            <ul class="u-menu-card__for">
+              <li>ファンの音が大きい</li>
+              <li>CPU温度が高い</li>
+              <li>長時間プレイで性能が落ちる</li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 型番別ガイド（SEO記事への内部リンク） ===== -->
+    <section class="u-section" id="models">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">BY MODEL</p>
+          <h2>型番から調べる</h2>
+          <p>お使いのパーツが決まっている場合は、こちらから確認できます。</p>
+        </div>
+        <div class="u-related">
+          <a class="u-related__card" href="/upgrade/rtx3060/">
+            <span class="u-related__en">GPU</span>
+            <strong>RTX 3060はまだ使える？</strong>
+            <span>解像度別の目安と、交換すべきかどうかの判断。</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/ryzen5-5600x/">
+            <span class="u-related__en">CPU</span>
+            <strong>Ryzen 5 5600Xはまだ使える？</strong>
+            <span>ボトルネックの見分け方と、相性のよいGPU。</span>
+          </a>
+          <a class="u-related__card" href="/upgrade/bto-gpu/">
+            <span class="u-related__en">BTO</span>
+            <strong>BTOパソコンのGPUは交換できる？</strong>
+            <span>GALLERIA等での確認点と、保証の扱い。</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 買い替え比較 ===== -->
+    <section class="u-section" id="compare">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">UPGRADE vs NEW PC</p>
+          <h2>アップグレードと買い替え、どちらを選ぶか</h2>
+          <p>
+            交換するパーツが増えるほど、アップグレードの利点は小さくなります。
+            判断の目安は次のとおりです。
+          </p>
+        </div>
+
+        <div class="u-table-wrap">
+          <table class="u-table">
+            <thead>
+              <tr>
+                <th scope="col">状況</th>
+                <th scope="col">おすすめ</th>
+                <th scope="col">理由</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">GPUだけ交換すれば足りる</th>
+                <td class="is-good">アップグレード</td>
+                <td>費用を抑えつつ、目的の性能に届きやすい状況です。</td>
+              </tr>
+              <tr>
+                <th scope="row">メモリ・SSDの不足だけ</th>
+                <td class="is-good">アップグレード</td>
+                <td>費用が安く、効果もはっきり出やすい改善です。</td>
+              </tr>
+              <tr>
+                <th scope="row">GPUに加えて電源も必要</th>
+                <td class="is-good">アップグレード</td>
+                <td>2点までなら、買い替えより費用を抑えられる場合が多いです。</td>
+              </tr>
+              <tr>
+                <th scope="row">CPUとマザーボードの交換が必要</th>
+                <td class="is-bad">買い替えを検討</td>
+                <td>メモリの交換も伴いやすく、費用が大きく膨らみます。</td>
+              </tr>
+              <tr>
+                <th scope="row">交換費用の合計が20万円前後</th>
+                <td class="is-bad">買い替え推奨</td>
+                <td>新品PCなら全体に保証が付き、相性や作業の手間もありません。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:18px">
+          <a href="/upgrade/vs-new-pc/" class="u-btn u-btn--ghost">買い替えとの比較を詳しく見る</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 中立性 ===== -->
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-card" style="border-left:4px solid var(--u-keep)">
+          <h2 style="font-size:clamp(18px,4.2vw,23px);margin-bottom:12px">
+            「交換しなくていい」ことも、はっきりお伝えします
+          </h2>
+          <p style="color:var(--u-fg-soft);font-size:14.5px">
+            このサイトは、パーツを売ることが目的ではありません。
+            診断の結果、今の構成で足りている場合は<strong>「現状維持でOK」</strong>と表示します。
+            また、交換が必要なパーツが多すぎる場合は、アップグレードではなく
+            <strong>買い替えをおすすめ</strong>します。
+            必要のない出費を勧めないことが、いちばん役に立つと考えているためです。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="u-section" id="faq">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">FAQ</p>
+          <h2>よくある質問</h2>
+        </div>
+
+        <div class="u-faq">
+          <details class="u-faq__item">
+            <summary>PCが重いとき、まずどのパーツを交換すればいいですか？</summary>
+            <div class="u-faq__body">
+              症状によって変わります。ゲームのFPSが出ない場合は<strong>GPU</strong>、
+              複数のアプリを開くと重い場合は<strong>メモリ</strong>、
+              起動や読み込みが遅い場合は<strong>SSD</strong>が原因になりやすいです。
+              診断では入力内容からどれに当てはまるかを判定します。
+            </div>
+          </details>
+
+          <details class="u-faq__item">
+            <summary>GPUを交換すると電源も交換が必要ですか？</summary>
+            <div class="u-faq__body">
+              GPUによります。消費電力の大きいGPUに交換する場合、電源容量が不足すると
+              起動しない・高負荷時に電源が落ちるといった不具合が起きます。
+              診断では、交換予定のGPUに対して必要な電源容量の目安を表示します。
+              あわせて補助電源コネクタ（8pin / 12VHPWR）の形状と本数もご確認ください。
+            </div>
+          </details>
+
+          <details class="u-faq__item">
+            <summary>アップグレードと買い替えはどちらが得ですか？</summary>
+            <div class="u-faq__body">
+              交換が必要なパーツの数と費用によります。GPUだけの交換で済むならアップグレードが
+              有利ですが、CPU・マザーボード・メモリまで交換が必要な場合は、
+              費用が新しいPCの購入と変わらなくなるため買い替えをおすすめします。
+              診断ではこの判断も含めて表示します。
+            </div>
+          </details>
+
+          <details class="u-faq__item">
+            <summary>自分のPCの構成が分からなくても診断できますか？</summary>
+            <div class="u-faq__body">
+              分かる範囲だけで診断できます。すべての項目に「分からない」を選べます。
+              ただし情報が少ないほど判定できる範囲は狭くなり、その場合は
+              「判定できない」と正直に表示します。
+              構成の調べ方は<a href="#how-to-check" style="color:var(--u-accent)">こちら</a>で案内しています。
+            </div>
+          </details>
+
+          <details class="u-faq__item">
+            <summary>ノートPCもアップグレードできますか？</summary>
+            <div class="u-faq__body">
+              ノートPCは<strong>GPU・CPUの交換ができません</strong>（基板に直接取り付けられているため）。
+              機種によってはメモリとSSDのみ交換・増設できる場合があります。
+              このサイトの診断はデスクトップPCを前提としています。
+            </div>
+          </details>
+
+          <details class="u-faq__item">
+            <summary>BTOパソコン（ドスパラ・GALLERIAなど）でも交換できますか？</summary>
+            <div class="u-faq__body">
+              多くのBTOパソコンは一般的な規格のパーツを使っているため、交換できる場合がほとんどです。
+              ただし一部のメーカー製PCでは、電源やケースが特殊な形状で交換しにくいことがあります。
+              また、メーカー保証期間中に内部を開けると保証の対象外になる場合があるため、
+              購入時の保証条件をご確認ください。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 相談CTA ===== -->
+    <section class="u-section u-section--alt">
+      <div class="container">
+        <div class="u-cta">
+          <h2>判断に迷ったら、相談できます</h2>
+          <p>
+            「この構成で合っているか」「自分のPCに取り付けられるか」が不安な場合は、
+            シッポPC相談室でご相談いただけます。
+          </p>
+          <div class="u-cta__actions">
+            <a class="u-btn u-btn--primary" href="/pc-consult/">シッポPCに相談する</a>
+            <a class="u-btn u-btn--ghost" href="#diagnose">もう一度診断する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 関連サービス ===== -->
+    <section class="u-section">
+      <div class="container">
+        <div class="u-section__head">
+          <p class="u-label">RELATED</p>
+          <h2>目的別に、ほかのサービスも使えます</h2>
+        </div>
+        <div class="u-related">
+          <a class="u-related__card" href="/gpu-guide/">
+            <span class="u-related__en">GPU GUIDE</span>
+            <strong>GPUを比較する</strong>
+            <span>交換候補のGPUの性能・価格帯を詳しく比較できます。</span>
+          </a>
+          <a class="u-related__card" href="/pc-build-check/">
+            <span class="u-related__en">PC BUILD CHECK</span>
+            <strong>新しいPCを選ぶ</strong>
+            <span>買い替える場合は、予算と用途からおすすめ構成を診断できます。</span>
+          </a>
+          <a class="u-related__card" href="/game-pc-guide/">
+            <span class="u-related__en">GAME PC GUIDE</span>
+            <strong>ゲーム別に必要スペックを見る</strong>
+            <span>遊びたいゲームから、必要な性能を逆引きできます。</span>
+          </a>
+          <a class="u-related__card" href="/pc-builds-hub/">
+            <span class="u-related__en">PC BUILDS HUB</span>
+            <strong>みんなのPC構成を見る</strong>
+            <span>実際に使われている構成を参考にできます。</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="u-footer">
+    <div class="container">
+      <div class="u-footer__grid">
+        <div class="u-footer__col">
+          <h3>UPGRADE</h3>
+          <ul>
+            <li><a href="/upgrade/">アップグレード診断</a></li>
+            <li><a href="/upgrade/gpu/">GPU交換</a></li>
+            <li><a href="/upgrade/cpu/">CPU交換</a></li>
+            <li><a href="/upgrade/memory/">メモリ増設</a></li>
+            <li><a href="/upgrade/ssd/">SSD増設</a></li>
+            <li><a href="/upgrade/psu/">電源交換</a></li>
+            <li><a href="/upgrade/cooler/">CPUクーラー交換</a></li>
+            <li><a href="/upgrade/vs-new-pc/">買い替えとの比較</a></li>
+            <li><a href="/upgrade/rtx3060/">RTX 3060はまだ使える？</a></li>
+            <li><a href="/upgrade/ryzen5-5600x/">Ryzen 5 5600Xはまだ使える？</a></li>
+            <li><a href="/upgrade/bto-gpu/">BTOパソコンのGPU交換</a></li>
+          </ul>
+        </div>
+        <div class="u-footer__col">
+          <h3>SIPPO PC</h3>
+          <ul>
+            <li><a href="/">シッポPC トップ</a></li>
+            <li><a href="/pc-build-check/">PC BUILD CHECK</a></li>
+            <li><a href="/game-pc-guide/">GAME PC GUIDE</a></li>
+            <li><a href="/gpu-guide/">GPU GUIDE</a></li>
+            <li><a href="/pc-builds-hub/">PC構成投稿サイト</a></li>
+            <li><a href="/pc-consult/">シッポPC相談室</a></li>
+          </ul>
+        </div>
+        <div class="u-footer__col">
+          <h3>ABOUT</h3>
+          <ul>
+            <li><a href="#how-to-check">PC構成の調べ方</a></li>
+            <li><a href="#faq">よくある質問</a></li>
+            <li><a href="/pc-consult/">相談・お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-footer__bottom">
+        <p>
+          当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。
+          リンク先で商品を購入すると運営者に収益が発生する場合があります。
+          Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。
+        </p>
+        <p style="margin-top:8px">
+          診断結果は入力内容にもとづく簡易的な目安です。実際の性能・価格・取り付け可否を保証するものではありません。
+        </p>
+        <p style="margin-top:8px">© 2026 シッポPC 🐾</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 共通基盤（アフィリエイト・サービスナビ）→ ページ固有の順で読み込む -->
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
+  <script src="upgrade-engine.js"></script>
+  <script src="upgrade-autocomplete.js" defer></script>
+  <script src="upgrade-diagnose.js" defer></script>
+</body>
+</html>

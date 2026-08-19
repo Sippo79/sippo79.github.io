@@ -1150,6 +1150,29 @@ section { scroll-margin-top: 90px; }
 /* ==========================================================
    Reduced Motion
    ========================================================== */
+
+
+/* ---------- 共通サービスナビ（ヘッダー内での配置調整） ---------- */
+.nav__svcnav { display: flex; align-items: center; }
+/* 下線アニメーション（.nav__menu a::after）がナビ内のリンクにも
+   かかってしまうため、ここだけ無効化する */
+.nav__svcnav .sippo-svcnav__item::after { display: none !important; }
+
+@media (max-width: 900px) {
+  /* モバイルの全画面メニュー内では、ドロップダウンではなく
+     その場で開くパネルにする（fixed だとオーバーレイ外に出てしまう）。 */
+  .nav__svcnav { width: 100%; max-width: 420px; }
+  .nav__svcnav .sippo-svcnav { display: block; width: 100%; }
+  .nav__svcnav .sippo-svcnav__toggle { width: 100%; justify-content: center; }
+  .nav__svcnav .sippo-svcnav__panel {
+    position: static;
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+    max-height: 46vh;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;

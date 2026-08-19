@@ -36,6 +36,7 @@
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css" />
   <link rel="icon" type="image/png" href="images/favicon.png" />
   <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
 
@@ -102,7 +103,7 @@
 
 </head>
 
-<body>
+<body data-sippo-theme="dark" data-sippo-site="game-pc-guide">
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="site-logo">
@@ -110,14 +111,9 @@
       </a>
 
       <nav class="header-nav">
-        <a class="sippo-nav" href="https://sippo-pc.jp/#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
-          <img class="sippo-nav__icon" src="https://sippo-pc.jp/assets/sippo/sippo-normal.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
-          <span class="sippo-nav__text">Sippoに相談</span>
-        </a>
+        <div data-sippo-servicenav></div>
         <a href="#games" class="header-link">ゲーム一覧</a>
         <a href="#beginner" class="header-link">初心者向け</a>
-        <a href="https://sippo-pc.jp/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
-        <a href="https://sippo-pc.jp/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
       </nav>
     </div>
   </header>
@@ -398,5 +394,6 @@
       });
     }
   </script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
 </body>
 </html>
