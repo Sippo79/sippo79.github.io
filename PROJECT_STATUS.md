@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-08-18（アフィリエイトID設定＋リンク切れフォールバック機能・診断スクリプトを追加）
+最終更新: 2026-08-19（`/upgrade/` にオートコンプリート・判定情報を追加＋型番別SEO記事3本）
 
 ---
 
@@ -46,6 +46,7 @@
 | GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較 | `gpu-guide/` |
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断 | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
+| PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
 
 **URLルール**:
 - できるだけ `index.html` なしの **ディレクトリURL** に統一（例: `/pc-consult/`）。実ファイル `index.html` は残し、`/.../index.html` でもアクセス可。
@@ -56,6 +57,7 @@
 - 直下 `sitemap.xml` は **サイトマップインデックス**（`<sitemapindex>`）。以下5本を束ねる:
   - `sitemap-main.xml`（親サイト + `/pc-consult/`）
   - `gpu-guide/sitemap.xml` / `pc-build-check/sitemap.xml` / `game-pc-guide/sitemap.xml` / `pc-builds-hub/sitemap.xml`（各子サイトが個別ページまで網羅、多くは生成スクリプト由来）
+  - `upgrade/sitemap.xml`（トップ＋パーツ別7ページ＋型番別記事3ページ＝計11URL。**すべて実体のある静的HTML**。診断結果はURLを持たないため載せない）
 - 親サイト/pc-consult のURLを足すときは `sitemap-main.xml` を編集（直下 sitemap.xml はインデックスなので実URLを書かない）。
 - 直下 `robots.txt` の `Sitemap:` はインデックス1本（`https://sippo-pc.jp/sitemap.xml`）に集約。
 
@@ -70,16 +72,27 @@
 - **生成スクリプト**: 一部ページは PowerShell スクリプトで静的生成
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/Generate-StaticGames.ps1`（GAME PC GUIDE）
+  - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
   - 各サイトの `generate-sitemap.ps1` / `.js`
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
 - **申し込み導線**: PC相談室の500円ワンコイン相談は **Squareの決済リンク**へ誘導。Square側で決済完了後にGoogleフォームへ自動遷移する設定が完了済み（フォーム送信まで完了して受付完了）。サイト側に決済機能・カートは実装していない（Square側の既存決済リンクへの外部遷移のみ）。無料の事前問い合わせは引き続きGoogleフォーム直リンク。
 - **アフィリエイト**: **共通基盤 `shared/affiliate/`**（2026-08-18〜）
-  - `affiliate-master.json` … 商品マスター（**URL追加・変更はここだけを編集**。全サイトへ反映）
+  - `affiliate-master.json` … 商品マスター（**URL追加・変更はここだけを編集**。全サイトへ反映）。
+    GPU 67件 / CPU 45件ほか。**`/upgrade/` のオートコンプリート候補もここが唯一の情報源**
+    （別ファイルに型番一覧を作らない）
   - `affiliate-config.js` … アソシエイトID / 楽天アフィリエイトID（**公開してよい値のみ**）
   - `affiliate.js` … リンク生成・商品名の表記ゆれ吸収・共通UI・クリック計測
   - `affiliate-recommend.js` … アップグレード提案（今のGPU→おすすめ）
   - `affiliate.css` … 購入ボタン共通スタイル（暗いサイトは `<body data-sippo-theme="dark">`）
   - 詳しい管理方法は `shared/affiliate/README.md`
+- **共通サービスナビ**: **`shared/nav/`**（2026-08-19〜）
+  - `sippo-nav.js` … サービス一覧（`SERVICES`）とドロップダウンの描画。
+    **サイトを追加したらここに1件足すだけ**で全サイトのナビに反映される。
+    各ページに関連サイトのボタンを手で足していく運用をやめるための仕組み。
+  - `sippo-nav.css` … 明暗どちらのサイトにも載る配色（暗いサイトは `data-sippo-theme="dark"`）
+  - 設置方法: ヘッダー内に `<div data-sippo-servicenav></div>` を置き、
+    `<body>` に `data-sippo-site="<id>"`（現在地）を指定する。
+  - **JSが動かなくても各ページのフッターに静的リンクが残る**ため、導線は失われない。
 
 ---
 
@@ -199,6 +212,12 @@
 ### 優先度B
 - **`pc-builds-hub` 専用 OGP 画像を作成して差し替え**。現在は親共通 `assets/ogp.png`（1200x630）を**暫定流用**中。
 - **`pc-build-check/ogp.jpg` を 1200x630 に再書き出し**。現状の実寸は 1199x630（1px半端）。
+- **`/upgrade/` 専用 OGP 画像を作成して差し替え**。現在は親共通 `assets/ogp.png` を**暫定流用**中。
+- **型番別SEO記事は3本のみ**（RTX 3060 / Ryzen 5 5600X / BTOのGPU交換）。
+  追加は `upgrade/articles-data.js` に1件足して generator を再実行する。
+- **アップグレード事例ページ（Before→After の実測FPS）が未作成**。
+  実測データが無いまま数値を書くと事実と異なる内容になるため、意図的に未着手。
+  実際の交換事例が集まってから `upgrade/generate-pages.js` の `PAGES` に追加する。
 
 ### 優先度C
 - 親サイト内リンクの**絶対パス / 相対パス混在を整理**（ディレクトリURLで統一する方針途上）。
