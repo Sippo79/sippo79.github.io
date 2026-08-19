@@ -120,11 +120,21 @@ a {
   color: transparent;
 }
 
+/* ヘッダー右側のナビ。他の子サイト（gpu-guide / game-pc-guide）と同じ指定。
+   このサイトだけ定義が無く、中身が <a> のみだったため崩れていなかったが、
+   共通サービスナビ（div）を置くと横並びにならないため追加する。 */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .header-link {
   padding: 10px 14px;
   border-radius: 999px;
   color: #cfd6e6;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .header-link:hover {
