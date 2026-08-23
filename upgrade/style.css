@@ -831,6 +831,35 @@ a.u-worry:hover {
 }
 .u-part__price strong { font-family: var(--u-mono); color: var(--u-fg-soft); font-size: 14px; }
 
+/* 予算オーバーの参考候補。
+   おすすめとは違うものだと一目で分かるよう、控えめな枠で囲って
+   本文から切り離す（購入ボタンも付けない）。 */
+.u-part__over {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--u-line);
+  border-radius: 8px;
+  background: var(--u-bg-soft);
+}
+.u-part__over-tag {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--u-line);
+  color: var(--u-fg-dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.u-part__over-text {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--u-fg-dim);
+}
+.u-part__over-text strong { color: var(--u-fg-soft); }
+
 /* 未確認事項のまとめ */
 .u-unknowns {
   margin-top: 20px;

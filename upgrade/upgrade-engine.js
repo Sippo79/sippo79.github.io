@@ -44,7 +44,8 @@
     rx6750xt: 60, rx6800: 64, rx6800xt: 70, rx6900xt: 74, rx6950xt: 78,
     rx7700xt: 63, rx7800xt: 72,
     rtx4070: 68, rtx4070super: 76, rtx5050: 44, rtx5060: 60, rtx5060ti: 68,
-    rtx3080ti: 76, rtx3090: 78, rtx4070tisuper: 84, rtx4080: 88, rtx4080super: 92,
+    rtx3080ti: 76, rtx3090: 78, rtx3090ti: 84, rtx4070ti: 80, rtx4070tisuper: 84,
+    rtx4080: 88, rtx4080super: 92, rtx4090: 115,
     rx7900gre: 78, rx7900xt: 86, rx7900xtx: 94, rx9060xt: 62, rx9070: 84, rx9070xt: 90,
     rtx5070: 82, rtx5070ti: 91, rtx5080: 100, rtx5090: 125,
   };
@@ -66,7 +67,8 @@
     rx6750xt: 250, rx6800: 250, rx6800xt: 300, rx6900xt: 300, rx6950xt: 335,
     rx7700xt: 245, rx7800xt: 263,
     rtx4070: 200, rtx4070super: 220, rtx5050: 130, rtx5060: 145, rtx5060ti: 180,
-    rtx3080ti: 350, rtx3090: 350, rtx4070tisuper: 285, rtx4080: 320, rtx4080super: 320,
+    rtx3080ti: 350, rtx3090: 350, rtx3090ti: 450, rtx4070ti: 285, rtx4070tisuper: 285,
+    rtx4080: 320, rtx4080super: 320, rtx4090: 450,
     rx7900gre: 260, rx7900xt: 315, rx7900xtx: 355, rx9060xt: 160, rx9070: 220, rx9070xt: 304,
     rtx5070: 250, rtx5070ti: 300, rtx5080: 360, rtx5090: 575,
   };
@@ -101,7 +103,13 @@
     '4k': { label: '4K (3840×2160)',     base: 88 },
   };
 
-  /* 目標FPSによる必要性能の倍率 */
+  /* 目標FPSによる必要性能の倍率
+   *
+   * ★この倍率は「理想値（100%達成ライン）」であって、合格ラインではない。
+   *   144fps という入力は「144Hzモニターを活かしたい」という"希望"であり、
+   *   「重量級ゲームで常時144fpsを絶対に切らない」という要件ではない。
+   *   実際の合格ラインは COMFORT_BANDS 側で幅を持たせて判定する。
+   */
   var FPS_MULTIPLIER = {
     60:  1.0,
     120: 1.35,
@@ -109,21 +117,83 @@
     240: 1.9,
   };
 
-  /* 用途ごとの重さ係数（同じ解像度でも要求性能が変わる） */
+  /* 用途ごとの重さ係数（同じ解像度でも要求性能が変わる）
+   *
+   * ★heavy は「Cyberpunk などを高〜最高設定で遊ぶ」を基準にする。
+   *   パストレーシング最高設定のような最悪条件を基準にしない。
+   *   現在の診断項目にRT/PTの指定が無い以上、最悪条件を仮定すると
+   *   ほぼ全員に最上位GPUが必要という非現実的な結論になるため。
+   *   また近年はDLSS/FSRやフレーム生成の利用が一般的で、
+   *   ネイティブ描画のみを前提にすると要求性能を過大評価する。
+   */
   var USAGE_WEIGHT = {
     light:  0.75, // VALORANT / LoL / Apex など軽めの競技系
     normal: 1.0,  // 一般的な3Dゲーム
-    heavy:  1.25, // Cyberpunk / MHWilds などの重量級・レイトレ
+    heavy:  1.12, // Cyberpunk / MHWilds などの重量級（高〜最高設定・アップスケーリング前提）
     creative: 1.0, // 動画編集・制作用途
   };
 
-  /* アップグレード先GPUの候補（控えめな順） */
+  /* ------------------------------------------------------------------
+   *  目標達成度の許容幅
+   * ------------------------------------------------------------------
+   *  「目標fpsの何%まで届いていれば良しとするか」。
+   *  目標を100%満たさないと不合格、という運用をやめるための表。
+   *  ratio = 現在のGPU性能 / 理想値（requiredGpuTier）
+   */
+  var COMFORT_BANDS = {
+    ideal:      1.00, // 理想（目標をそのまま満たす）
+    recommended:0.70, // 十分おすすめできる（設定そのままでほぼ目標付近）
+    comfortable:0.55, // 快適に遊べる（画質調整・アップスケーリングで到達）
+    // これ未満はアップグレード候補
+  };
+
+  /* ------------------------------------------------------------------
+   *  性能向上率のしきい値（今のGPUから替える価値があるか）
+   * ------------------------------------------------------------------
+   *  GPU_TIERS は相対スコアなので、比 (候補 / 現在) をそのまま使う。
+   */
+  var GAIN = {
+    pointless: 1.15, // これ未満の伸びは体感できない＝交換非推奨
+    small:     1.30, // 効果小
+    worth:     1.50, // 交換候補
+    // 1.50以上は「明確なアップグレード」
+  };
+
+  /* ------------------------------------------------------------------
+   *  費用対効果の判定基準
+   * ------------------------------------------------------------------
+   *  「性能1%を伸ばすのにいくら払うか」で見る。
+   *    costPerGain = 価格(円) / (伸び率% )
+   *  例) 5万円で30%伸びる → 50000/30 ≒ 1,667円/%
+   *      15万円で15%伸びる → 150000/15 = 10,000円/%
+   *  数値の絶対値に意味は無く、候補同士を比べるための指標。
+   */
+  var COST_PER_GAIN = {
+    good: 2600,  // これ以下なら費用対効果が良い
+    fair: 5200,  // これ以下なら許容範囲
+    // これを超えると「交換できるがおすすめはしない」
+  };
+
+  /* アップグレード先GPUの候補（控えめな順）
+   *
+   * ★ここは「現行世代で新品購入できるGPU」の一覧であり、
+   *   おすすめ順ではない。どれを選ぶかは pickGpuCandidate() が
+   *   性能向上率・価格・費用対効果から決める。
+   *   新しいGPU（RTX 6000番台など）は、ここと GPU_TIERS / GPU_POWER /
+   *   PRICE_HINT に追加すれば、ロジックを変えずに候補へ加わる。
+   */
   var GPU_CANDIDATES = [
     'rtx5050', 'rtx5060', 'rx9060xt', 'rtx5060ti', 'rtx5070',
     'rx9070', 'rx9070xt', 'rtx5070ti', 'rtx5080', 'rtx5090',
   ];
 
-  /* パーツのおおよその費用目安（円）。相場は変動するため「目安」として扱う */
+  /* パーツのおおよその費用目安（円）。相場は変動するため「目安」として扱う。
+   *
+   * ★価格の基準：日本国内の新品実売価格の"よく見る帯"（中央値寄り）。
+   *   最安値でも希望小売価格でもない。特価やセールは織り込まない。
+   *   ここが実勢と乖離すると費用対効果の判定がずれるため、
+   *   相場が大きく動いたときは見直すこと。
+   */
   var PRICE_HINT = {
     rtx5050: 35000, rtx5060: 50000, rx9060xt: 55000, rtx5060ti: 75000,
     rtx5070: 110000, rx9070: 110000, rx9070xt: 135000, rtx5070ti: 160000,
@@ -216,8 +286,125 @@
   }
 
   /**
+   * 目標に対する現在GPUの充足度を、段階ラベルで返す。
+   * 「100%満たすか否か」の二択にしないための関数。
+   */
+  function comfortLevel(ratio) {
+    if (ratio >= COMFORT_BANDS.ideal) return 'ideal';
+    if (ratio >= COMFORT_BANDS.recommended) return 'recommended';
+    if (ratio >= COMFORT_BANDS.comfortable) return 'comfortable';
+    return 'short';
+  }
+
+  /**
+   * 交換候補GPUを評価して並べる。
+   *
+   * 【この関数がこの診断の中心】
+   *  従来は「要求性能を満たす中でいちばん安いもの」を機械的に選んでいたため、
+   *  目標を高めに設定しただけで最上位GPUしか候補に残らなかった。
+   *  ここでは
+   *    ・現在GPUからの性能向上率（伸びない交換はそもそも無意味）
+   *    ・予算に収まるか
+   *    ・費用対効果（1%伸ばすのにいくら払うか）
+   *    ・目標にどこまで近づくか
+   *  を全部見たうえで並べる。特定の製品名は一切見ない。
+   *
+   * @returns {Array} 評価済み候補（おすすめ順）
+   */
+  function rankGpuCandidates(currentTier, required, budget) {
+    var list = [];
+
+    for (var i = 0; i < GPU_CANDIDATES.length; i++) {
+      var cid = GPU_CANDIDATES[i];
+      var tier = GPU_TIERS[cid];
+      var price = PRICE_HINT[cid];
+      if (!tier || !price) continue;
+
+      var gain = tier / currentTier;          // 1.30 なら30%向上
+      if (gain < GAIN.pointless) continue;    // 体感できない伸びは候補にしない
+
+      var gainPct = (gain - 1) * 100;
+      var costPerGain = price / gainPct;      // 1%伸ばすのにいくらか
+      var afterRatio = tier / required;       // 交換後の目標充足度
+
+      // 目標を大きく超える性能は"使い切れない"ため、価値として数えない。
+      // これがあると「とりあえず最上位」が自動的に不利になる。
+      var usefulRatio = Math.min(afterRatio, COMFORT_BANDS.ideal + 0.10);
+
+      // 目標への到達度を「満足度」に変換する。
+      //
+      //   ・COMFORT_BANDS.recommended（7割）に届かないうちは、
+      //     お金を払っても目標に足りないままなので満足度は低い。
+      //   ・7割〜100%の区間がいちばん価値が高い（払った分だけ体感が変わる）。
+      //   ・100%を超えた分は頭打ちにする（使い切れないため）。
+      //
+      // 単純な「性能/価格」にすると常に最安のGPUが勝ってしまい、
+      // 「WQHD 144Hzを目指す人に、かろうじて動くだけのGPUを勧める」
+      // という逆方向の失敗が起きる。
+      // そこで到達度は4乗して「目標に近いこと」を強く評価する。
+      // 一方 usefulRatio に上限があるため、目標を超える性能には
+      // いくら払っても満足度が増えず、最上位GPUは価格の分だけ不利になる。
+      var reach = usefulRatio / (COMFORT_BANDS.ideal + 0.10);
+      var satisfaction = Math.pow(reach, 4);
+
+      list.push({
+        id: cid,
+        tier: tier,
+        price: price,
+        gain: gain,
+        gainPct: gainPct,
+        costPerGain: costPerGain,
+        afterRatio: afterRatio,
+        usefulRatio: usefulRatio,
+        satisfaction: satisfaction,
+        overBudget: budget ? price > budget : false,
+        // 総合スコア：目標への到達度（満足度）を、支払う金額で割る。
+        // 「目標に届く候補ほど高く」「同じ到達度なら安いほど高く」なる。
+        // 目標を超えた性能は satisfaction が頭打ちになるので、
+        // 高額な最上位GPUは価格の分だけ自動的に不利になる。
+        score: (satisfaction * 100) / (price / 10000),
+      });
+    }
+
+    // 並び順は3段階。
+    //
+    //   1. 予算内を優先（予算は最も強い制約）
+    //   2. 「快適に遊べる水準（comfortable）」に届くかを優先
+    //   3. その中でスコア（費用対効果）の高い順
+    //
+    // 2 が無いと、常に最安のGPUが勝ってしまう。
+    // 4Kのような重い目標なのにエントリーGPUを勧める、という
+    // 従来とは逆方向の失敗を防ぐための段階。
+    // 逆に 2 を満たす候補が複数あれば、その中では安い方が選ばれるので、
+    // 「目標に届く範囲でいちばん無駄がないGPU」に落ち着く。
+    list.sort(function (a, b) {
+      if (a.overBudget !== b.overBudget) return a.overBudget ? 1 : -1;
+      var aOk = a.afterRatio >= COMFORT_BANDS.comfortable;
+      var bOk = b.afterRatio >= COMFORT_BANDS.comfortable;
+      if (aOk !== bOk) return aOk ? -1 : 1;
+      return b.score - a.score;
+    });
+
+    return list;
+  }
+
+  /** 費用対効果のラベル */
+  function valueLabel(costPerGain) {
+    if (costPerGain <= COST_PER_GAIN.good) return 'good';
+    if (costPerGain <= COST_PER_GAIN.fair) return 'fair';
+    return 'poor';
+  }
+
+  /**
    * GPUの判定。
    * 「足りているなら勧めない」を最優先にする。
+   *
+   * 判定は次の順で行う。
+   *   1. 今のGPUで目標に足りているか（充足度は段階で見る）
+   *   2. 足りない場合、交換して意味のある候補があるか（性能向上率）
+   *   3. その候補は予算内か
+   *   4. その候補は払うだけの価値があるか（費用対効果）
+   * どこかで「勧めるに値しない」と分かった時点で、現状維持を返す。
    */
   function judgeGpu(input) {
     var id = resolveKey(input.gpu, GPU_TIERS);
@@ -239,132 +426,212 @@
     var current = GPU_TIERS[id];
     var required = requiredGpuTier(input);
     var ratio = current / required;
+    var level = comfortLevel(ratio);
+    var budget = num(input.budget);
 
-    // 十分足りている → 交換しない
-    if (ratio >= 1.0) {
+    /* --- 1. 目標を満たしている → 交換しない ------------------------- */
+    if (level === 'ideal') {
       return {
         part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
         status: 'keep',
         headline: '現状維持でOK',
         detail: '目標としている環境に対して、今のGPUは性能が足りている見込みです。'
           + '今より上のGPUに替えても体感差が小さい可能性が高いため、いま交換する必要は薄いです。',
+        ratioToTarget: ratio,
+        comfort: level,
         priority: 0,
       };
     }
 
-    // わずかに足りない → 設定で対処できる範囲
-    if (ratio >= 0.8) {
+    /* --- 2. 目標の7割以上 → 実用上は十分。設定で埋められる ----------- */
+    // 「目標fpsを常時維持できるか」ではなく「快適に遊べるか」で見る。
+    // このクラスのGPUに対して上位GPUを勧めても、
+    // 支払う金額に見合う体感差にならないことがほとんど。
+    if (level === 'recommended') {
       return {
         part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
-        status: 'optional',
-        headline: '設定を下げれば足りる可能性があります',
-        detail: '目標にはわずかに届かない程度です。画質設定を1段階下げる、DLSS / FSR などの'
-          + 'アップスケーリングを使うことで、交換せずに目標へ届く可能性があります。'
-          + 'それでも不満が残る場合に交換を検討してください。',
+        status: 'keep',
+        headline: '現状維持でOK（十分な性能です）',
+        detail: '今のGPUは、目標としている環境に対して十分な性能を持っています。'
+          + '重量級のタイトルで目標fpsを常時維持できない場面はあり得ますが、'
+          + '画質設定の調整やDLSS / FSR などのアップスケーリング、フレーム生成を使えば'
+          + '快適に遊べる見込みです。'
+          + 'この水準から体感できるほど性能を上げるには高額なGPUが必要になり、'
+          + '支払う金額に見合いにくいため、いまの交換はおすすめしません。',
+        ratioToTarget: ratio,
+        comfort: level,
+        priority: 0,
+      };
+    }
+
+    /* --- 3. 足りない → 交換候補を評価する --------------------------- */
+    var ranked = rankGpuCandidates(current, required, budget);
+
+    // 意味のある伸びが得られる候補が1つも無い＝すでに上位クラスを使っている
+    if (ranked.length === 0) {
+      return {
+        part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
+        status: 'keep',
+        headline: '現状維持でOK（交換に見合う上位GPUがありません）',
+        detail: '今のGPUはすでに上位クラスのため、交換して体感できるほど'
+          + '性能が伸びる選択肢が現行製品にありません。'
+          + '目標としている環境に対しては余裕が少ない場面もありますが、'
+          + '画質設定やアップスケーリングでの調整をおすすめします。',
+        ratioToTarget: ratio,
+        comfort: level,
+        priority: 0,
+      };
+    }
+
+    var affordable = ranked.filter(function (c) { return !c.overBudget; });
+
+    /* --- 3-a. 予算内に候補が無い → 無理に勧めない ------------------- */
+    if (budget && affordable.length === 0) {
+      var cheapest = ranked.slice().sort(function (a, b) { return a.price - b.price; })[0];
+      return {
+        part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
+        status: 'keep',
+        headline: '予算内では交換をおすすめできません',
+        detail: 'ご指定の予算内では、今のGPUから明確な性能向上が得られる交換候補がありません。'
+          + '現時点ではGPU交換をおすすめしません。'
+          + '画質設定の調整やDLSS / FSR、フレーム生成を活用することで、'
+          + '今のGPUのままでも快適にプレイできる可能性があります。',
+        ratioToTarget: ratio,
+        comfort: level,
+        overBudgetOnly: true,
+        // 参考候補（予算オーバーであることを明示して別枠で見せる）
+        referenceId: cheapest ? cheapest.id : null,
+        referencePrice: cheapest ? cheapest.price : null,
+        priority: 1,
+      };
+    }
+
+    /* --- 3-b. 予算内（または予算未指定）の最良候補を選ぶ ------------- */
+    var pool = budget ? affordable : ranked;
+    var best = pool[0];
+    var value = valueLabel(best.costPerGain);
+
+    // 費用対効果が悪すぎる → 「交換できるが、おすすめはしない」
+    // 例) 10〜20%しか伸びないのに15万円以上かかるケース。
+    if (value === 'poor') {
+      return {
+        part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
+        recommendId: best.id,
+        status: 'consider',
+        headline: '交換は可能ですが、費用対効果は低めです',
+        detail: '交換候補はありますが、今のGPUからの性能向上は約'
+          + Math.round(best.gainPct) + '%にとどまる一方、費用は約'
+          + Math.round(best.price / 10000) + '万円かかります。'
+          + '支払う金額に対して体感できる差が小さいため、積極的にはおすすめしません。'
+          + 'まずは画質設定やアップスケーリングでの調整をお試しください。',
+        ratio: best.gain,
+        ratioToTarget: ratio,
+        comfort: level,
+        gainPct: best.gainPct,
+        costPerGain: best.costPerGain,
+        valueLabel: value,
         priority: 2,
       };
     }
 
-    // 明確に足りない → 交換候補を選ぶ
-    // 「必要性能を満たす中で、いちばん控えめ（＝安い）もの」を選ぶ。
-    // 予算感を無視して最上位を勧めないための、いちばん重要なルール。
-    //
-    // ここで required をそのまま満たそうとすると、WQHD/144fps のような
-    // 目標に対して「RTX 5080以上しか候補が無い」という極端な提案になる。
-    // 実際にはDLSS / FSR や画質設定の調整が前提の水準なので、
-    // 到達目標は practical（実用ライン）まで緩める。
-    // 満たせない分は「設定で補う」ことを結果側で必ず伝える。
-    var practical = required * 0.82;
-
-    var pick = null;
-    for (var i = 0; i < GPU_CANDIDATES.length; i++) {
-      var cid = GPU_CANDIDATES[i];
-      var tier = GPU_TIERS[cid];
-      if (!tier) continue;
-      if (tier < practical) continue;         // 実用ラインに届かない候補は除く
-      if (tier <= current * 1.2) continue;    // 今より2割も上がらないなら意味が薄い
-      if (!pick || tier < GPU_TIERS[pick]) pick = cid;
-    }
-
-    // 実用ラインを満たす候補が「最上位クラスしか無い」場合、
-    // それは目標設定そのものが過剰である可能性が高い。
-    // 高額GPUを押し付ける前に、目標の見直しを提案する。
-    if (pick && PRICE_HINT[pick] && PRICE_HINT[pick] >= 200000 && !num(input.budget)) {
+    // 伸びが小さい（15〜30%）→ 交換候補ではあるが必須ではない
+    if (best.gain < GAIN.small) {
       return {
         part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
-        recommendId: pick,
+        recommendId: best.id,
         status: 'consider',
-        headline: '目標を満たすには高額なGPUが必要です',
-        detail: '設定された解像度・FPSを満たすには、20万円を超えるクラスのGPUが必要になります。'
-          + 'まず目標FPSを下げる（144→120fps など）、またはDLSS / FSR の利用を前提にすると、'
-          + 'より現実的な価格帯のGPUで目的を達成できる可能性があります。'
-          + '予算を入力して再診断すると、予算内での最適な候補を提示します。',
-        ratio: GPU_TIERS[pick] / current,
+        headline: '交換の効果は小さめです',
+        detail: '今のGPUからの性能向上は約' + Math.round(best.gainPct) + '%程度で、'
+          + '劇的に変わるとまでは言えません。'
+          + '現状に強い不満がある場合のみ検討してください。',
+        ratio: best.gain,
+        ratioToTarget: ratio,
+        comfort: level,
+        gainPct: best.gainPct,
+        costPerGain: best.costPerGain,
+        valueLabel: value,
+        priority: 2,
+      };
+    }
+
+    /* --- 3-c. 目標が現行GPUでは到達不能 ------------------------------ */
+    // どの候補を選んでも「十分おすすめできる水準」に届かない場合、
+    // それは製品の問題ではなく目標設定が過剰である可能性が高い。
+    // （4K/240fps・重量級 などは現行の最上位GPUでも届かない）
+    // 高額GPUを勧めて解決したように見せるのは不誠実なので、
+    // まず目標の見直しを提案する。
+    //
+    // ★ここは comfortable（55%）ではなく recommended（70%）で判定する。
+    //   55%まで許すと「最上位GPUを買えば一応マシになる」という理由で
+    //   到達不能な目標に高額GPUを勧めてしまうため。
+    if (best.afterRatio < COMFORT_BANDS.recommended) {
+      return {
+        part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
+        recommendId: best.id,
+        status: 'consider',
+        headline: '目標設定が高すぎる可能性があります',
+        detail: '設定された解像度・FPSは、現行の最上位GPUでも到達が難しい水準です。'
+          + 'GPUを交換しても目標には届かない見込みのため、'
+          + 'まず目標FPSまたは解像度の見直しをおすすめします。'
+          + 'DLSS / FSR やフレーム生成の利用を前提にすると、'
+          + 'より現実的な構成で目的を達成できる可能性があります。',
+        ratio: best.gain,
+        ratioToTarget: ratio,
+        comfort: level,
+        gainPct: best.gainPct,
+        costPerGain: best.costPerGain,
+        valueLabel: value,
         priority: 3,
         overTarget: true,
       };
     }
 
-    // 予算が指定されていれば、それを超える候補は落とす
-    var budget = num(input.budget);
-    if (pick && budget && PRICE_HINT[pick] && PRICE_HINT[pick] > budget) {
-      var affordable = null;
-      for (var j = 0; j < GPU_CANDIDATES.length; j++) {
-        var aid = GPU_CANDIDATES[j];
-        if (!GPU_TIERS[aid] || !PRICE_HINT[aid]) continue;
-        if (PRICE_HINT[aid] > budget) continue;
-        if (GPU_TIERS[aid] <= current * 1.2) continue;
-        if (!affordable || GPU_TIERS[aid] > GPU_TIERS[affordable]) affordable = aid;
-      }
-      if (affordable) {
-        return {
-          part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
-          recommendId: affordable,
-          status: 'upgrade',
-          headline: '交換をおすすめします（予算内の候補）',
-          detail: '目標環境には予算を超えるGPUが必要ですが、ご指定の予算内では'
-            + 'この候補がもっとも性能を伸ばせます。目標にはわずかに届かない可能性があるため、'
-            + '画質設定での調整も併せて検討してください。',
-          ratio: GPU_TIERS[affordable] / current,
-          priority: 5,
-          budgetLimited: true,
-        };
-      }
+    /* --- 3-d. 交換をおすすめする ------------------------------------ */
+    var meetsFully = best.afterRatio >= COMFORT_BANDS.ideal;
+    var reachesComfort = best.afterRatio >= COMFORT_BANDS.recommended;
+
+    var detail;
+    if (meetsFully) {
+      detail = '目標としている環境に対して、今のGPUでは性能が不足する見込みです。'
+        + 'このクラスに交換すると、目標に届く見込みがあります。'
+        + '（性能向上の目安：約' + Math.round(best.gainPct) + '%）';
+    } else if (reachesComfort) {
+      detail = '目標としている環境に対して、今のGPUでは性能が不足する見込みです。'
+        + 'このクラスへの交換で大きく改善し、画質設定やDLSS / FSR の調整を併用すれば'
+        + '快適に遊べる水準に届きます。'
+        + '（性能向上の目安：約' + Math.round(best.gainPct) + '%）';
+    } else {
+      detail = '目標としている環境に対して、今のGPUでは性能が大きく不足しています。'
+        + 'このクラスへの交換で体感は大きく変わりますが、'
+        + '設定した解像度・FPSを最高画質のまま満たすには届かない可能性があります。'
+        + 'DLSS / FSR の利用や画質設定の調整を前提にお考えください。'
+        + '（性能向上の目安：約' + Math.round(best.gainPct) + '%）';
     }
 
-    if (!pick) {
-      // 目標が高すぎて候補が無い（4K/240fpsなど）
-      return {
-        part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
-        status: 'consider',
-        headline: '目標設定が高すぎる可能性があります',
-        detail: '設定された解像度・FPSは、現行の最上位GPUでも到達が難しい水準です。'
-          + '目標FPSまたは解像度を見直すことをおすすめします。',
-        priority: 3,
-      };
+    // 予算のせいで上位候補を落とした場合は、その事実を伝える
+    if (budget && ranked.length > affordable.length) {
+      detail += 'なお、ご指定の予算を超える上位GPUもありますが、'
+        + '予算内でもっとも効果的な候補を提示しています。';
     }
-
-    // 目標を完全には満たさない候補を選んだ場合、その事実を隠さない。
-    // 「買えば全部解決する」と誤解させないため、設定調整の前提を明記する。
-    var meetsFully = GPU_TIERS[pick] >= required;
 
     return {
       part: 'gpu', label: 'GPU（グラフィックボード）', currentId: id,
-      recommendId: pick,
+      recommendId: best.id,
       status: 'upgrade',
       headline: '交換をおすすめします',
-      detail: meetsFully
-        ? '目標としている環境に対して、今のGPUでは性能が不足する見込みです。'
-          + 'このクラスに交換すると、目標に届く見込みがあります。'
-        : '目標としている環境に対して、今のGPUでは性能が不足する見込みです。'
-          + 'このクラスへの交換で大きく改善しますが、設定した解像度・FPSを'
-          + '最高画質のまま完全に満たすには届かない可能性があります。'
-          + 'DLSS / FSR の利用や画質設定の調整を前提にお考えください。',
-      ratio: GPU_TIERS[pick] / current,
+      detail: detail,
+      ratio: best.gain,
+      ratioToTarget: ratio,
+      comfort: level,
+      gainPct: best.gainPct,
+      costPerGain: best.costPerGain,
+      valueLabel: value,
       priority: 5,
       meetsTarget: meetsFully,
+      budgetLimited: !!(budget && ranked.length > affordable.length),
     };
   }
+
 
   /**
    * CPUの判定。GPUを替えたときに足を引っ張らないかを見る。
@@ -740,20 +1007,27 @@
       };
     }
 
-    // 4点以上の交換 かつ CPUにも不安がある場合は、
-    // 金額が20万円に届いていなくても買い替え側に倒す。
-    // これだけ替えると流用できるのはケース程度で、しかも土台となる
-    // CPU・マザーボードが古いままなので、投資に見合いにくいため。
+    // 4点以上の交換は、金額が20万円に届いていなくても買い替え側に倒す。
+    // GPU・メモリ・ストレージ・電源まで替えると、流用できるのは
+    // ケースとCPU・マザーボードだけ＝実質的に組み直しであり、
+    // しかも土台となるCPU・マザーボードは古いままなので投資に見合いにくい。
+    //
+    // ★以前は「CPUにも不安がある場合」を条件に加えていたが、
+    //   CPUが十分でも4点replaceするなら実質同じ状況なので条件から外した。
+    //   （GPU推奨の適正化で交換費用が下がり、金額だけでは
+    //     この状況を捕まえられなくなったため）
     var cpuWeak = results.some(function (r) {
       return r.part === 'cpu' && (r.status === 'upgrade' || r.status === 'consider');
     });
-    if (upgrades.length >= 4 && cpuWeak) {
+    if (upgrades.length >= 4) {
       return {
         verdict: 'replace',
         headline: 'PCの買い替えをおすすめします',
-        detail: '交換をおすすめするパーツが' + upgrades.length + '点あり、'
-          + 'さらにCPUにも性能面の不安が残る構成です。'
-          + 'これだけ交換しても土台となるCPU・マザーボードは古いままのため、'
+        detail: '交換をおすすめするパーツが' + upgrades.length + '点あります。'
+          + (cpuWeak ? 'さらにCPUにも性能面の不安が残る構成です。' : '')
+          + 'これだけ交換すると流用できるのはケースとCPU・マザーボード程度で、'
+          + '実質的にPCを組み直すのと変わりません。'
+          + '土台となるCPU・マザーボードは古いままのため、'
           + '費用のわりに満足度が上がりにくい状態です。'
           + (hasEstimate ? '交換費用の目安は約' + Math.round(total / 10000) + '万円で、' : '')
           + '同程度の予算で新しいPCを検討する方が有利になりやすい場面です。',

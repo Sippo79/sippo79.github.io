@@ -123,6 +123,26 @@
       + '<p class="u-part__headline">' + esc(p.headline) + '</p>'
       + '<p class="u-part__detail">' + esc(p.detail) + '</p>';
 
+    // 予算内に候補が無く「現状維持」とした場合の参考候補。
+    // ★通常のおすすめとは明確に分けて出す。
+    //   予算を超えるGPUを普通のおすすめとして並べると、
+    //   予算を指定した意味が無くなってしまうため。
+    //   購入ボタンもここでは出さない（勧めていないので）。
+    if (p.status === 'keep' && p.referenceId && p.referencePrice) {
+      var A2 = global.SippoAffiliate;
+      var refProduct = A2 && A2.isReady() ? A2.getProduct(p.referenceId) : null;
+      var refName = refProduct ? refProduct.shortName : p.referenceId;
+      html += '<div class="u-part__over">'
+        + '<span class="u-part__over-tag">予算オーバー（参考）</span>'
+        + '<p class="u-part__over-text">'
+        + 'どうしても性能を上げたい場合、もっとも安い候補は '
+        + '<strong>' + esc(refName) + '</strong>（約'
+        + esc(formatYen(p.referencePrice)) + '）です。'
+        + 'ご指定の予算を超えるため、おすすめとしては提示していません。'
+        + '</p>'
+        + '</div>';
+    }
+
     // 交換提案がある場合は before → after を見せる
     if (p.recommendId && (p.status === 'upgrade' || p.status === 'consider')) {
       var A = global.SippoAffiliate;

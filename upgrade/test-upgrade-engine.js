@@ -405,6 +405,174 @@ function part(result, partName) {
 })();
 
 /* ------------------------------------------------------------------
+ *  6. GPU推奨の妥当性（過剰推奨をしないこと）
+ * ------------------------------------------------------------------
+ *  この診断でいちばん壊れやすいのが「高性能GPUを使っている人に、
+ *  さらに高額なGPUを勧めてしまう」パターン。
+ *  かつては WQHD/144fps/重量級 と入力しただけで
+ *  RX 9070 → RTX 5090（約45万円）を勧め、そのまま買い替え判定にまで
+ *  落ちていた。同じ壊れ方を二度としないための固定テスト。
+ * ------------------------------------------------------------------ */
+
+/** 交換候補として提示されたGPUの価格を返す（提示が無ければ0） */
+function recPrice(result) {
+  var g = part(result, 'gpu');
+  if (!g || !g.recommendId) return 0;
+  return E.PRICE_HINT[g.recommendId] || 0;
+}
+
+(function () {
+  // ケースA：高性能GPU × 予算20万円 → 交換を勧めない
+  var r = E.diagnose({
+    gpu: 'RX 9070', resolution: 'wqhd', targetFps: 144,
+    usage: 'heavy', budget: '200000',
+  });
+  var g = part(r, 'gpu');
+  check('A: RX9070/WQHD144/重量級では交換を勧めない',
+    g.status === 'keep', g.status + '/' + g.recommendId);
+  check('A: RX9070にGPU交換候補を出さない',
+    !g.recommendId, String(g.recommendId));
+  check('A: 買い替え判定にならない',
+    r.overall.verdict !== 'replace', r.overall.verdict);
+})();
+
+(function () {
+  // ケースB：ミドル帯 × 予算20万円 → 現実的な候補を出す
+  var r = E.diagnose({
+    gpu: 'RTX 3060', resolution: 'wqhd', targetFps: 144,
+    usage: 'heavy', budget: '200000',
+  });
+  var g = part(r, 'gpu');
+  check('B: RTX3060には交換を提案する',
+    g.status === 'upgrade', g.status);
+  check('B: 提案GPUは予算内',
+    recPrice(r) <= 200000, String(recPrice(r)));
+  check('B: 最上位GPUを押し付けない',
+    g.recommendId !== 'rtx5090', String(g.recommendId));
+})();
+
+(function () {
+  // ケースC：明確に性能不足 → はっきり交換を勧める
+  var r = E.diagnose({
+    gpu: 'GTX 1660 SUPER', resolution: 'wqhd', targetFps: 144,
+    usage: 'heavy', budget: '120000',
+  });
+  var g = part(r, 'gpu');
+  check('C: GTX1660SUPERには交換を勧める',
+    g.status === 'upgrade', g.status);
+  check('C: 提案GPUは予算内',
+    recPrice(r) <= 120000, String(recPrice(r)));
+  check('C: 十分な性能向上がある候補を選ぶ',
+    g.ratio >= 1.5, String(g.ratio));
+})();
+
+(function () {
+  // ケースD：最上位GPU保有者 → 原則として現状維持
+  var r = E.diagnose({
+    gpu: 'RTX 4090', resolution: 'wqhd', targetFps: 144, usage: 'heavy',
+  });
+  var g = part(r, 'gpu');
+  check('D: RTX4090には交換を勧めない',
+    g.status === 'keep', g.status + '/' + g.recommendId);
+})();
+
+(function () {
+  // ケースE：4K・重量級・予算なし → ハイエンドも候補になり得る
+  var r = E.diagnose({
+    gpu: 'RTX 3060', resolution: '4k', targetFps: 144, usage: 'heavy',
+  });
+  var g = part(r, 'gpu');
+  check('E: 4K重量級では交換を提案する',
+    g.status === 'upgrade' || g.status === 'consider', g.status);
+  check('E: 4K重量級ではハイエンドGPUも候補になる',
+    !g.recommendId || E.GPU_TIERS[g.recommendId] >= 90,
+    g.recommendId + '=' + E.GPU_TIERS[g.recommendId]);
+})();
+
+(function () {
+  // 予算が上がるほど提案GPUの性能も上がる（予算が効いていることの確認）。
+  // 予算を無視して常に同じGPUを返していないかを見る。
+  var base = {
+    gpu: 'GTX 1660 SUPER', resolution: 'wqhd', targetFps: 144, usage: 'heavy',
+  };
+  var tiers = [50000, 80000, 120000, 200000].map(function (b) {
+    var i = {};
+    for (var k in base) if (base.hasOwnProperty(k)) i[k] = base[k];
+    i.budget = String(b);
+    var g = part(E.diagnose(i), 'gpu');
+    return g.recommendId ? E.GPU_TIERS[g.recommendId] : 0;
+  });
+  var monotonic = true;
+  for (var i = 1; i < tiers.length; i++) {
+    if (tiers[i] < tiers[i - 1]) monotonic = false;
+  }
+  check('予算が増えると提案GPUの性能も下がらない',
+    monotonic, tiers.join(' → '));
+})();
+
+(function () {
+  // 予算が小さすぎて意味のある候補が無いなら、無理に勧めない。
+  var r = E.diagnose({
+    gpu: 'RX 9070', resolution: 'wqhd', targetFps: 144,
+    usage: 'heavy', budget: '30000',
+  });
+  var g = part(r, 'gpu');
+  check('予算内に候補が無ければ交換を勧めない',
+    g.status === 'keep', g.status + '/' + g.recommendId);
+})();
+
+(function () {
+  // 予算指定が無くても、費用対効果が悪い交換は「おすすめ」にしない。
+  // RX 9070 → RTX 5080 のように、伸びが小さいのに高額なケース。
+  var r = E.diagnose({
+    gpu: 'RX 9070 XT', resolution: '4k', targetFps: 120, usage: 'heavy',
+  });
+  var g = part(r, 'gpu');
+  check('費用対効果が悪い交換をupgrade断定しない',
+    g.status !== 'upgrade' || g.valueLabel !== 'poor',
+    g.status + '/' + g.valueLabel);
+})();
+
+(function () {
+  // 性能向上が15%未満の交換は候補にすらしない（RX9070 → RX9070XT など）
+  var ranked = E.GPU_TIERS;
+  var r = E.diagnose({
+    gpu: 'RX 9070', resolution: '4k', targetFps: 60, usage: 'heavy',
+  });
+  var g = part(r, 'gpu');
+  var gain = g.recommendId ? ranked[g.recommendId] / ranked.rx9070 : 99;
+  check('わずかな性能差のGPUを提案しない',
+    gain >= 1.15, g.recommendId + ' gain=' + gain.toFixed(2));
+})();
+
+(function () {
+  // 高性能GPU保有者が、GPU起因で買い替え判定に落ちないこと。
+  // 元の不具合では GPU1点の提案だけで45万円→買い替え推奨になっていた。
+  var r = E.diagnose({
+    gpu: 'RX 9070', cpu: 'Ryzen 7 7800X3D',
+    memory: 32, memoryType: 'ddr5', storage: 2000, storageType: 'ssd',
+    psu: 850, resolution: 'wqhd', targetFps: 144, usage: 'heavy',
+    budget: '200000',
+  });
+  check('十分な構成では買い替えを勧めない',
+    r.overall.verdict === 'keep', r.overall.verdict);
+  check('十分な構成では費用が発生しない',
+    !r.overall.estimatedCost, String(r.overall.estimatedCost));
+})();
+
+(function () {
+  // GPUを交換しないなら、電源交換も要求しないこと（既存挙動の維持）
+  var r = E.diagnose({
+    gpu: 'RX 9070', cpu: 'Ryzen 7 7800X3D',
+    memory: 32, memoryType: 'ddr5', storage: 2000, storageType: 'ssd',
+    psu: 550, resolution: 'wqhd', targetFps: 144, usage: 'heavy',
+    budget: '200000',
+  });
+  check('GPU現状維持なら電源交換も求めない',
+    part(r, 'psu').status === 'keep', part(r, 'psu').status);
+})();
+
+/* ------------------------------------------------------------------
  *  結果
  * ------------------------------------------------------------------ */
 
