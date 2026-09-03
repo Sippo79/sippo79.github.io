@@ -18,6 +18,504 @@
 
 ---
 
+## 2026-09-03 — GPU解像度適性の基準を統一（Phase 5）
+
+- **修正目的**:
+  Phase 4 で見つけた「同じ性能でも `target` の基準がズレている」問題を解消する。
+  `target` は **PC BUILD CHECK の「解像度が足りない」警告の唯一の根拠**なので、
+  ラベルのズレがそのまま診断の誤りになっていた。
+
+- **調査で分かったこと**:
+  - `target` の決め方は**どこにも文書化されていなかった**（README / PROJECT_STATUS になし。
+    git履歴も一括アップロードのみで、フィールド単位の経緯が追えない）。
+    → 手入力で、入力した時期ごとに暗黙の基準が違っていたと判断。
+  - market別に見ると基準が明確に割れていた:
+    ```
+    現行GPU: FHD上限 raster 68 / WQHD下限 raster 70
+    中古GPU: FHD上限 raster 55 / WQHD下限 raster 50
+    ```
+    同じ raster 68 でも RTX 5060 Ti=FHD、RX 6800=WQHD。
+  - **VRAM では説明できない**。RTX 5060 Ti(16GB)=FHD、RTX 4070(12GB)=WQHD と
+    VRAMが多い方が下の判定になっていた。
+  - PC BUILD CHECK は `rasterScore` を一切見ず **`target` ラベルだけ**で警告を出していた。
+
+- **比較した基準案**:
+  | 案 | 内容 | 結果 |
+  |---|---|---|
+  | A | rasterScore のみ | 採用 |
+  | B | rasterScore + VRAMガード | **案Aと結果が1件も変わらない**（8GB未満は既に全てFHDに落ちるためガードが機能しない） |
+  | C | rasterScore + featureScore + VRAM | 複雑になるだけで説明できなくなる |
+  → **単純で説明できる案Aを採用**。VRAM不足は target を下げるのではなく、
+    長所・注意点（Phase 4 で導入したデータ導出）で個別に伝える。
+
+- **採用した基準**（`shared/gpu/gpu-target.js`）:
+  ```
+  rasterScore >= 85 → 4K
+  rasterScore >= 65 → WQHD
+  それ未満          → FHD
+  ```
+  閾値は「境界±1に張り付くGPUが最も少ない」点を選んだ（1点差で判定が変わる不自然さを避ける）。
+  候補 62/65/68/70 を比較し、WQHD境界に1件しか無い 65 を採用。
+  **market・世代は判定に使わない**（「中古だからWQHD」は説明不能なため）。
+
+- **target の定義**（明文化）:
+  - FHD … 最新ゲームをフルHDで現実的に狙える性能帯
+  - WQHD … WQHDを主用途として検討しやすい性能帯
+  - 4K … 4Kを主用途として検討できる性能帯
+  ★「出力できる最大解像度」ではない。RTX 3060 でも4K出力自体はできる。
+
+- **変更ファイル**:
+  - `shared/gpu/gpu-target.js`（**新規**・判定の唯一の情報源）
+  - `gpu-guide/gpus.json`（target 17件変更。`recommendedResolution` も同時更新）
+  - `gpu-guide/generate-gpu-pages.js`（判定理由の一文を追加）→ 65ページ再生成
+  - `pc-build-check/script.js` / `index.html` / `sw.js`（共通モジュールを参照）
+  - `gpu-guide/test-gpu-data.js`（target整合テストを追加 50→68件）
+
+- **target 変更 17件**:
+  ```
+  WQHD→FHD  (中古10件) RX 5700 XT(50) RTX 2070 SUPER(51) GTX 1080 Ti(53)
+                       RTX 2080(53) RX 6700(53) RTX 2080 SUPER(56)
+                       RX 6700 XT(58) RX 6750 XT(61) RTX 3070(62) RTX 2080 Ti(62)
+  4K→WQHD   (中古4件)  RX 6900 XT(79) RTX 3080 Ti(80) RTX 3090(82) RX 6950 XT(82)
+  FHD→WQHD  (現行1件)  RTX 5060 Ti(68)
+  WQHD→4K   (現行2件)  RTX 5070 Ti(88) RX 9070 XT(91)
+  ```
+  （括弧内は rasterScore）
+
+- **PC BUILD CHECK 診断の変化**:
+  - 75パターン中 **23件で表示が変化**、警告は **32件 → 20件**。
+  - **新たに警告が出るようになったケースは0件**（緩和方向のみ）。
+  - **提示GPU・CPUの変化は0件**（構成そのものは変えていない）。
+  - 消えた12件はすべて**誤警告**だった。例:
+    `4K/20万/fps` で RX 9070 XT（raster 91）に「4Kは厳しめ」と出ていたのが解消。
+  - 「警告を消したのに適性が足りない」ケースは0件（機械検証済み）。
+  - ★既存132件のテストは**期待値を1つも書き換えずに通過**した。
+    これらは判定結果ではなく整合ルールを検証しているため。
+
+- **今後のズレ防止**:
+  - `test-gpu-data.js` に「保存値 === deriveTarget()」を全件検証を追加。
+    GPUを追加して target を手入力ミスすると**テストが落ちる**。
+  - 同じ rasterScore なら同じ target であること、market間で基準がズレていないこと、
+    FHD/WQHD/4K帯が重ならないことも検証。
+  - 境界値（64/65/66・84/85/86・0・100）を回帰テストとして固定。
+
+- **テスト結果**:
+  - `node gpu-guide/test-gpu-data.js` … **68件成功 / 0件失敗**（50→68）
+  - `node gpu-guide/test-gpu-pages.js` … **1,643件成功 / 0件失敗**（維持）
+  - `node pc-build-check/test-build-check.js` … **132件成功 / 0件失敗**（維持）
+  - `node upgrade/test-upgrade-engine.js` … **64件成功 / 0件失敗**（維持）
+  - `node scripts/test-cross-links.js` … **61件成功 / 0件失敗**（維持）
+  - ブラウザ実測（PC 1280px / スマホ 390px）: **JSエラー0・横スクロールなし・404なし**。
+    全ページでバッジと「得意」行が一致、解像度フィルタは該当targetのみを返すことを確認。
+
+- **他サービスへの影響確認**:
+  - Upgrade: `RESOLUTION_TARGETS`（fhd42 / wqhd62 / 4k88）と新targetの対応を確認。
+    FHD帯は全てFHD、4K帯は全て4Kで矛盾なし。**エンジンは変更していない**。
+  - GAME PC GUIDE: 推奨GPUの適性より高い解像度を勧めているケース **0件**。
+
+- **未対応・次にやること**:
+  - `rasterScore` 自体は外部ベンチマーク由来ではなく独自指数のまま。
+    今回は既存指数内での整合を優先した（全GPU再採点はしていない）。
+  - RTX 5050 の scoreSource（推定値であることの明示）は未実装 → Phase 6 候補。
+
+- **別AIへの引き継ぎ注意点**:
+  - **閾値を変えるときは `shared/gpu/gpu-target.js` だけを直す**。
+    `gpus.json` の target は導出値と一致していることをテストが保証する。
+  - **`gpus.json` の target を手で書き換えない**。rasterScore を直せば target は導出で決まる。
+  - GPUを追加したら `node gpu-guide/test-gpu-data.js` で target のズレを検出できる。
+
+---
+
+## 2026-09-03 — GPU GUIDE のデータ精度・比較価値を強化（Phase 4）
+
+- **修正目的**:
+  Phase 2 で「GPUごとに検索から入れるページ」、Phase 3 で「他サービスからの導線」を作った。
+  Phase 4 は **来たユーザーがそのページだけでGPUの立ち位置を理解し、比較し、
+  次の行動を決められる状態**にすること。項目を増やすことは目的にしない。
+
+- **変更ファイル**:
+  - `gpu-guide/gpus.json`（RTX 5050 を追加。64→65件）
+  - `gpu-guide/cpu-recommendations.json`（RTX 5050 / RX 9060 XT を追加。28→30件）
+  - `gpu-guide/generate-gpu-pages.js`（長所・注意点の導出／比較カードの情報追加）
+  - `gpu-guide/style.css`（比較カードの性能差バッジ）
+  - `gpu-guide/gpu/<id>/index.html`（65件再生成）/ `sitemap.xml`（66URL）
+  - `gpu-guide/test-gpu-data.js`（**新規**・データ整合性テスト50件）
+  - `scripts/test-cross-links.js`（件数のハードコードを廃し、データ由来に変更）
+
+- **監査結果（変更前）**:
+  - フィールド欠損は **中古系9項目が現行GPU21件で欠損**。偏りを調べたところ
+    ブランド差ではなく世代差（RTX 40/50・RX 7000/9000 = 現行）で、**意図的な設計**。
+  - ただし `pros` / `cons` は中古固有の概念ではないのに現行GPUに無く、
+    **新品購入を検討して来た人のページにだけ長所・注意点が1つも出ていなかった**。
+  - サイト全体のGPU参照 **205件中10件が未解決**。内訳は
+    ① `rtx5050`（Upgradeの交換候補＋ゲーム5件で推奨）＝**実害あり**
+    ② `rtx4090` 等5件（upgrade の GPU_TIERS ＝「今持っているGPU」の入力辞書。
+       掲載対象外でも診断は成立する）＝実害なし
+    ③ affiliate master の3件（掲載していない商品）＝実害なし
+  - データ矛盾（重複id/name・範囲外スコア・compare自己参照・存在しない参照・
+    brand不一致・価格レンジ逆転）は **0件**。
+  - 同一世代内での型番とスコアの逆転も **0件**。
+
+- **変更内容**:
+  1. **RTX 5050 を追加**（64→65件）。参照側が実在する以上データ側を埋めるのが筋。
+     数値はすべてリポジトリ内データが根拠：
+     power 130 / price 35000 は `upgrade-engine.js`、name/brand は `affiliate-master.json`。
+     rasterScore 46 は GPU_TIERS(44) と gpus.json の rasterScore を**全65件で最小二乗回帰**
+     （raster = 0.9411×tier + 4.809、R²=0.964）して算出。
+     score 57 は全件から導いた `score ≒ 0.75×raster + 0.25×feature`（平均誤差1.88）。
+     **推測値は作っていない**。
+  2. **長所・注意点をデータから導出**。手書きの pros/cons があればそれを優先し、
+     無い現行GPU22件は VRAM容量・消費電力・機能スコア・価格性能比という
+     **gpus.json にある数値から言える事実だけ**を出す。
+     「速い」「おすすめ」のような主観評価もレビュー文も作らない。
+     比較の母集団は現行同士・中古同士に分ける（世代混在で割安判定が壊れるため）。
+  3. **比較カードに判断材料を追加**。旧実装はブランド名とGPU名だけで
+     「なぜ比べるのか」が分からなかった。rasterScore の差を%で示し、VRAMと価格を添えた。
+     ±3%未満は「ほぼ同等」として誤差を優劣に見せない。
+  4. **CPU相性を現行GPU全件へ**。28→30件。追加した2件は同じFHD帯の現行GPUに
+     既に入っている3段構成（コスパ／バランス／ハイエンド）に合わせ、
+     文面だけ各GPUの実データ（VRAM・消費電力）に沿って書き分けた。
+  5. **テストの件数ハードコードを廃止**。GPU数・構成数・ゲーム数を
+     すべて JSON の件数から導くようにした（GPUが増えても追従する）。
+
+- **効果**:
+  - 本文が最も薄いページ **1798字 → 2152字**、現行GPU平均 **2382字 → 2661字**。
+  - h2が4個しかないページが消滅（全65ページが6〜7個）。
+  - title / description は **65/65 すべてユニーク**。
+
+- **あえて変更しなかったもの（重要）**:
+  - **`target` の判定基準のズレ**。同じ rasterScore でも現行GPUの方が
+    中古GPUより厳しい target が付いている（5組で不一致。例: RTX 5060 Ti raster68=FHD /
+    RX 6800 raster68=WQHD）。しかし `target` は
+    **GPU GUIDE の解像度フィルタ・ランキングと、PC BUILD CHECK の
+    「解像度が足りない」警告の両方を動かしている**。
+    ここを触ると診断結果が変わるため、Phase 4 の対象外と判断した。→ Phase 5 候補。
+  - **ゲーム別FPS値**。データが無いので作らない（方針維持）。
+  - **価格の更新日・出典フィールド**。現在 gpus.json に無い。
+    表示は「価格目安」「時期によって変動する」と明記済みで誤認は招かないため、
+    フィールド追加は見送り。→ Phase 5 候補。
+
+- **テスト結果**:
+  - `node gpu-guide/test-gpu-data.js` … **50件成功 / 0件失敗**（新規）
+  - `node gpu-guide/test-gpu-pages.js` … **1,643件成功 / 0件失敗**（65ページ化で増加）
+  - `node pc-build-check/test-build-check.js` … **132件成功 / 0件失敗**（維持）
+  - `node upgrade/test-upgrade-engine.js` … **64件成功 / 0件失敗**（維持）
+  - `node scripts/test-cross-links.js` … **61件成功 / 0件失敗**（維持）
+  - ブラウザ実測（PC 1280px / スマホ 390px・GPU10種）:
+    **JSエラー0・横スクロールなし・404なし・img alt欠落0**。
+    検索5パターン（型番フル/小文字/GeForce付/数字のみ/0件）、
+    フィルタ組み合わせと解除、ランキング4種、
+    検索→カード→比較GPU→Upgrade の実操作すべて成功。
+
+- **別AIへの引き継ぎ注意点**:
+  - **`target` を変更するときは PC BUILD CHECK の警告への影響を必ず確認する**
+    （`pc-build-check/script.js` の `getResolutionFit` が参照している）。
+  - 長所・注意点は generator が**データから導出**している。
+    文章を足したいときは `gpus.json` の `pros`/`cons` に書けばそちらが優先される。
+  - **GPUを追加したら `cpu-recommendations.json` にも足す**。
+    現行GPUにCPU相性が無いと `test-gpu-data.js` が落ちる（意図的な検出）。
+  - テストはGPU数をハードコードしていない。`gpus.json` に足せば期待値も追従する。
+
+---
+
+## 2026-09-03 — サイト間導線をGPU個別ページへ直結（Phase 3）
+
+- **修正目的**:
+  Phase 2 で GPU 個別ページを静的化したのに、PC BUILD CHECK などからは
+  旧形式 `/gpu-guide/?gpu=<GPU名>` でリンクしたままだった。
+  GPU GUIDE トップはこの `gpu` クエリを解釈しないため、
+  **「GPU詳細を見る」を押すとフィルタ無しのGPU一覧に着地**し、
+  ユーザーが目的のGPUを自分で探し直す状態だった（ボタン文言との不一致）。
+  サイト内でGPUが特定できる場所は、すべて個別ページへ直接つなぐ。
+
+- **変更ファイル**:
+  - `shared/gpu/gpu-links.js`（**新規**・GPU名→個別ページURLの共通解決）
+  - `scripts/test-cross-links.js`（**新規**・導線テスト60件）
+  - `pc-build-check/script.js` / `index.html`（診断結果を静的URLへ＋Upgrade導線追加）
+  - `pc-build-check/generate-builds.ps1` → 構成75ページ再生成
+  - `game-pc-guide/Generate-StaticGames.ps1` → ゲーム25ページ再生成
+  - `game-pc-guide/style.css` / `sw.js`（GPUリンクのスタイル・キャッシュ版）
+  - `upgrade/upgrade-diagnose.js` / `index.html` / `style.css`（おすすめGPUの詳細リンク）
+  - `gpu-guide/index.html`（`?gpu=` 後方互換）/ `gpu.html`（他サービス導線）
+  - `pc-build-check/sw.js`（キャッシュ版 v4→v5・`gpu-links.js` を追加）
+  - `generate-builds.ps1`（ルート直下の**古いコピー**に実行ガード）
+
+- **変更内容**:
+  1. **GPU名→id 解決を1か所に集約** … `shared/gpu/gpu-links.js` を新設。
+     サイト内のGPU表記は実測で3系統しかない
+     （`GeForce RTX 5070 Ti` / `RTX 5070 Ti` / `rtx5070ti`）。
+     小文字化 → GeForce/Radeon/AMD 接頭辞除去 → 英数字以外除去 で同じキーに落ちる。
+     **マスターは gpus.json 1つ**。対応表を各ページに手書きしない。
+     **部分一致はしない**（`RTX 50` のような入力で誤ヒットさせない）。
+     解決できなければ `null` を返し、呼び出し側が「リンクしない」か
+     「GPU GUIDEトップへ」を選ぶ。**間違ったGPUページへ送らない**。
+  2. **PC BUILD CHECK 診断結果** … `createGpuGuideUrl()` が静的URLを返すように変更。
+     ボタン文言も実態に合わせ「Radeon RX 9070 の詳細スペックを見る」に。
+     解決できないGPUのときだけ「グラボを比較して選ぶ」＋トップへ。
+     あわせて**Upgradeへの導線を新設**（診断結果には1本も無かった）。
+  3. **構成詳細75ページ** … generator が生成時にidを解決して直リンクを埋め込む。
+     Upgradeカードも追加（4導線に）。`?gpu=` は**0件**になった。
+  4. **ゲーム25ページ** … 構成表のGPU名を個別ページへリンク（`.build-gpu-link`）。
+     `gpus.json` に無い `RTX 5050` は**リンクにしない**（誤リンクを作らない）。
+     関連サイトに PC UPGRADE カードを追加（3サービスへ）。
+  5. **Upgrade診断** … おすすめGPU／現状維持時の現GPUから詳細ページへリンク。
+     **診断ロジック・エンジンは一切変更していない**（結果でURLも変えない方針を維持）。
+  6. **`?gpu=` 後方互換** … リンク元を全部直しても検索結果・SNS・履歴に残るため、
+     GPU GUIDEトップでも受け止める。`gpus.json` で**実在確認してから**遷移し、
+     不正名・空・fetch失敗・JS無効では**何もしない＝通常のトップが見える**。
+     canonicalは書き換えない（`?gpu=` を別ページ扱いさせない）。
+  7. **旧 gpu.html に他サービス導線を追加** … 通常は静的ページへ遷移するが、
+     JS無効・GPU未発見時はここが最終画面になる。行き止まりにしない。
+
+- **⚠️ 途中で見つけた問題と対処**:
+  1. **`game-pc-guide/Generate-StaticGames.ps1` が古かった**（Phase 1 と同じ型の事故）。
+     そのまま再生成したところ、25ページから
+     **PWA meta・ヘッダーの「GPU比較/PC診断」リンク・戻るナビ・
+     `viewport-fit=cover`・画像の loading/decoding が消えた**。
+     差分確認で気付き、`git checkout` で戻してから generator 側に復元して再生成。
+     → 復元後は25/25で全要素の存在を確認済み。
+  2. 同 generator は `$today` がハードコード（2026-05-29）で、
+     再生成のたび sitemap の `lastmod` が**過去へ巻き戻っていた**
+     （本番は 2026-05-31）。実行日を使うよう修正。
+  3. 同 generator は `Set-Content -Encoding UTF8` でBOMを付けていた
+     （本番ページはBOM無し）。`UTF8Encoding $false` で書くよう修正。
+  4. **ルート直下の `generate-builds.ps1` が旧形式 `?gpu=` を持つ古いコピー**だった。
+     H1一意化・廃止スラグ・マザーボード表も欠けており、実行すると75ページが退行する。
+     中身は直さず**実行ガード**（`-Force` 無しは exit 1）を追加。
+
+- **テスト結果**:
+  - `node scripts/test-cross-links.js` … **60件成功 / 0件失敗**（新規）
+  - `node gpu-guide/test-gpu-pages.js` … **1,618件成功 / 0件失敗**（維持）
+  - `node pc-build-check/test-build-check.js` … **132件成功 / 0件失敗**（維持）
+  - `node upgrade/test-upgrade-engine.js` … **64件成功 / 0件失敗**（維持）
+  - ブラウザ実測（PC 1280px / スマホ 390px）: **JSエラー0・横スクロールなし・404なし**。
+    クリック導線を実測し、構成詳細→GPU詳細／ゲーム→GPU詳細／診断結果→GPU詳細／
+    GPU詳細→4サービス／一覧→GPU詳細 がすべて正しい着地。
+    `?gpu=` 有効名→個別ページ、無効名・空→トップ正常表示も確認。
+
+- **未対応・次にやること**:
+  - **共通ナビ（`shared/nav/`）は今回も追加しなかった**。
+    調査の結果、詳細ページ3種すべてが既に文脈リンクで4サービスへ到達できており
+    （今回 gpu.html とゲームページの欠けを埋めて全ページ○になった）、
+    ここにドロップダウンを重ねると**同じ導線が二重になりUIを圧迫する**と判断した。
+    追加するなら「現在地表示」の価値が主目的になるので、必要性が出てから。
+  - `RTX 5050` が `gpus.json` に無い（ゲーム5件・upgrade候補1件で参照）。
+    データ追加は Phase 4 以降で判断。
+
+- **別AIへの引き継ぎ注意点**:
+  - **GPU詳細のURL仕様を変えるときは `shared/gpu/gpu-links.js` を直す**。
+    PowerShell 側（`generate-builds.ps1` / `Generate-StaticGames.ps1`）にも
+    同じ正規化規則が入っているので**3か所を必ず揃える**。ズレると
+    「一覧には出るのにリンクが解決しない」が起きる。
+  - **generator を回す前に必ず生成物とHEADの差分を確認する**。
+    今回も game-pc-guide の generator が古く、要素が消える事故が起きた。
+  - **ルート直下の `generate-builds.ps1` と `gpu-guide/generate-sitemap.ps1` は
+    廃止済み**（実行ガード付き）。使わないこと。
+
+---
+
+## 2026-09-02 — GPU GUIDE の個別ページを静的化（Phase 2）
+
+- **修正目的**:
+  GPU詳細が `gpu.html?id=<id>` というクエリURL1本に64件同居し、soft404回避のため
+  `noindex` を常設していたため、**「RTX 3060 性能」のような型番検索にまったく載らなかった**。
+  GSC上も GPU GUIDE は表示227・クリック3（CTR 1.3%）とトップ1枚で漠然と拾われる状態だった。
+  64GPUを `/gpu-guide/gpu/<id>/` として静的化し、GPUごとに検索対象になる構造へ変更する。
+
+- **変更ファイル**:
+  - `gpu-guide/generate-gpu-pages.js`（**新規**・生成＋自動検証）
+  - `gpu-guide/test-gpu-pages.js`（**新規**・本番ファイルの検証 1,618件）
+  - `gpu-guide/gpu/<id>/index.html`（**新規生成 64件**）
+  - `gpu-guide/script.js`（一覧カード・ランキング行のリンクを静的URLへ）
+  - `gpu-guide/gpu-detail.js`（比較カードのリンクを静的URLへ）
+  - `gpu-guide/gpu.html`（**旧URL互換スクリプト**を追加。削除はしない）
+  - `gpu-guide/style.css`（個別ページ用のCSSを追記。**197行追加・0行削除**）
+  - `gpu-guide/sitemap.xml`（1 → 65URL）
+  - `gpu-guide/sw.js`（キャッシュ版 v4 → v5）
+  - `gpu-guide/generate-sitemap.ps1`（**廃止ガード**を追加）
+
+- **変更内容**:
+  1. **URL設計** … `/gpu-guide/gpu/<id>/`。idは `gpus.json` の既存idをそのまま使う
+     （表示名からslugを作らない＝名前が変わってもURLが変わらない）。
+  2. **本文を静的HTMLに焼き込み** … GPU名・概要・タグ・スコア内訳・スペック4項目・
+     解像度別の目安・長所/注意点・中古情報・ゲーム・CPU・比較GPU・導線をサーバ側で出力。
+     **JSが動かなくても主要コンテンツが読める**（購入ボタンだけJSで後付け）。
+  3. **一時ディレクトリ → 自動検証 → 本番反映** … Phase 1 の退行事故を踏まえ、
+     `.generated-preview/` に生成して検証を通ったときだけ `gpu/` へ反映する。
+     `--dry-run` で反映せず検証だけもできる。検証NGなら本番に触れずに exit 1。
+  4. **条件付き表示** … 中古情報は `market: used` のGPUのみ（現行GPUに中古見出しを出さない）。
+     CPU相性は `cpu-recommendations.json` にある28件のみ。長所/注意点も持つGPUのみ。
+     **空見出しを並べない**。
+  5. **クロスリンクをCPUデータから完全に切り離した** … 旧 `gpu-detail.js` は
+     `renderCpuSection()` の内側にPC BUILD CHECK/GAME PC GUIDEのリンクを置いていたため、
+     CPU相性データの無い36GPUでリンクごと消えていた。静的側は「次にできること」を
+     独立セクションにし、**全64ページで PC BUILD CHECK / Upgrade / GAME PC GUIDE /
+     GPU GUIDE戻り の4導線を必ず出す**（テストで固定化）。
+  6. **SEO** … title は `market` で文面を変える（中古狙いのGPUは「中古で買う前に見る目安」、
+     現行GPUは「性能・スペック・<target>での目安」）。description はスコア・VRAM・電力・
+     価格（中古なら相場レンジ）をデータから組み立てるため、GPUごとに内容が変わる。
+     canonical は自己参照のディレクトリURL。**noindexは入れない**。
+  7. **構造化データ** … `BreadcrumbList` + `TechArticle`。
+     **Product は使わない**（実体は解説ページで offers/review/aggregateRating を持たないため、
+     捏造して成立させない）。**FAQPage も出さない**（ページ上に見えるFAQが無いため）。
+  8. **旧URL互換** … `gpu.html?id=` は削除せず `noindex, follow` のまま維持。
+     `gpus.json` で **実在を確認してから** `location.replace()` で静的URLへ寄せ、
+     同時に canonical も静的URLへ差し替える。**不正idは飛ばさず従来のエラー表示**
+     （404へ飛ばさないため）。fetch失敗・JS無効でも従来の `gpu-detail.js` 描画が
+     残るので行き止まりにならない。
+  9. **解像度の表現** … 「FHD向けだからWQHDでは使えない」のような断定をしない。
+     target を基準に「余裕あり / 得意 / 狙える / 設定調整が必要」の4段階で表す。
+  10. **FPS値を作らない** … `gpus.json` にゲーム別FPSが無いため、ゲーム名は出すが
+      具体的なfps数値は書かない（「※フレームレートはゲーム・画質設定・CPUによって
+      変わります」と明示）。
+
+- **影響範囲**:
+  GPU GUIDE のみ。PC BUILD CHECK / Upgrade / GAME PC GUIDE のロジック・データは無変更。
+  アフィリエイトは既存の `shared/affiliate/` をそのまま使い、構造は変更していない。
+
+- **⚠️ 途中で起こした問題と対処**:
+  1. `gpu-guide/generate-sitemap.ps1` は `*.html` を再帰的に拾うだけなので、
+     実行すると `gpu/<id>/index.html` という**index.html付きURL**で sitemap を
+     上書きし、各ページの canonical（ディレクトリURL）と食い違うことが判明。
+     → **廃止ガード（`param([switch]$Force)` で既定は exit 1）を追加**。
+     sitemap は `generate-gpu-pages.js` が生成する。
+  2. その廃止ガードを一度スクリプト置換で入れた際、クォートを壊して
+     PowerShellのパースエラーにしてしまった。`git checkout` で戻し、
+     編集ツールで入れ直して `-Force` 側の構文も含め動作確認済み。
+
+- **テスト結果**:
+  - `node gpu-guide/test-gpu-pages.js` … **1,618件成功 / 0件失敗**（新規）
+  - `node pc-build-check/test-build-check.js` … **132件成功 / 0件失敗**（回帰・維持）
+  - `node upgrade/test-upgrade-engine.js` … **64件成功 / 0件失敗**（回帰・維持）
+  - 64ページ全数チェック: affiliate.css / affiliate-config.js / affiliate.js /
+    広告表記 / `data-sippo-theme` / canonical / BreadcrumbList / TechArticle /
+    3サービスへのリンク = **すべて 64/64**。noindex混入 **0件**。
+  - ブラウザ（Chromium / PC 1280px・スマホ 390px）: **JSエラー0件・横スクロールなし**。
+    一覧カード64枚すべて新URLへリンクし、クリック遷移も確認。
+    旧URL `?id=rtx-3060` → `/gpu-guide/gpu/rtx-3060/` へ遷移、
+    不正id `?id=does-not-exist` は従来のエラー表示のまま（404にしない）を確認。
+
+- **未対応・次にやること**:
+  - **Phase 3（導線整備）へ進んでよい状態**。
+  - `/gpu-guide/?gpu=<GPU名>` を GPU GUIDE 側が読んでいない問題は**まだ残っている**。
+    PC BUILD CHECK の診断結果・構成詳細75ページの「GPU詳細を見る」が
+    GPU一覧トップに着地する。静的個別ページができたので、
+    **Phase 3 でGPU名→idを引いて `/gpu-guide/gpu/<id>/` へ直リンクするのが本筋**。
+  - 共通ナビの101ページ展開（`pc-build-check/builds/*.html` 75 /
+    `game-pc-guide/games/*.html` 25 / `gpu.html`）も未着手。
+    今回作った64ページには共通ナビを入れていない（Phase 3 で他ページとまとめて判断）。
+
+- **別AIへの引き継ぎ注意点**:
+  - **生成物 `gpu-guide/gpu/<id>/index.html` を直接編集しない**。
+    内容変更は `generate-gpu-pages.js` を直して再実行する。
+  - **`gpu-guide/generate-sitemap.ps1` を実行しない**（廃止・ガード済み）。
+    sitemap は `node gpu-guide/generate-gpu-pages.js` が更新する。
+  - **`gpu.html` を削除しない**。旧URLの被リンク・ブックマーク受け皿。
+  - **`style.css` を更新したら `sw.js` の `CACHE_NAME` を上げる**。
+    上げないと再訪ユーザーに旧CSSが配られ、新ページが未スタイルで表示される。
+  - GPUを追加するときは `gpus.json` に足して `node gpu-guide/generate-gpu-pages.js`
+    を実行するだけでページ・sitemapが増える。
+
+---
+
+## 2026-09-02 — PC BUILD CHECK の診断精度・表示整合性を修正（Phase 1）
+
+- **修正目的**:
+  PC BUILD CHECK が「4Kを選んだのにFHD向けGPUを提示し、しかも何の注意も出さない」
+  状態だったため、**足りないときは足りないと正直に表示する**（`/upgrade/` と同じ方針）
+  形に直す。あわせて型番の部分一致による性能誤判定と、データの重複・矛盾を解消する。
+
+- **変更ファイル**:
+  - `pc-build-check/script.js`（プロファイル判定・解像度適性・結果表示）
+  - `pc-build-check/style.css`（注意書きUI `.resolution-notice` ほか）
+  - `pc-build-check/builds.json`（重複解消・タイトル機械生成）
+  - `pc-build-check/generate-builds.ps1`（廃止スラグ対応＋**アフィリエイト記述の復元**）
+  - `pc-build-check/builds/*.html`（75件再生成）/ `sitemap.xml`
+  - `pc-build-check/index.html`（全構成一覧のリンク差し替え）
+  - `pc-build-check/test-build-check.js`（**新規**・回帰テスト132件）
+  - `gpu-guide/gpus.json`（Radeon RX 9060 XT を1件追加）
+
+- **変更内容**:
+  1. **Ti誤判定の修正**（最長キー優先）
+     `getPerformanceProfile()` が `includes()` の先頭ヒットを採用していたため、
+     `"rtx 5060 ti".includes("rtx 5060")` が成立して RTX 5060 Ti が
+     profile 3 ではなく profile 2 に落ちていた（RTX 5070 Ti も同様）。
+     **マッチしたキーのうち最長のものを採用**する方式に変更。
+     下位モデル名は上位モデル名の接頭辞なので、Ti / SUPER / Ti SUPER / XT / XTX
+     すべてに一般化でき、定義の並び順にも依存しない。19パターンの表示が是正された。
+  2. **解像度適性の判定を追加**（`getResolutionFit()`）
+     `gpu-guide/gpus.json` の `target` と選択解像度を突き合わせ、
+     足りなければ注意書きを出す。**構成は隠さず、高価なGPUへの差し替えもしない**。
+     予算を守った結果として足りないなら、その事実と代替案（WQHD/FHDで使う）を示す。
+     gpus.json が読めない場合は `unknown` を返し、**勝手に「足りている」と言わない**。
+  3. **解像度レベルの導入**（`RESOLUTION_LEVELS` = fhd:1 / wqhd:2 / 4k:3）
+     文字列のif文を増やさず大小比較できるようにした。UWQHD等は1行追加で対応可能。
+     `"FHD"`（gpus.json）と `"fhd"`（フォーム）を同じ尺度で読む正規化も込み。
+  4. **結果表示の役割分離**
+     旧「推奨解像度」1項目に全部を詰め込んでいたのをやめ、
+     **「選んだ条件」「このグラボの得意な解像度」「推奨電源容量」**の3カードに分割。
+  5. **矛盾する文面の抑制**（★調査で追加発見した問題）
+     不足警告を出すのに「4Kで最高画質を堪能できます」が並ぶ自己矛盾があった。
+     警告時は `comfortMessage` / `whyMessage` を出さず、快適バッジと
+     「こんな人に向いています」も実際に快適な解像度に合わせる。テストで固定化。
+  6. **builds.json の整理**
+     - `4k/creative/300000` の重複（id14 / id66、CPU違いのみ）を解消。
+       **id66 を欠番だった `4k/stream/200000` へ振り替え**、
+       「該当する構成がありません」になっていた1パターンも同時に解消（74→75件）。
+     - タイトルを `解像度 + 用途 + GPUの性格付け` から**機械生成**。
+       後半の「最新世代WQHD向け」等はGPUの性格付けであり内容は誤りではなかったが、
+       先頭の解像度と別の解像度を並べていたため矛盾に見えていた。
+       後半から解像度表記を外して解消（62件書き換え・矛盾0件）。
+  7. **Radeon RX 9060 XT を gpus.json に追加**
+     builds.json では使われているのに GPU GUIDE に存在せず、詳細ページへ飛べなかった。
+     性能値は**リポジトリ内の既存データのみ**を根拠にした（推測値を作らない）:
+     rasterScore 61（upgrade-engine の GPU_TIERS 62 を rtx-5060=58 / rtx-5060-ti=68 で線形補間）、
+     power 160 / price 55000（GPU_POWER・PRICE_HINT）、
+     featureScore 88（同じRDNA4の rx-9070 と同値）、vram 16。
+  8. **廃止スラグの仕組みを generator に追加**
+     重複解消で不要になった `4k-creative-30man-2.html` は**削除せず**、
+     canonical を統合先へ向けた案内ページに置換（既存インデックスURLを404にしない）。
+     sitemap には載せない。`$retiredSlugs` に1行足せば今後も同じ扱いにできる。
+
+- **影響範囲**:
+  PC BUILD CHECK の診断結果・静的75ページ・sitemap。GPU GUIDE は gpus.json に1件追加のみ
+  （表示ロジックは無変更、64件に増加）。**Upgrade・Game PC Guide・アフィリエイト構造は無変更**。
+
+- **⚠️ 途中で起こした事故と復旧（重要）**:
+  `pc-build-check/generate-builds.ps1` は**それ自体が古く**、本番ページにある
+  アフィリエイト記述（`affiliate.css` / `data-sippo-theme="dark"` /
+  広告表記 / `affiliate-config.js` / `affiliate.js` / `build-affiliate.js`）を
+  **1つも含んでいなかった**。そのまま再生成した結果、75ページから収益リンクと
+  景表法対応の広告表記が消えた。差分確認で気付き、**ページを git checkout で戻し、
+  generator 側にこれらを復元してから再生成**した。
+  → 復元後は 75/76ページすべてに広告表記・アフィリエイト基盤が入っていることを確認済み。
+  **教訓: generator を回す前に「生成物とHEADの差分」を必ず確認すること。**
+
+- **テスト結果**:
+  - `node pc-build-check/test-build-check.js` … **132件成功 / 0件失敗**（新規）
+  - `node upgrade/test-upgrade-engine.js` … **64件成功 / 0件失敗**（回帰・変化なし）
+  - 修正前後の75パターン差分: **GPU変更0件 / CPU変更0件**（意図しない構成変化なし）。
+    変化したのは profile 19件・タイトル61件・診断可能になった1件のみ。
+  - ブラウザ確認（Chromium / PC 1280px・スマホ 390px）: JSエラー0件・横スクロールなし。
+
+- **未対応・次にやること**:
+  - Phase 2（GPU GUIDE 個別ページの静的化）へ進んで問題ない状態。
+  - `gpu-guide/?gpu=` のクエリを GPU GUIDE 側が読んでいない問題は**未修正**
+    （「GPU詳細を見る」がGPU一覧トップに着地する）。Phase 2 で静的個別ページを
+    作ってから直すのが筋なので、今回は意図的に触っていない。
+  - 共通ナビの101ページ展開（Phase 3）も未着手。
+
+- **別AIへの引き継ぎ注意点**:
+  - **`getPerformanceProfile()` を `includes()` の先頭ヒットに戻さないこと**（Ti誤判定が再発する）。
+  - **不足警告を出すときに「選んだ解像度で快適」と断言する文面を足さないこと**。
+    テスト（項目11）で固定化してある。
+  - **ルート直下の `generate-builds.ps1` は使わない**（さらに古い別コピー）。
+    使うのは必ず `pc-build-check/generate-builds.ps1`。
+  - builds.json は PowerShell の `ConvertTo-Json` 出力（BOM付き・CRLF・桁揃え）。
+    `JSON.stringify` で書き直すと全行差分になるため、値だけをテキスト置換すること。
+
+---
+
 ## 2026-08-23 — GPU推奨ロジックを「費用対効果」ベースへ全面見直し（過剰推奨の修正）
 
 - **修正目的**:

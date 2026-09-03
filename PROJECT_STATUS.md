@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-08-19（`/upgrade/` にオートコンプリート・判定情報を追加＋型番別SEO記事3本）
+最終更新: 2026-09-03（Phase 4: GPUデータ精度／Phase 5: 解像度適性の基準を統一。GPU 65件）
 
 ---
 
@@ -43,8 +43,8 @@
 | シッポ親サイト | https://sippo-pc.jp/ | 各子サイトへのポータル（入口） | `/`（`index.html`） |
 | シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（申し込みはSquare決済リンク→決済完了後にGoogleフォームへ自動遷移→フォーム送信で受付完了）。**サブプラン＝1,500円 ゲーム向けPC構成・購入相談**（申し込みはココナラ商品ページ）。無料窓口は申し込み前の事前問い合わせ用 | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
-| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較 | `gpu-guide/` |
-| PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断 | `pc-build-check/` |
+| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
+| PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照 | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
 
@@ -73,7 +73,35 @@
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/Generate-StaticGames.ps1`（GAME PC GUIDE）
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
+  - ⚠️ **generator を回す前に必ず「生成物と HEAD の差分」を確認する**。
+    2026-09-02、`pc-build-check/generate-builds.ps1` 自体が古く、本番ページにあった
+    アフィリエイト記述（広告表記・`affiliate.css`・各scriptタグ）を含んでいなかったため、
+    再生成で75ページから収益リンクと景表法対応の広告表記が消える事故が起きた（復旧済み）。
+  - ⚠️ **ルート直下の `generate-builds.ps1` は古いコピー**（廃止・実行ガード付き）。
+    使うのは必ず `pc-build-check/generate-builds.ps1`。
+  - `gpu-guide/generate-gpu-pages.js`（GPU個別ページ65件＋`gpu-guide/sitemap.xml`。2026-09-02〜）
+    **一時ディレクトリ `.generated-preview/` に生成 → 自動検証 → 合格時のみ `gpu/` へ反映**する。
+    `--dry-run` で反映せず検証だけ実行できる。**生成物を直接編集しないこと**。
+    ⚠️ `gpu-guide/generate-sitemap.ps1` は**廃止**（`*.html` を拾うため
+    `gpu/<id>/index.html` というURLで sitemap を壊す）。ガード済みで既定では実行できない。
   - 各サイトの `generate-sitemap.ps1` / `.js`
+- **テスト**（Nodeで実行。修正後は必ず通す）
+  - `node upgrade/test-upgrade-engine.js` … アップグレード診断エンジン（64件）
+  - `node pc-build-check/test-build-check.js` … PC BUILD CHECK 診断ロジック（132件 / 2026-09-02〜）。
+    75パターン全通し・GPUプロファイル判定・解像度適性・表示の矛盾検出。
+    `--snapshot <file>` で全75パターンの出力をJSONに書き出せる（修正前後の差分確認用）。
+  - `node gpu-guide/test-gpu-pages.js` … GPU個別ページ（1,643件 / 2026-09-02〜）。
+    65ページのtitle/description/H1/canonical/noindex/構造化データ/クロスリンク/
+    アフィリエイト欠落/リンク切れ/sitemap整合を検証する。
+  - `node gpu-guide/test-gpu-data.js` … GPUデータ整合性（68件 / 2026-09-03〜）。
+    重複・必須欠損・スコア範囲・compare参照・解像度評価の矛盾・
+    サイト全体のGPU参照が解決できるかを検証する。
+    **`target` が `shared/gpu/gpu-target.js` の導出値と一致するかを全件検証**し、
+    境界値（65 / 85 の前後）も回帰テストとして固定している。
+    **GPU数をハードコードせず `gpus.json` の件数から期待値を導く**ので、
+    GPUを足しても自動で追従する。現行GPUにCPU相性が無いと落ちる（意図的な検出）。
+  - `node scripts/test-cross-links.js` … サイト間のGPU導線（61件 / 2026-09-03〜）。
+    旧形式 `?gpu=` の残存、GPU名→id解決、遷移先の実在、生成物の要素欠落を検証する。
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
 - **申し込み導線**: PC相談室の500円ワンコイン相談は **Squareの決済リンク**へ誘導。Square側で決済完了後にGoogleフォームへ自動遷移する設定が完了済み（フォーム送信まで完了して受付完了）。サイト側に決済機能・カートは実装していない（Square側の既存決済リンクへの外部遷移のみ）。無料の事前問い合わせは引き続きGoogleフォーム直リンク。
 - **アフィリエイト**: **共通基盤 `shared/affiliate/`**（2026-08-18〜）
@@ -85,6 +113,34 @@
   - `affiliate-recommend.js` … アップグレード提案（今のGPU→おすすめ）
   - `affiliate.css` … 購入ボタン共通スタイル（暗いサイトは `<body data-sippo-theme="dark">`）
   - 詳しい管理方法は `shared/affiliate/README.md`
+- **GPU解像度適性**: **`shared/gpu/gpu-target.js`**（2026-09-03〜 / Phase 5）
+  - GPUの `target`（FHD / WQHD / 4K）を **rasterScore から一意に導く**。判定の唯一の情報源。
+    ```
+    rasterScore >= 85 → 4K
+    rasterScore >= 65 → WQHD
+    それ未満          → FHD
+    ```
+  - **target の意味**: そのGPUを選ぶときの**主なゲーム用途**。
+    「出力できる最大解像度」ではない（RTX 3060 でも4K出力自体はできる）。
+    - FHD … 最新ゲームをフルHDで現実的に狙える性能帯
+    - WQHD … WQHDを主用途として検討しやすい性能帯
+    - 4K … 4Kを主用途として検討できる性能帯
+  - **market（現行/中古）・世代は判定に使わない**。「中古だからWQHD」は説明不能なため。
+    VRAM不足は target を下げず、長所・注意点で個別に伝える
+    （VRAMガードは実データ上まったく機能しないことを検証済み）。
+  - ⚠️ **`gpus.json` の `target` を手で書き換えないこと**。rasterScore を直せば導出で決まる。
+    保存値と導出値の一致は `test-gpu-data.js` が全件検証しており、ズレるとテストが落ちる。
+  - ⚠️ **閾値を変えるときはこのファイルだけを直す**。PC BUILD CHECK の
+    「解像度が足りない」警告もこの基準を参照している。
+- **GPUリンク解決**: **`shared/gpu/gpu-links.js`**（2026-09-03〜）
+  - GPU表示名 → GPU GUIDE 個別ページURL（`/gpu-guide/gpu/<id>/`）の変換を1か所に集約。
+    **マスターは `gpu-guide/gpus.json` ただ1つ**。対応表を各ページに手書きしない。
+  - サイト内のGPU表記は3系統（`GeForce RTX 5070 Ti` / `RTX 5070 Ti` / `rtx5070ti`）。
+    小文字化 → GeForce/Radeon/AMD 接頭辞除去 → 英数字以外除去 で同じキーに落ちる。
+    **部分一致はしない**。解決できなければ `null`（誤ったGPUページへ送らない）。
+  - ⚠️ **同じ正規化規則が PowerShell 側にもある**
+    （`pc-build-check/generate-builds.ps1` / `game-pc-guide/Generate-StaticGames.ps1`）。
+    URL仕様や正規化を変えるときは**3か所を必ず揃える**。
 - **共通サービスナビ**: **`shared/nav/`**（2026-08-19〜）
   - `sippo-nav.js` … サービス一覧（`SERVICES`）とドロップダウンの描画。
     **サイトを追加したらここに1件足すだけ**で全サイトのナビに反映される。
@@ -227,7 +283,42 @@
 - `pc-build-check/builds/*.html`（75件）・`game-pc-guide/games/*.html`（25件）の個別ページに、親サイトへの関連リンクが未追加（各生成スクリプト `generate-builds.ps1` / `Generate-StaticGames.ps1` 側の修正＋再生成が必要）。
 - 親サイト `#consult` セクションは、ココナラ／X・Instagram DMの旧フローと `pc-consult/`（500円ワンコイン相談）が並存中。どちらを主導線にするかは今後ユーザー判断（2026-07-01 時点ではpc-consult導線を追加するのみで両方維持）。
 
+### 次フェーズの候補（Phase 6 以降）
+- **`rasterScore` は外部ベンチマーク由来ではなく独自指数**。Phase 5 では
+  既存指数内での整合を優先し、全GPUの再採点はしていない。
+  外部ベンチを取り込むなら target 閾値も併せて見直しが必要。
+- **RTX 5050 のスコアが推定値であることがデータ上区別できない**。
+  Phase 4 で回帰推定（rasterScore 46 / score 57）した値だが、
+  他64件と同じ形で入っている。`scoreSource` のようなフィールドで
+  区別できるようにするのが望ましい（既存64件を勝手に verified 扱いしないこと）。
+- **価格データに更新日・出典のフィールドが無い**。表示は「価格目安」「時期によって変動」と
+  明記しているので誤認は招かないが、古さの判断材料が無い。
+  `priceUpdatedAt` のようなフィールド追加は検討の余地あり（自動取得基盤は作らない方針）。
+- **ゲーム別FPSデータの持ち方**。現在は数値を持たないため、ゲーム名だけ出して
+  「fpsはゲーム・設定・CPUで変わる」と明示している。実測値を持てるようになるまで
+  数値は書かない方針を維持する。
+- **共通サービスナビ `shared/nav/` の詳細ページ展開は保留中**。
+  2026-09-03 時点で、GPU個別64 / 構成詳細75 / ゲーム25 / 旧 gpu.html のすべてが
+  **文脈リンクで4サービスへ到達できる**状態になったため、ドロップダウンを重ねると
+  導線が二重になりUIを圧迫すると判断して見送った。
+  「現在地表示」が欲しくなったら再検討する。
+- Intel Arc の追加、ゲーム別FPSデータ、GPU性能尺度3系統の統合（大規模）。
+
 ### 解消済み（参考）
+- ~~同じ性能でも現行GPUと中古GPUで target の基準がズレていた（RTX 5060 Ti raster68=FHD / RX 6800 raster68=WQHD）~~ → **2026-09-03 解消**（Phase 5 / rasterScore から一意に導出。17件を修正）。
+- ~~PC BUILD CHECK が rasterScore を見ず target ラベルだけで解像度警告を出していた~~ → **2026-09-03 解消**（Phase 5 / 基準を統一し誤警告12件が消えた）。
+- ~~RTX 5050 が gpus.json に無く、Upgradeの交換候補・ゲーム5件から詳細へ送れなかった~~ → **2026-09-03 解消**（Phase 4 / 追加してGPU 65件に）。
+- ~~現行GPU21件のページに長所・注意点が1件も出ていなかった~~ → **2026-09-03 解消**（Phase 4 / データから導出）。
+- ~~比較GPUカードがGPU名だけで「なぜ比べるのか」が分からなかった~~ → **2026-09-03 解消**（Phase 4 / 性能差・VRAM・価格を表示）。
+- ~~PC BUILD CHECKなどが /gpu-guide/?gpu= でリンクしており、GPU詳細を押すとGPU一覧に着地していた~~ → **2026-09-03 解消**（Phase 3 / 全リンクを個別ページへ直結＋トップに後方互換）。
+- ~~ゲームページ・旧 gpu.html から Upgrade へ行けなかった~~ → **2026-09-03 解消**（全ページが4サービスへ到達）。
+- ~~GPU詳細63件が gpu.html?id= の1URLに同居し noindex・sitemap未掲載で型番検索に載らない~~ → **2026-09-02 解消**（Phase 2 / `/gpu-guide/gpu/<id>/` 64件を静的化）。
+- ~~GPU詳細でCPU相性データの無い36GPUは他サービスへのリンクごと消えていた~~ → **2026-09-02 解消**（静的ページは全64件で4導線を必ず表示）。
+- ~~PC BUILD CHECK で RTX 5060 Ti / 5070 Ti が型番の部分一致により1段階低い性能プロファイルになる~~ → **2026-09-02 解消**（最長キー優先マッチ）。
+- ~~4Kを選んでもFHD向けGPUが提示され、注意も出ない~~ → **2026-09-02 解消**（解像度適性の注意書きを追加）。
+- ~~builds.json に重複レコードがあり1件が到達不能／`4k/stream/20万` が「該当構成なし」~~ → **2026-09-02 解消**（振り替えで75通り全て診断可能）。
+- ~~構成タイトルが「4K 普段使い向け 最新世代WQHD向け」のように自己矛盾~~ → **2026-09-02 解消**（タイトルを機械生成）。
+- ~~`Radeon RX 9060 XT` が builds.json にあるのに gpus.json に無い~~ → **2026-09-02 解消**（1件追加・計64件）。
 - ~~直下 sitemap.xml に子サイトが含まれていない~~ → **2026-06-30 解消**（インデックス化、上記「2. URL構成」参照）。
 - ~~GPU GUIDE / PC BUILD CHECK の「関連サイト」が自分自身にリンクしていた（コピペミス）~~ → **2026-07-01 解消**（親サイトへのリンクに置換）。
 - ~~game-pc-guide の関連サイトグリッドに親サイトへのリンクがなかった~~ → **2026-07-01 解消**。

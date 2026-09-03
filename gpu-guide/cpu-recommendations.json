@@ -894,5 +894,69 @@
         "bottleneck_note": "このCPUがボトルネックになることはほぼあり得ず、現行最高スペックGPUの全ポテンシャルを引き出せます。"
       }
     ]
+  },
+  "rtx-5050": {
+    "seo_text": "GeForce RTX 5050はRTX 50世代の入門モデル。フルHDに絞れば費用を抑えやすく、DLSSなど最新世代の機能も使えます。VRAMは8GBなので、CPUに過剰投資するより全体のバランスを取るのが向いています。RTX 5050におすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5世代の省電力エントリーCPU。RTX 5050はフルHD中心のGPUなので、この組み合わせで費用を抑えつつ必要な性能を確保できます。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDではCPU側が足を引っ張る場面は少なく、GPU性能を素直に活かしやすい組み合わせです。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 5700X3D",
+        "reason": "3D V-CacheでFPS系のフレームレートを伸ばしやすいCPU。AM4のため構成費用を抑えやすく、RTX 5050と組んで高リフレッシュレート環境を狙えます。",
+        "use_case": "FHD高fps・FPS重視",
+        "resolution": "FHD",
+        "bottleneck_note": "競技系タイトルではCPU性能が効きやすく、フレームレートを安定させやすくなります。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "ゲーム性能の高いCPU。RTX 5050に対しては余裕がありますが、後からGPUだけを上位モデルへ交換する前提ならCPUを先に決めておく選び方もあります。",
+        "use_case": "将来のGPU換装を見据えた構成",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "このCPUがGPU性能を制限する場面はほぼ想定されず、GPU交換後も使い続けやすい構成です。"
+      }
+    ]
+  },
+  "rx-9060-xt": {
+    "seo_text": "Radeon RX 9060 XTはVRAM 16GBを積む現行のミドルRadeon。フルHD高画質を安定して回しつつ、VRAM容量に余裕があるため高解像度テクスチャにも対応しやすいのが特徴です。RX 9060 XTにおすすめのCPUを3パターンで紹介します。",
+    "picks": [
+      {
+        "tier": "コスパ重視",
+        "tier_type": "budget",
+        "cpu": "Ryzen 5 7500F",
+        "reason": "AM5世代の省電力エントリーCPU。RX 9060 XTのフルHD性能を引き出しつつ、将来のCPU換装余地も残せます。",
+        "use_case": "FHDゲーミング全般",
+        "resolution": "FHD",
+        "bottleneck_note": "FHDではCPUが制約になりにくく、GPU性能を安定して活かしやすい組み合わせです。"
+      },
+      {
+        "tier": "バランス重視",
+        "tier_type": "balanced",
+        "cpu": "Ryzen 7 7700",
+        "reason": "8コアのバランス型CPU。RX 9060 XTのVRAM 16GBを活かした高画質設定や、ゲームと配信の同時実行にも余裕を持たせやすい構成です。",
+        "use_case": "FHD高画質・配信も視野",
+        "resolution": "FHD〜WQHD入門",
+        "bottleneck_note": "高画質設定ではGPU側の負荷が主になるため、CPUが足を引っ張る場面は限られます。"
+      },
+      {
+        "tier": "ハイエンド向け",
+        "tier_type": "high",
+        "cpu": "Ryzen 7 7800X3D",
+        "reason": "ゲーム性能の高いCPU。RX 9060 XTには余裕のある組み合わせですが、後からGPUを上位モデルへ交換する前提なら選ぶ価値があります。",
+        "use_case": "将来のGPU換装を見据えた構成",
+        "resolution": "FHD〜WQHD",
+        "bottleneck_note": "CPU側が制約になる場面はほぼ想定されず、GPU交換後も継続して使いやすい構成です。"
+      }
+    ]
   }
 }

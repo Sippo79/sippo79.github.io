@@ -1732,3 +1732,241 @@ body {
   line-height: 1.7;
   opacity: 0.75;
 }
+
+/* =========================================================
+   GPU個別ページ（/gpu-guide/gpu/<id>/）専用
+   ---------------------------------------------------------
+   generate-gpu-pages.js が生成する静的ページで使う。
+   既存のGPU GUIDEと同じトーン（ダーク＋グラス）を保つこと。
+   ========================================================= */
+
+/* パンくず */
+.gpu-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 0.8rem;
+  color: var(--brand-text-subtle);
+}
+
+.gpu-breadcrumb a {
+  color: #cfd6e6;
+  text-decoration: none;
+}
+
+.gpu-breadcrumb a:hover {
+  color: var(--brand-cyan);
+  text-decoration: underline;
+}
+
+.gpu-breadcrumb [aria-current="page"] {
+  color: var(--brand-text);
+  font-weight: 700;
+}
+
+/* ランク表記。見出しではなく値なので p だが、
+   見た目は従来の .gpu-detail-side h2 と同じにする。 */
+.gpu-rank-value {
+  margin: 0 0 14px;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--brand-text);
+}
+
+/* サイドの補足スペック */
+.gpu-side-facts {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: 8px;
+}
+
+.gpu-side-facts > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.gpu-side-facts dt {
+  font-size: 0.78rem;
+  color: var(--brand-text-subtle);
+}
+
+.gpu-side-facts dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-text);
+}
+
+/* 解像度ごとの目安 */
+.gpu-res-table {
+  display: grid;
+  gap: 10px;
+}
+
+.gpu-res-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 200px) auto 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+/* そのGPUが本来狙う解像度の行を強調する */
+.gpu-res-row.is-target {
+  border-color: rgba(25, 227, 255, 0.34);
+  background: linear-gradient(135deg, rgba(25, 227, 255, 0.1), rgba(123, 97, 255, 0.08));
+}
+
+.gpu-res-name {
+  font-weight: 700;
+  color: var(--brand-text);
+}
+
+.gpu-res-badge {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+  color: #04121c;
+  background: var(--brand-gradient);
+}
+
+.gpu-res-note {
+  color: var(--brand-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+
+.gpu-extra-note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--brand-text-subtle);
+  line-height: 1.7;
+}
+
+/* 次にできること（全GPUページに必ず出す導線） */
+.next-action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.next-action-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  border: 1px solid var(--surface-card-border);
+  background: var(--surface-card);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.next-action-card:hover,
+.next-action-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(25, 227, 255, 0.4);
+}
+
+.next-action-icon {
+  font-size: 22px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.next-action-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.next-action-body strong {
+  color: var(--brand-text);
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.next-action-body small {
+  color: var(--brand-text-subtle);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.gpu-detail-backlink {
+  margin: 8px 0 48px;
+}
+
+@media (max-width: 720px) {
+  /* スマホでは解像度表を縦積みにして、横スクロールを出さない */
+  .gpu-res-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .gpu-rank-value {
+    font-size: 34px;
+  }
+
+  .gpu-breadcrumb {
+    font-size: 0.74rem;
+  }
+}
+
+/* 比較カードの判断材料（2026-09-03〜）。
+   GPU名だけでは「なぜ比べるのか」が分からなかったため、
+   ゲーム性能差・VRAM・価格を添える。
+   .compare-link-card span の共通スタイル（シアン・太字）を上書きする。 */
+.compare-link-card .compare-delta {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 上＝性能が高い / 下＝低い / 同等。色は優劣ではなく方向の目印。 */
+.compare-link-card .compare-delta.is-up {
+  color: #7ef0c0;
+  background: rgba(74, 222, 128, 0.14);
+}
+
+.compare-link-card .compare-delta.is-down {
+  color: #ffd9a0;
+  background: rgba(255, 190, 90, 0.14);
+}
+
+.compare-link-card .compare-delta.is-same {
+  color: #cfd6e6;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.compare-link-card .compare-meta {
+  display: block;
+  margin: 0;
+  color: var(--brand-text-subtle);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
