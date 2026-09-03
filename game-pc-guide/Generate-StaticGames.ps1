@@ -1,7 +1,10 @@
 ﻿$ErrorActionPreference = "Stop"
 
 $baseUrl = "https://sippo-pc.jp/game-pc-guide"
-$today = "2026-05-29"
+# sitemap の lastmod。ハードコードすると再生成のたびに日付が
+# 過去へ巻き戻る（実際 2026-05-29 のまま固定され、本番の 2026-05-31 を
+# 上書きしてしまっていた）。実行日を使う。
+$today = (Get-Date -Format "yyyy-MM-dd")
 
 # Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
 $sippoHomeUrl = "https://sippo-pc.jp/"
@@ -15,6 +18,53 @@ $sippoHeaderLink = @"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $gamesDir = Join-Path $root "games"
 $dataPath = Join-Path $root "data\games.json"
+
+# ---------------------------------------------------------------------
+#  GPU名 → GPU GUIDE 個別ページURL（2026-09-03〜）
+# ---------------------------------------------------------------------
+#  「このゲームにはこのGPU」と言われても、そのGPUがどんな製品かは
+#  このページだけでは分からない。Phase 2 で GPU個別ページを静的化したので、
+#  構成表のGPU名からそこへ直接送る。
+#
+#  ★対応表をここに手書きしない。gpus.json を唯一の情報源にする。
+#    正規化規則は shared/gpu/gpu-links.js と同じ。
+#  ★解決できないGPU（例: gpus.json に無い RTX 5050）はリンクにしない。
+#    間違ったGPUページへ送るくらいならリンクを出さない。
+$gpuCatalogPath = Join-Path $root "..\gpu-guide\gpus.json"
+$gpuKeyToId = @{}
+if (Test-Path $gpuCatalogPath) {
+  $gpuCatalog = Get-Content -Raw -Path $gpuCatalogPath -Encoding UTF8 | ConvertFrom-Json
+  foreach ($g in $gpuCatalog) {
+    if ($g.id) {
+      $gpuKeyToId[($g.id -replace '[^a-z0-9]', '')] = $g.id
+      if ($g.name) {
+        $n = ([string]$g.name).ToLowerInvariant()
+        $n = $n -replace '^geforce\s+', ''
+        $n = $n -replace '^amd\s+radeon\s+', ''
+        $n = $n -replace '^radeon\s+', ''
+        $n = $n -replace '^amd\s+', ''
+        $gpuKeyToId[($n -replace '[^a-z0-9]', '')] = $g.id
+      }
+    }
+  }
+}
+
+# GPU名の表示HTML。個別ページが引けたときだけリンクにする。
+function Get-GpuCellHtml([string]$gpuName) {
+  $safe = Escape-Html $gpuName
+  if ([string]::IsNullOrWhiteSpace($gpuName)) { return $safe }
+  $k = ([string]$gpuName).ToLowerInvariant()
+  $k = $k -replace '^geforce\s+', ''
+  $k = $k -replace '^amd\s+radeon\s+', ''
+  $k = $k -replace '^radeon\s+', ''
+  $k = $k -replace '^amd\s+', ''
+  $k = $k -replace '[^a-z0-9]', ''
+  $id = $gpuKeyToId[$k]
+  if ($id) {
+    return "<a class=""build-gpu-link"" href=""https://sippo-pc.jp/gpu-guide/gpu/$id/"">$safe</a>"
+  }
+  return $safe
+}
 
 if (-not (Test-Path $gamesDir)) {
   New-Item -ItemType Directory -Path $gamesDir | Out-Null
@@ -209,7 +259,7 @@ foreach ($game in $games) {
                 </li>
                 <li>
                   <span>GPU</span>
-                  <strong>$(Escape-Html $build.gpu)</strong>
+                  <strong>$(Get-GpuCellHtml $build.gpu)</strong>
                 </li>
               </ul>
               <p class="build-comment">$(Escape-Html $build.comment)</p>
@@ -232,7 +282,7 @@ foreach ($game in $games) {
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>$(Escape-Html $seoTitle)</title>
   <meta name="description" content="$(Escape-Html $metaDescription)" />
@@ -248,6 +298,15 @@ foreach ($game in $games) {
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="../images/favicon.png" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
@@ -272,13 +331,15 @@ foreach ($game in $games) {
 $sippoHeaderLink
         <a href="../index.html#games" class="header-link">ゲーム一覧</a>
         <a href="../index.html#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo-pc.jp/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo-pc.jp/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="game-detail-hero">
-      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" />
+      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" loading="eager" decoding="async" />
 
       <div class="container">
         <a href="../index.html#games" class="back-link">
@@ -411,7 +472,22 @@ $($resolutionCards -join "`r`n")
               <span>グラボ比較ガイド</span>
               <small>GPU性能や用途別の目安を比較</small>
             </a>
+
+            <a
+              href="https://sippo-pc.jp/upgrade/"
+              class="related-site-button related-site-upgrade"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="related-site-mini">PC UPGRADE</span>
+              <span>今のPCで足りるか診断</span>
+              <small>買い替えずパーツ交換で足りるかを判定</small>
+            </a>
           </div>
+        </div>
+
+        <div class="detail-back-nav">
+          <a href="../index.html#games" class="secondary-btn">← 他のゲームを見る</a>
         </div>
       </div>
     </section>
@@ -440,7 +516,9 @@ $($resolutionCards -join "`r`n")
 "@
 
   $outputPath = Join-Path $gamesDir $fileName
-  Set-Content -Path $outputPath -Value $html -Encoding UTF8
+  # ★BOMを付けない。Windows PowerShell 5.1 の `Set-Content -Encoding UTF8` は
+  #   BOM付きで書き出すため、本番ページ（BOM無し）と差分が出てしまう。
+  [System.IO.File]::WriteAllText($outputPath, $html, (New-Object System.Text.UTF8Encoding $false))
   $createdPages += "games/$fileName"
 }
 

@@ -1079,3 +1079,27 @@ a.u-worry:hover {
     transition-duration: .001ms !important;
   }
 }
+
+/* GPU GUIDE の個別ページへのリンク（診断結果内）。
+   Phase 3〜: 「このGPUに交換」「このGPUのままでOK」と言われたときに、
+   そのGPUがどんな製品かを確認できるようにする。
+   購入ボタンより控えめにして、CTAを邪魔しないこと。 */
+.u-part__gpulink {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--u-line-str);
+  background: var(--u-panel-2);
+  color: var(--u-fg-soft);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: border-color .16s ease, color .16s ease;
+}
+
+.u-part__gpulink:hover,
+.u-part__gpulink:focus-visible {
+  border-color: var(--u-accent);
+  color: var(--u-fg);
+}

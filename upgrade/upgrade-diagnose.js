@@ -29,6 +29,38 @@
   var Engine = global.SippoUpgradeEngine;
   if (!Engine) return;
 
+  /* ------------------------------------------------------------------
+   *  GPU GUIDE の個別ページへのリンク
+   * ------------------------------------------------------------------
+   *  「このGPUに交換するとよい」と言われても、そのGPUがどんな製品なのか
+   *  分からなければ判断できない。Phase 2 で GPU個別ページを静的化したので、
+   *  おすすめGPU・今のGPUからそこへ直接送る。
+   *
+   *  ★診断ロジック・URLには一切触れない（結果でURLを変えない方針を維持）。
+   *  ★gpus.json の取得に失敗しても診断は従来どおり動く（リンクが出ないだけ）。
+   * ------------------------------------------------------------------ */
+  var GpuLinks = global.SippoGpuLinks;
+
+  if (GpuLinks) {
+    fetch('/gpu-guide/gpus.json', { cache: 'force-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (list) { if (Array.isArray(list)) GpuLinks.setCatalog(list); })
+      .catch(function () { /* 取得できなければGPU詳細リンクを出さないだけ */ });
+  }
+
+  /**
+   * GPU詳細ページへのリンクHTML。解決できなければ空文字。
+   * @param {string} productId 商品マスターのID（例 'rtx5070ti'）
+   * @param {string} label     表示名（例 'RTX 5070 Ti'）
+   */
+  function gpuDetailLink(productId, label) {
+    if (!GpuLinks || !GpuLinks.isReady()) return '';
+    var url = GpuLinks.detailUrl(productId) || GpuLinks.detailUrl(label);
+    if (!url) return '';
+    return '<a class="u-part__gpulink" href="' + esc(url) + '">'
+      + esc(label) + ' の性能・スペックを見る →</a>';
+  }
+
   /** HTML特殊文字をエスケープする（ユーザー入力を表示に混ぜるため必須） */
   function esc(value) {
     return String(value == null ? '' : value)
@@ -123,6 +155,15 @@
       + '<p class="u-part__headline">' + esc(p.headline) + '</p>'
       + '<p class="u-part__detail">' + esc(p.detail) + '</p>';
 
+    // 「現状維持でOK」と言われた人にも、今のGPUがどんな製品かを確認する道を残す。
+    // （交換しない判断の裏づけになる。リンクが解決できないGPUでは何も出ない）
+    if (p.part === 'gpu' && p.status === 'keep' && p.currentId) {
+      var A3 = global.SippoAffiliate;
+      var curProduct = A3 && A3.isReady() ? A3.getProduct(p.currentId) : null;
+      var curLabel = curProduct ? curProduct.shortName : p.currentId;
+      html += gpuDetailLink(p.currentId, curLabel);
+    }
+
     // 予算内に候補が無く「現状維持」とした場合の参考候補。
     // ★通常のおすすめとは明確に分けて出す。
     //   予算を超えるGPUを普通のおすすめとして並べると、
@@ -170,6 +211,11 @@
       if (price) {
         html += '<p class="u-part__price">費用の目安 <strong>'
           + esc(formatYen(price)) + '</strong>（相場は変動します）</p>';
+      }
+
+      // おすすめGPUの詳細ページへ送る（GPUのときだけ・解決できたときだけ）
+      if (p.part === 'gpu') {
+        html += gpuDetailLink(p.recommendId, recName);
       }
 
       // 購入ボタンは共通基盤に任せる。

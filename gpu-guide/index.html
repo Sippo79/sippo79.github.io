@@ -56,6 +56,63 @@
   <link rel="canonical" href="https://sippo-pc.jp/gpu-guide/" />
   <meta name="google-site-verification" content="iEArXLgT91h_EASB76ODMIgekaYdL2hvQMA-KuQCTS0" />
 
+  <!-- ===== 旧導線の後方互換（/gpu-guide/?gpu=<GPU名> → /gpu-guide/gpu/<id>/）=====
+       Phase 2 以前、PC BUILD CHECK などは GPU名付きで
+       /gpu-guide/?gpu=GeForce%20RTX%205070 のようにリンクしていたが、
+       このトップページは gpu クエリを解釈しないため、ユーザーはGPU一覧に
+       着地して目的のGPUを探し直す必要があった。
+       サイト内リンクは Phase 3 ですべて静的URLへ直したが、検索結果・SNS・
+       ブックマーク・履歴に旧形式が残っているため、ここでも受け止める。
+
+       ★安全側の設計（このトップページを壊さないことを最優先）:
+         - gpus.json で **実在を確認してから** 遷移する。
+         - 不正なGPU名・空文字・デコード失敗・fetch失敗・JS無効のときは
+           **何もしない**＝通常のGPU GUIDEトップがそのまま表示される。
+           404へ飛ばさない。
+         - canonical は書き換えない（このページの正規URLはトップのままで、
+           ?gpu= 付きURLを別ページとして扱わせない）。
+  -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var raw = params.get('gpu');
+        if (!raw) return;
+        // 正規化規則は shared/gpu/gpu-links.js と同じ（表記ゆれの吸収のみ）
+        var key = String(raw)
+          .toLowerCase()
+          .replace(/^geforce\s+/, '')
+          .replace(/^amd\s+radeon\s+/, '')
+          .replace(/^radeon\s+/, '')
+          .replace(/^amd\s+/, '')
+          .replace(/[^a-z0-9]/g, '');
+        if (!key) return;
+        fetch('gpus.json', { cache: 'force-cache' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (list) {
+            if (!Array.isArray(list)) return;
+            var hit = null;
+            for (var i = 0; i < list.length; i++) {
+              var g = list[i];
+              if (!g || !g.id) continue;
+              var idKey = String(g.id).replace(/[^a-z0-9]/g, '');
+              var nameKey = String(g.name || '')
+                .toLowerCase()
+                .replace(/^geforce\s+/, '')
+                .replace(/^amd\s+radeon\s+/, '')
+                .replace(/^radeon\s+/, '')
+                .replace(/^amd\s+/, '')
+                .replace(/[^a-z0-9]/g, '');
+              if (idKey === key || nameKey === key) { hit = g.id; break; }
+            }
+            // 見つからなければ何もしない＝通常のGPU一覧が見える
+            if (hit) window.location.replace('/gpu-guide/gpu/' + hit + '/');
+          })
+          .catch(function () { /* 失敗してもトップをそのまま見せる */ });
+      } catch (e) { /* 何かあってもトップを壊さない */ }
+    })();
+  </script>
+
   <!-- JSON-LD: WebSite + WebPage -->
   <script type="application/ld+json">
   {

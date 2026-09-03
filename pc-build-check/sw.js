@@ -5,7 +5,9 @@
 
 // v4: 購入導線を共通アフィリエイト基盤(shared/affiliate)へ移行
 // ※ キャッシュ名を正式名 pc-build-check に統一（旧 'jisako-v3' は別サイト名の誤用）
-const CACHE_NAME = 'pc-build-check-v4';
+// v5: 解像度適性の注意書き(style.css) と
+//     GPU詳細への直リンク(script.js) を追加。両方キャッシュ対象のため版を上げる。
+const CACHE_NAME = 'pc-build-check-v5';
 
 const STATIC_ASSETS = [
   './',
@@ -19,6 +21,10 @@ const STATIC_ASSETS = [
   '/shared/affiliate/affiliate.js',
   '/shared/affiliate/affiliate.css',
   '/shared/affiliate/affiliate-master.json',
+  // GPU名→GPU GUIDE個別ページURL の解決（診断結果のGPUリンクで使う）
+  '/shared/gpu/gpu-links.js',
+  // 解像度適性の共通基準（GPU GUIDE と同じ尺度を使うため）
+  '/shared/gpu/gpu-target.js',
   './manifest.json',
   './ogp.jpg',
   './icons/favicon.ico',

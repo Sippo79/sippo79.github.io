@@ -2,7 +2,9 @@
 // キャッシュバージョンを上げるとデプロイ時に古いキャッシュが自動削除されます
 // v3: OGP・manifest・icon 刷新に合わせてキャッシュリストを更新
 // v4: 購入リンクを共通アフィリエイト基盤(shared/affiliate)へ移行
-const CACHE_NAME = 'gpu-guide-v4';
+// v5: GPU個別ページを静的化（/gpu-guide/gpu/<id>/）。style.css を更新したため
+//     旧キャッシュが残ると新ページが未スタイルで表示される。必ず版を上げること。
+const CACHE_NAME = 'gpu-guide-v5';
 
 const ASSETS_TO_CACHE = [
   './',

@@ -1540,6 +1540,19 @@ a {
   border-color: rgba(77, 156, 255, 0.3);
 }
 
+/* PC UPGRADE（2026-09-03〜）。
+   /upgrade/ 側のアクセント（グリーン＝性能が上がる色）に寄せて、
+   他の2枚と区別できるようにする。 */
+.related-site-upgrade {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(74, 222, 128, 0.18),
+      rgba(25, 227, 255, 0.2)
+    );
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
 @media (max-width: 900px) {
   .affiliate-link-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1829,4 +1842,21 @@ body {
   font-size: 0.72rem;
   line-height: 1.7;
   opacity: 0.75;
+}
+
+/* 構成表のGPU名を GPU GUIDE の個別ページへリンクする（2026-09-03〜）。
+   「このGPUで大丈夫？」と思ったときに、そのGPUの性能・VRAM・価格帯を
+   確認しに行けるようにする。表の見た目は崩さず、リンクだと分かる程度に留める。 */
+.build-gpu-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.32);
+  text-underline-offset: 3px;
+  transition: color .16s ease, text-decoration-color .16s ease;
+}
+
+.build-gpu-link:hover,
+.build-gpu-link:focus-visible {
+  color: var(--cyan);
+  text-decoration-color: currentColor;
 }
