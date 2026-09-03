@@ -3,6 +3,31 @@
 # 実行: PowerShellで .\generate-builds.ps1
 # =========================
 
+# =====================================================================
+#  ⚠️ このファイルは【古いコピー】です。使わないでください。
+# ---------------------------------------------------------------------
+#  正しい生成スクリプトは  pc-build-check/generate-builds.ps1  です。
+#
+#  こちらには以下が入っておらず、実行すると75ページが退行します:
+#    - H1/titleの一意化（Get-PageHeading / スラグ衝突対策）
+#    - 廃止スラグの統合ページ生成（$retiredSlugs）
+#    - GPU個別ページへの直リンク（Get-GpuGuideUrl）
+#      ※こちらは旧形式 /gpu-guide/?gpu= のままで、GPU一覧に着地してしまう
+#    - マザーボード表の生成
+#
+#  実際 2026-09-02 に、古い generator を実行して広告表記とアフィリエイトが
+#  75ページから消える事故が起きている。同じことを繰り返さないためのガード。
+#
+#  誤実行を防ぐ。どうしても実行する場合のみ -Force（非推奨）。
+# =====================================================================
+param([switch]$Force)
+
+if (-not $Force) {
+  Write-Host "[廃止] このファイルは古いコピーです。次を使ってください:"
+  Write-Host "        pc-build-check/generate-builds.ps1"
+  exit 1
+}
+
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"

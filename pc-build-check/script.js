@@ -269,6 +269,7 @@ const whyThisBuildMessages = {
 };
 
 let builds = [];
+let gpuData = [];
 
 // 診断結果の購入導線は共通アフィリエイト基盤（shared/affiliate）が描画する。
 // 旧方式（#affiliate-amazon 等の固定ボタン）は使わず、診断された構成の
@@ -314,13 +315,51 @@ function normalizeText(value) {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+/* ------------------------------------------------------------------
+ *  GPU名 → 性能プロファイルの対応付け
+ * ------------------------------------------------------------------
+ *  ★ここは過去に事故った箇所。安易に includes() へ戻さないこと。
+ *
+ *  旧実装は gpuPerformanceProfiles を上から順に見て
+ *  「キーが含まれていれば採用」していた。そのため
+ *
+ *      "geforce rtx 5060 ti".includes("rtx 5060")  → true
+ *
+ *  となり、profile 3 に明示的に列挙されている RTX 5060 Ti が
+ *  先に現れる profile 2 の "rtx 5060" に吸われていた
+ *  （RTX 5070 Ti / RTX 5070 も同様）。結果として想定fps・
+ *  推奨解像度・推奨電源が1段階低く表示されていた。
+ *
+ *  【対策】マッチしたキーの中から "最も長いキー" を採用する。
+ *  下位モデル名は上位モデル名の接頭辞になっている
+ *  （"rtx 5060" ⊂ "rtx 5060 ti"）ため、長い方を選べば
+ *  Ti / SUPER / Ti SUPER / XT / XTX すべてで正しく上位を選べる。
+ *  定義の並び順に依存しないので、プロファイルへの追記順も問わない。
+ * ------------------------------------------------------------------ */
+
+/** GPU名にマッチする最長キーを持つプロファイルの添字を返す（無ければ -1） */
+function getPerformanceProfileIndex(gpu) {
+  const normalizedGpu = normalizeText(gpu || "");
+  let bestIndex = -1;
+  let bestLength = 0;
+
+  gpuPerformanceProfiles.forEach((profile, index) => {
+    profile.match.forEach((keyword) => {
+      if (!normalizedGpu.includes(keyword)) return;
+      // 同じ長さで競合したときは先に定義された方を優先（従来の挙動を維持）
+      if (keyword.length > bestLength) {
+        bestLength = keyword.length;
+        bestIndex = index;
+      }
+    });
+  });
+
+  return bestIndex;
+}
+
 function getPerformanceProfile(gpu) {
-  const normalizedGpu = normalizeText(gpu);
-  return (
-    gpuPerformanceProfiles.find((profile) =>
-      profile.match.some((keyword) => normalizedGpu.includes(keyword))
-    ) || defaultPerformanceProfile
-  );
+  const index = getPerformanceProfileIndex(gpu);
+  return index < 0 ? defaultPerformanceProfile : gpuPerformanceProfiles[index];
 }
 
 function getResolutionLabel(resolution) {
@@ -333,8 +372,172 @@ function getResolutionLabel(resolution) {
   return labels[resolution] || "FHD / 1080p";
 }
 
+/* ==================================================================
+ *  解像度の適性判定
+ * ==================================================================
+ *  【何のためのものか】
+ *   「4Kを選んだのに FHD向けGPU が提示される」問題への対応。
+ *   構成を隠したり、予算を超える高価なGPUに差し替えたりはしない。
+ *   予算を守った結果として性能が足りないなら、
+ *   その事実を正直に伝える（/upgrade/ と同じ方針）。
+ *
+ *  【混同しないこと】結果画面では次の3つを別々に扱う。
+ *     1. ユーザーが選んだ解像度      … result.resolution
+ *     2. GPU本来の適性              … gpus.json の target
+ *     3. この構成でおすすめする解像度 … 上2つから導く判定
+ *   旧実装は「推奨解像度」1項目に全部を詰め込んでいたため、
+ *   4K選択なのに「FHD / 1080p」とだけ出て意味が通らなかった。
+ * ================================================================== */
+
+/* 解像度の重さ順。数値の間隔に意味は無く、大小比較にのみ使う。
+ * UWQHD や 4K高fps を足すときは、ここに1行足せば
+ * 比較ロジック側は変更不要（文字列のif文を増やさないための表）。 */
+/* ★解像度の尺度は shared/gpu/gpu-target.js と共有する。
+ *   ここに独自の対応表を持つと、GPU GUIDE 側と基準がズレたときに
+ *   「一覧ではWQHD向けなのに診断では足りないと言われる」が起きる。
+ *   共通モジュールが読めない場合だけ同等の表にフォールバックする。 */
+const RESOLUTION_LEVELS =
+  (typeof window !== "undefined" && window.SippoGpuTarget
+    && window.SippoGpuTarget.RESOLUTION_LEVELS) || {
+    fhd: 1,
+    wqhd: 2,
+    "4k": 3,
+  };
+
+/* gpus.json の target 表記（"FHD" / "WQHD" / "4K"）と
+ * フォームの value（"fhd" / "wqhd" / "4k"）を同じ尺度で読むための正規化。 */
+function getResolutionLevel(value) {
+  if (!value) return null;
+  const key = String(value).toLowerCase().trim();
+  return Object.prototype.hasOwnProperty.call(RESOLUTION_LEVELS, key)
+    ? RESOLUTION_LEVELS[key]
+    : null; // 未知の表記は勝手に仮定せず null（判定不能）にする
+}
+
+/** レベル値 → 表示用ラベル */
+function getResolutionShortLabel(level) {
+  const found = Object.keys(RESOLUTION_LEVELS).find(
+    (key) => RESOLUTION_LEVELS[key] === level
+  );
+  const labels = { fhd: "フルHD", wqhd: "WQHD", "4k": "4K" };
+  return labels[found] || "フルHD";
+}
+
+/** gpus.json から GPU を名前で引く（表記ゆれを吸収する） */
+function findGpuData(gpuName, gpuList) {
+  if (!gpuName || !Array.isArray(gpuList)) return null;
+  const key = normalizeGpuKey(gpuName);
+  return gpuList.find((item) => normalizeGpuKey(item.name) === key) || null;
+}
+
+/* "GeForce RTX 5070 Ti" → "rtx5070ti"
+ * GPU GUIDE 側の gpuNameToSharedKey と同じ考え方でそろえる。 */
+function normalizeGpuKey(name) {
+  return String(name || "")
+    .toLowerCase()
+    .replace(/^geforce\s+/, "")
+    .replace(/^amd\s+radeon\s+/, "")
+    .replace(/^radeon\s+/, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+/**
+ * 選んだ解像度に対して、そのGPUが足りているかを判定する。
+ *
+ * @returns {{
+ *   level: 'unknown'|'short'|'match'|'over',
+ *   warns: boolean,          // 不足警告を出すか
+ *   gpuTarget: string|null,  // GPU本来の適性（"FHD" 等）
+ *   selectedLabel: string,   // 選んだ解像度の表示名
+ *   suggestLabel: string|null, // 代わりに勧める解像度
+ *   headline: string|null,
+ *   detail: string|null
+ * }}
+ */
+function getResolutionFit(gpuName, selectedResolution, gpuList) {
+  const gpuData = findGpuData(gpuName, gpuList);
+  const wantLevel = getResolutionLevel(selectedResolution);
+  const haveLevel = gpuData ? getResolutionLevel(gpuData.target) : null;
+  const selectedLabel = getResolutionShortLabel(wantLevel);
+
+  // GPUデータが無い／適性が読めない場合は判定しない。
+  // 「分からない」を「足りている」と読ませないため、警告も出さない代わりに
+  // 足りている風の表示も出さない。
+  if (!gpuData || haveLevel === null || wantLevel === null) {
+    return {
+      level: "unknown",
+      warns: false,
+      gpuTarget: gpuData ? gpuData.target || null : null,
+      selectedLabel: selectedLabel,
+      suggestLabel: null,
+      headline: null,
+      detail: null,
+    };
+  }
+
+  if (haveLevel < wantLevel) {
+    const suggestLabel = getResolutionShortLabel(haveLevel);
+    return {
+      level: "short",
+      warns: true,
+      gpuTarget: gpuData.target,
+      selectedLabel: selectedLabel,
+      suggestLabel: suggestLabel,
+      headline: `この予算では${selectedLabel}を快適に狙うのは厳しめです`,
+      detail:
+        `${selectedLabel}を選びましたが、この予算で選べる${gpuData.name}は` +
+        `${suggestLabel}向けのグラボです。${selectedLabel}でも映りますが、` +
+        `重いゲームでは画質を下げる必要が出てきます。` +
+        `${suggestLabel}のモニターで使うなら、この構成のまま気持ちよく遊べます。`,
+    };
+  }
+
+  if (haveLevel > wantLevel) {
+    return {
+      level: "over",
+      warns: false,
+      gpuTarget: gpuData.target,
+      selectedLabel: selectedLabel,
+      suggestLabel: null,
+      headline: null,
+      detail: null,
+    };
+  }
+
+  return {
+    level: "match",
+    warns: false,
+    gpuTarget: gpuData.target,
+    selectedLabel: selectedLabel,
+    suggestLabel: null,
+    headline: null,
+    detail: null,
+  };
+}
+
+/* GPU詳細ページのURL。
+ *
+ * ★旧実装は `/gpu-guide/?gpu=<GPU名>` を返していたが、GPU GUIDE トップは
+ *   この `gpu` クエリを解釈しないため、ユーザーはGPU一覧に着地して
+ *   目的のGPUを自分で探し直す羽目になっていた（「GPU詳細を見る」の詐称）。
+ *   Phase 2 で個別ページを静的化したので、直接そこへ送る。
+ *
+ * 名前→idの解決は共通の SippoGpuLinks（shared/gpu/gpu-links.js）に任せる。
+ * 解決できないGPUだけ GPU GUIDE トップへフォールバックする
+ * （間違ったGPUページへ飛ばさない）。 */
 function createGpuGuideUrl(gpu) {
-  return `https://sippo-pc.jp/gpu-guide/?gpu=${encodeURIComponent(gpu)}`;
+  const links = window.SippoGpuLinks;
+  if (links && links.isReady()) {
+    const url = links.detailUrl(gpu);
+    if (url) return url;
+  }
+  return "/gpu-guide/";
+}
+
+/** そのGPUの個別ページが存在するか（ボタン文言の出し分けに使う） */
+function hasGpuDetailPage(gpu) {
+  const links = window.SippoGpuLinks;
+  return Boolean(links && links.isReady() && links.detailUrl(gpu));
 }
 
 function renderFpsItems(fpsByGame) {
@@ -403,7 +606,10 @@ function getBeginnerBadges(result, profile) {
 }
 
 // 用途・解像度から「こんな人に向いています」を作る
-function getForWhomText(usage, resolution) {
+/* @param {object} [fit] 解像度適性。足りていない場合は
+ *   「このクラス以上が安心です」のような、選んだ解像度を保証する
+ *   言い回しを付けない（注意書きと矛盾するため）。 */
+function getForWhomText(usage, resolution, fit) {
   const base = {
     fps: "フルHDでApexやフォートナイトなどの人気FPSを、安心して遊びたい人に向いています。",
     mmo: "FF14や原神などを、きれいな画面でゆったり遊びたい人に向いています。",
@@ -412,9 +618,54 @@ function getForWhomText(usage, resolution) {
     daily: "ネットや動画が中心で、軽めのゲームも楽しみたい人に向いています。",
   };
   let text = base[usage] || "自分に合うPCを無理なく選びたい人に向いています。";
+  if (fit && fit.warns) return text;
   if (resolution === "wqhd") text += " 少し大きめできれいな画面（WQHD）で遊びたい人にもおすすめです。";
   if (resolution === "4k") text += " 4Kの最高画質で遊びたいなら、このクラス以上が安心です。";
   return text;
+}
+
+/** 不足時に代わりに勧める解像度の表示名（未判定なら空文字） */
+function fitSuggestText(fit) {
+  return fit && fit.suggestLabel ? fit.suggestLabel : "";
+}
+
+/* 「このグラボの得意な解像度」に出す見出し。
+ *
+ * プロファイル側の recommendedResolution は "FHD-WQHD / 1080p-1440p" のような
+ * 幅のある表現で、GPU GUIDE (gpus.json) の target とは粒度が違う。
+ * 両方を並べると「FHD-WQHD なのに フルHDがおすすめ」と食い違って見えるため、
+ * gpus.json の target が読めているときはそちらを正とする。
+ * （GPU性能データの正は GPU GUIDE 側、という方針にそろえる） */
+function gpuTargetHeadline(fit, profile) {
+  if (fit && fit.gpuTarget) {
+    const level = getResolutionLevel(fit.gpuTarget);
+    if (level !== null) return `${getResolutionShortLabel(level)}向け`;
+  }
+  return profile.recommendedResolution;
+}
+
+/**
+ * 解像度が足りないときの注意書き。
+ *
+ * 構成を隠さず、不安を煽らず、「どうすればいいか」まで書く。
+ * 足りている場合は何も出さない（余計な表示を増やさない）。
+ */
+function renderResolutionNotice(fit) {
+  if (!fit || !fit.warns) return "";
+
+  return `
+    <div class="resolution-notice">
+      <div class="resolution-notice-head">
+        <span class="resolution-notice-icon" aria-hidden="true">💡</span>
+        <h4>${fit.headline}</h4>
+      </div>
+      <p class="resolution-notice-text">${fit.detail}</p>
+      <ul class="resolution-notice-options">
+        <li><strong>${fit.suggestLabel}のモニターで使う</strong>ならこの構成のままでOKです</li>
+        <li><strong>${fit.selectedLabel}にこだわる</strong>なら、予算を上げた構成も見てみてください</li>
+      </ul>
+    </div>
+  `;
 }
 
 // 診断結果の下に置く相談導線（既存の /pc-consult/ へ誘導）
@@ -480,23 +731,39 @@ function renderMotherboardGuide(motherboardGuide) {
   `;
 }
 
-function renderNextActions(gpuGuideUrl) {
+/* 診断結果の下に出す「次のステップ」。
+ * GPUが特定できるときは、GPU一覧ではなく **そのGPUの詳細ページ** へ直接送る。
+ * ボタン文言も実際の遷移先に合わせる（「GPU詳細」と言って一覧に着地させない）。 */
+function renderNextActions(gpuGuideUrl, gpuName) {
+  const hasDetail = hasGpuDetailPage(gpuName);
+  const gpuLabel = hasDetail ? `${gpuName} の詳細を見る` : "GPUを比較して選ぶ";
+  const gpuNote = hasDetail
+    ? "性能スコア・VRAM・相性のよいCPU"
+    : "性能・価格帯からGPUを探せます";
+
   return `
     <div class="next-action-section">
       <p class="next-action-label">次のステップ</p>
       <div class="next-action-grid">
-        <a class="next-action-btn" href="${gpuGuideUrl}" target="_blank" rel="noopener">
+        <a class="next-action-btn" href="${gpuGuideUrl}">
           <span class="next-action-icon">🔍</span>
           <span class="next-action-text">
-            <strong>GPU詳細を見る</strong>
-            <small>グラボの性能・比較情報</small>
+            <strong>${gpuLabel}</strong>
+            <small>${gpuNote}</small>
           </span>
         </a>
-        <a class="next-action-btn" href="https://sippo-pc.jp/game-pc-guide/" target="_blank" rel="noopener">
+        <a class="next-action-btn" href="/game-pc-guide/">
           <span class="next-action-icon">🎮</span>
           <span class="next-action-text">
             <strong>ゲーム別おすすめPCを見る</strong>
             <small>遊びたいゲームから逆引き</small>
+          </span>
+        </a>
+        <a class="next-action-btn" href="/upgrade/">
+          <span class="next-action-icon">🔧</span>
+          <span class="next-action-text">
+            <strong>今のPCを活かせるか調べる</strong>
+            <small>買い替えずパーツ交換で足りるか診断</small>
           </span>
         </a>
         <a class="next-action-btn" href="#popular-builds" id="next-action-popular">
@@ -546,6 +813,22 @@ async function loadBuilds() {
   }
 }
 
+/* GPU GUIDE のGPUデータ。解像度適性の判定にだけ使う。
+ * 取得に失敗しても診断は従来どおり動く（適性判定だけ unknown になる）。
+ * GPU GUIDE 側のデータを唯一の情報源にするため、
+ * ここでGPUの性能値を持たない。 */
+async function loadGpuData() {
+  try {
+    const response = await fetch("/gpu-guide/gpus.json");
+    if (!response.ok) throw new Error("gpus.json fetch failed");
+    gpuData = await response.json();
+    // GPU名→個別ページURLの解決にも同じデータを使う（マスターは gpus.json 1つ）
+    if (window.SippoGpuLinks) window.SippoGpuLinks.setCatalog(gpuData);
+  } catch {
+    gpuData = [];
+  }
+}
+
 /* =========================
    PWA Install Prompt
 ========================= */
@@ -587,6 +870,7 @@ if (installBtnNo) {
 setupAffiliateLinks();
 toggleAffiliateSection(false);
 loadBuilds();
+loadGpuData();
 
 popularJumpButton.addEventListener("click", () => {
   popularBuildsSection.scrollIntoView({
@@ -649,16 +933,34 @@ form.addEventListener("submit", async (e) => {
   const fpsByGame =
     performanceProfile.fps[resolution] || performanceProfile.fps.fhd || defaultPerformanceProfile.fps.fhd;
   const selectedResolutionLabel = getResolutionLabel(resolution);
+  // 選択解像度に対してGPUが足りているか。gpus.json が読めていなければ unknown。
+  const resolutionFit = getResolutionFit(result.gpu, resolution, gpuData);
   const gpuGuideUrl = createGpuGuideUrl(result.gpu);
   // 購入導線を描画。出せる商品が無ければ false → セクションは出さない
   const hasAffiliateLinks = updateAffiliateLinksForBuild(result);
 
-  const whyMessage = getWhyMessage(usage, resolution, result.gpu);
-  const comfortMessage = getComfortMessage(usage, resolution);
+  // 「なぜこの構成？」は選んだ解像度で通用する前提の文面
+  // （例:「RTX 4060は4Kでも高画質設定での動作を実現できる」）。
+  // 性能が足りていないときに出すと注意書きと正面から矛盾するため、
+  // 足りているときだけ出す。代わりに注意書き側が理由を説明する。
+  const whyMessage = resolutionFit.warns
+    ? null
+    : getWhyMessage(usage, resolution, result.gpu);
+  // 快適さの一言は「選んだ解像度で快適に遊べる」と断言する文面なので、
+  // 性能が足りていないと判定したときに出すと注意書きと矛盾する。
+  // （例:「4Kで最高画質を堪能できます」の直下に「4Kは厳しめです」が並ぶ）
+  // 足りているときだけ出す。
+  const comfortMessage = resolutionFit.warns
+    ? null
+    : getComfortMessage(usage, resolution);
 
   const beginnerBadges = getBeginnerBadges(result, performanceProfile);
-  const comfortLabel = getComfortLabel(resolution);
-  const forWhomText = getForWhomText(usage, resolution);
+  // 快適バッジも選んだ解像度を前提にしているため、
+  // 足りていないときは "実際に快適な解像度" を出す（嘘をつかない）。
+  const comfortLabel = resolutionFit.warns && resolutionFit.suggestLabel
+    ? `${resolutionFit.suggestLabel}で快適に遊べる`
+    : getComfortLabel(resolution);
+  const forWhomText = getForWhomText(usage, resolution, resolutionFit);
   const badgesHtml =
     `<span class="result-badge result-badge--comfort">😊 ${comfortLabel}</span>` +
     beginnerBadges.map((b) => `<span class="result-badge">${b}</span>`).join("");
@@ -697,12 +999,25 @@ form.addEventListener("submit", async (e) => {
         <p class="why-text">${whyMessage}</p>
       </section>` : ''}
 
+      ${renderResolutionNotice(resolutionFit)}
+
       <div class="result-insights">
+        <!-- 「選んだ条件」「GPUの得意な解像度」「この構成でのおすすめ」は
+             それぞれ別物なので、1つのカードにまとめない。 -->
         <div class="result-metrics">
           <div class="metric-card">
-            <span>推奨解像度</span>
-            <strong>${performanceProfile.recommendedResolution}</strong>
-            <small>選択条件: ${selectedResolutionLabel}</small>
+            <span>選んだ条件</span>
+            <strong>${selectedResolutionLabel}</strong>
+            <small>あなたが選んだ解像度</small>
+          </div>
+          <div class="metric-card${resolutionFit.warns ? " metric-card--warn" : ""}">
+            <span>このグラボの得意な解像度</span>
+            <strong>${gpuTargetHeadline(resolutionFit, performanceProfile)}</strong>
+            <small>${
+              resolutionFit.warns
+                ? `${fitSuggestText(resolutionFit)}のモニターがおすすめです`
+                : "選んだ条件に対応できます"
+            }</small>
           </div>
           <div class="metric-card">
             <span>推奨電源容量</span>
@@ -734,12 +1049,14 @@ form.addEventListener("submit", async (e) => {
 
         ${renderMotherboardGuide(result.motherboardGuide)}
 
-        <a class="gpu-detail-button" href="${gpuGuideUrl}" target="_blank" rel="noopener">
-          グラボの詳細スペックを見る →
+        <a class="gpu-detail-button" href="${gpuGuideUrl}">
+          ${hasGpuDetailPage(result.gpu)
+            ? `${result.gpu} の詳細スペックを見る →`
+            : "グラボを比較して選ぶ →"}
         </a>
       </div>
 
-      ${renderNextActions(gpuGuideUrl)}
+      ${renderNextActions(gpuGuideUrl, result.gpu)}
 
       ${renderConsultCta()}
     </div>
@@ -760,3 +1077,30 @@ form.addEventListener("submit", async (e) => {
     });
   }
 });
+
+/* ==================================================================
+ *  テスト用の公開
+ * ==================================================================
+ *  診断ロジックを node から検証できるようにする
+ *  （pc-build-check/test-build-check.js が参照）。
+ *  ブラウザの動作には影響しない。
+ * ================================================================== */
+if (typeof window !== "undefined") {
+  window.PcBuildCheckLogic = {
+    gpuPerformanceProfiles,
+    defaultPerformanceProfile,
+    normalizeText,
+    normalizeGpuKey,
+    findGpuData,
+    getPerformanceProfile,
+    getPerformanceProfileIndex,
+    getResolutionLevel,
+    getResolutionShortLabel,
+    getResolutionLabel,
+    getResolutionFit,
+    getComfortMessage,
+    getWhyMessage,
+    getComfortLabel,
+    getForWhomText,
+  };
+}

@@ -10,6 +10,47 @@ $ErrorActionPreference = "Stop"
 $builds    = Get-Content -Raw -Path "./builds.json" -Encoding UTF8 | ConvertFrom-Json
 $SITE_BASE = "https://sippo-pc.jp/pc-build-check"
 
+# ---------------------------------------------------------------------
+#  GPU名 → GPU GUIDE 個別ページURL
+# ---------------------------------------------------------------------
+#  Phase 2 で GPU 個別ページを静的化した（/gpu-guide/gpu/<id>/）。
+#  それ以前は /gpu-guide/?gpu=<GPU名> へ飛ばしていたが、GPU GUIDE トップは
+#  このクエリを解釈しないため、ユーザーはGPU一覧に着地して目的のGPUを
+#  自分で探し直す必要があった。生成時にidを解決して直リンクする。
+#
+#  ★対応表をここに手書きしない。gpus.json を唯一の情報源にする。
+#    正規化規則は shared/gpu/gpu-links.js と同じ
+#    （小文字化 → GeForce/Radeon/AMD 接頭辞を除去 → 英数字以外を除去）。
+#    ズレると「一覧では出るのにリンクが解決しない」が起きるので必ず揃える。
+$gpuCatalog = Get-Content -Raw -Path "../gpu-guide/gpus.json" -Encoding UTF8 | ConvertFrom-Json
+
+function Get-GpuKey($value) {
+    if ($null -eq $value) { return "" }
+    $s = ([string]$value).ToLowerInvariant()
+    $s = $s -replace '^geforce\s+', ''
+    $s = $s -replace '^amd\s+radeon\s+', ''
+    $s = $s -replace '^radeon\s+', ''
+    $s = $s -replace '^amd\s+', ''
+    return ($s -replace '[^a-z0-9]', '')
+}
+
+$gpuKeyToId = @{}
+foreach ($g in $gpuCatalog) {
+    if ($g.id) {
+        $gpuKeyToId[(Get-GpuKey $g.id)] = $g.id
+        if ($g.name) { $gpuKeyToId[(Get-GpuKey $g.name)] = $g.id }
+    }
+}
+
+# 解決できたら個別ページURL、できなければ GPU GUIDE トップ。
+# （間違ったGPUページへ飛ばすくらいなら一覧へ送る）
+function Get-GpuGuideUrl($gpuName) {
+    $id = $gpuKeyToId[(Get-GpuKey $gpuName)]
+    if ($id) { return "https://sippo-pc.jp/gpu-guide/gpu/$id/" }
+    Write-Host "  [warn] GPU '$gpuName' の個別ページが見つかりません。GPU GUIDEトップへリンクします。"
+    return "https://sippo-pc.jp/gpu-guide/"
+}
+
 # Sippo 親サイトへの導線（ヘッダー内リンク / ドメイン移行時はここだけ変更）
 $sippoHomeUrl = "https://sippo-pc.jp/"
 $sippoMascot  = "https://sippo-pc.jp/assets/sippo/sippo-normal.webp"
@@ -170,7 +211,7 @@ function Build-Html($build, $allBuilds) {
     $pageH1    = Get-PageHeading $build
     $introText = Get-IntroText $build
     $canonical = "$SITE_BASE/builds/$slug.html"
-    $gpuGuide  = "https://sippo-pc.jp/gpu-guide/?gpu=$([Uri]::EscapeDataString($build.gpu))"
+    $gpuGuide  = Get-GpuGuideUrl $build.gpu
     $bgLabel   = $budgetLabel[$build.budget.ToString()]
     $resStr    = $resLabel[$build.resolution]
     $usageStr  = $usageLabel[$build.usage]
@@ -224,6 +265,7 @@ function Build-Html($build, $allBuilds) {
   <link rel="preload" href="../style.css" as="style" />
   <link rel="preload" href="../builds.css" as="style" />
   <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="stylesheet" href="../builds.css" />
   <script>if('serviceWorker'in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});</script>
   <script type="application/ld+json">
@@ -241,7 +283,7 @@ function Build-Html($build, $allBuilds) {
   </script>
 
 </head>
-<body>
+<body data-sippo-theme="dark">
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="site-logo">PC BUILD <span>CHECK</span></a>
@@ -321,11 +363,18 @@ $cautionHtml
               <small>GPU GUIDEでスペック・比較を確認</small>
             </div>
           </a>
-          <a href="https://sippo-pc.jp/game-pc-guide/" target="_blank" rel="noopener" class="build-next-btn">
+          <a href="https://sippo-pc.jp/game-pc-guide/" class="build-next-btn">
             <span class="build-next-icon">🎮</span>
             <div class="build-next-text">
               <strong>ゲーム別おすすめPCを見る</strong>
               <small>遊びたいゲームから逆引きで確認</small>
+            </div>
+          </a>
+          <a href="https://sippo-pc.jp/upgrade/" class="build-next-btn">
+            <span class="build-next-icon">🔧</span>
+            <div class="build-next-text">
+              <strong>今のPCを活かせるか調べる</strong>
+              <small>買い替えずパーツ交換で足りるか診断</small>
             </div>
           </a>
           <a href="../index.html#diagnosis" class="build-next-btn">
@@ -343,9 +392,63 @@ $relSection
 
   <footer class="site-footer">
     <div class="container">
+      <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       <p>&copy; 2026 PC BUILD CHECK</p>
     </div>
   </footer>
+  <!-- 共通アフィリエイト基盤（shared/affiliate）。設定→本体→利用側の順 -->
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="../build-affiliate.js"></script>
+</body>
+</html>
+"@
+}
+
+# --- 廃止スラグ（統合先へ寄せるページ）---
+#
+# builds.json の整理でページが1枚に統合されたとき、古いURLを消すと
+# 既にインデックスされている検索結果が 404 になる。ファイルは残し、
+# canonical を統合先へ向けた案内ページに置き換えてリンクを引き継ぐ。
+# sitemap には載せない（正規URLは統合先の1本だけ）。
+#
+#   キー   … 廃止するスラグ
+#   値     … 統合先のスラグ
+#
+# 2026-09-02: 4k-creative-30man と -2 はCPU違い（Ryzen 9 7900 / 7900X）
+#             だけの重複で、診断からは -2 に到達できなかった。
+#             重複を解消し 4k-creative-30man へ統合。
+$retiredSlugs = @{
+    "4k-creative-30man-2" = "4k-creative-30man"
+}
+
+function Build-RetiredHtml($fromSlug, $toSlug) {
+    $toUrl = "$SITE_BASE/builds/$toSlug.html"
+    return @"
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>この構成は統合されました | PC BUILD CHECK</title>
+  <meta name="description" content="この構成ページは同じ内容のページへ統合されました。最新の内容は統合先のページでご確認ください。" />
+  <link rel="canonical" href="$toUrl" />
+  <meta name="robots" content="noindex, follow" />
+  <meta http-equiv="refresh" content="0; url=$toUrl" />
+  <link rel="icon" type="image/x-icon" href="../icons/favicon.ico" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../builds.css" />
+</head>
+<body>
+  <main class="build-page">
+    <div class="container">
+      <p class="section-label">Moved</p>
+      <h1 class="build-page-title">この構成ページは統合されました</h1>
+      <p>同じ内容のページにまとめました。数秒で移動します。移動しない場合は下のリンクからどうぞ。</p>
+      <p><a class="primary-btn" href="$toUrl">統合先のページを見る →</a></p>
+      <p><a href="../index.html">PC BUILD CHECK トップへ戻る</a></p>
+    </div>
+  </main>
 </body>
 </html>
 "@
@@ -366,6 +469,14 @@ foreach ($build in $builds) {
     [System.IO.File]::WriteAllText((Resolve-Path ".").Path + "\builds\$slug.html", $html, [System.Text.Encoding]::UTF8)
     $count++
     Write-Host "[$count/$($builds.Count)] $outPath"
+}
+
+# 廃止スラグを統合先への案内ページに置き換える（sitemapには載せない）
+foreach ($from in $retiredSlugs.Keys) {
+    $to = $retiredSlugs[$from]
+    $retiredHtml = Build-RetiredHtml $from $to
+    [System.IO.File]::WriteAllText((Resolve-Path ".").Path + "\builds\$from.html", $retiredHtml, [System.Text.Encoding]::UTF8)
+    Write-Host "[retired] ./builds/$from.html -> $to.html"
 }
 
 # Update sitemap.xml
