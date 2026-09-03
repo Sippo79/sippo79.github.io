@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-09-03（Phase 4: GPUデータ精度／Phase 5: 解像度適性の基準を統一。GPU 65件）
+最終更新: 2026-09-03（Phase 5: 解像度適性の統一／Phase 6: GPU推奨精度の監査。GPU 65件）
 
 ---
 
@@ -86,14 +86,18 @@
     `gpu/<id>/index.html` というURLで sitemap を壊す）。ガード済みで既定では実行できない。
   - 各サイトの `generate-sitemap.ps1` / `.js`
 - **テスト**（Nodeで実行。修正後は必ず通す）
-  - `node upgrade/test-upgrade-engine.js` … アップグレード診断エンジン（64件）
+  - `node upgrade/test-upgrade-engine.js` … アップグレード診断エンジン（73件 / 2026-09-03〜）。
+    個別ケースに加え、**推奨マトリクス20,160ケース**（現在GPU70種×解像度3×fps4×用途4×予算6）
+    の不変条件を総当りで検証する：現在より遅いGPUを勧めない／同一GPUへの交換を勧めない／
+    予算を超えない／15%未満の伸びを交換として勧めない／条件が厳しくなって推奨性能が下がらない／
+    予算増だけで過剰GPUへ飛ばない。**推奨ロジックを変えたら必ず通すこと**。
   - `node pc-build-check/test-build-check.js` … PC BUILD CHECK 診断ロジック（132件 / 2026-09-02〜）。
     75パターン全通し・GPUプロファイル判定・解像度適性・表示の矛盾検出。
     `--snapshot <file>` で全75パターンの出力をJSONに書き出せる（修正前後の差分確認用）。
   - `node gpu-guide/test-gpu-pages.js` … GPU個別ページ（1,643件 / 2026-09-02〜）。
     65ページのtitle/description/H1/canonical/noindex/構造化データ/クロスリンク/
     アフィリエイト欠落/リンク切れ/sitemap整合を検証する。
-  - `node gpu-guide/test-gpu-data.js` … GPUデータ整合性（68件 / 2026-09-03〜）。
+  - `node gpu-guide/test-gpu-data.js` … GPUデータ整合性（75件 / 2026-09-03〜）。
     重複・必須欠損・スコア範囲・compare参照・解像度評価の矛盾・
     サイト全体のGPU参照が解決できるかを検証する。
     **`target` が `shared/gpu/gpu-target.js` の導出値と一致するかを全件検証**し、
@@ -283,7 +287,23 @@
 - `pc-build-check/builds/*.html`（75件）・`game-pc-guide/games/*.html`（25件）の個別ページに、親サイトへの関連リンクが未追加（各生成スクリプト `generate-builds.ps1` / `Generate-StaticGames.ps1` 側の修正＋再生成が必要）。
 - 親サイト `#consult` セクションは、ココナラ／X・Instagram DMの旧フローと `pc-consult/`（500円ワンコイン相談）が並存中。どちらを主導線にするかは今後ユーザー判断（2026-07-01 時点ではpc-consult導線を追加するのみで両方維持）。
 
+### ⚠️ PC BUILD CHECK と /upgrade/ の役割の違い（誤解しやすい / 2026-09-03 追記）
+- **PC BUILD CHECK に「GPU推奨アルゴリズム」は存在しない**。
+  入力は予算・用途・解像度の3つだけで、処理は `builds.json` の
+  3キー完全一致による**表引き1行**。要求性能の計算も候補の順位付けも無い。
+  提示されるGPUは `builds.json` を書いた時点で人が選んだもの。
+- **要求性能→候補抽出→順位付けを行うのは `/upgrade/upgrade-engine.js`**。
+  現在GPU・目標fps・ゲーム負荷の入力もこちらにある。
+  推奨ロジックを直すときは対象を間違えないこと。
+
 ### 次フェーズの候補（Phase 6 以降）
+- **`builds.json` の10万円構成4件が中古前提GPUを使っている**
+  （RX 6600 / RTX 3050 / RTX 3060）。2026-09-03 に注意書きは出すようにしたが、
+  現行GPUへ差し替えるかはデータ方針の判断。10万円構成なら
+  RTX 5050（¥35,000・rasterScore 46）が新品で選べ、性能も上の3件より高い。
+- **PC BUILD CHECK に推奨アルゴリズムを入れるか**。
+  現状の表引き75通りは精度を機械検証できない。ただし入力を増やすと
+  `/upgrade/` と役割が重なるため、設計判断が必要。
 - **`rasterScore` は外部ベンチマーク由来ではなく独自指数**。Phase 5 では
   既存指数内での整合を優先し、全GPUの再採点はしていない。
   外部ベンチを取り込むなら target 閾値も併せて見直しが必要。
@@ -305,6 +325,7 @@
 - Intel Arc の追加、ゲーム別FPSデータ、GPU性能尺度3系統の統合（大規模）。
 
 ### 解消済み（参考）
+- ~~PC BUILD CHECK が中古前提GPU（RX 6600 / RTX 3050 / RTX 3060）を新品構成として何の断りもなく提示していた~~ → **2026-09-03 解消**（Phase 6 / 診断結果と構成4ページに注意書きを追加）。
 - ~~同じ性能でも現行GPUと中古GPUで target の基準がズレていた（RTX 5060 Ti raster68=FHD / RX 6800 raster68=WQHD）~~ → **2026-09-03 解消**（Phase 5 / rasterScore から一意に導出。17件を修正）。
 - ~~PC BUILD CHECK が rasterScore を見ず target ラベルだけで解像度警告を出していた~~ → **2026-09-03 解消**（Phase 5 / 基準を統一し誤警告12件が消えた）。
 - ~~RTX 5050 が gpus.json に無く、Upgradeの交換候補・ゲーム5件から詳細へ送れなかった~~ → **2026-09-03 解消**（Phase 4 / 追加してGPU 65件に）。

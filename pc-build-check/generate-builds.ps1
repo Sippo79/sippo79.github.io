@@ -42,6 +42,15 @@ foreach ($g in $gpuCatalog) {
     }
 }
 
+# そのGPUが中古前提のモデルか（gpus.json の market が唯一の判定材料）。
+# ここでGPU名を列挙しない。データが変わったら自動で追従させる。
+function Test-UsedMarketGpu($gpuName) {
+    $id = $gpuKeyToId[(Get-GpuKey $gpuName)]
+    if (-not $id) { return $false }
+    $gpu = $gpuCatalog | Where-Object { $_.id -eq $id } | Select-Object -First 1
+    return ($null -ne $gpu -and $gpu.market -eq 'used')
+}
+
 # 解決できたら個別ページURL、できなければ GPU GUIDE トップ。
 # （間違ったGPUページへ飛ばすくらいなら一覧へ送る）
 function Get-GpuGuideUrl($gpuName) {
@@ -220,7 +229,18 @@ function Build-Html($build, $allBuilds) {
     $motherboardHtml = Build-MotherboardGuideHtml $build
 
     $suitedHtml  = ($suitedFor[$build.usage]  | ForEach-Object { "          <li>$_</li>" }) -join "`n"
-    $cautionHtml = ($cautions[$build.usage] | ForEach-Object { "          <li>$_</li>" }) -join "`n"
+    $cautionItems = @($cautions[$build.usage])
+
+    # 中古前提のGPUを新品構成として出す場合は、その事実を注意点に足す。
+    # GPU GUIDE は現行/中古の両方を載せる情報データベースだが、
+    # PC BUILD CHECK は「これから買うPCの構成」を出す場所なので、
+    # 黙って中古前提GPUを提示すると「新品が見つからない」食い違いになる。
+    # 構成を差し替えるのではなく事実を伝える（判定は gpus.json の market）。
+    if (Test-UsedMarketGpu $build.gpu) {
+        $cautionItems += "$($build.gpu)は新品での流通が少なく、中古で探すのが前提のグラボです（状態・保証・相場を確認してください）"
+    }
+
+    $cautionHtml = ($cautionItems | ForEach-Object { "          <li>$_</li>" }) -join "`n"
 
     $relSection = ""
     if ($related.Count -gt 0) {

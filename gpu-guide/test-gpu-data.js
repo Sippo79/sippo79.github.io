@@ -370,6 +370,80 @@ function ok(name, cond, detail) {
 })();
 
 /* ==================================================================
+ *  8-3. 推奨GPUの妥当性（Phase 6）
+ * ==================================================================
+ *  「その条件なら確かにそのGPUを選ぶ」と納得できる推奨になっているかを、
+ *  データ側から検証する。推薦アルゴリズム本体（upgrade-engine.js）の
+ *  総当り検証は同ファイルのテストが担当する。
+ * ================================================================== */
+(function () {
+  const Links = require(path.join(ROOT, 'shared', 'gpu', 'gpu-links.js'));
+  Links.setCatalog(gpus);
+  const byId = {};
+  gpus.forEach((g) => { byId[g.id] = g; });
+
+  const engine = fs.readFileSync(path.join(ROOT, 'upgrade', 'upgrade-engine.js'), 'utf8');
+
+  // --- 交換候補は現行GPUのみ（中古前提GPUを新品前提の交換先に出さない） ---
+  const cm = engine.match(/var GPU_CANDIDATES = \[([\s\S]*?)\];/);
+  ok('GPU_CANDIDATES を読み取れる', Boolean(cm));
+  if (cm) {
+    const cands = [...cm[1].matchAll(/'([a-z0-9]+)'/g)].map((m) => m[1]);
+    const usedCands = cands.filter((c) => {
+      const g = byId[Links.resolveId(c)];
+      return g && g.market === 'used';
+    });
+    ok('交換候補に中古前提GPUが含まれない', usedCands.length === 0, usedCands.join(', '));
+
+    // 候補は性能順に並んでいること（価格と性能が逆行していないか）
+    const tm = engine.match(/var GPU_TIERS = \{([\s\S]*?)\};/);
+    const tiers = Object.fromEntries(
+      [...tm[1].matchAll(/([a-z0-9]+):\s*(\d+)/g)].map((m) => [m[1], Number(m[2])])
+    );
+    const pm = engine.match(/var PRICE_HINT = \{([\s\S]*?)\};/);
+    const prices = Object.fromEntries(
+      [...pm[1].matchAll(/([a-z0-9_]+):\s*(\d+)/g)].map((m) => [m[1], Number(m[2])])
+    );
+    // 性能が高いのに明確に安い、という逆転が無いか（価格帯の整合）
+    const inverted = [];
+    cands.forEach((a) => cands.forEach((b) => {
+      if (a === b) return;
+      if (tiers[a] > tiers[b] && prices[a] < prices[b] * 0.75) {
+        inverted.push(`${a}(t${tiers[a]} ¥${prices[a]}) vs ${b}(t${tiers[b]} ¥${prices[b]})`);
+      }
+    }));
+    ok('候補の性能と価格に大きな逆転が無い', inverted.length === 0, inverted.slice(0, 3).join(' / '));
+  }
+
+  // --- builds.json の中古GPUには必ず注意書きが出る ---
+  const builds = readJson(path.join(ROOT, 'pc-build-check', 'builds.json'));
+  const usedBuilds = builds.filter((b) => {
+    const g = byId[Links.resolveId(b.gpu)];
+    return g && g.market === 'used';
+  });
+  const buildsDir = path.join(ROOT, 'pc-build-check', 'builds');
+  const noticed = fs.readdirSync(buildsDir)
+    .filter((f) => f.endsWith('.html'))
+    .filter((f) => fs.readFileSync(path.join(buildsDir, f), 'utf8').indexOf('中古で探すのが前提') > -1);
+  ok('中古GPUを使う構成ページ数と注意書きの数が一致',
+    noticed.length === usedBuilds.length,
+    `注意書き${noticed.length}ページ / 中古GPU構成${usedBuilds.length}件`);
+
+  // --- 診断側にも中古の注意を出す実装がある ---
+  const pbc = fs.readFileSync(path.join(ROOT, 'pc-build-check', 'script.js'), 'utf8');
+  ok('診断結果に中古GPUの注意書き実装がある', pbc.indexOf('renderUsedGpuNotice') > -1);
+  ok('中古判定は gpus.json の market を見ている', pbc.indexOf("market === \"used\"") > -1);
+
+  // --- builds.json のGPUがVRAM的に極端でない（解像度との整合） ---
+  const lowVram = builds.filter((b) => {
+    const g = byId[Links.resolveId(b.gpu)];
+    // 4K構成で VRAM 8GB未満は現実的でない
+    return g && b.resolution === '4k' && g.vram < 8;
+  }).map((b) => `${b.id}:${b.gpu}(${byId[Links.resolveId(b.gpu)].vram}GB)`);
+  ok('4K構成にVRAM 8GB未満のGPUが無い', lowVram.length === 0, lowVram.join(', '));
+})();
+
+/* ==================================================================
  *  9. CPU相性データ
  * ================================================================== */
 (function () {

@@ -576,6 +576,146 @@ function recPrice(result) {
  *  結果
  * ------------------------------------------------------------------ */
 
+/* ==================================================================
+ *  推奨マトリクスの不変条件（Phase 6 / 2026-09-03）
+ * ==================================================================
+ *  個別ケースを名指しで固定するのではなく、
+ *  「入力の全組み合わせで必ず成り立つべき性質」を総当りで検証する。
+ *
+ *  過去に「RX 9070 を持っている人に RTX 5090（45万円）を勧める」
+ *  という過剰推奨があった。特定GPUのテストにすると別の型番で再発するため、
+ *  ここでは一般化した不変条件として押さえる。
+ * ================================================================== */
+(function () {
+  var RES = ['fhd', 'wqhd', '4k'];
+  var FPS = [60, 120, 144, 240];
+  var USAGE = ['light', 'normal', 'heavy', 'creative'];
+  var BUDGET = ['', '30000', '50000', '80000', '120000', '200000'];
+  var TIERS = E.GPU_TIERS;
+  var PRICE = E.PRICE_HINT;
+  var CURRENT = Object.keys(TIERS);
+
+  var cases = 0;
+  var downgrade = [];
+  var sameGpu = [];
+  var overBudget = [];
+  var sidegrade = [];
+  var thrown = [];
+  var byKey = {};
+
+  CURRENT.forEach(function (cur) {
+    RES.forEach(function (resolution) {
+      FPS.forEach(function (targetFps) {
+        USAGE.forEach(function (usage) {
+          BUDGET.forEach(function (budget) {
+            cases++;
+            var r;
+            try {
+              r = E.diagnose({ gpu: cur, resolution: resolution, targetFps: targetFps, usage: usage, budget: budget });
+            } catch (err) {
+              thrown.push(cur + '/' + resolution + '/' + targetFps + '/' + usage + ': ' + err.message);
+              return;
+            }
+            var g = null;
+            (r.parts || []).forEach(function (p) { if (p.part === 'gpu') g = p; });
+            if (!g || !g.recommendId) return;
+
+            var curTier = TIERS[cur];
+            var recTier = TIERS[g.recommendId];
+            var label = cur + '→' + g.recommendId + ' (' + resolution + '/' + targetFps + '/' + usage + '/予算' + (budget || 'なし') + ')';
+
+            // 1. 今より遅いGPUを勧めない
+            if (recTier < curTier) downgrade.push(label);
+            // 2. 同じGPUへの「交換」を勧めない
+            if (g.recommendId === cur) sameGpu.push(label);
+            // 3. 予算を指定したら超えない
+            if (budget && PRICE[g.recommendId] > Number(budget)) overBudget.push(label);
+            // 4. 体感できない伸び（15%未満）を交換として勧めない
+            if (recTier / curTier < 1.15) sidegrade.push(label);
+
+            byKey[cur + '|' + resolution + '|' + targetFps + '|' + usage + '|' + (budget || 'none')] = recTier;
+          });
+        });
+      });
+    });
+  });
+
+  check('マトリクス: 例外が発生しない', thrown.length === 0, thrown.slice(0, 3).join(' / '));
+  check('マトリクス: 現在より遅いGPUを勧めない', downgrade.length === 0, downgrade.slice(0, 3).join(' / '));
+  check('マトリクス: 同一GPUへの交換を勧めない', sameGpu.length === 0, sameGpu.slice(0, 3).join(' / '));
+  check('マトリクス: 予算を超える提案をしない', overBudget.length === 0, overBudget.slice(0, 3).join(' / '));
+  check('マトリクス: 15%未満の伸びを交換として勧めない', sidegrade.length === 0, sidegrade.slice(0, 3).join(' / '));
+  check('マトリクス: 十分なケース数を検証している', cases >= 5000, String(cases));
+
+  // 5. 条件が厳しくなって推奨性能が下がらない（単調性）
+  var monoRes = [];
+  var monoFps = [];
+  CURRENT.forEach(function (cur) {
+    USAGE.forEach(function (usage) {
+      BUDGET.forEach(function (budget) {
+        var b = budget || 'none';
+        // 解像度を上げたとき
+        FPS.forEach(function (fps) {
+          for (var i = 1; i < RES.length; i++) {
+            var lo = byKey[cur + '|' + RES[i - 1] + '|' + fps + '|' + usage + '|' + b];
+            var hi = byKey[cur + '|' + RES[i] + '|' + fps + '|' + usage + '|' + b];
+            if (lo && hi && hi < lo) {
+              monoRes.push(cur + ' ' + RES[i - 1] + '→' + RES[i] + ' ' + fps + 'fps ' + usage);
+            }
+          }
+        });
+        // 目標fpsを上げたとき
+        RES.forEach(function (resolution) {
+          for (var j = 1; j < FPS.length; j++) {
+            var a = byKey[cur + '|' + resolution + '|' + FPS[j - 1] + '|' + usage + '|' + b];
+            var c = byKey[cur + '|' + resolution + '|' + FPS[j] + '|' + usage + '|' + b];
+            if (a && c && c < a) {
+              monoFps.push(cur + ' ' + resolution + ' ' + FPS[j - 1] + '→' + FPS[j] + 'fps ' + usage);
+            }
+          }
+        });
+      });
+    });
+  });
+  check('マトリクス: 解像度を上げて推奨性能が下がらない', monoRes.length === 0, monoRes.slice(0, 3).join(' / '));
+  check('マトリクス: 目標fpsを上げて推奨性能が下がらない', monoFps.length === 0, monoFps.slice(0, 3).join(' / '));
+
+  // 6. 予算を上げただけで必要以上のGPUへ飛ばない
+  //    （予算は上限であって使い切る目標ではない）
+  var RT = { fhd: 42, wqhd: 62, '4k': 88 };
+  var FM = { 60: 1.0, 120: 1.35, 144: 1.5, 240: 1.9 };
+  var UW = { light: 0.75, normal: 1.0, heavy: 1.12, creative: 1.0 };
+  var jump = [];
+  CURRENT.forEach(function (cur) {
+    RES.forEach(function (resolution) {
+      FPS.forEach(function (fps) {
+        USAGE.forEach(function (usage) {
+          var req = RT[resolution] * FM[fps] * UW[usage];
+          var paid = BUDGET.filter(function (b) { return b; });
+          for (var i = 1; i < paid.length; i++) {
+            var a = byKey[cur + '|' + resolution + '|' + fps + '|' + usage + '|' + paid[i - 1]];
+            var b2 = byKey[cur + '|' + resolution + '|' + fps + '|' + usage + '|' + paid[i]];
+            // ★両方の予算で「推奨が出ている」ときだけ比較する。
+            //   低い予算側が keep（推奨なし）の場合、そこから推奨が出るのは
+            //   予算が足りるようになっただけで、過剰化ではない。
+            if (!a || !b2) continue;
+            // 推奨GPUが変わっていないなら比較の必要が無い
+            if (a === b2) continue;
+            // 前の予算で既に目標をほぼ満たしているのに、
+            // 予算を上げただけで大幅に上位へ飛んでいないか
+            if (a / req >= 0.9 && b2 / req > 1.3) {
+              jump.push(cur + ' ' + resolution + '/' + fps + '/' + usage + ' 予算' + paid[i - 1] + '→' + paid[i]);
+            }
+          }
+        });
+      });
+    });
+  });
+  check('マトリクス: 予算増だけで過剰GPUへ飛ばない', jump.length === 0, jump.slice(0, 3).join(' / '));
+
+  console.log('  （推奨マトリクス ' + cases + ' ケースを検証）');
+})();
+
 console.log('');
 console.log('  アップグレード診断エンジン テスト結果');
 console.log('  ------------------------------------');

@@ -650,6 +650,48 @@ function gpuTargetHeadline(fit, profile) {
  * 構成を隠さず、不安を煽らず、「どうすればいいか」まで書く。
  * 足りている場合は何も出さない（余計な表示を増やさない）。
  */
+/* このGPUが中古前提のモデルかどうか。
+ *
+ * ★GPU GUIDE の gpus.json は現行GPUと中古GPUの両方を載せている
+ *   （情報データベースとしての役割）。一方 PC BUILD CHECK は
+ *   「これから買うPCの構成」を出すので、役割が違う。
+ *   builds.json の一部（10万円構成4件）に中古前提のGPUが入っており、
+ *   これを何の断りもなく新品構成として見せると
+ *   「店で新品が見つからない」という食い違いが起きる。
+ *   構成を差し替えるのではなく、事実として伝える。 */
+function isUsedMarketGpu(gpuName) {
+  const links = window.SippoGpuLinks;
+  if (!links || !links.isReady() || !Array.isArray(gpuData)) return false;
+  const id = links.resolveId(gpuName);
+  if (!id) return false;
+  const gpu = gpuData.find((g) => g.id === id);
+  return Boolean(gpu && gpu.market === "used");
+}
+
+/** 中古前提GPUを提示するときの注意書き。該当しなければ空文字。 */
+function renderUsedGpuNotice(gpuName) {
+  if (!isUsedMarketGpu(gpuName)) return "";
+
+  return `
+    <div class="used-gpu-notice">
+      <div class="used-gpu-notice-head">
+        <span class="used-gpu-notice-icon" aria-hidden="true">🔍</span>
+        <h4>${gpuName} は中古で探すのが前提のグラボです</h4>
+      </div>
+      <p class="used-gpu-notice-text">
+        この価格帯で性能を確保するための選択です。新品での流通は少なくなっているため、
+        中古ショップやフリマでの購入が中心になります。
+        中古を避けたい場合は、予算を上げた構成も見てみてください。
+      </p>
+      <ul class="used-gpu-notice-points">
+        <li>ファンの異音・高温・分解歴を確認する</li>
+        <li>保証が短い、または無い場合がある</li>
+        <li>状態や時期によって相場が変わる</li>
+      </ul>
+    </div>
+  `;
+}
+
 function renderResolutionNotice(fit) {
   if (!fit || !fit.warns) return "";
 
@@ -1000,6 +1042,8 @@ form.addEventListener("submit", async (e) => {
       </section>` : ''}
 
       ${renderResolutionNotice(resolutionFit)}
+
+      ${renderUsedGpuNotice(result.gpu)}
 
       <div class="result-insights">
         <!-- 「選んだ条件」「GPUの得意な解像度」「この構成でのおすすめ」は

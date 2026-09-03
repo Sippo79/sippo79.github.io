@@ -2306,3 +2306,85 @@ body {
   line-height: 1.7;
   opacity: 0.75;
 }
+
+/* =========================
+   Used GPU Notice
+   中古前提のGPUを新品構成として提示するときの注意書き（2026-09-03〜）。
+   GPU GUIDE は現行/中古の両方を載せる情報データベース、
+   PC BUILD CHECK は「これから買う構成」を出す場所、と役割が違う。
+   低予算構成で中古前提GPUが入る場合に、黙って出さず事実を伝える。
+   エラーではないので赤にせず、解像度の注意書きと同系統の落ち着いた色にする。
+========================= */
+
+.used-gpu-notice {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(123, 97, 255, 0.12), rgba(25, 227, 255, 0.07));
+  border: 1px solid rgba(123, 97, 255, 0.32);
+}
+
+.used-gpu-notice-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.used-gpu-notice-icon {
+  font-size: 19px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+
+.used-gpu-notice h4 {
+  margin: 0;
+  color: #d7d0ff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.used-gpu-notice-text {
+  margin: 10px 0 0;
+  color: #e2e0f0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.used-gpu-notice-points {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 7px;
+}
+
+.used-gpu-notice-points li {
+  position: relative;
+  padding-left: 18px;
+  color: #ddd8ee;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.used-gpu-notice-points li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: rgba(123, 97, 255, 0.9);
+  font-weight: 800;
+}
+
+@media (max-width: 480px) {
+  .used-gpu-notice {
+    padding: 14px 15px;
+  }
+
+  .used-gpu-notice h4 {
+    font-size: 14px;
+  }
+
+  .used-gpu-notice-text {
+    font-size: 13.5px;
+  }
+}

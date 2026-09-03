@@ -7,7 +7,9 @@
 // ※ キャッシュ名を正式名 pc-build-check に統一（旧 'jisako-v3' は別サイト名の誤用）
 // v5: 解像度適性の注意書き(style.css) と
 //     GPU詳細への直リンク(script.js) を追加。両方キャッシュ対象のため版を上げる。
-const CACHE_NAME = 'pc-build-check-v5';
+// v6: 中古前提GPUの注意書きを追加（script.js / style.css を更新）。
+//     両方キャッシュ対象なので版を上げないと再訪ユーザーに旧版が配られる。
+const CACHE_NAME = 'pc-build-check-v6';
 
 const STATIC_ASSETS = [
   './',
