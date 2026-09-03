@@ -638,6 +638,7 @@
     "rasterScore": 46,
     "featureScore": 90,
     "usedScore": 55,
+    "scoreSource": "internal_estimate",
     "scoreNote": "最新世代の機能は使えますが、純粋なゲーム性能はRTX 4060と同等クラスです。VRAM 8GBのため、重量級タイトルの高解像度テクスチャでは設定調整が必要になる場面があります。"
   },
   {

@@ -385,6 +385,171 @@ rows.forEach(function (r) {
     '出ていない件数 ' + okRows.filter(function (r) { return !r.whyMessage; }).length);
 })();
 
+/* ==================================================================
+ *  12. 構成データの品質（Phase 7）
+ * ==================================================================
+ *  PC BUILD CHECK は動的な推薦エンジンではなく、
+ *  事前設計した完成構成を引く**カタログ型**。
+ *  そのため構成データそのものの品質をここで守る。
+ * ================================================================== */
+(function () {
+  var pathMod = require('path');
+  var gpuList = readJson(pathMod.join(DIR, '..', 'gpu-guide', 'gpus.json'));
+  var Links = require(pathMod.join(DIR, '..', 'shared', 'gpu', 'gpu-links.js'));
+  Links.setCatalog(gpuList);
+  var gpuById = {};
+  gpuList.forEach(function (g) { gpuById[g.id] = g; });
+  var gpuOf = function (name) { return gpuById[Links.resolveId(name)]; };
+
+  // CPU性能指標は upgrade-engine の CPU_TIERS を使う（独自指数を作らない）
+  var engSrc = fs.readFileSync(pathMod.join(DIR, '..', 'upgrade', 'upgrade-engine.js'), 'utf8');
+  var cpuTiers = {};
+  var cm = engSrc.match(/var CPU_TIERS = \{([\s\S]*?)\};/);
+  if (cm) {
+    var re = /([a-z0-9]+):\s*(\d+)/g;
+    var m;
+    while ((m = re.exec(cm[1])) !== null) cpuTiers[m[1]] = Number(m[2]);
+  }
+  var cpuTier = function (s) { return cpuTiers[String(s).toLowerCase().replace(/[^a-z0-9]/g, '')]; };
+
+  // --- 全GPU/CPUが参照解決できる ---
+  var badGpu = builds.filter(function (b) { return !gpuOf(b.gpu); }).map(function (b) { return b.id + ':' + b.gpu; });
+  ok('全構成のGPUが gpus.json で解決できる', badGpu.length === 0, badGpu.slice(0, 5).join(', '));
+  var badCpu = builds.filter(function (b) { return cpuTier(b.cpu) === undefined; }).map(function (b) { return b.id + ':' + b.cpu; });
+  ok('全構成のCPUが CPU_TIERS で解決できる', badCpu.length === 0, badCpu.slice(0, 5).join(', '));
+
+  /* --- 中古前提GPUを標準構成に使わない -------------------------------
+   * PC BUILD CHECK は「中古可」の設定を持たないため、
+   * market:"used" のGPUを黙って新品構成に入れない。
+   * ★万一入った場合にユーザーへ明示する仕組み（renderUsedGpuNotice）は
+   *   Phase 6 で入れてあり、二重の安全策にしている。 */
+  var usedBuilds = builds.filter(function (b) {
+    var g = gpuOf(b.gpu);
+    return g && g.market === 'used';
+  }).map(function (b) { return b.id + ':' + b.gpu; });
+  ok('標準構成に中古前提GPUを使っていない', usedBuilds.length === 0, usedBuilds.join(', '));
+  // 安全策そのものが消えていないことも確認
+  var pbcSrc = fs.readFileSync(pathMod.join(DIR, 'script.js'), 'utf8');
+  ok('中古GPUの注意表示の仕組みは残っている', pbcSrc.indexOf('renderUsedGpuNotice') > -1);
+
+  /* --- GPU価格が予算を圧迫しすぎない -------------------------------
+   * GPUだけで予算の大半を使うとCPU・MB・RAM・SSD・電源・ケースを賄えない。
+   * 実データの分布（最大66%）から70%を上限とする。 */
+  var tooExpensive = builds.filter(function (b) {
+    var g = gpuOf(b.gpu);
+    return g && g.price / Number(b.budget) > 0.70;
+  }).map(function (b) {
+    var g = gpuOf(b.gpu);
+    return b.id + ':' + Math.round(g.price / Number(b.budget) * 100) + '%';
+  });
+  ok('GPU価格が予算の70%を超えない', tooExpensive.length === 0, tooExpensive.slice(0, 5).join(', '));
+
+  /* --- 単調性: 予算を上げて性能が下がらない ------------------------- */
+  (function () {
+    var badG = [];
+    var badC = [];
+    USAGES.forEach(function (u) {
+      RESOLUTIONS.forEach(function (r) {
+        var series = BUDGETS.map(function (bu) {
+          return builds.find(function (b) { return b.budget === bu && b.usage === u && b.resolution === r; });
+        }).filter(Boolean);
+        for (var i = 1; i < series.length; i++) {
+          var a = series[i - 1];
+          var b = series[i];
+          var ga = gpuOf(a.gpu);
+          var gb = gpuOf(b.gpu);
+          if (ga && gb && gb.rasterScore < ga.rasterScore) {
+            badG.push(u + '/' + r + ' ' + a.budget + '→' + b.budget);
+          }
+          var ca = cpuTier(a.cpu);
+          var cb = cpuTier(b.cpu);
+          if (ca !== undefined && cb !== undefined && cb < ca) {
+            badC.push(u + '/' + r + ' ' + a.budget + '→' + b.budget);
+          }
+        }
+      });
+    });
+    ok('予算を上げてGPU性能が下がらない', badG.length === 0, badG.slice(0, 4).join(' / '));
+    ok('予算を上げてCPU性能が下がらない', badC.length === 0, badC.slice(0, 4).join(' / '));
+  })();
+
+  /* --- 単調性: 同一予算で解像度を上げて性能が下がらない -------------- */
+  (function () {
+    var bad = [];
+    BUDGETS.forEach(function (bu) {
+      USAGES.forEach(function (u) {
+        var series = RESOLUTIONS.map(function (r) {
+          return builds.find(function (b) { return b.budget === bu && b.usage === u && b.resolution === r; });
+        }).filter(Boolean);
+        for (var i = 1; i < series.length; i++) {
+          var ga = gpuOf(series[i - 1].gpu);
+          var gb = gpuOf(series[i].gpu);
+          if (ga && gb && gb.rasterScore < ga.rasterScore) {
+            bad.push(bu + '/' + u + ' ' + series[i - 1].resolution + '→' + series[i].resolution);
+          }
+        }
+      });
+    });
+    ok('解像度を上げてGPU性能が下がらない', bad.length === 0, bad.slice(0, 4).join(' / '));
+  })();
+
+  /* --- CPU/GPUバランスが極端でない --------------------------------
+   * どちらか一方だけに寄った構成を検出する。
+   * 実データの分布（0.69〜1.48）から 0.5〜1.8 を許容範囲とする。 */
+  (function () {
+    var bad = [];
+    builds.forEach(function (b) {
+      var g = gpuOf(b.gpu);
+      var c = cpuTier(b.cpu);
+      if (!g || c === undefined || !g.rasterScore) return;
+      var ratio = c / g.rasterScore;
+      if (ratio < 0.5 || ratio > 1.8) {
+        bad.push(b.id + ':' + ratio.toFixed(2) + ' (' + b.cpu + '+' + b.gpu + ')');
+      }
+    });
+    ok('CPU/GPUバランスが極端でない', bad.length === 0, bad.slice(0, 4).join(' / '));
+  })();
+
+  /* --- 推奨電源がGPU消費電力に対して足りる ------------------------
+   * builds.json に電源は無く、結果画面の推奨値は性能プロファイル由来。
+   * その推奨値がGPU単体の消費電力に対して十分かを見る。 */
+  (function () {
+    var bad = [];
+    builds.forEach(function (b) {
+      var g = gpuOf(b.gpu);
+      if (!g || !g.power) return;
+      var prof = API.getPerformanceProfile(b.gpu);
+      var m = String(prof.psu).match(/(\d+)/);
+      if (!m) return;
+      // GPU単体の1.8倍未満だとCPU等を足したとき余裕が無い
+      if (Number(m[1]) < g.power * 1.8) {
+        bad.push(b.gpu + ' ' + g.power + 'W → 推奨' + prof.psu);
+      }
+    });
+    ok('推奨電源がGPU消費電力に対して十分', bad.length === 0, [...new Set(bad)].slice(0, 4).join(' / '));
+  })();
+
+  /* --- 説明文が実際の構成と一致する ------------------------------- */
+  (function () {
+    var badGpu = builds.filter(function (b) { return b.comment.indexOf(b.gpu) < 0; }).map(function (b) { return b.id; });
+    ok('comment に実際のGPU名が入っている', badGpu.length === 0, badGpu.slice(0, 5).join(', '));
+    var badCpu = builds.filter(function (b) { return b.comment.indexOf(b.cpu) < 0; }).map(function (b) { return b.id; });
+    ok('comment に実際のCPU名が入っている', badCpu.length === 0, badCpu.slice(0, 5).join(', '));
+  })();
+
+  /* --- RAM / ストレージが予算に対して不自然でない ------------------ */
+  (function () {
+    // 低予算に64GB、高予算に16GBのような極端な配分を検出
+    var bad = builds.filter(function (b) {
+      var bu = Number(b.budget);
+      if (bu <= 100000 && b.ram === '64GB') return true;
+      if (bu >= 250000 && b.ram === '16GB') return true;
+      return false;
+    }).map(function (b) { return b.id + ':' + (Number(b.budget) / 10000) + '万/' + b.ram; });
+    ok('RAM容量が予算に対して極端でない', bad.length === 0, bad.slice(0, 5).join(', '));
+  })();
+})();
+
 /* ------------------------------------------------------------------ */
 console.log('');
 console.log('  PC BUILD CHECK 診断ロジック テスト結果');
