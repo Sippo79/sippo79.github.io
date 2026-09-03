@@ -337,6 +337,16 @@ const GPU_LABELS = {
   "rx-7900-gre":    { text: "コスパ◎",      type: "value" },
 };
 
+/* GPU詳細ページのURL。
+ *
+ * 2026-09-02〜 個別ページを静的化した（/gpu-guide/gpu/<id>/）。
+ * 旧 gpu.html?id= は被リンク・ブックマーク対策で残してあるが、
+ * サイト内のリンクはすべて静的URLを指すこと（検索対象になるのは静的側）。
+ * id は gpus.json のものをそのまま使う（表示名から作らない）。 */
+function getGpuDetailUrl(gpu) {
+  return 'gpu/' + gpu.id + '/';
+}
+
 function getGpuLabel(gpu) {
   return GPU_LABELS[gpu.id] || null;
 }
@@ -564,7 +574,7 @@ function createGpuCard(gpu) {
   ]);
 
   return `
-    <a href="gpu.html?id=${gpu.id}" class="gpu-card">
+    <a href="${getGpuDetailUrl(gpu)}" class="gpu-card">
       <div class="gpu-card-top">
         <span class="gpu-brand">${gpu.brand}</span>
         <span class="gpu-resolution">${gpu.target}向け</span>
@@ -747,7 +757,7 @@ function createRankingRow(gpu, index) {
     : "";
 
   return `
-    <a href="gpu.html?id=${gpu.id}" class="ranking-row${topRankClass}">
+    <a href="${getGpuDetailUrl(gpu)}" class="ranking-row${topRankClass}">
       <span class="ranking-rank" data-label="順位">
         <strong>${rank}</strong>
       </span>

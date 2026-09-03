@@ -48,12 +48,55 @@
   <meta name="mobile-web-app-capable" content="yes" />
 
   <!-- SEO -->
-  <!-- gpu.html は ?id= で内容が変わるJS描画SPA。GitHub Pagesではクエリで404を
-       返せず常に200になるため、初期HTML(静的)で noindex を常設してsoft404を防ぐ。
-       follow は付けて内部リンク(一覧など)のクロールは許可する。
-       個別GPUを検索対象にする場合は静的HTML化してから noindex を外すこと。 -->
+  <!-- 2026-09-02〜: GPU個別ページは /gpu-guide/gpu/<id>/ に静的化した。
+       このページは **旧URLの互換用** として残している（削除しない）。
+       既存の被リンク・ブックマーク・検索結果からの流入を 404 にしないため。
+
+       検索対象は静的ページ側なので、こちらは noindex, follow のまま。
+       canonical も素の gpu.html のまま置き、有効な ?id= が付いている場合だけ
+       下の互換スクリプトが canonical を静的URLへ差し替える。 -->
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://sippo-pc.jp/gpu-guide/gpu.html" />
+
+  <!-- ===== 旧URL互換（/gpu-guide/gpu.html?id=<id> → /gpu-guide/gpu/<id>/）=====
+       GitHub Pages では 301 を返せないため、クライアント側で寄せる。
+
+       ★安全側の設計:
+         - ここでは gpus.json を待たない（fetch失敗で行き止まりにしない）。
+         - id の形式だけを検査して即 location.replace する。
+           存在しないIDだった場合は静的ページが無く 404 になるため、
+           **fetchで実在を確認できるまでは飛ばさない**…のではなく、
+           逆に「飛ばした先が404」を避けるため、実在確認は gpu-detail.js 側の
+           従来フロー（gpus.json を読んで showNotFound）に任せる。
+         - したがってこのスクリプトは "遷移先の候補" を用意するだけで、
+           実際の遷移は gpus.json で実在を確認できたときのみ行う。
+         - JS が動かない場合は、従来どおり gpu-detail.js が描画する
+           （このページ単体でも今までどおり読める＝行き止まりにならない）。
+  -->
+  <script>
+    (function () {
+      try {
+        var id = new URLSearchParams(window.location.search).get('id');
+        if (!id) return;                       // id無しは従来のエラー表示に任せる
+        if (!/^[a-z0-9][a-z0-9-]*$/.test(id)) return;  // 不正idは飛ばさない
+        // 実在確認してから遷移する（404へ飛ばさないため）。
+        fetch('gpus.json', { cache: 'force-cache' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (list) {
+            if (!Array.isArray(list)) return;
+            var hit = list.some(function (g) { return g.id === id; });
+            if (!hit) return;                  // 不正id → 従来のエラー表示
+            var url = '/gpu-guide/gpu/' + id + '/';
+            // 検索エンジンにも正規URLを示す
+            var link = document.querySelector('link[rel="canonical"]');
+            if (link) link.setAttribute('href', 'https://sippo-pc.jp' + url);
+            // 履歴を汚さないよう replace で寄せる
+            window.location.replace(url + window.location.hash);
+          })
+          .catch(function () { /* 失敗しても従来表示のまま。行き止まりにしない */ });
+      } catch (e) { /* 何かあっても従来表示を維持する */ }
+    })();
+  </script>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
@@ -92,6 +135,47 @@
         <div id="gpuDetail">
           <!-- gpu-detail.jsで表示 -->
         </div>
+
+        <!-- 他サービスへの導線。
+             このページは旧URLの互換用で、通常は静的ページへ遷移するが、
+             JSが動かない・GPUが見つからない場合はここが最終画面になる。
+             行き止まりにしないため、静的HTMLとして常に置いておく。 -->
+        <section class="section next-actions">
+          <div class="section-heading">
+            <p class="section-label">NEXT STEP</p>
+            <h2>次にできること</h2>
+          </div>
+          <div class="next-action-grid">
+            <a class="next-action-card" href="/pc-build-check/">
+              <span class="next-action-icon" aria-hidden="true">🧩</span>
+              <span class="next-action-body">
+                <strong>これからPCを組む・買う</strong>
+                <small>予算と用途から、おすすめ構成を診断できます（PC BUILD CHECK）</small>
+              </span>
+            </a>
+            <a class="next-action-card" href="/upgrade/">
+              <span class="next-action-icon" aria-hidden="true">🔧</span>
+              <span class="next-action-body">
+                <strong>今のPCから交換したい</strong>
+                <small>交換する価値があるかを判定します（PC UPGRADE）</small>
+              </span>
+            </a>
+            <a class="next-action-card" href="/game-pc-guide/">
+              <span class="next-action-icon" aria-hidden="true">🎮</span>
+              <span class="next-action-body">
+                <strong>遊びたいゲームから選びたい</strong>
+                <small>ゲーム別に必要なスペックを逆引きできます（GAME PC GUIDE）</small>
+              </span>
+            </a>
+            <a class="next-action-card" href="/gpu-guide/#compare">
+              <span class="next-action-icon" aria-hidden="true">📊</span>
+              <span class="next-action-body">
+                <strong>他のGPUと比べたい</strong>
+                <small>性能・価格・解像度で絞り込んで比較できます（GPU GUIDE）</small>
+              </span>
+            </a>
+          </div>
+        </section>
       </div>
     </section>
   </main>

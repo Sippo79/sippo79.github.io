@@ -405,7 +405,7 @@ function renderGpuDetail(gpu, cpuData = {}) {
               if (!targetGpu) return "";
 
               return `
-                <a href="gpu.html?id=${targetGpu.id}" class="compare-link-card">
+                <a href="gpu/${targetGpu.id}/" class="compare-link-card">
                   <span>${targetGpu.brand}</span>
                   <strong>${targetGpu.name}</strong>
                 </a>

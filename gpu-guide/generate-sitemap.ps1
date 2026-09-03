@@ -1,3 +1,25 @@
+# =====================================================================
+#  ⚠️ 2026-09-02〜 このスクリプトは使わないこと（廃止）
+# ---------------------------------------------------------------------
+#  GPU個別ページを静的化したため（/gpu-guide/gpu/<id>/）、
+#  sitemap.xml は generate-gpu-pages.js が生成する（65URL）。
+#
+#  このスクリプトは *.html を再帰的に拾うだけなので、実行すると
+#  gpu/<id>/index.html という「index.html付きURL」で上書きしてしまい、
+#  各ページの canonical（ディレクトリURL）と食い違う。
+#
+#  sitemap を更新したいとき:  node gpu-guide/generate-gpu-pages.js
+#
+#  誤実行を防ぐガード。どうしても実行する場合のみ -Force を付ける。
+# =====================================================================
+param([switch]$Force)
+
+if (-not $Force) {
+  Write-Host "[廃止] このスクリプトは使いません。sitemap は次で生成してください:"
+  Write-Host "        node gpu-guide/generate-gpu-pages.js"
+  exit 1
+}
+
 $ErrorActionPreference = "Stop"
 
 $rootDir = Split-Path -Parent $MyInvocation.MyCommand.Path
