@@ -2388,3 +2388,77 @@ body {
     font-size: 13.5px;
   }
 }
+
+
+/* ===== 参考価格 =====
+   構成の目安価格。販売価格と誤認させないよう、金額は「約〇万円」の粒度で出し、
+   変動する旨を必ず添える。予算を超える構成では超過を隠さず明示する。 */
+.price-estimate {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.price-estimate--over {
+  background: linear-gradient(135deg, rgba(255, 190, 90, 0.12), rgba(255, 150, 80, 0.07));
+  border-color: rgba(255, 190, 90, 0.32);
+}
+
+.price-estimate-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.price-estimate-label {
+  color: #9fb3c8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.price-estimate-value {
+  color: #eaf2ff;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.price-estimate--over .price-estimate-value {
+  color: #ffd9a0;
+}
+
+.price-estimate-over {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  color: #f0e2cd;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.price-estimate-over-icon {
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.price-estimate-note {
+  margin: 10px 0 0;
+  color: #8fa3b8;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .price-estimate {
+    padding: 14px 15px;
+  }
+
+  .price-estimate-value {
+    font-size: 21px;
+  }
+}

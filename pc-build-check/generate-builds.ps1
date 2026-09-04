@@ -42,6 +42,32 @@ foreach ($g in $gpuCatalog) {
     }
 }
 
+# ---------------------------------------------------------------------
+#  構成の参考価格
+# ---------------------------------------------------------------------
+#  価格の計算式をここに書き写さない。診断画面と静的ページで数字が食い違うと
+#  「診断では約24万円、ページでは約26万円」のような矛盾が起きるため、
+#  shared/parts/build-price.js を node 経由で呼び、計算を1か所に保つ。
+#
+#  node が無い環境では価格を出さないだけで、ページ生成そのものは通す
+#  （それらしい概算をPowerShell側で作ると、まさに二重管理になる）。
+$buildPrices = @{}
+$buildPriceOver = @{}
+try {
+    $priceJson = & node "./compute-prices.js" 2>$null
+    if ($LASTEXITCODE -eq 0 -and $priceJson) {
+        foreach ($row in ($priceJson | ConvertFrom-Json)) {
+            $buildPrices[[string]$row.id]    = $row.text
+            $buildPriceOver[[string]$row.id] = $row.overText
+        }
+        Write-Host "参考価格: $($buildPrices.Count) 件を算出"
+    } else {
+        Write-Host "参考価格: 算出できなかったため価格表示なしで生成します"
+    }
+} catch {
+    Write-Host "参考価格: node 実行に失敗したため価格表示なしで生成します"
+}
+
 # そのGPUが中古前提のモデルか（gpus.json の market が唯一の判定材料）。
 # ここでGPU名を列挙しない。データが変わったら自動で追従させる。
 function Test-UsedMarketGpu($gpuName) {
@@ -213,6 +239,43 @@ function Build-MotherboardGuideHtml($build) {
 "@
 }
 
+# 参考価格ブロック。金額と文言は compute-prices.js（= shared/parts/build-price.js）
+# が作ったものをそのまま貼るだけで、ここで組み立て直さない。
+# 価格が取れなかった構成では、この節ごと出さない。
+function Build-PriceHtml($build) {
+    $key = [string]$build.id
+    if (-not $buildPrices.ContainsKey($key)) { return "" }
+    $text = $buildPrices[$key]
+    if ([string]::IsNullOrWhiteSpace($text)) { return "" }
+
+    $overText = $buildPriceOver[$key]
+    $isOver   = -not [string]::IsNullOrWhiteSpace($overText)
+    $overHtml = ""
+    $overCls  = ""
+    if ($isOver) {
+        $overCls  = " price-estimate--over"
+        $overHtml = @"
+
+        <p class="price-estimate-over">
+          <span class="price-estimate-over-icon" aria-hidden="true">⚠️</span>
+          $overText
+        </p>
+"@
+    }
+
+    return @"
+
+      <section class="build-card price-estimate$overCls">
+        <p class="section-label">Reference Price</p>
+        <h2>構成の参考価格</h2>
+        <div class="price-estimate-head">
+          <strong class="price-estimate-value">$text</strong>
+        </div>$overHtml
+        <p class="price-estimate-note">※価格は販売店・時期によって変動します。同等構成のBTO完成品のおおよその価格帯を示す目安で、特定商品の販売価格ではありません。</p>
+      </section>
+"@
+}
+
 function Build-Html($build, $allBuilds) {
     $slug      = Get-Slug $build
     $seoTitle  = Get-SeoTitle $build
@@ -227,6 +290,7 @@ function Build-Html($build, $allBuilds) {
     $related   = Get-Related $build $allBuilds
     $relHtml   = Build-RelatedHtml $related
     $motherboardHtml = Build-MotherboardGuideHtml $build
+    $priceHtml = Build-PriceHtml $build
 
     $suitedHtml  = ($suitedFor[$build.usage]  | ForEach-Object { "          <li>$_</li>" }) -join "`n"
     $cautionItems = @($cautions[$build.usage])
@@ -347,6 +411,7 @@ $sippoHeaderLink
           <li><span class="spec-key">予算目安</span><span class="spec-val spec-budget">${bgLabel}前後</span></li>
         </ul>
       </section>
+$priceHtml
 
       <section class="build-card">
         <p class="section-label">Build Points</p>

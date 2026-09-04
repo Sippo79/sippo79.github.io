@@ -270,6 +270,7 @@ const whyThisBuildMessages = {
 
 let builds = [];
 let gpuData = [];
+let partPrices = null;
 
 // 診断結果の購入導線は共通アフィリエイト基盤（shared/affiliate）が描画する。
 // 旧方式（#affiliate-amazon 等の固定ボタン）は使わず、診断された構成の
@@ -669,6 +670,46 @@ function isUsedMarketGpu(gpuName) {
 }
 
 /** 中古前提GPUを提示するときの注意書き。該当しなければ空文字。 */
+/* 参考価格ブロック。
+ *
+ * 計算は shared/parts/build-price.js に集約している。ここで金額を組み立てない
+ * （静的75ページ側と同じ数字を出すため）。
+ *
+ * 予算を超える構成でも、構成を作り替えるのではなく事実として超過を伝える。
+ * 「10万円で4K」のように予算内では成立しない条件が実在するため、
+ * 予算に収めた見た目を優先すると、今度は性能不足を隠すことになる。
+ */
+function renderPriceEstimate(build) {
+  const api = window.SippoBuildPrice;
+  if (!api || !partPrices || !build) return "";
+
+  const estimate = api.calculateBuildEstimate(build, {
+    prices: partPrices,
+    gpuList: gpuData,
+  });
+  // 価格が1つでも欠けたら出さない。欠けたまま合計すると必ず安く見える。
+  if (!estimate || estimate.total === null) return "";
+
+  const fit = api.evaluateBudgetFit(estimate.total, build.budget);
+  const overHtml = fit && fit.isOver
+    ? `
+      <p class="price-estimate-over">
+        <span class="price-estimate-over-icon" aria-hidden="true">⚠️</span>
+        ${fit.text}
+      </p>`
+    : "";
+
+  return `
+    <section class="price-estimate${fit && fit.isOver ? " price-estimate--over" : ""}">
+      <div class="price-estimate-head">
+        <span class="price-estimate-label">参考価格</span>
+        <strong class="price-estimate-value">${api.formatEstimate(estimate.total)}</strong>
+      </div>
+      ${overHtml}
+      <p class="price-estimate-note">${api.PRICE_DISCLAIMER}</p>
+    </section>`;
+}
+
 function renderUsedGpuNotice(gpuName) {
   if (!isUsedMarketGpu(gpuName)) return "";
 
@@ -871,6 +912,18 @@ async function loadGpuData() {
   }
 }
 
+/* 参考価格の内訳データ。取得に失敗したら参考価格を出さないだけで、
+ * 診断そのものは従来どおり動く。ここに価格の数値を持たない。 */
+async function loadPartPrices() {
+  try {
+    const response = await fetch("/shared/parts/part-prices.json");
+    if (!response.ok) throw new Error("part-prices.json fetch failed");
+    partPrices = await response.json();
+  } catch {
+    partPrices = null;
+  }
+}
+
 /* =========================
    PWA Install Prompt
 ========================= */
@@ -913,6 +966,7 @@ setupAffiliateLinks();
 toggleAffiliateSection(false);
 loadBuilds();
 loadGpuData();
+loadPartPrices();
 
 popularJumpButton.addEventListener("click", () => {
   popularBuildsSection.scrollIntoView({
@@ -1040,6 +1094,8 @@ form.addEventListener("submit", async (e) => {
         </div>
         <p class="why-text">${whyMessage}</p>
       </section>` : ''}
+
+      ${renderPriceEstimate(result)}
 
       ${renderResolutionNotice(resolutionFit)}
 
