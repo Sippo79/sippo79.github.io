@@ -94,6 +94,10 @@
   - `node pc-build-check/test-build-check.js` … PC BUILD CHECK 診断ロジック＋構成品質（145件 / 2026-09-02〜）。
     75パターン全通し・GPUプロファイル判定・解像度適性・表示の矛盾検出。
     `--snapshot <file>` で全75パターンの出力をJSONに書き出せる（修正前後の差分確認用）。
+  - `node pc-build-check/test-service-worker.js` … Service Worker（43件 / 2026-09-04〜）。
+    キャッシュ対象の実在／`index.html` が読む資産の取りこぼし／
+    更新されうるデータ（builds.json・part-prices.json）がネットワーク優先か。
+    ⚠️ **版上げ忘れ自体は検出できない**（下記の運用ルールを守ること）。
   - `node pc-build-check/test-build-price.js` … 構成参考価格（349件 / 2026-09-04〜）。
     価格データの健全性（欠け・ゼロ・更新日なし）／75構成すべてで価格を出せるか／
     予算超過を黙って隠していないか／GPU価格の二重管理をしていないか。
@@ -273,6 +277,23 @@
 ---
 
 ## 6. 運用上の制約（重要）
+
+### ⚠️ Service Worker の版上げ（PC BUILD CHECK / 2026-09-04 追記）
+
+`pc-build-check/script.js`・`style.css`・`shared/` 配下を変更したら、
+**必ず `pc-build-check/sw.js` の `CACHE_NAME` を上げること**（現在 `pc-build-check-v7`）。
+
+これらは**キャッシュ優先**で配られるため、版を上げないと
+**再訪ユーザーにだけ古いJS/CSSが配られ続ける**。新規訪問やローカル確認では
+正常に見えるので、気づけない。
+
+実際に Phase 7・8 で上げ忘れ、「診断結果のGPU詳細ボタンが旧 `/gpu-guide/?gpu=` のままで
+GPU一覧に着地する」「参考価格が表示されない」が発生した（2026-09-04 に v7 で修正）。
+
+- `builds.json` と `part-prices.json` は**ネットワーク優先**なので版上げ不要（データ更新は即反映）。
+- 旧キャッシュは `activate` で自動削除されるため、ユーザー側の操作は不要
+  （それでも古い画面が出る場合は Ctrl+F5 かSWの Unregister）。
+
 
 - 静的 HTML/CSS/JS で運用（ビルドツールなし）。
 - **新規課金サービス・有料 API は導入しない。** 従量課金が発生する変更は実装前に必ず事前確認。
