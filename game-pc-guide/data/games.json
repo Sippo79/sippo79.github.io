@@ -758,5 +758,129 @@
       "comment": "大人数ミッションや重いMOD環境でも余裕を持たせたい人向けです。"
     }
   ]
+},
+{
+  "id": "onimusha",
+  "title": "鬼武者 Way of the Sword",
+  "popular": true,
+  "genre": "アクション",
+  "level": "中量級〜重め",
+  "image": "images/onimusha.jpg",
+  "description": "鬼武者 Way of the Swordを快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックや高画質で遊ぶ場合のGPU選びを解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "18万〜28万円前後",
+  "point": "公式の推奨環境はRTX 2060 Super級と控えめですが、これは中設定＋アップスケーリング前提のFHD 60fpsです。最高画質で遊びたいならGPUに余裕を持たせると安心です。",
+  "caution": "全環境でSSDに50GBの空きが必須です。WQHD最高画質ではVRAM使用量が10GB前後まで伸びるため、8GBのGPUだと余裕が少なめです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 最高画質",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060 Ti",
+      "comment": "FHD最高画質を狙いやすい構成。VRAM容量に余裕があるので画質を上げても安心です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "26万円前後",
+      "target": "WQHD 最高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHD最高画質で遊びたい人向け。剣戟の描き込みを落とさず快適に遊べます。"
+    }
+  ]
+},
+{
+  "id": "wardogs",
+  "title": "WARDOGS",
+  "popular": true,
+  "genre": "FPS",
+  "level": "重め",
+  "image": "images/wardogs.jpg",
+  "description": "WARDOGSを快適に遊ぶためのおすすめゲーミングPCを紹介。最大100人対戦で安定したfpsを出すための必要スペックを解説します。",
+  "recommended": "FHD〜WQHD / 高fps",
+  "budget": "20万〜30万円前後",
+  "point": "最大100人対戦に乗り物と破壊が加わるため、GPUだけでなくCPUの余力がfpsの安定に効きます。まずはFHD高fpsを目標にすると選びやすいです。",
+  "caution": "公式の最低環境（GTX 1660級）はアップスケーリング前提のFHD低設定60fpsです。激しい場面でfpsを落としたくないなら推奨以上を狙いたいところです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "20万円前後",
+      "target": "FHD 高fps",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "RTX 5060 Ti",
+      "comment": "FHDで高fpsを狙う入門ライン。大人数戦に備えてCPUも妥協しない構成です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "28万円前後",
+      "target": "WQHD 高設定",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDでも安定させたい人向け。フレームタイムが乱れにくく100人戦でも扱いやすい構成です。"
+    }
+  ]
+},
+{
+  "id": "biohazard-requiem",
+  "title": "バイオハザード レクイエム",
+  "popular": true,
+  "genre": "サバイバルホラー",
+  "level": "中量級",
+  "image": "images/biohazard-requiem.jpg",
+  "description": "バイオハザード レクイエムを快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックやレイトレーシングを使う場合の目安を解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "18万〜28万円前後",
+  "point": "公式の推奨環境はRTX 2060 Super級と現実的な範囲です。高画質やレイトレーシングまで楽しみたいなら、GPUとVRAMに余裕を持たせると失敗しにくいです。",
+  "caution": "ストレージは70GBの空きが必要です。4K＋レイトレーシングを最高設定で狙う場合は上位GPUとメモリ32GBも検討したいところです。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "18万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 5700X",
+      "gpu": "RTX 5060 Ti",
+      "comment": "FHD高画質を安心して狙える構成。暗所表現の多い本作でも画質を落とさず遊べます。"
+    },
+    {
+      "name": "ミドル",
+      "price": "26万円前後",
+      "target": "WQHD 高画質・レイトレ",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070",
+      "comment": "WQHDやレイトレーシングまで楽しみたい人向け。長く使いやすい定番の構成です。"
+    }
+  ]
+},
+{
+  "id": "borderlands4",
+  "title": "ボーダーランズ4",
+  "popular": true,
+  "genre": "FPS",
+  "level": "重め",
+  "image": "images/borderlands4.jpg",
+  "description": "ボーダーランズ4を快適に遊ぶためのおすすめゲーミングPCを紹介。公式推奨が高めのタイトル向けに必要スペックと予算目安を解説します。",
+  "recommended": "FHD〜WQHD / 高画質",
+  "budget": "22万〜32万円前後",
+  "point": "公式の推奨がRTX 3080級・メモリ32GBと高めのタイトルです。メモリは最初から32GBを選んでおくと安心できます。",
+  "caution": "最低環境でも8コアCPUとVRAM 8GBが必須、ストレージは100GBの空きとSSDが必要です。要求が高めなので予算は少し多めに見ておきましょう。",
+  "builds": [
+    {
+      "name": "ライト",
+      "price": "22万円前後",
+      "target": "FHD 高画質",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "RTX 5060 Ti",
+      "comment": "FHD高画質を狙う入門ライン。メモリは32GBを選んでおくと安心です。"
+    },
+    {
+      "name": "ミドル",
+      "price": "30万円前後",
+      "target": "WQHD 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070 Ti",
+      "comment": "公式推奨をしっかり超えたい人向け。WQHD高画質でも余裕を持って遊べます。"
+    }
+  ]
 }
 ]

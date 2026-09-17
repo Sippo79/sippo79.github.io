@@ -223,6 +223,16 @@ function Convert-ImagePath([string]$path) {
     return ""
   }
 
+  # ヒーロー画像は WebP があればそちらを使う（JPEG比で約3割軽い）。
+  # ★実在するときだけ差し替える。無い画像を指して画像欠けにしない。
+  $webp = [System.Text.RegularExpressions.Regex]::Replace($path, '\.(jpe?g|png)$', '.webp', 'IgnoreCase')
+  if ($webp -ne $path) {
+    $webpFile = Join-Path $root $webp
+    if (Test-Path $webpFile) {
+      return "../$webp"
+    }
+  }
+
   return "../$path"
 }
 
@@ -339,7 +349,7 @@ $sippoHeaderLink
 
   <main>
     <section class="game-detail-hero">
-      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" loading="eager" decoding="async" />
+      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" loading="eager" decoding="async" fetchpriority="high" />
 
       <div class="container">
         <a href="../index.html#games" class="back-link">

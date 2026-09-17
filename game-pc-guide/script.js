@@ -216,6 +216,32 @@ function getComfortBadge(game) {
   return `<p class="game-comfort game-comfort--${tier}">\u{1F60A} ${text}</p>`;
 }
 
+/**
+ * 一覧のサムネ用に、軽量な WebP（images/◯◯-thumb.webp）のパスを作る。
+ *
+ * 一覧のサムネは 150px 高でしか表示していないのに、詳細ページ用の 1200px 画像を
+ * そのまま読んでいたため、初回表示で約4MB落ちていた。640px幅の WebP に差し替える。
+ * 生成が間に合っていない画像もあり得るので、読めなければ onerror で原本に戻す。
+ */
+function getThumbSrc(imagePath) {
+  return String(imagePath).replace(/\.(jpe?g|png|webp)$/i, '-thumb.webp');
+}
+
+/**
+ * サムネの読み込みに失敗したときの後始末。
+ * 1回目: 原本（jpg）に戻す。2回目（原本も無い）: ジャンル名のプレースホルダーにする。
+ */
+function handleThumbError(img, genre) {
+  const fallback = img.getAttribute('data-fallback');
+  if (fallback && img.src.indexOf(fallback) === -1) {
+    img.removeAttribute('data-fallback');
+    img.src = fallback;
+    return;
+  }
+  img.parentElement.innerHTML =
+    '<div class="game-thumb-placeholder"><span>' + genre + '</span></div>';
+}
+
 function renderGames(games) {
   if (games.length === 0) {
     gameGrid.innerHTML = `
@@ -236,11 +262,14 @@ function renderGames(games) {
         ${game.image
           ? `
             <img
-              src="${game.image}"
+              src="${getThumbSrc(game.image)}"
               alt="${game.title}"
+              width="640"
+              height="360"
               loading="lazy"
               decoding="async"
-              onerror="this.parentElement.innerHTML='<div class=&quot;game-thumb-placeholder&quot;><span>${game.genre}</span></div>'"
+              data-fallback="${game.image}"
+              onerror="handleThumbError(this, '${game.genre}')"
             >
           `
           : `

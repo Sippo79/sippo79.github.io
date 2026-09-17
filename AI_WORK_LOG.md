@@ -18,6 +18,64 @@
 
 ---
 
+## 2026-09-17 — GAME GUIDE の表示を軽量化（一覧サムネ 3.89MB → 0.87MB）
+
+- **修正目的**: 「GAME GUIDEが重くなった気がする」への対応。レイアウトや構成は変えずに、可能な範囲で軽量化する。
+- **変更ファイル**: `game-pc-guide/script.js`, `game-pc-guide/Generate-StaticGames.ps1`, `game-pc-guide/games/*.html`（再生成）, `game-pc-guide/sw.js`, `game-pc-guide/images/*.webp`（新規64枚）
+- **変更内容**:
+  - **【主因】一覧ページが詳細ページ用の原寸画像をそのまま読んでいた**。サムネの表示サイズは **150px高（スマホ120px）** しかないのに、`1200x675` の画像を29枚ぶん読んでいたため初回表示で **3.89MB** 落ちていた。
+    - **640px幅の WebP（`images/◯◯-thumb.webp`）を新規生成**し、一覧だけそちらを読むようにした（`script.js` の `getThumbSrc()`）。**3.89MB → 0.87MB（-78%）**。
+    - 原本は消していない。`onerror` で **①原本jpgに戻す → ②それも無ければ従来どおりジャンル名プレースホルダー** の2段フォールバックにしたので、webp生成漏れがあっても表示は壊れない（`handleThumbError()`）。
+  - **【副次】詳細ページのヒーロー画像を WebP 化**。1200px のまま再エンコードのみ。**3.89MB → 2.70MB（-31%）**。
+    - 生成スクリプトの `Convert-ImagePath` で **webpが実在するときだけ差し替える**ようにした。無い画像を指して画像欠けにしない。
+    - ヒーローに `fetchpriority="high"` を付与（LCP改善）。
+  - **【発見】新規追加分の画像2枚が拡張子と中身が食い違っていた**。`onimusha.jpg` は実体が **パレットモードのPNG**（448KB＝他の3倍）、`valorant.jpg` は実体が **WebP**。表示はできていたが無駄に重かった。onimusha は WebP化で **448KB → 163KB**。
+    - あわせて **`onimusha.jpg` の中身を本物のJPEGに変換**（448KB → 215KB）。この原本は `og:image` として実際に配信されるため、SNSシェア時の転送量も減る。変換前後で見た目の差は無し（寸法 1200x630 も維持）。
+    - ⚠️ `valorant` だけは原本が既にWebPのため再エンコードすると劣化＋増量（102→109KB）した。**再エンコードせず原本をそのままコピー**して `valorant.webp` にしてある。
+  - 一覧の `<img>` に `width`/`height` を明示（レイアウトシフト防止）。
+  - Service Worker を版上げ（`game-pc-guide-v6 → v7`）。`script.js` を precache しているため。
+- **影響範囲**:
+  - **`style.css` は一切変更していない**（`git status` で未変更を確認）。**生成した画像のアスペクト比は全29枚とも原本と一致**することを検証済みなので、`object-fit: cover` の見え方も含めてレイアウトは変わらない。表示サイズでの目視比較でも劣化は判別できず。
+  - 既存テストは **サイト間導線61件すべて成功**。アフィリエイトリンク検査の「要確認2件 / リンク切れ1件」は**商品の在庫都合による既存の指摘**で、今回の変更とは無関係（`shared/` は未変更）。
+  - `og:image` は **意図的に jpg のまま**にしてある。SNSのクローラにはWebPを解釈しないものがあるため。**したがって原本jpgは削除できない**。
+  - リポジトリ容量は webp 64枚ぶん **+3.67MB** 増える。閲覧者のダウンロード量を減らす代わりにリポジトリが太る、というトレードオフ。
+- **未対応・次にやること**:
+  - 今回は「大きく変えない」方針のため見送ったが、さらに削るなら `<picture>` + `srcset` でDPR別出し分け、`affiliate-master.json`(93KB) の遅延読み込みあたりが候補。いずれも構造に手が入るので単独で検討したい。
+- **別AIへの引き継ぎ注意点**:
+  - ⚠️ **画像を追加したら webp も生成すること**。一覧は `images/◯◯-thumb.webp`（640px幅）、詳細は `images/◯◯.webp`（1200px幅）を見る。無くてもフォールバックで壊れはしないが、重いままになる。
+  - ⚠️ **原本jpgを消さないこと**。`og:image` とフォールバックで使っている。
+  - ⚠️ 拡張子と中身が一致しない画像が紛れ込むことがある（今回2枚）。`head -c 4` でシグネチャを確認すると早い（`ÿØ`=JPEG / `PNG`=PNG / `RIFF`=WebP）。
+  - 詳細は [[sippo-game-guide-generated]] の運用（games.json → 再生成）に従うこと。ページを手編集しない。
+
+---
+
+## 2026-09-17 — GAME GUIDE に新作4タイトル（鬼武者 / WARDOGS / バイオRE:レクイエム / ボダラン4）を追加
+
+- **修正目的**: GAME GUIDE に新作ゲームのページが無かったため、鬼武者 Way of the Sword・WARDOGS を中心に新作ページを追加する。デザイン／アフィリエイト導線は既存ページと完全に統一する。
+- **変更ファイル**: `game-pc-guide/data/games.json`, `game-pc-guide/games/{onimusha,wardogs,biohazard-requiem,borderlands4}.html`（新規）, `game-pc-guide/index.html`, `game-pc-guide/llms.txt`, `game-pc-guide/sitemap.xml`, `game-pc-guide/sw.js`, `sitemap.xml`, `game-pc-guide/games/{valorant,genshin,fortnite,overwatch2,rainbowsixsiege}.html`（副次的に更新）
+- **変更内容**:
+  - **ページ本体は手書きせず `Generate-StaticGames.ps1` で生成**。`data/games.json` に4件追記して再生成しただけなので、レイアウト・見出し構成・関連サイト導線・フッターは既存25ページと1バイトも変わらない構造になる（`section-label` / `info-label` / `build-label` の並びが既存ページと完全一致することを検証済み）。
+  - **スペックは公式必要動作環境を調べてから決定**（憶測で書いていない）:
+    - 鬼武者 WoS（2026/9/4発売）: 最低 i5-8400 / GTX 1660、推奨 i5-10400 / RTX 2060 Super、メモリ16GB、SSD 50GB必須。推奨値は「中設定＋アップスケーリングでFHD 60fps」が前提。
+    - WARDOGS（2026/9/10 早期アクセス）: 最低 i5-8600 / GTX 1660（FHD低設定60fps・アップスケール前提）、推奨 i7-12700K / Ryzen 7 5700X / RTX 3070（WQHD中設定70fps+ ネイティブ）。最大100人対戦のためCPU余力を重視した構成にした。
+    - バイオRE:レクイエム（2026/2/27発売）: 最低 i5-8500 / GTX 1660、推奨 i7-8700 / RTX 2060 Super、ストレージ70GB。
+    - ボーダーランズ4: 公式最低が i7-9700 / RTX 2070（8コア・VRAM 8GB必須）、推奨が i7-12700 / RTX 3080 / **メモリ32GB** / 100GB SSD必須と要求が高いため、予算帯を他より一段上げた。
+  - **アフィリエイト導線は既存と同じ仕組みに自動的に乗る**。`game-affiliate.js` は `games.json` の builds から CPU/GPU 名を拾い `shared/affiliate/affiliate-master.json` で商品解決する方式なので、**新規4ページ分の16パーツすべてが商品IDに解決されることを実測で確認済み**（＝「準備中」ボタンは出ない）。構成表のGPU名も3種すべて GPU GUIDE 個別ページへリンクされることを確認。
+  - index.html の **JSON-LD `hasPart`（25→29件）と `.static-game-links`（25→29件）の両方**に追記。`llms.txt` のタイトル一覧にも追記。
+  - Service Worker を版上げ（`game-pc-guide-v5 → v6`）。**`sw.js` は `index.html` と `data/games.json` を precache しているため、版を上げないと新作が一覧に出ない**。
+  - ルート `sitemap.xml` の game-pc-guide 分の `lastmod` を 2026-06-30 → 2026-09-17 に更新（再クロールを促すため）。
+- **影響範囲**:
+  - 既存25ページのうち5件（valorant / genshin / fortnite / overwatch2 / rainbowsixsiege）に1行差分が出たが、これは**退行ではなく修正**。`gpus.json` に RTX 5050 が追加済みになったため、生成スクリプトが構成表の「RTX 5050」を GPU GUIDE 個別ページへリンクするようになった（リンク先 `gpu-guide/gpu/rtx-5050/index.html` の実在を確認済み）。
+  - `games.json` は**全体を再シリアライズせずテキスト追記**した（124行追加 / 0行削除）。既存エントリのインデントが gta5 以降だけ0桁始まりで不揃いなため、整形すると差分が数百行に膨れる。
+- **未対応・次にやること**:
+  - ⚠️ **ヒーロー画像4枚が未配置**（ユーザーが用意予定）。`game-pc-guide/images/` に `onimusha.jpg` / `wardogs.jpg` / `biohazard-requiem.jpg` / `borderlands4.jpg` を **1200×675 (16:9) JPEG** で置く。置くまでは詳細ページ上部の画像だけが欠けた表示になる（一覧カード側はジャンル名のプレースホルダーに自動で落ちるため崩れない）。
+- **別AIへの引き継ぎ注意点**:
+  - ⚠️ **`game-pc-guide/games/*.html` を直接編集しない**。`data/games.json` を直してから `Generate-StaticGames.ps1` を実行する。手編集すると次の生成で消える。
+  - ⚠️ **`data/game-affiliate.json` は現在どこからも読まれていない死にデータ**。`grep -rn "game-affiliate.json"` の結果が0件。購入導線を変えたいときはここではなく、`games.json` の builds か `shared/affiliate/affiliate-master.json` を触ること。今回もこのファイルには手を入れていない。
+  - ⚠️ 生成スクリプトの本文（スペック解説文・解像度別の目安）は `level` と `genre` の値で分岐する。新ジャンル（今回の「サバイバルホラー」）は分岐に無いので汎用文にフォールバックする。専用文が要るなら `Generate-StaticGames.ps1` の `Get-BeginnerText` に追加する。
+
+---
+
 ## 2026-09-17 — GPU GUIDEのヘッダーボタンに配色／TOPサイトのドロワー内でサービスボタンだけ左に寄る問題を修正
 
 - **修正目的**: 「GPU GUIDEのヘッダーボタンに色が付いていると見やすい」「TOPサイトのメニューを開くと他サイトへ移動するボタンだけ位置がずれる（何度か直したはずが戻っている？）」への対応。

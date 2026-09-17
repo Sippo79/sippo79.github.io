@@ -36,6 +36,10 @@
 - [黒い砂漠 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/blackdesert.html): MMO / 重量級
 - [ARMA 3 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/arma3.html): ミリタリーFPS / 重量級
 - [ストリートファイター6 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/streetfighter6.html): 格闘ゲーム / 中量級
+- [鬼武者 Way of the Sword おすすめPC](https://sippo-pc.jp/game-pc-guide/games/onimusha.html): アクション / 中〜重量級。最高画質向け構成も掲載
+- [WARDOGS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/wardogs.html): FPS / 重量級。最大100人対戦向けにCPU余力も重視
+- [バイオハザード レクイエム おすすめPC](https://sippo-pc.jp/game-pc-guide/games/biohazard-requiem.html): サバイバルホラー / 中量級。レイトレ対応構成も掲載
+- [ボーダーランズ4 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/borderlands4.html): FPS / 重量級。公式推奨が高めでメモリ32GB推奨
 
 ## 各ゲームページの構成
 
