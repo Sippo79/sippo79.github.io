@@ -726,14 +726,31 @@ a {
   }
 
   .site-logo {
-    grid-column: 1 / 4;
+    grid-column: 1 / 3;
+    /* line-height:1 のブロックだと高さが文字分（15px）しかなく、
+       横に長いだけの当たり判定の薄い帯になっていた。
+       行の高さぶんの縦幅を持たせて押しやすくする。 */
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
     font-size: 15px;
-    line-height: 1;
+    line-height: 1.2;
     white-space: nowrap;
   }
 
   .header-nav {
     display: contents;
+  }
+
+  /* display:contents で .header-nav の子が直接グリッド項目になるため、
+     共通サービスナビのマウント先も明示的に位置を決める。
+     指定が無いと自動配置で4列目に入り、ボタン幅（約94px）が
+     1列分（約84px）を超えて画面外へはみ出していた。
+     ロゴと同じ1行目の右端に置く。 */
+  [data-sippo-servicenav] {
+    grid-row: 1;
+    grid-column: 3 / -1;
+    justify-self: end;
   }
 
   .header-link {
@@ -939,7 +956,10 @@ a {
 
 .back-link {
   display: inline-flex;
-  margin-bottom: 24px;
+  align-items: center;
+  /* タップ領域を確保する（文字高だけだと約22pxしかなかった） */
+  min-height: 44px;
+  margin-bottom: 16px;
   color: #9aa7bd;
   font-weight: 700;
 }
@@ -1849,6 +1869,10 @@ body {
    確認しに行けるようにする。表の見た目は崩さず、リンクだと分かる程度に留める。 */
 .build-gpu-link {
   color: inherit;
+  /* スペック行の値そのものがリンク。文字高（約21px）だけだと
+     スマホで押しにくいので、上下の当たり判定だけ広げる。 */
+  display: inline-block;
+  padding: 5px 0;
   text-decoration: underline;
   text-decoration-color: rgba(255, 255, 255, 0.32);
   text-underline-offset: 3px;

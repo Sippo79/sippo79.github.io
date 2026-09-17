@@ -125,6 +125,11 @@ a {
 .site-logo {
   font-weight: 900;
   letter-spacing: 0.04em;
+  /* ヘッダー内で高さが文字分しかなく押しにくかったため、
+     行の高さぶんの当たり判定を持たせる（見た目は変わらない）。 */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .site-logo span {
@@ -466,15 +471,44 @@ a {
   }
 
   .header-nav {
-    gap: 2px;
+    gap: 6px;
   }
 
+  /* スマホでは主要な2つ（ランキング / 比較表）だけ残す。
+     5つを1行に詰めると1文字ずつ折り返して縦書きのようになり、
+     文字幅が35px程度まで潰れて読めなくなっていたため。
+     「おすすめ」はヒーローのボタンから、「選び方」は
+     ページを下にたどれば到達できる。 */
+  /* GPU個別ページ（65件）は相対パス（../../index.html#recommend）
+     なので、末尾一致で拾う。 */
+  .header-link[href$="#recommend"],
+  .header-link[href$="#guide"] {
+    display: none;
+  }
+
+  /* 残す2つは、サイトのアクセント色（シアン）を使った枠付きの
+     丸ボタンにして、押せる要素だと一目で分かるようにする。 */
   .header-link {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0 8px;
-    font-size: 12px;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1;
+    /* 1文字ずつ折り返さない（縦書き化の直接の原因） */
+    white-space: nowrap;
+    color: #8eeafa;
+    border: 1px solid rgba(25, 227, 255, 0.34);
+    background: rgba(25, 227, 255, 0.10);
+  }
+
+  .header-link:hover,
+  .header-link:focus-visible {
+    color: #0b0f14;
+    border-color: transparent;
+    background: var(--brand-gradient);
   }
 
   .hero-card,

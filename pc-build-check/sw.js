@@ -17,7 +17,9 @@
 //       診断結果の「詳細スペックを見る」が古い /gpu-guide/?gpu= のままになり
 //       GPU一覧に着地する／参考価格が出ない、が起きる。
 //     ⚠️ script.js・style.css・builds.json・shared/ 配下を変更したら必ずここを上げること。
-const CACHE_NAME = 'pc-build-check-v7';
+// v8: スマホ表示の修正（ロゴ・パンくずのタップ領域、共通ナビのパネル位置）。
+//     style.css / builds.css / shared/nav/* を更新。
+const CACHE_NAME = 'pc-build-check-v9';
 
 const STATIC_ASSETS = [
   './',

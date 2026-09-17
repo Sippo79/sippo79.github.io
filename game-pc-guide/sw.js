@@ -1,7 +1,8 @@
 // v2: 購入導線を共通アフィリエイト基盤(shared/affiliate)へ移行
 // v3: 構成表のGPU名を GPU GUIDE 個別ページへリンク（style.css を更新）
 // style.css をキャッシュしているため、版を上げないと旧CSSが配られる。
-const CACHE_VERSION = 'v3';
+// v4: スマホ表示の修正（ヘッダー内の共通ナビ位置・ロゴ/リンクのタップ領域）。style.css を更新。
+const CACHE_VERSION = 'v5';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 

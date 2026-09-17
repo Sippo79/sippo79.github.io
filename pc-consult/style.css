@@ -106,7 +106,9 @@ button:focus-visible,
   font-size: 1rem;
   transition: transform .35s var(--ease-bounce), box-shadow .35s ease, background-position .4s ease;
 }
-.btn svg { width: 20px; height: 20px; transition: transform .3s var(--ease-bounce); }
+.btn svg { width: 20px; height: 20px; transition: transform .3s var(--ease-bounce); flex: 0 0 auto; }
+/* 日本語のボタン文言が語中で折れる（例:「申し込／む」）のを防ぐ */
+.btn { word-break: keep-all; line-height: 1.45; text-align: center; }
 .btn:hover svg { transform: translateX(5px); }
 .btn--lg { padding: 18px 40px; font-size: 1.1rem; }
 
@@ -928,6 +930,11 @@ button:focus-visible,
   .hero { padding: 56px 0 68px; }
   .hero__actions .btn,
   .apply__actions .btn { width: 100%; }
+  /* .btn--lg の左右40pxパディング＋1.1rem は、スマホ幅では
+     「500円ワンコイン相談を申し込む」が1行に収まらず、
+     ボタンが2行（約100px高）に膨らむ原因になっていた。
+     幅いっぱいに広げる代わりに、余白と文字を少し詰める。 */
+  .btn--lg { padding: 16px 20px; font-size: 1rem; gap: 8px; }
   .service-card--feature { order: -1; }
   .service-card { padding: 30px 24px; }
   .result-card__head { padding: 22px 22px; }

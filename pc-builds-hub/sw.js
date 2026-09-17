@@ -2,7 +2,8 @@
 // PC Builds Hub — Service Worker
 // Cache name はサイト固有にすること（他サイトとの混線防止）
 // =====================
-const CACHE_NAME = "pc-builds-cache-v11";
+// v12: ヘッダーをsticky化しナビボタンの見た目を統一（style.css / shared/nav/* を更新）
+const CACHE_NAME = "pc-builds-cache-v12";
 
 const PRECACHE_ASSETS = [
   "./",

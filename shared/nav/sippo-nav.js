@@ -41,6 +41,7 @@
    *   id     … data-sippo-site の値 / 現在地判定キー
    *   action … ユーザーの「やりたいこと」（メニューの主見出し）
    *   name   … 正式なサービス名（補助表示）
+   *   short  … ヘッダーのボタンに出す短縮名（正式名から「PC」を抜いたもの）
    *   desc   … 一言説明
    *   url    … ディレクトリURL（末尾スラッシュ。サイト内リンクは絶対パス）
    *   match  … 現在地の自動判定に使うパスの接頭辞
@@ -50,6 +51,7 @@
       id: 'home',
       action: 'シッポPCのトップ',
       name: 'シッポPC',
+      short: 'シッポTOP',
       desc: 'PC選び・診断・相談の入口',
       url: '/',
       match: null, // ルートは前方一致だと全部に当たるので個別扱い
@@ -59,6 +61,7 @@
       id: 'pc-build-check',
       action: 'PCを選ぶ・構成を診断する',
       name: 'PC BUILD CHECK',
+      short: 'BUILD CHECK',
       desc: '予算・用途・解像度からおすすめ構成を診断',
       url: '/pc-build-check/',
       match: '/pc-build-check/',
@@ -68,6 +71,7 @@
       id: 'game-pc-guide',
       action: 'ゲームに合うPCを調べる',
       name: 'GAME PC GUIDE',
+      short: 'GAME GUIDE',
       desc: '遊びたいゲームから必要スペックを逆引き',
       url: '/game-pc-guide/',
       match: '/game-pc-guide/',
@@ -77,6 +81,7 @@
       id: 'gpu-guide',
       action: 'GPU（グラボ）を比較する',
       name: 'GPU GUIDE',
+      short: 'GPU GUIDE',
       desc: 'GPUの性能・価格帯・用途別の比較',
       url: '/gpu-guide/',
       match: '/gpu-guide/',
@@ -86,6 +91,7 @@
       id: 'upgrade',
       action: '今のPCをアップグレードする',
       name: 'PC UPGRADE',
+      short: 'UPGRADE',
       desc: '交換すべきパーツと買い替え時期を診断',
       url: '/upgrade/',
       match: '/upgrade/',
@@ -96,6 +102,7 @@
       id: 'pc-builds-hub',
       action: 'みんなのPC構成を見る',
       name: 'PC構成投稿サイト',
+      short: '構成投稿',
       desc: '実際のPC構成を投稿・閲覧できる',
       url: '/pc-builds-hub/',
       match: '/pc-builds-hub/',
@@ -105,6 +112,7 @@
       id: 'pc-consult',
       action: 'PCについて相談する',
       name: 'シッポPC相談室',
+      short: '相談室',
       desc: '購入前チェック・構成相談',
       url: '/pc-consult/',
       match: '/pc-consult/',
@@ -172,6 +180,10 @@
       if (SERVICES[i].id === currentId) currentService = SERVICES[i];
     }
     var label = currentService ? currentService.name : 'シッポPC';
+    /* ボタンに出す現在地の短縮名。正式名から「PC」を抜いたもの
+       （例: PC BUILD CHECK → BUILD CHECK）。短いほうがヘッダーの
+       1行に収まりやすく、どのサイトを見ているかも伝わる。 */
+    var shortLabel = currentService ? (currentService.short || currentService.name) : 'シッポTOP';
 
     var items = '';
     for (var j = 0; j < SERVICES.length; j++) {
@@ -181,8 +193,8 @@
     return ''
       + '<div class="sippo-svcnav">'
       + '<button type="button" class="sippo-svcnav__toggle" aria-expanded="false" aria-haspopup="true">'
-      + '<span class="sippo-svcnav__toggle-label">サービス</span>'
-      + '<span class="sippo-svcnav__toggle-current">' + esc(label) + '</span>'
+      + '<span class="sippo-svcnav__toggle-site">' + esc(shortLabel) + '</span>'
+      + '<span class="sippo-svcnav__toggle-label">ほかのSippoサイト</span>'
       + '<span class="sippo-svcnav__caret" aria-hidden="true"></span>'
       + '</button>'
       + '<div class="sippo-svcnav__panel" role="menu" hidden>'
@@ -198,10 +210,21 @@
     var panel = root.querySelector('.sippo-svcnav__panel');
     if (!toggle || !panel) return;
 
+    /* スマホではパネルを position:fixed で出す（CSS側）。
+       その縦位置をヘッダー高さの決め打ちにすると、サイトごとに
+       ヘッダー高さが違う（48〜107px）ため、パネルがヘッダーに
+       かぶったり離れたりする。実際のトグルボタンの位置を測って
+       その真下に出す。 */
+    function place() {
+      var r = toggle.getBoundingClientRect();
+      panel.style.setProperty('--svcnav-panel-top', Math.round(r.bottom + 8) + 'px');
+    }
+
     function open() {
       panel.hidden = false;
       toggle.setAttribute('aria-expanded', 'true');
       root.classList.add('is-open');
+      place();
     }
     function close() {
       panel.hidden = true;
@@ -219,6 +242,15 @@
       if (panel.hidden) return;
       if (!root.contains(e.target)) close();
     });
+
+    // 画面サイズ・向きが変わったら位置を測り直す（開いている間だけ）
+    global.addEventListener('resize', function () {
+      if (!panel.hidden) place();
+    });
+    // sticky ヘッダーはスクロールで動くことがあるため追従させる
+    global.addEventListener('scroll', function () {
+      if (!panel.hidden) place();
+    }, { passive: true });
 
     // Escで閉じる（キーボード操作でも閉じ込められないように）
     doc.addEventListener('keydown', function (e) {

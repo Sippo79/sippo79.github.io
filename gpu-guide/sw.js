@@ -4,7 +4,8 @@
 // v4: 購入リンクを共通アフィリエイト基盤(shared/affiliate)へ移行
 // v5: GPU個別ページを静的化（/gpu-guide/gpu/<id>/）。style.css を更新したため
 //     旧キャッシュが残ると新ページが未スタイルで表示される。必ず版を上げること。
-const CACHE_NAME = 'gpu-guide-v5';
+// v6: スマホ表示の修正（ロゴ・パンくずのタップ領域）。common.css / style.css を更新。
+const CACHE_NAME = 'gpu-guide-v9';
 
 const ASSETS_TO_CACHE = [
   './',

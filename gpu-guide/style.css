@@ -1754,6 +1754,10 @@ body {
 .gpu-breadcrumb a {
   color: #cfd6e6;
   text-decoration: none;
+  /* 文字高（約20px）だけだとスマホで押しにくいため、
+     見た目を変えずに上下の当たり判定を広げる。 */
+  display: inline-block;
+  padding: 6px 2px;
 }
 
 .gpu-breadcrumb a:hover {

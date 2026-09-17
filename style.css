@@ -1161,8 +1161,27 @@ section { scroll-margin-top: 90px; }
 @media (max-width: 900px) {
   /* モバイルの全画面メニュー内では、ドロップダウンではなく
      その場で開くパネルにする（fixed だとオーバーレイ外に出てしまう）。 */
-  .nav__svcnav { width: 100%; max-width: 420px; }
-  .nav__svcnav .sippo-svcnav { display: block; width: 100%; }
+  /* ⚠️ ドロワー内では、他の項目が中央揃えなのに対して
+     このボタンだけ中身の幅（約107px）に縮んで左に寄っていた。
+     原因は .nav__svcnav（flex）と .sippo-svcnav の"間"に、
+     sippo-nav.js が差し込むマウント先 <div data-sippo-servicenav> が
+     あり、それが sippo-nav.css で inline-flex（＝中身幅）のため。
+     階層すべてを幅いっぱいに伸ばす必要がある。 */
+  .nav__svcnav {
+    width: 100%;
+    max-width: 420px;
+    align-items: stretch;
+  }
+  .nav__svcnav [data-sippo-servicenav] {
+    display: flex;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+  .nav__svcnav .sippo-svcnav {
+    display: block;
+    width: 100%;
+    flex: 1 1 100%;
+  }
   .nav__svcnav .sippo-svcnav__toggle { width: 100%; justify-content: center; }
   .nav__svcnav .sippo-svcnav__panel {
     position: static;

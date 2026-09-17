@@ -111,6 +111,11 @@ a {
 .site-logo {
   font-weight: 800;
   letter-spacing: 0.04em;
+  /* ヘッダー内で高さが文字分しかなく押しにくかったため、
+     行の高さぶんの当たり判定を持たせる（見た目は変わらない）。 */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .site-logo span {

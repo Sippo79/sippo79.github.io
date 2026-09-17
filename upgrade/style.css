@@ -134,6 +134,8 @@ section { scroll-margin-top: calc(var(--u-header-h) + 12px); }
 .u-logo {
   display: inline-flex;
   align-items: baseline;
+  /* ヘッダー内のタップ領域を確保する */
+  min-height: 44px;
   gap: 7px;
   font-weight: 800;
   letter-spacing: .02em;
@@ -1025,7 +1027,9 @@ a.u-worry:hover {
   overflow-wrap: anywhere;
 }
 .u-breadcrumb ol { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.u-breadcrumb a { color: var(--u-fg-soft); }
+/* 文字高（約17px）だけだとスマホで押しにくいため、
+   行間を保ったまま上下の当たり判定を広げる */
+.u-breadcrumb a { color: var(--u-fg-soft); display: inline-block; padding: 6px 1px; }
 .u-breadcrumb a:hover { color: var(--u-accent); }
 .u-breadcrumb li + li::before { content: '/'; margin-right: 6px; color: var(--u-fg-dim); }
 

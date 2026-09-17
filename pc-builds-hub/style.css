@@ -467,7 +467,10 @@ textarea {
     radial-gradient(ellipse 70% 50% at 92% 0%, rgba(123, 97, 255, 0.07) 0%, transparent 50%),
     #050709;
   color: #f5f5f5;
-  overflow-x: hidden;
+  /* hidden にすると body 自体がスクロール枠になり、中の
+     position: sticky が画面上部に貼り付かなくなる。
+     clip は同じく横はみ出しを抑えつつ sticky を壊さない。 */
+  overflow-x: clip;
 }
 
 .index-page .card {
@@ -3521,6 +3524,12 @@ html {
 body {
   max-width: 100%;
   overflow-x: clip;
+  /* overflow-x だけを指定すると、もう一方の軸は既定の visible ではなく
+     auto に計算される。その結果 body 自体がスクロール枠になり、
+     中の position: sticky が「画面の上」ではなく body 基準になって
+     効かなくなる（ヘッダーが流れて消えていた原因）。
+     縦は明示的に visible に戻す。横は html 側の clip でも守られている。 */
+  overflow-y: visible;
 }
 
 /* ページ全体ラッパーが画面幅を超えないように（保険） */
@@ -3817,4 +3826,87 @@ button,
   font-size: 0.72rem;
   line-height: 1.7;
   opacity: 0.75;
+}
+
+/* =====================================================================
+   ヘッダー追従（sticky）とナビボタンの見た目統一
+   ---------------------------------------------------------------------
+   1) .top-header は sticky ではなかったため、下へスクロールすると
+      ヘッダーごと流れて消えていた。共通サービスナビのパネルを開いた
+      まま少しスクロールするとボタンが画面外に行き、操作しづらかった。
+      post.html の .site-header と同じく画面上部に貼り付ける。
+      （html / body は overflow-x: clip のため sticky は壊れない）
+
+   2) ナビの並びで「ほかのSippoサイト」ボタンだけ、共通ナビ側の指定
+      （14px / font-weight:700 / padding 9px 14px）が効いて、隣の
+      .btn（16px / 400 / 8px 18px）と文字サイズも高さの基準も
+      揃っていなかった。同じ行に並ぶボタンとして見た目を合わせる。
+   ===================================================================== */
+.index-page .top-header,
+.all-posts-page .top-header,
+.auth-page .top-header,
+.mypage-page .top-header,
+.submit-page .top-header,
+.admin-page .top-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  /* .page の左右余白（画面幅に応じて 0〜16px）の外まで背景を伸ばし、
+     スクロール中に下の内容が横から透けないようにする。
+     100vw ではなく 50vw ずつ広げることで、内容の位置は動かさない。 */
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
+  padding-block: 12px;
+  /* 半透明だとスクロール中に下の文字が透けて読みにくいので不透明にする。
+     .index-page の背景グラデーションと馴染む色を使う。 */
+  background: #050709;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  /* iPhone のノッチ分だけ下げる */
+  padding-top: calc(12px + env(safe-area-inset-top, 0px));
+}
+
+/* 同じ行に並ぶボタンと、文字サイズ・太さ・余白の基準を合わせる */
+.nav-actions .sippo-svcnav__toggle {
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 400;
+  min-height: 44px;
+}
+
+@media (max-width: 600px) {
+  .nav-actions .sippo-svcnav__toggle {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* スマホでは画面の高さを取りすぎないように詰める。
+     ボタンが2行に折り返しても、画面の3割を占めないようにする。 */
+  .index-page .top-header,
+  .all-posts-page .top-header,
+  .auth-page .top-header,
+  .mypage-page .top-header,
+  .submit-page .top-header,
+  .admin-page .top-header {
+    gap: 8px;
+    padding-block: 8px;
+    padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    row-gap: 8px;
+  }
+
+  /* ロゴを少し小さくして1行ぶんの高さを稼ぐ */
+  .index-page .top-header .site-logo,
+  .all-posts-page .top-header .site-logo,
+  .submit-page .top-header .site-logo,
+  .mypage-page .top-header .site-logo,
+  .admin-page .top-header .site-logo {
+    font-size: 1.15rem;
+  }
+
+  .nav-actions .btn,
+  .auth-actions .btn,
+  .nav-actions .sippo-svcnav__toggle {
+    min-height: 40px;
+    padding: 7px 13px;
+    font-size: 0.85rem;
+  }
 }

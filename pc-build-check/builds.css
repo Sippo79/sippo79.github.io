@@ -23,6 +23,10 @@
 
 .build-breadcrumb a {
   color: #19e3ff;
+  /* リンクの高さが文字高（約20px）しかなく、スマホで押しにくかった。
+     行間を詰めたまま上下の当たり判定だけ広げる。 */
+  display: inline-block;
+  padding: 6px 2px;
 }
 
 .build-breadcrumb a:hover {

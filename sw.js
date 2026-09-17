@@ -1,5 +1,7 @@
 /* Sippo Brand Site — Service Worker（軽量キャッシュ） */
-const CACHE_NAME = 'sippo-pc-v8';
+// v9: スマホ表示の共通修正（共通サービスナビのパネル位置・ボタンのタップ領域）。
+//     style.css / shared/nav/* を更新したため版を上げる。
+const CACHE_NAME = 'sippo-pc-v11';
 const ASSETS = [
   './',
   './index.html',

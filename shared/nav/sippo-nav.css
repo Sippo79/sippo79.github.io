@@ -87,15 +87,18 @@ body[data-sippo-theme="dark"] .sippo-svcnav,
   border-color: var(--svcnav-accent);
 }
 
-.sippo-svcnav__toggle-label {
-  white-space: nowrap;
-}
-
-/* 現在地のサービス名。狭い画面では隠して「サービス」だけにする */
-.sippo-svcnav__toggle-current {
-  max-width: 132px;
+/* 現在いるサイトの短縮名（例: BUILD CHECK）。常に表示する。 */
+.sippo-svcnav__toggle-site {
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+/* 「ほかのSippoサイト」= このボタンが何をするかの説明。
+   横幅に余裕があるときだけ出す（狭い画面では下の @media で隠す）。 */
+.sippo-svcnav__toggle-label {
   white-space: nowrap;
   color: var(--svcnav-fg-soft);
   font-size: 12px;
@@ -234,8 +237,9 @@ a.sippo-svcnav__item:focus-visible {
 
 /* ---------- スマホ ---------- */
 @media (max-width: 600px) {
-  /* 現在地名は隠し、「サービス」だけの最小幅にしてヘッダーを圧迫しない */
-  .sippo-svcnav__toggle-current {
+  /* 狭い画面では説明文を隠し、サイト名だけの最小幅にして
+     ヘッダーを圧迫しない（どのサイトにいるかは残る）。 */
+  .sippo-svcnav__toggle-label {
     display: none;
   }
 
@@ -248,12 +252,15 @@ a.sippo-svcnav__item:focus-visible {
      right:0 の絶対配置のままだと 320px 幅のパネルが画面外へはみ出し、
      横スクロールが発生してしまうため。
 
-     縦位置は「ヘッダーの下」に固定する。top:auto のままだと
-     静的位置に依存し、sticky ヘッダーの中では iOS Safari で
-     意図しない位置に出ることがある。 */
+     縦位置は「トグルボタンの実際の真下」に置く。
+     以前はヘッダー高さを 56px と決め打ちしていたが、実際の
+     ヘッダー高さはサイトごとに 48〜107px とばらついており、
+     パネルがヘッダーに重なる／不自然に離れる原因になっていた。
+     sippo-nav.js が開くたびにボタン位置を測って
+     --svcnav-panel-top に入れる（未設定時は 56px にフォールバック）。 */
   .sippo-svcnav__panel {
     position: fixed;
-    top: calc(56px + env(safe-area-inset-top));
+    top: var(--svcnav-panel-top, calc(56px + env(safe-area-inset-top)));
     right: 12px;
     left: 12px;
     width: auto;
@@ -262,8 +269,8 @@ a.sippo-svcnav__item:focus-visible {
     /* 画面下端（Safariのツールバー）にかからない高さに収める。
        dvh は表示中のUIを除いた実際の高さになるため、
        アドレスバーの出入りで見切れるのを防げる。 */
-    max-height: calc(100vh - 96px - env(safe-area-inset-top));
-    max-height: calc(100dvh - 96px - env(safe-area-inset-top));
+    max-height: calc(100vh - var(--svcnav-panel-top, 56px) - 16px - env(safe-area-inset-bottom));
+    max-height: calc(100dvh - var(--svcnav-panel-top, 56px) - 16px - env(safe-area-inset-bottom));
   }
 }
 
