@@ -19,7 +19,11 @@
 //     ⚠️ script.js・style.css・builds.json・shared/ 配下を変更したら必ずここを上げること。
 // v8: スマホ表示の修正（ロゴ・パンくずのタップ領域、共通ナビのパネル位置）。
 //     style.css / builds.css / shared/nav/* を更新。
-const CACHE_NAME = 'pc-build-check-v9';
+// v10: 診断結果の大型改修（得意分野・理由・構成タイプ・±5万円比較・3構成比較・比較リスト・共有・
+//      詳細設定・ゲーム連携）。script.js / style.css / index.html / builds.json / part-prices.json を更新し、
+//      build-profile.js を新規にキャッシュ対象へ。gpus.json / games.json もネットワーク優先に変更
+//      （他サイトのデータなので、こちらの版上げを待たずに最新を使う）。
+const CACHE_NAME = 'pc-build-check-v10';
 
 const STATIC_ASSETS = [
   './',
@@ -28,6 +32,8 @@ const STATIC_ASSETS = [
   './script.js',
   './build-affiliate.js',
   './builds.json',
+  // 構成タイプ・得意分野・±5万円比較などの判定（静的75ページの生成と共通）
+  './build-profile.js',
   // 共通アフィリエイト基盤（サイト横断で共有）
   '/shared/affiliate/affiliate-config.js',
   '/shared/affiliate/affiliate.js',
@@ -82,10 +88,15 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  /* builds.json / part-prices.json: ネットワーク優先（最新データ取得）、失敗時キャッシュ。
+  /* builds.json / part-prices.json / gpus.json / games.json: ネットワーク優先（最新データ取得）、失敗時キャッシュ。
      どちらも中身が更新されうるデータで、古い値を配ると
      「構成が違う」「参考価格が古い」が起きるため、版上げを待たずに最新を取りに行く。 */
-  if (url.pathname.endsWith('builds.json') || url.pathname.endsWith('part-prices.json')) {
+  if (
+    url.pathname.endsWith('builds.json') ||
+    url.pathname.endsWith('part-prices.json') ||
+    url.pathname.endsWith('/gpu-guide/gpus.json') ||
+    url.pathname.endsWith('/game-pc-guide/data/games.json')
+  ) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {

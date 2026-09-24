@@ -18,6 +18,55 @@
 
 ---
 
+## 2026-09-24（3）— PC BUILD CHECK 2.0 の見た目・操作感（アニメーション）強化
+
+- **修正目的**: 機能・データは変えずに、診断の手応えと結果を見る楽しさを上げる（初心者向け7〜8割＋遊び心2〜3割）。
+- **変更ファイル**: `pc-build-check/script.js`（演出のみ）, `style.css`（モーション節を追加）, `index.html`（比較バーに🐾）, `test-motion.js`（新規）
+- **変更内容**: 診断ステップ表示（約0.7秒・データが揃ってから「構成が決まりました！」）、パーツカードが100ms間隔で組み上がる、想定価格のカウントアップ（「約〇万円」表記は維持）、GPUカードに一度だけShine、得意分野バーの時間差＋ラベルのフェード、±5万円タブの方向付きスライド＋変更部品の発光、「診断し直す」で旧結果フェードアウト→演出→新結果、3構成比較のhover立体感（PCのみ）とおすすめカードの一度きりのハイライト、比較バーのスライドアップ/ダウン・上限時の小さな揺れ・列削除のフェード、IntersectionObserver による一度きりのReveal、シッポの反応（選択で跳ねる・診断開始で揺れる・完了でジャンプ・比較追加で反応）、完了時の足跡🐾（PC幅のみ）、選択UIのポップと3項目そろった瞬間の診断ボタンのハイライト、ファーストビュー背景のごく薄い光（32秒周期・スマホ/reduced motionで停止）。
+- **reduced motion**: 共通ルール（長さ0）に加えて遅延も0に。JS側の演出（ステップ・カウントアップ・足跡・Reveal・フェードアウト）はスキップ。
+- **影響範囲**: 表示のみ。builds.json・判定・価格・URL・GA4・SEOは不変。GA4イベントは既存のまま発火（Chromeで確認）。
+- **テスト**: 既存8スイート全通過、新規 test-motion.js 39件、Chrome E2E 108件。
+- **引き継ぎ注意点**: 常時ループのアニメを増やすと test-motion.js が落ちる（許可は背景の光と診断中のシッポのみ）。演出の長さを変えるときは合計1秒以内を守る。
+
+## 2026-09-24（2）— PC BUILD CHECK 2.0 公開前のデータ品質調整（予算超過35件・同一構成6組・表記）
+
+- **修正目的**: 予算別診断として、参考価格が選んだ予算から大きく外れる構成と、「5万円上げても何も変わらない」構成を解消する。
+- **変更ファイル**: `pc-build-check/builds.json`（39構成）, `builds/*.html`・`index.html`（再生成）, `script.js`, `style.css`, `generate-index-sections.js`, `generate-builds.ps1`, `test-build-profile.js`, `llms.txt`
+- **変更内容**:
+  - 予算超過（参考価格が予算+15%超＝ build-price.js の OVER_TOLERANCE）: 35件 → **0件**。最大は +14.3%（動画編集30万のFHD/WQHD）。既存7CPU・現行GPU（gpus.json で中古扱いでないもの）だけで調整し、価格データは変えていない。
+  - 隣接予算で同一構成: 6組 → **0組**（4K FPS 20/25, FHD RPG 20/25, 4K RPG 20/25, WQHD 配信 20/25, WQHD 編集 20/25, 4K 普段使い 10/15）。
+  - 同じ用途・解像度で予算を上げたとき GPU score / rasterScore / CPU_TIERS / メモリ / SSD / 参考価格 が下がらないことをテストで保証。
+  - 「人気構成ランキング」は実測データの無い運営の選定だったため「シッポのおすすめ構成」に改称（builds.json の `popular` → `featured`、「1位」→「おすすめ 1」、パンくず「人気構成」→「おすすめ構成」、llms.txt の「多くのユーザーに選ばれた構成」を削除）。アンカー #popular-builds は維持。
+  - FHD FPS の説明文にあった「3Dキャッシュ付きCPUとの組み合わせで」（X3Dでない構成にも出ていた）を削除。
+  - GA4 の遷移計測を相談室と同じ規約に統一（イベント名 = data-track、掲載位置 = data-location → service_location）。
+- **影響範囲**: 39構成の部品・参考価格・一部タイトル（13件の末尾語）が変わる。URL・canonical・sitemap は不変。
+- **テスト**: 既存8スイート全通過／test-build-profile.js 6,478件／Chrome E2E 72件。
+- **引き継ぎ注意点**: 構成を変えたら test-build-profile.js（予算内・同一構成なし・単調性）と test-build-check.js（同一予算で解像度を上げてGPUが下がらない）の両方を通すこと。
+
+## 2026-09-24 — PC BUILD CHECK を「予算から最終候補を決めるツール」へ強化（構成データ一元化＋±5万円比較ほか）
+
+- **修正目的**: 予算・用途・解像度の3択診断はそのままに、結果から「どんなPCか・なぜこの構成か・5万円上げ下げで何が変わるか」まで分かるようにし、SippoPC全体の入口にする。あわせてトップと個別ページの構成の食い違いを根本解消する。
+- **発見した不整合（修正済み）**: index.html の手書き部分が builds.json と不一致。全構成一覧 **75件中27件のGPUが旧表記**、人気構成ランキング **3件すべて旧構成**（例: WQHD FPS 25万＝トップ RTX 4070 SUPER／実データ RX 9070 XT）、Sample Result も旧表記。個別75ページは一致していた。
+- **変更ファイル**:
+  - 新規: `pc-build-check/build-profile.js`（判定の唯一の場所）, `generate-index-sections.js`, `compute-profiles.js`, `test-build-profile.js`
+  - 更新: `pc-build-check/index.html`, `script.js`, `style.css`, `sw.js`（v10）, `builds.json`（人気3件に `popular`）, `generate-builds.ps1`, `builds/*.html`（75件・追記のみ）
+  - `shared/parts/part-prices.json`（CPUに `cores/threads/x3d`）
+  - `game-pc-guide/data/games.json`（モンハンに `slug`）, `Generate-StaticGames.ps1`, `script.js`, `sw.js`（v8）
+  - `pc-consult/index.html`, `main.js`, `style.css`（相談メモ）
+- **変更内容**:
+  - トップの Sample Result / 人気構成 / 全構成一覧を `generate-index-sections.js` が builds.json から静的生成（マーカー間のみ書換え。SEO用の静的HTMLは維持）。`generate-builds.ps1` の最後で自動実行。
+  - 診断結果: 部品カード（CPU/GPU/メモリ/SSD/想定価格/用途/推奨解像度）、構成タイプ、得意分野（6項目・5段階バー）、この構成にした理由、±5万円比較（タブ切替・最低/最高予算は片側のみ・同一構成は正直に表示）、近い予算3構成比較（スマホは横スワイプ）、ゲーム別の目安（games.json×gpus.json）、こだわり条件（8種）と条件に合う近い構成の提案、Upgrade導線、相談導線（診断条件を引継ぎ）。従来の想定fps・電源・マザボは「もっと詳しいデータ」に格納。
+  - 比較リスト（localStorage・最大3・`?compare=` で共有可）、診断URL共有（`?b=25&u=fps&r=wqhd&g=apex&p=nvidia`。canonical は据え置き、sitemap に載せない）。
+  - 個別75ページに 構成タイプ／得意分野／この構成にした理由／予算を5万円変えると？（前後ページへのリンク）／相談導線 を追記。
+  - GA4 イベント追加: `pcbc_diagnose` `pcbc_budget_compare` `pcbc_switch_build` `pcbc_compare_add` `pcbc_compare_open` `pcbc_share` `pcbc_outbound`（target=gpu_guide/game_guide/upgrade/consult）, 相談室 `consult_memo_copy`。
+- **影響範囲**: PC BUILD CHECK 全体、GAME PC GUIDE（リンク先ファイル名の決め方のみ・出力不変）、相談室（?from=pc-build-check のときだけ表示が増える）。
+- **テスト**: 既存8スイート全通過（145/349/45/61/75/1643/73）＋新規 `test-build-profile.js` 5,993件。ブラウザE2E（Chrome/CDP）56件: 75組み合わせをUIから診断・JSエラー/404なし・モバイル横はみ出しなし等。
+- **未対応・次にやること**: 参考価格が予算を超える構成が35件ある（既知・表示で明示済み）。隣接予算でパーツが同一の組が6組あり、構成の見直し余地あり。
+- **別AIへの引き継ぎ注意点**:
+  - index.html の `GENERATED:*` マーカー内は**手で直さない**。builds.json を直して `pc-build-check/generate-builds.ps1`（または `node pc-build-check/generate-index-sections.js`）。ズレは `test-build-profile.js` が検出する。
+  - 得意分野・タイプ・理由・±5万円の文言や閾値は `build-profile.js` だけを直す（診断画面と静的75ページが共用）。直したら generate-builds.ps1 を再実行。
+  - CPUを builds.json に足したら part-prices.json に `price/cores/threads/x3d` を必ず追加。
+
 ## 2026-09-17 — GAME GUIDE の表示を軽量化（一覧サムネ 3.89MB → 0.87MB）
 
 - **修正目的**: 「GAME GUIDEが重くなった気がする」への対応。レイアウトや構成は変えずに、可能な範囲で軽量化する。
@@ -29,7 +78,7 @@
   - **【副次】詳細ページのヒーロー画像を WebP 化**。1200px のまま再エンコードのみ。**3.89MB → 2.70MB（-31%）**。
     - 生成スクリプトの `Convert-ImagePath` で **webpが実在するときだけ差し替える**ようにした。無い画像を指して画像欠けにしない。
     - ヒーローに `fetchpriority="high"` を付与（LCP改善）。
-  - **【発見】新規追加分の画像2枚が拡張子と中身が食い違っていた**。`onimusha.jpg` は実体が **パレットモードのPNG**（448KB＝他の3倍）、`valorant.jpg` は実体が **WebP**。表示はできていたが無駄に重かった。onimusha は WebP化で **448KB → 163KB**。
+  - **【発見】新規追加分の画像2枚が拡張子と中身が食い違っていた**。`onimusha.jpg` は実体が **パレットモードのPNG**（448KB＝他の3倍）、`valorant.jpg` は実体が **WebP**。表示はできていたが無駄に重かった。onimusha は WebP化で **448KB → 163KB**。
     - あわせて **`onimusha.jpg` の中身を本物のJPEGに変換**（448KB → 215KB）。この原本は `og:image` として実際に配信されるため、SNSシェア時の転送量も減る。変換前後で見た目の差は無し（寸法 1200x630 も維持）。
     - ⚠️ `valorant` だけは原本が既にWebPのため再エンコードすると劣化＋増量（102→109KB）した。**再エンコードせず原本をそのままコピー**して `valorant.webp` にしてある。
   - 一覧の `<img>` に `width`/`height` を明示（レイアウトシフト防止）。

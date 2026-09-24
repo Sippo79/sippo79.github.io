@@ -128,20 +128,24 @@
 
           <div class="hero-actions">
             <a href="#diagnosis" class="primary-button">診断をはじめる</a>
-            <a href="#popular-builds" class="secondary-button">人気構成ランキングを見る</a>
+            <a href="#popular-builds" class="secondary-button">おすすめ構成を見る</a>
             <a href="#about" class="tertiary-button">このサイトについて</a>
           </div>
         </div>
 
         <div class="hero-card">
+          <!-- GENERATED:sample START（generate-index-sections.js が builds.json のおすすめ1番（featured.rank=1）から生成。直接編集しない） -->
           <p class="card-label">Sample Result</p>
-          <h2>WQHDゲーミング向け</h2>
+          <h2>WQHD FPSゲーム向け</h2>
           <ul>
-            <li><span>CPU</span> Ryzen 7 / Core i7クラス</li>
-            <li><span>GPU</span> RTX 4070 / RX 7800 XTクラス</li>
+            <li><span>CPU</span> Ryzen 7 7800X3D</li>
+            <li><span>GPU</span> Radeon RX 9070 XT</li>
             <li><span>メモリ</span> 32GB</li>
             <li><span>予算</span> 25万円前後</li>
+            <li><span>参考価格</span> 約24万円</li>
           </ul>
+          <a class="hero-card-link" href="./builds/wqhd-fps-25man.html">この構成の詳細を見る →</a>
+          <!-- GENERATED:sample END -->
         </div>
       </div>
     </section>
@@ -191,6 +195,9 @@
           <h2 class="section-title">PC構成診断</h2>
           <p class="section-text">
             予算・用途・解像度を選ぶだけで、あなたに合いそうなPC構成を分かりやすく診断します。
+          </p>
+          <p class="section-text section-text--sub">
+            結果では、CPU・GPU・メモリ・SSDと想定価格に加えて、このPCの得意分野、この構成にした理由、予算を5万円上げ下げしたときの違いまで確認できます。
           </p>
         </div>
 
@@ -247,6 +254,28 @@
             </label>
           </div>
 
+          <!-- 詳細設定。初心者が迷わないよう、最初は閉じておく（選ばなくても診断できる） -->
+          <details class="advanced-options" id="advanced-options">
+            <summary>
+              <span class="advanced-options-title">🔧 もう少し細かく指定する</span>
+              <small>任意・選ばなくてもOK</small>
+            </summary>
+            <div class="advanced-options-body">
+              <label class="form-field form-field--game">
+                <span>遊びたいゲーム <small class="field-note">任意</small></span>
+                <small class="field-help">選ぶと、診断結果に「このゲームならどのくらい快適か」を表示します。くわしくはGAME PC GUIDEで確認できます。</small>
+                <select name="game" id="game-select">
+                  <option value="">選ばない</option>
+                </select>
+              </label>
+              <fieldset class="pref-group">
+                <legend>こだわり条件 <small class="field-note">当てはまるものだけ</small></legend>
+                <div class="pref-chips" id="pref-chips"></div>
+                <small class="field-help">今の構成データで判定できる条件だけを用意しています。満たさない場合は、条件に合う近い構成を提案します。</small>
+              </fieldset>
+            </div>
+          </details>
+
           <button type="submit" class="diagnosis-button" id="diagnosis-button">
             この条件で診断する
           </button>
@@ -272,26 +301,27 @@
 
         <div id="popular-jump-section" class="popular-jump-section hidden">
           <button id="popular-jump-button" class="popular-jump-button" type="button">
-            人気構成ランキングを見る
+            おすすめ構成を見る
           </button>
         </div>
 
         <section id="popular-builds" class="popular-builds-section" aria-labelledby="popular-builds-title">
           <div class="popular-builds-heading">
-            <p class="section-label">Popular Builds</p>
-            <h2 id="popular-builds-title" class="section-title">人気構成ランキング</h2>
-            <p class="popular-builds-note">当サイトおすすめの人気構成です。</p>
+            <p class="section-label">Recommended Builds</p>
+            <h2 id="popular-builds-title" class="section-title">シッポのおすすめ構成</h2>
+            <p class="popular-builds-note">迷ったときの目安として、運営（シッポ）が選んだ定番の構成です。アクセス数などを集計したランキングではありません。</p>
           </div>
 
           <div class="popular-builds-grid">
+            <!-- GENERATED:popular START（generate-index-sections.js が builds.json の featured から生成。直接編集しない） -->
             <article class="popular-build-card">
-              <div class="popular-rank">1位</div>
+              <div class="popular-rank">おすすめ<br>1</div>
               <div class="popular-build-body">
                 <div class="build-badges">
-                  <span class="build-badge badge-popular">人気No.1</span>
+                  <span class="build-badge badge-popular">いちおし</span>
                   <span class="build-badge badge-fps">FPS重視</span>
                 </div>
-                <h3>WQHD FPSゲーム向け ハイスペック構成</h3>
+                <h3>WQHD FPSゲーム向け 高コスパな最上位候補</h3>
                 <dl class="popular-build-specs">
                   <div>
                     <dt>予算目安</dt>
@@ -307,22 +337,30 @@
                   </div>
                   <div>
                     <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4070 SUPER</dd>
+                    <dd>Radeon RX 9070 XT</dd>
+                  </div>
+                  <div>
+                    <dt>メモリ / SSD</dt>
+                    <dd>32GB / 2TB</dd>
+                  </div>
+                  <div>
+                    <dt>参考価格</dt>
+                    <dd>約24万円</dd>
                   </div>
                 </dl>
-                <p>WQHDで高fpsを狙いやすい、ゲーマー向け人気構成。</p>
+                <p>WQHDで高fpsを狙いやすい、ゲーマー向けのおすすめ構成。</p>
                 <a href="./builds/wqhd-fps-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
               </div>
             </article>
 
             <article class="popular-build-card">
-              <div class="popular-rank">2位</div>
+              <div class="popular-rank">おすすめ<br>2</div>
               <div class="popular-build-body">
                 <div class="build-badges">
                   <span class="build-badge badge-cospa">コスパ重視</span>
                   <span class="build-badge badge-beginner">初心者向け</span>
                 </div>
-                <h3>FHD 配信・録画向け 快適構成</h3>
+                <h3>FHD 配信・録画向け 最新世代のエントリー候補</h3>
                 <dl class="popular-build-specs">
                   <div>
                     <dt>予算目安</dt>
@@ -334,11 +372,19 @@
                   </div>
                   <div>
                     <dt>CPU</dt>
-                    <dd>Ryzen 7 7700</dd>
+                    <dd>Ryzen 5 7500F</dd>
                   </div>
                   <div>
                     <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4060</dd>
+                    <dd>GeForce RTX 5060</dd>
+                  </div>
+                  <div>
+                    <dt>メモリ / SSD</dt>
+                    <dd>32GB / 1TB</dd>
+                  </div>
+                  <div>
+                    <dt>参考価格</dt>
+                    <dd>約16万円</dd>
                   </div>
                 </dl>
                 <p>ゲーム配信や録画を始めたい人向けのバランス構成。</p>
@@ -347,13 +393,13 @@
             </article>
 
             <article class="popular-build-card">
-              <div class="popular-rank">3位</div>
+              <div class="popular-rank">おすすめ<br>3</div>
               <div class="popular-build-body">
                 <div class="build-badges">
                   <span class="build-badge badge-creative">クリエイター向け</span>
                   <span class="build-badge badge-longrun">長く使える</span>
                 </div>
-                <h3>WQHD 動画編集・制作向け ハイスペック構成</h3>
+                <h3>WQHD 動画編集・制作向け 最新世代の主力候補</h3>
                 <dl class="popular-build-specs">
                   <div>
                     <dt>予算目安</dt>
@@ -369,13 +415,22 @@
                   </div>
                   <div>
                     <dt>GPU（グラボ）</dt>
-                    <dd>GeForce RTX 4070 SUPER</dd>
+                    <dd>GeForce RTX 5070</dd>
+                  </div>
+                  <div>
+                    <dt>メモリ / SSD</dt>
+                    <dd>64GB / 2TB</dd>
+                  </div>
+                  <div>
+                    <dt>参考価格</dt>
+                    <dd>約28万円</dd>
                   </div>
                 </dl>
                 <p>動画編集や制作作業も視野に入れたクリエイター向け構成。</p>
                 <a href="./builds/wqhd-creative-25man.html" class="popular-detail-link">この構成の詳細を見る →</a>
               </div>
             </article>
+            <!-- GENERATED:popular END -->
           </div>
         </section>
       </div>
@@ -419,96 +474,98 @@
           <h2 id="all-builds-title" class="section-title">解像度別 全構成一覧</h2>
           <p class="section-text">診断を使わなくても、解像度ごとの全75構成を一覧から直接確認できます。用途と予算の近いものから選んでください。</p>
         </div>
+        <!-- GENERATED:all-builds START（generate-index-sections.js が builds.json から生成。直接編集しない） -->
         <details class="all-builds-group">
           <summary>フルHD（1080p）向けの構成</summary>
           <ul class="all-builds-list">
-            <li><a href="./builds/fhd-fps-10man.html">FPSゲーム向けPC構成 10万円前後 GeForce RTX 3050</a></li>
+            <li><a href="./builds/fhd-fps-10man.html">FPSゲーム向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/fhd-fps-15man.html">FPSゲーム向けPC構成 15万円前後 Radeon RX 9060 XT</a></li>
             <li><a href="./builds/fhd-fps-20man.html">FPSゲーム向けPC構成 20万円前後 Radeon RX 9070</a></li>
-            <li><a href="./builds/fhd-fps-25man.html">FPSゲーム向けPC構成 25万円前後 GeForce RTX 4070 SUPER</a></li>
+            <li><a href="./builds/fhd-fps-25man.html">FPSゲーム向けPC構成 25万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/fhd-fps-30man.html">FPSゲーム向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/fhd-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 Radeon RX 6600</a></li>
+            <li><a href="./builds/fhd-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/fhd-mmo-15man.html">MMO・RPG向けPC構成 15万円前後 GeForce RTX 5060</a></li>
             <li><a href="./builds/fhd-mmo-20man.html">MMO・RPG向けPC構成 20万円前後 Radeon RX 9070</a></li>
-            <li><a href="./builds/fhd-mmo-25man.html">MMO・RPG向けPC構成 25万円前後 Radeon RX 7800 XT</a></li>
+            <li><a href="./builds/fhd-mmo-25man.html">MMO・RPG向けPC構成 25万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/fhd-mmo-30man.html">MMO・RPG向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/fhd-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 4060</a></li>
+            <li><a href="./builds/fhd-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 5050</a></li>
             <li><a href="./builds/fhd-stream-15man.html">配信・録画向けPC構成 15万円前後 GeForce RTX 5060</a></li>
             <li><a href="./builds/fhd-stream-20man.html">配信・録画向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
             <li><a href="./builds/fhd-stream-25man.html">配信・録画向けPC構成 25万円前後 GeForce RTX 4070 SUPER</a></li>
             <li><a href="./builds/fhd-stream-30man.html">配信・録画向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/fhd-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 3060</a></li>
+            <li><a href="./builds/fhd-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 5050</a></li>
             <li><a href="./builds/fhd-creative-15man.html">動画編集・制作向けPC構成 15万円前後 GeForce RTX 5060</a></li>
             <li><a href="./builds/fhd-creative-20man.html">動画編集・制作向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
             <li><a href="./builds/fhd-creative-25man.html">動画編集・制作向けPC構成 25万円前後 GeForce RTX 5070</a></li>
             <li><a href="./builds/fhd-creative-30man.html">動画編集・制作向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/fhd-daily-10man.html">普段使い向けPC構成 10万円前後 Radeon RX 6600</a></li>
+            <li><a href="./builds/fhd-daily-10man.html">普段使い向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/fhd-daily-15man.html">普段使い向けPC構成 15万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/fhd-daily-20man.html">普段使い向けPC構成 20万円前後 Radeon RX 9070</a></li>
-            <li><a href="./builds/fhd-daily-25man.html">普段使い向けPC構成 25万円前後 Radeon RX 7800 XT</a></li>
+            <li><a href="./builds/fhd-daily-25man.html">普段使い向けPC構成 25万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/fhd-daily-30man.html">普段使い向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
           </ul>
         </details>
         <details class="all-builds-group">
           <summary>WQHD（1440p）向けの構成</summary>
           <ul class="all-builds-list">
-            <li><a href="./builds/wqhd-fps-10man.html">FPSゲーム向けPC構成 10万円前後 Radeon RX 9060 XT</a></li>
+            <li><a href="./builds/wqhd-fps-10man.html">FPSゲーム向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/wqhd-fps-15man.html">FPSゲーム向けPC構成 15万円前後 Radeon RX 9070</a></li>
-            <li><a href="./builds/wqhd-fps-20man.html">FPSゲーム向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
+            <li><a href="./builds/wqhd-fps-20man.html">FPSゲーム向けPC構成 20万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/wqhd-fps-25man.html">FPSゲーム向けPC構成 25万円前後 Radeon RX 9070 XT</a></li>
             <li><a href="./builds/wqhd-fps-30man.html">FPSゲーム向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/wqhd-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 Radeon RX 9060 XT</a></li>
+            <li><a href="./builds/wqhd-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/wqhd-mmo-15man.html">MMO・RPG向けPC構成 15万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/wqhd-mmo-20man.html">MMO・RPG向けPC構成 20万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/wqhd-mmo-25man.html">MMO・RPG向けPC構成 25万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/wqhd-mmo-30man.html">MMO・RPG向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/wqhd-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 5060</a></li>
+            <li><a href="./builds/wqhd-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 5050</a></li>
             <li><a href="./builds/wqhd-stream-15man.html">配信・録画向けPC構成 15万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/wqhd-stream-20man.html">配信・録画向けPC構成 20万円前後 GeForce RTX 5070</a></li>
+            <li><a href="./builds/wqhd-stream-20man.html">配信・録画向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
             <li><a href="./builds/wqhd-stream-25man.html">配信・録画向けPC構成 25万円前後 GeForce RTX 5070</a></li>
             <li><a href="./builds/wqhd-stream-30man.html">配信・録画向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/wqhd-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 5060</a></li>
-            <li><a href="./builds/wqhd-creative-15man.html">動画編集・制作向けPC構成 15万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/wqhd-creative-20man.html">動画編集・制作向けPC構成 20万円前後 GeForce RTX 5070</a></li>
+            <li><a href="./builds/wqhd-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 5050</a></li>
+            <li><a href="./builds/wqhd-creative-15man.html">動画編集・制作向けPC構成 15万円前後 GeForce RTX 5060</a></li>
+            <li><a href="./builds/wqhd-creative-20man.html">動画編集・制作向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
             <li><a href="./builds/wqhd-creative-25man.html">動画編集・制作向けPC構成 25万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/wqhd-creative-30man.html">動画編集・制作向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/wqhd-daily-10man.html">普段使い向けPC構成 10万円前後 Radeon RX 9060 XT</a></li>
-            <li><a href="./builds/wqhd-daily-15man.html">普段使い向けPC構成 15万円前後 GeForce RTX 4060</a></li>
-            <li><a href="./builds/wqhd-daily-20man.html">普段使い向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/wqhd-daily-25man.html">普段使い向けPC構成 25万円前後 GeForce RTX 4070 SUPER</a></li>
+            <li><a href="./builds/wqhd-creative-30man.html">動画編集・制作向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
+            <li><a href="./builds/wqhd-daily-10man.html">普段使い向けPC構成 10万円前後 Radeon RX 7600</a></li>
+            <li><a href="./builds/wqhd-daily-15man.html">普段使い向けPC構成 15万円前後 Radeon RX 9060 XT</a></li>
+            <li><a href="./builds/wqhd-daily-20man.html">普段使い向けPC構成 20万円前後 Radeon RX 9070</a></li>
+            <li><a href="./builds/wqhd-daily-25man.html">普段使い向けPC構成 25万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/wqhd-daily-30man.html">普段使い向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
           </ul>
         </details>
         <details class="all-builds-group">
           <summary>4K（2160p）向けの構成</summary>
           <ul class="all-builds-list">
-            <li><a href="./builds/4k-fps-10man.html">FPSゲーム向けPC構成 10万円前後 Radeon RX 9060 XT</a></li>
+            <li><a href="./builds/4k-fps-10man.html">FPSゲーム向けPC構成 10万円前後 Radeon RX 7600</a></li>
             <li><a href="./builds/4k-fps-15man.html">FPSゲーム向けPC構成 15万円前後 Radeon RX 9070</a></li>
             <li><a href="./builds/4k-fps-20man.html">FPSゲーム向けPC構成 20万円前後 Radeon RX 9070 XT</a></li>
             <li><a href="./builds/4k-fps-25man.html">FPSゲーム向けPC構成 25万円前後 Radeon RX 9070 XT</a></li>
-            <li><a href="./builds/4k-fps-30man.html">FPSゲーム向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/4k-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 GeForce RTX 4060</a></li>
-            <li><a href="./builds/4k-mmo-15man.html">MMO・RPG向けPC構成 15万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/4k-mmo-20man.html">MMO・RPG向けPC構成 20万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/4k-mmo-25man.html">MMO・RPG向けPC構成 25万円前後 GeForce RTX 5070</a></li>
+            <li><a href="./builds/4k-fps-30man.html">FPSゲーム向けPC構成 30万円前後 GeForce RTX 5080</a></li>
+            <li><a href="./builds/4k-mmo-10man.html">MMO・RPG向けPC構成 10万円前後 Radeon RX 7600</a></li>
+            <li><a href="./builds/4k-mmo-15man.html">MMO・RPG向けPC構成 15万円前後 Radeon RX 9070</a></li>
+            <li><a href="./builds/4k-mmo-20man.html">MMO・RPG向けPC構成 20万円前後 Radeon RX 9070 XT</a></li>
+            <li><a href="./builds/4k-mmo-25man.html">MMO・RPG向けPC構成 25万円前後 Radeon RX 9070 XT</a></li>
             <li><a href="./builds/4k-mmo-30man.html">MMO・RPG向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/4k-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/4k-stream-15man.html">配信・録画向けPC構成 15万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/4k-stream-20man.html">配信・録画向けPC構成 20万円前後 GeForce RTX 5070 Ti</a></li>
+            <li><a href="./builds/4k-stream-10man.html">配信・録画向けPC構成 10万円前後 GeForce RTX 5050</a></li>
+            <li><a href="./builds/4k-stream-15man.html">配信・録画向けPC構成 15万円前後 GeForce RTX 5060 Ti</a></li>
+            <li><a href="./builds/4k-stream-20man.html">配信・録画向けPC構成 20万円前後 GeForce RTX 5070</a></li>
             <li><a href="./builds/4k-stream-25man.html">配信・録画向けPC構成 25万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/4k-stream-30man.html">配信・録画向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/4k-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 5060 Ti</a></li>
-            <li><a href="./builds/4k-creative-15man.html">動画編集・制作向けPC構成 15万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/4k-creative-20man.html">動画編集・制作向けPC構成 20万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/4k-creative-25man.html">動画編集・制作向けPC構成 25万円前後 GeForce RTX 5070 Ti</a></li>
-            <li><a href="./builds/4k-creative-30man.html">動画編集・制作向けPC構成 30万円前後 GeForce RTX 5080</a></li>
-            <li><a href="./builds/4k-daily-10man.html">普段使い向けPC構成 10万円前後 GeForce RTX 4060</a></li>
-            <li><a href="./builds/4k-daily-15man.html">普段使い向けPC構成 15万円前後 GeForce RTX 5060</a></li>
-            <li><a href="./builds/4k-daily-20man.html">普段使い向けPC構成 20万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/4k-daily-25man.html">普段使い向けPC構成 25万円前後 GeForce RTX 5070</a></li>
-            <li><a href="./builds/4k-daily-30man.html">普段使い向けPC構成 30万円前後 GeForce RTX 5080</a></li>
+            <li><a href="./builds/4k-stream-30man.html">配信・録画向けPC構成 30万円前後 GeForce RTX 5080</a></li>
+            <li><a href="./builds/4k-creative-10man.html">動画編集・制作向けPC構成 10万円前後 GeForce RTX 5050</a></li>
+            <li><a href="./builds/4k-creative-15man.html">動画編集・制作向けPC構成 15万円前後 GeForce RTX 5060</a></li>
+            <li><a href="./builds/4k-creative-20man.html">動画編集・制作向けPC構成 20万円前後 GeForce RTX 5060 Ti</a></li>
+            <li><a href="./builds/4k-creative-25man.html">動画編集・制作向けPC構成 25万円前後 GeForce RTX 5070</a></li>
+            <li><a href="./builds/4k-creative-30man.html">動画編集・制作向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
+            <li><a href="./builds/4k-daily-10man.html">普段使い向けPC構成 10万円前後 Radeon RX 7600</a></li>
+            <li><a href="./builds/4k-daily-15man.html">普段使い向けPC構成 15万円前後 Radeon RX 9060 XT</a></li>
+            <li><a href="./builds/4k-daily-20man.html">普段使い向けPC構成 20万円前後 Radeon RX 9070</a></li>
+            <li><a href="./builds/4k-daily-25man.html">普段使い向けPC構成 25万円前後 Radeon RX 9070</a></li>
+            <li><a href="./builds/4k-daily-30man.html">普段使い向けPC構成 30万円前後 GeForce RTX 5070 Ti</a></li>
           </ul>
         </details>
+        <!-- GENERATED:all-builds END -->
       </div>
     </section>
 
@@ -598,6 +655,29 @@
     </div>
   </footer>
 
+  <!-- 比較リスト（最大3構成）。中身がある間だけ画面下に出る -->
+  <div id="compare-bar" class="compare-bar" hidden>
+    <span class="compare-bar-text"><span class="compare-bar-paw" aria-hidden="true">🐾</span> 比較リスト <b data-compare-count>0</b>/3</span>
+    <button type="button" class="compare-bar-btn" data-compare-open>比較する</button>
+  </div>
+
+  <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-dialog-title">
+    <div class="compare-dialog-inner">
+      <div class="compare-dialog-head">
+        <h2 id="compare-dialog-title">構成を比較する</h2>
+        <button type="button" class="compare-dialog-close" data-compare-close aria-label="閉じる">×</button>
+      </div>
+      <div id="compare-dialog-body"></div>
+      <div class="compare-dialog-actions">
+        <button type="button" class="pb-btn" data-compare-share hidden>🔗 この比較を共有</button>
+        <button type="button" class="pb-btn pb-btn--ghost" data-compare-clear>すべて外す</button>
+        <button type="button" class="pb-btn pb-btn--primary" data-compare-close>閉じる</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="pcbc-toast" class="pcbc-toast" role="status" aria-live="polite"></div>
+
   <!-- PWA Install Prompt -->
   <div id="install-prompt" class="install-prompt" role="dialog" aria-label="アプリとして追加">
     <span class="install-prompt-icon">📱</span>
@@ -620,6 +700,8 @@
   <!-- 解像度適性の共通基準（GPU GUIDE と同じ尺度を使う） -->
   <script src="/shared/gpu/gpu-target.js"></script>
   <script src="/shared/parts/build-price.js"></script>
+  <!-- 構成タイプ・得意分野・±5万円比較などの判定（静的75ページの生成と共通。build-price.js の後に読む） -->
+  <script src="build-profile.js"></script>
   <script src="script.js"></script>
   <script src="/shared/nav/sippo-nav.js" defer></script>
 </body>

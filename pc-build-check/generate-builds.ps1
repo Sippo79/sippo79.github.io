@@ -68,6 +68,36 @@ try {
     Write-Host "参考価格: node 実行に失敗したため価格表示なしで生成します"
 }
 
+# ---------------------------------------------------------------------
+#  構成タイプ・得意分野・この構成にした理由・±5万円比較
+# ---------------------------------------------------------------------
+#  判定と文言は build-profile.js（診断画面と同じ関数）が持つ。ここで条件分岐を
+#  書き写すと、トップの診断結果と個別ページで説明が食い違うため、
+#  compute-profiles.js が作った HTML 断片をそのまま貼る（価格と同じ方式）。
+#  node が無い環境ではこれらの節を出さないだけで、生成そのものは通す。
+$buildProfiles = @{}
+try {
+    $profileJson = & node "./compute-profiles.js" 2>$null
+    if ($LASTEXITCODE -eq 0 -and $profileJson) {
+        foreach ($row in ($profileJson | ConvertFrom-Json)) {
+            $buildProfiles[[string]$row.id] = $row
+        }
+        Write-Host "構成プロフィール: $($buildProfiles.Count) 件を算出"
+    } else {
+        Write-Host "構成プロフィール: 算出できなかったため該当節なしで生成します"
+    }
+} catch {
+    Write-Host "構成プロフィール: node 実行に失敗したため該当節なしで生成します"
+}
+
+function Get-ProfilePart($build, $name) {
+    $key = [string]$build.id
+    if (-not $buildProfiles.ContainsKey($key)) { return "" }
+    $value = $buildProfiles[$key].$name
+    if ($null -eq $value) { return "" }
+    return [string]$value
+}
+
 # そのGPUが中古前提のモデルか（gpus.json の market が唯一の判定材料）。
 # ここでGPU名を列挙しない。データが変わったら自動で追従させる。
 function Test-UsedMarketGpu($gpuName) {
@@ -291,6 +321,11 @@ function Build-Html($build, $allBuilds) {
     $relHtml   = Build-RelatedHtml $related
     $motherboardHtml = Build-MotherboardGuideHtml $build
     $priceHtml = Build-PriceHtml $build
+    $typesHtml    = Get-ProfilePart $build "typesHtml"
+    $profileHtml  = Get-ProfilePart $build "sectionsHtml"
+    $budgetHtml   = Get-ProfilePart $build "budgetHtml"
+    $consultQuery = Get-ProfilePart $build "diagnoseQuery"
+    $consultUrl   = "https://sippo-pc.jp/pc-consult/?from=pc-build-check&$consultQuery#apply"
 
     $suitedHtml  = ($suitedFor[$build.usage]  | ForEach-Object { "          <li>$_</li>" }) -join "`n"
     $cautionItems = @($cautions[$build.usage])
@@ -353,7 +388,7 @@ function Build-Html($build, $allBuilds) {
   <link rel="stylesheet" href="../builds.css" />
   <script>if('serviceWorker'in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js').catch(function(){});});</script>
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PC BUILD CHECK", "item": "https://sippo-pc.jp/pc-build-check/"}, {"@type": "ListItem", "position": 2, "name": "人気構成", "item": "https://sippo-pc.jp/pc-build-check/#popular-builds"}, {"@type": "ListItem", "position": 3, "name": "$($build.title)"}]}
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PC BUILD CHECK", "item": "https://sippo-pc.jp/pc-build-check/"}, {"@type": "ListItem", "position": 2, "name": "おすすめ構成", "item": "https://sippo-pc.jp/pc-build-check/#popular-builds"}, {"@type": "ListItem", "position": 3, "name": "$($build.title)"}]}
   </script>
 
   <!-- Google tag (gtag.js) -->
@@ -384,7 +419,7 @@ $sippoHeaderLink
         <nav class="build-breadcrumb" aria-label="パンくずリスト">
           <a href="../index.html">PC BUILD CHECK</a>
           <span aria-hidden="true">›</span>
-          <a href="../index.html#popular-builds">人気構成</a>
+          <a href="../index.html#popular-builds">おすすめ構成</a>
           <span aria-hidden="true">›</span>
           <span>$($build.title)</span>
         </nav>
@@ -392,7 +427,7 @@ $sippoHeaderLink
           <span class="build-tag">$resStr</span>
           <span class="build-tag">${usageStr}向け</span>
           <span class="build-tag">${bgLabel}前後</span>
-        </div>
+        </div>$typesHtml
         <h1 class="build-page-title">$pageH1</h1>
         <p class="build-page-subtitle">$seoDesc</p>
       </div>
@@ -419,7 +454,7 @@ $priceHtml
         <p class="build-intro">$introText</p>
         <p class="build-comment">$($build.comment)</p>
       </section>
-$motherboardHtml
+$profileHtml$motherboardHtml
 
       <section class="build-card">
         <p class="section-label">For You</p>
@@ -436,7 +471,7 @@ $suitedHtml
 $cautionHtml
         </ul>
       </section>
-
+$budgetHtml
       <section class="build-card build-next-card">
         <p class="section-label">Next Step</p>
         <h2>次のステップ</h2>
@@ -467,6 +502,13 @@ $cautionHtml
             <div class="build-next-text">
               <strong>PC構成診断をやり直す</strong>
               <small>条件を変えて別の構成も確認できます</small>
+            </div>
+          </a>
+          <a href="$consultUrl" class="build-next-btn build-next-btn--consult">
+            <span class="build-next-icon">🐾</span>
+            <div class="build-next-text">
+              <strong>この構成で買って大丈夫か相談する</strong>
+              <small>シッポPC相談室へ。診断内容をメモにして引き継げます</small>
             </div>
           </a>
         </div>
@@ -571,6 +613,11 @@ $urlEntries = $builds | ForEach-Object {
 }
 $sitemap = "<?xml version=`"1.0`" encoding=`"UTF-8`"?>`n<urlset xmlns=`"http://www.sitemaps.org/schemas/sitemap/0.9`">`n  <url>`n    <loc>$SITE_BASE/</loc>`n    <changefreq>weekly</changefreq>`n    <priority>1.0</priority>`n  </url>`n" + ($urlEntries -join "`n") + "`n</urlset>"
 [System.IO.File]::WriteAllText((Resolve-Path ".").Path + "\sitemap.xml", $sitemap, [System.Text.Encoding]::UTF8)
+
+# トップ（index.html）の Sample Result・おすすめ構成・全構成一覧も builds.json から作り直す。
+# ここを忘れると「個別ページは新構成、トップは旧構成」の食い違いが再発する。
+& node "./generate-index-sections.js"
+if ($LASTEXITCODE -ne 0) { Write-Host "[warn] index.html の生成範囲を更新できませんでした（node generate-index-sections.js を手動で実行してください）" }
 
 Write-Host ""
 Write-Host "Done! $count pages generated in ./builds/"

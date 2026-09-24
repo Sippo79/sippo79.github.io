@@ -242,7 +242,7 @@ const usageComfortMessages = {
 
 const whyThisBuildMessages = {
   fps: {
-    fhd: (gpu) => `FPSゲームで重要なのはフレームレートです。${gpu}はフルHD解像度でのフレームレートが高く、Apex LegendsやVALORANTで高fpsを出しやすいGPUです。3Dキャッシュ付きCPUとの組み合わせでゲーム性能をさらに引き出しています。`,
+    fhd: (gpu) => `FPSゲームで重要なのはフレームレートです。${gpu}はフルHD解像度でのフレームレートが高く、Apex LegendsやVALORANTで高fpsを出しやすいGPUです。`,
     wqhd: (gpu) => `WQHDはフルHDより高精細で、FPSの視認性が向上します。${gpu}はWQHD解像度でも十分なフレームレートを維持できるため、高画質と高fpsを両立したい方に適した構成です。`,
     "4k": (gpu) => `4K解像度でのFPSは非常に高いGPU性能が必要です。${gpu}はその要求に応えられる最上位クラスのGPUです。画質を最優先にしたい方向けの構成です。`,
   },
@@ -612,7 +612,7 @@ function getBeginnerBadges(result, profile) {
  *   言い回しを付けない（注意書きと矛盾するため）。 */
 function getForWhomText(usage, resolution, fit) {
   const base = {
-    fps: "フルHDでApexやフォートナイトなどの人気FPSを、安心して遊びたい人に向いています。",
+    fps: "Apexやフォートナイトなどの人気FPSを、安心して遊びたい人に向いています。",
     mmo: "FF14や原神などを、きれいな画面でゆったり遊びたい人に向いています。",
     stream: "ゲームをしながら、配信や録画も少しやってみたい人に向いています。",
     creative: "ゲームに加えて、動画編集などの作業もこなしたい人に向いています。",
@@ -710,6 +710,18 @@ function renderPriceEstimate(build) {
     </section>`;
 }
 
+/* 強化版の結果では金額を部品カード（想定価格）に出すので、ここでは
+ * 予算超過の注意と価格の注記だけを出す（同じ金額を2回並べない）。 */
+function renderPriceNotes(build) {
+  const api = window.SippoBuildPrice;
+  if (!api || !partPrices || !build) return "";
+  const estimate = api.calculateBuildEstimate(build, { prices: partPrices, gpuList: gpuData });
+  if (!estimate || estimate.total === null) return "";
+  const fit = api.evaluateBudgetFit(estimate.total, build.budget);
+  if (fit && fit.isOver) return renderPriceEstimate(build);
+  return `<p class="price-estimate-note pb-price-note">${api.PRICE_DISCLAIMER}</p>`;
+}
+
 function renderUsedGpuNotice(gpuName) {
   if (!isUsedMarketGpu(gpuName)) return "";
 
@@ -752,9 +764,13 @@ function renderResolutionNotice(fit) {
 }
 
 // 診断結果の下に置く相談導線（既存の /pc-consult/ へ誘導）
-function renderConsultCta() {
+/* 相談室の申し込みは外部フォーム（Square→Googleフォーム／ココナラ）なので自動入力はできない。
+ * 代わりに診断条件をURLで渡し、相談室側で「相談メモ」（コピーして貼れる文章）を表示する。
+ * 渡すのは予算・用途・解像度の区分だけ。CPU/GPUは相談室側が builds.json から引く。 */
+function renderConsultCta(query) {
+  const href = query ? `/pc-consult/?from=pc-build-check&${query}#apply` : "/pc-consult/";
   return `
-    <div class="result-consult">
+    <div class="result-consult pb-reveal">
       <div class="result-consult-head">
         <span class="result-consult-emoji" aria-hidden="true">🐾</span>
         <h4>この構成で迷ったら、相談できます</h4>
@@ -766,7 +782,8 @@ function renderConsultCta() {
         <li>予算内でどれを選べばいいか相談したい</li>
         <li>パーツ名が分からなくてもOK</li>
       </ul>
-      <a class="result-consult-btn" href="/pc-consult/">シッポに相談してみる →</a>
+      <a class="result-consult-btn" href="${href}" data-track="pcbc_to_consult" data-location="result-cta">この構成で買って大丈夫か相談する →</a>
+      <p class="result-consult-note">相談室のページに、今回の診断内容をまとめた「相談メモ」が表示されます。コピーして申し込みフォームに貼れます。</p>
     </div>
   `;
 }
@@ -817,32 +834,37 @@ function renderMotherboardGuide(motherboardGuide) {
 /* 診断結果の下に出す「次のステップ」。
  * GPUが特定できるときは、GPU一覧ではなく **そのGPUの詳細ページ** へ直接送る。
  * ボタン文言も実際の遷移先に合わせる（「GPU詳細」と言って一覧に着地させない）。 */
-function renderNextActions(gpuGuideUrl, gpuName) {
+function renderNextActions(gpuGuideUrl, gpuName, game) {
   const hasDetail = hasGpuDetailPage(gpuName);
   const gpuLabel = hasDetail ? `${gpuName} の詳細を見る` : "GPUを比較して選ぶ";
   const gpuNote = hasDetail
     ? "性能スコア・VRAM・相性のよいCPU"
     : "性能・価格帯からGPUを探せます";
+  // 遊びたいゲームを選んでいれば、GAME PC GUIDE のそのゲームのページへ直接送る
+  const P = window.SippoBuildProfile;
+  const gameHref = game && P ? P.gameUrl(game) : "/game-pc-guide/";
+  const gameLabel = game ? `${escapeHtml(game.title)}のおすすめPCを見る` : "ゲーム別おすすめPCを見る";
+  const gameNote = game ? "GAME PC GUIDEで必要スペックを確認" : "遊びたいゲームから逆引き";
 
   return `
-    <div class="next-action-section">
+    <div class="next-action-section pb-reveal">
       <p class="next-action-label">次のステップ</p>
       <div class="next-action-grid">
-        <a class="next-action-btn" href="${gpuGuideUrl}">
+        <a class="next-action-btn" href="${gpuGuideUrl}" data-track="pcbc_to_gpu_guide" data-location="next-actions">
           <span class="next-action-icon">🔍</span>
           <span class="next-action-text">
             <strong>${gpuLabel}</strong>
             <small>${gpuNote}</small>
           </span>
         </a>
-        <a class="next-action-btn" href="/game-pc-guide/">
+        <a class="next-action-btn" href="${gameHref}" data-track="pcbc_to_game_guide" data-location="next-actions">
           <span class="next-action-icon">🎮</span>
           <span class="next-action-text">
-            <strong>ゲーム別おすすめPCを見る</strong>
-            <small>遊びたいゲームから逆引き</small>
+            <strong>${gameLabel}</strong>
+            <small>${gameNote}</small>
           </span>
         </a>
-        <a class="next-action-btn" href="/upgrade/">
+        <a class="next-action-btn" href="/upgrade/" data-track="pcbc_to_upgrade" data-location="next-actions">
           <span class="next-action-icon">🔧</span>
           <span class="next-action-text">
             <strong>今のPCを活かせるか調べる</strong>
@@ -852,8 +874,8 @@ function renderNextActions(gpuGuideUrl, gpuName) {
         <a class="next-action-btn" href="#popular-builds" id="next-action-popular">
           <span class="next-action-icon">🏆</span>
           <span class="next-action-text">
-            <strong>人気構成ランキングを見る</strong>
-            <small>みんなが選ぶ定番構成</small>
+            <strong>シッポのおすすめ構成を見る</strong>
+            <small>運営が選んだ定番の構成</small>
           </span>
         </a>
       </div>
@@ -924,6 +946,28 @@ async function loadPartPrices() {
   }
 }
 
+/* GAME PC GUIDE のゲーム一覧。「遊びたいゲーム」の選択肢と、診断結果の
+ * 「このゲームならどこまで狙えるか」に使う。ゲーム名やURLをここに持たない
+ * （ゲームを追加したら games.json だけ直せば両サイトに反映される）。
+ * 必要になるまで読み込まない（詳細設定を開いたとき／診断したとき）。 */
+let games = [];
+let gamesPromise = null;
+function loadGames() {
+  if (!gamesPromise) {
+    gamesPromise = fetch("/game-pc-guide/data/games.json")
+      .then((response) => (response.ok ? response.json() : []))
+      .then((list) => {
+        games = Array.isArray(list) ? list : [];
+        return games;
+      })
+      .catch(() => {
+        games = [];
+        return games;
+      });
+  }
+  return gamesPromise;
+}
+
 /* =========================
    PWA Install Prompt
 ========================= */
@@ -964,9 +1008,10 @@ if (installBtnNo) {
 
 setupAffiliateLinks();
 toggleAffiliateSection(false);
-loadBuilds();
-loadGpuData();
-loadPartPrices();
+// 診断・比較で「データが揃うまで待つ」ために Promise を持っておく
+const buildsReady = loadBuilds();
+const gpuReady = loadGpuData();
+const pricesReady = loadPartPrices();
 
 popularJumpButton.addEventListener("click", () => {
   popularBuildsSection.scrollIntoView({
@@ -975,38 +1020,641 @@ popularJumpButton.addEventListener("click", () => {
   });
 });
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+/* ==================================================================
+ *  診断結果の強化（得意分野・理由・構成タイプ・±5万円・3構成比較・
+ *  ゲーム・こだわり条件・URL共有・比較リスト）
+ * ==================================================================
+ *  判定と文言はすべて build-profile.js（window.SippoBuildProfile）が持つ。
+ *  ここは「並べて見せる」ことだけを担当し、部品名・価格・閾値を書かない。
+ *  静的75ページ（generate-builds.ps1）も同じ判定を使うので、
+ *  ここで独自に言い換えると診断結果と個別ページで説明が食い違う。
+ * ================================================================== */
 
-  const budget = form.budget.value;
-  const usage = form.usage.value;
-  const resolution = form.resolution.value;
+function escapeHtml(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
-  if (!budget || !usage || !resolution) {
-    resultArea.innerHTML = `
-      <div class="result-card">
-        <p>すべての項目を選択してください。</p>
+function prefersReducedMotion() {
+  try {
+    return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  } catch {
+    return false;
+  }
+}
+
+/* GA4 計測。既存と同じ gtag('event', ...) 方式。計測は「おまけ」なので
+ * 何があっても画面の動作を止めない（未読み込み・ブロック時は黙って何もしない）。 */
+function trackEvent(name, params) {
+  try {
+    if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+  } catch {
+    /* 計測失敗は無視 */
+  }
+}
+
+function profileCtx() {
+  return { prices: partPrices, gpuList: gpuData };
+}
+
+function toast(message) {
+  const el = document.querySelector("#pcbc-toast");
+  if (!el) return;
+  el.textContent = message;
+  el.classList.remove("is-visible");
+  // 同じ文言を連続で出しても読み上げ・アニメーションが走るよう一度外してから付ける
+  void el.offsetWidth;
+  el.classList.add("is-visible");
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => el.classList.remove("is-visible"), 2600);
+}
+
+function shortStorage(storage) {
+  return String(storage || "").replace(/\s*NVMe SSD$/, "");
+}
+
+/* ---------- 部品カード（あなたにはこの構成） ---------- */
+
+function renderSpecGrid(a, gpuGuideUrl, fitHeadline) {
+  const items = [
+    { key: "cpu", icon: "🧠", label: "CPU", value: a.cpu },
+    {
+      key: "gpu",
+      icon: "🎮",
+      label: "GPU（グラボ）",
+      value: a.gpu,
+      extra: `<a class="pb-spec-link" href="${gpuGuideUrl}" data-track="pcbc_to_gpu_guide" data-location="spec-card">GPU GUIDEで見る →</a>`,
+    },
+    { key: "memory", icon: "🗂️", label: "メモリ", value: a.ram },
+    { key: "storage", icon: "⚡", label: "SSD", value: a.storage },
+    { key: "price", icon: "💴", label: "想定価格", value: a.priceText || `${a.budgetMan}万円前後`, total: a.priceText ? a.total : null, sub: a.priceText ? "参考価格（BTO完成品の目安）" : "予算の目安" },
+    { key: "usage", icon: "🎯", label: "用途", value: a.usageLabel },
+    { key: "res", icon: "🖥️", label: "推奨解像度", value: fitHeadline, sub: `選んだ条件: ${a.resolutionLabel}` },
+  ];
+  return `
+    <ul class="pb-spec-grid">
+      ${items.map((item, i) => `
+        <li class="pb-spec pb-spec--${item.key} pb-assemble" style="--i:${i}">
+          <span class="pb-spec-icon" aria-hidden="true">${item.icon}</span>
+          <span class="pb-spec-label">${escapeHtml(item.label)}</span>
+          <strong class="pb-spec-value"${item.total ? ` data-total="${item.total}"` : ""}>${escapeHtml(item.value)}</strong>
+          ${item.sub ? `<small class="pb-spec-sub">${escapeHtml(item.sub)}</small>` : ""}
+          ${item.extra || ""}
+        </li>`).join("")}
+    </ul>`;
+}
+
+function renderTypes(a) {
+  if (!a.types.length) return "";
+  return `
+    <div class="pb-types pb-assemble" style="--i:7">
+      <span class="pb-types-label">構成タイプ</span>
+      ${a.types.map((t) => `<span class="pb-type pb-type--${escapeHtml(t.key)}">${escapeHtml(t.label)}</span>`).join("")}
+    </div>`;
+}
+
+/* ---------- このPCの得意分野 ---------- */
+
+function renderStrengths(a) {
+  if (!a.strengths.length) return "";
+  return `
+    <section class="pb-section pb-reveal">
+      <div class="pb-section-head">
+        <p class="result-label">Strengths</p>
+        <h4>このPCの得意分野</h4>
       </div>
-    `;
-    toggleAffiliateSection(false);
+      <ul class="pb-strengths">
+        ${a.strengths.map((s, i) => `
+          <li class="pb-strength" style="--i:${i}">
+            <span class="pb-strength-label">${escapeHtml(s.label)}</span>
+            <span class="pb-strength-bar" aria-hidden="true"><span style="width:${s.level * 20}%"></span></span>
+            <strong class="pb-strength-text pb-level-${s.level}">${escapeHtml(s.text)}</strong>
+          </li>`).join("")}
+      </ul>
+      <p class="pb-note">GPU単体の細かい性能比較は <a href="/gpu-guide/" data-track="pcbc_to_gpu_guide" data-location="strengths-note">GPU GUIDE</a> で見られます。ここでは「構成全体として何が得意か」をざっくり示しています。</p>
+    </section>`;
+}
+
+/* ---------- この構成にした理由 ---------- */
+
+function renderReasons(a, whyMessage) {
+  if (!a.reasons.length && !whyMessage) return "";
+  return `
+    <section class="pb-section pb-reveal">
+      <div class="pb-section-head">
+        <p class="result-label">Why This Build</p>
+        <h4>この構成にした理由</h4>
+      </div>
+      ${whyMessage ? `<p class="why-text">${whyMessage}</p>` : ""}
+      <dl class="pb-reasons">
+        ${a.reasons.map((r) => `<div><dt>${escapeHtml(r.label)}</dt><dd>${escapeHtml(r.text)}</dd></div>`).join("")}
+      </dl>
+    </section>`;
+}
+
+/* ---------- ±5万円比較 ---------- */
+
+function renderDiffPanel(kind, cur, other) {
+  const P = window.SippoBuildProfile;
+  const isUp = kind === "up";
+  const exp = isUp ? P.explainUp(cur, other) : P.explainDown(cur, other);
+  const d = exp.diff;
+  const priceDiff = P.formatPriceDiff(d.priceDiff);
+  const unchanged = [
+    ["GPU", "gpu"], ["CPU", "cpu"], ["メモリ", "ram"], ["SSD", "storage"],
+  ].filter(([, f]) => cur[f] === other[f]).map(([label, f]) => `${label} ${f === "storage" ? shortStorage(cur[f]) : cur[f]}`);
+
+  return `
+    <div class="pb-diff-panel" data-panel="${kind}" role="tabpanel" ${isUp ? "" : "hidden"}>
+      <div class="pb-diff-head">
+        <div class="pb-diff-col">
+          <span>今の構成</span>
+          <strong>${cur.budgetMan}万円前後</strong>
+          ${cur.priceText ? `<small>参考 ${escapeHtml(cur.priceText)}</small>` : ""}
+        </div>
+        <span class="pb-diff-arrow" aria-hidden="true">→</span>
+        <div class="pb-diff-col is-target">
+          <span>${isUp ? "5万円上げると" : "5万円下げると"}</span>
+          <strong>${other.budgetMan}万円前後</strong>
+          ${other.priceText ? `<small>参考 ${escapeHtml(other.priceText)}${priceDiff ? `（${escapeHtml(priceDiff)}）` : ""}</small>` : ""}
+        </div>
+      </div>
+      <p class="pb-diff-headline">${escapeHtml(exp.headline)}</p>
+      ${d.changes.length ? `
+      <ul class="pb-diff-list">
+        ${d.changes.map((c) => `
+          <li>
+            <span class="pb-diff-part">${escapeHtml(c.label)}</span>
+            <span class="pb-diff-from">${escapeHtml(c.key === "storage" ? shortStorage(c.from) : c.from)}</span>
+            <span class="pb-diff-to-arrow" aria-hidden="true">↓</span>
+            <span class="pb-diff-to">${escapeHtml(c.key === "storage" ? shortStorage(c.to) : c.to)}</span>
+          </li>`).join("")}
+      </ul>` : ""}
+      ${!isUp && exp.points && exp.points.length ? `
+      <ul class="pb-points">${exp.points.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>` : ""}
+      <p class="pb-diff-text">${escapeHtml(exp.text)}</p>
+      ${unchanged.length && d.changes.length ? `<p class="pb-diff-same">変わらないもの: ${escapeHtml(unchanged.join(" / "))}</p>` : ""}
+      <div class="pb-diff-actions">
+        <button type="button" class="pb-btn pb-btn--primary" data-goto-slug="${escapeHtml(other.slug)}" data-goto-source="budget-${kind}">${other.budgetMan}万円の構成で診断し直す</button>
+        <button type="button" class="pb-btn" data-compare-add="${escapeHtml(other.slug)}">＋ 比較候補に追加</button>
+        <a class="pb-btn pb-btn--ghost" href="./builds/${escapeHtml(other.slug)}.html">詳細ページ</a>
+      </div>
+    </div>`;
+}
+
+function renderBudgetCompare(cur) {
+  const P = window.SippoBuildProfile;
+  const n = P.neighbors(builds, cur.build);
+  const ctx = profileCtx();
+  const down = n.down ? P.analyze(n.down, ctx) : null;
+  const up = n.up ? P.analyze(n.up, ctx) : null;
+  if (!down && !up) return "";
+
+  // 片側しか無い（最低/最高予算）ときはタブを出さず、その1枚だけ見せる
+  const tabs = down && up ? `
+      <div class="pb-seg" role="tablist" aria-label="予算の比較方向">
+        <button type="button" role="tab" class="pb-seg-btn" data-dir="down" aria-selected="false">− 5万円（${down.budgetMan}万円）</button>
+        <button type="button" role="tab" class="pb-seg-btn is-active" data-dir="up" aria-selected="true">＋ 5万円（${up.budgetMan}万円）</button>
+      </div>` : "";
+  const edgeNote = !down
+    ? `<p class="pb-edge-note">${cur.budgetMan}万円がいちばん安い予算帯なので、5万円上げた場合だけ表示しています。</p>`
+    : !up
+      ? `<p class="pb-edge-note">${cur.budgetMan}万円がいちばん高い予算帯なので、5万円下げた場合だけ表示しています。</p>`
+      : "";
+
+  let panels = "";
+  if (down) panels += renderDiffPanel("down", cur, down).replace(/ hidden>/, up ? " hidden>" : ">");
+  if (up) panels += renderDiffPanel("up", cur, up);
+
+  return `
+    <section class="pb-section pb-budget pb-reveal" data-budget-compare>
+      <div class="pb-section-head">
+        <p class="result-label">Budget ±5</p>
+        <h4>予算を5万円変えると？</h4>
+      </div>
+      <p class="pb-lead">同じ${escapeHtml(cur.usageLabel)}・${escapeHtml(cur.resolutionLabel)}向けで、予算だけを変えた構成と比べます。<strong>何に5万円を払うのか</strong>が分かります。</p>
+      ${tabs}
+      ${edgeNote}
+      ${panels}
+    </section>`;
+}
+
+/* ---------- 近い予算の3構成 ---------- */
+
+function renderTrio(cur) {
+  const P = window.SippoBuildProfile;
+  const ctx = profileCtx();
+  const list = P.trio(builds, cur.build).map((t) => ({ ...t, a: P.analyze(t.build, ctx) }));
+  if (list.length < 2) return "";
+
+  const diffClass = (a, field) => (a.slug !== cur.slug && a[field] !== cur[field] ? " is-diff" : "");
+  const cards = list.map((t, i) => {
+    const a = t.a;
+    const isCur = a.slug === cur.slug;
+    return `
+      <article class="pb-trio-card pb-trio-card--${t.role}${isCur ? " is-current" : ""}" style="--i:${i}">
+        <span class="pb-trio-role">${escapeHtml(t.roleLabel)}</span>
+        <strong class="pb-trio-budget">${a.budgetMan}万円前後</strong>
+        <small class="pb-trio-price">${a.priceText ? `参考 ${escapeHtml(a.priceText)}` : "&nbsp;"}</small>
+        <dl class="pb-trio-specs">
+          <div class="${diffClass(a, "cpu")}"><dt>CPU</dt><dd>${escapeHtml(a.cpu)}</dd></div>
+          <div class="${diffClass(a, "gpu")}"><dt>GPU</dt><dd>${escapeHtml(a.gpu)}</dd></div>
+          <div class="${diffClass(a, "ram")}"><dt>メモリ</dt><dd>${escapeHtml(a.ram)}</dd></div>
+          <div class="${diffClass(a, "storage")}"><dt>SSD</dt><dd>${escapeHtml(shortStorage(a.storage))}</dd></div>
+          <div class="${a.slug !== cur.slug && a.gpuTargetLabel !== cur.gpuTargetLabel ? " is-diff" : ""}"><dt>得意な解像度</dt><dd>${escapeHtml(a.gpuTargetLabel ? `${a.gpuTargetLabel}向け` : "—")}</dd></div>
+          <div><dt>特徴</dt><dd>${escapeHtml(a.types.map((x) => x.label).join("・") || "—")}</dd></div>
+        </dl>
+        <div class="pb-trio-actions">
+          ${isCur
+            ? `<span class="pb-trio-now">表示中の構成</span>`
+            : `<button type="button" class="pb-btn pb-btn--primary" data-goto-slug="${escapeHtml(a.slug)}" data-goto-source="trio">この構成で診断</button>`}
+          <button type="button" class="pb-btn" data-compare-add="${escapeHtml(a.slug)}">＋ 比較に追加</button>
+        </div>
+      </article>`;
+  }).join("");
+
+  return `
+    <section class="pb-section pb-trio pb-reveal">
+      <div class="pb-section-head">
+        <p class="result-label">Compare</p>
+        <h4>近い予算の${list.length}構成を比べる</h4>
+      </div>
+      <p class="pb-lead">色の付いた項目が、今の構成と違うところです。</p>
+      <p class="pb-scroll-hint" aria-hidden="true"><span>←</span> 横にスワイプして比べられます <span>→</span></p>
+      <div class="pb-trio-track" tabindex="0" aria-label="近い予算の構成比較（横にスクロールできます）">${cards}</div>
+    </section>`;
+}
+
+/* ---------- 遊びたいゲーム ---------- */
+
+/* 用途に近いジャンルの人気ゲームを最大3つ。ゲームを選んでいればそれを先頭に。 */
+function pickGamesFor(usage, selectedId) {
+  if (!games.length) return [];
+  const genreFor = {
+    fps: ["FPS", "TPS"],
+    mmo: ["MMO", "RPG", "オープンワールド", "アクションRPG"],
+  };
+  const genres = genreFor[usage];
+  const popular = games.filter((g) => g.popular);
+  const pool = genres ? popular.filter((g) => genres.indexOf(g.genre) > -1) : popular;
+  const list = [];
+  const selected = games.find((g) => g.id === selectedId);
+  if (selected) list.push(selected);
+  (pool.length ? pool : popular).forEach((g) => {
+    if (list.length < 3 && list.indexOf(g) < 0) list.push(g);
+  });
+  return list;
+}
+
+function renderGameFit(cur, selectedId) {
+  const P = window.SippoBuildProfile;
+  const list = pickGamesFor(cur.usage, selectedId)
+    .map((g) => P.gameFit(cur, g, gpuData))
+    .filter(Boolean);
+  if (!list.length) return "";
+  const statusLabel = { ok: "遊びやすい", partial: "設定次第", short: "少し厳しめ" };
+  return `
+    <section class="pb-section pb-games pb-reveal">
+      <div class="pb-section-head">
+        <p class="result-label">Games</p>
+        <h4>${selectedId ? "遊びたいゲームで見ると" : "人気ゲームで見ると"}</h4>
+      </div>
+      <ul class="pb-game-list">
+        ${list.map((f) => `
+          <li class="pb-game pb-game--${f.status}${f.game.id === selectedId ? " is-selected" : ""}">
+            <div class="pb-game-head">
+              <strong>${escapeHtml(f.title)}</strong>
+              <span class="pb-game-status">${statusLabel[f.status]}</span>
+            </div>
+            <p>${escapeHtml(f.text)}</p>
+            <a href="${escapeHtml(f.url)}" data-track="pcbc_to_game_guide" data-location="game-fit">GAME PC GUIDEで詳しく見る →</a>
+          </li>`).join("")}
+      </ul>
+      <p class="pb-note">GAME PC GUIDEの目安構成とGPU GUIDEの性能スコアを比べた判定です。${selectedId ? "" : "「もう少し細かく指定する」から遊びたいゲームを選べます。"}</p>
+    </section>`;
+}
+
+/* ---------- こだわり条件 ---------- */
+
+function renderPrefs(cur, prefKeys) {
+  const P = window.SippoBuildProfile;
+  const keys = P.sanitizePrefs(prefKeys);
+  if (!keys.length) return "";
+  const ctx = profileCtx();
+  const checks = P.evaluatePrefs(cur, keys);
+  const allOk = checks.every((c) => c.ok !== false);
+  const rows = checks.map((c) => `
+    <li class="pb-pref ${c.ok === true ? "is-ok" : c.ok === false ? "is-ng" : "is-unknown"}">
+      <span class="pb-pref-mark" aria-hidden="true">${c.ok === true ? "✓" : c.ok === false ? "△" : "?"}</span>
+      ${escapeHtml(c.label)}
+      <small>${c.ok === true ? "この構成で満たせます" : c.ok === false ? "この構成では満たしきれません" : "判定できませんでした"}</small>
+    </li>`).join("");
+
+  let suggestion = "";
+  if (!allOk) {
+    const cand = P.findPrefCandidate(builds, cur, keys, ctx);
+    suggestion = cand
+      ? `
+      <div class="pb-pref-cand">
+        <p class="pb-pref-cand-head">条件に合わせるなら、この構成が近いです</p>
+        <p class="pb-pref-cand-title">${escapeHtml(cand.title)}（${cand.budgetMan}万円前後${cand.priceText ? `・参考 ${escapeHtml(cand.priceText)}` : ""}）</p>
+        <p class="pb-pref-cand-spec">CPU ${escapeHtml(cand.cpu)} / GPU ${escapeHtml(cand.gpu)} / メモリ ${escapeHtml(cand.ram)} / SSD ${escapeHtml(shortStorage(cand.storage))}</p>
+        <div class="pb-diff-actions">
+          <button type="button" class="pb-btn pb-btn--primary" data-goto-slug="${escapeHtml(cand.slug)}" data-goto-source="prefs">この構成で診断し直す</button>
+          <button type="button" class="pb-btn" data-compare-add="${escapeHtml(cand.slug)}">＋ 比較候補に追加</button>
+        </div>
+      </div>`
+      : `<p class="pb-pref-none">同じ予算〜5万円上までの構成では、すべての条件を満たすものが見つかりませんでした。優先したい条件をしぼるか、<a href="/pc-consult/" data-track="pcbc_to_consult" data-location="prefs">シッポPC相談室</a>で相談してみてください。</p>`;
+  }
+
+  let cheapNote = "";
+  if (keys.indexOf("cheap") > -1) {
+    const down = P.neighbors(builds, cur.build).down;
+    if (!down) {
+      cheapNote = `<p class="pb-pref-cheap">💡 ${cur.budgetMan}万円がいちばん安い予算帯です。さらに抑えるなら、<a href="/upgrade/" data-track="pcbc_to_upgrade" data-location="prefs-cheap">今のPCを活かすアップグレード</a>も検討してみてください。</p>`;
+    } else {
+      const d = P.analyze(down, ctx);
+      cheapNote = d.fit !== "short"
+        ? `<p class="pb-pref-cheap">💡 価格重視なら、5万円下の<strong>${d.budgetMan}万円の構成</strong>でも${escapeHtml(cur.resolutionLabel)}に対応できます。上の「予算を5万円変えると？」で何を妥協するか確認できます。</p>`
+        : `<p class="pb-pref-cheap">💡 5万円下の構成だと${escapeHtml(cur.resolutionLabel)}では厳しめになります。価格を抑えるなら、解像度をひとつ下げるのも手です。</p>`;
+    }
+  }
+
+  return `
+    <section class="pb-section pb-prefs pb-reveal">
+      <div class="pb-section-head">
+        <p class="result-label">Your Wishes</p>
+        <h4>こだわり条件のチェック</h4>
+      </div>
+      <ul class="pb-pref-list">${rows}</ul>
+      ${suggestion}
+      ${cheapNote}
+    </section>`;
+}
+
+/* ---------- すでにPCを持っている場合 ---------- */
+
+function renderUpgradeBox() {
+  return `
+    <div class="pb-upgrade pb-reveal">
+      <span class="pb-upgrade-icon" aria-hidden="true">🔧</span>
+      <div class="pb-upgrade-body">
+        <strong>すでにPCを持っている場合</strong>
+        <p>新しく買わなくても、GPUやメモリの交換だけで改善できる可能性があります。買い替える前に一度チェックしてみてください。</p>
+      </div>
+      <a class="pb-btn pb-btn--primary" href="/upgrade/" data-track="pcbc_to_upgrade" data-location="upgrade-box">PCアップグレード診断へ →</a>
+    </div>`;
+}
+
+/* ---------- 共有・比較の操作ボタン ---------- */
+
+function renderResultActions(cur) {
+  return `
+    <div class="pb-result-actions pb-anim" style="--i:8">
+      <button type="button" class="pb-btn" data-compare-add="${escapeHtml(cur.slug)}">＋ 比較候補に追加</button>
+      <button type="button" class="pb-btn" data-share-result>🔗 この診断結果を共有</button>
+      <a class="pb-btn pb-btn--ghost" href="./builds/${escapeHtml(cur.slug)}.html">この構成の詳細ページ</a>
+    </div>`;
+}
+
+/* ==================================================================
+ *  診断の実行
+ * ================================================================== */
+
+let currentState = null;
+
+function readFormState() {
+  const prefs = Array.from(document.querySelectorAll('input[name="pref"]:checked')).map((el) => el.value);
+  return {
+    budget: form.budget.value,
+    usage: form.usage.value,
+    resolution: form.resolution.value,
+    game: form.game ? form.game.value : "",
+    prefs,
+  };
+}
+
+function applyStateToForm(state) {
+  if (state.budget) form.budget.value = state.budget;
+  if (state.usage) form.usage.value = state.usage;
+  if (state.resolution) form.resolution.value = state.resolution;
+  document.querySelectorAll('input[name="pref"]').forEach((el) => {
+    el.checked = (state.prefs || []).indexOf(el.value) > -1;
+  });
+  if (form.game && state.game) {
+    // 選択肢が未生成なら、生成後に反映する（populateGameSelect が拾う）
+    form.game.dataset.pending = state.game;
+    form.game.value = state.game;
+  }
+  if ((state.prefs && state.prefs.length) || state.game) {
+    const adv = document.querySelector("#advanced-options");
+    if (adv) adv.open = true;
+  }
+  syncFilledFields();
+}
+
+function stateQuery(state) {
+  const P = window.SippoBuildProfile;
+  return P ? P.toQuery(state) : "";
+}
+
+function shareUrlFor(state) {
+  return `${location.origin}${location.pathname}?${stateQuery(state)}`;
+}
+
+/* 診断条件をアドレスバーに残す（再読み込み・共有で同じ結果を再現できる）。
+ * canonical は常に /pc-build-check/ なので、クエリ付きURLが別ページとして
+ * インデックスされることはない。sitemap にも載せない。 */
+function writeStateToUrl(state) {
+  try {
+    history.replaceState(null, "", `${location.pathname}?${stateQuery(state)}`);
+  } catch {
+    /* file:// など replaceState できない環境では何もしない */
+  }
+}
+
+/* ==================================================================
+ *  モーション（見た目の演出だけ。診断結果の中身には一切関与しない）
+ * ==================================================================
+ *  - transform / opacity だけを動かす（レイアウトを揺らさない）
+ *  - 毎フレームのDOM更新は価格のカウントアップ1か所だけ（requestAnimationFrame）
+ *  - prefers-reduced-motion のときは JS 側の演出も全部スキップし、最終状態をすぐ出す
+ *    （CSS 側は style.css 共通ルールで animation / transition を即時完了させている）
+ * ================================================================== */
+
+/* クラスを付け直してアニメーションを1回だけ再生する（連打しても最初から） */
+function replayClass(el, cls, ms) {
+  if (!el || prefersReducedMotion()) return;
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
+  clearTimeout(el._replayTimer);
+  el._replayTimer = setTimeout(() => el.classList.remove(cls), ms || 700);
+}
+
+/* 診断中のステップ表示。本当の処理時間を示すものではないので、合計1秒弱に収める。
+ * 最後の「構成が決まりました！」はデータが揃ってから出す（先走って完了を言わない）。 */
+const CHECK_STEPS = ["予算を確認中…", "用途に合うCPUを選択…", "GPU性能をチェック…"];
+const CHECK_DONE = "構成が決まりました！";
+
+function showChecking() {
+  resultArea.innerHTML = `
+    <div class="pb-checking" role="status" aria-live="polite">
+      <img class="pb-checking-sippo" src="https://sippo-pc.jp/assets/sippo/sippo-thinking.webp" alt="" width="64" height="64" decoding="async">
+      <div class="pb-checking-body">
+        <p class="pb-checking-text">構成をチェック中…</p>
+        <ol class="pb-check-steps" aria-hidden="true">
+          ${CHECK_STEPS.map((s) => `<li class="pb-check-step"><span class="pb-check-mark">✓</span>${s}</li>`).join("")}
+        </ol>
+      </div>
+    </div>`;
+}
+
+/* ステップを順に進める。stepMs×3 経過で resolve（完了表示は finishChecking が出す） */
+function playCheckingSteps(stepMs) {
+  const steps = resultArea.querySelectorAll(".pb-check-step");
+  const text = resultArea.querySelector(".pb-checking-text");
+  if (!steps.length || stepMs <= 0) return Promise.resolve();
+  return new Promise((resolve) => {
+    steps.forEach((li, i) => {
+      setTimeout(() => {
+        if (i > 0) steps[i - 1].classList.add("is-done");
+        li.classList.add("is-active");
+        if (text) text.textContent = CHECK_STEPS[i];
+      }, i * stepMs);
+    });
+    setTimeout(resolve, steps.length * stepMs);
+  });
+}
+
+async function finishChecking(holdMs) {
+  const box = resultArea.querySelector(".pb-checking");
+  if (!box || holdMs <= 0) return;
+  box.querySelectorAll(".pb-check-step").forEach((li) => li.classList.add("is-done"));
+  const text = box.querySelector(".pb-checking-text");
+  if (text) text.textContent = CHECK_DONE + " 🐾";
+  box.classList.add("is-done");
+  const img = box.querySelector(".pb-checking-sippo");
+  if (img) img.src = "https://sippo-pc.jp/assets/sippo/sippo-happy.webp";
+  await wait(holdMs);
+}
+
+/* 表示中の結果を軽くフェードアウトしてから差し替える（「診断し直す」用） */
+async function leaveCurrentResult() {
+  const card = resultArea.querySelector(".result-card");
+  if (!card || prefersReducedMotion()) return;
+  card.classList.add("is-leaving");
+  await wait(180);
+}
+
+/* 想定価格のカウントアップ。表示は既存と同じ「約〇万円」の粒度を守る
+ * （途中だけ小数1桁、最後は build-price.js の formatEstimate と同じ文字列に戻す）。 */
+function countUpPrice(el, total, finalText, delayMs) {
+  if (!el || !Number.isFinite(total) || prefersReducedMotion() || typeof requestAnimationFrame !== "function") return;
+  const duration = 650;
+  el.textContent = "約0万円";
+  setTimeout(() => {
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      if (t < 1) {
+        el.textContent = `約${((total * eased) / 10000).toFixed(1)}万円`;
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = finalText;
+        replayClass(el, "is-counted", 500);
+      }
+    };
+    requestAnimationFrame(tick);
+  }, delayMs);
+}
+
+/* 診断完了の足跡（🐾 を3つ、ほんの一瞬）。PC幅だけ。紙吹雪のような量は出さない。 */
+function showPawPrints(anchor) {
+  if (!anchor || prefersReducedMotion()) return;
+  if (window.matchMedia && !window.matchMedia("(min-width: 641px)").matches) return;
+  const wrap = document.createElement("span");
+  wrap.className = "pb-paws";
+  wrap.setAttribute("aria-hidden", "true");
+  wrap.innerHTML = "<span>🐾</span><span>🐾</span><span>🐾</span>";
+  anchor.appendChild(wrap);
+  setTimeout(() => wrap.remove(), 1600);
+}
+
+/* 結果の各セクションを、画面に入ったときに一度だけ表示する */
+let revealObserver = null;
+function setupReveal(root) {
+  const targets = root.querySelectorAll(".pb-reveal");
+  if (!targets.length) return;
+  if (prefersReducedMotion() || typeof IntersectionObserver === "undefined") {
+    targets.forEach((el) => el.classList.add("is-revealed"));
     return;
   }
+  if (revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      obs.unobserve(entry.target); // 一度出したら二度と隠さない
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  targets.forEach((el) => revealObserver.observe(el));
+}
+
+/* 結果を描画した直後に走らせる演出 */
+function playResultMotion() {
+  const card = resultArea.querySelector(".result-card--enhanced");
+  if (!card) return;
+  setupReveal(card);
+  if (prefersReducedMotion()) return;
+  const price = card.querySelector(".pb-spec--price .pb-spec-value");
+  if (price && price.dataset.total) {
+    // 価格カードの出現（5枚目＝約0.5秒後）に合わせて数え始める
+    countUpPrice(price, Number(price.dataset.total), price.textContent, 480);
+  }
+  showPawPrints(card.querySelector(".pb-result-head"));
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/* ゲーム一覧は無くても診断は出せる。遅いときは待ちすぎない。 */
+function gamesWithin(ms) {
+  return Promise.race([loadGames(), wait(ms)]);
+}
+
+async function runDiagnosis(state, options) {
+  const opts = options || {};
+  // 演出の長さ。通常は約0.7秒（ステップ170ms×3＋完了表示180ms）、
+  // 「診断し直す」は短め、URLから開いたときと reduced motion は演出なし。
+  const still = prefersReducedMotion() || opts.instant;
+  const stepMs = still ? 0 : opts.quick ? 110 : 170;
+  const holdMs = still ? 0 : opts.quick ? 140 : 180;
 
   setButtonLoading(true);
+  await leaveCurrentResult();
+  showChecking();
+  if (opts.scroll !== false) resultArea.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "nearest" });
 
-  if (builds.length === 0) {
-    showSkeleton();
-    resultArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    await loadBuilds();
-  }
-
+  await Promise.all([
+    buildsReady, gpuReady, pricesReady, gamesWithin(1500),
+    playCheckingSteps(stepMs),
+  ]);
+  if (builds.length === 0) await loadBuilds();
+  await finishChecking(holdMs);
   setButtonLoading(false);
 
   const result = builds.find((build) => {
     return (
-      build.budget === budget &&
-      build.usage === usage &&
-      build.resolution === resolution
+      build.budget === state.budget &&
+      build.usage === state.usage &&
+      build.resolution === state.resolution
     );
   });
 
@@ -1020,10 +1668,31 @@ form.addEventListener("submit", async (e) => {
         </p>
       </div>
     `;
-
     toggleAffiliateSection(false);
     return;
   }
+
+  currentState = state;
+  renderResult(result, state);
+  playResultMotion();
+  writeStateToUrl(state);
+  trackEvent("pcbc_diagnose", {
+    budget: state.budget,
+    usage: state.usage,
+    resolution: state.resolution,
+    game: state.game || "",
+    prefs: (state.prefs || []).join(","),
+    source: opts.source || "form",
+  });
+  if (opts.scroll !== false) {
+    resultArea.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+  }
+}
+
+function renderResult(result, state) {
+  const P = window.SippoBuildProfile;
+  const resolution = state.resolution;
+  const usage = state.usage;
 
   const performanceProfile = getPerformanceProfile(result.gpu);
   const fpsByGame =
@@ -1061,24 +1730,47 @@ form.addEventListener("submit", async (e) => {
     `<span class="result-badge result-badge--comfort">😊 ${comfortLabel}</span>` +
     beginnerBadges.map((b) => `<span class="result-badge">${b}</span>`).join("");
 
+  // build-profile.js が読めない場合（古いキャッシュ等）でも、従来の結果は必ず出す
+  const cur = P ? P.analyze(result, profileCtx()) : null;
+  const fitHeadline = gpuTargetHeadline(resolutionFit, performanceProfile);
+  const selectedGame = state.game ? games.find((g) => g.id === state.game) : null;
+  const query = stateQuery(state);
+
   resultArea.innerHTML = `
-    <div class="result-card">
-      <p class="result-label">Diagnosis Result</p>
+    <div class="result-card result-card--enhanced">
+      <div class="pb-result-head pb-anim" style="--i:0">
+        <img class="pb-result-sippo" src="https://sippo-pc.jp/assets/sippo/sippo-happy.webp" alt="" width="64" height="64" decoding="async">
+        <div>
+          <p class="result-label">Diagnosis Result</p>
+          <p class="pb-result-lead">あなたにはこの構成がおすすめです</p>
+          <h3>${result.title}</h3>
+        </div>
+      </div>
 
-      <h3>${result.title}</h3>
-
-      <div class="result-summary">
+      <div class="result-summary pb-anim" style="--i:1">
         <div class="result-badges">${badgesHtml}</div>
         <p class="result-forwhom">${forWhomText}</p>
       </div>
 
+      ${cur ? `
+      <p class="specs-label">あなたにはこの構成<small>むずかしい用語は下の「PC選びのかんたんな見方」で説明しています</small></p>
+      ${renderSpecGrid(cur, gpuGuideUrl, fitHeadline)}
+      ${renderTypes(cur)}
+      ${renderResultActions(cur)}
+      ` : `
       <p class="specs-label">詳しい構成（パーツ）<small>むずかしい用語は下の「PC選びのかんたんな見方」で説明しています</small></p>
       <ul class="result-specs">
         <li><span>CPU</span>${result.cpu}</li>
         <li><span>GPU（グラボ）</span>${result.gpu}</li>
         <li><span>メモリ</span>${result.ram}</li>
         <li><span>ストレージ</span>${result.storage}</li>
-      </ul>
+      </ul>`}
+
+      ${cur ? renderPriceNotes(result) : renderPriceEstimate(result)}
+
+      ${renderResolutionNotice(resolutionFit)}
+
+      ${renderUsedGpuNotice(result.gpu)}
 
       ${comfortMessage ? `
       <div class="comfort-message">
@@ -1086,7 +1778,9 @@ form.addEventListener("submit", async (e) => {
         <p>${comfortMessage}</p>
       </div>` : ''}
 
-      ${whyMessage ? `
+      ${cur ? renderStrengths(cur) : ""}
+
+      ${cur ? renderReasons(cur, whyMessage) : whyMessage ? `
       <section class="why-panel">
         <div class="why-panel-heading">
           <p class="result-label">Why This Build</p>
@@ -1095,12 +1789,16 @@ form.addEventListener("submit", async (e) => {
         <p class="why-text">${whyMessage}</p>
       </section>` : ''}
 
-      ${renderPriceEstimate(result)}
+      ${cur ? renderBudgetCompare(cur) : ""}
 
-      ${renderResolutionNotice(resolutionFit)}
+      ${cur ? renderTrio(cur) : ""}
 
-      ${renderUsedGpuNotice(result.gpu)}
+      ${cur ? renderGameFit(cur, state.game) : ""}
 
+      ${cur ? renderPrefs(cur, state.prefs) : ""}
+
+      <details class="pb-more pb-reveal">
+        <summary>もっと詳しいデータ（想定fps・電源・マザーボード）</summary>
       <div class="result-insights">
         <!-- 「選んだ条件」「GPUの得意な解像度」「この構成でのおすすめ」は
              それぞれ別物なので、1つのカードにまとめない。 -->
@@ -1112,7 +1810,7 @@ form.addEventListener("submit", async (e) => {
           </div>
           <div class="metric-card${resolutionFit.warns ? " metric-card--warn" : ""}">
             <span>このグラボの得意な解像度</span>
-            <strong>${gpuTargetHeadline(resolutionFit, performanceProfile)}</strong>
+            <strong>${fitHeadline}</strong>
             <small>${
               resolutionFit.warns
                 ? `${fitSuggestText(resolutionFit)}のモニターがおすすめです`
@@ -1149,25 +1847,26 @@ form.addEventListener("submit", async (e) => {
 
         ${renderMotherboardGuide(result.motherboardGuide)}
 
-        <a class="gpu-detail-button" href="${gpuGuideUrl}">
+        <a class="gpu-detail-button" href="${gpuGuideUrl}" data-track="pcbc_to_gpu_guide" data-location="detail-button">
           ${hasGpuDetailPage(result.gpu)
             ? `${result.gpu} の詳細スペックを見る →`
             : "グラボを比較して選ぶ →"}
         </a>
       </div>
+      </details>
 
-      ${renderNextActions(gpuGuideUrl, result.gpu)}
+      ${renderUpgradeBox()}
 
-      ${renderConsultCta()}
+      ${renderNextActions(gpuGuideUrl, result.gpu, selectedGame)}
+
+      ${renderConsultCta(query)}
     </div>
   `;
 
   // 購入リンクが1つも無いときはセクションを出さない（空の枠を残さない）。
-  // 「人気構成ランキングへ」ボタンは購入リンクの有無に関係なく出す。
+  // 「おすすめ構成へ」ボタンは購入リンクの有無に関係なく出す。
   affiliateSection.classList.toggle("hidden", !hasAffiliateLinks);
   popularJumpSection.classList.remove("hidden");
-
-  resultArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
   const nextActionPopular = document.querySelector("#next-action-popular");
   if (nextActionPopular) {
@@ -1176,7 +1875,470 @@ form.addEventListener("submit", async (e) => {
       popularBuildsSection.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const state = readFormState();
+
+  if (!state.budget || !state.usage || !state.resolution) {
+    resultArea.innerHTML = `
+      <div class="result-card">
+        <p>すべての項目を選択してください。</p>
+      </div>
+    `;
+    toggleAffiliateSection(false);
+    return;
+  }
+
+  await runDiagnosis(state, { source: "form" });
 });
+
+/* 別の構成（±5万円・3構成比較・こだわり候補）で診断し直す。
+ * フォームの値も書き換え、URLにも反映する（戻ったときに迷わないように）。 */
+function diagnoseSlug(slug, source) {
+  const P = window.SippoBuildProfile;
+  const build = P && P.findBySlug(builds, slug);
+  if (!build) return;
+  const state = {
+    budget: build.budget,
+    usage: build.usage,
+    resolution: build.resolution,
+    game: currentState ? currentState.game : "",
+    prefs: currentState ? currentState.prefs : [],
+  };
+  applyStateToForm(state);
+  trackEvent("pcbc_switch_build", { source: source || "", slug });
+  // 旧結果をフェードアウト → 短い診断演出 → 新しい結果が組み上がる
+  runDiagnosis(state, { source: source || "switch", quick: true });
+}
+
+/* ==================================================================
+ *  比較リスト（最大3構成・localStorage）
+ * ==================================================================
+ *  ユーザー登録なし・サーバー不要。保存するのは構成のスラグだけ。
+ *  共有したいときは ?compare=slug,slug のURLにする（保存先はURL）。
+ * ================================================================== */
+
+const COMPARE_KEY = "sippo-pcbc-compare-v1";
+const COMPARE_MAX = 3;
+const SLUG_PATTERN = /^(fhd|wqhd|4k)-[a-z]+-\d+man$/;
+
+function readCompareList() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(COMPARE_KEY) || "[]");
+    return Array.isArray(raw) ? raw.filter((s) => SLUG_PATTERN.test(s)).slice(0, COMPARE_MAX) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeCompareList(list) {
+  try {
+    localStorage.setItem(COMPARE_KEY, JSON.stringify(list.slice(0, COMPARE_MAX)));
+  } catch {
+    /* プライベートブラウズ等で保存できなくても、画面の操作は続ける */
+  }
+  updateCompareBar();
+}
+
+function addToCompare(slug) {
+  const list = readCompareList();
+  if (list.indexOf(slug) > -1) {
+    toast("すでに比較リストに入っています");
+    return;
+  }
+  if (list.length >= COMPARE_MAX) {
+    toast(`比較できるのは${COMPARE_MAX}つまでです。どれかを外してから追加してください`);
+    replayClass(document.querySelector("#compare-bar"), "is-full", 500);
+    openCompareDialog();
+    return;
+  }
+  list.push(slug);
+  writeCompareList(list);
+  trackEvent("pcbc_compare_add", { slug, count: list.length });
+  toast(`比較リストに追加しました（${list.length}/${COMPARE_MAX}）`);
+  replayClass(document.querySelector("#compare-bar"), "is-bump", 600);
+  replayClass(document.querySelector(".pb-result-sippo"), "is-react", 600);
+}
+
+function removeFromCompare(slug) {
+  writeCompareList(readCompareList().filter((s) => s !== slug));
+}
+
+function updateCompareBar() {
+  const bar = document.querySelector("#compare-bar");
+  if (!bar) return;
+  const count = readCompareList().length;
+  const countEl = bar.querySelector("[data-compare-count]");
+  if (countEl) countEl.textContent = String(count);
+  document.body.classList.toggle("has-compare-bar", count > 0);
+  clearTimeout(bar._hideTimer);
+  if (count > 0) {
+    // 空→1件目のときだけ下からスッと出す
+    if (bar.hidden) {
+      bar.hidden = false;
+      replayClass(bar, "is-entering", 500);
+    }
+    bar.classList.remove("is-leaving");
+  } else if (!bar.hidden) {
+    if (prefersReducedMotion()) {
+      bar.hidden = true;
+    } else {
+      bar.classList.add("is-leaving");
+      bar._hideTimer = setTimeout(() => {
+        bar.hidden = true;
+        bar.classList.remove("is-leaving");
+      }, 220);
+    }
+  }
+}
+
+function renderCompareTable(slugs) {
+  const P = window.SippoBuildProfile;
+  const ctx = profileCtx();
+  const list = slugs.map((s) => P.findBySlug(builds, s)).filter(Boolean).map((b) => P.analyze(b, ctx));
+  if (!list.length) {
+    return `<p class="compare-empty">比較リストは空です。診断結果の「＋ 比較候補に追加」から、最大${COMPARE_MAX}つまで入れられます。</p>`;
+  }
+  const strengthRows = (P.STRENGTH_DEFS || []).map((def) => ({
+    label: def.label,
+    cell: (a) => {
+      const s = a.strengths.find((x) => x.key === def.key);
+      return s ? `<span class="pb-mini-bar" aria-hidden="true"><span style="width:${s.level * 20}%"></span></span>${escapeHtml(s.text)}` : "—";
+    },
+  }));
+  const rows = [
+    { label: "予算", cell: (a) => `<strong>${a.budgetMan}万円前後</strong>` },
+    { label: "参考価格", cell: (a) => escapeHtml(a.priceText || "—") },
+    { label: "用途", cell: (a) => escapeHtml(a.usageLabel) },
+    { label: "選んだ解像度", cell: (a) => escapeHtml(a.resolutionLabel) },
+    { label: "CPU", cell: (a) => escapeHtml(a.cpu), diff: "cpu" },
+    { label: "GPU", cell: (a) => escapeHtml(a.gpu), diff: "gpu" },
+    { label: "GPUの得意な解像度", cell: (a) => escapeHtml(a.gpuTargetLabel ? `${a.gpuTargetLabel}向け` : "—") },
+    { label: "メモリ", cell: (a) => escapeHtml(a.ram), diff: "ram" },
+    { label: "SSD", cell: (a) => escapeHtml(shortStorage(a.storage)), diff: "storage" },
+    { label: "構成タイプ", cell: (a) => escapeHtml(a.types.map((t) => t.label).join("・") || "—") },
+  ].concat(strengthRows);
+
+  const head = list.map((a) => `
+    <th scope="col">
+      <span class="compare-col-title">${escapeHtml(a.title)}</span>
+      <button type="button" class="compare-remove" data-compare-remove="${escapeHtml(a.slug)}" aria-label="${escapeHtml(a.title)}を比較から外す">外す</button>
+    </th>`).join("");
+  const body = rows.map((row) => {
+    const values = list.map((a) => (row.diff ? a[row.diff] : null));
+    const differs = row.diff && values.some((v) => v !== values[0]);
+    return `<tr${differs ? ' class="is-diff"' : ""}><th scope="row">${escapeHtml(row.label)}</th>${list.map((a) => `<td>${row.cell(a)}</td>`).join("")}</tr>`;
+  }).join("");
+  const links = `<tr class="compare-links"><th scope="row">詳しく</th>${list.map((a) => `
+    <td>
+      <button type="button" class="pb-btn pb-btn--primary" data-goto-slug="${escapeHtml(a.slug)}" data-goto-source="compare">この構成で診断</button>
+      <a class="pb-btn pb-btn--ghost" href="./builds/${escapeHtml(a.slug)}.html">詳細ページ</a>
+    </td>`).join("")}</tr>`;
+
+  return `
+    <p class="pb-scroll-hint compare-scroll-hint" aria-hidden="true"><span>←</span> 横にスクロールできます <span>→</span></p>
+    <div class="compare-table-wrap" tabindex="0" aria-label="構成の比較表">
+      <table class="compare-table">
+        <thead><tr><th scope="col" class="compare-corner">項目</th>${head}</tr></thead>
+        <tbody>${body}${links}</tbody>
+      </table>
+    </div>
+    <p class="pb-note">色の付いた行は、構成によってパーツが違うところです。</p>`;
+}
+
+/* shared = URLで共有された比較を見ているとき（自分のリストは書き換えない） */
+let compareDialogShared = null;
+
+async function openCompareDialog(sharedSlugs) {
+  const dialog = document.querySelector("#compare-dialog");
+  if (!dialog) return;
+  await Promise.all([buildsReady, gpuReady, pricesReady]);
+  compareDialogShared = sharedSlugs && sharedSlugs.length ? sharedSlugs : null;
+  refreshCompareDialog();
+  if (typeof dialog.showModal === "function") {
+    if (!dialog.open) dialog.showModal();
+  } else {
+    dialog.setAttribute("open", "");
+  }
+  trackEvent("pcbc_compare_open", { count: (compareDialogShared || readCompareList()).length, shared: Boolean(compareDialogShared) });
+}
+
+function refreshCompareDialog() {
+  const body = document.querySelector("#compare-dialog-body");
+  if (!body) return;
+  const slugs = compareDialogShared || readCompareList();
+  const sharedNote = compareDialogShared
+    ? `<div class="compare-shared-note">共有された比較を表示しています。<button type="button" class="pb-btn" data-compare-save-shared>自分の比較リストに保存</button></div>`
+    : "";
+  body.innerHTML = sharedNote + renderCompareTable(slugs);
+  const shareBtn = document.querySelector("[data-compare-share]");
+  if (shareBtn) shareBtn.hidden = slugs.length < 2;
+}
+
+function closeCompareDialog() {
+  const dialog = document.querySelector("#compare-dialog");
+  if (!dialog) return;
+  if (typeof dialog.close === "function") dialog.close();
+  else dialog.removeAttribute("open");
+}
+
+/* ==================================================================
+ *  共有
+ * ================================================================== */
+
+async function shareUrl(url, title, text, kind) {
+  try {
+    if (navigator.share) {
+      await navigator.share({ title, text, url });
+      trackEvent("pcbc_share", { method: "web_share", kind });
+      return;
+    }
+  } catch (err) {
+    if (err && err.name === "AbortError") return; // ユーザーが閉じただけ
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    toast("URLをコピーしました。SNSやメッセージに貼り付けて共有できます");
+    trackEvent("pcbc_share", { method: "copy", kind });
+  } catch {
+    // クリップボードが使えない環境では、URLを見せて手でコピーしてもらう
+    window.prompt("このURLをコピーして共有してください", url);
+    trackEvent("pcbc_share", { method: "prompt", kind });
+  }
+}
+
+function shareCurrentResult() {
+  if (!currentState) return;
+  const P = window.SippoBuildProfile;
+  const build = P && P.findBuild(builds, currentState.budget, currentState.usage, currentState.resolution);
+  const text = build
+    ? `PC BUILD CHECKの診断結果：${P.budgetMan(build.budget)}万円前後・${P.USAGE_LABELS[build.usage]}・${P.RES_LABELS[build.resolution]}なら「${build.cpu} / ${build.gpu}」`
+    : "PC BUILD CHECKの診断結果";
+  shareUrl(shareUrlFor(currentState), "PC BUILD CHECKの診断結果", text, "result");
+}
+
+function shareCompare() {
+  const slugs = compareDialogShared || readCompareList();
+  if (slugs.length < 2) return;
+  const url = `${location.origin}${location.pathname}?compare=${slugs.join(",")}`;
+  shareUrl(url, "PC BUILD CHECKの構成比較", "PC BUILD CHECKで構成を比較しました", "compare");
+}
+
+/* ==================================================================
+ *  詳細設定（もう少し細かく指定する）
+ * ================================================================== */
+
+function renderPrefChips() {
+  const box = document.querySelector("#pref-chips");
+  const P = window.SippoBuildProfile;
+  if (!box || !P) return;
+  box.innerHTML = P.PREFS.map((p) => `
+    <label class="pref-chip">
+      <input type="checkbox" name="pref" value="${escapeHtml(p.key)}">
+      <span>${escapeHtml(p.label)}</span>
+    </label>`).join("");
+}
+
+async function populateGameSelect() {
+  const select = document.querySelector("#game-select");
+  if (!select || select.dataset.ready === "1") return;
+  const list = await loadGames();
+  if (!list.length) {
+    select.innerHTML = `<option value="">ゲーム一覧を読み込めませんでした</option>`;
+    return;
+  }
+  const option = (g) => `<option value="${escapeHtml(g.id)}">${escapeHtml(g.title)}</option>`;
+  const popular = list.filter((g) => g.popular);
+  const others = list.filter((g) => !g.popular);
+  select.innerHTML = `<option value="">選ばない</option>` +
+    (popular.length ? `<optgroup label="人気のゲーム">${popular.map(option).join("")}</optgroup>` : "") +
+    (others.length ? `<optgroup label="そのほかのゲーム">${others.map(option).join("")}</optgroup>` : "");
+  select.dataset.ready = "1";
+  const pending = select.dataset.pending;
+  if (pending && list.some((g) => g.id === pending)) select.value = pending;
+  syncFilledFields();
+}
+
+/* 選んだ項目のカードを少し浮かせる（入力に反応するアニメーション） */
+function syncFilledFields() {
+  document.querySelectorAll(".diagnosis-form .form-field").forEach((field) => {
+    const select = field.querySelector("select");
+    field.classList.toggle("is-filled", Boolean(select && select.value));
+  });
+}
+
+/* 予算・用途・解像度の3つがそろった瞬間に、診断ボタンへ一度だけ光を通す */
+let formWasReady = false;
+function syncReadyButton() {
+  const ready = Boolean(form.budget.value && form.usage.value && form.resolution.value);
+  if (ready && !formWasReady) replayClass(diagnosisButton, "is-ready-flash", 900);
+  formWasReady = ready;
+}
+
+/* ==================================================================
+ *  初期化
+ * ================================================================== */
+
+function initEnhancements() {
+  if (!window.SippoBuildProfile) return; // 読み込めなければ従来の診断だけ動かす
+
+  renderPrefChips();
+  updateCompareBar();
+
+  const introSippo = document.querySelector(".sippo-intro__img");
+  form.addEventListener("change", (e) => {
+    if (!e.target || e.target.tagName !== "SELECT") return;
+    syncFilledFields();
+    // 選んだ項目が軽くポップし、案内役のシッポが小さく跳ねる
+    replayClass(e.target.closest(".form-field"), "is-just-filled", 400);
+    replayClass(introSippo, "is-hop", 500);
+    syncReadyButton();
+  });
+  // 診断開始でシッポが軽く左右に揺れる
+  form.addEventListener("submit", () => replayClass(introSippo, "is-wiggle", 600));
+
+  const adv = document.querySelector("#advanced-options");
+  if (adv) {
+    adv.addEventListener("toggle", () => {
+      if (adv.open) populateGameSelect();
+    });
+  }
+
+  // 結果エリア・比較ダイアログ内のボタンはイベント委譲でまとめて扱う
+  document.addEventListener("click", (e) => {
+    const target = e.target instanceof Element ? e.target : null;
+    if (!target) return;
+
+    const seg = target.closest(".pb-seg-btn");
+    if (seg) {
+      const section = seg.closest("[data-budget-compare]");
+      const dir = seg.getAttribute("data-dir");
+      section.querySelectorAll(".pb-seg-btn").forEach((b) => {
+        const on = b === seg;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      section.querySelectorAll(".pb-diff-panel").forEach((panel) => {
+        const show = panel.getAttribute("data-panel") === dir;
+        panel.hidden = !show;
+        // +5万円は右から、−5万円は左から入る。変わった部品だけが光る（CSS側）
+        if (show) replayClass(panel, dir === "up" ? "is-enter-right" : "is-enter-left", 1200);
+      });
+      trackEvent("pcbc_budget_compare", { direction: dir });
+      return;
+    }
+
+    const gotoBtn = target.closest("[data-goto-slug]");
+    if (gotoBtn) {
+      closeCompareDialog();
+      diagnoseSlug(gotoBtn.getAttribute("data-goto-slug"), gotoBtn.getAttribute("data-goto-source"));
+      return;
+    }
+
+    const addBtn = target.closest("[data-compare-add]");
+    if (addBtn) {
+      addToCompare(addBtn.getAttribute("data-compare-add"));
+      return;
+    }
+
+    const removeBtn = target.closest("[data-compare-remove]");
+    if (removeBtn) {
+      const slug = removeBtn.getAttribute("data-compare-remove");
+      if (compareDialogShared) compareDialogShared = compareDialogShared.filter((s) => s !== slug);
+      else removeFromCompare(slug);
+      // 外した列だけ縮めて消してから表を作り直す（保存は先に済ませている）
+      const th = removeBtn.closest("th");
+      const table = removeBtn.closest("table");
+      if (th && table && !prefersReducedMotion()) {
+        const col = Array.prototype.indexOf.call(th.parentNode.children, th);
+        table.querySelectorAll("tr").forEach((tr) => {
+          if (tr.children[col]) tr.children[col].classList.add("is-removing");
+        });
+        setTimeout(refreshCompareDialog, 200);
+      } else {
+        refreshCompareDialog();
+      }
+      return;
+    }
+
+    if (target.closest("[data-compare-save-shared]")) {
+      writeCompareList(compareDialogShared || []);
+      compareDialogShared = null;
+      refreshCompareDialog();
+      toast("比較リストに保存しました");
+      return;
+    }
+
+    if (target.closest("[data-compare-open]")) {
+      openCompareDialog();
+      return;
+    }
+    if (target.closest("[data-compare-close]")) {
+      closeCompareDialog();
+      return;
+    }
+    if (target.closest("[data-compare-clear]")) {
+      if (compareDialogShared) compareDialogShared = [];
+      else writeCompareList([]);
+      refreshCompareDialog();
+      return;
+    }
+    if (target.closest("[data-compare-share]")) {
+      shareCompare();
+      return;
+    }
+    if (target.closest("[data-share-result]")) {
+      shareCurrentResult();
+      return;
+    }
+
+    // 他サービスへの遷移計測（GPU GUIDE / GAME PC GUIDE / Upgrade / 相談室）。遷移は止めない。
+    // 相談室（pc-consult/main.js）と同じ規約: イベント名 = data-track / 掲載位置 = data-location。
+    const tracked = target.closest("a[data-track]");
+    if (tracked) {
+      trackEvent(tracked.getAttribute("data-track"), {
+        service_location: tracked.getAttribute("data-location") || "",
+        link_url: tracked.href,
+        link_text: (tracked.textContent || "").trim().slice(0, 100),
+        page_path: location.pathname,
+      });
+    }
+  });
+
+  // ダイアログの外側（背景）クリックで閉じる
+  const dialog = document.querySelector("#compare-dialog");
+  if (dialog) {
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) closeCompareDialog();
+    });
+  }
+
+  // 別タブで比較リストを変えたときに件数をそろえる
+  window.addEventListener("storage", (e) => {
+    if (e.key === COMPARE_KEY) updateCompareBar();
+  });
+
+  // URLに診断条件があれば、同じ条件で診断を再現する（共有URL・再読み込み）
+  const state = window.SippoBuildProfile.fromQuery(location.search);
+  if (state.game) {
+    populateGameSelect();
+  }
+  if (state.budget && state.usage && state.resolution) {
+    applyStateToForm(state);
+    buildsReady.then(() => runDiagnosis(state, { source: "url", instant: true }));
+  }
+  if (state.compare.length) {
+    openCompareDialog(state.compare);
+  }
+}
+
+if (typeof location !== "undefined") {
+  initEnhancements();
+}
+
 
 /* ==================================================================
  *  テスト用の公開

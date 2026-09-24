@@ -44,7 +44,7 @@
 | シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（申し込みはSquare決済リンク→決済完了後にGoogleフォームへ自動遷移→フォーム送信で受付完了）。**サブプラン＝1,500円 ゲーム向けPC構成・購入相談**（申し込みはココナラ商品ページ）。無料窓口は申し込み前の事前問い合わせ用 | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
 | GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
-| PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜） | `pc-build-check/` |
+| PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
 
@@ -98,6 +98,9 @@
     キャッシュ対象の実在／`index.html` が読む資産の取りこぼし／
     更新されうるデータ（builds.json・part-prices.json）がネットワーク優先か。
     ⚠️ **版上げ忘れ自体は検出できない**（下記の運用ルールを守ること）。
+  - `node pc-build-check/test-build-profile.js` … 構成プロフィール＋データ一元化＋予算別データ品質（6,478件 / 2026-09-24〜）。全75構成が予算+15%以内・隣接予算の同一構成なし・予算を上げて性能/容量/価格が下がらないことも検証。
+    トップ（Sample/人気/全構成一覧）と個別75ページが builds.json と一致するか、±5万円・3構成比較・ゲーム判定・URL共有の不変条件。
+  - `node pc-build-check/test-motion.js` … アニメーションのガード（39件 / 2026-09-24〜）。常時ループの制限・演出1秒以内・reduced motion 対応・重いプロパティ不使用。
   - `node pc-build-check/test-build-price.js` … 構成参考価格（349件 / 2026-09-04〜）。
     価格データの健全性（欠け・ゼロ・更新日なし）／75構成すべてで価格を出せるか／
     予算超過を黙って隠していないか／GPU価格の二重管理をしていないか。
@@ -162,6 +165,12 @@
   - ⚠️ **相場が動いたら `part-prices.json` の `updated` と値を見直す**。
     直したら `pc-build-check/generate-builds.ps1` を再実行して静的75ページへ反映する。
   - ⚠️ **アフィリエイトの商品情報とは別物**。`affiliate-master.json` は価格を持たない（リンク用）。
+- **構成プロフィール**: **`pc-build-check/build-profile.js`**（2026-09-24〜）
+  - 構成タイプ・得意分野・この構成にした理由・±5万円比較・3構成比較・ゲーム別目安・こだわり条件・URL共有の**判定と文言はこの1ファイルだけ**。
+    診断画面（script.js）・静的75ページ（compute-profiles.js 経由で generate-builds.ps1）・トップ生成（generate-index-sections.js）が共用。
+  - 材料は builds.json / gpus.json / part-prices.json（CPUの cores・threads・x3d）/ game-pc-guide の games.json（ゲームページのファイル名は `slug || id`）。
+  - ⚠️ index.html の `GENERATED:*` マーカー内は生成物。手で直さない。
+  - トップの「シッポのおすすめ構成」は builds.json の `featured`（運営の選定。実測ランキングではないので「人気」「〇位」と書かない）。
 - **GPUリンク解決**: **`shared/gpu/gpu-links.js`**（2026-09-03〜）
   - GPU表示名 → GPU GUIDE 個別ページURL（`/gpu-guide/gpu/<id>/`）の変換を1か所に集約。
     **マスターは `gpu-guide/gpus.json` ただ1つ**。対応表を各ページに手書きしない。
@@ -281,7 +290,7 @@
 ### ⚠️ Service Worker の版上げ（PC BUILD CHECK / 2026-09-04 追記）
 
 `pc-build-check/script.js`・`style.css`・`shared/` 配下を変更したら、
-**必ず `pc-build-check/sw.js` の `CACHE_NAME` を上げること**（現在 `pc-build-check-v7`）。
+**必ず `pc-build-check/sw.js` の `CACHE_NAME` を上げること**（現在 `pc-build-check-v10`）。
 
 これらは**キャッシュ優先**で配られるため、版を上げないと
 **再訪ユーザーにだけ古いJS/CSSが配られ続ける**。新規訪問やローカル確認では

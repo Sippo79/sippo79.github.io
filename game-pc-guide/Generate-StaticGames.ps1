@@ -79,8 +79,10 @@ function Escape-Html([string]$value) {
 }
 
 function Get-Slug($game) {
-  if ($game.id -eq "mhwilds") {
-    return "monster-hunter"
+  # ページのファイル名は games.json の slug（無ければ id）。
+  # PC BUILD CHECK もこの規則でゲーム個別ページへリンクするので、例外はここに書かず games.json に持たせる。
+  if ($game.slug) {
+    return $game.slug
   }
 
   return $game.id

@@ -252,12 +252,9 @@ function renderGames(games) {
     return;
   }
 
-  const staticPagePaths = {
-    mhwilds: "games/monster-hunter.html"
-  };
-
+  // ページのファイル名は games.json の slug（無ければ id）。Generate-StaticGames.ps1 と同じ規則。
   gameGrid.innerHTML = games.map(game => `
-    <a href="${staticPagePaths[game.id] || `games/${game.id}.html`}" class="game-card">
+    <a href="games/${game.slug || game.id}.html" class="game-card">
       <div class="game-thumb">
         ${game.image
           ? `

@@ -121,6 +121,102 @@
   }
 
   /* --------------------------------------------------------
+     ⑥ PC BUILD CHECK からの引き継ぎ（相談メモ）
+        /pc-consult/?from=pc-build-check&b=25&u=fps&r=wqhd で来たとき、
+        診断された構成を builds.json から引いて、コピーできる文章にする。
+        ・申し込みフォームは外部サービスなので自動入力はしない（できない）。
+        ・URLの値はそのまま画面に出さない。builds.json に実在する構成に
+          一致したときだけ表示し、表示は textContent / value で入れる。
+        ・CPU/GPU名をこのファイルに持たない（構成の正は builds.json）。
+     -------------------------------------------------------- */
+  function initBuildCheckMemo() {
+    var box = document.getElementById('bc-memo');
+    if (!box || !window.URLSearchParams || !window.fetch) return;
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('from') !== 'pc-build-check') return;
+
+    var man = Number(params.get('b'));
+    var usage = params.get('u') || '';
+    var resolution = params.get('r') || '';
+    if (!Number.isFinite(man) || man <= 0 || !/^[a-z]+$/.test(usage) || !/^[a-z0-9]+$/.test(resolution)) return;
+
+    fetch('/pc-build-check/builds.json')
+      .then(function (res) { return res.ok ? res.text() : ''; })
+      .then(function (text) {
+        var builds = JSON.parse(String(text || '[]').replace(/^﻿/, ''));
+        var build = null;
+        for (var i = 0; i < builds.length; i += 1) {
+          var b = builds[i];
+          if (Number(b.budget) === man * 10000 && b.usage === usage && b.resolution === resolution) { build = b; break; }
+        }
+        if (!build) return;
+        renderBuildCheckMemo(box, build, man, usage, resolution);
+      })
+      .catch(function () { /* 取得できなければ何も出さない（申し込みには影響させない） */ });
+  }
+
+  function renderBuildCheckMemo(box, build, man, usage, resolution) {
+    var diagnoseUrl = 'https://sippo-pc.jp/pc-build-check/?b=' + man +
+      '&u=' + encodeURIComponent(usage) + '&r=' + encodeURIComponent(resolution);
+    var memo = [
+      '【PC BUILD CHECKの診断結果】',
+      '構成：' + build.title,
+      '予算：' + man + '万円前後',
+      'CPU：' + build.cpu,
+      'GPU：' + build.gpu,
+      'メモリ：' + build.ram,
+      'SSD：' + build.storage,
+      '診断URL：' + diagnoseUrl,
+      '',
+      '【相談したいこと】',
+      '（例：この構成で買って大丈夫か／近いBTOモデルの選び方／予算を下げても大丈夫か）'
+    ].join('\n');
+
+    var head = document.createElement('p');
+    head.className = 'bc-memo__head';
+    head.textContent = '🐾 PC BUILD CHECKの診断内容を引き継ぎました';
+
+    var lead = document.createElement('p');
+    lead.className = 'bc-memo__lead';
+    lead.textContent = '下の「相談メモ」をコピーして、申し込み後のフォームに貼り付けてください。構成から相談したい場合は1,500円の「ゲーム向けPC構成・購入相談」、この構成に近いBTOモデルを見つけた場合は500円の購入前チェックがおすすめです。';
+
+    var area = document.createElement('textarea');
+    area.className = 'bc-memo__text';
+    area.readOnly = true;
+    area.rows = 9;
+    area.value = memo;
+    area.setAttribute('aria-label', '相談メモ（コピーして使えます）');
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn--primary bc-memo__copy';
+    btn.textContent = '相談メモをコピー';
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.textContent = 'コピーしました ✓';
+        setTimeout(function () { btn.textContent = '相談メモをコピー'; }, 2400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(memo).then(done, function () { area.select(); });
+      } else {
+        area.select();
+        try { document.execCommand('copy'); done(); } catch (e) { /* 手動コピーしてもらう */ }
+      }
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'consult_memo_copy', { from: 'pc-build-check', budget: String(man), usage: usage, resolution: resolution });
+        }
+      } catch (err) { /* 計測失敗は無視 */ }
+    });
+
+    box.appendChild(head);
+    box.appendChild(lead);
+    box.appendChild(area);
+    box.appendChild(btn);
+    box.hidden = false;
+  }
+
+  /* --------------------------------------------------------
      初期化
      -------------------------------------------------------- */
   function init() {
@@ -129,6 +225,7 @@
     initPlaceholderLinks();
     initSmoothAnchors();
     initClickTracking();
+    initBuildCheckMemo();
   }
 
   if (document.readyState === 'loading') {

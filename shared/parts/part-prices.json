@@ -10,14 +10,14 @@
   },
 
   "cpu": {
-    "_note": "builds.json で実際に使われている7種のみ。使わないCPUを増やさない。BTO構成価格へ反映する単体価格の目安。",
-    "Ryzen 5 5500": { "price": 13000, "updated": "2026-09-03" },
-    "Ryzen 5 5600": { "price": 16000, "updated": "2026-09-03" },
-    "Ryzen 5 7500F": { "price": 26000, "updated": "2026-09-03" },
-    "Ryzen 7 7700": { "price": 42000, "updated": "2026-09-03" },
-    "Ryzen 7 7800X3D": { "price": 58000, "updated": "2026-09-03" },
-    "Ryzen 9 7900": { "price": 60000, "updated": "2026-09-03" },
-    "Ryzen 9 7900X": { "price": 66000, "updated": "2026-09-03" }
+    "_note": "builds.json で実際に使われている7種のみ。使わないCPUを増やさない。price はBTO構成価格へ反映する単体価格の目安。cores / threads / x3d は PC BUILD CHECK の「得意分野・構成タイプ・この構成にした理由」の判定に使う（pc-build-check/build-profile.js）。CPUを追加するときはこの3項目も必ず埋めること（テストで検出する）。",
+    "Ryzen 5 5500": { "price": 13000, "cores": 6, "threads": 12, "x3d": false, "updated": "2026-09-03" },
+    "Ryzen 5 5600": { "price": 16000, "cores": 6, "threads": 12, "x3d": false, "updated": "2026-09-03" },
+    "Ryzen 5 7500F": { "price": 26000, "cores": 6, "threads": 12, "x3d": false, "updated": "2026-09-03" },
+    "Ryzen 7 7700": { "price": 42000, "cores": 8, "threads": 16, "x3d": false, "updated": "2026-09-03" },
+    "Ryzen 7 7800X3D": { "price": 58000, "cores": 8, "threads": 16, "x3d": true, "updated": "2026-09-03" },
+    "Ryzen 9 7900": { "price": 60000, "cores": 12, "threads": 24, "x3d": false, "updated": "2026-09-03" },
+    "Ryzen 9 7900X": { "price": 66000, "cores": 12, "threads": 24, "x3d": false, "updated": "2026-09-03" }
   },
 
   "memory": {
