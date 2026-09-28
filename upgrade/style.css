@@ -1107,3 +1107,625 @@ a.u-worry:hover {
   border-color: var(--u-accent);
   color: var(--u-fg);
 }
+
+/* =====================================================================
+ *  GPU型番記事（/upgrade/rtx3060/ など。upgrade/gpu-article.js が生成）
+ *  ---------------------------------------------------------------------
+ *  u-ga-* はこの記事タイプ専用。他のGPU記事にもそのまま使える。
+ *  方針:
+ *   - 「読む前に判断できる」ことを優先。記号＋短い言葉＋補足の3段で見せる
+ *   - 色は既存の判定色（keep=青 / warn=黄 / accent=緑 / danger=赤 / info=紫）だけを使う
+ *   - JSで描く部分は購入ボタン（折りたたみの中）だけ。レイアウトシフトを起こさない
+ * ===================================================================== */
+.u-ga-hero { padding-bottom: 36px; }
+.u-ga-h1 {
+  font-size: clamp(23px, 5.4vw, 36px);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+.u-ga-lead {
+  color: var(--u-fg-soft);
+  font-size: clamp(14.5px, 3.4vw, 16px);
+  max-width: 720px;
+}
+.u-ga-lead strong { color: var(--u-fg); }
+.u-ga-text { color: var(--u-fg-soft); font-size: 14.5px; margin-bottom: 12px; }
+.u-ga-text:last-child { margin-bottom: 0; }
+.u-ga-h3 { font-size: clamp(16px, 3.8vw, 18.5px); line-height: 1.5; margin: 28px 0 10px; }
+.u-card > .u-ga-h3:first-child { margin-top: 0; }
+.u-ga-foot, .u-ga-source, .u-ga-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--u-fg-soft);
+}
+.u-ga-source, .u-ga-note { color: var(--u-fg-dim); font-size: 12.5px; }
+.u-ga-foot a, .u-ga-source a, .u-ga-note a, .u-ga-text a,
+.u-ga-flow a, .u-ga-others a, .u-ga-steps a, .u-ga-vs a,
+.u-ga-callout a, .u-ga-legend a, .u-ga-gpu__why a, .u-ga-gpu__caution a, .u-faq__body a {
+  color: var(--u-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.u-ga-textlink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--u-accent);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 判定カード（ファーストビュー） ---------- */
+.u-ga-verdict {
+  margin-top: 26px;
+  padding: 20px;
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+  border-radius: var(--u-radius-lg);
+}
+.u-ga-verdict__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-bottom: 14px;
+}
+.u-ga-verdict__head h2 { font-size: clamp(17px, 4vw, 20px); }
+.u-ga-verdict__head p { font-size: 12.5px; color: var(--u-fg-dim); }
+
+.u-ga-scn {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.u-ga-scn__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 12px 12px;
+  border-radius: var(--u-radius);
+  background: var(--u-bg-soft);
+  border: 1px solid var(--u-line);
+  border-top: 3px solid var(--u-fg-dim);
+  min-width: 0;
+}
+.u-ga-scn__item--ideal       { border-top-color: var(--u-keep); }
+.u-ga-scn__item--recommended { border-top-color: var(--u-keep); }
+.u-ga-scn__item--comfortable { border-top-color: var(--u-warn); }
+.u-ga-scn__item--short       { border-top-color: var(--u-accent); }
+.u-ga-scn__cond { font-size: 13px; font-weight: 800; }
+.u-ga-scn__cond .mono { font-size: 12px; color: var(--u-fg-soft); font-weight: 500; }
+.u-ga-scn__mark {
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 800;
+  margin-top: 2px;
+}
+.u-ga-scn__item--ideal .u-ga-scn__mark,
+.u-ga-scn__item--recommended .u-ga-scn__mark { color: var(--u-keep); }
+.u-ga-scn__item--comfortable .u-ga-scn__mark { color: var(--u-warn); }
+.u-ga-scn__item--short .u-ga-scn__mark { color: var(--u-accent); }
+.u-ga-scn__word { font-size: 14.5px; line-height: 1.45; }
+.u-ga-scn__sub {
+  font-size: 11.5px;
+  color: var(--u-fg-dim);
+  font-family: var(--u-font);
+}
+.u-ga-scn__hint {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--u-line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--u-fg-soft);
+}
+.u-ga-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--u-fg-soft);
+}
+.u-ga-legend__basis { color: var(--u-fg-dim); flex-basis: 100%; }
+.u-ga-legend--table { margin-top: 10px; }
+
+@media (max-width: 900px) {
+  /* タブレット: 上段3枚＋下段2枚。下段も横幅いっぱいにして空きを作らない */
+  .u-ga-scn { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .u-ga-scn__item { grid-column: span 2; }
+  .u-ga-scn__item:nth-child(n+4) { grid-column: span 3; }
+}
+@media (max-width: 560px) {
+  .u-ga-verdict { padding: 16px 14px; }
+  .u-ga-scn { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .u-ga-scn__item, .u-ga-scn__item:nth-child(n+4) { grid-column: auto; }
+  /* 5枚目（4K）は横幅いっぱいにして、段の端が欠けて見えないようにする */
+  .u-ga-scn__item:last-child { grid-column: 1 / -1; }
+  .u-ga-scn__item { padding: 12px 10px 10px; }
+  .u-ga-scn__mark { font-size: 24px; }
+}
+
+/* ---------- 診断への導線（押し売りしない控えめな帯） ---------- */
+.u-ga-diag {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: var(--u-radius);
+  border: 1px solid rgba(74, 222, 128, .28);
+  background: rgba(74, 222, 128, .06);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.u-ga-diag__text { flex: 1 1 320px; font-size: 13.5px; color: var(--u-fg-soft); }
+.u-ga-diag__text strong { display: block; color: var(--u-fg); font-size: 15.5px; margin-bottom: 2px; }
+.u-ga-diag__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; }
+@media (max-width: 480px) {
+  .u-ga-diag { padding: 14px; }
+  .u-ga-diag__actions { width: 100%; }
+  .u-ga-diag__actions .u-btn { width: 100%; }
+}
+
+/* ---------- 目次 ---------- */
+.u-ga-toc { margin-top: 20px; }
+.u-ga-toc__title { font-size: 12px; color: var(--u-fg-dim); margin-bottom: 6px; }
+.u-ga-toc ol { display: flex; flex-wrap: wrap; gap: 8px; }
+.u-ga-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--u-line-str);
+  background: rgba(255, 255, 255, .03);
+  font-size: 13px;
+  color: var(--u-fg-soft);
+  transition: border-color .16s ease, color .16s ease;
+}
+.u-ga-toc a:hover, .u-ga-toc a:focus-visible { border-color: var(--u-accent); color: var(--u-fg); }
+
+/* ---------- 30秒で判断（分岐フロー） ---------- */
+.u-ga-flow { display: grid; gap: 8px; }
+.u-ga-flow__row {
+  display: grid;
+  /* 条件は短い文なので左列を詰め、結論を読みやすい位置に寄せる */
+  grid-template-columns: minmax(0, 20em) 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+  border-left: 4px solid var(--u-fg-dim);
+}
+.u-ga-flow__row--keep     { border-left-color: var(--u-keep); }
+.u-ga-flow__row--check    { border-left-color: var(--u-warn); }
+.u-ga-flow__row--consider { border-left-color: var(--u-warn); }
+.u-ga-flow__row--upgrade  { border-left-color: var(--u-accent); }
+.u-ga-flow__row--other    { border-left-color: var(--u-info); }
+.u-ga-flow__if { font-size: 14px; font-weight: 700; }
+.u-ga-flow__arrow {
+  width: 28px; height: 2px;
+  background: var(--u-line-str);
+  position: relative;
+}
+.u-ga-flow__arrow::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 50%;
+  width: 8px; height: 8px;
+  border-right: 2px solid var(--u-line-str);
+  border-top: 2px solid var(--u-line-str);
+  transform: translateY(-50%) rotate(45deg);
+}
+.u-ga-flow__then strong { display: block; font-size: 15px; }
+.u-ga-flow__row--keep strong     { color: var(--u-keep); }
+.u-ga-flow__row--check strong,
+.u-ga-flow__row--consider strong { color: var(--u-warn); }
+.u-ga-flow__row--upgrade strong  { color: var(--u-accent); }
+.u-ga-flow__row--other strong    { color: var(--u-info); }
+.u-ga-flow__then small { display: block; font-size: 12.5px; color: var(--u-fg-soft); line-height: 1.6; }
+@media (max-width: 600px) {
+  /* スマホは「条件 → 結論」を縦に積む。矢印は下向きにする */
+  .u-ga-flow__row { grid-template-columns: 1fr; gap: 6px; padding: 12px 14px; }
+  .u-ga-flow__arrow { width: 2px; height: 12px; margin-left: 6px; }
+  .u-ga-flow__arrow::after { right: auto; left: 50%; top: auto; bottom: 0; transform: translateX(-50%) rotate(135deg); }
+}
+
+/* ---------- 強み・弱み ---------- */
+.u-ga-pc { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.u-ga-pc__col {
+  padding: 18px 20px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+}
+.u-ga-pc__col h3 { font-size: 16px; margin-bottom: 10px; }
+.u-ga-pc__col--pro h3 { color: var(--u-keep); }
+.u-ga-pc__col--con h3 { color: var(--u-warn); }
+.u-ga-pc__col ul { display: grid; gap: 10px; }
+.u-ga-pc__col li { position: relative; padding-left: 24px; }
+.u-ga-pc__col li::before {
+  position: absolute;
+  left: 0; top: 0;
+  font-weight: 800;
+  font-size: 14px;
+}
+.u-ga-pc__col--pro li::before { content: '✓'; color: var(--u-keep); }
+.u-ga-pc__col--con li::before { content: '!'; color: var(--u-warn); left: 5px; }
+.u-ga-pc__col li strong { display: block; font-size: 14.5px; }
+.u-ga-pc__col li span { display: block; font-size: 13px; color: var(--u-fg-soft); }
+
+.u-ga-feat th small {
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--u-fg-soft);
+  white-space: normal;
+}
+.u-ga-feat td { white-space: nowrap; font-size: 13.5px; }
+.u-ga-feat td.is-yes { color: var(--u-keep); font-weight: 700; }
+.u-ga-feat td.is-no { color: var(--u-fg-dim); }
+
+.u-ga-callout {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: var(--u-radius);
+  border: 1px solid rgba(251, 191, 36, .35);
+  background: rgba(251, 191, 36, .06);
+  font-size: 13.5px;
+  color: var(--u-fg-soft);
+}
+.u-ga-callout--info { border-color: rgba(167, 139, 250, .4); background: rgba(167, 139, 250, .07); }
+.u-ga-callout__title { font-weight: 800; color: var(--u-fg); font-size: 14.5px; margin-bottom: 4px; }
+.u-ga-callout strong { color: var(--u-fg); }
+
+/* ---------- 交換候補（目的別） ---------- */
+.u-ga-groups { display: grid; gap: 18px; }
+.u-ga-group {
+  padding: 18px;
+  border-radius: var(--u-radius-lg);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+}
+.u-ga-group__head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.u-ga-group__no {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: rgba(74, 222, 128, .12);
+  color: var(--u-accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+.u-ga-group__head h3 { font-size: clamp(16.5px, 4vw, 19px); line-height: 1.45; }
+.u-ga-group__head p { font-size: 13.5px; color: var(--u-fg-soft); }
+.u-ga-gpus { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; }
+.u-ga-gpu {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--u-radius);
+  background: var(--u-bg-soft);
+  border: 1px solid var(--u-line);
+  min-width: 0;
+}
+.u-ga-gpu__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.u-ga-gpu__top h4 { font-size: 17px; line-height: 1.4; }
+.u-ga-gpu__top h4 small { font-size: 12px; color: var(--u-fg-soft); font-weight: 700; }
+.u-ga-specs { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.u-ga-specs li {
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--u-panel-2);
+  border: 1px solid var(--u-line);
+  font-size: 12px;
+  color: var(--u-fg-soft);
+}
+.u-ga-specs b { color: var(--u-fg); font-family: var(--u-mono); font-weight: 700; }
+.u-ga-gpu__why { font-size: 13.5px; color: var(--u-fg); }
+.u-ga-gpu__caution {
+  margin-top: 8px;
+  padding-left: 10px;
+  border-left: 2px solid var(--u-warn);
+  font-size: 12.5px;
+  color: var(--u-fg-soft);
+}
+.u-ga-gpu__caution strong { color: var(--u-warn); }
+.u-ga-gpu__foot { margin-top: auto; padding-top: 8px; }
+@media (max-width: 480px) {
+  /* 枠の入れ子で本文幅が細くならないよう、外枠の余白を詰める */
+  .u-ga-group { padding: 14px 10px 10px; }
+  .u-ga-group__head { padding: 0 4px; }
+  .u-ga-gpus { grid-template-columns: 1fr; }
+  .u-ga-gpu { padding: 14px; }
+}
+
+/* 「RTX 3060比」の伸び。数値ではなく言葉で出す */
+.u-ga-gain {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--u-fg-soft);
+  background: rgba(255, 255, 255, .06);
+  white-space: nowrap;
+}
+.u-ga-gain b { font-size: 13px; }
+.u-ga-gain--same b, .u-ga-gain--small b { color: var(--u-fg-dim); }
+.u-ga-gain--mid b   { color: var(--u-warn); }
+.u-ga-gain--large b { color: var(--u-accent); }
+.u-ga-gain--xl      { background: rgba(74, 222, 128, .12); }
+.u-ga-gain--xl b    { color: var(--u-accent); }
+
+/* ショップボタンは折りたたみの中。まず判断材料を読んでもらう */
+.u-ga-shop { border-top: 1px dashed var(--u-line); margin-top: 4px; }
+.u-ga-shop summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  color: var(--u-fg-soft);
+  position: relative;
+  padding-right: 20px;
+}
+.u-ga-shop summary::-webkit-details-marker { display: none; }
+.u-ga-shop summary::after {
+  content: '';
+  position: absolute;
+  right: 4px; top: 50%;
+  width: 7px; height: 7px;
+  border-right: 2px solid var(--u-fg-soft);
+  border-bottom: 2px solid var(--u-fg-soft);
+  transform: translateY(-70%) rotate(45deg);
+}
+.u-ga-shop[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+.u-ga-shop__body { padding-bottom: 4px; }
+
+.u-ga-avoid {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: var(--u-radius);
+  border: 1px dashed var(--u-line-str);
+}
+.u-ga-avoid h3 { font-size: 15.5px; margin-bottom: 4px; }
+.u-ga-avoid > p { font-size: 13px; color: var(--u-fg-soft); margin-bottom: 10px; }
+.u-ga-avoid ul { display: grid; gap: 8px; }
+.u-ga-avoid li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 13.5px; }
+.u-ga-avoid__why { flex-basis: 100%; font-size: 12.5px; color: var(--u-fg-soft); }
+
+/* ---------- 比較表（PCは表、スマホはカード） ---------- */
+.u-ga-cmp-wrap {
+  border: 1px solid var(--u-line);
+  border-radius: var(--u-radius);
+  overflow: hidden;
+}
+.u-ga-cmp { width: 100%; font-size: 13.5px; }
+.u-ga-cmp th, .u-ga-cmp td {
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--u-line);
+  text-align: left;
+  vertical-align: middle;
+}
+.u-ga-cmp thead th {
+  background: var(--u-panel-2);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--u-fg-soft);
+}
+.u-ga-cmp tbody tr:last-child th, .u-ga-cmp tbody tr:last-child td { border-bottom: none; }
+.u-ga-cmp tbody th { white-space: nowrap; }
+.u-ga-cmp tbody th a { color: var(--u-fg); text-decoration: underline; text-decoration-color: var(--u-line-str); text-underline-offset: 3px; }
+.u-ga-cmp tbody th a:hover { color: var(--u-accent); }
+.u-ga-cmp tbody th small { display: block; font-size: 11px; color: var(--u-keep); font-weight: 700; }
+.u-ga-cmp tr.is-base { background: rgba(56, 189, 248, .06); }
+.u-ga-cmp .u-ga-cmp__m { text-align: center; width: 68px; }
+.u-ga-cmp__vram { font-family: var(--u-mono); white-space: nowrap; }
+.u-ga-cmp__for { font-size: 12.5px; color: var(--u-fg-soft); min-width: 150px; }
+.u-ga-mark { font-size: 17px; font-weight: 800; }
+.u-ga-mark--ideal, .u-ga-mark--recommended { color: var(--u-keep); }
+.u-ga-mark--comfortable { color: var(--u-warn); }
+.u-ga-mark--short { color: var(--u-fg-dim); }
+
+@media (max-width: 760px) {
+  /* スマホ: 1行を1枚のカードにする。横スクロールさせずに全項目を読めるようにする */
+  .u-ga-cmp-wrap { border: none; border-radius: 0; overflow: visible; }
+  .u-ga-cmp, .u-ga-cmp tbody { display: block; }
+  .u-ga-cmp thead { display: none; }
+  .u-ga-cmp tr {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    margin-bottom: 10px;
+    border: 1px solid var(--u-line);
+    border-radius: var(--u-radius);
+    background: var(--u-panel);
+    overflow: hidden;
+  }
+  .u-ga-cmp tr.is-base { background: rgba(56, 189, 248, .07); border-color: rgba(56, 189, 248, .35); }
+  .u-ga-cmp th, .u-ga-cmp td { border-bottom: none; padding: 8px 10px; }
+  .u-ga-cmp tbody th {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-top: 12px;
+    font-size: 15px;
+  }
+  .u-ga-cmp tbody th small { display: inline; }
+  .u-ga-cmp__gain { grid-column: 1 / 4; }
+  .u-ga-cmp__vram { grid-column: 4 / -1; }
+  .u-ga-cmp__gain::before, .u-ga-cmp__vram::before {
+    content: attr(data-label) '：';
+    font-size: 11.5px;
+    color: var(--u-fg-dim);
+    font-family: var(--u-font);
+  }
+  .u-ga-cmp .u-ga-cmp__m {
+    width: auto;
+    padding: 6px 2px;
+    background: var(--u-bg-soft);
+    border-top: 1px solid var(--u-line);
+  }
+  .u-ga-cmp .u-ga-cmp__m::before {
+    content: attr(data-label);
+    display: block;
+    white-space: pre-line;
+    font-size: 10.5px;
+    line-height: 1.3;
+    color: var(--u-fg-dim);
+    font-family: var(--u-font);
+    margin-bottom: 2px;
+  }
+  .u-ga-cmp__for { grid-column: 1 / -1; min-width: 0; padding-bottom: 12px; }
+  .u-ga-cmp__for::before { content: '向いている人：'; color: var(--u-fg-dim); }
+}
+
+/* ---------- 速くならないケース ---------- */
+.u-ga-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.u-ga-checks { display: grid; gap: 8px; }
+.u-ga-check {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--u-bg-soft);
+  border-left: 3px solid var(--u-fg-dim);
+}
+.u-ga-check--gpu   { border-left-color: var(--u-accent); }
+.u-ga-check--cpu   { border-left-color: var(--u-warn); }
+.u-ga-check--other { border-left-color: var(--u-info); }
+.u-ga-check__if { display: block; font-weight: 700; font-size: 13.5px; }
+.u-ga-check__then { display: block; font-size: 13px; color: var(--u-fg-soft); }
+.u-ga-cputable { min-width: 420px; }
+.u-ga-cputable th[scope="row"] { white-space: nowrap; font-size: 13px; }
+.u-ga-cpu { font-weight: 700; font-size: 13px; white-space: nowrap; }
+/* .u-table td（左寄せ）より強く指定して、見出しと判定を中央でそろえる */
+.u-table.u-ga-cputable td.u-ga-cpu,
+.u-table.u-ga-cputable thead th:not(:first-child) { text-align: center; }
+.u-ga-cpu--ok   { color: var(--u-keep); }
+.u-ga-cpu--warn { color: var(--u-warn); }
+.u-ga-cpu--bad  { color: var(--u-danger); }
+.u-ga-others {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.u-ga-others li {
+  padding: 12px 14px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+  border-left: 3px solid var(--u-info);
+}
+.u-ga-others strong { display: block; font-size: 14px; }
+.u-ga-others span { display: block; font-size: 13px; color: var(--u-fg-soft); }
+
+/* ---------- 電源チェックリスト ---------- */
+.u-ga-steps { display: grid; gap: 8px; counter-reset: gastep; }
+.u-ga-steps li {
+  position: relative;
+  padding: 12px 14px 12px 50px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+}
+.u-ga-steps li::before {
+  counter-increment: gastep;
+  content: counter(gastep);
+  position: absolute;
+  left: 14px; top: 12px;
+  width: 24px; height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid var(--u-accent);
+  color: var(--u-accent);
+  font-family: var(--u-mono);
+  font-size: 12px;
+  font-weight: 800;
+}
+.u-ga-steps strong { display: block; font-size: 14.5px; }
+.u-ga-steps span { display: block; font-size: 13px; color: var(--u-fg-soft); }
+.u-ga-psutable { min-width: 480px; }
+.u-ga-psutable th[scope="row"] { white-space: nowrap; }
+.u-ga-psutable th small { display: block; font-size: 11px; color: var(--u-keep); }
+.u-ga-psutable tr.is-base { background: rgba(56, 189, 248, .06); }
+.u-ga-psutable td { font-size: 13px; }
+.u-ga-psutable td.mono { white-space: nowrap; font-weight: 700; font-size: 14.5px; color: var(--u-fg); }
+
+@media (max-width: 560px) {
+  /* 記事内の表は、スマホでも横スクロールさせずに画面幅へ収める。
+     （スクロールに気づかず右の列を見落とす方が問題なので、折り返しを許す） */
+  .u-ga-feat, .u-ga-cputable, .u-ga-psutable { min-width: 0; font-size: 12.5px; }
+  .u-ga-feat th, .u-ga-feat td,
+  .u-ga-cputable th, .u-ga-cputable td,
+  .u-ga-psutable th, .u-ga-psutable td { padding: 10px 8px; }
+  .u-ga-cputable thead th, .u-ga-psutable thead th, .u-ga-feat thead th { white-space: normal; font-size: 11.5px; }
+  .u-ga-cputable th[scope="row"] { white-space: normal; font-size: 12px; }
+  .u-ga-cpu { font-size: 12px; }
+  .u-ga-feat td { white-space: normal; font-size: 12px; }
+  .u-ga-psutable td.mono { font-size: 13px; }
+}
+
+/* ---------- GPU交換 vs 買い替え ---------- */
+.u-ga-vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.u-ga-vs__card {
+  padding: 18px 20px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+  border-top: 3px solid var(--u-accent);
+}
+.u-ga-vs__card--replace { border-top-color: var(--u-info); }
+.u-ga-vs__card h3 { font-size: 16px; margin-bottom: 10px; }
+.u-ga-vs__card ul { display: grid; gap: 6px; margin-bottom: 12px; }
+.u-ga-vs__card li { position: relative; padding-left: 26px; font-size: 13.5px; color: var(--u-fg-soft); }
+.u-ga-vs__card li::before {
+  content: '';
+  position: absolute;
+  left: 2px; top: .35em;
+  width: 14px; height: 14px;
+  border-radius: 4px;
+  border: 2px solid var(--u-accent);
+}
+.u-ga-vs__card--replace li::before { border-color: var(--u-info); }
+.u-ga-vs__card p { font-size: 13.5px; }
+
+/* ---------- ゲームのタイプ別 ---------- */
+/* 4タイプなので2×2にそろえる（3＋1で右側が空くのを避ける） */
+.u-ga-games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 700px) {
+  .u-ga-games { grid-template-columns: 1fr; }
+}
+.u-ga-game {
+  padding: 18px 20px;
+  border-radius: var(--u-radius);
+  background: var(--u-panel);
+  border: 1px solid var(--u-line);
+  border-left: 4px solid var(--u-keep);
+}
+.u-ga-game--upgrade { border-left-color: var(--u-accent); }
+.u-ga-game__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; margin-bottom: 6px; }
+.u-ga-game__top h3 { font-size: 16px; }
+.u-ga-game__tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(56, 189, 248, .14);
+  color: var(--u-keep);
+}
+.u-ga-game--upgrade .u-ga-game__tag { background: rgba(74, 222, 128, .14); color: var(--u-accent); }
+.u-ga-game__titles { font-size: 13px; margin-bottom: 8px; color: var(--u-fg-soft); }
+.u-ga-game__titles a { color: var(--u-fg); text-decoration: underline; text-decoration-color: var(--u-line-str); text-underline-offset: 3px; }
+.u-ga-game__titles a:hover { color: var(--u-accent); }
+.u-ga-game .u-ga-text { font-size: 13.5px; }

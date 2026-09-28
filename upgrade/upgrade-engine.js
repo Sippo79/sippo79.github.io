@@ -74,6 +74,34 @@
   };
 
   /**
+   * メーカー公式の推奨電源容量(W)と補助電源コネクタ。
+   * 出典: NVIDIA / AMD の製品仕様ページ（2026-09-28 確認）。
+   *   NVIDIA … "Required System Power (W)" / "Supplementary Power Connectors"
+   *   AMD    … "Minimum PSU Recommendation" / "Additional Power Connector"
+   *
+   * ★judgePsu() はここに値があるGPUでは「公式値」を下回る目安を出さない。
+   *   以前は概算式だけで判定していたため、RTX 5070 に 550W で足りると
+   *   返していた（NVIDIA公式は 650W）。記事（/upgrade/rtx3060/ など）も
+   *   この表から電源の説明を生成するので、記事と診断が食い違わない。
+   * ★コネクタは「リファレンス仕様」。メーカー製カードによって本数や形状
+   *   （8ピン / 16ピン 12V-2x6）が違うため、表示側で必ずその旨を添える。
+   * ★推測で埋めない。公式ページで確認できたGPUだけを載せる。
+   */
+  var GPU_POWER_SPEC = {
+    rtx3060:   { psu: 550, connector: '8ピン×1（製品により異なる）' },
+    rtx3060ti: { psu: 600, connector: '8ピン×1（製品により異なる）' },
+    rtx5060:   { psu: 550, connector: '8ピン×1 または 16ピン（12V-2x6）' },
+    rtx5060ti: { psu: 600, connector: '8ピン×1 または 16ピン（12V-2x6）' },
+    rtx5070:   { psu: 650, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6）' },
+    rtx5070ti: { psu: 750, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6）' },
+    rtx5080:   { psu: 850, connector: '8ピン×3（変換アダプタ同梱）または 16ピン（12V-2x6）' },
+    rtx5090:   { psu: 1000, connector: '8ピン×4（変換アダプタ同梱）または 16ピン（12V-2x6）' },
+    rx9060xt:  { psu: 450, connector: '8ピン×1' },
+    rx9070:    { psu: 650, connector: '8ピン×2' },
+    rx9070xt:  { psu: 750, connector: '8ピン×2' },
+  };
+
+  /**
    * CPU性能の目安（ゲーム時の相対値）。GPUのボトルネック判定に使う。
    * ゲーム性能なのでコア数よりシングル性能・キャッシュを重視した並びにしている。
    */
@@ -841,6 +869,11 @@
     // システム全体の目安 = GPU + CPU/その他(約150W) に余裕(1.35倍)を見る。
     // 電源は定格の50〜60%付近で効率が最も良いため、ぴったりは狙わない。
     var needed = Math.ceil(((gpuWatt + 150) * 1.35) / 50) * 50;
+    // メーカー公式の推奨容量が分かっているGPUは、それを下回る目安を出さない。
+    // 概算式は公式値より100〜150W低く出ることが多く、そのまま使うと
+    // 「メーカーは650W推奨なのに550Wで足りる」と案内してしまうため。
+    var spec = GPU_POWER_SPEC[targetGpuId];
+    if (spec && spec.psu > needed) needed = spec.psu;
 
     if (watt === null) {
       return {
@@ -1288,6 +1321,12 @@
     GPU_TIERS: GPU_TIERS,
     CPU_TIERS: CPU_TIERS,
     GPU_POWER: GPU_POWER,
+    GPU_POWER_SPEC: GPU_POWER_SPEC,
+    GAIN: GAIN,
+    COMFORT_BANDS: COMFORT_BANDS,
+    comfortLevel: comfortLevel,
+    // 型番記事（gpu-article.js）が「CPUは足りるか」の表を診断と同じ基準で作るために使う
+    judgeCpu: judgeCpu,
     PRICE_HINT: PRICE_HINT,
     RESOLUTION_TARGETS: RESOLUTION_TARGETS,
     resolveKey: resolveKey,

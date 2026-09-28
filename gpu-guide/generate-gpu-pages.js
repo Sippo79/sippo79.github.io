@@ -57,6 +57,22 @@ function readJson(file) {
 const gpus = readJson(path.join(DIR, 'gpus.json'));
 const cpuRecs = readJson(path.join(DIR, 'cpu-recommendations.json'));
 
+/* PC UPGRADE の「型番別アップグレード記事」（例: /upgrade/rtx3060/）。
+ * そのGPUの記事があれば「次にできること」の交換導線を記事へ向ける。
+ * キーは診断エンジンのID（gpus.json の id からハイフンを除いたもの）。
+ * 記事一覧を手で持たず upgrade/articles-data.js から引くので、記事を足せば自動でつながる。 */
+const UPGRADE_ARTICLES = (() => {
+  const map = {};
+  try {
+    require('../upgrade/articles-data.js').ARTICLES
+      .filter((a) => a.gpuUpgrade && a.gpuUpgrade.from)
+      .forEach((a) => { map[a.gpuUpgrade.from] = a; });
+  } catch (e) {
+    // 読めなくてもGPUページの生成は止めない（導線が汎用の /upgrade/ に戻るだけ）
+  }
+  return map;
+})();
+
 /* 解像度適性の共通基準。判定式をここに再実装しない（ズレの原因になる）。
  * gpus.json の target がこの導出と一致することは test-gpu-data.js が検証している。 */
 const GpuTarget = require(path.join(DIR, '..', 'shared', 'gpu', 'gpu-target.js'));
@@ -533,6 +549,22 @@ function renderCpuPairing(gpu) {
  *   旧 gpu-detail.js は renderCpuSection() の中にこの導線を置いていたため、
  *   CPUデータの無い35GPUではリンクごと消えていた。同じ失敗をしない。 */
 function renderNextActions(gpu) {
+  const article = UPGRADE_ARTICLES[gpu.id.replace(/-/g, '')];
+  const upgradeCard = article
+    ? `<a class="next-action-card" href="/upgrade/${esc(article.slug)}/">
+            <span class="next-action-icon" aria-hidden="true">🔧</span>
+            <span class="next-action-body">
+              <strong>${esc(gpu.name)}から交換すべき？</strong>
+              <small>まだ使えるか・交換するなら何がいいかを解説しています（PC UPGRADE）</small>
+            </span>
+          </a>`
+    : `<a class="next-action-card" href="/upgrade/">
+            <span class="next-action-icon" aria-hidden="true">🔧</span>
+            <span class="next-action-body">
+              <strong>今のPCから交換したい</strong>
+              <small>交換する価値があるかを判定します（PC UPGRADE）</small>
+            </span>
+          </a>`;
   return `
       <section class="section next-actions">
         <div class="section-heading">
@@ -548,13 +580,7 @@ function renderNextActions(gpu) {
               <small>予算と用途から、おすすめ構成を診断できます（PC BUILD CHECK）</small>
             </span>
           </a>
-          <a class="next-action-card" href="/upgrade/">
-            <span class="next-action-icon" aria-hidden="true">🔧</span>
-            <span class="next-action-body">
-              <strong>今のPCから交換したい</strong>
-              <small>交換する価値があるかを判定します（PC UPGRADE）</small>
-            </span>
-          </a>
+          ${upgradeCard}
           <a class="next-action-card" href="/game-pc-guide/">
             <span class="next-action-icon" aria-hidden="true">🎮</span>
             <span class="next-action-body">
@@ -901,8 +927,10 @@ function verify(root) {
     if (html.indexOf('"BreadcrumbList"') < 0) problems.push(`${gpu.id}: BreadcrumbList が無い`);
 
     // --- クロスリンク（CPUデータの有無に関係なく必須） ---
+    // 型番別アップグレード記事があるGPUは、/upgrade/ の代わりに記事へつなぐ
+    const upgradeArticle = UPGRADE_ARTICLES[gpu.id.replace(/-/g, '')];
     [['/pc-build-check/', 'PC BUILD CHECK'],
-     ['/upgrade/', 'Upgrade'],
+     [upgradeArticle ? `/upgrade/${upgradeArticle.slug}/` : '/upgrade/', 'Upgrade'],
      ['/game-pc-guide/', 'GAME PC GUIDE']].forEach(([href, label]) => {
       if (html.indexOf(`href="${href}"`) < 0) problems.push(`${gpu.id}: ${label} へのリンクが無い`);
     });

@@ -656,6 +656,10 @@ var PAGES = [
  * ===================================================================== */
 var ARTICLES = require('./articles-data.js').ARTICLES;
 
+/* GPU型番記事（`gpuUpgrade` を持つ記事）の本文レンダラー。
+   ◎○△× や推奨電源を診断エンジンから計算して埋め込む（gpu-article.js 冒頭の説明を参照）。 */
+var GA = require('./gpu-article.js');
+
 /* パーツ解説ページと記事を同じテンプレートで生成する。
    構造が同じなので、テンプレートを二重に持たない。 */
 var ALL_PAGES = PAGES.concat(ARTICLES);
@@ -665,11 +669,11 @@ var ALL_PAGES = PAGES.concat(ARTICLES);
  * ===================================================================== */
 
 /** 関連ページのカードを組み立てる */
-function relatedCards(slugs) {
+function relatedCards(slugs, extra) {
   var byslug = {};
   ALL_PAGES.forEach(function (p) { byslug[p.slug] = p; });
 
-  return slugs.map(function (s) {
+  var cards = slugs.map(function (s) {
     var p = byslug[s];
     if (!p) return '';
     return '          <a class="u-related__card" href="/upgrade/' + esc(p.slug) + '/">\n'
@@ -677,7 +681,16 @@ function relatedCards(slugs) {
       + '            <strong>' + esc(p.h1) + '</strong>\n'
       + '            <span>' + esc(p.lead.replace(/<[^>]+>/g, '').slice(0, 46)) + '…</span>\n'
       + '          </a>';
-  }).filter(Boolean).join('\n');
+  });
+  // /upgrade/ 以外のシッポPC内ページ（GPU GUIDE・PC BUILD CHECK・相談室など）
+  (extra || []).forEach(function (x) {
+    cards.push('          <a class="u-related__card" href="' + esc(x.href) + '">\n'
+      + '            <span class="u-related__en">' + esc(x.en) + '</span>\n'
+      + '            <strong>' + esc(x.title) + '</strong>\n'
+      + '            <span>' + esc(x.text) + '</span>\n'
+      + '          </a>');
+  });
+  return cards.filter(Boolean).join('\n');
 }
 
 /** FAQPage 構造化データ（実際にページ内にFAQがあるときだけ出す） */
@@ -689,8 +702,9 @@ function faqJsonLd(page) {
       name: f.q,
       acceptedAnswer: {
         '@type': 'Answer',
-        // 構造化データにはHTMLタグを含めない
-        text: f.a.replace(/<[^>]+>/g, ''),
+        // 構造化データにはHTMLタグを含めない。
+        // 画面上のFAQと同じ fill() を通すので、{{psu:...}} の差し込み結果も一致する。
+        text: GA.fill(f.a).replace(/<[^>]+>/g, ''),
       },
     };
   });
@@ -704,11 +718,41 @@ function faqJsonLd(page) {
     + '\n  </script>\n';
 }
 
+/**
+ * ファーストビュー〜本文。
+ * GPU型番記事（gpuUpgrade あり）は判定カード・比較表などを持つ専用レイアウト、
+ * それ以外は従来どおり「こんな人向け → 本文カード → 商品」の順。
+ */
+function mainTopHtml(page, forWhoHtml, sectionsHtml, productsHtml) {
+  if (page.gpuUpgrade) {
+    return GA.hero(page) + '\n' + GA.body(page) + '\n';
+  }
+  return '    <section class="u-section u-section--tight">\n'
+    + '      <div class="container">\n'
+    + '        <p class="u-label">' + esc(page.slug.toUpperCase()) + '</p>\n'
+    + '        <h1 style="font-size:clamp(23px,5.4vw,36px);line-height:1.35;margin-bottom:16px">' + esc(page.h1) + '</h1>\n'
+    + '        <p style="color:var(--u-fg-soft);font-size:clamp(14.5px,3.4vw,16px);max-width:660px">' + page.lead + '</p>\n'
+    + '        <p style="margin-top:22px">\n'
+    + '          <a href="/upgrade/#diagnose" class="u-btn u-btn--primary">自分のPCを診断する</a>\n'
+    + '        </p>\n'
+    + '      </div>\n'
+    + '    </section>\n'
+    + '\n'
+    + '    <section class="u-section u-section--tight">\n'
+    + '      <div class="container">\n'
+    + forWhoHtml
+    + sectionsHtml
+    + '      </div>\n'
+    + '    </section>\n'
+    + '\n'
+    + productsHtml;
+}
+
 function buildPage(page) {
   var url = SITE + '/upgrade/' + page.slug + '/';
 
   /* --- 本文セクション --- */
-  var sectionsHtml = page.sections.map(function (s) {
+  var sectionsHtml = (page.sections || []).map(function (s) {
     var html = '        <div class="u-card" style="margin-bottom:16px">\n'
       + '          <h2 style="font-size:clamp(17px,4vw,21px);margin-bottom:12px">' + esc(s.heading) + '</h2>\n';
     (s.body || []).forEach(function (b) {
@@ -754,7 +798,7 @@ function buildPage(page) {
   /* --- FAQ --- */
   var faqHtml = '';
   if (page.faq && page.faq.length) {
-    faqHtml = '    <section class="u-section u-section--alt">\n'
+    faqHtml = '    <section class="u-section u-section--alt" id="faq">\n'
       + '      <div class="container">\n'
       + '        <div class="u-section__head">\n'
       + '          <p class="u-label">FAQ</p>\n'
@@ -764,7 +808,7 @@ function buildPage(page) {
     page.faq.forEach(function (f) {
       faqHtml += '          <details class="u-faq__item">\n'
         + '            <summary>' + esc(f.q) + '</summary>\n'
-        + '            <div class="u-faq__body">' + f.a + '</div>\n'
+        + '            <div class="u-faq__body">' + GA.fill(f.a) + '</div>\n'
         + '          </details>\n';
     });
     faqHtml += '        </div>\n      </div>\n    </section>\n';
@@ -809,8 +853,8 @@ function buildPage(page) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': url },
       author: { '@type': 'Organization', name: 'シッポPC' },
       publisher: { '@type': 'Organization', name: 'シッポPC' },
-      datePublished: '2026-08-19',
-      dateModified: '2026-08-19',
+      datePublished: page.datePublished || '2026-08-19',
+      dateModified: page.dateModified || page.datePublished || '2026-08-19',
     };
     articleJsonLd = '  <script type="application/ld+json">\n  '
       + JSON.stringify(article, null, 2).split('\n').join('\n  ')
@@ -893,25 +937,7 @@ function buildPage(page) {
 + '  </nav>\n'
 + '\n'
 + '  <main>\n'
-+ '    <section class="u-section u-section--tight">\n'
-+ '      <div class="container">\n'
-+ '        <p class="u-label">' + esc(page.slug.toUpperCase()) + '</p>\n'
-+ '        <h1 style="font-size:clamp(23px,5.4vw,36px);line-height:1.35;margin-bottom:16px">' + esc(page.h1) + '</h1>\n'
-+ '        <p style="color:var(--u-fg-soft);font-size:clamp(14.5px,3.4vw,16px);max-width:660px">' + page.lead + '</p>\n'
-+ '        <p style="margin-top:22px">\n'
-+ '          <a href="/upgrade/#diagnose" class="u-btn u-btn--primary">自分のPCを診断する</a>\n'
-+ '        </p>\n'
-+ '      </div>\n'
-+ '    </section>\n'
-+ '\n'
-+ '    <section class="u-section u-section--tight">\n'
-+ '      <div class="container">\n'
-+ forWhoHtml
-+ sectionsHtml
-+ '      </div>\n'
-+ '    </section>\n'
-+ '\n'
-+ productsHtml
++ mainTopHtml(page, forWhoHtml, sectionsHtml, productsHtml)
 + faqHtml
 + '\n'
 + '    <section class="u-section">\n'
@@ -935,7 +961,7 @@ function buildPage(page) {
 + '          <h2>関連するページ</h2>\n'
 + '        </div>\n'
 + '        <div class="u-related">\n'
-+ relatedCards(page.related || []) + '\n'
++ relatedCards(page.related || [], page.relatedExtra) + '\n'
 + '        </div>\n'
 + '      </div>\n'
 + '    </section>\n'

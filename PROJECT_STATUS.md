@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-09-03（Phase 6: GPU推奨精度の監査／Phase 7: 75構成の品質監査。GPU 65件）
+最終更新: 2026-09-28（/upgrade/rtx3060/ 全面強化・GPU型番記事の共通レンダラー・公式推奨電源の導入）
 
 ---
 
@@ -73,6 +73,9 @@
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/Generate-StaticGames.ps1`（GAME PC GUIDE）
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
+    - `gpuUpgrade` を持つGPU型番記事（2026-09-28〜、現在は rtx3060）は `upgrade/gpu-article.js` が本文を組み立てる。
+      ◎○△×・「RTX 3060比」・CPU表・推奨電源は**診断エンジンから生成時に計算**し、記事に数値を手書きしない。
+      推奨電源は `upgrade-engine.js` の `GPU_POWER_SPEC`（NVIDIA/AMD公式値）が唯一の情報源で、診断の電源判定も同じ値を下回らない。
   - ⚠️ **generator を回す前に必ず「生成物と HEAD の差分」を確認する**。
     2026-09-02、`pc-build-check/generate-builds.ps1` 自体が古く、本番ページにあった
     アフィリエイト記述（広告表記・`affiliate.css`・各scriptタグ）を含んでいなかったため、
@@ -86,6 +89,9 @@
     `gpu/<id>/index.html` というURLで sitemap を壊す）。ガード済みで既定では実行できない。
   - 各サイトの `generate-sitemap.ps1` / `.js`
 - **テスト**（Nodeで実行。修正後は必ず通す）
+  - `node upgrade/test-gpu-article.js` … GPU型番記事（/upgrade/rtx3060/ など。209件 / 2026-09-28〜）。
+    判定カードが診断エンジンと一致／FAQ構造化データ＝画面／候補に伸び「小」以下のGPUを入れない／
+    価格・倍率・「絶対」「必ず」を書かない／内部リンク切れなし、などを検証。先に generate-pages.js を実行する。
   - `node upgrade/test-upgrade-engine.js` … アップグレード診断エンジン（73件 / 2026-09-03〜）。
     個別ケースに加え、**推奨マトリクス20,160ケース**（現在GPU70種×解像度3×fps4×用途4×予算6）
     の不変条件を総当りで検証する：現在より遅いGPUを勧めない／同一GPUへの交換を勧めない／

@@ -18,6 +18,29 @@
 
 ---
 
+## 2026-09-28 — /upgrade/rtx3060/ を全面強化（判定カード・交換候補・比較表）＋型番記事の共通レンダラー化
+
+- **修正目的**: 検索流入が出始めた RTX 3060 記事を、「今のままでよいか／交換するなら何か／CPU・電源・買い替え」を短時間で判断できるページにする。結論（FHD/60fpsなら交換不要）は維持し、押し売りしない。
+- **変更ファイル**:
+  - 新規: `upgrade/gpu-article.js`（GPU型番記事の本文レンダラー。生成時のみ使うNodeモジュール）、`upgrade/test-gpu-article.js`（209件）
+  - 変更: `upgrade/articles-data.js`（rtx3060 を `gpuUpgrade` 形式に全面書き換え）、`upgrade/generate-pages.js`（gpuUpgrade 記事は専用レイアウト／FAQ に `id="faq"`／`relatedExtra`／記事ごとの `dateModified`／FAQの差し込み記法）、`upgrade/upgrade-engine.js`（`GPU_POWER_SPEC` 追加・電源判定が公式値を下回らない・内部関数を公開）、`upgrade/upgrade-products.js`（候補カードごとの折りたたみ購入ボタン `[data-upgrade-product]`）、`upgrade/style.css`（`u-ga-*` 節を追加）、`upgrade/sitemap.xml`（lastmod）
+  - 変更: `gpu-guide/generate-gpu-pages.js`・`gpu-guide/test-gpu-pages.js`（型番記事があるGPUは「次にできること」を記事へ向ける）
+  - 再生成: `upgrade/*/index.html`（rtx3060 以外は FAQ セクションに `id="faq"` が付いただけ）、`gpu-guide/gpu/rtx-3060/index.html`（交換導線のリンク先のみ）
+- **変更内容**:
+  - ファーストビュー: H1直下に「RTX 3060の2026年評価」5枚（FHD60/FHD144/WQHD60/WQHD144/4K60）＋控えめな診断CTA＋目次。
+  - 30秒判断フロー（8行・条件→結論）、強み・弱み、DLSS機能の世代別対応表（NVIDIA公式）、8GB版の注意、目的別の交換候補4段（RX 9060 XT 16GB・RTX 5060／RTX 5060 Ti 16GB／RTX 5070・RX 9070／RTX 5070 Ti・RX 9070 XT・RTX 5080）、おすすめしにくいGPU（RTX 5050・4060・3060 Ti）、比較表（スマホはカード化）、CPUボトルネック（GPU使用率の簡易チェック＋CPU×GPU表）、電源チェックリスト＋公式推奨電源表、GPU交換vs買い替え、ゲームのタイプ別、FAQ 3→11件。
+  - **◎○△×・「RTX 3060比 小/中/大/非常に大きい」・CPU表・推奨電源はすべて診断エンジンから生成時に計算**（記事と診断が食い違わない）。%や倍率・価格・FPSは載せない。
+  - 電源: NVIDIA/AMD 公式の推奨電源・補助電源を `GPU_POWER_SPEC` に登録（2026-09-28確認）。`judgePsu()` は概算式が公式値を下回るとき公式値を使う（例: RTX 5070 は 550W→650W、RX 9070 XT は 650W→750W）。
+  - title / description / H1 を検索意図（まだ使える・2026・交換・乗り換え・WQHD・12GB）に合わせて更新。URL・canonical は不変。
+  - 商品カードの調査結果: **元から正常に表示されていた**（JSで後から描画。静的HTMLは空の枠）。ただし名前とボタンだけで判断材料が無かった。今回は候補カードの中の折りたたみに移した。
+- **影響範囲**: `/upgrade/rtx3060/` の内容全体。診断は「GPU交換時の推奨電源」が上がるケースがある（公式値に合わせたため）。他の upgrade ページは見た目不変。GPU GUIDE は RTX 3060 ページのリンク1か所のみ。
+- **テスト**: 全スイート成功（test-gpu-article 209 / upgrade-engine 73 / gpu-pages 1643 / gpu-data 75 / build-check 145 / build-price 349 / build-profile 6478 / motion 39 / service-worker 45 / cross-links 61）。Chrome（CDP）で 320/360/390/768/1280px: JSエラー0・横スクロール0・はみ出し要素0・購入ボタン8/8表示・FAQ構造化データ=画面・ページ内リンク切れ0。他のupgrade 6ページと /upgrade/ 診断も確認。
+- **未対応・次にやること**:
+  - `check-affiliate-links.js` が Amazon の rtx5070 / rtx5070ti などを「要確認（在庫切れ表示）」と出している（今回の変更前から。検索リンクなので誤検知の可能性。目視確認を）。
+  - 価格はページに出していない（GPU GUIDEへ誘導）。`upgrade-engine.js` の PRICE_HINT と `gpus.json` の price が一致していない既存の二重管理は未解消。
+  - 他GPU（RTX 3070 / 4060 / RX 6700 XT など）の記事は `articles-data.js` に `gpuUpgrade` 付きで1件足すだけで作れる（文章のみ書けばよい）。候補GPUに `GPU_POWER_SPEC` の公式値が無いと生成時にエラーになる。
+- **別AIへの引き継ぎ注意点**: `upgrade/rtx3060/index.html` は生成物。文章は `articles-data.js`、記号・数値のロジックは `gpu-article.js`／`upgrade-engine.js`。電源の数値を記事に手書きせず `{{psu:rtx5070}}` を使う。候補に伸びが「小」以下のGPUを入れると test-gpu-article.js が落ちる（意図した安全装置）。
+
 ## 2026-09-24（3）— PC BUILD CHECK 2.0 の見た目・操作感（アニメーション）強化
 
 - **修正目的**: 機能・データは変えずに、診断の手応えと結果を見る楽しさを上げる（初心者向け7〜8割＋遊び心2〜3割）。

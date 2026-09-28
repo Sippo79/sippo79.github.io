@@ -95,7 +95,8 @@ gpus.forEach((gpu) => {
 
   // クロスリンク（CPU相性データの有無に関係なく必須）
   ok('PC BUILD CHECK リンク: ' + gpu.id, html.indexOf('href="/pc-build-check/"') > -1);
-  ok('Upgrade リンク: ' + gpu.id, html.indexOf('href="/upgrade/"') > -1);
+  // 型番別アップグレード記事があるGPU（例: RTX 3060 → /upgrade/rtx3060/）は記事へつなぐ
+  ok('Upgrade リンク: ' + gpu.id, /href="\/upgrade\/([a-z0-9-]+\/)?"/.test(html));
   ok('GAME PC GUIDE リンク: ' + gpu.id, html.indexOf('href="/game-pc-guide/"') > -1);
   ok('GPU GUIDE 戻りリンク: ' + gpu.id, html.indexOf('href="../../index.html"') > -1);
 
