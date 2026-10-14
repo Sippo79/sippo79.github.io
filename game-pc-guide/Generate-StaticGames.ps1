@@ -94,6 +94,9 @@ function Get-SeoTitle($game) {
     "valorant" { return "VALORANT おすすめPC｜144fps・240fps向けゲーミングPC構成" }
     "ff14" { return "FF14 おすすめPC｜初心者向けゲーミングPC構成" }
     "mhwilds" { return "モンハンワイルズ おすすめPC｜快適に遊べるゲーミングPC構成" }
+    # 流入が伸びているページなので先頭「GTA5 / GTA Online おすすめPC｜」と「必要スペック」は据え置き、
+    # Enhanced・Legacyの語だけ足す（2026-10-14）。
+    "gta5" { return "GTA5 / GTA Online おすすめPC｜Enhanced・Legacy必要スペックと快適構成" }
     default { return "$($game.title) おすすめPC｜必要スペックと快適に遊べる構成" }
   }
 }
@@ -104,6 +107,7 @@ function Get-MetaDescription($game) {
     "valorant" { return "VALORANTを144fpsから240fpsで快適に遊ぶためのおすすめゲーミングPC構成を紹介。低予算で選びやすい必要スペックや予算目安を解説します。" }
     "ff14" { return "FF14を高画質で快適に遊ぶためのおすすめゲーミングPC構成を初心者向けに紹介。必要スペック、予算目安、選び方のポイントがわかります。" }
     "mhwilds" { return "モンハンワイルズを快適に遊ぶためのおすすめゲーミングPC構成を紹介。重めのゲームに必要なスペックやGPU選び、予算目安を解説します。" }
+    "gta5" { return "GTA5 Enhanced・Legacyの公式必要／推奨スペックと、FHD・WQHD・4K別のおすすめPC構成を解説。軽くする設定、MODとGTA Onlineの注意点、GTA6のPC版の状況と買い替え判断もまとめています。" }
     default { return "$($game.title)を快適に遊ぶためのおすすめゲーミングPC構成を紹介。必要スペック、予算目安、選び方のポイントを初心者向けにわかりやすく解説します。" }
   }
 }
@@ -238,6 +242,26 @@ function Convert-ImagePath([string]$path) {
   return "../$path"
 }
 
+# ---------------------------------------------------------------------
+#  ゲーム個別の書き下ろし本文（2026-10-14〜）
+# ---------------------------------------------------------------------
+#  content/<slug>/ にファイルがあるゲームだけ、汎用文の代わりに使う。
+#    head.html … </head> の直前に入れる（構造化データなど）
+#    top.html  … おすすめ構成の前に入れる（要点・目次・公式スペック）
+#    body.html … 汎用の解説4節と情報カードを置き換える。
+#                {{AFFILIATE}} の位置に購入導線を置く（無ければ末尾）。
+#  ファイルが無いゲームは従来どおりの出力になる。
+$contentDir = Join-Path $root "content"
+
+function Get-ContentPart([string]$slug, [string]$name) {
+  $path = Join-Path (Join-Path $contentDir $slug) "$name.html"
+  if (-not (Test-Path $path)) {
+    return $null
+  }
+
+  return ([System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)).TrimEnd()
+}
+
 $games = Get-Content -Raw -Encoding UTF8 $dataPath | ConvertFrom-Json
 $createdPages = @()
 
@@ -289,99 +313,28 @@ foreach ($game in $games) {
 "@
   }
 
-  $html = @"
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  $contentHead = Get-ContentPart $slug "head"
+  $contentTop = Get-ContentPart $slug "top"
+  $contentBody = Get-ContentPart $slug "body"
 
-  <title>$(Escape-Html $seoTitle)</title>
-  <meta name="description" content="$(Escape-Html $metaDescription)" />
-  <link rel="canonical" href="$(Escape-Html $canonical)" />
+  $headExtra = if ($contentHead) { "$contentHead`n" } else { "" }
+  $topExtra = if ($contentTop) { "$contentTop`n`n" } else { "" }
 
-  <meta property="og:title" content="$(Escape-Html $seoTitle)" />
-  <meta property="og:description" content="$(Escape-Html $metaDescription)" />
-  <meta property="og:image" content="$baseUrl/$(Escape-Html $game.image)" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="$(Escape-Html $canonical)" />
-  <meta name="twitter:card" content="summary_large_image" />
+  # 購入導線。中身は game-affiliate.js が共通基盤を使って描画する。
+  $affiliateHtml = @"
+        <!-- 購入導線。中身は game-affiliate.js が共通基盤を使って描画する。
+             商品を特定できない場合はこのセクションごと削除される。 -->
+        <section class="affiliate-section" aria-labelledby="affiliateTitle"></section>
+"@
 
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
-  <link rel="icon" type="image/png" href="../images/favicon.png" />
-
-  <!-- PWA -->
-  <link rel="manifest" href="../manifest.json" />
-  <meta name="theme-color" content="#090b14" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="GAME PC" />
-  <link rel="apple-touch-icon" href="../images/favicon.png" />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-NDQ8GTKGHC');
-  </script>
-
-</head>
-
-<body data-sippo-theme="dark">
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="../index.html" class="site-logo">
-        GAME PC <span>GUIDE</span>
-      </a>
-
-      <nav class="header-nav">
-$sippoHeaderLink
-        <a href="../index.html#games" class="header-link">ゲーム一覧</a>
-        <a href="../index.html#beginner" class="header-link">初心者向け</a>
-        <a href="https://sippo-pc.jp/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
-        <a href="https://sippo-pc.jp/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="game-detail-hero">
-      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" loading="eager" decoding="async" fetchpriority="high" />
-
-      <div class="container">
-        <a href="../index.html#games" class="back-link">
-          ← ゲーム一覧に戻る
-        </a>
-
-        <p class="hero-badge">$(Escape-Html $game.genre) / $(Escape-Html $game.level)</p>
-
-        <h1>$(Escape-Html $game.title) おすすめPC</h1>
-
-        <p class="hero-text">
-          $(Escape-Html $game.description)
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="section-label">RECOMMENDED BUILDS</p>
-          <h2>$(Escape-Html $game.title)向けおすすめPC構成</h2>
-          <p>
-            $(Escape-Html $detailLead)
-          </p>
-        </div>
-
-        <div class="build-grid">
-$($buildCards -join "`r`n")
-        </div>
-
+  if ($contentBody) {
+    if ($contentBody.Contains("{{AFFILIATE}}")) {
+      $guideHtml = $contentBody.Replace("{{AFFILIATE}}", $affiliateHtml.Trim())
+    } else {
+      $guideHtml = "$contentBody`n`n$affiliateHtml"
+    }
+  } else {
+    $guideHtml = @"
         <section class="seo-guide-section" aria-labelledby="specTitle">
           <div class="section-heading">
             <p class="section-label">PC SPEC GUIDE</p>
@@ -431,9 +384,7 @@ $($resolutionCards -join "`r`n")
           </div>
         </section>
 
-        <!-- 購入導線。中身は game-affiliate.js が共通基盤を使って描画する。
-             商品を特定できない場合はこのセクションごと削除される。 -->
-        <section class="affiliate-section" aria-labelledby="affiliateTitle"></section>
+$affiliateHtml
 
         <div class="game-info-grid">
           <section class="info-card">
@@ -460,6 +411,103 @@ $($resolutionCards -join "`r`n")
             <p>$(Escape-Html $game.caution)</p>
           </section>
         </div>
+"@
+  }
+
+  $html = @"
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>$(Escape-Html $seoTitle)</title>
+  <meta name="description" content="$(Escape-Html $metaDescription)" />
+  <link rel="canonical" href="$(Escape-Html $canonical)" />
+
+  <meta property="og:title" content="$(Escape-Html $seoTitle)" />
+  <meta property="og:description" content="$(Escape-Html $metaDescription)" />
+  <meta property="og:image" content="$baseUrl/$(Escape-Html $game.image)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="$(Escape-Html $canonical)" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#090b14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GAME PC" />
+  <link rel="apple-touch-icon" href="../images/favicon.png" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+
+$headExtra</head>
+
+<body data-sippo-theme="dark">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="site-logo">
+        GAME PC <span>GUIDE</span>
+      </a>
+
+      <nav class="header-nav">
+$sippoHeaderLink
+        <a href="../index.html#games" class="header-link">ゲーム一覧</a>
+        <a href="../index.html#beginner" class="header-link">初心者向け</a>
+        <a href="https://sippo-pc.jp/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
+        <a href="https://sippo-pc.jp/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-detail-hero">
+      <img src="$(Escape-Html $imagePath)" alt="$(Escape-Html $game.title)" loading="eager" decoding="async" fetchpriority="high" />
+
+      <div class="container">
+        <a href="../index.html#games" class="back-link">
+          ← ゲーム一覧に戻る
+        </a>
+
+        <p class="hero-badge">$(Escape-Html $game.genre) / $(Escape-Html $game.level)</p>
+
+        <h1>$(Escape-Html $game.title) おすすめPC</h1>
+
+        <p class="hero-text">
+          $(Escape-Html $game.description)
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+$topExtra        <div class="section-heading">
+          <p class="section-label">RECOMMENDED BUILDS</p>
+          <h2>$(Escape-Html $game.title)向けおすすめPC構成</h2>
+          <p>
+            $(Escape-Html $detailLead)
+          </p>
+        </div>
+
+        <div class="build-grid">
+$($buildCards -join "`r`n")
+        </div>
+
+$guideHtml
 
         <div class="detail-related-sites">
           <div class="related-site-grid">

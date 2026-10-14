@@ -18,6 +18,32 @@
 
 ---
 
+## 2026-10-14 — GAME PC GUIDE：GTA5ページを全面強化（Enhanced/Legacy公式スペック・GTA6 PC版の状況・FAQ）
+
+- **修正目的**: クリックが伸びているGTA5ページ（URL据え置き）を、汎用テンプレ文から書き下ろし本文に置き換え、GTA6に向けた買い替え判断まで答えられるページにする。
+- **変更ファイル**:
+  - `game-pc-guide/Generate-StaticGames.ps1`（ゲーム個別の書き下ろし本文 `content/<slug>/` に対応・GTA5のtitle/description）
+  - `game-pc-guide/content/gta5/head.html` `top.html` `body.html`（新規・本文の正）
+  - `game-pc-guide/data/games.json`（GTA5：description・budget・caution、4K構成 Ryzen 7 7800X3D + RTX 5070 Ti を追加）
+  - `game-pc-guide/games/gta5.html`（再生成）
+  - `game-pc-guide/style.css`（末尾に書き下ろし本文用の部品を追加：要点カード・目次・表・FAQ等）
+  - `game-pc-guide/test-game-content.js`（新規）
+  - `game-pc-guide/sw.js`（v8→v9）、`game-pc-guide/sitemap.xml`（gta5のlastmodのみ）、直下 `sitemap.xml`（game-pc-guideのlastmod）
+- **変更内容**:
+  - 冒頭に要点カード4枚＋目次。Enhanced/Legacyの公式最低・推奨スペック表と違いの比較表（Rockstar公式サポート 2025-12-10更新版の値）。
+  - FHD/WQHD/4K別のSippo推奨構成（NVIDIA/AMD併記）、手持ちGPU別の目安表、軽くする設定表、MOD・GTA Online（規約・BattlEye）の注意、GTA6節（発売日・対応機種・PC版未発表・報道は「報道」と区別）、FAQ 8問、相談室への導線、関連ゲームリンク。
+  - JSON-LD（BreadcrumbList / Article / FAQPage）を追加。title は先頭「GTA5 / GTA Online おすすめPC｜」を据え置き、後半を「Enhanced・Legacy必要スペックと快適構成」に変更。H1は据え置き。
+  - 生成スクリプトは `content/<slug>/` が無いゲームでは従来と同一出力（他28ページはバイト一致を確認）。
+- **影響範囲**: GTA5ページのみ。games.json のGTA5に構成が1件増えたため、PC BUILD CHECK の「遊びたいゲーム」判定（gameFit）に「4K 高画質」段が加わる（test-build-profile 6478件成功）。購入導線はRTX 5070 Tiの商品も出る。
+- **未対応・次にやること**:
+  - 公開後、Search ConsoleでGTA5ページの順位・CTR・クエリを改修前28日と比較（今回はSearch Consoleに接続できず未分析）。
+  - GTA6のPC版・スペックが公式発表されたら GTA6節・FAQ・head.html のFAQPageを更新（情報の確認日も更新）。
+  - fps実測値は根拠が無いため未掲載。信頼できるベンチを確認できたら追加を検討。
+- **別AIへの引き継ぎ注意点**:
+  - `games/gta5.html` は生成物。本文は `content/gta5/*.html` を直して `Generate-StaticGames.ps1` を実行する。FAQを変えたら head.html の FAQPage も一字一句合わせる（`node game-pc-guide/test-game-content.js` が照合）。
+  - 生成スクリプトは sitemap.xml の全lastmodを実行日に書き換える。変えていないページの日付まで進めないよう、生成後に該当ページ以外を戻すこと。
+  - style.css は CRLF。LFで書き戻すと全行差分になる。
+
 ## 2026-09-28 — /upgrade/rtx3060/ を全面強化（判定カード・交換候補・比較表）＋型番記事の共通レンダラー化
 
 - **修正目的**: 検索流入が出始めた RTX 3060 記事を、「今のままでよいか／交換するなら何か／CPU・電源・買い替え」を短時間で判断できるページにする。結論（FHD/60fpsなら交換不要）は維持し、押し売りしない。

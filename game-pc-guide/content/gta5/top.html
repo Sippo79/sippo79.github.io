@@ -1,0 +1,109 @@
+        <!-- GTA5ページ専用（content/gta5/top.html）。生成物の games/gta5.html を直接編集しないこと。 -->
+        <section class="guide-summary" aria-labelledby="summaryTitle">
+          <div class="section-heading">
+            <p class="section-label">QUICK ANSWER</p>
+            <h2 id="summaryTitle">GTA5を遊ぶPCの結論</h2>
+            <p>まず知っておきたいのは、今のPC版GTA5には<strong>要求スペックの違う「Enhanced」と「Legacy」の2種類</strong>があることです。</p>
+          </div>
+
+          <ul class="summary-grid">
+            <li class="summary-item">
+              <span class="summary-key">公式の推奨スペック（Enhanced）</span>
+              <strong>RTX 3060 8GB / RX 6600 XT 8GB・メモリ16GB・SSD</strong>
+              <small>Legacy版の推奨はGTX 660 2GB・メモリ8GBとかなり低めです。</small>
+            </li>
+            <li class="summary-item">
+              <span class="summary-key">迷ったらこの構成</span>
+              <strong>Ryzen 7 5700X + RTX 5060（15万円前後）</strong>
+              <small>公式推奨より一段上の性能で、フルHD高画質に余裕を持たせた構成です。</small>
+            </li>
+            <li class="summary-item">
+              <span class="summary-key">EnhancedとLegacy</span>
+              <strong>SSDのある今どきのPCならEnhanced</strong>
+              <small>HDDの古いPCや、Legacy向けMODを使うならLegacyも選べます。</small>
+            </li>
+            <li class="summary-item summary-item-sub">
+              <span class="summary-key">GTA6のPC版</span>
+              <strong>発売日・スペックとも未発表</strong>
+              <small>2026年11月19日発売はPS5 / Xbox Series X|S版です。<a href="#gta6Title">詳しく見る</a></small>
+            </li>
+          </ul>
+
+          <nav class="guide-toc" aria-label="このページの目次">
+            <p class="guide-toc-title">目次</p>
+            <ol>
+              <li><a href="#specsTitle">公式の必要・推奨スペック（Enhanced / Legacy）</a></li>
+              <li><a href="#resolutionTitle">FHD・WQHD・4K別のおすすめ構成</a></li>
+              <li><a href="#myGpuTitle">今のGPUでGTA5は動く？</a></li>
+              <li><a href="#settingsTitle">GTA5を軽くする設定</a></li>
+              <li><a href="#modTitle">MODとGTA Onlineの注意点</a></li>
+              <li><a href="#gta6Title">GTA6に向けてPCを買い替えるべき？</a></li>
+              <li><a href="#faqTitle">よくある質問</a></li>
+            </ol>
+          </nav>
+          <p class="guide-checked">情報の確認日：2026年10月14日（Rockstar Games公式サイト・サポートページ）</p>
+        </section>
+
+        <section class="seo-guide-section" aria-labelledby="specsTitle">
+          <div class="section-heading">
+            <p class="section-label">OFFICIAL SPEC</p>
+            <h2 id="specsTitle">GTA5 / GTA Onlineに必要なPCスペック（Enhanced・Legacy公式）</h2>
+            <p>以下はRockstar Gamesが公開している公式スペックです。「最低」は起動して遊べる下限、「推奨」は標準的な画質で快適に遊ぶための目安で、どちらも高画質・高fpsを保証するものではありません。</p>
+          </div>
+
+          <h3 class="guide-subtitle">GTA5 Enhanced（2025年3月〜の現行版）</h3>
+          <div class="table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr><th scope="col">項目</th><th scope="col">最低</th><th scope="col">推奨</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">OS</th><td>Windows 10（ビルド1909以降）</td><td>Windows 11</td></tr>
+                <tr><th scope="row">CPU</th><td>Intel Core i7-4770 / AMD FX-9590</td><td>Intel Core i5-9600K / AMD Ryzen 5 3600</td></tr>
+                <tr><th scope="row">メモリ</th><td>8GB</td><td>16GB（デュアルチャネル）</td></tr>
+                <tr><th scope="row">GPU</th><td>GeForce GTX 1630（VRAM 4GB）/ Radeon RX 6400（VRAM 4GB）</td><td>GeForce RTX 3060（<strong>VRAM 8GB</strong>）/ Radeon RX 6600 XT（VRAM 8GB）</td></tr>
+                <tr><th scope="row">ストレージ</th><td>105GB・<strong>SSD必須</strong></td><td>105GB・DirectStorage対応ドライブ</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="guide-note">RTX 3060には12GB版と8GB版があり、公式推奨は「VRAM 8GB」と書かれています。8GB版はメモリの帯域が狭く12GB版より少し遅いので、<strong>12GB版なら推奨を満たしたうえで余裕がある</strong>と考えてOKです。</p>
+
+          <h3 class="guide-subtitle">GTA5 Legacy（2015年〜の従来版）</h3>
+          <div class="table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr><th scope="col">項目</th><th scope="col">最低</th><th scope="col">推奨</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">OS</th><td>Windows 10（64bit）</td><td>Windows 10（64bit）</td></tr>
+                <tr><th scope="row">CPU</th><td>Intel Core 2 Quad Q6600 / AMD Phenom 9850</td><td>Intel Core i5-3470 / AMD FX-8350</td></tr>
+                <tr><th scope="row">メモリ</th><td>4GB</td><td>8GB</td></tr>
+                <tr><th scope="row">GPU</th><td>NVIDIA 9800 GT 1GB / AMD HD 4870 1GB</td><td>GeForce GTX 660 2GB / Radeon HD 7870 2GB</td></tr>
+                <tr><th scope="row">ストレージ</th><td>125GB（HDD可）</td><td>125GB（HDD可）</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="guide-note">Rockstarは、アップデートやダウンロードコンテンツで必要スペックが変わる場合があること、ノートPC向けチップセットや内蔵GPUでは動かない場合があることも案内しています。最新の表記は<a href="https://support.rockstargames.com/articles/lMQXeP2Z1mN3g9oZiBZFR/grand-theft-auto-v-pc-system-requirements" target="_blank" rel="noopener noreferrer">Rockstar公式サポート（GTA5 PC必要動作環境）</a>で確認できます。</p>
+
+          <h3 class="guide-subtitle">EnhancedとLegacyの違い・どちらを選ぶべき？</h3>
+          <div class="table-wrap">
+            <table class="spec-table spec-table-compare">
+              <thead>
+                <tr><th scope="col">比較</th><th scope="col">Enhanced</th><th scope="col">Legacy</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">向いているPC</th><td>SSDを積んだ、ここ数年のゲーミングPC</td><td>HDDのPCや、かなり古いPC</td></tr>
+                <tr><th scope="row">CPUの目安（推奨）</th><td>Core i5-9600K / Ryzen 5 3600</td><td>Core i5-3470 / FX-8350</td></tr>
+                <tr><th scope="row">GPUの目安（推奨）</th><td>RTX 3060 8GB / RX 6600 XT 8GB</td><td>GTX 660 2GB / HD 7870 2GB</td></tr>
+                <tr><th scope="row">メモリ（推奨）</th><td>16GB</td><td>8GB</td></tr>
+                <tr><th scope="row">ストレージ</th><td>105GB・SSD必須</td><td>125GB・HDD可</td></tr>
+                <tr><th scope="row">グラフィック機能</th><td>レイトレーシング（影・反射・アンビエントオクルージョン・グローバルイルミネーション）、DLSS、FSR、DirectStorageによる高速読み込み</td><td>従来の描画のみ（レイトレーシング・DLSS非対応）</td></tr>
+                <tr><th scope="row">GTA Online</th><td colspan="2">EnhancedとLegacyのプレイヤー同士は一緒に遊べません。Legacyのストーリー進行とGTA Onlineのキャラクターは、Enhancedへ1回だけ移行できます。</td></tr>
+                <tr><th scope="row">こんな人に</th><td><strong>ほとんどの人はこちら</strong>。きれいな画質で遊びたい人</td><td>スペックが足りない人、Legacy向けMODを使い続けたい人</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="guide-note">PC版GTA5を持っている人は、Enhancedへ無料でアップグレードできます。Enhancedは別のゲームとしてインストールされるため、ストレージの空きを確保してから導入しましょう。</p>
+        </section>
+
+        <p class="guide-builds-note">ここからは、公式スペックではなく<strong>Sippoが快適さを優先して選んだ構成</strong>です。</p>

@@ -1884,3 +1884,427 @@ body {
   color: var(--cyan);
   text-decoration-color: currentColor;
 }
+
+/* ---------------------------------------------------------------------
+   ゲーム個別の書き下ろし本文（content/<slug>/ ・2026-10-14〜 GTA5で使用）
+   既存カードの見た目（ガラス調・角丸26px・シアンのラベル）に合わせる。
+   表はスマホで横にはみ出さないよう、列数を3列までに抑えて折り返す。
+   --------------------------------------------------------------------- */
+
+/* 固定ヘッダーの下に見出しが隠れないように */
+.guide-summary [id],
+.seo-guide-section h2[id] {
+  scroll-margin-top: 120px;
+}
+
+.guide-summary {
+  margin-bottom: 8px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: var(--card-grad);
+  box-shadow: var(--card-highlight);
+}
+
+.summary-item-sub {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.summary-key {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.summary-item strong {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.summary-item small {
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.guide-toc {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.guide-toc-title {
+  margin: 0 0 8px;
+  font-weight: 900;
+}
+
+.guide-toc ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 24px;
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.guide-toc li {
+  color: var(--text-dim);
+}
+
+.guide-toc a {
+  display: inline-block;
+  padding: 6px 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.guide-toc a:hover,
+.guide-toc a:focus-visible {
+  color: var(--cyan);
+}
+
+.guide-checked {
+  margin: 12px 0 0;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.guide-subtitle {
+  margin: 26px 0 12px;
+  font-size: 20px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.spec-table th,
+.spec-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-wrap: anywhere;
+}
+
+.spec-table tbody tr:last-child th,
+.spec-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.spec-table thead th {
+  color: var(--cyan);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  background: rgba(25, 227, 255, 0.07);
+}
+
+.spec-table tbody th {
+  width: 24%;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.spec-table td {
+  color: var(--text-muted);
+}
+
+.tag-enhanced,
+.src-tag {
+  display: inline-block;
+  margin: 2px 0 0 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: var(--cyan);
+  border: 1px solid rgba(25, 227, 255, 0.4);
+}
+
+.src-tag {
+  margin-left: 0;
+}
+
+/* 「重さ」列は短い語だけ。狭い画面で1文字ずつ縦に折れないようにする */
+.spec-table-settings th:nth-child(2),
+.spec-table-settings td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.src-report {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+.guide-note {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.guide-builds-note {
+  margin: 34px 0 -12px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.res-spec {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+
+.res-spec div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.res-spec dt {
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.res-spec dd {
+  margin: 0;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.guide-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.guide-point {
+  padding: 20px 22px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: var(--card-grad);
+  box-shadow: var(--card-highlight);
+}
+
+.guide-point h3,
+.guide-point h4 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.guide-point p,
+.guide-point li {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.guide-point ul {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+}
+
+.guide-alert {
+  margin-top: 16px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(251, 113, 133, 0.4);
+  background: rgba(251, 113, 133, 0.08);
+}
+
+.guide-alert-title {
+  margin: 0 0 6px;
+  color: #fda4af;
+  font-weight: 900;
+}
+
+.guide-alert p:last-child {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.guide-consult {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 34px;
+  padding: 20px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(25, 227, 255, 0.28);
+  background: linear-gradient(180deg, rgba(25, 227, 255, 0.1), rgba(25, 227, 255, 0.035));
+}
+
+.guide-consult-title {
+  margin: 0 0 4px;
+  font-weight: 900;
+}
+
+.guide-consult p:last-child {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.guide-consult .secondary-btn {
+  flex-shrink: 0;
+  /* 900px以下で .secondary-btn が width:100% になるため、横並びの間は内容幅に戻す */
+  width: auto;
+}
+
+.faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.faq-item {
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-item summary {
+  position: relative;
+  padding: 16px 48px 16px 20px;
+  font-weight: 800;
+  line-height: 1.6;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: var(--cyan);
+  font-size: 20px;
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-item p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.guide-related-games {
+  margin-top: 30px;
+}
+
+.guide-related-games p:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.guide-related-games a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* 本文中のリンク（サイト全体は下線なしなので、ここだけリンクと分かるようにする） */
+.summary-item a,
+.guide-note a,
+.guide-point a,
+.spec-table a:not(.build-gpu-link),
+.res-spec a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .guide-points-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .summary-grid,
+  .guide-toc ol,
+  .guide-points {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-table {
+    font-size: 13px;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    padding: 10px 10px;
+  }
+
+  .spec-table tbody th {
+    width: 30%;
+  }
+
+  .guide-consult {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .guide-consult .secondary-btn {
+    width: 100%;
+  }
+
+  .guide-subtitle {
+    font-size: 18px;
+  }
+}

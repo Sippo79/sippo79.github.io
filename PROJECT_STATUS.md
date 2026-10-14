@@ -72,6 +72,7 @@
 - **生成スクリプト**: 一部ページは PowerShell スクリプトで静的生成
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/Generate-StaticGames.ps1`（GAME PC GUIDE）
+    - 2026-10-14〜 `game-pc-guide/content/<slug>/`（head / top / body.html）があるゲームは汎用文の代わりに書き下ろし本文を使う（現在は gta5 のみ）。検証は `node game-pc-guide/test-game-content.js`。
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
     - `gpuUpgrade` を持つGPU型番記事（2026-09-28〜、現在は rtx3060）は `upgrade/gpu-article.js` が本文を組み立てる。
       ◎○△×・「RTX 3060比」・CPU表・推奨電源は**診断エンジンから生成時に計算**し、記事に数値を手書きしない。

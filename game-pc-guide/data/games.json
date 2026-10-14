@@ -130,11 +130,11 @@
   "genre": "オープンワールド",
   "level": "中量級",
   "image": "images/gta5.jpg",
-  "description": "GTA5やGTA Onlineを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。MODも考えた必要スペックを解説します。",
+  "description": "GTA5（Enhanced・Legacy）やGTA Onlineを快適に遊ぶためのおすすめゲーミングPCを紹介。公式の必要スペック、MODの注意点、GTA6に向けた買い替え判断も解説します。",
   "recommended": "FHD〜WQHD / 高画質",
-  "budget": "15万〜25万円前後",
+  "budget": "15万〜30万円前後",
   "point": "GTA OnlineやMOD導入を考えると、GPUだけでなくメモリ容量にも余裕を持たせると快適です。",
-  "caution": "高画質設定やMOD環境ではVRAM使用量が増えやすいため、余裕のあるGPUがおすすめです。",
+  "caution": "Enhanced版のレイトレーシングや高解像度テクスチャMODではVRAM使用量が増えやすいため、余裕のあるGPUがおすすめです。",
   "builds": [
     {
       "name": "ライト",
@@ -151,6 +151,14 @@
       "cpu": "Ryzen 7 7800X3D",
       "gpu": "RTX 5070",
       "comment": "高画質やMOD環境も視野に入れたい人向け。長く使いやすい構成です。"
+    },
+    {
+      "name": "ハイエンド",
+      "price": "30万円前後",
+      "target": "4K 高画質",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "RTX 5070 Ti",
+      "comment": "Enhanced版を4Kで楽しみたい人向け。DLSSなどのアップスケーリング併用が前提で、VRAM 16GBの余裕は重いMODにも効きます。"
     }
   ]
 },

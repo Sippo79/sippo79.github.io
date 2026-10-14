@@ -5,7 +5,8 @@
 // v6: 新作ゲーム4本（鬼武者/WARDOGS/バイオRE:レクイエム/ボダラン4）を追加。games.json・index.html を更新。
 // v7: 一覧サムネを640px WebP化・詳細ヒーローもWebP化（script.js / 生成ページを更新）。
 // v8: ゲーム個別ページのファイル名を games.json の slug から引くよう変更（script.js / games.json を更新）。
-const CACHE_VERSION = 'v8';
+// v9: GTA5ページを書き下ろし本文に刷新（style.css / games.json を更新。GTA5に4K構成を追加）。
+const CACHE_VERSION = 'v9';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 
