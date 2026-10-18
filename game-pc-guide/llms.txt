@@ -1,58 +1,60 @@
 # GAME PC GUIDE
 
-> ゲーム別のおすすめゲーミングPC構成と必要スペックを初心者向けに解説する日本語サイト。APEX Legends、VALORANT、FF14など人気ゲームごとにFHD・WQHD・4Kの予算別PC構成を紹介しています。
+> ゲーム別の公式必要スペックと、おすすめゲーミングPC構成を初心者向けに解説する日本語サイト（Sippo運営）。各ゲームのページで、公式の最低・推奨スペック（出典と確認日つき）と、Sippo独自のおすすめ構成・予算の目安を区別して掲載しています。
 
 ## 概要
 
 - URL: https://sippo-pc.jp/game-pc-guide/
 - 言語: 日本語
 - 対象: ゲーミングPC購入を検討している初心者
-- 内容: 各ゲームに最適なCPU・GPU・予算の目安
+- 内容: ゲームごとの公式スペック、FHD・WQHD・4K別のGPUの目安、おすすめ構成（CPU・GPU・メモリ・予算）、ゲーム固有の注意点、FAQ
 
 ## 掲載ゲーム一覧
 
-- [APEX Legends おすすめPC](https://sippo-pc.jp/game-pc-guide/games/apex.html): FPS / 軽め〜中量級。FHD 144fps向け構成を中心に解説
-- [VALORANT おすすめPC](https://sippo-pc.jp/game-pc-guide/games/valorant.html): FPS / 軽量級。144fps〜240fps向け構成
-- [FINAL FANTASY XIV おすすめPC](https://sippo-pc.jp/game-pc-guide/games/ff14.html): MMO / 中量級。快適プレイ向け構成
-- [モンハンワイルズ おすすめPC](https://sippo-pc.jp/game-pc-guide/games/monster-hunter.html): アクション / 重量級。高設定向け構成
-- [GTA5 / GTA Online おすすめPC](https://sippo-pc.jp/game-pc-guide/games/gta5.html): オープンワールド / 中量級
-- [Cyberpunk 2077 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cyberpunk2077.html): オープンワールド / 重量級。レイトレ対応構成も掲載
-- [Fortnite おすすめPC](https://sippo-pc.jp/game-pc-guide/games/fortnite.html): FPS / 軽め〜中量級。高fpsを狙いやすい構成
-- [Minecraft おすすめPC](https://sippo-pc.jp/game-pc-guide/games/minecraft.html): サンドボックス / 軽量〜中量級
-- [Escape from Tarkov おすすめPC](https://sippo-pc.jp/game-pc-guide/games/tarkov.html): FPS / 重量級。CPU性能が重要
-- [Battlefield おすすめPC](https://sippo-pc.jp/game-pc-guide/games/battlefield.html): FPS / 重量級
-- [Call of Duty おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cod.html): FPS / 中量級
-- [Rust おすすめPC](https://sippo-pc.jp/game-pc-guide/games/rust.html): サバイバル / 重量級
-- [ARK: Survival Evolved おすすめPC](https://sippo-pc.jp/game-pc-guide/games/ark.html): サバイバル / 重量級
-- [原神 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/genshin.html): RPG / 軽め〜中量級
-- [League of Legends おすすめPC](https://sippo-pc.jp/game-pc-guide/games/lol.html): MOBA / 軽量級
-- [Overwatch 2 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/overwatch2.html): FPS / 軽め〜中量級
-- [ELDEN RING おすすめPC](https://sippo-pc.jp/game-pc-guide/games/eldenring.html): アクションRPG / 中量級
-- [PUBG: BATTLEGROUNDS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/pubg.html): FPS / 中〜重量級
-- [Palworld おすすめPC](https://sippo-pc.jp/game-pc-guide/games/palworld.html): サバイバル / 中〜重量級
-- [Rainbow Six Siege おすすめPC](https://sippo-pc.jp/game-pc-guide/games/rainbowsixsiege.html): FPS / 軽め〜中量級
-- [Starfield おすすめPC](https://sippo-pc.jp/game-pc-guide/games/starfield.html): RPG / 重量級
-- [HELLDIVERS 2 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/helldivers2.html): TPS / 中〜重量級
-- [黒い砂漠 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/blackdesert.html): MMO / 重量級
-- [ARMA 3 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/arma3.html): ミリタリーFPS / 重量級
-- [ストリートファイター6 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/streetfighter6.html): 格闘ゲーム / 中量級
-- [鬼武者 Way of the Sword おすすめPC](https://sippo-pc.jp/game-pc-guide/games/onimusha.html): アクション / 中〜重量級。最高画質向け構成も掲載
-- [WARDOGS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/wardogs.html): FPS / 重量級。最大100人対戦向けにCPU余力も重視
-- [バイオハザード レクイエム おすすめPC](https://sippo-pc.jp/game-pc-guide/games/biohazard-requiem.html): サバイバルホラー / 中量級。レイトレ対応構成も掲載
-- [ボーダーランズ4 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/borderlands4.html): FPS / 重量級。公式推奨が高めでメモリ32GB推奨
+<!-- GENERATED:games START（generate-games.js が書き換える） -->
+- [APEX Legends おすすめPC](https://sippo-pc.jp/game-pc-guide/games/apex.html): FPS / PC負荷「普通」。目安 FHD / 144fps以上。公式推奨はGTX 970級と軽め。144fps以上を安定させたいならCPUにも余裕を。
+- [VALORANT おすすめPC](https://sippo-pc.jp/game-pc-guide/games/valorant.html): FPS / PC負荷「軽い」。目安 FHD / 144fps〜240fps以上。Riot公式の144fps目安はGTX 1050 Ti級。高額GPUよりCPUとモニターに予算を。
+- [FINAL FANTASY XIV おすすめPC](https://sippo-pc.jp/game-pc-guide/games/ff14.html): MMO / PC負荷「普通」。目安 FHD〜WQHD / 高品質。グラフィックアップデート後に公式推奨はRTX 2060へ。人が集まる場所ではCPUも効く。
+- [モンハンワイルズ おすすめPC](https://sippo-pc.jp/game-pc-guide/games/monster-hunter.html): アクション / PC負荷「重い」。目安 FHD〜WQHD / 高設定。公式推奨でもフレーム生成込みのFHD 60fps。VRAM 8GBだと高解像度テクスチャは厳しめ。
+- [GTA5 / GTA Online おすすめPC](https://sippo-pc.jp/game-pc-guide/games/gta5.html): オープンワールド / PC負荷「普通」。目安 FHD〜WQHD / 高画質。Enhanced版の公式推奨はRTX 3060。Legacy版はさらに軽く、MOD次第で要求が跳ね上がる。
+- [Cyberpunk 2077 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cyberpunk2077.html): RPG / PC負荷「非常に重い」。目安 FHD〜WQHD / 高画質・レイトレ。レイトレなしなら中堅GPUで遊べる。パストレーシングを使うと必要性能が一気に跳ね上がる。
+- [Fortnite おすすめPC](https://sippo-pc.jp/game-pc-guide/games/fortnite.html): TPS / PC負荷「普通」。目安 FHD / 144fps〜240fps。パフォーマンスモードなら軽く、Lumen・Nanite有効の高画質では一気に重くなる。
+- [Minecraft おすすめPC](https://sippo-pc.jp/game-pc-guide/games/minecraft.html): サンドボックス / PC負荷「軽い」。目安 FHD / バニラ〜影MOD。2026年7月にJava版の公式推奨が引き上げ（VRAM 6GB・メモリ16GB）。影MODはさらに重い。
+- [Escape from Tarkov おすすめPC](https://sippo-pc.jp/game-pc-guide/games/tarkov.html): FPS / PC負荷「非常に重い」。目安 FHD〜WQHD / fps安定。1.0の公式推奨はメモリ64GB・Core i7-14700F。GPUよりCPUとメモリが効くタイトル。
+- [Battlefield 6 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/battlefield.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 高fps。最新作BF6の公式推奨はRTX 3060 Ti級。TPM 2.0とセキュアブートの有効化が必須。
+- [Call of Duty おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cod.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 144fps以上。BO7とWarzoneが対象。10月23日発売予定のMW4も公式推奨はRTX 3060と同水準。
+- [Rust おすすめPC](https://sippo-pc.jp/game-pc-guide/games/rust.html): サバイバル / PC負荷「重い」。目安 FHD〜WQHD / fps安定。公式推奨はRTX 3060・メモリ16GB。人の多いサーバーや大型拠点ではCPUとメモリが効く。
+- [ARK: Survival Evolved / Ascended おすすめPC](https://sippo-pc.jp/game-pc-guide/games/ark.html): サバイバル / PC負荷「非常に重い」。目安 FHD〜WQHD / 中〜高設定。旧作ASEは軽め、UE5版のASAは公式推奨RTX 3080・メモリ32GBの重量級。まずどちらか確認を。
+- [原神 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/genshin.html): オープンワールド / PC負荷「軽い」。目安 FHD〜WQHD / 高画質。PC版は軽めで、入門クラスでも高画質が狙える。WQHDで綺麗に遊ぶならミドル級。
+- [League of Legends おすすめPC](https://sippo-pc.jp/game-pc-guide/games/lol.html): MOBA / PC負荷「軽い」。目安 FHD / 144fps以上。公式推奨はGeForce 560・メモリ4GBと非常に軽い。ゲーミングPCは配信や他ゲーム用と考えて。
+- [Overwatch（旧Overwatch 2） おすすめPC](https://sippo-pc.jp/game-pc-guide/games/overwatch2.html): FPS / PC負荷「軽い」。目安 FHD / 144fps〜240fps。2026年2月に名称が「Overwatch」へ。公式推奨はGTX 1060級で、240fpsはCPU次第。
+- [ELDEN RING おすすめPC](https://sippo-pc.jp/game-pc-guide/games/eldenring.html): アクションRPG / PC負荷「普通」。目安 FHD〜WQHD / 60fps安定。ゲーム内のfps上限は60。高fps用の高額GPUより、60fpsを落とさない安定性を重視。
+- [PUBG: BATTLEGROUNDS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/pubg.html): FPS / PC負荷「普通」。目安 FHD / 144fps以上。公式推奨はGTX 1060 3GB・メモリ16GB。競技では画質よりfpsの安定を優先。
+- [Palworld おすすめPC](https://sippo-pc.jp/game-pc-guide/games/palworld.html): サバイバル / PC負荷「重い」。目安 FHD〜WQHD / 快適。2026年7月に正式版1.0が配信。公式推奨はRTX 3060 Ti・メモリ32GB。
+- [Rainbow Six Siege X おすすめPC](https://sippo-pc.jp/game-pc-guide/games/rainbowsixsiege.html): FPS / PC負荷「軽い」。目安 FHD / 144fps〜240fps。現行のSiege Xは公式推奨RTX 2060・メモリ8GB。高fpsで撃ち合いの見え方が変わる。
+- [Starfield おすすめPC](https://sippo-pc.jp/game-pc-guide/games/starfield.html): RPG / PC負荷「重い」。目安 FHD〜WQHD / 高設定。公式推奨はRX 6800 XT / RTX 2080とGPU要求が高め。都市部ではCPU負荷も大きい。
+- [HELLDIVERS 2 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/helldivers2.html): TPS / PC負荷「重い」。目安 FHD〜WQHD / 快適。公式推奨はRTX 2060・Core i7-9700K。敵と爆発が増える高難度ほどCPUにも負荷がかかる。
+- [黒い砂漠 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/blackdesert.html): MMO / PC負荷「普通」。目安 FHD〜WQHD / 高画質。画質モードで負荷が激変。リマスター以上の高画質や人の多い拠点戦では性能差が出る。
+- [ストリートファイター6 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/streetfighter6.html): 格闘ゲーム / PC負荷「普通」。目安 FHD / 60fps安定（対戦）。対戦は60fps固定。144fpsを狙う必要はなく、60fpsを絶対に落とさない構成が正解。
+- [ARMA 3 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/arma3.html): ミリタリーFPS / PC負荷「重い」。目安 FHD / MOD・大規模ミッション。古いゲームでも大規模ミッションやMODではCPUが限界に。GPUを盛っても伸びにくい。
+- [鬼武者 Way of the Sword おすすめPC](https://sippo-pc.jp/game-pc-guide/games/onimusha.html): アクション / PC負荷「普通」。目安 FHD〜WQHD / 高設定。2026年9月発売。公式推奨はRTX 2060 Superで「中設定・アップスケーリングでFHD 60fps」。
+- [WARDOGS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/wardogs.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 高fps。2026年9月に早期アクセス開始。100人・3チームの大規模戦で、公式推奨はRTX 3070。
+- [バイオハザード レクイエム おすすめPC](https://sippo-pc.jp/game-pc-guide/games/biohazard-requiem.html): サバイバルホラー / PC負荷「普通」。目安 FHD〜WQHD / 高画質。公式推奨はRTX 2060 Superで「720p描画をアップスケールしてFHD 60fps」。パストレーシングは別格に重い。
+- [ボーダーランズ4 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/borderlands4.html): FPS / PC負荷「非常に重い」。目安 FHD〜WQHD / 高設定。最低でも8コアCPU・VRAM 8GBが必須。公式推奨はRTX 3080・メモリ32GBの重量級。
+<!-- GENERATED:games END -->
 
 ## 各ゲームページの構成
 
-各ゲームページには以下の情報が含まれています：
-
-- おすすめPC構成（ライト・ミドル・ハイの3段階、またはゲームに応じた構成数）
-- 各構成の予算目安・CPU・GPU
-- 「迷ったらこの構成」として最もバランスの良い構成を推奨
-- FHD / WQHD / 4K の解像度別の予算・スペック目安
-- GPU選びの目安（どのGPUグレードが適切か）
-- 初心者向けの注意点
+- 結論（迷ったらこの構成・公式の推奨GPU・目標環境・注意点）
+- 公式の必要・推奨スペック表（公式に記載のない項目は「記載なし」と明記）と出典
+- Sippoのおすすめ構成（公式スペックとは区別。予算はBTO完成品の目安で、確認月を明記）
+- FHD・WQHD・4K別のGPUの目安（実測値ではなく目安）
+- そのゲームならではのPC選びのポイント
+- よくある質問、出典と確認日、関連ゲーム
 
 ## 関連サイト
 
 - [GPU GUIDE](https://sippo-pc.jp/gpu-guide/): GPU性能比較
 - [PC BUILD CHECK](https://sippo-pc.jp/pc-build-check/): PC構成診断
+- [PC UPGRADE](https://sippo-pc.jp/upgrade/): 今のPCで足りるかの診断
+- [シッポPC相談室](https://sippo-pc.jp/pc-consult/): PC購入前の相談

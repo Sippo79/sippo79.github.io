@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "ボーダーランズ4 おすすめPC｜8コアCPU必須の公式スペックと快適構成",
+  "metaDescription": "ボーダーランズ4の公式必要・推奨スペック（最低でも8コアCPU・VRAM 8GB必須、推奨RTX 3080・メモリ32GB）と、FHD・WQHD別のおすすめPC構成を解説。アップデートでの改善状況もわかります。",
+  "lead": "ボーダーランズ4は公式推奨がRTX 3080 / RX 6800 XT・メモリ32GBの重量級タイトルです。最低環境でも「8コアCPU」「VRAM 8GB」「SSD」が必須と明記されているため、6コアのCPUを積んだ安いPCは最低条件を満たしません。Sippoでは8コアCPU・メモリ32GBを前提に構成を選んでいます。",
+  "pick": 0,
+  "recGpuId": "rtx-3080",
+  "specTables": [
+    {
+      "title": "ボーダーランズ4 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 / 11", "Windows 10 / 11"],
+        ["CPU", "Intel Core i7-9700 / AMD Ryzen 7 2700X（8コア必須）", "Intel Core i7-12700 / AMD Ryzen 7 5800X"],
+        ["GPU", "NVIDIA GeForce RTX 2070 / AMD Radeon RX 5700 XT / Intel Arc A580", "NVIDIA GeForce RTX 3080 / AMD Radeon RX 6800 XT / Intel Arc B580"],
+        ["VRAM", "8GB必須", "記載なし"],
+        ["メモリ", "16GB", "32GB"],
+        ["ストレージ", "100GB・SSD必須", "100GB・SSD必須"]
+      ],
+      "note": "推奨GPUに挙がっているRTX 3080とArc B580は性能に差があります。Sippoでは高い方（RTX 3080 / RX 6800 XT）を基準に構成を考えています。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Borderlands 4）", "url": "https://store.steampowered.com/app/1285190/" },
+    { "label": "アップデート1.5でのPC版性能改善の報道（GamingBolt）", "url": "https://gamingbolt.com/borderlands-4-pc-frame-rates-have-been-improved-by-around-20-percent-since-launch-says-gearbox" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 Ti 16GB / RX 9060 XT 16GB", "target": "高設定（アップスケーリング併用）", "note": "公式推奨（RTX 3080）にはわずかに届かないため、DLSS / FSRの併用が前提です。" },
+    { "res": "WQHD", "gpu": "RTX 5070 Ti / RX 9070 XT", "target": "高設定（アップスケーリング併用）", "note": "公式推奨を上回り、VRAM 16GBで余裕があります。" },
+    { "res": "4K", "gpu": "RTX 5080 以上", "target": "高設定（アップスケーリング＋フレーム生成）", "note": "4Kは最上位クラスでも重い設定です。" }
+  ],
+  "tech": "DLSS・FSR・XeSSなどのアップスケーリングとフレーム生成に対応しています。発売直後は重さへの不満が多く、開発元は2026年3月のアップデート（1.5）までに平均fpsが約20%改善したと発表しています。",
+  "points": [
+    { "title": "最低環境でも8コアCPUが必須", "text": "公式は最低環境で「8コアのCPU」を必須と明記しています。Ryzen 5 7500F（6コア）のような6コアの入門CPUは条件を満たさないため、ボーダーランズ4を遊ぶならRyzen 7 7700（8コア）以上を選びましょう。" },
+    { "title": "推奨メモリは32GB", "text": "公式推奨メモリは32GBです。16GBでも最低条件は満たしますが、快適さを求めるなら最初から32GBのPCを選んでおくと安心です。" },
+    { "title": "発売後のアップデートで改善が進んでいる", "text": "発売当初は性能面の不満が多いタイトルでしたが、2025年12月や2026年3月のアップデートで改善が進んだと報じられています。古いベンチマークやレビューは今の状態と違う可能性があるので、日付を確認してください。" }
+  ],
+  "faq": [
+    { "q": "ボーダーランズ4はRyzen 5のCPUで遊べますか？", "a": "公式は最低環境で8コアCPUを必須としています。6コアのRyzen 5（5600、7500Fなど）はこの条件を満たしません。動くかどうかではなく、公式の条件を満たす8コア以上のCPUを選ぶことをおすすめします。" },
+    { "q": "VRAM 8GBのGPUで遊べますか？", "a": "公式の最低条件がVRAM 8GBなので遊ぶことはできます。ただし高設定や高解像度ではVRAMが不足しやすいため、新しく買うならVRAM 16GBのGPUがおすすめです。" },
+    { "q": "ボーダーランズ4用PCの予算はどのくらいですか？", "a": "8コアCPU・RTX 5060 Ti 16GB版・メモリ32GBのFHD構成で{{band:fhdplus}}が目安です（{{priceChecked}}時点）。WQHDで余裕を持たせるならRTX 5070 Ti構成（{{band:high}}）が目安です。" }
+  ],
+  "related": ["cyberpunk2077", "helldivers2", "wardogs", "starfield"]
+}

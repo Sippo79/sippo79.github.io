@@ -1,0 +1,61 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Call of Duty おすすめPC｜BO7・Warzone・MW4の必要スペックと快適構成",
+  "metaDescription": "Call of Duty: Black Ops 7とWarzone、日本では2026年10月23日発売予定のModern Warfare 4の公式必要・推奨スペックを比較し、144fps以上を狙うおすすめPC構成を解説。SSD容量の注意点もわかります。",
+  "lead": "Call of Dutyは作品ごとに要件が変わります。このページでは、現行作のBlack Ops 7・Warzoneと、日本では2026年10月23日発売予定のModern Warfare 4を対象にしています。どちらも公式推奨はRTX 3060 / RX 6600 XTで、FHD・144fpsならRTX 5060クラスが目安です。見落としがちなのはSSDの空き容量です。",
+  "pick": 0,
+  "recGpuId": "rtx-3060",
+  "specTables": [
+    {
+      "title": "Call of Duty: Black Ops 7 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 64bit（最新アップデート）", "Windows 11 64bit（最新アップデート）"],
+        ["CPU", "AMD Ryzen 5 1400 / Intel Core i5-6600", "AMD Ryzen 5 1600X / Intel Core i7-6700K"],
+        ["GPU", "AMD Radeon RX 470 / NVIDIA GeForce GTX 970・1060 / Intel Arc A580", "AMD Radeon RX 6600 XT / NVIDIA GeForce RTX 3060 / Intel Arc B580"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "8GB", "12GB"],
+        ["ストレージ", "SSDに161GBの空き（発売時点）", "SSDに161GBの空き（発売時点）"],
+        ["その他", "DirectX 12", "DirectX 12"]
+      ],
+      "note": "Warzoneは「Call of Duty」アプリ（Steam）から遊びます。アプリ側の掲載スペックもBO7と同じ内容です。"
+    },
+    {
+      "title": "Call of Duty: Modern Warfare 4 公式の必要動作環境（Steam・発売前）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 64bit（最新アップデート）", "Windows 11 64bit（最新アップデート）"],
+        ["CPU", "AMD Ryzen 5 1400 / Intel Core i5-6600", "AMD Ryzen 5 3600 / Intel Core i7-8700K"],
+        ["GPU", "AMD Radeon RX 470 / NVIDIA GeForce GTX 970・1060 / Intel Arc A580", "AMD Radeon RX 6600 XT / NVIDIA GeForce RTX 3060 / Intel Arc B580"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "8GB", "16GB"],
+        ["ストレージ", "SSDに115GBの空き（発売時点）", "SSDに115GBの空き（発売時点）"]
+      ],
+      "note": "2026年10月18日時点では発売前の情報です（日本での発売日は2026年10月23日）。発売後のアップデートで変わる可能性があります。体験版・ベータ版・Insider版のWindowsでは動作しない場合があります。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Call of Duty: Black Ops 7）", "url": "https://store.steampowered.com/app/3606480/" },
+    { "label": "Steam ストアページ（Call of Duty: Modern Warfare 4）", "url": "https://store.steampowered.com/app/4435490/" },
+    { "label": "Steam ストアページ（Call of Duty / Warzone）", "url": "https://store.steampowered.com/app/1938090/" },
+    { "label": "MW4の日本での発売日（ファミ通・2026年5月29日）", "url": "https://www.famitsu.com/article/202605/76316" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "144fps（中〜高設定）", "note": "公式推奨（RTX 3060）を一段上回ります。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "144fps以上", "note": "Warzoneの大人数マッチではCPUにも余裕を持たせます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高画質（アップスケーリング併用）", "note": "競技目的なら4Kより高fpsを優先した方が有利です。" }
+  ],
+  "tech": "近年のCoDはDLSS・FSRなどのアップスケーリングに対応しています。対応状況は作品とアップデートで変わるため、ゲーム内のグラフィック設定で確認してください。",
+  "points": [
+    { "title": "「Call of Duty」は作品で要件が違う", "text": "毎年新作が出るシリーズなので、「CoD用のPC」と言っても対象作品で必要スペックが変わります。2026年10月時点の現行作はBlack Ops 7、日本では10月23日にModern Warfare 4の発売が予定されています（Steamの英語ストアの表記は10月22日）。古い作品を遊ぶ場合はそれぞれのストアページを確認しましょう。" },
+    { "title": "SSDの空き容量が大きな壁", "text": "BO7は発売時点でSSDに161GBの空きが必要で、アップデートでさらに増えることがあります。WarzoneやMW4も入れるなら、1TBのSSDではすぐにいっぱいになります。CoDを中心に遊ぶならSSDは2TBを選ぶのが安心です。" },
+    { "title": "144fps以上を狙う価値が大きい", "text": "撃ち合いのテンポが速いシリーズなので、60fpsより144fps以上の方が敵の動きを追いやすくなります。画質を上げるより、fpsを安定させる設定を優先すると勝ちにつながりやすいです。" }
+  ],
+  "faq": [
+    { "q": "MW4はBO7と同じPCで遊べますか？", "a": "公表されている公式スペックを比べると、GPUの推奨はどちらもRTX 3060 / RX 6600 XTで同じです。MW4は推奨メモリが16GB、推奨CPUがRyzen 5 3600 / Core i7-8700Kとやや上がっています。BO7が快適なPCなら、MW4も同程度の設定で遊べる可能性が高いと考えられますが、発売後の情報も確認してください。" },
+    { "q": "CoDにSSDは何TB必要ですか？", "a": "BO7だけで発売時点161GB、MW4は115GBの空きが必要です。Warzoneやほかのゲームも入れるなら2TBがおすすめです。" },
+    { "q": "WarzoneはRTX 3060で遊べますか？", "a": "RTX 3060は公式推奨GPUそのものなので、FHDで遊ぶことができます。144fpsを安定させたい場合は設定を下げるか、アップスケーリングを使いましょう。" },
+    { "q": "CoD用PCの予算はどのくらいですか？", "a": "FHDの144fpsを狙うRTX 5060クラスの完成品で{{band:fhd}}が目安です（{{priceChecked}}時点）。SSDを2TBにするとそのぶん上がります。" }
+  ],
+  "related": ["battlefield", "apex", "valorant", "wardogs"]
+}

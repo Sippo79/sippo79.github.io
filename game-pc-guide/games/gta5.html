@@ -10,18 +10,23 @@
 
   <meta property="og:title" content="GTA5 / GTA Online おすすめPC｜Enhanced・Legacy必要スペックと快適構成" />
   <meta property="og:description" content="GTA5 Enhanced・Legacyの公式必要／推奨スペックと、FHD・WQHD・4K別のおすすめPC構成を解説。軽くする設定、MODとGTA Onlineの注意点、GTA6のPC版の状況と買い替え判断もまとめています。" />
-  <meta property="og:image" content="https://sippo-pc.jp/game-pc-guide/images/gta5.jpg" />
+  <meta property="og:image" content="https://sippo-pc.jp/game-pc-guide/images/ogp.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://sippo-pc.jp/game-pc-guide/games/gta5.html" />
+  <meta property="og:site_name" content="GAME PC GUIDE" />
+  <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="../style.css?v=8c2a6d92a9" />
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css" />
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css" />
   <link rel="icon" type="image/png" href="../images/favicon.png" />
 
   <!-- PWA -->
   <link rel="manifest" href="../manifest.json" />
-  <meta name="theme-color" content="#090b14" />
+  <meta name="theme-color" content="#0b1120" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -37,6 +42,8 @@
 
     gtag('config', 'G-NDQ8GTKGHC');
   </script>
+
+  <!-- 生成物（generate-games.js）。直接編集しないこと。本文は content/gta5/ を直す -->
 
   <!-- GTA5ページ専用（content/gta5/head.html）。FAQPage の質問・回答は body.html の FAQ と一字一句そろえる
        （test-game-content.js が照合する）。 -->
@@ -56,8 +63,8 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "GTA5 / GTA Online おすすめPC｜Enhanced・Legacy必要スペックと快適構成",
-    "dateModified": "2026-10-14",
-    "image": "https://sippo-pc.jp/game-pc-guide/images/gta5.jpg",
+    "dateModified": "2026-10-18",
+    "image": "https://sippo-pc.jp/game-pc-guide/images/ogp.jpg",
     "mainEntityOfPage": "https://sippo-pc.jp/game-pc-guide/games/gta5.html",
     "author": { "@type": "Organization", "name": "Sippo", "url": "https://sippo-pc.jp/" },
     "publisher": { "@type": "Organization", "name": "Sippo", "url": "https://sippo-pc.jp/" }
@@ -113,47 +120,50 @@
   </script>
 </head>
 
-<body data-sippo-theme="dark">
+<body data-sippo-theme="dark" data-sippo-site="game-pc-guide">
+  <a class="skip-link" href="#main">本文へスキップ</a>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="site-logo">
-        GAME PC <span>GUIDE</span>
-      </a>
-
-      <nav class="header-nav">
-        <a class="sippo-nav" href="https://sippo-pc.jp/#consult" target="_blank" rel="noopener noreferrer" aria-label="Sippo（シッポ）公式サイトへ｜PC選びの相談ハブ">
-          <img class="sippo-nav__icon" src="https://sippo-pc.jp/assets/sippo/sippo-normal.webp" alt="" width="22" height="22" loading="lazy" decoding="async">
-          <span class="sippo-nav__text">Sippoに相談</span>
-        </a>
+      <a href="../index.html" class="site-logo">GAME PC <span>GUIDE</span></a>
+      <nav class="header-nav" aria-label="サイト内メニュー">
+        <div data-sippo-servicenav></div>
         <a href="../index.html#games" class="header-link">ゲーム一覧</a>
-        <a href="../index.html#beginner" class="header-link">初心者向け</a>
-        <a href="https://sippo-pc.jp/gpu-guide/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">GPU比較</a>
-        <a href="https://sippo-pc.jp/pc-build-check/" class="header-link header-link-ext" target="_blank" rel="noopener noreferrer">PC診断</a>
+        <a href="../index.html#beginner" class="header-link">初心者ガイド</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="game-detail-hero">
-      <img src="../images/gta5.webp" alt="GTA5 / GTA Online" loading="eager" decoding="async" fetchpriority="high" />
+  <main id="main">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol>
+          <li><a href="https://sippo-pc.jp/">Sippo</a></li>
+          <li><a href="../index.html">GAME PC GUIDE</a></li>
+          <li aria-current="page">GTA5 / GTA Online おすすめPC</li>
+        </ol>
+      </nav>
+    </div>
 
-      <div class="container">
-        <a href="../index.html#games" class="back-link">
-          ← ゲーム一覧に戻る
-        </a>
-
-        <p class="hero-badge">オープンワールド / 中量級</p>
-
-        <h1>GTA5 / GTA Online おすすめPC</h1>
-
-        <p class="hero-text">
-          GTA5（Enhanced・Legacy）やGTA Onlineを快適に遊ぶためのおすすめゲーミングPCを紹介。公式の必要スペック、MODの注意点、GTA6に向けた買い替え判断も解説します。
-        </p>
+    <section class="gp-hero">
+      <div class="container gp-hero__inner">
+        <div class="gp-hero__media">
+          <div class="title-tile title-tile--action title-tile--hero" aria-hidden="true"><svg class="title-tile__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38 34 14M30 10l8 8M14 30l4 4M8 40l4-4"/><path d="M34 14l4-8-8 4"/></svg><span class="title-tile__name">GTA5 / GTA Online</span><span class="title-tile__genre">オープンワールド</span></div>
+        </div>
+        <div class="gp-hero__text">
+          <p class="gp-hero__chips"><span class="chip">オープンワールド</span><span class="chip chip--load"><span class="load-meter load-2" role="img" aria-label="PC負荷 4段階中2（普通）"><span class="on"></span><span class="on"></span><span></span><span></span></span>PC負荷：普通</span></p>
+          <h1>GTA5 / GTA Online おすすめPC</h1>
+          <p class="gp-hero__lead">今のPC版GTA5には、要求スペックの違う「Enhanced」と「Legacy」の2種類があります。SSDのある今どきのPCならEnhancedが基本で、公式推奨はRTX 3060 8GB / RX 6600 XT・メモリ16GBです。</p>
+          <dl class="gp-hero__facts">
+            <div><dt>迷ったらこの構成</dt><dd>RTX 5060 ／ 17万〜21万円前後</dd></div>
+            <div><dt>公式スペック確認日</dt><dd>2026年10月14日</dd></div>
+          </dl>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
+    <div class="container detail-layout">
+      <div class="detail-main">
+
         <!-- GTA5ページ専用（content/gta5/top.html）。生成物の games/gta5.html を直接編集しないこと。 -->
         <section class="guide-summary" aria-labelledby="summaryTitle">
           <div class="section-heading">
@@ -170,7 +180,7 @@
             </li>
             <li class="summary-item">
               <span class="summary-key">迷ったらこの構成</span>
-              <strong>Ryzen 7 5700X + RTX 5060（15万円前後）</strong>
+              <strong>Ryzen 5 7500F + RTX 5060（17万〜21万円前後）</strong>
               <small>公式推奨より一段上の性能で、フルHD高画質に余裕を持たせた構成です。</small>
             </li>
             <li class="summary-item">
@@ -262,78 +272,73 @@
           <p class="guide-note">PC版GTA5を持っている人は、Enhancedへ無料でアップグレードできます。Enhancedは別のゲームとしてインストールされるため、ストレージの空きを確保してから導入しましょう。</p>
         </section>
 
-        <p class="guide-builds-note">ここからは、公式スペックではなく<strong>Sippoが快適さを優先して選んだ構成</strong>です。</p>
-
-        <div class="section-heading">
-          <p class="section-label">RECOMMENDED BUILDS</p>
-          <h2>GTA5 / GTA Online向けおすすめPC構成</h2>
-          <p>
-            GTA5 / GTA Onlineは極端に重いゲームではありませんが、高画質や高fpsを狙うならCPUとGPUのバランスが重要です。
-          </p>
-        </div>
-
-        <div class="build-grid">
-            <article class="build-card">
-              <p class="build-label">ライト</p>
+        <section class="seo-guide-section" aria-labelledby="buildsTitle">
+          <div class="section-heading">
+            <p class="section-label section-label--sippo">SIPPO PICK</p>
+            <h2 id="buildsTitle">GTA5 / GTA Online向けおすすめPC構成</h2>
+            <p>ここからは公式スペックではなく、<strong>Sippoが快適さと予算のバランスで選んだ構成</strong>です。fpsは画質設定や場面で大きく変わるため、実測していない数値は載せていません。</p>
+          </div>
+          <div class="build-grid build-grid--3">
+            <article class="build-card is-pick">
+              <p class="build-label">コスパ重視<span class="pick-badge">迷ったらこれ</span></p>
               <h3>FHD 高画質</h3>
-
-              <ul class="build-specs">
-                <li>
-                  <span>予算目安</span>
-                  <strong>15万円前後</strong>
-                </li>
-                <li>
-                  <span>CPU</span>
-                  <strong>Ryzen 7 5700X</strong>
-                </li>
-                <li>
-                  <span>GPU</span>
-                  <strong><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5060/">RTX 5060</a></strong>
-                </li>
-              </ul>
-              <p class="build-comment">まずGTA5を快適に遊びたい人向け。フルHD中心なら十分遊びやすい構成です。</p>
+              <dl class="build-specs">
+                <div><dt>CPU</dt><dd>Ryzen 5 7500F</dd></div>
+                <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5060/">RTX 5060</a><span class="spec-sub">VRAM 8GB</span></dd></div>
+                <div><dt>AMDなら</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9060-xt/">RX 9060 XT</a><span class="spec-sub">VRAM 16GB</span></dd></div>
+                <div><dt>メモリ</dt><dd>16GB</dd></div>
+                <div class="build-price"><dt>PC本体の予算</dt><dd>17万〜21万円前後</dd></div>
+              </dl>
+              <div class="score">
+                <div class="score__head"><span>描画性能スコア（GPU GUIDE）</span><strong>58</strong></div>
+                <div class="score__track" role="img" aria-label="描画性能スコア 58（公式推奨GPU RTX 3060 は 43）">
+                  <span class="score__bar" style="width:58%"></span><span class="score__mark" style="left:43%" title="公式推奨GPU"></span>
+                </div>
+                <p class="score__note"><span class="score__dot" aria-hidden="true"></span>線＝公式推奨GPU（RTX 3060）</p>
+              </div>
+              <p class="build-comment">公式推奨（RTX 3060）より一段上のGPUで、FHD高画質に余裕を持たせた構成です。MODを入れるならメモリは32GBにしましょう。</p>
             </article>
             <article class="build-card">
-              <p class="build-label">ミドル</p>
+              <p class="build-label">バランス重視</p>
               <h3>WQHD 高画質</h3>
-
-              <ul class="build-specs">
-                <li>
-                  <span>予算目安</span>
-                  <strong>22万円前後</strong>
-                </li>
-                <li>
-                  <span>CPU</span>
-                  <strong>Ryzen 7 7800X3D</strong>
-                </li>
-                <li>
-                  <span>GPU</span>
-                  <strong><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070/">RTX 5070</a></strong>
-                </li>
-              </ul>
-              <p class="build-comment">高画質やMOD環境も視野に入れたい人向け。長く使いやすい構成です。</p>
+              <dl class="build-specs">
+                <div><dt>CPU</dt><dd>Ryzen 7 7700</dd></div>
+                <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070/">RTX 5070</a><span class="spec-sub">VRAM 12GB</span></dd></div>
+                <div><dt>AMDなら</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9070/">RX 9070</a><span class="spec-sub">VRAM 16GB</span></dd></div>
+                <div><dt>メモリ</dt><dd>32GB</dd></div>
+                <div class="build-price"><dt>PC本体の予算</dt><dd>25万〜32万円前後</dd></div>
+              </dl>
+              <div class="score">
+                <div class="score__head"><span>描画性能スコア（GPU GUIDE）</span><strong>78</strong></div>
+                <div class="score__track" role="img" aria-label="描画性能スコア 78（公式推奨GPU RTX 3060 は 43）">
+                  <span class="score__bar" style="width:78%"></span><span class="score__mark" style="left:43%" title="公式推奨GPU"></span>
+                </div>
+                <p class="score__note"><span class="score__dot" aria-hidden="true"></span>線＝公式推奨GPU（RTX 3060）</p>
+              </div>
+              <p class="build-comment">WQHD高画質とレイトレーシングを両立しやすい構成。重いMODも視野に入れるならVRAM 16GBのRX 9070も有力です。</p>
             </article>
             <article class="build-card">
-              <p class="build-label">ハイエンド</p>
+              <p class="build-label">高画質重視</p>
               <h3>4K 高画質</h3>
-
-              <ul class="build-specs">
-                <li>
-                  <span>予算目安</span>
-                  <strong>30万円前後</strong>
-                </li>
-                <li>
-                  <span>CPU</span>
-                  <strong>Ryzen 7 7800X3D</strong>
-                </li>
-                <li>
-                  <span>GPU</span>
-                  <strong><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070-ti/">RTX 5070 Ti</a></strong>
-                </li>
-              </ul>
+              <dl class="build-specs">
+                <div><dt>CPU</dt><dd>Ryzen 7 7800X3D</dd></div>
+                <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070-ti/">RTX 5070 Ti</a><span class="spec-sub">VRAM 16GB</span></dd></div>
+                <div><dt>AMDなら</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9070-xt/">RX 9070 XT</a><span class="spec-sub">VRAM 16GB</span></dd></div>
+                <div><dt>メモリ</dt><dd>32GB</dd></div>
+                <div class="build-price"><dt>PC本体の予算</dt><dd>35万〜45万円前後</dd></div>
+              </dl>
+              <div class="score">
+                <div class="score__head"><span>描画性能スコア（GPU GUIDE）</span><strong>88</strong></div>
+                <div class="score__track" role="img" aria-label="描画性能スコア 88（公式推奨GPU RTX 3060 は 43）">
+                  <span class="score__bar" style="width:88%"></span><span class="score__mark" style="left:43%" title="公式推奨GPU"></span>
+                </div>
+                <p class="score__note"><span class="score__dot" aria-hidden="true"></span>線＝公式推奨GPU（RTX 3060）</p>
+              </div>
               <p class="build-comment">Enhanced版を4Kで楽しみたい人向け。DLSSなどのアップスケーリング併用が前提で、VRAM 16GBの余裕は重いMODにも効きます。</p>
             </article>
-        </div>
+          </div>
+          <p class="guide-note">予算はBTOの完成品（Windows付き）を想定した2026年10月時点の目安です。2026年はメモリとSSDの値上がりで価格が動きやすく、セールや構成の違いで数万円変わります。「推定」の付いた価格帯は、同じ構成の販売例を確認できず、近い構成の価格から推定した目安です。描画性能スコアはGPU GUIDEの数値で、DLSSなどの機能を除いた描画性能の相対値です（fpsではありません）。AMDの欄は、同じ価格帯で選べるRadeonの候補です。<a href="https://sippo-pc.jp/pc-build-check/">PC BUILD CHECK</a>の参考価格も同じくBTO完成品の目安ですが、パーツごとの価格から計算した概算で、価格を確認した時期も違うため、このページの目安より低く出ることがあります。</p>
+        </section>
 
         <!-- GTA5ページ専用（content/gta5/body.html）。FAQを変えたら head.html の FAQPage も合わせる。 -->
         <section class="seo-guide-section" aria-labelledby="resolutionTitle">
@@ -348,11 +353,11 @@
               <p class="info-label">FHD（1920×1080）</p>
               <h3>高画質で快適に遊ぶ</h3>
               <dl class="res-spec">
-                <div><dt>CPU</dt><dd>Ryzen 7 5700X / Ryzen 5 7500F</dd></div>
+                <div><dt>CPU</dt><dd>Ryzen 5 7500F</dd></div>
                 <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5060/">RTX 5060</a> / <a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9060-xt/">RX 9060 XT 16GB</a></dd></div>
                 <div><dt>メモリ</dt><dd>16GB（MODを入れるなら32GB）</dd></div>
                 <div><dt>SSD</dt><dd>1TB NVMe</dd></div>
-                <div><dt>予算</dt><dd>15万円前後</dd></div>
+                <div><dt>予算</dt><dd>17万〜21万円前後</dd></div>
               </dl>
               <p>公式推奨のRTX 3060より性能が高く、フルHDなら高画質で余裕があります。レイトレーシングはDLSS / FSRと組み合わせて部分的に使うのが現実的です。</p>
             </article>
@@ -360,11 +365,11 @@
               <p class="info-label">WQHD（2560×1440）</p>
               <h3>高画質＋レイトレーシング</h3>
               <dl class="res-spec">
-                <div><dt>CPU</dt><dd>Ryzen 7 7800X3D / Ryzen 7 7700</dd></div>
+                <div><dt>CPU</dt><dd>Ryzen 7 7700 / Ryzen 7 7800X3D</dd></div>
                 <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070/">RTX 5070</a> / <a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9070/">RX 9070</a></dd></div>
                 <div><dt>メモリ</dt><dd>32GB</dd></div>
                 <div><dt>SSD</dt><dd>1〜2TB NVMe</dd></div>
-                <div><dt>予算</dt><dd>22万円前後</dd></div>
+                <div><dt>予算</dt><dd>25万〜32万円前後</dd></div>
               </dl>
               <p>画質と滑らかさのバランスが良い、GTA5で一番満足しやすい帯です。RTX 5070はVRAM 12GB、RX 9070は16GBで、重いMODも視野に入れるならRX 9070も有力です。</p>
             </article>
@@ -376,7 +381,7 @@
                 <div><dt>GPU</dt><dd><a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5070-ti/">RTX 5070 Ti</a> / <a class="build-gpu-link" href="https://sippo-pc.jp/gpu-guide/gpu/rx-9070-xt/">RX 9070 XT</a></dd></div>
                 <div><dt>メモリ</dt><dd>32GB</dd></div>
                 <div><dt>SSD</dt><dd>2TB NVMe</dd></div>
-                <div><dt>予算</dt><dd>30万円前後</dd></div>
+                <div><dt>予算</dt><dd>35万〜45万円前後</dd></div>
               </dl>
               <p>どちらもVRAM 16GB。4Kではアップスケーリング（DLSS / FSR）の併用が前提です。レイトレーシングを全部最大にしたいなら、さらに上のGPUが必要になる場合があります。</p>
             </article>
@@ -619,60 +624,109 @@
           </p>
         </nav>
 
-        <div class="detail-related-sites">
+
+
+        <section class="seo-guide-section" aria-labelledby="relatedTitle">
+          <div class="section-heading">
+            <p class="section-label">RELATED GAMES</p>
+            <h2 id="relatedTitle">GTA5 / GTA Onlineと近いジャンル・遊び方のゲーム</h2>
+          </div>
+          <ul class="game-grid game-grid--related">
+<li class="game-card" data-search="cyberpunk 2077 rpg 非常に重い サイバーパンク サイバーパンク2077 cp2077 仮初めの自由 phantom liberty アクション・rpg" data-genre="action" data-load="4" data-budget="29" data-uses="quality">
+  <a class="game-card__link" href="../games/cyberpunk2077.html">
+    <div class="game-card__thumb"><div class="title-tile title-tile--action" aria-hidden="true"><svg class="title-tile__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38 34 14M30 10l8 8M14 30l4 4M8 40l4-4"/><path d="M34 14l4-8-8 4"/></svg><span class="title-tile__name">Cyberpunk 2077</span><span class="title-tile__genre">RPG</span></div></div>
+    <div class="game-card__body">
+      <p class="game-card__tags"><span class="chip">RPG</span></p>
+      <h3 class="game-card__title">Cyberpunk 2077</h3>
+      <p class="game-card__text">レイトレなしなら中堅GPUで遊べる。パストレーシングを使うと必要性能が一気に跳ね上がる。</p>
+      <dl class="game-card__meta">
+        <div><dt>PC負荷</dt><dd><span class="load-meter load-4" role="img" aria-label="PC負荷 4段階中4（非常に重い）"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span>非常に重い</dd></div>
+        <div><dt>目安</dt><dd>FHD〜WQHD / 高画質・レイトレ</dd></div>
+        <div><dt>おすすめGPU</dt><dd>RTX 5070 / RX 9070</dd></div>
+        <div><dt>PC予算</dt><dd class="price">29万〜36万円前後</dd></div>
+      </dl>
+    </div>
+  </a>
+</li>
+<li class="game-card" data-search="starfield rpg 重い スターフィールド アクション・rpg" data-genre="action" data-load="3" data-budget="22" data-uses="quality">
+  <a class="game-card__link" href="../games/starfield.html">
+    <div class="game-card__thumb"><div class="title-tile title-tile--action" aria-hidden="true"><svg class="title-tile__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38 34 14M30 10l8 8M14 30l4 4M8 40l4-4"/><path d="M34 14l4-8-8 4"/></svg><span class="title-tile__name">Starfield</span><span class="title-tile__genre">RPG</span></div></div>
+    <div class="game-card__body">
+      <p class="game-card__tags"><span class="chip">RPG</span></p>
+      <h3 class="game-card__title">Starfield</h3>
+      <p class="game-card__text">公式推奨はRX 6800 XT / RTX 2080とGPU要求が高め。都市部ではCPU負荷も大きい。</p>
+      <dl class="game-card__meta">
+        <div><dt>PC負荷</dt><dd><span class="load-meter load-3" role="img" aria-label="PC負荷 4段階中3（重い）"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span>重い</dd></div>
+        <div><dt>目安</dt><dd>FHD〜WQHD / 高設定</dd></div>
+        <div><dt>おすすめGPU</dt><dd>RTX 5060 Ti / RX 9060 XT</dd></div>
+        <div><dt>PC予算</dt><dd class="price">22万〜27万円前後</dd></div>
+      </dl>
+    </div>
+  </a>
+</li>
+<li class="game-card" data-search="palworld サバイバル 重い パルワールド パル サバイバル・クラフト" data-genre="survival" data-load="3" data-budget="17" data-uses="quality">
+  <a class="game-card__link" href="../games/palworld.html">
+    <div class="game-card__thumb"><div class="title-tile title-tile--survival" aria-hidden="true"><svg class="title-tile__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 40 15v18L24 42 8 33V15z"/><path d="M8 15l16 9 16-9M24 24v18"/></svg><span class="title-tile__name">Palworld</span><span class="title-tile__genre">サバイバル</span></div></div>
+    <div class="game-card__body">
+      <p class="game-card__tags"><span class="chip">サバイバル</span><span class="chip chip--new">新作</span></p>
+      <h3 class="game-card__title">Palworld</h3>
+      <p class="game-card__text">2026年7月に正式版1.0が配信。公式推奨はRTX 3060 Ti・メモリ32GB。</p>
+      <dl class="game-card__meta">
+        <div><dt>PC負荷</dt><dd><span class="load-meter load-3" role="img" aria-label="PC負荷 4段階中3（重い）"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span>重い</dd></div>
+        <div><dt>目安</dt><dd>FHD〜WQHD / 快適</dd></div>
+        <div><dt>おすすめGPU</dt><dd>RTX 5060 / RX 9060 XT</dd></div>
+        <div><dt>PC予算</dt><dd class="price">17万〜21万円前後</dd></div>
+      </dl>
+    </div>
+  </a>
+</li>
+          </ul>
+        </section>
+
+        <section class="next-steps" aria-labelledby="nextTitle">
+          <h2 id="nextTitle" class="next-steps__title">次にやること</h2>
           <div class="related-site-grid">
-            <a
-              href="https://sippo-pc.jp/pc-build-check/"
-              class="related-site-button related-site-build"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="related-site-mini">PC BUILD CHECK</span>
-              <span>PC構成診断</span>
-              <small>予算や用途からおすすめPC構成をチェック</small>
-            </a>
-
-            <a
-              href="https://sippo-pc.jp/gpu-guide/"
-              class="related-site-button related-site-gpu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="related-site-mini">GPU GUIDE</span>
-              <span>グラボ比較ガイド</span>
-              <small>GPU性能や用途別の目安を比較</small>
-            </a>
-
-            <a
-              href="https://sippo-pc.jp/upgrade/"
-              class="related-site-button related-site-upgrade"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://sippo-pc.jp/upgrade/" class="related-site-button related-site-upgrade">
               <span class="related-site-mini">PC UPGRADE</span>
-              <span>今のPCで足りるか診断</span>
-              <small>買い替えずパーツ交換で足りるかを判定</small>
+              <span>今のPCで足りるか確認する</span>
+              <small>今のCPU・GPUを入力して、交換で済むか買い替えるべきかを判定</small>
+            </a>
+            <a href="https://sippo-pc.jp/gpu-guide/gpu/rtx-5060/" class="related-site-button related-site-gpu">
+              <span class="related-site-mini">GPU GUIDE</span>
+              <span>RTX 5060の性能・価格を見る</span>
+              <small>おすすめ構成のGPUをほかのGPUと比べる</small>
+            </a>
+            <a href="https://sippo-pc.jp/pc-build-check/" class="related-site-button related-site-build">
+              <span class="related-site-mini">PC BUILD CHECK</span>
+              <span>予算からPC構成を診断する</span>
+              <small>予算・用途・解像度から構成を選び、遊びたいゲームとの相性も確認</small>
+            </a>
+            <a href="https://sippo-pc.jp/pc-consult/" class="related-site-button related-site-consult">
+              <span class="related-site-mini">ASK SIPPO</span>
+              <span>買う前に相談する</span>
+              <small>候補のPCや中古PCでGTA5 / GTA Onlineが遊べるか、シッポPC相談室で確認</small>
             </a>
           </div>
-        </div>
+        </section>
 
-        <div class="detail-back-nav">
-          <a href="../index.html#games" class="secondary-btn">← 他のゲームを見る</a>
-        </div>
+        <p class="page-dates">このページの最終更新：<time datetime="2026-10-18">2026年10月18日</time> ／ 公式スペックの確認：2026年10月14日 ／ 価格の確認：2026年10月18日</p>
+        <p class="detail-back-nav"><a href="../index.html#games" class="secondary-btn">← ほかのゲームを探す</a></p>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
-      <p>© GAME PC GUIDE</p>
+      <p class="site-footer__note">掲載している公式スペックは各ゲームの公式情報の確認日時点のものです。PCの価格は変動するため、購入前に販売店で最新の価格と構成をご確認ください。</p>
+      <p>© GAME PC GUIDE ／ <a href="https://sippo-pc.jp/">Sippo（シッポ）</a></p>
     </div>
   </footer>
   <!-- 共通アフィリエイト基盤（shared/affiliate）。設定→本体→利用側の順 -->
-  <script src="/shared/affiliate/affiliate-config.js"></script>
-  <script src="/shared/affiliate/affiliate.js"></script>
-  <script src="../game-affiliate.js"></script>
+  <script src="/shared/affiliate/affiliate-config.js" defer></script>
+  <script src="/shared/affiliate/affiliate.js" defer></script>
+  <script src="../game-affiliate.js?v=3b9a8784e0" defer></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

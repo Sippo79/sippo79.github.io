@@ -1,0 +1,81 @@
+{
+  "_readme": "PC本体の予算目安はここだけで管理する。games.json の builds[].band がこのキーを指し、generate-games.js が price・budget を書き戻す。価格を見直したら checked と sources を更新して node game-pc-guide/generate-games.js を実行する。 各帯の evidence は observed（同等構成の販売例を確認）/ estimated（推定）。estimated はページ上に「推定」と表示される。",
+  "checked": "2026-10-18",
+  "basis": "国内BTOメーカーの完成品（Windows付き、メモリ16〜32GB、SSD 1TB前後）の通常価格を基準にしたSippoの目安です。2026年はメモリとSSDの値上がりが続いており、セールや構成の違いで数万円単位で変わります。",
+  "sources": [
+    {
+      "label": "ゲーミングPC価格レポート（2026年8月時点・Gaming Station）",
+      "url": "https://gaming-st.com/news/gaming-pc-may-2026-price-report/"
+    },
+    {
+      "label": "今週のゲーミングPCセール（2026年10月10日・the比較）",
+      "url": "https://thehikaku.net/pc/sale/sale-desk_20261010.html"
+    }
+  ],
+  "bands": {
+    "entry": {
+      "label": "14万〜17万円前後",
+      "min": 14,
+      "max": 17,
+      "example": "Ryzen 5 + RTX 5050 / RX 7600",
+      "evidence": "estimated",
+      "basis": "2026年の同構成の販売例は未確認。2025年のRTX 5050搭載機（12.5万〜13万円前後・パソコン工房）に、2026年のメモリ・SSD値上がり分を加味した推定"
+    },
+    "fhd": {
+      "label": "17万〜21万円前後",
+      "min": 17,
+      "max": 21,
+      "example": "Ryzen 5 7500F + RTX 5060 / RX 9060 XT",
+      "evidence": "observed",
+      "basis": "RTX 5060搭載機 174,700円〜（2026年10月の掲載・the比較）、RTX 5060搭載デスクトップ 19.8万円（2026年8月の報道）"
+    },
+    "fhd-x3d": {
+      "label": "21万〜25万円前後",
+      "min": 21,
+      "max": 25,
+      "example": "Ryzen 7 7800X3D + RTX 5060 クラス",
+      "evidence": "estimated",
+      "basis": "同構成の販売例は未確認。fhd帯にCPU（Ryzen 5 7500F→7800X3D）の価格差を加えた推定"
+    },
+    "fhdplus": {
+      "label": "22万〜27万円前後",
+      "min": 22,
+      "max": 27,
+      "example": "Ryzen 5 7500F / Ryzen 7 7700 + RTX 5060 Ti 16GB",
+      "evidence": "observed",
+      "basis": "RTX 5060 Ti搭載機 179,980円〜／セール214,800円（2026年9〜10月）、RTX 5060 Ti 16GB＋32GB構成 299,980円（2026年8月・GALLERIA）。16GB版・32GBメモリでは上限を超える例もある"
+    },
+    "wqhd": {
+      "label": "25万〜32万円前後",
+      "min": 25,
+      "max": 32,
+      "example": "Ryzen 5 7500F / Ryzen 7 7700 + RTX 5070 / RX 9070",
+      "evidence": "observed",
+      "basis": "Ryzen 5 7500F＋RTX 5070＋16GB＋500GB 251,080円（GALLERIA）、Ryzen 7 9700X＋RTX 5070 293,800円（2026年7月の価格レポート）"
+    },
+    "wqhd-x3d": {
+      "label": "29万〜36万円前後",
+      "min": 29,
+      "max": 36,
+      "example": "Ryzen 7 7800X3D + RTX 5070 / RX 9070",
+      "evidence": "estimated",
+      "basis": "7800X3D＋RTX 5070の販売例は未確認。9800X3D＋RTX 5070 364,800円（2026年8月）とwqhd帯の間で推定"
+    },
+    "high": {
+      "label": "35万〜45万円前後",
+      "min": 35,
+      "max": 45,
+      "example": "Ryzen 7 7800X3D / 9800X3D + RTX 5070 Ti / RX 9070 XT",
+      "evidence": "observed",
+      "basis": "9800X3D＋RTX 5070 Ti 385,800円（2026年7月）、9800X3D＋RX 9070 XT 379,800円（2026年8月）、9800X3D＋RTX 5070 Ti＋2TB 489,980円（2026年8月・TSUKUMO）"
+    },
+    "ultra": {
+      "label": "45万円〜",
+      "min": 45,
+      "max": 60,
+      "example": "Ryzen 7 9800X3D + RTX 5080",
+      "evidence": "estimated",
+      "basis": "RTX 5080搭載機の販売例は未確認。high帯の相場とGPU単体の価格差（RTX 5080 約19.8万〜22万円）からの推定"
+    }
+  }
+}

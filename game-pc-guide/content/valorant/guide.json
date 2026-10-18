@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "VALORANT おすすめPC｜144fps・240fps向けゲーミングPC構成と必要スペック",
+  "metaDescription": "VALORANTのRiot公式スペック（30fps・60fps・144fpsの3段階）と、144fps〜240fps以上を狙うおすすめPC構成を解説。GPUに予算をかけすぎず、CPUとモニターを重視する理由がわかります。",
+  "lead": "VALORANTはとても軽いゲームで、Riot公式の「144fps向け」スペックでもGTX 1050 Ti級です。144fpsならエントリークラスのPCで十分。240fps以上を狙うときはGPUではなくCPUが限界になりやすいので、高額なGPUに予算を使う必要はありません。",
+  "pick": 0,
+  "recGpuId": "gtx-1050-ti",
+  "specTables": [
+    {
+      "title": "VALORANT 公式の必要動作環境（Riot Games）",
+      "columns": ["最低（30fps）", "推奨（60fps）", "高性能（144fps）"],
+      "rows": [
+        ["OS", "Windows 10（ビルド19041以降）64bit / Windows 11 64bit", "同左", "同左"],
+        ["CPU", "Intel Core i3-540 / AMD Athlon 200GE", "Intel Core i3-4150 / AMD Ryzen 3 1200", "Intel Core i5-9400F / AMD Ryzen 5 2600X"],
+        ["GPU", "Intel HD 4000 / AMD Radeon R5 220", "NVIDIA GeForce GT 730 / AMD Radeon R7 240", "NVIDIA GTX 1050 Ti / AMD Radeon R7 370 / Intel Arc A310"],
+        ["VRAM", "1GB以上（専用GPUの場合）", "1GB以上（専用GPUの場合）", "1GB以上（専用GPUの場合）"],
+        ["メモリ", "4GB", "4GB", "4GB"],
+        ["ストレージ", "記載なし", "記載なし", "記載なし"],
+        ["その他", "SSE 4.2またはAVX対応CPU、DirectX 11対応。ARMは非対応", "同左", "同左"]
+      ],
+      "note": "Windows 11ではTPM 2.0とUEFIセキュアブートの有効化が必要です。クラウドゲーミングや仮想マシンでは遊べません。"
+    }
+  ],
+  "sources": [
+    { "label": "Riot Games サポート（VALORANT 最低・推奨スペック）", "url": "https://support.riotgames.com/valorant/support-tools/minimum-recommended-pc-specs" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050 / RX 7600", "target": "144fps以上", "note": "Riot公式の144fps向けスペックを大きく上回ります。240fps以上を狙うならCPUを強化します。" },
+    { "res": "WQHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "144〜240fps", "note": "VALORANTは軽いのでWQHDでも高fpsを保ちやすいですが、競技シーンではFHDが主流です。" },
+    { "res": "4K", "gpu": "RTX 5060 Ti 以上", "target": "画質重視", "note": "見た目は綺麗になりますが、VALORANTで4Kにするメリットは小さめです。" }
+  ],
+  "tech": "設定を下げればGPUの負担はごくわずかになるタイトルです。高fps域ではCPUとメモリ、そしてモニターのリフレッシュレートが体感を決めます。",
+  "points": [
+    { "title": "GPUに予算をかけすぎない", "text": "Riot公式の144fps向けスペックはGTX 1050 Ti。現行のRTX 5050クラスでも十分すぎる性能です。予算に余裕があるなら、GPUよりも240Hzモニターやマウスに回した方が満足度は高くなりやすいです。" },
+    { "title": "240fps以上はCPU勝負", "text": "fpsが200を超えるような領域では、GPUより先にCPUの処理が限界になります。240Hz・360Hzモニターを活かしたい人は、Ryzen 7 7800X3Dのようなゲームに強いCPUを選ぶと効果的です。" },
+    { "title": "Windows 11はTPM 2.0とセキュアブートが必須", "text": "アンチチートの関係で、Windows 11ではTPM 2.0とUEFIセキュアブートの有効化が求められます。最近のBTOパソコンなら通常は有効ですが、自作PCや古いPCでは設定を確認しましょう。" }
+  ],
+  "faq": [
+    { "q": "VALORANTはノートPCや事務用PCでも遊べますか？", "a": "Riot公式の最低スペックはIntel HD 4000で30fps、推奨はGT 730で60fpsとかなり低めです。ただし撃ち合いで有利になる144fpsを狙うなら、GTX 1050 Ti以上のゲーミング向けGPUが目安です。" },
+    { "q": "VALORANTのためにRTX 5070は必要ですか？", "a": "VALORANTだけが目的なら必要ありません。RTX 5050〜5060クラスで144fps以上を十分狙えます。RTX 5070はほかの重いゲームも高画質で遊びたい人向けです。" },
+    { "q": "240Hzモニターを買ったのに240fps出ません。何を変えるべき？", "a": "VALORANTの高fps域はCPUが限界になりやすいので、まずCPUの使用率と性能を確認してください。GPU使用率が低いままfpsが伸びないなら、GPUを交換しても改善しにくく、CPUの交換やPCの買い替えが必要です。" },
+    { "q": "VALORANTにメモリは何GB必要ですか？", "a": "Riot公式の記載は4GBですが、Windowsやボイスチャットを同時に使うことを考えると16GBが現実的です。配信もするなら32GBあると安心です。" }
+  ],
+  "related": ["apex", "overwatch2", "rainbowsixsiege", "lol"]
+}

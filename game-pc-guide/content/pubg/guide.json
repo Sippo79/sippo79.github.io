@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "PUBG おすすめPC｜必要スペックと144fps・240fps向けゲーミングPC構成",
+  "metaDescription": "PUBG: BATTLEGROUNDSの公式必要・推奨スペック（推奨GTX 1060 3GB・メモリ16GB）と、144fps・240fpsを狙うおすすめPC構成を解説。広いマップで敵を見つけやすくする考え方もわかります。",
+  "lead": "PUBGの公式推奨はGTX 1060 3GB・メモリ16GBと控えめで、FHD・144fpsならRTX 5060クラスで十分狙えます。広いマップで遠くの敵を見つけることが大切なゲームなので、画質よりfpsの安定と見やすさを優先しましょう。",
+  "pick": 0,
+  "recGpuId": "gtx-1060-6gb",
+  "specTables": [
+    {
+      "title": "PUBG: BATTLEGROUNDS 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 64bit", "Windows 10 64bit"],
+        ["CPU", "Intel Core i5-4430 / AMD FX-6300", "Intel Core i5-6600K / AMD Ryzen 5 1600"],
+        ["GPU", "NVIDIA GeForce GTX 960 2GB / AMD Radeon R7 370 2GB", "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB"],
+        ["VRAM", "2GB", "3GB（GTX 1060）/ 4GB（RX 580）"],
+        ["メモリ", "8GB", "16GB"],
+        ["ストレージ", "40GB", "50GB"],
+        ["その他", "DirectX 11", "DirectX 11"]
+      ],
+      "note": "公式推奨は標準的な画質で遊ぶための目安です。144fps以上を安定させるには、推奨より上の性能が必要になります。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（PUBG: BATTLEGROUNDS）", "url": "https://store.steampowered.com/app/578080/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "144fps（中〜高設定）", "note": "競技向けの設定ならさらに上のfpsも狙えます。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "144fps前後", "note": "遠くの敵が見やすくなるため、WQHDを選ぶプレイヤーもいます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "画質重視", "note": "競技目的なら高fpsを優先した方が有利です。" }
+  ],
+  "tech": "見やすさを重視して、影や草などの設定を下げるプレイヤーも多いタイトルです。fpsを上げたいときは、まず影・草・エフェクトの設定から見直しましょう。",
+  "points": [
+    { "title": "メモリは公式推奨から16GB", "text": "公式推奨メモリは16GBです。8GBのPCだと、降下直後や建物の多い街でカクつきやすくなります。" },
+    { "title": "fpsの安定が撃ち合いの有利に直結", "text": "遠くの敵との撃ち合いや、車での移動中にfpsが落ちると狙いがずれやすくなります。平均fpsよりも、重い場面で144fpsを下回らないかを基準に選ぶのがおすすめです。" },
+    { "title": "解像度で「見え方」も変わる", "text": "WQHDは遠くの敵を細かく描けるため、見つけやすくなるという考え方もあります。その分GPUの負担は増えるので、fpsを保てる範囲で選びましょう。" }
+  ],
+  "faq": [
+    { "q": "PUBGはRTX 3050で遊べますか？", "a": "RTX 3050は公式推奨（GTX 1060 3GB）を上回るので遊べます。FHDで144fpsを安定させたい場合は設定を下げましょう。" },
+    { "q": "PUBGにメモリ32GBは必要ですか？", "a": "公式推奨は16GBで、ゲームだけなら16GBで十分です。配信や録画をするなら32GBにしておくと安心です。" },
+    { "q": "PUBGで240fpsを出すには？", "a": "設定を下げたうえで、CPUの性能が重要になります。Ryzen 7 7800X3DのようなCPUとRTX 5070クラスのGPU、240Hzモニターの組み合わせが目安です。" }
+  ],
+  "related": ["apex", "battlefield", "tarkov", "fortnite"]
+}

@@ -423,9 +423,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/h8WZ1x",
+        "url": "",
         "keyword": "GeForce RTX 5090",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/h8WZ1x",
+        "status": "sold-out",
+        "note": "2026-10-18 直リンク先が「こちらの商品は現在ご購入いただけません（販売期間外）」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/t5UQrN",
@@ -564,9 +566,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hgEfCo",
+        "url": "",
         "keyword": "Radeon RX 7800 XT",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/hgEfCo",
+        "status": "sold-out",
+        "note": "2026-10-18 直リンク先のショップ商品ページが404（3回確認）のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/sbnabe",
@@ -589,9 +593,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/h5wlC5",
+        "url": "",
         "keyword": "Radeon RX 7900 GRE",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/h5wlC5",
+        "status": "sold-out",
+        "note": "2026-10-18 直リンク先が「現在こちらの商品は取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/iDoC3K",
@@ -614,9 +620,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hPFmPH",
+        "url": "",
         "keyword": "Radeon RX 7900 XT",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/hPFmPH",
+        "status": "sold-out",
+        "note": "2026-10-18 直リンク先が「現在こちらの商品は取扱いがありません」表示のため検索フォールバックへ切替"
       },
       "yahoo": {
         "url": "https://yahoo.jp/ixo_TF",

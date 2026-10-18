@@ -18,6 +18,90 @@
 
 ---
 
+## 2026-10-18（4）— GAME PC GUIDE 公開直前の最終整理（C判定画像の削除・OGP作り直し・楽天リンク）
+
+- **修正目的**: 公開前に残った3点（未参照のC判定画像、出所不明のOGP画像、楽天アフィリエイトのリンク切れ）を解消する。
+- **変更ファイル**:
+  - 削除: `game-pc-guide/images/` のC判定画像54ファイル（18タイトル×jpg/webp/thumb）、旧OGPの派生 `ogp.webp`・`ogp-thumb.webp`（いずれも git 履歴には残る。履歴の書き換えはしていない）
+  - 差し替え: `game-pc-guide/images/ogp.jpg`（外部素材なしの新規作成。1200×630）
+  - 追加: `game-pc-guide/tools/ogp.html`（OGP画像の元データ）、`game-pc-guide/tools/post-release-checklist.md`（公開後に確認する旧画像URL89件とキャッシュ）
+  - 修正: `game-pc-guide/generate-games.js`・`test-game-content.js`（表示を許可していない画像はC・Dとも公開ディレクトリに置かない検査に統一、OGPの高さ630）、`game-pc-guide/index.html`（og:image:height 800→630）、`data/image-rights.json`（ogp を判定Aに更新、運用メモ）、`shared/affiliate/affiliate-master.json`（下記4商品の楽天のみ）、再生成物
+- **楽天リンク**: 既存の運用（2026-08-18 の RX 7700 XT / RX 7900 XTX と同じ）に合わせ、url を空にして旧URLを retiredUrl に退避、status:"sold-out"＋note で検索フォールバックへ。対象は RX 7800 XT（ショップ商品ページ404・3回確認）、RTX 5090（「現在ご購入いただけません／販売期間外」）、RX 7900 GRE・RX 7900 XT（「現在こちらの商品は取扱いがありません」）。RTX 5070 は再確認で200・9ショップ出品中（160,050円〜）だったため変更なし（前回の404は一時的と判断）。アフィリエイトIDは変更していない（検索リンクは既存の affiliateId で生成）。GPU GUIDE の旧 `affiliate-links.js` にも同じURLがあるが、描画関数はどこからも呼ばれておらず表示に出ないため触っていない。
+- **検証**: 既存テスト11本成功、test-game-content（画像権利の検査を含む）OK、再生成3回一致、html-validate・CSS構文エラー0、Playwright 32ページ×3幅で問題0、操作22項目PASS、SW v9→v10 PASS、`check-affiliate-links.js` 直リンク58件すべて正常、切り替えた4件は実ブラウザで楽天検索結果（商品一覧あり）に着地。作業ツリー全体で旧画像（HEADの89ファイル）とハッシュ一致するファイルなし。
+- **未対応・次にやること**: 公開後は `game-pc-guide/tools/post-release-checklist.md` に沿って旧画像URLの404、SNSのOGPキャッシュ、Google画像検索を確認する。
+- **別AIへの引き継ぎ注意点**: ゲーム画像を戻すときは `data/image-rights.json` の _readme の手順に従う（画像ファイルを置き、根拠つきで grade・display を更新）。OGP画像を作り直すときは `tools/ogp.html` から書き出す。
+
+## 2026-10-18（3）— GAME PC GUIDE ゲーム画像の権利調査・画像なし表示への切り替え
+
+- **修正目的**: ゲーム画像30枚の利用条件を調査し、確認できない画像を公開ページから外す。あわせて公開前の軽微な表記を直す。
+- **変更ファイル**:
+  - 追加: `game-pc-guide/data/image-rights.json`（30枚の判定・根拠URL・確認方法の記録）
+  - 修正: `generate-games.js`（display:true の画像だけ表示。それ以外はタイトルタイル。OGPはサイト共通画像）、`style.css`（タイトルタイル）、`test-game-content.js`（画像権利の検査）、`content/cod/guide.json`・`data/games.json`（MW4の日本の発売日）、`content/gta5/head.html`（構造化データの画像）、`games/*.html` ほか再生成物
+  - 削除: 判定Dの11タイトルの画像33ファイル（`images/<id>.jpg・.webp・-thumb.webp`。git履歴には残る）
+  - サイト外: ルート `index.html`（GPU掲載数 28→65 を4か所。BOM・CRLF維持）
+- **調査結果**: A 0枚 / B 1枚（ogp.jpg：ゲームIPを含まない自サイトのバナー。作成者・素材の確認が条件）/ C 18枚 / D 11枚（Apex・BF6〔EA〕、VALORANT・LoL〔Riot〕、FF14〔Square Enix〕、GTA5〔Rockstar〕、Cyberpunk〔CDPR〕、Fortnite〔Epic〕、Minecraft〔Mojang〕、ELDEN RING〔FromSoftware〕、原神〔HoYoverse〕）。各社の許諾は個人・非商用のファン活動が中心で、広告と有料相談への導線を持つ事業者サイトは対象外。画像の入手元の記録も無い。装飾的な掲載は著作権法32条の引用にも当たりにくいと判断。
+- **対応**: 29タイトルすべてを、ゲームの著作物を含まないタイトルタイル（ジャンル色・自作の図形アイコン・ゲーム名の文字）に切り替え。D の画像ファイルは公開ディレクトリから削除。C の画像ファイルは残してあるが、どのページからも参照していない（許諾が取れたら image-rights.json の grade・basis・display を更新して再生成すれば表示できる）。
+- **その他の修正**: CoD MW4 の発売日を「日本では2026年10月23日」に（Steam英語ストアの表記は10月22日）。PC BUILD CHECK の価格差の注記を「同じくBTO完成品の目安だが、パーツごとの価格からの概算で確認時期も違う」と正確に。ルートトップのGPU掲載数を GPU GUIDE の公開件数（個別ページ65・gpus.json 65）に合わせた。
+- **検証**: 既存テスト11本成功、test-game-content（画像権利の検査を追加。誤設定2種で検出を確認）、再生成3回一致、html-validate・CSS構文エラー0、Playwright（ルート含む31ページ×3幅）で問題0、操作22項目PASS、SW v9→v10 テストPASS、トップの転送量 約0.6MB→約0.21MB。`scripts/check-affiliate-links.js` は 62件中 正常58・要確認3・リンク切れ1〜2（RTX 5070 / RX 7800 XT の楽天リンクが404）。
+- **未対応・次にやること**:
+  - 画像を再び使うには権利者の許諾（またはプレスキット等の利用条件の確認）が必要。C の画像54ファイルは公開ディレクトリに残っており、URLを直接開けば見える。不要なら削除する。
+  - affiliate-master.json の楽天リンク（RTX 5070 ほか）を人がブラウザで確認して status を更新する。
+- **別AIへの引き継ぎ注意点**:
+  - 画像を表示に戻すときは image-rights.json に根拠URLと判定（A/B）を書く。推測で display:true にしない（生成とテストが止まる）。
+
+## 2026-10-18（2）— GAME PC GUIDE 公開前の最終監査・修正
+
+- **修正目的**: 全面改修の公開前に、情報の信頼性・関連サイトとの価格整合・生成処理と Service Worker の安全性を監査し、必要な箇所だけ直す。
+- **変更ファイル**:
+  - 追加: `game-pc-guide/data/page-dates.json`（ページごとの内容ハッシュと更新日）
+  - 修正: `game-pc-guide/generate-games.js`、`test-game-content.js`、`style.css`（末尾に3ルール追加）、`index.html`（解像度表の表記）、`sw.js`（注記のみ・版はv10のまま）、`data/price-bands.json`（各帯に evidence / basis）、`data/games.json`（Fortnite・Tarkov・Starfieldの構成説明）、`content/{eldenring,palworld,fortnite,starfield,rainbowsixsiege}/guide.json`、`images/valorant.jpg`（中身がWebPだったのをJPEGに変換）、`games/*.html`・`sitemap.xml`（再生成）
+  - サイト外: ルート `index.html`（「人気25タイトル」→「29タイトル掲載」、本文の25→29を2か所。BOM・CRLFは維持して3行のみ変更）
+- **変更内容**:
+  - 構成カードのGPUスコアバーを、GPU GUIDEの総合スコア（DLSSなどの機能評価を含む）から描画性能（rasterScore）に変更。総合スコアだと RTX 5060 Ti(75) が RTX 3080(72) を上回って見え、本文「公式推奨（RTX 3080）にわずかに届かない」と矛盾していた（ラスターは68 vs 74で本文が正しい）。テストに「本文の比較表現とラスターの大小の一致」を追加。
+  - 誤りの修正: ELDEN RING FAQ（GTX 1660 SUPERは推奨GTX 1070と同程度〜やや上。「間」は誤り）、Palworld FAQ（少し下→やや下）、Starfield（コスパ構成は推奨RX 6800 XTをやや下回る旨を明記）、Tarkov（GPUは公式推奨より下と明記）、Fortnite（結論欄で推奨列GPUと最高品質列のスコアを混同していた不具合を解消・高画質モードの注記）、R6S（最低VRAMにArc A380 6GBを追記）。
+  - 予算帯ごとに根拠（販売例を確認＝observed／推定＝estimated）を持たせ、推定の帯はページに「推定」と表示。PC BUILD CHECK の参考価格は算出方法が違い低めに出ることを本文に明記。
+  - sitemap の lastmod を「ページ内容が変わった日」に。内容ハッシュが同じなら日付を動かさない（CSS/JSの版番号は除外）。ページ下部に「最終更新／公式スペック確認／価格確認」を表示し、JSON-LD の dateModified と一致させた。再生成3回で全出力がバイト一致することを確認。
+  - CSS/JS の URL に内容ハッシュ `?v=` を付与。旧SW（v9）は CSS をキャッシュ優先で返すため、付けないと公開直後の初回表示で新HTML＋旧CSSが混ざることを実ブラウザで再現・確認（付けると初回から新CSS）。
+  - 画像の width/height を実寸に合わせた（13枚が16:9以外）。ヒーローの alt を「ゲーム画面イメージ」→「タイトル画像」（キービジュアルのため）。
+- **影響範囲**: game-pc-guide 全体とルート index.html の3行。PC BUILD CHECK・GPU GUIDE は無変更。
+- **検証**: 既存テスト11本すべて成功（game-pc-guide / cross-links / gpu-guide×2 / pc-build-check×5 / upgrade×2）。Steam公式データ26件を再取得し23タイトルのスペック表を機械照合（不一致0、わざと偽の型番を入れると検出）。出典URL 44件の到達確認（403の3件はボット遮断）。html-validate 構造エラー0、CSS構文エラー0、Playwright 全29ページ×3幅で横はみ出し・CLS・JSエラー0、操作22項目PASS、旧URL転送29/29、SW v9→v10 の切り替えで旧キャッシュ削除と新CSS適用を確認。
+- **未対応・次にやること**:
+  - PC BUILD CHECK の価格マスター（`shared/parts/part-prices.json`、2026-09-03）がメモリ・SSD相場の上昇を反映しておらず、GAME PC GUIDE の予算より2万〜6万円低い。修正案は PROJECT_STATUS「優先度A」参照。
+  - ゲーム画像30枚の出典・利用許諾が記録されていない（git上は「Add files via upload」）。
+  - ルートSW（sw.js）は activate 時に自分以外の全キャッシュ（game-pc-guide-v10 を含む）を削除する既存の挙動がある（表示の新しさには影響しない）。
+  - ルート index.html の「GPU 28枚掲載」は gpus.json（65件）と食い違う可能性（GPU GUIDE側の数え方を確認）。
+- **別AIへの引き継ぎ注意点**:
+  - `data/page-dates.json` は生成物。手で日付を書き換えない（内容が変わったときだけ generate-games.js が今日の日付にする）。
+  - 本文で「公式推奨を上回る／届かない」と書くときは GPU GUIDE の `rasterScore` で確かめる（テストが矛盾を検出する）。
+  - 既存ファイルを sed -i で編集すると BOM が落ちることがある（ルート index.html で発生）。BOM・CRLF のあるファイルは Node でバイト単位に置換する。
+
+## 2026-10-18 — GAME PC GUIDE 全面アップグレード（デザイン刷新・全29ページの情報再調査・生成処理のNode化）
+
+- **修正目的**: テンプレ文の使い回しが多かったゲーム別ページを、ゲームごとの公式スペック（出典・確認日つき）と固有情報で作り直す。2026年の価格高騰に合わせて予算目安を実勢に直す。トップを「ゲームから探して比べられる」構成に刷新する。
+- **変更ファイル**:
+  - 追加: `game-pc-guide/generate-games.js`（新ジェネレーター）、`game-pc-guide/data/price-bands.json`（予算目安の唯一の情報源）、`game-pc-guide/content/<slug>/guide.json`（29タイトル分。GTA5は最小限）
+  - 修正: `game-pc-guide/data/games.json`（全面）、`index.html`（全面）、`style.css`（全面）、`script.js`（全面）、`test-game-content.js`（全ページ＋整合性検査へ拡張）、`Generate-StaticGames.ps1`（Node版を呼ぶラッパーに）、`game.js`（旧URLを静的ページへ転送）、`llms.txt`、`sw.js`（v10）、`content/gta5/head・top・body.html`（予算をプレースホルダー化）、`games/*.html`・`sitemap.xml`（再生成）
+  - サイト外: `scripts/test-cross-links.js`（ゲームページの退行検知の対象を `header-link-ext` → 共通ナビ・GPU GUIDE/PC BUILD CHECKへのリンクに変更）、ルート `sitemap.xml`（game-pc-guide の lastmod のみ）
+- **変更内容**:
+  - 生成処理を PowerShell → Node（`generate-games.js`）へ。データ不整合（存在しない予算帯・関連ゲーム・解像度表記漏れ・プレースホルダー残り）を検出したら何も書き出さず止まる。sitemap の lastmod は実行日ではなく各ページの確認日。
+  - 予算は `price-bands.json` のバンド（entry / fhd / fhd-x3d / fhdplus / wqhd / wqhd-x3d / high / ultra）で管理し、生成時に games.json の price・budget・budgetMin/Max に書き戻す。本文中は `{{band:fhd}}` `{{priceChecked}}` で参照。
+  - 2026年10月時点のBTO実勢に合わせて予算を引き上げ（例: RTX 5060構成 15万→17万〜21万円前後、RTX 5070構成 20万→25万〜32万円前後）。
+  - 全タイトルの公式スペックを再調査（Steam公式API・Riot・Epic・Mojang等）。主な修正: スト6の「144fps」構成を廃止（対戦は60fps固定）、Battlefield→Battlefield 6を明記、CoD→BO7/Warzone＋10/22発売予定のMW4、Overwatch 2→Overwatch（2026年2月改称）、ARKはASE/ASAを区別、Palworldは1.0正式版、Tarkovは1.0（推奨メモリ64GB）、ボダラン4は8コアCPU必須のため6コアCPU構成を廃止、Minecraftは2026年7月の新公式要件、鬼武者/WARDOGS（早期アクセス）/バイオRE:Rの発売状況。
+  - 新規購入向け構成から古いCPU（Ryzen 7 5700X / 5600G など）と RTX 3050 を外し、AMD GPU（RX 7600 / 9060 XT / 9070 / 9070 XT）の候補を全構成に併記。
+  - トップ: 一覧カードを静的HTML化（JSはデータ取得をやめ絞り込みのみ）。検索（別名・ひらがな・全角対応）＋ジャンル・負荷・予算・用途の絞り込み、条件はURLに保存（戻るで復元）。「人気」バッジを廃止し「新作・正式版」（確認日から1年以内）に。初心者ガイドを GPU/CPU/メモリ/VRAM・解像度・fps・最低と推奨の違い・価格帯 に再構成。Google Fontsの読み込みを廃止。
+  - 詳細ページ: パンくず、結論カード、公式スペック表（公式＝インディゴ／Sippo独自＝ティールで区別）、3段階までの構成カード（VRAM・AMD候補・GPU GUIDEスコアと公式推奨GPUの位置）、解像度別表、ゲーム固有ポイント、FAQ（FAQPage JSON-LDと自動一致）、出典と確認日、関連ゲーム、次にやること。BreadcrumbList / WebPage / FAQPage を出力。
+- **影響範囲**: game-pc-guide 全体。PC BUILD CHECK は games.json の id/slug/title/builds(gpu, target) を読むため互換を維持（test-build-profile.js 6478件成功）。
+- **検証**: `node game-pc-guide/test-game-content.js` OK（わざと144fpsを入れると検出することも確認）／`scripts/test-cross-links.js` 63件成功／html-validate 全30ページ構造エラー0／CSS構文エラー0／Playwright（Chrome）で全29ページ×375・768・1440pxの横はみ出し0・CLS 0・JSエラー0、検索・絞り込み・戻る復元・キーボード操作・旧URL転送の22項目PASS。
+- **未対応・次にやること**:
+  - 原神は公式一次情報でPC版の最新スペックを確認できず「参考値」表示（`specUnverified`）。黒い砂漠は日本版の動作環境ページを確認できずSteam版の値を掲載。
+  - PC BUILD CHECK の予算スケール（例: 15万=RTX 5060）が今回の実勢価格（17万〜）とずれている。PC BUILD CHECK側の見直しが必要（今回は触っていない）。
+  - 価格は月1回程度 `price-bands.json` を見直して再生成。MW4発売後（10/22〜）にCoDページを更新。
+  - ゲーム画像（images/*.jpg）の利用許諾は未確認のまま（既存アセットを継続使用）。
+- **別AIへの引き継ぎ注意点**:
+  - `games/*.html` と index.html の `GENERATED:*` マーカー内、llms.txt の一覧は生成物。`node game-pc-guide/generate-games.js`（または従来どおり `Generate-StaticGames.ps1`）で再生成する。
+  - 価格を本文に直書きしない。`{{band:キー}}` を使う。公式スペック表で公式に無い項目は「記載なし」と書く。60fps上限のゲームは guide.json に `fpsCap: 60` を付ける（テストが144/240表記を弾く）。
+  - GTA5 は `guide.json` の `legacyHtml: true` で旧来の head/top/body.html を本文に使う（FAQPage等は head.html に手書き。FAQを変えたら両方直す）。
+
 ## 2026-10-14 — GAME PC GUIDE：GTA5ページを全面強化（Enhanced/Legacy公式スペック・GTA6 PC版の状況・FAQ）
 
 - **修正目的**: クリックが伸びているGTA5ページ（URL据え置き）を、汎用テンプレ文から書き下ろし本文に置き換え、GTA6に向けた買い替え判断まで答えられるページにする。

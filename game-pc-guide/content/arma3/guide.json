@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "ARMA 3 おすすめPC｜必要スペックとMOD・大規模ミッション向けCPU重視構成",
+  "metaDescription": "ARMA 3の公式必要・推奨スペック（推奨Core i7-7700K・メモリ16GB・GTX 1060 6GB・SSD）と、MODや大規模ミッションでも安定しやすいCPU重視のおすすめPC構成を解説します。",
+  "lead": "ARMA 3は2013年発売の古いゲームですが、AIやユニットの多い大規模ミッション、MODを多く入れた環境ではCPUが限界になりやすいタイトルです。GPUを強くしてもfpsが伸びにくいため、Sippoでは予算をCPUとメモリに寄せた構成をおすすめしています。",
+  "pick": 0,
+  "recGpuId": "gtx-1060-6gb",
+  "specTables": [
+    {
+      "title": "ARMA 3 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10（64bit）", "Windows 10 / 11（64bit）"],
+        ["CPU", "Intel Core クアッドコア / AMD Athlon クアッドコア", "Intel Core i7-7700K / AMD Ryzen 3 3300X 以上"],
+        ["GPU", "NVIDIA GeForce GTX 660 / AMD Radeon HD 7850 / Intel HD Graphics 4000（VRAM 1GB）", "NVIDIA GeForce GTX 1060 / AMD Radeon RX 580（VRAM 6GB）以上"],
+        ["VRAM", "1GB", "6GB"],
+        ["メモリ", "8GB", "16GB"],
+        ["ストレージ", "50GB", "80GB（SSD）"],
+        ["その他", "DirectX 10", "DirectX 11"]
+      ],
+      "note": "公式推奨は標準的な遊び方の目安です。大規模なMODセットやAIの多いミッションでは、推奨を大きく上回るCPUが必要になることがあります。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Arma 3）", "url": "https://store.steampowered.com/app/107410/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "MOD・協力プレイで高設定", "note": "GPUよりCPUとメモリに予算を回すのが基本です。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "描画距離を伸ばした高設定", "note": "描画距離を伸ばすとCPUの負担も増えます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "画質重視", "note": "4KにしてもCPUが原因の重さは解消しません。" }
+  ],
+  "tech": "ARMA 3はCPUの処理（特にAIやスクリプトの計算）がfpsを決めやすいゲームです。画質を下げてもfpsが変わらない場合は、CPUかミッション側の処理が限界になっています。",
+  "points": [
+    { "title": "GPUを盛ってもfpsが伸びにくい", "text": "大規模ミッションでは、AIの判断やユニットの計算でCPUの処理が追いつかなくなります。この状態ではGPUを高性能にしてもfpsはほとんど伸びません。ARMA 3のためにPCを選ぶなら、まずCPUを優先しましょう。" },
+    { "title": "サーバー・ミッション側が原因のことも", "text": "マルチプレイでは、サーバーやミッションの作りによって重さが大きく変わります。PCの性能を上げても改善しない場合は、サーバー側の処理が限界になっていることもあります。" },
+    { "title": "MODを入れるならメモリとSSD容量を", "text": "MODを多く入れると、メモリの使用量と必要なストレージ容量が増えます。メモリは32GB、SSDは1TB以上を目安にすると安心です。" }
+  ],
+  "faq": [
+    { "q": "ARMA 3は古いゲームなので安いPCで十分ですか？", "a": "シングルプレイや小規模なミッションなら公式推奨程度で遊べます。ただし大規模ミッションや重いMODでは、新しいゲーム並みのCPU性能が必要になることがあります。" },
+    { "q": "ARMA 3のためにGPUを交換すれば軽くなりますか？", "a": "GPU使用率が高いなら効果がありますが、ARMA 3ではCPUが原因のことが多く、GPUだけ交換しても改善しにくい場合があります。まず画質を下げてfpsが変わるかを確認してください。" },
+    { "q": "Arma Reforgerとは必要スペックが違いますか？", "a": "Arma Reforgerは別のゲームで、必要スペックも異なります。このページの情報はARMA 3向けです。Reforgerを遊ぶ場合はそのストアページで公式スペックを確認してください。" }
+  ],
+  "related": ["tarkov", "battlefield", "wardogs", "rust"]
+}

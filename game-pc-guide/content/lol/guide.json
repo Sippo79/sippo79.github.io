@@ -1,0 +1,43 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "LoL（League of Legends）おすすめPC｜公式の必要スペックと高fps向け構成",
+  "metaDescription": "League of Legends（LoL）のRiot公式必要・推奨スペック（2026年9月更新）と、144fps以上や配信を考えたおすすめPC構成を解説。LoLだけならゲーミングPCが不要な場合もある理由がわかります。",
+  "lead": "LoLはとても軽いゲームで、Riot公式の推奨はGeForce 560 / Intel UHD 630・メモリ4GBです。LoLだけなら内蔵GPUのPCでも遊べることがあり、ゲーミングPCは「高fpsで遊びたい」「配信したい」「ほかのゲームも遊びたい」人向けと考えましょう。",
+  "pick": 0,
+  "specTables": [
+    {
+      "title": "League of Legends 公式の必要動作環境（Windows・Riot Games）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10（ビルド19041以降）/ Windows 11", "Windows 11"],
+        ["CPU", "Intel Core i3-530 / AMD FX-4100", "Intel Core i5-8250 / AMD Ryzen 3 1200"],
+        ["GPU", "GeForce 400シリーズ / AMD HD 6570 / Intel HD 4600", "GeForce 560 / AMD Radeon HD 6950 / Intel UHD 630"],
+        ["VRAM", "1GB", "2GB"],
+        ["メモリ", "2GB", "4GB"],
+        ["ストレージ", "16GB（HDD）", "16GB（SSD）"],
+        ["その他", "DirectX 11（機能レベル11_0）対応、ARMは非対応", "同左"]
+      ],
+      "note": "Windows 11ではTPM 2.0の有効化が必要です。Enterprise版やServer版のWindowsには対応していません。"
+    }
+  ],
+  "sources": [
+    { "label": "Riot Games サポート（League of Legends 最低・推奨スペック）", "url": "https://support.riotgames.com/en-us/league-of-legends/performance/minimum-and-recommended-system-requirements-league-of-legends" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050 / RX 7600", "target": "144fps以上", "note": "LoLだけなら性能はかなり余ります。" },
+    { "res": "WQHD", "gpu": "RTX 5050〜5060", "target": "144fps以上", "note": "LoLは軽いので、WQHDでも高fpsを保ちやすいです。" },
+    { "res": "4K", "gpu": "RTX 5060 以上", "target": "高画質", "note": "LoLで4Kにするメリットは小さく、優先度は低めです。" }
+  ],
+  "tech": "LoLは軽いため、GPUの性能差よりもCPUの処理性能とモニターのリフレッシュレートが体感を左右します。",
+  "points": [
+    { "title": "LoLだけならゲーミングPCでなくてもいい", "text": "Riot公式の推奨にはIntel UHD 630（内蔵GPU）が含まれています。LoLだけを遊ぶなら、最近の一般的なPCでも遊べる可能性があります。ゲーミングPCを買うなら、高fps・配信・ほかのゲームなど、LoL以外の目的も考えて選びましょう。" },
+    { "title": "Windows 11ではTPM 2.0が必須", "text": "アンチチートの関係で、Windows 11ではTPM 2.0の有効化が必要です。古いPCをWindows 11にしている場合は設定を確認してください。" },
+    { "title": "配信するならCPUとメモリに余裕を", "text": "LoLは配信や録画と一緒に楽しむ人が多いタイトルです。ゲーム自体は軽くても、配信ソフトを同時に動かすならCPUは8コア、メモリは32GBあると安心です。" }
+  ],
+  "faq": [
+    { "q": "LoLはノートPCでも遊べますか？", "a": "公式推奨にIntel UHD 630が含まれているため、多くのノートPCで遊べます。ただし高fpsで快適に遊びたいなら、専用GPUを積んだゲーミングノートがおすすめです。" },
+    { "q": "LoLのためにグラボは必要ですか？", "a": "LoLだけなら必須ではありません。144fps以上で滑らかに遊びたい、ほかのゲームも遊びたいという場合にゲーミング向けのGPUを検討しましょう。" },
+    { "q": "LoLで配信するならどんなPCがいいですか？", "a": "8コアCPU（Ryzen 7 7700など）とメモリ32GBを目安にすると、ゲームと配信ソフトを同時に動かしても余裕があります。GPUはRTX 5060クラスで十分です。" }
+  ],
+  "related": ["valorant", "streetfighter6", "overwatch2", "genshin"]
+}

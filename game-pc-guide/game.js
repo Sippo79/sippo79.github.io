@@ -22,6 +22,11 @@ async function loadGameDetail() {
       return;
     }
 
+    // 旧URL（game.html?id=xxx）は、内容の充実した静的ページ（games/<slug>.html）へ転送する。
+    // 履歴に旧URLを残さないよう replace を使う。
+    window.location.replace("games/" + (game.slug || game.id) + ".html");
+    return;
+
     renderGameDetail(game);
 
     gameRecommended.textContent = game.recommended || "-";

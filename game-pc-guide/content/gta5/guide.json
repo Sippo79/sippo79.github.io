@@ -1,0 +1,14 @@
+{
+  "_readme": "GTA5は書き下ろしHTML（head.html / top.html / body.html）で本文を持つ。ここには一覧・関連導線・生成に必要な最小限の情報だけを置く。",
+  "checked": "2026-10-14",
+  "legacyHtml": true,
+  "seoTitle": "GTA5 / GTA Online おすすめPC｜Enhanced・Legacy必要スペックと快適構成",
+  "metaDescription": "GTA5 Enhanced・Legacyの公式必要／推奨スペックと、FHD・WQHD・4K別のおすすめPC構成を解説。軽くする設定、MODとGTA Onlineの注意点、GTA6のPC版の状況と買い替え判断もまとめています。",
+  "lead": "今のPC版GTA5には、要求スペックの違う「Enhanced」と「Legacy」の2種類があります。SSDのある今どきのPCならEnhancedが基本で、公式推奨はRTX 3060 8GB / RX 6600 XT・メモリ16GBです。",
+  "pick": 0,
+  "recGpuId": "rtx-3060",
+  "sources": [
+    { "label": "Rockstar公式サポート（GTA5 PC必要動作環境）", "url": "https://support.rockstargames.com/articles/lMQXeP2Z1mN3g9oZiBZFR/grand-theft-auto-v-pc-system-requirements" }
+  ],
+  "related": ["cyberpunk2077", "starfield", "palworld"]
+}

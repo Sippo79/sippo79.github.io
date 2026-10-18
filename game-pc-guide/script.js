@@ -1,314 +1,125 @@
-// Filter state
-let currentFilter = 'all';
-
-function getGameFilterTags(game) {
-  const tags = ['all'];
-  if (game.popular) tags.push('popular');
-  if (game.genre === 'FPS' || game.genre === 'MOBA') tags.push('fps');
-  if (game.level && (game.level.includes('重め') || game.level.includes('超重い'))) tags.push('heavy');
-  return tags;
-}
-
-function renderFilterButtons() {
-  const filterArea = document.getElementById('gameFilter');
-  if (!filterArea) return;
-
-  const filters = [
-    { key: 'all', label: '全て' },
-    { key: 'popular', label: '人気' },
-    { key: 'fps', label: 'FPS' },
-    { key: 'heavy', label: '重量級' },
-  ];
-
-  filterArea.innerHTML = filters.map(f => `
-    <button class="filter-btn${currentFilter === f.key ? ' active' : ''}" data-filter="${f.key}">
-      ${f.label}
-    </button>
-  `).join('');
-
-  filterArea.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentFilter = btn.dataset.filter;
-      renderFilterButtons();
-      const keyword = gameSearchInput ? gameSearchInput.value.trim().toLowerCase() : '';
-      renderGames(applyFilters(allGames, currentFilter, keyword));
-    });
-  });
-}
-
-function applyFilters(games, filter, keyword) {
-  return games.filter(game => {
-    const tags = getGameFilterTags(game);
-    const matchFilter = tags.includes(filter);
-    const matchKeyword = !keyword || (
-      game.title.toLowerCase().includes(keyword) ||
-      game.genre.toLowerCase().includes(keyword) ||
-      game.level.toLowerCase().includes(keyword) ||
-      game.description.toLowerCase().includes(keyword)
-    );
-    return matchFilter && matchKeyword;
-  });
-}
-
-const affiliateLinks = {
-  bto: "",
-  amazonParts: "",
-  rakutenParts: "",
-  monitor: "",
-  mouse: ""
-};
-
-window.affiliateLinks = affiliateLinks;
-
-const gameGrid = document.getElementById("gameGrid");
-const gameSearchInput = document.getElementById("gameSearchInput");
-
-let allGames = [];
-
-function createAffiliateSection() {
-  const links = [
-    {
-      key: "bto",
-      label: "\u3053\u306e\u30b2\u30fc\u30e0\u5411\u3051BTO\u30d1\u30bd\u30b3\u30f3\u3092\u63a2\u3059",
-      description: "\u63a8\u5968\u30b9\u30da\u30c3\u30af\u306b\u8fd1\u3044\u5b8c\u6210\u54c1PC\u3092\u30c1\u30a7\u30c3\u30af"
-    },
-    {
-      key: "amazonParts",
-      label: "Amazon\u3067PC\u30d1\u30fc\u30c4\u3092\u898b\u308b",
-      description: "CPU\u30fbGPU\u30fb\u30e1\u30e2\u30ea\u306a\u3069\u3092\u307e\u3068\u3081\u3066\u63a2\u3059"
-    },
-    {
-      key: "rakutenParts",
-      label: "\u697d\u5929\u3067PC\u30d1\u30fc\u30c4\u3092\u898b\u308b",
-      description: "\u30dd\u30a4\u30f3\u30c8\u9084\u5143\u3082\u898b\u306a\u304c\u3089\u30d1\u30fc\u30c4\u3092\u6bd4\u8f03"
-    },
-    {
-      key: "monitor",
-      label: "\u30b2\u30fc\u30df\u30f3\u30b0\u30e2\u30cb\u30bf\u30fc\u3092\u898b\u308b",
-      description: "144Hz\u4ee5\u4e0a\u3084WQHD\u74b0\u5883\u3092\u6574\u3048\u305f\u3044\u4eba\u5411\u3051"
-    },
-    {
-      key: "mouse",
-      label: "\u30b2\u30fc\u30df\u30f3\u30b0\u30de\u30a6\u30b9\u3092\u898b\u308b",
-      description: "FPS\u3084\u9577\u6642\u9593\u30d7\u30ec\u30a4\u306e\u64cd\u4f5c\u611f\u3092\u6539\u5584"
-    }
-  ];
-
-  const hasActiveAffiliateLink = links.some(link => Boolean(affiliateLinks[link.key]));
-
-  if (!hasActiveAffiliateLink) return '';
-
-  function renderAffiliateButton(link) {
-    const affiliateUrl = affiliateLinks[link.key];
-
-    if (!affiliateUrl) {
-      return `
-          <span
-            class="affiliate-button affiliate-button-${link.key} affiliate-button-disabled"
-            aria-disabled="true"
-          >
-            <span>${link.label}</span>
-            <small>ショップ連携準備中</small>
-            <em>近日対応予定</em>
-          </span>
-      `;
-    }
-
-    return `
-          <a
-            class="affiliate-button affiliate-button-${link.key}"
-            href="${affiliateUrl}"
-            target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
-          >
-            <span>${link.label}</span>
-            <small>${link.description}</small>
-          </a>
-    `;
-  }
-
-  return `
-    <section class="affiliate-section" aria-labelledby="affiliateTitle">
-      <div class="affiliate-heading">
-        <p class="section-label">SHOP LINKS</p>
-        <h2 id="affiliateTitle">${hasActiveAffiliateLink ? "\u304a\u3059\u3059\u3081\u8cfc\u5165\u5148" : "\u30b7\u30e7\u30c3\u30d7\u9023\u643a\u6e96\u5099\u4e2d"}</h2>
-        <p>${hasActiveAffiliateLink ? "\u5fc5\u8981\u306a\u30b9\u30da\u30c3\u30af\u3084\u5468\u8fba\u6a5f\u5668\u3092\u3001\u6c17\u306b\u306a\u3063\u305f\u30bf\u30a4\u30df\u30f3\u30b0\u3067\u8efd\u304f\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002" : "\u73fe\u5728\u3001\u8ca9\u58f2\u30b5\u30a4\u30c8\u3078\u306e\u30ea\u30f3\u30af\u3092\u6e96\u5099\u3057\u3066\u3044\u307e\u3059\u3002\u516c\u958b\u5f8c\u306f\u3053\u306e\u30a8\u30ea\u30a2\u304b\u3089\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002"}</p>
-      </div>
-
-      <div class="affiliate-link-grid">
-        ${links.map(renderAffiliateButton).join("")}
-      </div>
-
-      <p class="affiliate-disclosure${hasActiveAffiliateLink ? "" : " affiliate-disclosure-hidden"}">
-        \u5f53\u30b5\u30a4\u30c8\u3067\u306f\u30a2\u30d5\u30a3\u30ea\u30a8\u30a4\u30c8\u5e83\u544a\u3092\u5229\u7528\u3057\u3066\u3044\u307e\u3059\u3002\u30ea\u30f3\u30af\u5148\u3067\u5546\u54c1\u3092\u8cfc\u5165\u3059\u308b\u3068\u3001\u904b\u55b6\u8005\u306b\u53ce\u76ca\u304c\u767a\u751f\u3059\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002
-        Amazon\u306e\u30a2\u30bd\u30b7\u30a8\u30a4\u30c8\u3068\u3057\u3066\u3001\u5f53\u30b5\u30a4\u30c8\u306f\u9069\u683c\u8ca9\u58f2\u306b\u3088\u308a\u53ce\u5165\u3092\u5f97\u3066\u3044\u307e\u3059\u3002
-      </p>
-    </section>
-  `;
-}
-
-window.createAffiliateSection = createAffiliateSection;
-
-function renderAffiliateSection(targetId) {
-  const target = document.getElementById(targetId);
-
-  if (target) {
-    target.innerHTML = createAffiliateSection();
-  }
-}
-
-window.renderAffiliateSection = renderAffiliateSection;
-
-function showSkeletonCards(count = 6) {
-  const skeletons = Array.from({ length: count }, () => `
-    <div class="skeleton-card">
-      <div class="skeleton-thumb"></div>
-      <div class="skeleton-body">
-        <div class="skeleton-line short"></div>
-        <div class="skeleton-line"></div>
-        <div class="skeleton-line mid"></div>
-        <div class="skeleton-line short"></div>
-      </div>
-    </div>
-  `).join('');
-  gameGrid.innerHTML = skeletons;
-}
-
-async function loadGames() {
-  showSkeletonCards();
-
-  try {
-    const response = await fetch("./data/games.json");
-    const games = await response.json();
-
-    allGames = games;
-    renderFilterButtons();
-    renderGames(allGames);
-  } catch (error) {
-    console.error("Failed to load games.json", error);
-
-    gameGrid.innerHTML = `
-      <p style="color:#ff8080;">
-        \u30b2\u30fc\u30e0\u30c7\u30fc\u30bf\u306e\u8aad\u307f\u8fbc\u307f\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002
-      </p>
-    `;
-  }
-}
-
-// 遊びやすさ（快適度）を初心者向けの一言ラベルに変換する
-function getComfortBadge(game) {
-  const lv = game.level || "";
-  let text = "フルHDで遊びやすい";
-  let tier = "mid";
-  if (lv.indexOf("超重") > -1) {
-    text = "高性能PCがおすすめ";
-    tier = "hard";
-  } else if (lv.indexOf("重") > -1) {
-    text = "しっかりめのPCだと安心";
-    tier = "hard";
-  } else if (lv.indexOf("中量") > -1) {
-    text = "フルHDなら快適に遊びやすい";
-    tier = "mid";
-  } else if (lv.indexOf("軽") > -1) {
-    text = "軽快に動かしやすい";
-    tier = "light";
-  }
-  return `<p class="game-comfort game-comfort--${tier}">\u{1F60A} ${text}</p>`;
-}
-
 /**
- * 一覧のサムネ用に、軽量な WebP（images/◯◯-thumb.webp）のパスを作る。
+ * GAME PC GUIDE 一覧の絞り込み（2026-10-18〜）
  *
- * 一覧のサムネは 150px 高でしか表示していないのに、詳細ページ用の 1200px 画像を
- * そのまま読んでいたため、初回表示で約4MB落ちていた。640px幅の WebP に差し替える。
- * 生成が間に合っていない画像もあり得るので、読めなければ onerror で原本に戻す。
+ * カードは generate-games.js が index.html に静的に書き出している。
+ * ここでは data-* 属性を見て表示・非表示を切り替えるだけで、データの取得はしない
+ * （JSが動かない環境でも全ゲームが表示され、検索エンジンにもそのまま読まれる）。
+ *
+ * 絞り込み条件は URL のクエリ（?q=&genre=&load=&budget=&use=）に保存する。
+ * ゲームページを開いて「戻る」で帰ってきたときに、同じ条件で一覧が復元される。
  */
-function getThumbSrc(imagePath) {
-  return String(imagePath).replace(/\.(jpe?g|png|webp)$/i, '-thumb.webp');
-}
+(function () {
+  "use strict";
 
-/**
- * サムネの読み込みに失敗したときの後始末。
- * 1回目: 原本（jpg）に戻す。2回目（原本も無い）: ジャンル名のプレースホルダーにする。
- */
-function handleThumbError(img, genre) {
-  const fallback = img.getAttribute('data-fallback');
-  if (fallback && img.src.indexOf(fallback) === -1) {
-    img.removeAttribute('data-fallback');
-    img.src = fallback;
-    return;
+  var form = document.getElementById("gameFilter");
+  var grid = document.getElementById("gameGrid");
+  if (!form || !grid) return;
+
+  var cards = Array.prototype.slice.call(grid.querySelectorAll(".game-card"));
+  var countEl = document.getElementById("filterCount");
+  var emptyEl = document.getElementById("gameEmpty");
+  var fields = {
+    q: document.getElementById("gameSearchInput"),
+    genre: document.getElementById("filterGenre"),
+    load: document.getElementById("filterLoad"),
+    budget: document.getElementById("filterBudget"),
+    use: document.getElementById("filterUse"),
+  };
+
+  // 予算の区分（data-budget は「迷ったらこれ」構成の予算の下限・万円）
+  var BUDGET = {
+    low: function (v) { return v < 20; },
+    mid: function (v) { return v >= 20 && v < 30; },
+    high: function (v) { return v >= 30; },
+  };
+
+  /** 全角英数・カタカナのゆれを吸収して比較する */
+  function normalize(s) {
+    return String(s || "")
+      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); })
+      .replace(/[ァ-ヶ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); })
+      .toLowerCase()
+      .replace(/[\s・\-ー:：]/g, "");
   }
-  img.parentElement.innerHTML =
-    '<div class="game-thumb-placeholder"><span>' + genre + '</span></div>';
-}
 
-function renderGames(games) {
-  if (games.length === 0) {
-    gameGrid.innerHTML = `
-      <p class="empty-message">
-        \u8a72\u5f53\u3059\u308b\u30b2\u30fc\u30e0\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f\u3002
-      </p>
-    `;
-    return;
+  // カードの検索用テキストは一度だけ正規化しておく
+  cards.forEach(function (card) {
+    card._search = normalize(card.getAttribute("data-search"));
+  });
+
+  function values() {
+    var v = {};
+    Object.keys(fields).forEach(function (k) { v[k] = fields[k] ? fields[k].value.trim() : ""; });
+    return v;
   }
 
-  // ページのファイル名は games.json の slug（無ければ id）。Generate-StaticGames.ps1 と同じ規則。
-  gameGrid.innerHTML = games.map(game => `
-    <a href="games/${game.slug || game.id}.html" class="game-card">
-      <div class="game-thumb">
-        ${game.image
-          ? `
-            <img
-              src="${getThumbSrc(game.image)}"
-              alt="${game.title}"
-              width="640"
-              height="360"
-              loading="lazy"
-              decoding="async"
-              data-fallback="${game.image}"
-              onerror="handleThumbError(this, '${game.genre}')"
-            >
-          `
-          : `
-            <div class="game-thumb-placeholder">
-              <span>${game.genre}</span>
-            </div>
-          `
-        }
-      </div>
+  function apply(updateUrl) {
+    var v = values();
+    var q = normalize(v.q);
+    var shown = 0;
 
-      <div class="game-card-body">
-        ${game.popular ? '<p class="game-popular-badge">\u4eba\u6c17</p>' : ''}
-        <div class="game-card-top">
-          <span class="game-tag">${game.genre}</span>
-          <span class="game-level">${game.level}</span>
-        </div>
+    cards.forEach(function (card) {
+      var ok =
+        (!q || card._search.indexOf(q) > -1) &&
+        (!v.genre || card.getAttribute("data-genre") === v.genre) &&
+        (!v.load || card.getAttribute("data-load") === v.load) &&
+        (!v.budget || (BUDGET[v.budget] && BUDGET[v.budget](Number(card.getAttribute("data-budget"))))) &&
+        (!v.use || (" " + card.getAttribute("data-uses") + " ").indexOf(" " + v.use + " ") > -1);
+      card.hidden = !ok;
+      if (ok) shown += 1;
+    });
 
-        ${getComfortBadge(game)}
-        <h3>${game.title}</h3>
-        <p class="game-desc">${game.description}</p>
+    var filtered = Object.keys(v).some(function (k) { return v[k]; });
+    if (countEl) {
+      countEl.innerHTML = filtered
+        ? "<strong>" + shown + "</strong> / " + cards.length + " タイトル"
+        : "全 <strong>" + cards.length + "</strong> タイトル";
+    }
+    if (emptyEl) emptyEl.hidden = shown !== 0;
 
-        <ul class="game-meta">
-          <li><span>\u{1F4B0} \u4e88\u7b97\u306e\u76ee\u5b89</span><strong>${game.budget || "-"}</strong></li>
-          <li><span>\u{1F3AE} \u304a\u3059\u3059\u3081\u74b0\u5883</span><strong>${game.recommended || "-"}</strong></li>
-        </ul>
+    if (updateUrl && window.history && history.replaceState) {
+      var params = new URLSearchParams();
+      Object.keys(v).forEach(function (k) { if (v[k]) params.set(k, v[k]); });
+      var qs = params.toString();
+      history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+    }
+  }
 
-        <span class="game-link">\u304a\u3059\u3059\u3081PC\u3092\u898b\u308b &rarr;</span>
-      </div>
-    </a>
-  `).join("");
-}
+  function reset() {
+    Object.keys(fields).forEach(function (k) { if (fields[k]) fields[k].value = ""; });
+    apply(true);
+    if (fields.q) fields.q.focus();
+  }
 
-function filterGames() {
-  const keyword = gameSearchInput ? gameSearchInput.value.trim().toLowerCase() : '';
-  renderGames(applyFilters(allGames, currentFilter, keyword));
-}
+  // URL の条件を復元（クイックリンク・戻るボタン・ヒーローの検索フォームから来た場合）
+  var params = new URLSearchParams(location.search);
+  Object.keys(fields).forEach(function (k) {
+    var val = params.get(k);
+    if (val && fields[k]) {
+      // select に無い値は無視する
+      if (fields[k].tagName === "SELECT" && !fields[k].querySelector('option[value="' + val.replace(/"/g, "") + '"]')) return;
+      fields[k].value = val;
+    }
+  });
+  apply(false);
 
-if (gameSearchInput) {
-  gameSearchInput.addEventListener("input", filterGames);
-}
+  form.addEventListener("input", function () { apply(true); });
+  form.addEventListener("change", function () { apply(true); });
 
-if (gameGrid) {
-  loadGames();
-  renderAffiliateSection("affiliateSection");
-}
+  var resetBtns = document.querySelectorAll("#filterReset, [data-filter-reset]");
+  Array.prototype.forEach.call(resetBtns, function (b) { b.addEventListener("click", reset); });
+
+  // ヒーローの検索フォーム：ページを読み直さずに一覧の検索欄へ渡す
+  var hero = document.querySelector("[data-hero-search]");
+  if (hero && fields.q) {
+    var heroInput = hero.querySelector("input");
+    if (params.get("q") && heroInput) heroInput.value = params.get("q");
+    hero.addEventListener("submit", function (e) {
+      e.preventDefault();
+      fields.q.value = heroInput ? heroInput.value : "";
+      apply(true);
+      var target = document.getElementById("games");
+      if (target) target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    });
+  }
+})();

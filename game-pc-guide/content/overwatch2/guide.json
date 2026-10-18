@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Overwatch（オーバーウォッチ2）おすすめPC｜必要スペックと144fps・240fps向け構成",
+  "metaDescription": "Overwatch（2026年2月にOverwatch 2から改称）の公式必要・推奨スペックと、144fps〜240fpsを狙うおすすめPC構成を解説。高fps域でCPUが効く理由もわかります。",
+  "lead": "Overwatch 2は2026年2月10日から名称が「Overwatch」に戻りました（ゲームはそのまま続いています）。公式推奨はGTX 1060 / GTX 1650級と軽く、144fpsならエントリー構成で十分です。240fps以上を狙うときはGPUよりCPUを強くしましょう。",
+  "pick": 0,
+  "recGpuId": "gtx-1060-6gb",
+  "specTables": [
+    {
+      "title": "Overwatch 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 64bit（最新のサービスパック）", "Windows 10 64bit（最新のサービスパック）"],
+        ["CPU", "Intel Core i3 / AMD Phenom X3 8650", "Intel Core i7 / AMD Ryzen 5"],
+        ["GPU", "NVIDIA GeForce GTX 600シリーズ / AMD Radeon HD 7000シリーズ", "NVIDIA GeForce GTX 1060 / GTX 1650 / AMD R9 380 / RX 6400 / Intel Arc A770"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "6GB", "8GB"],
+        ["ストレージ", "50GB", "50GB"],
+        ["その他", "DirectX 11、ブロードバンド接続", "DirectX 11、ブロードバンド接続"]
+      ],
+      "note": "Battle.net版でも基本的な要件は同じですが、最新の表記はBlizzardの公式サポートで確認してください。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Overwatch）", "url": "https://store.steampowered.com/app/2357570/" },
+    { "label": "名称変更の報道（Shacknews・2026年2月）", "url": "https://www.shacknews.com/article/147730/overwatch-2-rebrands-to-overwatch" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050 / RX 7600", "target": "144fps以上", "note": "240fps以上ならCPUを強化します。" },
+    { "res": "WQHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "144fps以上", "note": "軽いゲームなのでWQHDでも高fpsを保ちやすいです。" },
+    { "res": "4K", "gpu": "RTX 5070 以上", "target": "画質重視", "note": "競技目的なら4Kより高fpsを優先した方が有利です。" }
+  ],
+  "tech": "設定を下げればGPUの負担は小さく、高fps域ではCPUとモニターのリフレッシュレートが体感を決めます。",
+  "points": [
+    { "title": "名前が「Overwatch」に変わった", "text": "2026年2月10日から、Overwatch 2は「Overwatch」という名称になりました。新しいゲームを買い直す必要はなく、これまでのアカウントで引き続き遊べます。検索するときは「オーバーウォッチ2」でも同じゲームの情報が出てきます。" },
+    { "title": "240fps以上はCPUで頭打ちになりやすい", "text": "画質を下げて高fpsを狙うと、GPUより先にCPUが限界になります。240Hz以上のモニターを使うなら、Ryzen 7 7800X3Dのようなゲームに強いCPUを選ぶとfpsを伸ばしやすくなります。" },
+    { "title": "チーム戦のエフェクトが重なる場面を基準に", "text": "アルティメットが重なる集団戦では、エフェクトが増えてfpsが落ちやすくなります。普段のfpsではなく、集団戦でもリフレッシュレートに近いfpsを保てるかを目安にすると快適です。" }
+  ],
+  "faq": [
+    { "q": "Overwatch 2とOverwatchは別のゲームですか？", "a": "同じゲームです。2026年2月にOverwatch 2が「Overwatch」へ改称されました。PCの必要スペックや遊び方が大きく変わったわけではありません。" },
+    { "q": "Overwatchで240fpsを出すには？", "a": "設定を下げたうえで、CPUの性能が重要になります。GPUはRTX 5060クラスで十分なことが多く、Ryzen 7 7800X3DのようなCPUと240Hzモニターを組み合わせるのがおすすめです。" },
+    { "q": "GTX 1650でも遊べますか？", "a": "GTX 1650は公式推奨GPUのひとつなので遊べます。FHDで144fpsを安定させたい場合は、設定を下げるかGPUの交換を検討しましょう。" }
+  ],
+  "related": ["valorant", "apex", "rainbowsixsiege", "fortnite"]
+}

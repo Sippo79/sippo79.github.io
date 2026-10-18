@@ -71,8 +71,12 @@
 - **データ**: 各子サイトは JSON 駆動（`gpus.json` / `builds.json` / `games/` など）
 - **生成スクリプト**: 一部ページは PowerShell スクリプトで静的生成
   - `generate-builds.ps1`（PC BUILD CHECK）
-  - `game-pc-guide/Generate-StaticGames.ps1`（GAME PC GUIDE）
-    - 2026-10-14〜 `game-pc-guide/content/<slug>/`（head / top / body.html）があるゲームは汎用文の代わりに書き下ろし本文を使う（現在は gta5 のみ）。検証は `node game-pc-guide/test-game-content.js`。
+  - `game-pc-guide/generate-games.js`（GAME PC GUIDE。2026-10-18〜 Node化。`Generate-StaticGames.ps1` はこれを呼ぶラッパー）
+    - 本文は全29タイトル `game-pc-guide/content/<slug>/guide.json`（公式スペック・出典と確認日・解像度別目安・固有ポイント・FAQ）。GTA5のみ `legacyHtml:true` で head / top / body.html を使う。
+    - 予算目安は `game-pc-guide/data/price-bands.json` だけで管理し、生成時に games.json へ書き戻す（本文中は `{{band:キー}}`）。
+    - index.html の一覧カードは `GENERATED:*` マーカー内に静的出力（script.js は絞り込みのみ）。
+    - 検証は `node game-pc-guide/test-game-content.js`（全ページ・FAQ一致・予算/VRAM整合・60fps上限タイトルの高fps表記・テンプレ文の量産・本文の比較表現と描画性能スコアの整合・画像の実寸・再生成の安定性を検査）。
+    - sitemap の lastmod は `data/page-dates.json`（内容ハッシュ）で決まり、内容が変わったページだけ更新日が動く。CSS/JS は `?v=内容ハッシュ` 付きで参照する（SWの旧CSS混在防止）。
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
     - `gpuUpgrade` を持つGPU型番記事（2026-09-28〜、現在は rtx3060）は `upgrade/gpu-article.js` が本文を組み立てる。
       ◎○△×・「RTX 3060比」・CPU表・推奨電源は**診断エンジンから生成時に計算**し、記事に数値を手書きしない。
@@ -287,6 +291,7 @@
 - **UI**: 丸みのあるカード＋グラス UI
 - **マスコット**: sippo（`assets/sippo/`）
 - 補足: 子サイト本編（GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE）は**ダーク UI**のものもある。各サイトの既存トーンに合わせ、既存デザインを壊さない。
+  - GAME PC GUIDE（2026-10-18 刷新）: ダークネイビー＋シアン/ティール、発光・グラデーションは控えめ。**公式情報＝インディゴ系ラベル、Sippo独自の目安＝ティール系ラベル**で区別する。色は `style.css` の `:root` トークンのみ。Webフォントは読み込まず、フォント指定（M PLUS Rounded 1c→ヒラギノ丸ゴ→OS標準）のみ。
 - **SEO / OGP**: `meta description` / OGP / semantic HTML を維持。`canonical` / `og:url` / `sitemap.xml` を正式URLに合わせる。各 index.html は title / description / canonical / og一式（type,site_name,title,description,url,image,image:width,image:height,locale）/ Twitter Card 一式を揃える（基準 = gpu-guide）。**OGP画像に SVG は使わない**（SNSで表示されない）。png/jpg を使い、`og:image:width/height` は実画像の実寸に合わせる。
 - **ブランド名**: pc-build-check の正式名は **「PC BUILD CHECK」**。かつて誤って混入していた **「ジサコ！」「AI自作PC構成チェック」は別サイトの名称であり、本サイトでは使用しない**（2026-06-30 に全削除済み）。game-pc-guide の正式名は **「GAME PC GUIDE」**（「GAME GUIDE」表記は誤り。2026-07-01 に親サイト内の表記ゆれを解消済み）。
 
@@ -331,7 +336,19 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
   `リンク切れ` / `要確認` を目視してから `status` を手で更新する。
 - **Search Console に `https://sippo-pc.jp/sitemap.xml` を再送信**し、認識を確認する（インデックス化後の反映確認。ユーザー側で実施）。
 
+- **PC BUILD CHECK の予算スケールが実勢とずれている**（2026-10-18 監査で確認）。両サイトとも「BTO完成品の目安」を名乗っているが、
+  PC BUILD CHECK の参考価格（`shared/parts/part-prices.json`、2026-09-03）は GAME PC GUIDE の予算（`game-pc-guide/data/price-bands.json`、販売例ベース）より2万〜6万円低い。
+  - 例（同じ構成をPC BUILD CHECKの計算式に通した値 → GAME PC GUIDE）: 7500F+RTX 5060+16GB 約15万 → 17万〜21万／7800X3D+RTX 5070+32GB 約25万 → 29万〜36万／7800X3D+RTX 5070 Ti+32GB 約29万 → 35万〜45万。PC BUILD CHECK の予算区分は RTX 5080 構成を30万円、RX 9070 構成を15万円に置いている。
+  - 主因: part-prices.json の DDR5 32GB 16,000円・NVMe 1TB 12,000円が、2026年夏以降の報告（Gen4 1TB 約44,000円など）と大きく違う。gpus.json の価格（例: RX 9070 XT 96,000円）も2026年8月の報告（約159,800円）より低い。
+  - 修正案（PC BUILD CHECK / GPU GUIDE 側。今回は未実施）: ① part-prices.json のメモリ・SSD単価と updated を最新相場に更新 ② gpus.json の価格を更新 ③ 予算区分ごとの構成を見直すか、予算ラベルに「パーツ価格（YYYY年M月）からの概算」と明記 ④ 将来は price-bands.json 相当を shared/ に置き両サイトで共有。
+  - GAME PC GUIDE 側は本文に「PC BUILD CHECKの参考価格はパーツ価格から計算した概算のため低めに出ることがある」と明記済み。
+
 ### 優先度B
+- **GAME PC GUIDE の情報の定期更新**: `price-bands.json` を月1回見直す。原神（公式一次情報で最新PCスペック未確認）・黒い砂漠（日本版の動作環境未確認）は確認できたら guide.json を更新。CoDはMW4発売（2026-10-22）後に更新。
+- **GAME PC GUIDE のゲーム画像**（2026-10-18 対応済み）: 30枚を調査し C18 / D11 の画像はすべて公開ディレクトリから削除、全ゲームを画像なしのタイトルタイル表示に。OGP画像は外部素材なしで作り直した（元データ `game-pc-guide/tools/ogp.html`）。記録は `game-pc-guide/data/image-rights.json`。画像を戻すには権利者の許諾が必要。公開後は `game-pc-guide/tools/post-release-checklist.md` で旧画像URLの404とSNS・検索のキャッシュを確認する。
+- ~~楽天アフィリエイトリンクの切れ~~ → 2026-10-18 対応済み（RTX 5090・RX 7800 XT・RX 7900 GRE・RX 7900 XT を検索フォールバックへ。RTX 5070 は再確認で正常）。月1回の `scripts/check-affiliate-links.js` は継続。
+- **ルート sw.js が他サイトのキャッシュも削除する**: activate で `CACHE_NAME` 以外を全削除するため game-pc-guide 等のキャッシュも消える（表示の新しさには影響なし。削除対象を自分の接頭辞に限定するのが望ましい）。
+- ~~ルート index.html の「GPU 28枚掲載」~~ → 2026-10-18 に65枚（GPU GUIDE の個別ページ数・gpus.json と一致）へ修正済み。GPUを増減したらルート index.html の4か所（サービスカード・説明文・統計の data-count・ロードマップ）も直す。
 - **`pc-builds-hub` 専用 OGP 画像を作成して差し替え**。現在は親共通 `assets/ogp.png`（1200x630）を**暫定流用**中。
 - **`pc-build-check/ogp.jpg` を 1200x630 に再書き出し**。現状の実寸は 1199x630（1px半端）。
 - **`/upgrade/` 専用 OGP 画像を作成して差し替え**。現在は親共通 `assets/ogp.png` を**暫定流用**中。

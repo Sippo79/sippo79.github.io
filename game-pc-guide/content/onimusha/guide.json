@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "鬼武者 Way of the Sword おすすめPC｜公式スペックと高設定で遊べる構成",
+  "metaDescription": "鬼武者 Way of the Swordの公式必要・推奨スペック（推奨RTX 2060 Super・中設定＋アップスケーリングでFHD 60fps）と、FHD・WQHDの高設定で遊べるおすすめPC構成を解説します。",
+  "lead": "2026年9月3日に発売された鬼武者 Way of the Swordの公式推奨は、RTX 2060 Super / RX 6600です。ただしこれは「中設定・アップスケーリングありでFHD 60fps」の条件つきの目安です。高設定で余裕を持って遊ぶなら、RTX 5060クラス以上を選びましょう。",
+  "pick": 0,
+  "recGpuId": "rtx-2060-super",
+  "specTables": [
+    {
+      "title": "鬼武者 Way of the Sword 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 11", "Windows 11"],
+        ["CPU", "Intel Core i5-8400 / AMD Ryzen 3 3100", "Intel Core i5-10400 / AMD Ryzen 5 3600"],
+        ["GPU", "GeForce GTX 1660 / Radeon RX 5500 XT", "GeForce RTX 2060 Super / Radeon RX 6600"],
+        ["VRAM", "6GB（GTX 1660）/ 8GB（RX 5500 XT）", "8GB"],
+        ["メモリ", "16GB", "16GB"],
+        ["ストレージ", "50GB・SSD必須", "50GB・SSD必須"],
+        ["想定される動作", "「低」プリセット、FHD（アップスケーリング使用）で30fps", "「中」プリセット、FHD（アップスケーリング使用）で60fps"]
+      ],
+      "note": "超解像はNVIDIA DLSS 4.5とAMD FSR 3.1で有効になります（性能の見積もりはDLSS 4.0 / FSR 3.1を使用）。負荷の高い場面ではフレームレートが低下する場合があります。録画や配信を同時に行う場合はメモリの追加が推奨されています。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Onimusha: Way of the Sword）", "url": "https://store.steampowered.com/app/2638890/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "高設定（アップスケーリング併用）", "note": "公式推奨より一段上の性能で、60fps以上を安定させやすくなります。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高設定（アップスケーリング併用）", "note": "剣戟の描き込みを落とさずに遊びたい人向け。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高設定（アップスケーリング併用）", "note": "4Kはアップスケーリングが前提です。" }
+  ],
+  "tech": "DLSS 4.5とFSR 3.1による超解像に対応しています。公式の推奨スペックもアップスケーリングを使う前提の数値なので、自分のPCで試すときもまずはDLSS / FSRを有効にしてみてください。",
+  "points": [
+    { "title": "公式推奨は「アップスケーリング込み」", "text": "公式推奨の「FHD 60fps」は、中設定でアップスケーリングを使った場合の目安です。ネイティブ解像度の高設定で遊びたいなら、公式推奨より明らかに上のGPUが必要になります。" },
+    { "title": "OSはWindows 11が前提", "text": "公式の動作環境は最低・推奨ともWindows 11です。Windows 10のPCで遊ぶ予定の人は注意してください。" },
+    { "title": "録画・配信するならメモリ多め", "text": "公式も、録画や配信などのソフトを同時に使う場合はメモリを増やすよう案内しています。剣戟アクションを録画して楽しみたい人は、メモリ32GBを選んでおくと安心です。" }
+  ],
+  "faq": [
+    { "q": "鬼武者 Way of the SwordはRTX 3060で遊べますか？", "a": "RTX 3060は公式推奨（RTX 2060 Super）と同程度以上の性能なので、FHDの中設定＋アップスケーリングで60fpsが目安です。高設定にしたい場合は設定を調整しながら試してください。" },
+    { "q": "VRAM 8GBで足りますか？", "a": "公式推奨GPUはVRAM 8GBなので、推奨どおりの設定なら足ります。高解像度や高設定を狙う場合は、VRAMに余裕のある12〜16GBのGPUが安心です。" },
+    { "q": "Windows 10でも遊べますか？", "a": "Steamの公式動作環境は最低・推奨ともWindows 11と記載されています。Windows 10での動作は公式に案内されていないため、Windows 11環境を用意するのが安全です。" }
+  ],
+  "related": ["monster-hunter", "biohazard-requiem", "eldenring", "streetfighter6"]
+}

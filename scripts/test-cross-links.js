@@ -285,7 +285,7 @@ const allHtml = walkHtml(ROOT);
   ok('解決できないGPUをリンクにしていない', wrongly.length === 0, wrongly.slice(0, 5).join(', '));
 
   // 既存要素が消えていないこと（generator 退行の検出）
-  ['/shared/affiliate/affiliate.css', 'detail-back-nav', 'header-link-ext',
+  ['/shared/affiliate/affiliate.css', 'detail-back-nav', 'data-sippo-servicenav', 'pc-build-check/', 'gpu-guide/',
    'apple-mobile-web-app-title', 'viewport-fit=cover'].forEach((needle) => {
     const miss = files.filter((f) => fs.readFileSync(path.join(dir, f), 'utf8').indexOf(needle) < 0);
     ok('ゲームページに ' + needle + ' がある', miss.length === 0, miss.slice(0, 3).join(', '));

@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Battlefield 6 おすすめPC｜必要スペックとTPM 2.0・セキュアブートの注意点",
+  "metaDescription": "Battlefield 6（BF6）の公式必要・推奨スペック（推奨RTX 3060 Ti・メモリ16GB）と、FHD・WQHD別のおすすめPC構成を解説。起動に必要なTPM 2.0・セキュアブート、大規模戦闘でCPUが効く理由もわかります。",
+  "lead": "このページは2025年10月10日発売の最新作「Battlefield 6」を対象にしています。公式推奨はRTX 3060 Ti / RX 6700 XT・メモリ16GBで、FHDならRTX 5060クラスで高設定を狙えます。注意したいのは性能より「TPM 2.0とセキュアブートの有効化が必須」という起動条件です。",
+  "pick": 0,
+  "recGpuId": "rtx-3060-ti",
+  "specTables": [
+    {
+      "title": "Battlefield 6 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10", "Windows 11"],
+        ["CPU", "Intel Core i5-8400 / AMD Ryzen 5 2600", "Intel Core i7-10700 / AMD Ryzen 7 3700X"],
+        ["GPU", "NVIDIA RTX 2060 / AMD Radeon RX 5600 XT 6GB / Intel Arc A380", "NVIDIA RTX 3060 Ti / AMD Radeon RX 6700 XT / Intel Arc B580"],
+        ["VRAM", "記載なし（RX 5600 XTは6GBと明記）", "記載なし"],
+        ["メモリ", "16GB", "16GB"],
+        ["ストレージ", "55GB", "80GB"],
+        ["必須の設定", "TPM 2.0有効、UEFIセキュアブート有効、HVCI・VBS対応", "TPM 2.0有効、UEFIセキュアブート有効、HVCI・VBS対応"]
+      ],
+      "note": "セキュリティ設定の条件はアンチチートのためのもので、性能が足りていても満たしていないと遊べません。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Battlefield 6）", "url": "https://store.steampowered.com/app/2807960/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "高設定", "note": "高fpsを狙うならDLSS / FSRを併用します。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高設定で高fps", "note": "大規模戦闘ではCPUにも余裕を持たせたいところです。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高設定（アップスケーリング併用）", "note": "4Kで高fpsを狙うのは上位GPUでも重めです。" }
+  ],
+  "tech": "DLSS・FSR・XeSSなどのアップスケーリングに対応しています。fpsを伸ばしたいときは、まずアップスケーリングを品質寄りのモードで試すのがおすすめです。",
+  "points": [
+    { "title": "起動条件はTPM 2.0とセキュアブート", "text": "Battlefield 6はアンチチートのため、TPM 2.0とUEFIセキュアブートの有効化が必要です。最近のBTOパソコンなら通常は対応していますが、自作PCや古いPCではBIOS（UEFI）での設定変更が必要になることがあります。" },
+    { "title": "大規模戦闘はCPUも効く", "text": "大人数の戦闘や建物の破壊が重なる場面では、CPUの処理が増えてfpsが落ちやすくなります。高fpsを狙う人は、GPUだけでなくCPUにも余裕を持たせると安定しやすいです。" },
+    { "title": "シリーズ名だけで判断しない", "text": "Battlefieldはシリーズによって必要スペックが大きく違います。古い作品（BF4、BF1、BF2042など）を遊ぶ場合は、それぞれのストアページで公式スペックを確認してください。このページの構成はBattlefield 6向けです。" }
+  ],
+  "faq": [
+    { "q": "Battlefield 6はRTX 3060で遊べますか？", "a": "RTX 3060は最低スペック（RTX 2060）と推奨スペック（RTX 3060 Ti）の間の性能です。FHDの中〜高設定が目安で、DLSSを使うと余裕が出ます。" },
+    { "q": "「セキュアブートが無効」と出て起動できません", "a": "PCのBIOS（UEFI）設定でセキュアブートを有効にする必要があります。設定方法はマザーボードやPCメーカーによって違うため、説明書やサポートページを確認してください。設定に自信がない場合は無理に変更せず、メーカーのサポートに相談しましょう。" },
+    { "q": "Battlefield 6にメモリ32GBは必要ですか？", "a": "公式の最低・推奨とも16GBです。ゲームだけなら16GBで遊べますが、配信や録画もするなら32GBにしておくと安心です。" },
+    { "q": "BF6のためにCPUとGPUのどちらを優先すべき？", "a": "FHDで遊ぶならGPUを優先し、推奨のRTX 3060 Ti以上を目安にしてください。高fpsを狙う人やWQHDで遊ぶ人は、CPUにも余裕を持たせると大規模戦闘で安定しやすくなります。" }
+  ],
+  "related": ["cod", "wardogs", "pubg", "arma3"]
+}

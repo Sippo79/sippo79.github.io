@@ -1,0 +1,46 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "モンハンワイルズ おすすめPC｜公式スペックとVRAM・最適化をふまえた快適構成",
+  "metaDescription": "モンハンワイルズの公式必要・推奨スペック（フレーム生成込みでFHD 60fpsという条件つき）と、FHD・WQHD・4K別のおすすめPC構成を解説。VRAM 8GBの注意点、DLSS 4・FSR 4対応、アップデートでの最適化状況もわかります。",
+  "lead": "公式推奨のRTX 2060 Superは「中設定・フレーム生成ありでFHD 60fps」という条件つきの目安です。高設定で快適に遊ぶならもう一段上が必要で、Sippoのおすすめは高解像度テクスチャにも余裕があるVRAM 16GBのRTX 5060 Ti / RX 9060 XTです。",
+  "pick": 0,
+  "recGpuId": "rtx-2060-super",
+  "specTables": [
+    {
+      "title": "モンスターハンターワイルズ 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 / 11（64bit）", "Windows 10 / 11（64bit）"],
+        ["CPU", "Intel Core i5-10400 / Core i3-12100 / AMD Ryzen 5 3600", "Intel Core i5-10400 / Core i3-12100 / AMD Ryzen 5 3600"],
+        ["GPU", "NVIDIA GeForce GTX 1660 / AMD Radeon RX 5500 XT", "NVIDIA GeForce RTX 2060 Super / AMD Radeon RX 6600"],
+        ["VRAM", "6GB（GTX 1660）/ 8GB（RX 5500 XT）", "8GB"],
+        ["メモリ", "16GB", "16GB"],
+        ["ストレージ", "75GB・SSD必須", "75GB・SSD必須"],
+        ["想定される動作", "最低設定、720pからアップスケールしてFHD・30fps", "中設定、FHD・60fps（フレーム生成を有効にした場合）"]
+      ],
+      "note": "推奨の「60fps」はフレーム生成を使った場合の数値で、実際に描画しているフレームはそれより少なくなります。DirectStorageに対応しています。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Monster Hunter Wilds）", "url": "https://store.steampowered.com/app/2246340/" },
+    { "label": "DLSS 4・FSR 4の追加（Title Update 2の報道・OC3D）", "url": "https://overclock3d.net/news/software/monster-hunter-wilds-latest-pc-update-adds-dlss-4-fsr-4-and-more/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 Ti 16GB / RX 9060 XT 16GB", "target": "高設定（アップスケーリング併用）", "note": "VRAM 8GBのGPUでも遊べますが、高解像度テクスチャを選ぶと容量が足りなくなりやすいです。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高設定（アップスケーリング併用）", "note": "DLSS / FSRの品質寄りモードとの組み合わせが基本になります。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高設定（アップスケーリング＋フレーム生成）", "note": "ネイティブ4Kは非常に重く、アップスケーリングが前提です。" }
+  ],
+  "tech": "DLSS 4とFSR 4に対応しています（2025年6月のアップデートで追加）。アップスケーリングとフレーム生成は別々に設定できます。フレーム生成は見た目のfpsを増やす機能で、操作の反応速度は元のfpsに近いままなので、元のfpsが低すぎる状態で使うのはおすすめしません。",
+  "points": [
+    { "title": "公式推奨は「フレーム生成込み」の数字", "text": "推奨スペックの「FHD・60fps」は中設定でフレーム生成を有効にした場合の目安です。フレーム生成なしで60fpsを出したい、高設定にしたいという人は、公式推奨より明らかに上のGPUを選ぶ必要があります。" },
+    { "title": "VRAMは8GBだと高画質テクスチャで不足しやすい", "text": "公式推奨GPUはVRAM 8GBですが、テクスチャを高品質にするとVRAMの使用量が大きく増えます。長く遊ぶなら、同じ価格帯でもVRAM 16GBのモデル（RTX 5060 Ti 16GB版、RX 9060 XT 16GB版）を選ぶと安心です。" },
+    { "title": "発売後のアップデートで最適化が進んでいる", "text": "発売当初は重さへの不満が多いタイトルでしたが、Capcomは発売後もPC版のパフォーマンス改善を続けています。古いレビューのfps情報は今の状態と違う場合があるので、ベンチマークを見るときは日付を確認してください。" }
+  ],
+  "faq": [
+    { "q": "モンハンワイルズはRTX 3060で遊べますか？", "a": "RTX 3060は公式推奨のRTX 2060 Superより少し上の性能で、FHDの中設定前後が目安です。12GB版ならVRAMに余裕がありテクスチャを上げやすいです。高設定で快適に遊びたい場合はGPUの交換も検討しましょう。" },
+    { "q": "VRAM 8GBのGPUではだめですか？", "a": "遊ぶことはできます。公式推奨GPUもVRAM 8GBです。ただし高解像度テクスチャなどを使うと容量が足りずにカクつくことがあるため、テクスチャ設定を控えめにしてください。新しく買うならVRAM 12GB以上を選ぶと安心です。" },
+    { "q": "フレーム生成を使えば安いGPUでも大丈夫ですか？", "a": "フレーム生成は画面の滑らかさを増やしますが、操作の反応速度は元のfpsに近いままです。元のfpsが低い状態で使うと操作が重く感じやすいので、フレーム生成なしで40〜60fps程度出せる性能を目安にしてください。" },
+    { "q": "モンハンワイルズにメモリ32GBは必要ですか？", "a": "公式は最低・推奨とも16GBです。ゲームだけなら16GBで遊べますが、配信や録画を同時にするならメモリ32GBにしておくと安心です。" }
+  ],
+  "related": ["onimusha", "biohazard-requiem", "eldenring", "cyberpunk2077"]
+}

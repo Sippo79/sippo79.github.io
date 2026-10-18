@@ -1,0 +1,122 @@
+{
+  "games/apex": {
+    "hash": "cf6925ade7e7c00c",
+    "modified": "2026-10-18"
+  },
+  "games/ark": {
+    "hash": "aec37b99041254ad",
+    "modified": "2026-10-18"
+  },
+  "games/arma3": {
+    "hash": "8073ec629bd2e664",
+    "modified": "2026-10-18"
+  },
+  "games/battlefield": {
+    "hash": "54a0f6f89aeaa924",
+    "modified": "2026-10-18"
+  },
+  "games/biohazard-requiem": {
+    "hash": "b0e35f994a39d21c",
+    "modified": "2026-10-18"
+  },
+  "games/blackdesert": {
+    "hash": "c96dd26e650fd413",
+    "modified": "2026-10-18"
+  },
+  "games/borderlands4": {
+    "hash": "b64a532207fab4ae",
+    "modified": "2026-10-18"
+  },
+  "games/cod": {
+    "hash": "105ccc82942a2bf1",
+    "modified": "2026-10-18"
+  },
+  "games/cyberpunk2077": {
+    "hash": "0e0226f4bc91497f",
+    "modified": "2026-10-18"
+  },
+  "games/eldenring": {
+    "hash": "c1d3b2d76dd4537a",
+    "modified": "2026-10-18"
+  },
+  "games/ff14": {
+    "hash": "555b44dde4f5d14d",
+    "modified": "2026-10-18"
+  },
+  "games/fortnite": {
+    "hash": "1f3a4b697354f101",
+    "modified": "2026-10-18"
+  },
+  "games/genshin": {
+    "hash": "a352b42554a89ced",
+    "modified": "2026-10-18"
+  },
+  "games/gta5": {
+    "hash": "29fb58d2d6ca437b",
+    "modified": "2026-10-18"
+  },
+  "games/helldivers2": {
+    "hash": "f0367c00295baaef",
+    "modified": "2026-10-18"
+  },
+  "games/lol": {
+    "hash": "5aa472da9b115f97",
+    "modified": "2026-10-18"
+  },
+  "games/minecraft": {
+    "hash": "b57be07c9bee700c",
+    "modified": "2026-10-18"
+  },
+  "games/monster-hunter": {
+    "hash": "2a13fed8bfeb7ffc",
+    "modified": "2026-10-18"
+  },
+  "games/onimusha": {
+    "hash": "480b03c5b13cfbd7",
+    "modified": "2026-10-18"
+  },
+  "games/overwatch2": {
+    "hash": "c002761385dbbac5",
+    "modified": "2026-10-18"
+  },
+  "games/palworld": {
+    "hash": "1fb447701dd03ff6",
+    "modified": "2026-10-18"
+  },
+  "games/pubg": {
+    "hash": "ae930a7a7d4d6759",
+    "modified": "2026-10-18"
+  },
+  "games/rainbowsixsiege": {
+    "hash": "1b5acb27039bf7a4",
+    "modified": "2026-10-18"
+  },
+  "games/rust": {
+    "hash": "b04026c3c3aba25f",
+    "modified": "2026-10-18"
+  },
+  "games/starfield": {
+    "hash": "3720715e49c3f812",
+    "modified": "2026-10-18"
+  },
+  "games/streetfighter6": {
+    "hash": "1f5aae9dbbc62ee2",
+    "modified": "2026-10-18"
+  },
+  "games/tarkov": {
+    "hash": "46c9c4b1d4c83e25",
+    "modified": "2026-10-18"
+  },
+  "games/valorant": {
+    "hash": "fd46af0816dea7a5",
+    "modified": "2026-10-18"
+  },
+  "games/wardogs": {
+    "hash": "dfe349ab9c74b0e8",
+    "modified": "2026-10-18"
+  },
+  "index": {
+    "hash": "0a2543320d7bfe7e",
+    "modified": "2026-10-18"
+  }
+}

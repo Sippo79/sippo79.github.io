@@ -1,0 +1,43 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "HELLDIVERS 2 おすすめPC｜必要スペックと高難易度でも安定する構成",
+  "metaDescription": "HELLDIVERS 2（ヘルダイバーズ2）の公式必要・推奨スペック（推奨RTX 2060・Core i7-9700K）と、FHD・WQHD別のおすすめPC構成を解説。敵と爆発が増える高難易度でCPUが効く理由もわかります。",
+  "lead": "HELLDIVERS 2の公式推奨はRTX 2060 / RX 6600 XT・Core i7-9700K・メモリ16GBです。FHDならRTX 5060クラスで高設定を狙えます。難易度が上がると敵や爆発が一気に増えるため、GPUだけでなくCPUにも余裕を持たせると安定します。",
+  "pick": 0,
+  "recGpuId": "rtx-2060",
+  "specTables": [
+    {
+      "title": "HELLDIVERS 2 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10", "Windows 10"],
+        ["CPU", "Intel Core i7-4790K / AMD Ryzen 5 1500X", "Intel Core i7-9700K / AMD Ryzen 7 3700X"],
+        ["GPU", "NVIDIA GeForce GTX 1050 Ti / AMD Radeon RX 470", "NVIDIA GeForce RTX 2060 / AMD Radeon RX 6600 XT"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "8GB", "16GB"],
+        ["ストレージ", "135GB", "40GB（SSD推奨）"]
+      ],
+      "note": "必要な空き容量は、最低環境（HDD想定）で135GB、推奨環境（SSD）で40GBと案内されています。SSDを使う方が容量も少なく済みます。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（HELLDIVERS 2）", "url": "https://store.steampowered.com/app/553850/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "高設定", "note": "公式推奨（RTX 2060）を大きく上回ります。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高設定", "note": "高難易度に備えてCPUにも余裕を持たせます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "画質重視", "note": "爆発やエフェクトが重なる場面では4Kはかなり重くなります。" }
+  ],
+  "tech": "敵の数やエフェクトが増える場面ではCPUの負荷も上がります。画質を下げてもfpsが改善しない場合は、CPUが限界になっている可能性があります。",
+  "points": [
+    { "title": "難易度が上がるほど重くなる", "text": "高難易度では、押し寄せる敵の数や爆撃・爆発のエフェクトが一気に増えます。低難易度で快適でも、高難易度で同じfpsが出るとは限りません。CPUにも余裕を持たせた構成が安心です。" },
+    { "title": "推奨CPUは8コア", "text": "公式推奨のCPU（Core i7-9700K / Ryzen 7 3700X）はどちらも8コアです。新しく買うなら、6コアでも最近のCPUなら性能は上回りますが、配信や録画もするなら8コアを選ぶと余裕があります。" },
+    { "title": "SSDなら容量も少なくて済む", "text": "公式の案内では、推奨環境（SSD）の必要容量は40GB、最低環境（HDD想定）は135GBです。SSDにインストールすると読み込みが速いうえに容量も節約できます。" }
+  ],
+  "faq": [
+    { "q": "HELLDIVERS 2はGTX 1660で遊べますか？", "a": "GTX 1660は公式の最低（GTX 1050 Ti）と推奨（RTX 2060）の間の性能です。FHDの低〜中設定が目安で、高難易度では設定をさらに下げる必要があるかもしれません。" },
+    { "q": "高難易度だけfpsが落ちるのはなぜ？", "a": "敵の数や爆発が増えて、CPUとGPUの両方の負荷が上がるためです。画質を下げてもfpsが変わらない場合はCPUが原因の可能性が高いです。" },
+    { "q": "HELLDIVERS 2にメモリ32GBは必要ですか？", "a": "公式推奨は16GBです。ゲームだけなら16GBで十分ですが、配信や録画もするなら32GBにしておくと安心です。" }
+  ],
+  "related": ["palworld", "monster-hunter", "borderlands4", "wardogs"]
+}

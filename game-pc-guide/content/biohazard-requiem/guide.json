@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "バイオハザード レクイエム おすすめPC｜公式スペックとレイトレ・パストレーシングの目安",
+  "metaDescription": "バイオハザード レクイエムの公式必要・推奨スペック（推奨RTX 2060 Super・720pからのアップスケーリングでFHD 60fps）と、高画質・レイトレーシング・パストレーシング別のおすすめPC構成を解説します。",
+  "lead": "2026年2月27日に発売されたバイオハザード レクイエムの公式推奨はRTX 2060 Super / RX 6600です。ただしこれは「内部720pをアップスケーリングしてFHD 60fps」という条件つきの目安です。ネイティブに近い高画質で遊ぶならRTX 5060クラス以上、PC版で使えるパストレーシングを試すならRTX 5070 Ti以上を目安にしましょう。",
+  "pick": 0,
+  "recGpuId": "rtx-2060-super",
+  "specTables": [
+    {
+      "title": "バイオハザード レクイエム 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 11（64bit）", "Windows 11（64bit）"],
+        ["CPU", "Intel Core i5-8500 / AMD Ryzen 5 3500", "Intel Core i7-8700 / AMD Ryzen 5 5500"],
+        ["GPU", "GeForce GTX 1660 6GB / Radeon RX 5500 XT 8GB", "GeForce RTX 2060 Super 8GB / Radeon RX 6600 8GB"],
+        ["VRAM", "6GB / 8GB", "8GB"],
+        ["メモリ", "16GB", "16GB"],
+        ["ストレージ", "SSD必須（容量はストアページで確認）", "SSD必須（容量はストアページで確認）"],
+        ["想定される動作", "FHD（内部640pからアップスケーリング）で30fps", "FHD（内部720pからアップスケーリング）で60fps"]
+      ],
+      "note": "処理の負荷が高い場面ではフレームレートが低下する場合があると案内されています。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Resident Evil Requiem）", "url": "https://store.steampowered.com/app/3764200/" },
+    { "label": "NVIDIA GeForce News（パストレーシング・DLSS 4対応）", "url": "https://www.nvidia.com/en-us/geforce/news/resident-evil-requiem-path-tracing-dlss-4-multi-frame-gen-out-now/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT 16GB", "target": "高画質（アップスケーリング併用）", "note": "公式推奨の条件（内部720p）より高い画質を狙えます。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高画質＋レイトレーシング", "note": "アップスケーリングの品質寄りモードと組み合わせます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti 以上", "target": "パストレーシング（DLSS＋フレーム生成）", "note": "パストレーシングは非常に重く、NVIDIAもDLSSとの組み合わせを前提に案内しています。" }
+  ],
+  "tech": "PC版はレイトレーシングに加えて、GeForce RTX向けにパストレーシング、DLSS 4（RTX 50シリーズはマルチフレーム生成）、Reflexに対応しています（NVIDIAの発表による）。パストレーシングの使用時はDLSSのレイ再構成が自動で有効になります。",
+  "points": [
+    { "title": "公式推奨は「720pからのアップスケーリング」", "text": "公式推奨の「FHD 60fps」は、内部で720pの解像度で描いた映像をアップスケーリングした場合の目安です。くっきりした高画質で遊びたいなら、公式推奨より上のGPUが必要になります。" },
+    { "title": "パストレーシングは別格に重い", "text": "PC版ではパストレーシングを使えます。光や影の表現は大きく向上しますが、負荷は通常の設定とは比べものにならないほど重くなります。RTX 5070 Ti以上のGPUとDLSSのフレーム生成を組み合わせるのが現実的です。" },
+    { "title": "暗い場面が多いからこそ画質の差が出る", "text": "ホラーゲームで暗い場面が多く、影や光の表現が雰囲気を大きく左右します。低い画質設定では暗部がつぶれて見えにくくなることもあるので、少し余裕のある構成で画質を上げて楽しむのがおすすめです。" }
+  ],
+  "faq": [
+    { "q": "バイオハザード レクイエムはRTX 3060で遊べますか？", "a": "RTX 3060は公式推奨（RTX 2060 Super）と同程度以上の性能なので、FHDでアップスケーリングを使えば60fpsが目安です。12GB版ならテクスチャ設定も上げやすくなります。" },
+    { "q": "パストレーシングはRadeonでも使えますか？", "a": "NVIDIAはパストレーシングをGeForce RTX向けの機能として案内しています。Radeonでの対応状況はゲーム内の設定画面で確認してください。レイトレーシング（通常）はRadeonでも使えます。" },
+    { "q": "Windows 10でも遊べますか？", "a": "Steamの公式動作環境は最低・推奨ともWindows 11（64bit）と記載されています。Windows 11環境を用意するのが安全です。" }
+  ],
+  "related": ["onimusha", "monster-hunter", "streetfighter6", "eldenring"]
+}

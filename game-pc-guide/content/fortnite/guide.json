@@ -1,0 +1,43 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Fortnite おすすめPC｜パフォーマンスモードと高画質別の必要スペック・構成",
+  "metaDescription": "Fortnite（フォートナイト）のEpic公式スペック（最低・推奨・最高品質）と、パフォーマンスモードで144〜240fpsを狙う構成、Lumen・Naniteを使う高画質向け構成を解説します。",
+  "lead": "Fortniteは「どの設定で遊ぶか」で必要なPCがまったく変わります。建築バトル中心でパフォーマンスモードを使うならエントリー構成でも144fpsを狙えます。DirectX 12でLumen・Naniteなどの高画質機能を使うなら、Epic公式の最高品質スペック（RTX 3070）以上を目安にしましょう。",
+  "pick": 1,
+  "specTables": [
+    {
+      "title": "Fortnite 公式の必要動作環境（Epic Games）",
+      "columns": ["最低", "推奨", "最高品質（Epic設定）"],
+      "rows": [
+        ["OS", "Windows 10 / 11 64bit", "Windows 10 / 11 64bit", "Windows 10 / 11 64bit"],
+        ["CPU", "Intel Core i3-3225", "Intel Core i5-7300U / AMD Ryzen 3 3300U", "Intel Core i7-8700 / AMD Ryzen 7 3700X"],
+        ["GPU", "Intel HD 4000 / AMD Radeon Vega 8（内蔵GPU）", "NVIDIA GTX 960 / AMD R9 280", "NVIDIA RTX 3070 / AMD Radeon RX 6700 XT"],
+        ["VRAM", "記載なし", "2GB", "8GB以上"],
+        ["メモリ", "8GB", "16GB", "16GB以上"],
+        ["ストレージ", "記載なし", "記載なし", "NVMe SSD"]
+      ],
+      "note": "Epicは、最低スペックでは「動作するが最高設定では遊べない可能性が高い」と案内しています。最高品質の欄はLumen・Naniteなどを含む高画質設定向けの目安です。"
+    }
+  ],
+  "sources": [
+    { "label": "Epic Games ヘルプ（Fortnite PCのシステム要件）", "url": "https://www.epicgames.com/help/en-US/c-Category_Fortnite/c-Fortnite_TechnicalSupport/a000084912" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050〜5060 / RX 7600〜9060 XT", "target": "パフォーマンスモードで144〜240fps", "note": "競技設定なら軽く、GPUよりCPUが効く場面も増えます。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "DirectX 12の高画質（Lumen・Nanite）", "note": "Epic公式の最高品質スペック（RTX 3070）を上回る性能が安心です。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高画質（アップスケーリング併用）", "note": "Lumenなどを有効にした4Kはかなり重く、TSRやDLSSの併用が前提です。" }
+  ],
+  "tech": "設定画面の「レンダリングモード」で、軽いパフォーマンスモードと、DirectX 12を使う高画質モードを切り替えられます。高画質モードではLumen（リアルな照明）やNanite（細かい形状の表示）などUnreal Engine 5の機能が使えますが、負荷は大きく上がります。",
+  "points": [
+    { "title": "パフォーマンスモードは別物の軽さ", "text": "パフォーマンスモードは画質を大きく下げる代わりにfpsを出しやすくする設定で、競技プレイヤーにもよく使われています。このモードで遊ぶならエントリーGPUでも高fpsを狙えるため、高額なPCは必要ありません。" },
+    { "title": "UE5の高画質機能はGPUを強く選ぶ", "text": "DirectX 12でLumenやNaniteを有効にすると、照明や影の描き込みが一気に増え、GPUへの負担が跳ね上がります。景色を楽しむ・クリエイティブマップを遊ぶ・動画を撮るといった目的なら、GPUに予算を割きましょう。" },
+    { "title": "シェーダーの準備でカクつくことがある", "text": "DirectX 12モードでは、アップデート直後などにシェーダーの準備でカクつくことがあります。性能不足とは限らないため、数試合遊んで改善するか様子を見てから設定を変えるのがおすすめです。" }
+  ],
+  "faq": [
+    { "q": "Fortniteは10万円台のPCでも遊べますか？", "a": "パフォーマンスモードで遊ぶなら、RTX 5050クラスの入門構成でも144fpsを狙えます。2026年10月時点ではこのクラスの完成品が{{band:entry}}が目安です。高画質で遊びたい場合は予算を上げましょう。" },
+    { "q": "Fortniteで240fpsを出すには？", "a": "パフォーマンスモードや低設定にしたうえで、CPUの性能が重要になります。GPUはRTX 5060クラスで十分なことが多く、240Hzモニターと組み合わせて使います。" },
+    { "q": "パフォーマンスモードとDirectX 12はどちらがいいですか？", "a": "勝ちを優先するならパフォーマンスモード、景色や雰囲気を楽しむならDirectX 12の高画質がおすすめです。PCの性能に余裕があるなら、両方を試して自分に合う方を選んでください。" },
+    { "q": "Fortniteにメモリは何GB必要ですか？", "a": "Epic公式の推奨は16GBです。配信や録画もするなら32GBにしておくと安心です。" }
+  ],
+  "related": ["apex", "valorant", "overwatch2", "minecraft"]
+}

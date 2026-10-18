@@ -1,0 +1,58 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "ARK おすすめPC｜Survival Evolved・Ascendedの必要スペックの違いと快適構成",
+  "metaDescription": "ARK: Survival Evolved（ASE）とUE5版ARK: Survival Ascended（ASA）の公式必要スペックを比較し、ASA向けのおすすめPC構成を解説。推奨RTX 3080・メモリ32GB・SSD 180GBなど重さのポイントもわかります。",
+  "lead": "ARKには、2017年発売の「Survival Evolved（ASE）」と、Unreal Engine 5で作り直された「Survival Ascended（ASA）」があり、必要なPCがまったく違います。ASEは比較的軽い一方、ASAの公式推奨はRTX 3080 / RX 6800・メモリ32GBと重量級です。これから遊ぶならASA基準で選びましょう。",
+  "pick": 0,
+  "recGpuId": "rtx-3080",
+  "specTables": [
+    {
+      "title": "ARK: Survival Ascended（ASA）公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 / 11（最新アップデート）", "Windows 10 / 11（最新アップデート）"],
+        ["CPU", "AMD Ryzen 5 2600X / Intel Core i7-6800K", "AMD Ryzen 5 3600X / Intel Core i5-10600K"],
+        ["GPU", "AMD Radeon RX 5600 XT / NVIDIA GeForce GTX 1080", "AMD Radeon RX 6800 / NVIDIA GeForce RTX 3080"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "16GB", "32GB"],
+        ["ストレージ", "180GB・SSD必須", "180GB・SSD必須"],
+        ["その他", "DirectX 12", "DirectX 12"]
+      ],
+      "note": "ASAはUnreal Engine 5で作られたリメイク版で、ASEとは別のゲームとして販売されています。"
+    },
+    {
+      "title": "ARK: Survival Evolved（ASE）公式の必要動作環境（Steam）",
+      "columns": ["最低"],
+      "rows": [
+        ["OS", "Windows 7 / 8.1 / 10（64bit）"],
+        ["CPU", "Intel Core i5-2400 / AMD FX-8320 以上"],
+        ["GPU", "NVIDIA GTX 670 2GB / AMD Radeon HD 7870 2GB 以上"],
+        ["メモリ", "8GB"],
+        ["ストレージ", "60GB"],
+        ["その他", "DirectX 10"]
+      ],
+      "note": "ASEのSteamページには推奨スペックの記載がありません。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（ARK: Survival Ascended）", "url": "https://store.steampowered.com/app/2399830/" },
+    { "label": "Steam ストアページ（ARK: Survival Evolved）", "url": "https://store.steampowered.com/app/346110/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 Ti 16GB / RX 9060 XT 16GB", "target": "ASAを中〜高設定（アップスケーリング併用）", "note": "ASAの公式推奨（RTX 3080）にはわずかに届かないため、設定調整が前提です。" },
+    { "res": "WQHD", "gpu": "RTX 5070 Ti / RX 9070 XT", "target": "ASAを高設定", "note": "公式推奨を上回り、VRAM 16GBで余裕があります。" },
+    { "res": "4K", "gpu": "RTX 5080 以上", "target": "ASAを高設定（アップスケーリング＋フレーム生成）", "note": "ASAの4Kは最上位クラスでも重い設定です。" }
+  ],
+  "tech": "ASAはアップスケーリングとフレーム生成に対応しています。重いと感じたら、まずアップスケーリングを有効にしてから影や草などの設定を見直すのがおすすめです。",
+  "points": [
+    { "title": "ASEとASAは「別のゲーム」と考える", "text": "名前は似ていますが、ASAはUnreal Engine 5でグラフィックを一新したリメイク版で、必要スペックはASEよりはるかに高くなっています。友達と遊ぶ場合は、どちらのバージョンで遊ぶのかを先に確認しましょう。" },
+    { "title": "ASAは公式推奨からメモリ32GB", "text": "ASAの公式推奨メモリは32GBです。広いマップや大きな拠点、たくさんの恐竜を扱うため、メモリが足りないとカクつきや読み込みの遅れにつながります。" },
+    { "title": "SSDに180GBの空きが必要", "text": "ASAはSSD必須で、180GBの空きが必要です。MODや追加マップも入れるなら、2TBのSSDを選んでおくと安心です。" }
+  ],
+  "faq": [
+    { "q": "ASAはRTX 3060で遊べますか？", "a": "RTX 3060はASAの最低（GTX 1080）と推奨（RTX 3080）の間の性能です。FHDの低〜中設定で、アップスケーリングを使うのが目安になります。" },
+    { "q": "ASEなら安いPCでも遊べますか？", "a": "ASEは最低でGTX 670級と軽めで、今のエントリーGPUなら快適に遊べます。ただしASEとASAはサーバーやデータが別なので、遊びたいバージョンを確認してから選んでください。" },
+    { "q": "ASAにメモリ16GBで足りますか？", "a": "公式の最低は16GBなので起動はできますが、推奨は32GBです。快適に遊ぶなら32GBを選びましょう。" }
+  ],
+  "related": ["palworld", "rust", "minecraft", "starfield"]
+}

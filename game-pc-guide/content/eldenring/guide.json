@@ -1,0 +1,45 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "ELDEN RING おすすめPC｜60fps上限をふまえた必要スペックと高画質構成",
+  "metaDescription": "ELDEN RING（エルデンリング）の公式必要・推奨スペックと、60fps上限の仕様をふまえたおすすめPC構成を解説。高fps向けの高額GPUが不要な理由や、レイトレーシングを使う場合の目安もわかります。",
+  "lead": "ELDEN RINGはゲーム内のフレームレート上限が60fpsです。144fps向けのような高額構成は必要なく、「重い場面でも60fpsを落とさない」ことを基準に選ぶのが正解です。FHD最高設定ならRTX 5060クラスで十分です。",
+  "pick": 0,
+  "fpsCap": 60,
+  "recGpuId": "gtx-1070",
+  "specTables": [
+    {
+      "title": "ELDEN RING 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10", "Windows 10 / 11"],
+        ["CPU", "Intel Core i5-8400 / AMD Ryzen 3 3300X", "Intel Core i7-8700K / AMD Ryzen 5 3600X"],
+        ["GPU", "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB", "NVIDIA GeForce GTX 1070 8GB / AMD Radeon RX Vega 56 8GB"],
+        ["VRAM", "3GB（GTX 1060）/ 4GB（RX 580）", "8GB"],
+        ["メモリ", "12GB", "16GB"],
+        ["ストレージ", "60GB", "60GB"],
+        ["その他", "DirectX 12", "DirectX 12"]
+      ],
+      "note": "この表は本編のSteamページの記載です。DLC「Shadow of the Erdtree」や別作品の「ELDEN RING NIGHTREIGN」を遊ぶ場合は、それぞれのストアページも確認してください。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（ELDEN RING）", "url": "https://store.steampowered.com/app/1245620/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "最高設定で60fps", "note": "公式推奨（GTX 1070）を大きく上回ります。" },
+    { "res": "WQHD", "gpu": "RTX 5060 Ti / RX 9060 XT 16GB 〜 RTX 5070", "target": "最高設定で60fps", "note": "レイトレーシングも使うならRTX 5070クラスが安心です。" },
+    { "res": "4K", "gpu": "RTX 5070 / RX 9070 以上", "target": "高〜最高設定で60fps", "note": "60fps上限なので、4Kでも「60fpsを保てるか」が基準になります。" }
+  ],
+  "tech": "レイトレーシングに対応していますが、有効にすると負荷が大きく上がります。fps上限が60のため、144Hzや240Hzのモニターを買っても滑らかさは変わりません。",
+  "points": [
+    { "title": "fps上限は60。高fps用の投資は不要", "text": "ゲーム内の上限が60fpsなので、240fpsを出せるような高額GPUやゲーミングモニターは、このゲームのためだけなら必要ありません。重い場面で60fpsを下回らないことを優先しましょう。" },
+    { "title": "平均fpsより「落ち込み」が大切", "text": "ボス戦で大きなエフェクトが出る場面や、広いフィールドを馬で走る場面では負荷が上がります。60fpsを保てないとカクつきが目立つので、少し余裕を持ったGPUを選ぶのがおすすめです。" },
+    { "title": "レイトレーシングは「お好みで」", "text": "レイトレーシングを有効にすると光や影の表現が変わりますが、負荷は大きく上がります。60fpsを保つことを優先し、余裕がある場合だけ使うのがおすすめです。" }
+  ],
+  "faq": [
+    { "q": "ELDEN RINGは144fpsで遊べますか？", "a": "ゲーム内の上限が60fpsのため、通常の設定では144fpsになりません。高リフレッシュレートのモニターを使っても60fpsで動作します。" },
+    { "q": "GTX 1660 SUPERで遊べますか？", "a": "公式推奨（GTX 1070）と同程度〜やや上の性能なので、FHDの高設定前後が目安です。最高設定で60fpsを常に保つには余裕が少ないため、重い場面では設定を一段下げてください。" },
+    { "q": "ELDEN RINGのためだけにハイエンドPCは必要ですか？", "a": "必要ありません。FHDならRTX 5060クラスで最高設定の60fpsを狙えます。4Kやレイトレーシングを使いたい人だけ、上のクラスを検討してください。" }
+  ],
+  "related": ["monster-hunter", "onimusha", "biohazard-requiem", "cyberpunk2077"]
+}

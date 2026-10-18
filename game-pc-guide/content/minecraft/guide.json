@@ -1,0 +1,43 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Minecraft おすすめPC｜Java版の新しい必要スペックと影MOD・MODパック向け構成",
+  "metaDescription": "Minecraft（マイクラ）Java版で2026年7月に更新された公式スペック（推奨メモリ16GB・VRAM 6GB）と、バニラ・影MOD・大型MODパック別のおすすめPC構成を解説。Java版と統合版の違いもわかります。",
+  "lead": "Java版の公式スペックは2026年7月21日に引き上げられ、推奨はメモリ16GB・VRAM 6GBのGPUになりました。バニラならエントリー構成で十分ですが、影MOD（シェーダー）や大型MODパックで遊ぶなら、GPUとメモリにはっきり余裕を持たせる必要があります。",
+  "pick": 0,
+  "specTables": [
+    {
+      "title": "Minecraft: Java Edition 公式の必要動作環境（2026年7月21日更新）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["想定", "FHD・30fps（「処理優先（Fast）」設定）", "FHD・60fps（「描画優先（Fancy）」設定）"],
+        ["CPU", "4コアのプロセッサー", "より高性能な最新世代のプロセッサー（具体的な型番は公式ページの表で確認）"],
+        ["GPU", "Vulkan 1.3に対応したGPU", "VRAM 6GBを備えたGPU"],
+        ["VRAM", "2GB以上", "6GB"],
+        ["メモリ", "8GB（専用GPU）/ 12GB（内蔵GPU）", "16GB"],
+        ["OS", "64bit", "64bit"]
+      ],
+      "note": "新しい最低スペックを下回るPCでも、現時点ではJava版は起動します。ただしMojangは、今後OpenGLからVulkanへ移行するにつれて起動できなくなる可能性があると案内しています。"
+    }
+  ],
+  "sources": [
+    { "label": "Minecraft公式ニュース（Java Edition System Requirements・2026年7月21日）", "url": "https://www.minecraft.net/en-us/article/minecraft-java-edition-system-requirements" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050 / RX 7600", "target": "バニラ〜軽めのMODを快適に", "note": "新しい公式推奨（VRAM 6GB）を満たします。" },
+    { "res": "FHD〜WQHD", "gpu": "RTX 5060 Ti 16GB / RX 9060 XT 16GB", "target": "影MOD・大型MODパック", "note": "影MODは設定次第でかなり重くなります。描画距離を伸ばすとCPUとメモリの負担も増えます。" },
+    { "res": "4K", "gpu": "RTX 5070 以上", "target": "影MODを高解像度で", "note": "4Kで影MODを使うのは重量級ゲーム並みの負荷になります。" }
+  ],
+  "tech": "Java版はこれまでOpenGLで描画してきましたが、Vulkanへの移行が進められています（2026年10月時点で既定はまだOpenGL）。統合版（Bedrock）はJava版とは別のソフトで、動作の重さや対応する機能も異なります。",
+  "points": [
+    { "title": "Java版と統合版はまったく別のソフト", "text": "PCで遊べるMinecraftには、MODが豊富な「Java版」と、スマホやゲーム機と一緒に遊べる「統合版」があります。このページの公式スペックはJava版のものです。MODで遊びたいならJava版が基本になります。" },
+    { "title": "重くなるのは「影MOD」と「描画距離」", "text": "影MOD（シェーダー）は光や水面の表現を大きく変える代わりにGPUに大きな負荷をかけます。描画距離を伸ばすとCPUとメモリの負担も増えるため、影MODを使うならGPU、遠くまで見たいならCPUとメモリを強くするのが基本です。" },
+    { "title": "MODパックはメモリ32GBが安心", "text": "数百個のMODを入れたMODパックでは、Minecraftに割り当てるメモリを増やす必要があります。Windowsやブラウザの分も考えると、大型MODパックを遊ぶならPCのメモリは32GBにしておくと安心です。" }
+  ],
+  "faq": [
+    { "q": "マイクラだけならゲーミングPCは必要ですか？", "a": "バニラだけなら、公式の新しい推奨（メモリ16GB・VRAM 6GB）を満たすエントリー構成で十分です。影MODを使わないなら高価なGPUは必要ありません。" },
+    { "q": "影MODを入れるならどのくらいのGPUが必要ですか？", "a": "使う影MODと設定で大きく変わりますが、FHDで快適に遊ぶならRTX 5060 Ti 16GB版やRX 9060 XT 16GB版クラスが目安です。軽めの影MODなら一段下のGPUでも遊べます。" },
+    { "q": "メモリは16GBと32GBのどちらがいいですか？", "a": "バニラや少しのMODなら16GBで十分です。大型MODパックや、サーバーを立てて友達と遊ぶ場合は32GBがおすすめです。" },
+    { "q": "古いPCではマイクラができなくなりますか？", "a": "2026年10月時点では、新しい最低スペックを下回ってもJava版は起動します。ただし快適さは保証されず、Mojangは今後のVulkan移行で起動できなくなる可能性があると案内しています。" }
+  ],
+  "related": ["palworld", "rust", "ark", "fortnite"]
+}

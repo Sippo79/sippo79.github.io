@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "レインボーシックス シージ（Siege X）おすすめPC｜必要スペックと144fps・240fps構成",
+  "metaDescription": "Rainbow Six Siege X（レインボーシックス シージ）の公式必要・推奨スペック（推奨RTX 2060・メモリ8GB）と、144fps〜240fpsを狙うおすすめPC構成を解説します。",
+  "lead": "現行のRainbow Six Siege Xの公式推奨はRTX 2060 / RX 6600・メモリ8GBと比較的軽めです。FHD・144fpsならエントリー構成で十分。わずかな差で撃ち合いが決まるゲームなので、240Hzモニターを使う人はCPUを強くしてfpsの上限を引き上げましょう。",
+  "pick": 0,
+  "recGpuId": "rtx-2060",
+  "specTables": [
+    {
+      "title": "Rainbow Six Siege X 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 / 11（64bit）", "Windows 11（64bit）"],
+        ["CPU", "AMD Ryzen 3 3100 / Intel Core i3-8100", "AMD Ryzen 5 3600 / Intel Core i5-10400"],
+        ["GPU", "NVIDIA GTX 1650 4GB / AMD RX 5500 XT 4GB / Intel Arc A380 6GB", "NVIDIA RTX 2060 6GB / AMD RX 6600 8GB"],
+        ["VRAM", "4GB（GTX 1650・RX 5500 XT）/ 6GB（Arc A380）", "6GB（RTX 2060）/ 8GB（RX 6600）"],
+        ["メモリ", "8GB", "8GB"],
+        ["ストレージ", "65GB", "65GB"],
+        ["その他", "DirectX 12、アンチチート（BattlEye）", "DirectX 12、アンチチート（BattlEye）"]
+      ],
+      "note": "対応チップセットの最新情報はUbisoftのサポートサイトで確認するよう案内されています。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Tom Clancy's Rainbow Six Siege X）", "url": "https://store.steampowered.com/app/359550/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5050 / RX 7600", "target": "144fps以上", "note": "240fps以上を狙うならCPUを強化します。" },
+    { "res": "WQHD", "gpu": "RTX 5060 / RX 9060 XT", "target": "144fps以上", "note": "壁越しの情報や遠くの敵を見やすくしたい人に。" },
+    { "res": "4K", "gpu": "RTX 5070 以上", "target": "画質重視", "note": "競技目的なら高fpsを優先した方が有利です。" }
+  ],
+  "tech": "設定を下げれば軽く動くタイトルで、高fps域ではCPUとモニターのリフレッシュレートが体感を左右します。",
+  "points": [
+    { "title": "推奨メモリは8GBでも、16GBが現実的", "text": "公式推奨メモリは8GBですが、ボイスチャットやブラウザを同時に使うことを考えると16GBが現実的です。新しく買うPCなら16GB以上が標準です。" },
+    { "title": "1発で決まる撃ち合いは高fpsが有利", "text": "Siegeは覗き合いの一瞬で勝負が決まることが多く、fpsとリフレッシュレートが高いほど敵の動きを早く確認できます。画質よりfpsの安定を優先しましょう。" },
+    { "title": "240fps以上はCPUを優先", "text": "設定を下げて高fpsを狙うと、GPUより先にCPUが限界になります。240Hz以上のモニターを活かすなら、ゲームに強いCPUを選ぶのが近道です。" }
+  ],
+  "faq": [
+    { "q": "シージはGTX 1650で遊べますか？", "a": "GTX 1650は公式の最低スペックに含まれているので遊べます。快適に遊ぶなら、公式推奨のRTX 2060以上を目安にしましょう。" },
+    { "q": "Siege XはRainbow Six Siegeと別のゲームですか？", "a": "同じゲームの現行版です。基本プレイ無料のモードもあり、Steamでは同じストアページから遊べます。" },
+    { "q": "シージ用PCの予算はどのくらいですか？", "a": "FHD・144fps向けのエントリー構成で{{band:entry}}が目安です（{{priceChecked}}時点）。240Hzを本格的に狙うなら、CPUを強化した構成（{{band:fhd-x3d}}）を検討しましょう。" }
+  ],
+  "related": ["valorant", "overwatch2", "apex", "cod"]
+}

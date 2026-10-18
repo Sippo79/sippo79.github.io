@@ -2,894 +2,1578 @@
   {
     "id": "apex",
     "title": "APEX Legends",
-    "popular": true,
+    "aliases": [
+      "エーペックス",
+      "エペ",
+      "apex legends"
+    ],
     "genre": "FPS",
-    "level": "軽め〜中量級",
+    "genreGroup": "shooter",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2019-02-04",
+    "status": "released",
     "image": "images/apex.jpg",
-    "description": "APEX Legendsを144fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成をわかりやすく解説します。",
+    "cardText": "公式推奨はGTX 970級と軽め。144fps以上を安定させたいならCPUにも余裕を。",
+    "description": "APEX Legendsを144fps以上で快適に遊ぶためのPC構成を、Steamの公式スペックと照らし合わせて解説します。",
     "recommended": "FHD / 144fps以上",
-    "budget": "15万〜25万円前後",
-    "point": "APEXはGPU性能も大事ですが、安定したfpsを出すにはCPUもそこそこ重要です。まずはFHD 144fpsを目標にすると失敗しにくいです。",
-    "caution": "4K高画質よりも、FHD〜WQHDでfpsを安定させる方が快適に遊びやすいです。",
+    "point": "公式推奨はGTX 970級と軽めですが、144fps以上を安定させるにはCPUとGPUの両方に余裕が必要です。",
+    "caution": "4K高画質よりも、FHDで高fpsを安定させる方が撃ち合いで有利になりやすいです。",
     "builds": [
       {
-        "name": "ライト",
-        "price": "15万円前後",
+        "name": "コスパ重視",
         "target": "FHD 144fps",
-        "cpu": "Ryzen 7 5700X",
+        "cpu": "Ryzen 5 7500F",
         "gpu": "RTX 5060",
-        "comment": "まずAPEXを快適に遊びたい人向け。フルHD中心なら十分狙いやすい構成です。"
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（GTX 970）を大きく上回るGPUで、FHD・中〜高設定の144fpsを狙う構成です。まずはここから始めて、足りなければ画質を1段下げれば十分対応できます。",
+        "price": "17万〜21万円前後"
       },
       {
-        "name": "ミドル",
-        "price": "20万円前後",
-        "target": "WQHD 高設定",
+        "name": "高fps重視",
+        "target": "FHD 240fps / WQHD 144fps",
         "cpu": "Ryzen 7 7800X3D",
         "gpu": "RTX 5070",
-        "comment": "WQHDや高fpsを安定させたい人向け。長く使うならこのあたりがかなり安心です。"
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "240Hzモニターで遊ぶ人や、WQHDでも144fpsを保ちたい人向け。戦闘が重なってもfpsが落ちにくいよう、ゲームに強いX3D CPUを組み合わせています。",
+        "price": "29万〜36万円前後"
       }
-    ]
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
   },
   {
     "id": "valorant",
     "title": "VALORANT",
-    "popular": true,
+    "aliases": [
+      "ヴァロラント",
+      "ヴァロ",
+      "valo"
+    ],
     "genre": "FPS",
-    "level": "軽め",
+    "genreGroup": "shooter",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2020-06-02",
+    "status": "released",
     "image": "images/valorant.jpg",
-    "description": "VALORANTを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。低予算でも選びやすい必要スペックを解説します。",
-    "recommended": "FHD / 144fps〜240fps",
-    "budget": "12万〜20万円前後",
-    "point": "VALORANTは比較的軽いので、まずは高リフレッシュレートモニターに合わせてfpsを安定させる構成がおすすめです。",
-    "caution": "高額GPUよりも、CPU性能やモニター環境とのバランスを意識した方が満足度が高いです。",
+    "cardText": "Riot公式の144fps目安はGTX 1050 Ti級。高額GPUよりCPUとモニターに予算を。",
+    "description": "VALORANTを144fps〜240fps以上で遊ぶためのPC構成を、Riot公式の3段階スペックをもとに解説します。GPUにお金をかけすぎないのがポイントです。",
+    "recommended": "FHD / 144fps〜240fps以上",
+    "point": "Riot公式の高fps向けスペックでもGTX 1050 Ti級。GPUよりCPU性能とモニターのリフレッシュレートが体感を左右します。",
+    "caution": "Windows 11ではTPM 2.0とセキュアブートの有効化が必要です。",
     "builds": [
       {
-        "name": "ライト",
-        "price": "12万円前後",
-        "target": "FHD 144fps",
+        "name": "コスパ重視",
+        "target": "FHD 144fps以上",
         "cpu": "Ryzen 5 5600",
         "gpu": "RTX 5050",
-        "comment": "できるだけ予算を抑えてVALORANTを快適に遊びたい人向けです。"
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "Riot公式の144fps向けスペック（Core i5-9400F / GTX 1050 Ti）を余裕を持って上回る入門構成。VALORANTだけなら、これ以上のGPUはほぼ不要です。",
+        "price": "14万〜17万円前後"
       },
       {
-        "name": "ミドル",
-        "price": "18万円前後",
-        "target": "FHD 240fps",
-        "cpu": "Ryzen 7 5700X",
+        "name": "240Hz競技向け",
+        "target": "FHD 240fps以上",
+        "cpu": "Ryzen 7 7800X3D",
         "gpu": "RTX 5060",
-        "comment": "240Hzモニターを活かしたい人向け。VALORANTならかなり余裕のある構成です。"
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd-x3d",
+        "comment": "240Hz以上のモニターを使う人向け。VALORANTの高fps域はCPUで頭打ちになりやすいので、GPUではなくCPUを強くしています。",
+        "price": "21万〜25万円前後"
       }
-    ]
+    ],
+    "budgetMin": 14,
+    "budgetMax": 25,
+    "budget": "14万〜25万円前後"
   },
   {
     "id": "ff14",
     "title": "FINAL FANTASY XIV",
-    "popular": true,
+    "aliases": [
+      "FF14",
+      "ファイナルファンタジー14",
+      "ff14",
+      "ffxiv",
+      "エオルゼア"
+    ],
     "genre": "MMO",
-    "level": "中量級",
+    "genreGroup": "mmo",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2013-08-27",
+    "status": "released",
     "image": "images/ff14.jpg",
-    "description": "FF14を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成をわかりやすく解説します。",
-    "recommended": "FHD〜WQHD / 高画質",
-    "budget": "15万〜25万円前後",
-    "point": "FF14は画質を上げて楽しみたい人が多いので、FHDだけでなくWQHDも視野に入れると満足度が高いです。",
-    "caution": "大型アップデートや人が多い場所では負荷が上がるため、少し余裕のある構成がおすすめです。",
+    "cardText": "グラフィックアップデート後に公式推奨はRTX 2060へ。人が集まる場所ではCPUも効く。",
+    "description": "FF14（ファイナルファンタジー14）を高画質で快適に遊ぶためのPC構成を、グラフィックアップデート後の公式スペックとあわせて解説します。",
+    "recommended": "FHD〜WQHD / 高品質",
+    "point": "公式推奨はRTX 2060 / RX 5600 XT。画質よりも、人が密集する場所で重くならないCPUとメモリが快適さを左右します。",
+    "caution": "公式の動作環境はWindows 11、ストレージは140GBの空きが必要です。",
     "builds": [
       {
-        "name": "ライト",
-        "price": "15万円前後",
-        "target": "FHD 高画質",
-        "cpu": "Ryzen 7 5700X",
+        "name": "コスパ重視",
+        "target": "FHD 高品質",
+        "cpu": "Ryzen 5 7500F",
         "gpu": "RTX 5060",
-        "comment": "フルHDでFF14を快適に遊びたい人向け。初心者にも選びやすい構成です。"
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 2060）より余裕のあるGPUで、FHDの最高品質を狙える構成。レイドやIDも快適に遊べる入口です。",
+        "price": "17万〜21万円前後"
       },
       {
-        "name": "ミドル",
-        "price": "22万円前後",
-        "target": "WQHD 高画質",
+        "name": "高画質重視",
+        "target": "WQHD 最高品質",
         "cpu": "Ryzen 7 7800X3D",
         "gpu": "RTX 5070",
-        "comment": "WQHDモニターで景色や戦闘を綺麗に楽しみたい人向けです。"
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDの大きな画面で景色を楽しみたい人向け。都市や大人数コンテンツの負荷に強いX3D CPUを選び、配信や録画にも備えてメモリを32GBにしています。",
+        "price": "29万〜36万円前後"
       }
-    ]
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
   },
   {
     "id": "mhwilds",
     "slug": "monster-hunter",
     "title": "モンハンワイルズ",
-    "popular": true,
+    "aliases": [
+      "モンスターハンターワイルズ",
+      "monster hunter wilds",
+      "mhwilds",
+      "モンハン"
+    ],
     "genre": "アクション",
-    "level": "重め",
+    "genreGroup": "action",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2025-02-28",
+    "status": "released",
     "image": "images/mhwilds.jpg",
-    "description": "モンハンワイルズを快適に遊ぶためのおすすめゲーミングPCを紹介。重めのゲーム向けに必要スペックやおすすめGPUを解説します。",
-    "recommended": "FHD〜WQHD / 高画質",
-    "budget": "20万〜30万円前後",
-    "point": "モンハンワイルズは重めのゲームなので、予算を少し上げてGPU性能に余裕を持たせると安心です。",
-    "caution": "低予算構成だと画質設定を下げる必要が出やすいです。快適さ重視なら20万円以上を目安にしたいところです。",
+    "cardText": "公式推奨でもフレーム生成込みのFHD 60fps。VRAM 8GBだと高解像度テクスチャは厳しめ。",
+    "description": "モンハンワイルズを快適に遊ぶためのPC構成を、Capcom公式スペックとアップデートでの最適化状況をふまえて解説します。",
+    "recommended": "FHD〜WQHD / 高設定",
+    "point": "公式推奨（RTX 2060 Super）は「中設定・フレーム生成ありでFHD 60fps」の目安です。快適さを求めるならVRAM 12〜16GBのGPUが安心です。",
+    "caution": "SSDは必須です。高解像度テクスチャを使う場合はVRAM使用量が大きく増えます。",
     "builds": [
       {
-        "name": "ライト",
-        "price": "20万円前後",
-        "target": "FHD 快適",
-        "cpu": "Ryzen 7 5700X",
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
         "gpu": "RTX 5060 Ti",
-        "comment": "フルHDで遊ぶなら現実的な入門ライン。画質調整前提なら十分狙えます。"
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "16GB",
+        "band": "fhdplus",
+        "comment": "VRAM 16GBでテクスチャ設定に余裕を持たせたFHD構成。公式推奨のRTX 2060 Superより大幅に強く、DLSS / FSRと組み合わせて高設定を狙えます。",
+        "price": "22万〜27万円前後"
       },
       {
-        "name": "ミドル",
-        "price": "28万円前後",
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "拠点や大型モンスター戦でのCPU負荷にも備えたWQHD構成。アップスケーリング併用でWQHDの高設定を狙います。",
+        "price": "29万〜36万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "4K 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "gpuAlt": "RX 9070 XT",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "4Kで遊びたい人向け。VRAM 16GBで高解像度テクスチャも選びやすく、アップスケーリングを前提に高設定を狙えます。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 45,
+    "budget": "22万〜45万円前後"
+  },
+  {
+    "id": "gta5",
+    "title": "GTA5 / GTA Online",
+    "aliases": [
+      "グランドセフトオート5",
+      "gta v",
+      "gtav",
+      "gta online",
+      "グラセフ"
+    ],
+    "genre": "オープンワールド",
+    "genreGroup": "action",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2015-04-14",
+    "status": "released",
+    "image": "images/gta5.jpg",
+    "cardText": "Enhanced版の公式推奨はRTX 3060。Legacy版はさらに軽く、MOD次第で要求が跳ね上がる。",
+    "description": "GTA5（Enhanced・Legacy）やGTA Onlineを快適に遊ぶためのおすすめゲーミングPCを紹介。公式の必要スペック、MODの注意点、GTA6に向けた買い替え判断も解説します。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "point": "GTA OnlineやMOD導入を考えると、GPUだけでなくメモリ容量にも余裕を持たせると快適です。",
+    "caution": "Enhanced版のレイトレーシングや高解像度テクスチャMODではVRAM使用量が増えやすいため、余裕のあるGPUがおすすめです。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高画質",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 3060）より一段上のGPUで、FHD高画質に余裕を持たせた構成です。MODを入れるならメモリは32GBにしましょう。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高画質",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd",
+        "comment": "WQHD高画質とレイトレーシングを両立しやすい構成。重いMODも視野に入れるならVRAM 16GBのRX 9070も有力です。",
+        "price": "25万〜32万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "4K 高画質",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "gpuAlt": "RX 9070 XT",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "Enhanced版を4Kで楽しみたい人向け。DLSSなどのアップスケーリング併用が前提で、VRAM 16GBの余裕は重いMODにも効きます。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 45,
+    "budget": "17万〜45万円前後"
+  },
+  {
+    "id": "cyberpunk2077",
+    "title": "Cyberpunk 2077",
+    "aliases": [
+      "サイバーパンク",
+      "サイバーパンク2077",
+      "cp2077",
+      "仮初めの自由",
+      "phantom liberty"
+    ],
+    "genre": "RPG",
+    "genreGroup": "action",
+    "level": "非常に重い",
+    "load": 4,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2020-12-10",
+    "status": "released",
+    "image": "images/cyberpunk2077.jpg",
+    "cardText": "レイトレなしなら中堅GPUで遊べる。パストレーシングを使うと必要性能が一気に跳ね上がる。",
+    "description": "Cyberpunk 2077を高画質・レイトレーシング・パストレーシングで楽しむためのPC構成を、公式スペックと画質設定の違いから解説します。",
+    "recommended": "FHD〜WQHD / 高画質・レイトレ",
+    "point": "公式推奨はRTX 2060 SUPER・Ryzen 7 7800X3D級。レイトレーシングやパストレーシング（RT: Overdrive）を使うかどうかで必要なGPUが大きく変わります。",
+    "caution": "SSDは必須です。パストレーシングを快適に使うにはRTX 5070 Ti以上とアップスケーリングが前提になります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "16GB",
+        "band": "fhdplus",
+        "comment": "レイトレーシングは控えめにして、FHDの高設定を狙う構成。公式推奨CPUの水準を考えて、6コアではなく8コアのRyzen 7 7700にしています。",
+        "price": "22万〜27万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD レイトレーシング",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDでレイトレーシングを楽しむ構成。CPUは公式推奨に挙がっている7800X3Dそのもので、DLSSのフレーム生成と組み合わせると画質と滑らかさを両立しやすくなります。",
+        "price": "29万〜36万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "4K / パストレーシング",
+        "cpu": "Ryzen 7 9800X3D",
+        "gpu": "RTX 5080",
+        "memory": "32GB",
+        "band": "ultra",
+        "comment": "パストレーシング（RT: Overdrive）を本格的に使いたい人向け。それでもWQHD〜4Kではアップスケーリングとフレーム生成の併用が前提です。",
+        "price": "45万円〜"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 60,
+    "budget": "22万〜60万円前後"
+  },
+  {
+    "id": "fortnite",
+    "title": "Fortnite",
+    "aliases": [
+      "フォートナイト",
+      "フォトナ"
+    ],
+    "genre": "TPS",
+    "genreGroup": "shooter",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "fps",
+      "quality"
+    ],
+    "releaseDate": "2017-07-25",
+    "status": "released",
+    "image": "images/fortnite.jpg",
+    "cardText": "パフォーマンスモードなら軽く、Lumen・Nanite有効の高画質では一気に重くなる。",
+    "description": "Fortniteを競技向けの高fpsでも、UE5の高画質でも快適に遊べるPC構成を、Epic公式の3段階スペックをもとに解説します。",
+    "recommended": "FHD / 144fps〜240fps",
+    "point": "競技設定（パフォーマンスモード）と高画質設定で必要なGPUがまったく違います。どちらで遊ぶかを先に決めましょう。",
+    "caution": "Epic公式の「最高品質」向けスペックはRTX 3070 / RX 6700 XT・メモリ16GB・NVMe SSDです。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps（パフォーマンスモード）",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "パフォーマンスモードで144fpsを狙う入門構成。建築バトル中心で、画質にこだわらないならこの価格帯で十分です。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "FHD 240fps / 高画質",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "競技設定での240fps挑戦と、DirectX 12の高画質設定の両方を試せる構成。ただしEpic公式の最高品質向けGPU（RTX 3070）よりは下なので、高画質モードは設定を一部下げる前提です。迷ったらここが基準です。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 最高品質",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "Lumen・Naniteを有効にした高画質をWQHDで楽しむ構成。Epic公式の最高品質スペック（RTX 3070）を十分に上回ります。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 36,
+    "budget": "14万〜36万円前後"
+  },
+  {
+    "id": "minecraft",
+    "title": "Minecraft",
+    "aliases": [
+      "マインクラフト",
+      "マイクラ",
+      "java版",
+      "統合版",
+      "bedrock"
+    ],
+    "genre": "サンドボックス",
+    "genreGroup": "survival",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2011-11-18",
+    "status": "released",
+    "image": "images/minecraft.jpg",
+    "cardText": "2026年7月にJava版の公式推奨が引き上げ（VRAM 6GB・メモリ16GB）。影MODはさらに重い。",
+    "description": "Minecraft（Java版・統合版）をバニラから影MOD・大型MODパックまで快適に遊ぶためのPC構成を、2026年7月に更新された公式スペックをもとに解説します。",
+    "recommended": "FHD / バニラ〜影MOD",
+    "point": "バニラは軽い一方、影MODや大型MODパックではGPUとメモリの要求が一気に上がります。遊び方で選ぶ構成が変わります。",
+    "caution": "Java版の公式推奨は2026年7月21日に更新され、メモリ16GB・VRAM 6GBのGPUが目安になりました。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD バニラ・軽めのMOD",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "新しい公式推奨（VRAM 6GB・メモリ16GB）を満たすエントリー構成。バニラや軽めのMOD、マルチプレイなら十分です。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "影MOD・MODパック向け",
+        "target": "FHD〜WQHD 影MOD",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "影MOD（シェーダー）や200個以上入る大型MODパック向け。MODパックはメモリ割り当てが増えるので32GBにしています。",
+        "price": "22万〜27万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 27,
+    "budget": "14万〜27万円前後"
+  },
+  {
+    "id": "tarkov",
+    "title": "Escape from Tarkov",
+    "aliases": [
+      "タルコフ",
+      "eft",
+      "エスケープフロムタルコフ"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "非常に重い",
+    "load": 4,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2025-11-15",
+    "status": "released",
+    "image": "images/tarkov.jpg",
+    "cardText": "1.0の公式推奨はメモリ64GB・Core i7-14700F。GPUよりCPUとメモリが効くタイトル。",
+    "description": "Escape from Tarkov（1.0）を快適に遊ぶためのPC構成を、Steamで公開された公式スペックと重いマップでの注意点から解説します。",
+    "recommended": "FHD〜WQHD / fps安定",
+    "point": "1.0の公式推奨はCore i7-14700F・メモリ64GB・RTX 4070と高めです。GPUよりもCPUとメモリが快適さを左右します。",
+    "caution": "Streets of Tarkovなど重いマップでは、メモリ不足やCPU不足がカクつきの原因になりやすいです。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 中〜高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhd-x3d",
+        "comment": "予算はCPUとメモリに寄せ、GPUはFHD向けに抑えた構成（GPUは公式推奨のRTX 4070より下）。Tarkovでは大容量キャッシュのX3D CPUが有利という検証が多く、GPUを上げるよりも効果を感じやすいです。",
+        "price": "21万〜25万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "64GB",
+        "band": "wqhd-x3d",
+        "comment": "公式推奨どおりメモリを64GBにしたWQHD構成。64GBはBTOでカスタマイズ料金が大きくなりやすいので、見積もりで必ず確認してください。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 21,
+    "budgetMax": 36,
+    "budget": "21万〜36万円前後"
+  },
+  {
+    "id": "battlefield",
+    "title": "Battlefield 6",
+    "aliases": [
+      "バトルフィールド",
+      "バトルフィールド6",
+      "bf6",
+      "battlefield",
+      "redsec"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "fps",
+      "quality"
+    ],
+    "releaseDate": "2025-10-10",
+    "status": "released",
+    "image": "images/battlefield.jpg",
+    "cardText": "最新作BF6の公式推奨はRTX 3060 Ti級。TPM 2.0とセキュアブートの有効化が必須。",
+    "description": "Battlefield 6を大規模戦闘でも快適に遊ぶためのPC構成を、Steamの公式スペックと起動に必要なセキュリティ設定もあわせて解説します。",
+    "recommended": "FHD〜WQHD / 高fps",
+    "point": "公式推奨はRTX 3060 Ti / RX 6700 XT・メモリ16GB。大人数戦や破壊表現ではCPU負荷も高くなります。",
+    "caution": "TPM 2.0とUEFIセキュアブートの有効化が必要です。古いPCでは設定変更が必要になることがあります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 3060 Ti）と同等以上のGPUで、FHD高設定を狙う構成。高fpsを狙うならDLSS / FSRを併用します。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高fps重視",
+        "target": "WQHD 高fps",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "大人数の戦闘でもfpsを落としにくいよう、CPUにX3Dを選んだ構成。WQHDの高fpsを狙う人向けです。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
+  },
+  {
+    "id": "cod",
+    "title": "Call of Duty",
+    "aliases": [
+      "コールオブデューティ",
+      "cod",
+      "bo7",
+      "black ops 7",
+      "mw4",
+      "modern warfare 4",
+      "warzone",
+      "ウォーゾーン"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2025-11-21",
+    "status": "released",
+    "image": "images/cod.jpg",
+    "cardText": "BO7とWarzoneが対象。10月23日発売予定のMW4も公式推奨はRTX 3060と同水準。",
+    "description": "Call of Duty: Black Ops 7とWarzone、発売を控えたModern Warfare 4を快適に遊ぶためのPC構成を、各作品の公式スペックから解説します。",
+    "recommended": "FHD〜WQHD / 144fps以上",
+    "point": "BO7・MW4とも公式推奨はRTX 3060 / RX 6600 XT。ただしインストール容量が大きく、SSDの空き容量が意外な落とし穴です。",
+    "caution": "BO7はSSDに161GBの空きが必要です（発売時点）。2TBのSSDがあると安心です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 3060）より一段上のGPUで、FHDの144fpsを狙う構成。容量の大きいCoDに備えて、SSDは2TBを選びましょう。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高fps重視",
+        "target": "WQHD 144fps以上",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDでも高fpsを保ちたい人向け。Warzoneの大人数マッチでも安定しやすいよう、CPUとメモリに余裕を持たせています。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
+  },
+  {
+    "id": "rust",
+    "title": "Rust",
+    "aliases": [
+      "ラスト"
+    ],
+    "genre": "サバイバル",
+    "genreGroup": "survival",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2018-02-08",
+    "status": "released",
+    "image": "images/rust.jpg",
+    "cardText": "公式推奨はRTX 3060・メモリ16GB。人の多いサーバーや大型拠点ではCPUとメモリが効く。",
+    "description": "Rustを人の多いサーバーでも快適に遊ぶためのPC構成を、Steamの公式スペックとCPU・メモリが効く場面から解説します。",
+    "recommended": "FHD〜WQHD / fps安定",
+    "point": "公式推奨はRTX 3060 / RX 6600 XT・メモリ16GB。大人数サーバーや建物の多い場所では、GPUよりCPUとメモリが効きやすいです。",
+    "caution": "公式推奨ではSSDが必須です。Windows 11が動作環境として案内されています。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhd-x3d",
+        "comment": "GPUはFHD向けに抑え、CPUとメモリに予算を回した構成。サーバーの人数が多い時間帯でもカクつきにくくなります。",
+        "price": "21万〜25万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDで遊びたい人向け。大規模な拠点戦でも余裕を持たせたい場合に選びます。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 21,
+    "budgetMax": 36,
+    "budget": "21万〜36万円前後"
+  },
+  {
+    "id": "ark",
+    "title": "ARK: Survival Evolved / Ascended",
+    "aliases": [
+      "アーク",
+      "ark",
+      "asa",
+      "ase",
+      "survival ascended",
+      "survival evolved"
+    ],
+    "genre": "サバイバル",
+    "genreGroup": "survival",
+    "level": "非常に重い",
+    "load": 4,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2023-10-25",
+    "status": "released",
+    "image": "images/ark.jpg",
+    "cardText": "旧作ASEは軽め、UE5版のASAは公式推奨RTX 3080・メモリ32GBの重量級。まずどちらか確認を。",
+    "description": "ARK: Survival Evolved（ASE）とUE5でリメイクされたARK: Survival Ascended（ASA）を快適に遊ぶためのPC構成を、両作の公式スペックの違いから解説します。",
+    "recommended": "FHD〜WQHD / 中〜高設定",
+    "point": "ASEとASAで必要なスペックがまったく違います。これから買うならASAが基準で、公式推奨はRTX 3080 / RX 6800・メモリ32GBです。",
+    "caution": "ASAはSSD必須・180GBの空きが必要です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 中〜高設定（ASA）",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "ASAをFHDで遊ぶための入口。公式推奨（RTX 3080）にはわずかに届かないため、アップスケーリングと設定調整を前提にしています。ASE中心なら十分すぎる性能です。",
+        "price": "22万〜27万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 高設定（ASA）",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "gpuAlt": "RX 9070 XT",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "ASAの公式推奨を上回るGPUで、WQHD高設定を狙う構成。大型拠点や恐竜の多い場面でも余裕を持たせたい人向けです。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 45,
+    "budget": "22万〜45万円前後"
+  },
+  {
+    "id": "genshin",
+    "title": "原神",
+    "aliases": [
+      "げんしん",
+      "genshin",
+      "genshin impact"
+    ],
+    "genre": "オープンワールド",
+    "genreGroup": "action",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2020-09-28",
+    "status": "released",
+    "image": "images/genshin.jpg",
+    "cardText": "PC版は軽めで、入門クラスでも高画質が狙える。WQHDで綺麗に遊ぶならミドル級。",
+    "description": "原神のPC版を高画質で快適に遊ぶためのPC構成を解説します。軽いゲームなので、予算をかけすぎないことがポイントです。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "point": "原神はPCゲームとしては軽く、エントリーGPUでもFHD高画質を狙えます。ほかの重いゲームも遊ぶかどうかで予算を決めましょう。",
+    "caution": "大型アップデートでインストール容量が増えていくため、SSDの空き容量には余裕を持たせてください。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 最高画質",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "原神だけならこのクラスで十分。広く引用されている公式推奨（GTX 1060 6GB）を大きく上回ります。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 最高画質",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "WQHDモニターで景色を綺麗に楽しみたい人や、ほかのゲームも遊びたい人向けのミドル構成です。",
+        "price": "17万〜21万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 21,
+    "budget": "14万〜21万円前後"
+  },
+  {
+    "id": "lol",
+    "title": "League of Legends",
+    "aliases": [
+      "リーグオブレジェンド",
+      "lol",
+      "ロル"
+    ],
+    "genre": "MOBA",
+    "genreGroup": "competitive",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2009-10-27",
+    "status": "released",
+    "image": "images/lol.jpg",
+    "cardText": "公式推奨はGeForce 560・メモリ4GBと非常に軽い。ゲーミングPCは配信や他ゲーム用と考えて。",
+    "description": "League of Legendsを快適に遊ぶためのPC構成を、Riot公式の動作環境をもとに解説します。LoLだけなら高価なゲーミングPCは不要です。",
+    "recommended": "FHD / 144fps以上",
+    "point": "Riot公式の推奨はGeForce 560 / Intel UHD 630・メモリ4GBと非常に軽量。LoLだけならゲーミングPCでなくても遊べることがあります。",
+    "caution": "Windows 11ではTPM 2.0の有効化が必要です。DirectX 11（機能レベル11_0）に対応したGPUが必要です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps以上",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "LoLを高fpsで遊ぶには十分すぎる構成。将来ほかのゲームも遊ぶ前提で、ゲーミングPCとして最低限のラインにしています。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "配信もする人向け",
+        "target": "FHD 240fps＋配信",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "32GB",
+        "band": "fhd",
+        "comment": "ゲームをしながら配信・録画もしたい人向け。8コアCPUとメモリ32GBで、配信ソフトを同時に動かしても余裕があります。",
+        "price": "17万〜21万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 21,
+    "budget": "14万〜21万円前後"
+  },
+  {
+    "id": "overwatch2",
+    "title": "Overwatch（旧Overwatch 2）",
+    "aliases": [
+      "オーバーウォッチ",
+      "オーバーウォッチ2",
+      "ow2",
+      "overwatch 2",
+      "ow"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2022-10-04",
+    "status": "released",
+    "image": "images/overwatch2.jpg",
+    "cardText": "2026年2月に名称が「Overwatch」へ。公式推奨はGTX 1060級で、240fpsはCPU次第。",
+    "description": "Overwatch（2026年2月にOverwatch 2から改称）を144fps〜240fpsで遊ぶためのPC構成を、公式スペックをもとに解説します。",
+    "recommended": "FHD / 144fps〜240fps",
+    "point": "公式推奨はGTX 1060 / GTX 1650級と軽め。240fps以上を狙うときはGPUよりCPUが頭打ちになりやすいです。",
+    "caution": "2026年2月10日から名称が「Overwatch」に変わりました。ゲーム内容は旧Overwatch 2から引き続き遊べます。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps以上",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "公式推奨（GTX 1060）を大きく上回る入門構成。144Hzモニターと組み合わせれば十分快適です。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "240Hz競技向け",
+        "target": "FHD 240fps以上",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd-x3d",
+        "comment": "240Hz以上のモニターを活かしたい人向け。高fps域でCPUが足を引っ張らないよう、GPUよりCPUを強くしています。",
+        "price": "21万〜25万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 25,
+    "budget": "14万〜25万円前後"
+  },
+  {
+    "id": "eldenring",
+    "title": "ELDEN RING",
+    "aliases": [
+      "エルデンリング",
+      "エルデン",
+      "shadow of the erdtree"
+    ],
+    "genre": "アクションRPG",
+    "genreGroup": "action",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2022-02-25",
+    "status": "released",
+    "image": "images/eldenring.jpg",
+    "cardText": "ゲーム内のfps上限は60。高fps用の高額GPUより、60fpsを落とさない安定性を重視。",
+    "description": "ELDEN RINGを高画質で安定して遊ぶためのPC構成を、公式スペックと60fps上限の仕様をふまえて解説します。",
+    "recommended": "FHD〜WQHD / 60fps安定",
+    "point": "ゲーム内のフレームレート上限は60fpsです。それ以上のfpsを狙う構成は不要で、60fpsを落とさない安定性を重視しましょう。",
+    "caution": "レイトレーシングを有効にすると負荷が大きく上がります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 最高設定 60fps",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（GTX 1070）を大きく上回り、FHD最高設定で60fpsを保ちやすい構成。DLCの重い場所でも余裕を持たせています。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD〜4K 60fps",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd",
+        "comment": "WQHDや4K、レイトレーシングも楽しみたい人向け。60fps上限のゲームなので、これ以上のGPUは画質目的でなければ不要です。",
+        "price": "25万〜32万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 32,
+    "budget": "17万〜32万円前後"
+  },
+  {
+    "id": "pubg",
+    "title": "PUBG: BATTLEGROUNDS",
+    "aliases": [
+      "パブジー",
+      "pubg",
+      "バトルグラウンド"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2017-12-21",
+    "status": "released",
+    "image": "images/pubg.jpg",
+    "cardText": "公式推奨はGTX 1060 3GB・メモリ16GB。競技では画質よりfpsの安定を優先。",
+    "description": "PUBG: BATTLEGROUNDSを144fps以上で快適に遊ぶためのPC構成を、Steamの公式スペックをもとに解説します。",
+    "recommended": "FHD / 144fps以上",
+    "point": "公式推奨はGTX 1060 3GB・メモリ16GB。広いマップで遠くの敵を見つけるために、fpsの安定と見やすい設定が大切です。",
+    "caution": "公式推奨のメモリは16GBです。8GBのPCでは降下直後や市街地で重くなりやすいです。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨を大きく上回り、FHDで144fpsを狙いやすい構成。競技向けの中設定なら余裕があります。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高fps重視",
+        "target": "FHD 240fps / WQHD 144fps",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "240Hzモニターや、WQHDで遠くの敵を見やすくしたい人向けの構成です。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
+  },
+  {
+    "id": "palworld",
+    "title": "Palworld",
+    "aliases": [
+      "パルワールド",
+      "パル"
+    ],
+    "genre": "サバイバル",
+    "genreGroup": "survival",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2026-07-10",
+    "status": "released",
+    "image": "images/palworld.jpg",
+    "cardText": "2026年7月に正式版1.0が配信。公式推奨はRTX 3060 Ti・メモリ32GB。",
+    "description": "Palworld（正式版1.0）を快適に遊ぶためのPC構成を、正式版で更新された公式スペックと、拠点・マルチプレイで重くなる理由から解説します。",
+    "recommended": "FHD〜WQHD / 快適",
+    "point": "正式版の公式推奨はRTX 3060 Ti / RX 6700 XT・メモリ32GB。動いているパルの数で負荷が変わると公式も案内しています。",
+    "caution": "SSDは必須です。大きな拠点やマルチプレイではCPUとメモリの負荷が増えます。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 3060 Ti）と同等以上のGPUに、公式推奨どおりメモリ32GBを組み合わせたFHD構成です。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "大きな拠点や友達とのマルチプレイでも余裕を持たせたい人向け。パルが多い場面のCPU負荷にも備えています。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
+  },
+  {
+    "id": "rainbowsixsiege",
+    "title": "Rainbow Six Siege X",
+    "aliases": [
+      "レインボーシックスシージ",
+      "r6s",
+      "シージ",
+      "siege x",
+      "rainbow six siege"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "軽い",
+    "load": 1,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2015-12-01",
+    "status": "released",
+    "image": "images/rainbowsixsiege.jpg",
+    "cardText": "現行のSiege Xは公式推奨RTX 2060・メモリ8GB。高fpsで撃ち合いの見え方が変わる。",
+    "description": "Rainbow Six Siege X（レインボーシックス シージ）を144fps〜240fpsで遊ぶためのPC構成を、現行の公式スペックをもとに解説します。",
+    "recommended": "FHD / 144fps〜240fps",
+    "point": "公式推奨はRTX 2060 / RX 6600と比較的軽め。高リフレッシュレートのモニターと組み合わせると撃ち合いの見え方が大きく変わります。",
+    "caution": "アンチチートとしてBattlEyeが導入されています。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 144fps以上",
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5050",
+        "gpuAlt": "RX 7600",
+        "memory": "16GB",
+        "band": "entry",
+        "comment": "公式推奨（RTX 2060）を上回る入門構成。競技設定で144fps以上を狙えます。",
+        "price": "14万〜17万円前後"
+      },
+      {
+        "name": "240Hz競技向け",
+        "target": "FHD 240fps以上",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd-x3d",
+        "comment": "240Hz以上のモニターで遊ぶ人向け。高fps域で効くCPUを優先しています。",
+        "price": "21万〜25万円前後"
+      }
+    ],
+    "budgetMin": 14,
+    "budgetMax": 25,
+    "budget": "14万〜25万円前後"
+  },
+  {
+    "id": "starfield",
+    "title": "Starfield",
+    "aliases": [
+      "スターフィールド"
+    ],
+    "genre": "RPG",
+    "genreGroup": "action",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2023-09-06",
+    "status": "released",
+    "image": "images/starfield.jpg",
+    "cardText": "公式推奨はRX 6800 XT / RTX 2080とGPU要求が高め。都市部ではCPU負荷も大きい。",
+    "description": "Starfieldを快適に遊ぶためのPC構成を、Steamの公式スペックとMOD・都市部の負荷をふまえて解説します。",
+    "recommended": "FHD〜WQHD / 高設定",
+    "point": "公式推奨はRX 6800 XT / RTX 2080。最低環境でもSSDが必須です。",
+    "caution": "都市部ではCPUの負荷が高くなりやすく、GPUだけ強くしてもfpsが伸びにくい場面があります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "FHDの高設定を狙う構成。描画性能は公式推奨のRX 6800 XTをやや下回るため、アップスケーリングの併用が前提です。VRAM 16GBとメモリ32GBで、MODを入れても余裕を持たせています。",
+        "price": "22万〜27万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDで宇宙探索を楽しみたい人向け。都市部の重さにも備えてCPUを強化しています。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 36,
+    "budget": "22万〜36万円前後"
+  },
+  {
+    "id": "helldivers2",
+    "title": "HELLDIVERS 2",
+    "aliases": [
+      "ヘルダイバーズ2",
+      "ヘルダイバー",
+      "helldivers"
+    ],
+    "genre": "TPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2024-02-08",
+    "status": "released",
+    "image": "images/helldivers2.jpg",
+    "cardText": "公式推奨はRTX 2060・Core i7-9700K。敵と爆発が増える高難度ほどCPUにも負荷がかかる。",
+    "description": "HELLDIVERS 2を快適に遊ぶためのPC構成を、Steamの公式スペックと高難易度での負荷の上がり方から解説します。",
+    "recommended": "FHD〜WQHD / 快適",
+    "point": "公式推奨はRTX 2060 / RX 6600 XT・Core i7-9700K。敵や爆発の多い高難易度では、CPUにも余裕があると安定します。",
+    "caution": "推奨環境ではSSDが前提で必要容量は40GB、最低環境（HDD）では135GBと案内されています。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 2060）を大きく上回るFHD構成。4人協力プレイでも高設定を狙えます。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "高難易度で敵が押し寄せる場面でもfpsを落としにくいよう、CPUを強くしたWQHD構成です。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
+  },
+  {
+    "id": "blackdesert",
+    "title": "黒い砂漠",
+    "aliases": [
+      "くろいさばく",
+      "black desert",
+      "bdo",
+      "黒い砂漠オンライン"
+    ],
+    "genre": "MMO",
+    "genreGroup": "mmo",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2015-05-20",
+    "status": "released",
+    "image": "images/blackdesert.jpg",
+    "cardText": "画質モードで負荷が激変。リマスター以上の高画質や人の多い拠点戦では性能差が出る。",
+    "description": "黒い砂漠を高画質で快適に遊ぶためのPC構成を、画質モードの違いと人の多い場所での負荷から解説します。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "point": "画質モード（リマスター・ウルトラ）で負荷が大きく変わります。綺麗な映像を楽しみたいならGPUに余裕を持たせましょう。",
+    "caution": "人が多い街や拠点戦・占領戦ではfpsが下がりやすいため、CPUとメモリにも余裕を持たせると安心です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高画質",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "Steam版の公式推奨（GTX 1660 Super）を大きく上回り、FHDのリマスター画質を狙える構成です。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高画質重視",
         "target": "WQHD 高画質",
         "cpu": "Ryzen 7 7800X3D",
         "gpu": "RTX 5070",
-        "comment": "WQHDや高画質で快適に遊びたい人向け。長く使うならこのあたりが安心です。"
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "WQHDの高画質や、人の多い拠点戦・占領戦でも余裕を持たせたい人向けです。",
+        "price": "29万〜36万円前後"
       }
-    ]
+    ],
+    "budgetMin": 17,
+    "budgetMax": 36,
+    "budget": "17万〜36万円前後"
   },
-{
-  "id": "gta5",
-  "title": "GTA5 / GTA Online",
-  "genre": "オープンワールド",
-  "level": "中量級",
-  "image": "images/gta5.jpg",
-  "description": "GTA5（Enhanced・Legacy）やGTA Onlineを快適に遊ぶためのおすすめゲーミングPCを紹介。公式の必要スペック、MODの注意点、GTA6に向けた買い替え判断も解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "15万〜30万円前後",
-  "point": "GTA OnlineやMOD導入を考えると、GPUだけでなくメモリ容量にも余裕を持たせると快適です。",
-  "caution": "Enhanced版のレイトレーシングや高解像度テクスチャMODではVRAM使用量が増えやすいため、余裕のあるGPUがおすすめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "15万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "まずGTA5を快適に遊びたい人向け。フルHD中心なら十分遊びやすい構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "22万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "高画質やMOD環境も視野に入れたい人向け。長く使いやすい構成です。"
-    },
-    {
-      "name": "ハイエンド",
-      "price": "30万円前後",
-      "target": "4K 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070 Ti",
-      "comment": "Enhanced版を4Kで楽しみたい人向け。DLSSなどのアップスケーリング併用が前提で、VRAM 16GBの余裕は重いMODにも効きます。"
-    }
-  ]
-},
-{
-  "id": "cyberpunk2077",
-  "title": "Cyberpunk 2077",
-  "genre": "RPG",
-  "level": "超重い",
-  "image": "images/cyberpunk2077.jpg",
-  "description": "Cyberpunk 2077を高画質やレイトレーシングで楽しむためのおすすめゲーミングPCを紹介。必要スペックやGPU選びを解説します。",
-  "recommended": "WQHD〜4K / 高画質",
-  "budget": "25万〜40万円前後",
-  "point": "Cyberpunk 2077はGPU負荷が非常に高いため、予算を掛けるならまずGPUを優先したいタイトルです。",
-  "caution": "レイトレーシングや4K環境ではかなり高性能なGPUが必要になります。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "22万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "まず高画質でCyberpunk 2077を遊びたい人向け。FHD中心なら快適に遊びやすい構成です。"
-    },
-    {
-      "name": "ハイエンド",
-      "price": "35万円前後",
-      "target": "WQHD〜4K レイトレーシング",
-      "cpu": "Ryzen 7 9800X3D",
-      "gpu": "RTX 5080",
-      "comment": "レイトレーシングや4K高画質を本格的に楽しみたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "fortnite",
-  "title": "Fortnite",
-  "popular": true,
-  "genre": "FPS",
-  "level": "軽め〜中量級",
-  "image": "images/fortnite.jpg",
-  "description": "Fortniteを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技設定や高画質向けの構成を解説します。",
-  "recommended": "FHD / 144fps〜240fps",
-  "budget": "12万〜22万円前後",
-  "point": "Fortniteは設定によって負荷差が大きいので、競技設定か高画質重視かでおすすめ構成が変わります。",
-  "caution": "高画質設定やUE5機能を有効にすると、想像以上にGPU負荷が上がります。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "12万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 5 5600",
-      "gpu": "RTX 5050",
-      "comment": "競技設定中心なら、比較的低予算でも高fpsを狙いやすい構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "高画質や高リフレッシュレートを両立したい人向けです。"
-    }
-  ]
-},
-{
-  "id": "minecraft",
-  "title": "Minecraft",
-  "popular": true,
-  "genre": "サンドボックス",
-  "level": "軽め",
-  "image": "images/minecraft.jpg",
-  "description": "MinecraftをMODや影MOD込みで快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックを解説します。",
-  "recommended": "FHD / MOD対応",
-  "budget": "10万〜22万円前後",
-  "point": "通常プレイだけなら軽めですが、影MODや大型MOD環境ではGPU性能とメモリ容量が重要になります。",
-  "caution": "Java版の大型MOD環境ではメモリ不足になりやすいため、32GB構成もおすすめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "10万円前後",
-      "target": "通常プレイ向け",
-      "cpu": "Ryzen 5 5600G",
-      "gpu": "RTX 3050",
-      "comment": "通常プレイ中心なら十分遊びやすい、コスパ重視構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "影MOD・高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "影MODや高解像度テクスチャも快適に楽しみたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "tarkov",
-  "title": "Escape from Tarkov",
-  "genre": "FPS",
-  "level": "重め",
-  "image": "images/tarkov.jpg",
-  "description": "Escape from Tarkovを快適に遊ぶためのおすすめゲーミングPCを紹介。重いマップでも安定しやすいCPU・GPU構成を解説します。",
-  "recommended": "FHD〜WQHD / 高fps",
-  "budget": "18万〜30万円前後",
-  "point": "TarkovはGPUだけでなくCPU性能やメモリ容量の影響も大きいゲームです。",
-  "caution": "特にStreets of Tarkovなどの重いマップでは、CPUやメモリ不足がfps低下の原因になりやすいです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "まずTarkovを快適に遊びたい人向け。CPU重視で安定感を狙った構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "28万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "重いマップや高fps環境でも余裕を持たせたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "battlefield",
-  "title": "Battlefield",
-  "genre": "FPS",
-  "level": "重め",
-  "image": "images/battlefield.jpg",
-  "description": "Battlefieldを高画質・高fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。大規模戦闘向けの必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高fps",
-  "budget": "18万〜30万円前後",
-  "point": "Battlefieldシリーズは大人数戦でCPU負荷が高くなりやすいため、CPU性能も重視したいゲームです。",
-  "caution": "高画質設定ではGPU使用率がかなり高くなるため、余裕のある構成がおすすめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 高fps",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "フルHD中心でBattlefieldを快適に遊びたい人向けです。"
-    },
-    {
-      "name": "ミドル",
-      "price": "28万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDや高画質でも安定したfpsを狙いたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "cod",
-  "title": "Call of Duty",
-  "genre": "FPS",
-  "level": "重め",
-  "image": "images/cod.jpg",
-  "description": "Call of DutyやWarzoneを144fps以上で快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックや予算別構成を解説します。",
-  "recommended": "FHD〜WQHD / 144fps以上",
-  "budget": "18万〜30万円前後",
-  "point": "CoDシリーズは高fpsを出すことで操作感がかなり良くなるため、144fps以上を目標にするのがおすすめです。",
-  "caution": "WarzoneではVRAM使用量が増えやすく、GPU性能不足がfps低下に直結しやすいです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "まずCoDを高fpsで遊びたい人向け。競技系設定とも相性の良い構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "30万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070 Ti",
-      "comment": "高画質やWQHD環境でも快適さを維持したい人向けです。"
-    }
-  ]
-},
-{
-  "id": "rust",
-  "title": "Rust",
-  "genre": "サバイバル",
-  "level": "重め",
-  "image": "images/rust.jpg",
-  "description": "Rustを快適に遊ぶためのおすすめゲーミングPCを紹介。大規模サーバーや建築量が多い環境向けの必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高fps",
-  "budget": "18万〜28万円前後",
-  "point": "RustはCPU負荷やメモリ使用量も高めなので、バランスの良い構成がおすすめです。",
-  "caution": "大規模サーバーではCPU性能不足によるカクつきが出やすいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060",
-      "comment": "まずRustを快適に遊びたい人向け。フルHDなら十分狙いやすい構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "26万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "重めサーバーや高画質設定でも余裕を持たせたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "ark",
-  "title": "ARK: Survival Evolved",
-  "genre": "サバイバル",
-  "level": "超重い",
-  "image": "images/ark.jpg",
-  "description": "ARKを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。重いサバイバルゲーム向けの必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "20万〜35万円前後",
-  "point": "ARKはゲーム自体が重いため、GPUだけでなくCPUやメモリ容量にも余裕を持たせるのがおすすめです。",
-  "caution": "高画質設定ではfpsが大きく低下しやすく、PC性能差がかなり出やすいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "20万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "まずARKを遊びたい人向け。画質調整前提なら十分楽しめる構成です。"
-    },
-    {
-      "name": "ハイエンド",
-      "price": "35万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 9800X3D",
-      "gpu": "RTX 5080",
-      "comment": "高画質設定や大型建築環境でも快適さを重視したい人向けです。"
-    }
-  ]
-},
-{
-  "id": "genshin",
-  "title": "原神",
-  "popular": true,
-  "genre": "オープンワールド",
-  "level": "軽め〜中量級",
-  "image": "images/genshin.jpg",
-  "description": "原神を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。PC版を綺麗に楽しむための必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "12万〜22万円前後",
-  "point": "原神は比較的軽めですが、高解像度や高fpsを狙うならGPU性能にも余裕を持たせたいです。",
-  "caution": "スマホ版よりPC版の方が高画質で楽しめるため、モニター環境も重要になります。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "12万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 5 5600",
-      "gpu": "RTX 5050",
-      "comment": "コスパ重視で原神を快適に遊びたい人向けです。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "高解像度モニターで綺麗な景色を楽しみたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "lol",
-  "title": "League of Legends",
-  "popular": true,
-  "genre": "MOBA",
-  "level": "軽い",
-  "image": "images/lol.jpg",
-  "description": "League of Legendsを高fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。低予算でも選びやすい必要スペックを解説します。",
-  "recommended": "FHD / 144fps以上",
-  "budget": "10万〜18万円前後",
-  "point": "LoLは比較的軽いため、高価なGPUよりも高fps環境やモニターに予算を回すのもおすすめです。",
-  "caution": "競技系タイトルなので、fps安定や入力遅延の少なさを重視したいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "10万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 5 5600G",
-      "gpu": "RTX 3050",
-      "comment": "LoLを快適に遊ぶだけなら十分コスパの良い構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "18万円前後",
-      "target": "FHD 高fps",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "240Hz環境や配信も視野に入れたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "overwatch2",
-  "title": "Overwatch 2",
-  "popular": true,
-  "genre": "FPS",
-  "level": "軽め〜中量級",
-  "image": "images/overwatch2.jpg",
-  "description": "Overwatch 2を144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技向けの必要スペックを解説します。",
-  "recommended": "FHD / 144fps〜240fps",
-  "budget": "12万〜22万円前後",
-  "point": "Overwatch 2は高fpsを維持すると操作感がかなり良くなるため、競技向け構成とも相性が良いです。",
-  "caution": "高fps重視ならGPUだけでなくCPU性能も重要になります。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "12万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 5 5600",
-      "gpu": "RTX 5050",
-      "comment": "まずOverwatch 2を快適に遊びたい人向けのコスパ構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "FHD 240fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "240Hzモニターを活かしたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "eldenring",
-  "title": "ELDEN RING",
-  "genre": "アクションRPG",
-  "level": "中量級",
-  "image": "images/eldenring.jpg",
-  "description": "ELDEN RINGを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。FHD〜WQHD向けの必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "15万〜25万円前後",
-  "point": "ELDEN RINGは超重量級ではありませんが、安定した動作を重視するならCPUとGPUのバランスが大切です。",
-  "caution": "高解像度や高画質設定ではGPU負荷が上がるため、余裕のあるグラフィックボードを選ぶと安心です。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "15万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "フルHDでELDEN RINGを快適に遊びたい人向けのバランス構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "22万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDモニターで美しいフィールドを楽しみたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "pubg",
-  "title": "PUBG: BATTLEGROUNDS",
-  "genre": "FPS",
-  "level": "中量級",
-  "image": "images/pubg.jpg",
-  "description": "PUBGを144fps以上で快適に遊ぶためのおすすめゲーミングPCを紹介。初心者向けに必要スペックや予算別構成を解説します。",
-  "recommended": "FHD / 144fps以上",
-  "budget": "15万〜25万円前後",
-  "point": "PUBGは競技性が高いため、画質よりもfpsの安定を重視した構成がおすすめです。",
-  "caution": "アイテムが多い場面や市街地では負荷が上がることがあるため、メモリやCPUにも余裕を持たせたいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "15万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "フルHDでPUBGを快適に遊びたい人向け。144fpsを狙いやすい構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "23万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDや高リフレッシュレート環境で遊びたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "palworld",
-  "title": "Palworld",
-  "genre": "サバイバル",
-  "level": "中量級〜重め",
-  "image": "images/palworld.jpg",
-  "description": "Palworldを快適に遊ぶためのおすすめゲーミングPCを紹介。拠点建築やマルチプレイも考えた必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 快適",
-  "budget": "15万〜25万円前後",
-  "point": "Palworldは通常プレイなら中量級ですが、拠点が大きくなるとCPUやメモリへの負荷も増えやすいです。",
-  "caution": "マルチプレイや大規模拠点では重くなることがあるため、メモリは32GBあると安心です。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "15万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "フルHDでPalworldを遊びたい人向け。通常プレイなら十分狙いやすい構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "24万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "マルチプレイや拠点拡張も考えて、余裕を持たせたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "rainbowsixsiege",
-  "title": "Rainbow Six Siege",
-  "genre": "FPS",
-  "level": "軽め〜中量級",
-  "image": "images/rainbowsixsiege.jpg",
-  "description": "Rainbow Six Siegeを144fps〜240fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。競技向けの必要スペックを解説します。",
-  "recommended": "FHD / 144fps〜240fps",
-  "budget": "12万〜22万円前後",
-  "point": "Rainbow Six Siegeは高fps環境との相性が良いため、144Hz以上のモニターを活かせる構成がおすすめです。",
-  "caution": "高fpsを安定させたい場合は、GPUだけでなくCPU性能もある程度重視したいです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "12万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 5 5600",
-      "gpu": "RTX 5050",
-      "comment": "低予算でも高fpsを狙いやすい、初心者向けの構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "FHD 240fps",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "240Hzモニターを活かして遊びたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "starfield",
-  "title": "Starfield",
-  "genre": "RPG",
-  "level": "重め",
-  "image": "images/starfield.jpg",
-  "description": "Starfieldを高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。重量級RPG向けの必要スペックやGPU選びを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "20万〜35万円前後",
-  "point": "Starfieldは負荷が高めなので、快適に遊ぶなら20万円以上の構成を目安にしたいゲームです。",
-  "caution": "高解像度や高画質設定ではfpsが落ちやすいため、余裕のあるGPUを選ぶのがおすすめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "20万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "フルHDでStarfieldを快適に遊びたい人向け。画質調整も視野に入れた構成です。"
-    },
-    {
-      "name": "ハイエンド",
-      "price": "35万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 9800X3D",
-      "gpu": "RTX 5080",
-      "comment": "WQHD高画質で宇宙探索を楽しみたい人向けの余裕ある構成です。"
-    }
-  ]
-},
-{
-  "id": "helldivers2",
-  "title": "HELLDIVERS 2",
-  "genre": "TPS",
-  "level": "重め",
-  "image": "images/helldivers2.jpg",
-  "description": "HELLDIVERS 2を快適に遊ぶためのおすすめゲーミングPCを紹介。大量の敵やエフェクトが多い場面向けの必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 快適",
-  "budget": "18万〜30万円前後",
-  "point": "HELLDIVERS 2は戦闘中のエフェクトや敵の数が多く、GPU性能に余裕があると快適です。",
-  "caution": "高画質設定では負荷が高くなりやすいため、フルHDでもある程度のGPU性能が欲しいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 快適",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060 Ti",
-      "comment": "フルHDでHELLDIVERS 2を快適に遊びたい人向けです。"
-    },
-    {
-      "name": "ミドル",
-      "price": "28万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDや高画質でも安定して遊びたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "blackdesert",
-  "title": "黒い砂漠",
-  "genre": "MMO",
-  "level": "中量級〜重め",
-  "image": "images/blackdesert.jpg",
-  "description": "黒い砂漠を高画質で快適に遊ぶためのおすすめゲーミングPCを紹介。美しいグラフィックを楽しむための必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "18万〜30万円前後",
-  "point": "黒い砂漠は画質設定によって負荷が大きく変わるため、綺麗な映像で遊びたいならGPU性能を重視したいゲームです。",
-  "caution": "人が多い場所や高画質設定ではfpsが下がりやすいため、少し余裕のある構成がおすすめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060 Ti",
-      "comment": "フルHDで黒い砂漠を綺麗に楽しみたい人向けです。"
-    },
-    {
-      "name": "ミドル",
-      "price": "28万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDで美しいグラフィックを楽しみたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "streetfighter6",
-  "title": "ストリートファイター6",
-  "popular": true,
-  "genre": "格闘ゲーム",
-  "level": "軽量〜中量級",
-  "image": "images/streetfighter6.jpg",
-  "description": "ストリートファイター6を144fpsで快適に遊ぶためのおすすめゲーミングPCを紹介。高fps・低遅延環境を目指す初心者向けに必要スペックを解説します。",
-  "recommended": "FHD / 144fps以上",
-  "budget": "15万〜25万円前後",
-  "point": "スト6はCPUとGPUのバランスが大切です。まずはFHD 144fps環境を目標にすると失敗しにくく、高Hzモニターと合わせると快適さが大きく上がります。",
-  "caution": "4K環境よりもFHD〜WQHDで高fps・低遅延を安定させる方が、スト6では快適に感じやすいです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "15万円前後",
-      "target": "FHD 144fps",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060",
-      "comment": "FHD 144fps環境を狙いやすい構成。スト6を快適に遊びたい初心者向けです。"
-    },
-    {
-      "name": "ミドル",
-      "price": "20万円前後",
-      "target": "WQHD 高fps",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDでも快適に遊びやすく、長く使いやすい定番構成です。高Hzモニターとも相性が良いです。"
-    }
-  ]
-},
-{
-  "id": "arma3",
-  "title": "ARMA 3",
-  "genre": "シミュレーション",
-  "level": "重め",
-  "image": "images/arma3.jpg",
-  "description": "ARMA 3をMODや大規模ミッション込みで快適に遊ぶためのおすすめゲーミングPCを紹介。CPU重視の必要スペックを解説します。",
-  "recommended": "FHD / MOD対応",
-  "budget": "18万〜28万円前後",
-  "point": "ARMA 3は古めのゲームながらCPU負荷が高く、大規模戦闘やMOD環境では性能差が出やすいです。",
-  "caution": "GPUだけ強くしても伸びにくい場面があるため、CPU性能やメモリ容量も意識したいゲームです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD MOD対応",
-      "cpu": "Ryzen 7 5700X3D",
-      "gpu": "RTX 5060",
-      "comment": "MODや協力プレイを楽しみたい人向けのバランス構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "26万円前後",
-      "target": "大規模ミッション向け",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "大人数ミッションや重いMOD環境でも余裕を持たせたい人向けです。"
-    }
-  ]
-},
-{
-  "id": "onimusha",
-  "title": "鬼武者 Way of the Sword",
-  "popular": true,
-  "genre": "アクション",
-  "level": "中量級〜重め",
-  "image": "images/onimusha.jpg",
-  "description": "鬼武者 Way of the Swordを快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックや高画質で遊ぶ場合のGPU選びを解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "18万〜28万円前後",
-  "point": "公式の推奨環境はRTX 2060 Super級と控えめですが、これは中設定＋アップスケーリング前提のFHD 60fpsです。最高画質で遊びたいならGPUに余裕を持たせると安心です。",
-  "caution": "全環境でSSDに50GBの空きが必須です。WQHD最高画質ではVRAM使用量が10GB前後まで伸びるため、8GBのGPUだと余裕が少なめです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 最高画質",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060 Ti",
-      "comment": "FHD最高画質を狙いやすい構成。VRAM容量に余裕があるので画質を上げても安心です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "26万円前後",
-      "target": "WQHD 最高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHD最高画質で遊びたい人向け。剣戟の描き込みを落とさず快適に遊べます。"
-    }
-  ]
-},
-{
-  "id": "wardogs",
-  "title": "WARDOGS",
-  "popular": true,
-  "genre": "FPS",
-  "level": "重め",
-  "image": "images/wardogs.jpg",
-  "description": "WARDOGSを快適に遊ぶためのおすすめゲーミングPCを紹介。最大100人対戦で安定したfpsを出すための必要スペックを解説します。",
-  "recommended": "FHD〜WQHD / 高fps",
-  "budget": "20万〜30万円前後",
-  "point": "最大100人対戦に乗り物と破壊が加わるため、GPUだけでなくCPUの余力がfpsの安定に効きます。まずはFHD高fpsを目標にすると選びやすいです。",
-  "caution": "公式の最低環境（GTX 1660級）はアップスケーリング前提のFHD低設定60fpsです。激しい場面でfpsを落としたくないなら推奨以上を狙いたいところです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "20万円前後",
-      "target": "FHD 高fps",
-      "cpu": "Ryzen 7 7700",
-      "gpu": "RTX 5060 Ti",
-      "comment": "FHDで高fpsを狙う入門ライン。大人数戦に備えてCPUも妥協しない構成です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "28万円前後",
-      "target": "WQHD 高設定",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDでも安定させたい人向け。フレームタイムが乱れにくく100人戦でも扱いやすい構成です。"
-    }
-  ]
-},
-{
-  "id": "biohazard-requiem",
-  "title": "バイオハザード レクイエム",
-  "popular": true,
-  "genre": "サバイバルホラー",
-  "level": "中量級",
-  "image": "images/biohazard-requiem.jpg",
-  "description": "バイオハザード レクイエムを快適に遊ぶためのおすすめゲーミングPCを紹介。必要スペックやレイトレーシングを使う場合の目安を解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "18万〜28万円前後",
-  "point": "公式の推奨環境はRTX 2060 Super級と現実的な範囲です。高画質やレイトレーシングまで楽しみたいなら、GPUとVRAMに余裕を持たせると失敗しにくいです。",
-  "caution": "ストレージは70GBの空きが必要です。4K＋レイトレーシングを最高設定で狙う場合は上位GPUとメモリ32GBも検討したいところです。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "18万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 5700X",
-      "gpu": "RTX 5060 Ti",
-      "comment": "FHD高画質を安心して狙える構成。暗所表現の多い本作でも画質を落とさず遊べます。"
-    },
-    {
-      "name": "ミドル",
-      "price": "26万円前後",
-      "target": "WQHD 高画質・レイトレ",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070",
-      "comment": "WQHDやレイトレーシングまで楽しみたい人向け。長く使いやすい定番の構成です。"
-    }
-  ]
-},
-{
-  "id": "borderlands4",
-  "title": "ボーダーランズ4",
-  "popular": true,
-  "genre": "FPS",
-  "level": "重め",
-  "image": "images/borderlands4.jpg",
-  "description": "ボーダーランズ4を快適に遊ぶためのおすすめゲーミングPCを紹介。公式推奨が高めのタイトル向けに必要スペックと予算目安を解説します。",
-  "recommended": "FHD〜WQHD / 高画質",
-  "budget": "22万〜32万円前後",
-  "point": "公式の推奨がRTX 3080級・メモリ32GBと高めのタイトルです。メモリは最初から32GBを選んでおくと安心できます。",
-  "caution": "最低環境でも8コアCPUとVRAM 8GBが必須、ストレージは100GBの空きとSSDが必要です。要求が高めなので予算は少し多めに見ておきましょう。",
-  "builds": [
-    {
-      "name": "ライト",
-      "price": "22万円前後",
-      "target": "FHD 高画質",
-      "cpu": "Ryzen 7 7700",
-      "gpu": "RTX 5060 Ti",
-      "comment": "FHD高画質を狙う入門ライン。メモリは32GBを選んでおくと安心です。"
-    },
-    {
-      "name": "ミドル",
-      "price": "30万円前後",
-      "target": "WQHD 高画質",
-      "cpu": "Ryzen 7 7800X3D",
-      "gpu": "RTX 5070 Ti",
-      "comment": "公式推奨をしっかり超えたい人向け。WQHD高画質でも余裕を持って遊べます。"
-    }
-  ]
-}
+  {
+    "id": "streetfighter6",
+    "title": "ストリートファイター6",
+    "aliases": [
+      "スト6",
+      "sf6",
+      "street fighter 6",
+      "ストリートファイター"
+    ],
+    "genre": "格闘ゲーム",
+    "genreGroup": "competitive",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2023-06-02",
+    "status": "released",
+    "image": "images/streetfighter6.jpg",
+    "cardText": "対戦は60fps固定。144fpsを狙う必要はなく、60fpsを絶対に落とさない構成が正解。",
+    "description": "ストリートファイター6（スト6）を対戦で快適に遊ぶためのPC構成を、60fps固定の仕様と公式スペックから解説します。144fps向けの構成は必要ありません。",
+    "recommended": "FHD / 60fps安定（対戦）",
+    "point": "対戦（1対1のバトル）は60fps固定です。高fps向けの高額なPCより、60fpsを絶対に落とさない安定性と低遅延が大切です。",
+    "caution": "人が集まるバトルハブは対戦より重くなりやすいモードです。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 60fps安定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨（RTX 2070）を上回り、FHD高画質でも対戦中の60fpsを保ちやすい構成。スト6が目的ならこれで十分です。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "配信・高画質向け",
+        "target": "WQHD 高画質＋配信",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "WQHDの高画質や、対戦しながらの配信・録画をしたい人向け。fpsを伸ばすためではなく、同時作業の余裕のための構成です。",
+        "price": "22万〜27万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 27,
+    "budget": "17万〜27万円前後"
+  },
+  {
+    "id": "arma3",
+    "title": "ARMA 3",
+    "aliases": [
+      "アルマ3",
+      "arma"
+    ],
+    "genre": "ミリタリーFPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2013-09-12",
+    "status": "released",
+    "image": "images/arma3.jpg",
+    "cardText": "古いゲームでも大規模ミッションやMODではCPUが限界に。GPUを盛っても伸びにくい。",
+    "description": "ARMA 3をMODや大規模ミッション込みで快適に遊ぶためのPC構成を、Steamの公式スペックとCPUが効く理由から解説します。",
+    "recommended": "FHD / MOD・大規模ミッション",
+    "point": "公式推奨はCore i7-7700K・メモリ16GB・GTX 1060 6GB。AIやユニットの多い大規模ミッションでは、GPUよりCPUがfpsを決めます。",
+    "caution": "サーバーやミッション側の処理が重い場合は、PCの性能を上げても改善しないことがあります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD MOD・協力プレイ",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "32GB",
+        "band": "fhd-x3d",
+        "comment": "GPUはFHD向けに抑え、CPUとメモリを優先した構成。MODを多く入れた協力プレイでも余裕を持たせています。",
+        "price": "21万〜25万円前後"
+      },
+      {
+        "name": "大規模ミッション向け",
+        "target": "WQHD 大規模MOD",
+        "cpu": "Ryzen 7 9800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "大人数ミッションや重いMODセットを遊ぶ人向け。描画距離を伸ばしても余裕を持たせたい場合に選びます。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 21,
+    "budgetMax": 36,
+    "budget": "21万〜36万円前後"
+  },
+  {
+    "id": "onimusha",
+    "title": "鬼武者 Way of the Sword",
+    "aliases": [
+      "おにむしゃ",
+      "onimusha",
+      "鬼武者"
+    ],
+    "genre": "アクション",
+    "genreGroup": "action",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2026-09-03",
+    "status": "released",
+    "image": "images/onimusha.jpg",
+    "cardText": "2026年9月発売。公式推奨はRTX 2060 Superで「中設定・アップスケーリングでFHD 60fps」。",
+    "description": "鬼武者 Way of the Swordを快適に遊ぶためのPC構成を、Capcom公式スペック（アップスケーリング前提の条件つき）をもとに解説します。",
+    "recommended": "FHD〜WQHD / 高設定",
+    "point": "公式推奨（RTX 2060 Super / RX 6600）は「中設定・アップスケーリングありでFHD 60fps」の目安です。高設定で遊ぶならもう一段上のGPUが安心です。",
+    "caution": "SSDは必須で、50GBの空きが必要です。公式の動作環境はWindows 11です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨より一段上のGPUで、FHDの高設定を狙う構成。DLSS / FSRを組み合わせて60fps以上を安定させやすくなります。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd",
+        "comment": "WQHDの高設定で剣戟の描き込みを楽しみたい人向け。録画や配信をしながら遊ぶ場合もメモリ32GBが安心です。",
+        "price": "25万〜32万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 32,
+    "budget": "17万〜32万円前後"
+  },
+  {
+    "id": "wardogs",
+    "title": "WARDOGS",
+    "aliases": [
+      "ウォードッグス",
+      "wardogs"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "fps"
+    ],
+    "releaseDate": "2026-09-10",
+    "status": "early-access",
+    "image": "images/wardogs.jpg",
+    "cardText": "2026年9月に早期アクセス開始。100人・3チームの大規模戦で、公式推奨はRTX 3070。",
+    "description": "WARDOGS（早期アクセス中）を快適に遊ぶためのPC構成を、Steamの公式スペックと100人規模の戦闘で重くなる要素から解説します。",
+    "recommended": "FHD〜WQHD / 高fps",
+    "point": "公式推奨はRTX 3070 / RX 6700 XT・Core i7-12700K。100人が3チームに分かれて戦い、建築と破壊もあるため、CPUにも余裕が必要です。",
+    "caution": "早期アクセス中のタイトルです。アップデートで必要スペックや重さが変わる可能性があります。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高fps",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "公式推奨（RTX 3070・8コア以上のCPU）と同等以上を満たすFHD構成。大人数戦に備えてCPUは8コアにしています。",
+        "price": "22万〜27万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "公式推奨の「WQHD中設定で70fps以上」より上を狙う構成。乗り物や破壊が重なる場面でもfpsを落としにくくしています。",
+        "price": "29万〜36万円前後"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 36,
+    "budget": "22万〜36万円前後"
+  },
+  {
+    "id": "biohazard-requiem",
+    "title": "バイオハザード レクイエム",
+    "aliases": [
+      "バイオ9",
+      "バイオハザード9",
+      "resident evil requiem",
+      "re9",
+      "バイオ",
+      "レクイエム"
+    ],
+    "genre": "サバイバルホラー",
+    "genreGroup": "action",
+    "level": "普通",
+    "load": 2,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2026-02-27",
+    "status": "released",
+    "image": "images/biohazard-requiem.jpg",
+    "cardText": "公式推奨はRTX 2060 Superで「720p描画をアップスケールしてFHD 60fps」。パストレーシングは別格に重い。",
+    "description": "バイオハザード レクイエムを快適に遊ぶためのPC構成を、Capcom公式スペックとPC版のパストレーシング対応をふまえて解説します。",
+    "recommended": "FHD〜WQHD / 高画質",
+    "point": "公式推奨（RTX 2060 Super / RX 6600）は「内部720pをアップスケーリングしてFHD 60fps」の条件です。ネイティブFHDや高画質を狙うなら一段上のGPUを選びましょう。",
+    "caution": "SSDは必須です。パストレーシングはGeForce RTX向けの機能として案内されており、非常に重い設定です。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高画質",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "公式推奨より一段上のGPUで、FHD高画質を狙う構成。暗い場面の多い本作でも画質を落とさず遊びやすくなります。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "バランス重視",
+        "target": "WQHD レイトレーシング",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd",
+        "comment": "WQHDでレイトレーシングを使いたい人向け。アップスケーリングと組み合わせて画質と滑らかさのバランスを取ります。",
+        "price": "25万〜32万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "4K / パストレーシング",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "パストレーシングを試したい人向け。NVIDIAの案内どおりDLSSのフレーム生成と組み合わせる前提の構成です。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 45,
+    "budget": "17万〜45万円前後"
+  },
+  {
+    "id": "borderlands4",
+    "title": "ボーダーランズ4",
+    "aliases": [
+      "ボダラン4",
+      "ボダラン",
+      "borderlands 4",
+      "bl4"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "非常に重い",
+    "load": 4,
+    "uses": [
+      "quality"
+    ],
+    "releaseDate": "2025-09-12",
+    "status": "released",
+    "image": "images/borderlands4.jpg",
+    "cardText": "最低でも8コアCPU・VRAM 8GBが必須。公式推奨はRTX 3080・メモリ32GBの重量級。",
+    "description": "ボーダーランズ4を快適に遊ぶためのPC構成を、公式スペック（8コアCPU必須などの条件）とアップデートでの改善状況から解説します。",
+    "recommended": "FHD〜WQHD / 高設定",
+    "point": "公式推奨はRTX 3080 / RX 6800 XT・メモリ32GB。最低環境でも8コアCPUとVRAM 8GBが必須と明記されています。",
+    "caution": "SSDは必須で、100GBの空きが必要です。6コアのCPUは最低環境の条件（8コア）を満たしません。",
+    "builds": [
+      {
+        "name": "コスパ重視",
+        "target": "FHD 高設定",
+        "cpu": "Ryzen 7 7700",
+        "gpu": "RTX 5060 Ti",
+        "gpuVram": "16GB版",
+        "gpuAlt": "RX 9060 XT",
+        "gpuAltVram": "16GB版",
+        "memory": "32GB",
+        "band": "fhdplus",
+        "comment": "8コアCPU・メモリ32GBという公式の条件を満たしたうえでの入口。GPUは公式推奨（RTX 3080）よりわずかに下なので、DLSS / FSRの併用が前提です。",
+        "price": "22万〜27万円前後"
+      },
+      {
+        "name": "高画質重視",
+        "target": "WQHD 高設定",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "gpuAlt": "RX 9070 XT",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "公式推奨をしっかり超えるWQHD構成。VRAM 16GBで画質設定にも余裕があります。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 22,
+    "budgetMax": 45,
+    "budget": "22万〜45万円前後"
+  }
 ]

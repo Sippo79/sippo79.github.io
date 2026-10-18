@@ -1,0 +1,44 @@
+{
+  "checked": "2026-10-18",
+  "seoTitle": "Starfield おすすめPC｜必要スペックとMOD・都市部も考えた快適構成",
+  "metaDescription": "Starfield（スターフィールド）の公式必要・推奨スペック（推奨RX 6800 XT / RTX 2080・SSD必須）と、FHD・WQHD別のおすすめPC構成を解説。都市部でCPUが効く理由やMODを入れる場合の注意点もわかります。",
+  "lead": "Starfieldの公式推奨はRX 6800 XT / RTX 2080と、GPUの要求が高めのタイトルです。最低環境でもSSDが必須で、FHDならRTX 5060 Ti 16GB版クラスを目安にしましょう。人の多い都市ではCPUの負荷も大きくなります。",
+  "pick": 0,
+  "recGpuId": "rx-6800-xt",
+  "specTables": [
+    {
+      "title": "Starfield 公式の必要動作環境（Steam）",
+      "columns": ["最低", "推奨"],
+      "rows": [
+        ["OS", "Windows 10 バージョン21H1（10.0.19043）", "Windows 10 / 11（最新アップデート）"],
+        ["CPU", "AMD Ryzen 5 2600X / Intel Core i7-6800K", "AMD Ryzen 5 3600X / Intel Core i5-10600K"],
+        ["GPU", "AMD Radeon RX 5700 / NVIDIA GeForce GTX 1070 Ti", "AMD Radeon RX 6800 XT / NVIDIA GeForce RTX 2080"],
+        ["VRAM", "記載なし", "記載なし"],
+        ["メモリ", "16GB", "16GB"],
+        ["ストレージ", "125GB・SSD必須", "125GB・SSD必須"],
+        ["その他", "DirectX 12", "DirectX 12、ブロードバンド接続"]
+      ],
+      "note": "推奨GPUのRX 6800 XTとRTX 2080は性能に差があります。Sippoのコスパ重視構成のGPU（RTX 5060 Ti）は描画性能でRX 6800 XTをやや下回り、バランス重視構成（RTX 5070 / RX 9070）は上回ります。"
+    }
+  ],
+  "sources": [
+    { "label": "Steam ストアページ（Starfield）", "url": "https://store.steampowered.com/app/1716740/" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 Ti 16GB / RX 9060 XT 16GB", "target": "高設定（アップスケーリング併用）", "note": "描画性能は公式推奨のRX 6800 XTをやや下回ります。MODを入れるならVRAM 16GBが安心です。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高設定（アップスケーリング併用）", "note": "都市部の重さに備えてCPUにも余裕を持たせます。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT 以上", "target": "高設定（アップスケーリング併用）", "note": "4Kはアップスケーリングが前提です。" }
+  ],
+  "tech": "DLSS・FSRなどのアップスケーリングに対応しています。都市部ではCPUの負荷が高くなるため、アップスケーリングでGPUの負担を減らしてもfpsが伸びない場合はCPU側を疑いましょう。",
+  "points": [
+    { "title": "最低環境からSSDが必須", "text": "Starfieldは最低環境でもSSDが必須です。HDDのPCでは遊べないと考えて、空き容量125GB以上のSSDを用意しましょう。" },
+    { "title": "都市部はCPUが効く", "text": "人が多い都市では、表示するキャラクターや処理が増えてCPUの負荷が上がります。宇宙や探索中は快適でも、都市でだけfpsが落ちる場合はCPUが限界になっている可能性があります。" },
+    { "title": "MODを楽しむならVRAMとメモリに余裕を", "text": "ベセスダ作品らしくMODで遊ぶ人も多いタイトルです。高解像度テクスチャなどのMODを入れるなら、VRAM 16GB・メモリ32GBを目安にすると安心です。" }
+  ],
+  "faq": [
+    { "q": "StarfieldはRTX 3060で遊べますか？", "a": "RTX 3060は公式の最低（GTX 1070 Ti）より高く、推奨（RTX 2080）よりやや下の性能です。FHDの中設定前後で、アップスケーリングを使うのが目安です。" },
+    { "q": "StarfieldはHDDでも遊べますか？", "a": "遊べません。公式の最低環境からSSDが必須です。" },
+    { "q": "Starfieldにメモリ32GBは必要ですか？", "a": "公式推奨は16GBです。ゲームだけなら16GBで遊べますが、MODを多く入れる人や配信をする人は32GBにしておくと安心です。" }
+  ],
+  "related": ["cyberpunk2077", "ark", "gta5", "eldenring"]
+}

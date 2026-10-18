@@ -6,7 +6,10 @@
 // v7: 一覧サムネを640px WebP化・詳細ヒーローもWebP化（script.js / 生成ページを更新）。
 // v8: ゲーム個別ページのファイル名を games.json の slug から引くよう変更（script.js / games.json を更新）。
 // v9: GTA5ページを書き下ろし本文に刷新（style.css / games.json を更新。GTA5に4K構成を追加）。
-const CACHE_VERSION = 'v9';
+// v10: 全面リニューアル（style.css・script.js・index.html・games.json を更新。一覧カードを静的化し、script.js は絞り込みのみに）。
+//      生成ページの style.css / script.js / game-affiliate.js には内容ハッシュの ?v= が付く（generate-games.js）。
+//      下の CSS/JS キャッシュ優先でも、URLが変わるので公開直後に旧CSSと新HTMLが混ざらない。
+const CACHE_VERSION = 'v10';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 
