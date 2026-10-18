@@ -18,6 +18,16 @@
 
 ---
 
+## 2026-10-18（5）— GAME PC GUIDE 正式公開・公開後検証
+
+- **修正目的**: 2026-10-18（1）〜（4）の改修を本番（GitHub Pages）へ公開し、公開後の動作を確認する。
+- **公開**: commit `4f62e94`（173ファイル：追加35・削除89・変更49）を `origin/main` へ push（早送り。force push・履歴の書き換えなし）。公開方式は従来どおり main への push による「pages build and deployment」。run 39100830505 が success（2026-10-18 14:32 JST 完了）。
+- **公開後の検証（https://sippo-pc.jp）**: 新規ブラウザで26項目すべてPASS（トップ・全29ページの200/h1/新CSS/新OGP/タイトルタイル、検索・絞り込み・戻る、楽天リンク〔APEX直リンク・4商品は検索〕、SW v10 有効化と旧キャッシュなし、ルート「GPU 65枚」「29タイトル」、GPU GUIDE・PC BUILD CHECK・UPGRADE・PC相談が200、C・D画像へのリクエストなし、4xx/5xx・JSエラーなし）。旧画像89件はすべて404。ogp.jpg・style.css・script.js・games.json・affiliate-master.json・ルート index.html は本番とローカルが一致。
+- **キャッシュありの状態**: デプロイ直前に訪問したブラウザは、GitHub Pages の `Cache-Control: max-age=600` により最大10分間は旧トップを表示した（旧HTML＋旧CSSで一貫しており崩れはない）。期限切れ後の再訪問で新版になり全項目PASS。同じブラウザでの再訪問ではSW経由で新CSSが配信された。
+- **検証できなかったこと**: Playwright の永続プロファイル（ヘッドレス）では Service Worker が有効にならず（新規の空プロファイルでも同じ。検証ツール側の制約と判断）、オフライン表示もツールのオフライン設定がSWの通信に効かないため確認できなかった。実機のスマホ・Safari も未確認。
+- **未対応・次にやること**: `game-pc-guide/tools/post-release-checklist.md` の SNS（OGP）・Google画像検索の確認。
+- **別AIへの引き継ぎ注意点**: GitHub Pages は max-age=600。公開直後10分は旧版が見える利用者がいる。
+
 ## 2026-10-18（4）— GAME PC GUIDE 公開直前の最終整理（C判定画像の削除・OGP作り直し・楽天リンク）
 
 - **修正目的**: 公開前に残った3点（未参照のC判定画像、出所不明のOGP画像、楽天アフィリエイトのリンク切れ）を解消する。

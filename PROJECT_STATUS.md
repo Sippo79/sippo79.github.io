@@ -488,6 +488,9 @@ GitHub Pages（本番）への反映状況。「本番反映済み」= 公開URL
 | 短縮URLの遷移先実測と `linkType` 付与（62件） | ✅ 完了（Amazon25・Yahoo20=search / 楽天17=exact） |
 | ボタン文言の実態統一（exact=価格を見る / search=探す） | ✅ 完了（`isExactLink()` に共通化） |
 | Amazon/Yahooを商品ページ直リンクへ貼り替え | ⏳ 任意（文言は実態に合ったので急ぎではない） |
+| GAME PC GUIDE 全面アップグレード（29タイトル再調査・デザイン刷新・画像権利対応・OGP作り直し） | ✅ 本番反映済み（2026-10-18 commit 4f62e94、公開URLで全29ページ・SW v10・旧画像89件の404を確認） |
+| 楽天の販売終了直リンク4件を検索フォールバック化（rtx5090 / rx7800xt / rx7900gre / rx7900xt） | ✅ 本番反映済み（2026-10-18） |
+| GAME PC GUIDE 公開後のSNS・検索のキャッシュ確認 | ⏳ ユーザー側で確認（`game-pc-guide/tools/post-release-checklist.md`） |
 
 ---
 
