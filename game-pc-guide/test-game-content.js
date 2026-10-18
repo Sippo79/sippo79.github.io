@@ -278,27 +278,56 @@ for (const g of games) {
     }
   }
 }
-// 画像の権利（data/image-rights.json）：表示を許可していない画像をどのページも参照しない
+// 画像の権利・表示ルール（data/image-rights.json）
+//   ・displayPolicy.neverDisplay のタイトルは、どのページ・どの用途にも画像を出さない（ファイルも置かない）
+//   ・display:true は grade A/B か displayBasis "operator-decision" のときだけ。4サイズが揃っていること
+//   ・OGP・構造化データは全ページ共通の ogp.jpg（ゲーム画像は使わない）
 const rights = readJson(path.join(root, "data", "image-rights.json"));
+const NEVER = new Set((rights.displayPolicy && rights.displayPolicy.neverDisplay) || []);
+check(NEVER.size === 7, "非表示維持のタイトルが7件ではない（" + NEVER.size + "件）");
 const allowedFiles = new Set();
+const OGP = 'content="https://sippo-pc.jp/game-pc-guide/images/ogp.jpg"';
 for (const g of games) {
   const r = rights.images[g.id];
   check(!!r, `image-rights.json に ${g.id} の記録が無い`);
   if (!r) continue;
   check(["A", "B", "C", "D"].includes(r.grade) && r.basis, `image-rights.json: ${g.id} の判定・根拠が無い`);
-  check(!(r.display && !["A", "B"].includes(r.grade)), `image-rights.json: ${g.id} は判定${r.grade}なのに表示する設定`);
   const base = r.file.replace(/\.jpg$/, "");
-  if (!r.display) for (const f of [base + ".jpg", base + ".webp", base + "-thumb.webp"]) check(!fs.existsSync(path.join(root, "images", f)), `表示を許可していない画像（判定${r.grade}）が公開ディレクトリに残っている: images/${f}`);
-  if (r.display) [base + ".jpg", base + ".webp", base + "-thumb.webp"].forEach((f) => allowedFiles.add(f));
+  const files = [base + ".jpg", base + ".webp", base + "-thumb.webp", base + "-mini.webp"];
   const page = fs.readFileSync(path.join(root, "games", (g.slug || g.id) + ".html"), "utf8");
-  if (!r.display) check(page.includes('content="https://sippo-pc.jp/game-pc-guide/images/ogp.jpg"'), `${g.id}: 画像を出さないゲームの og:image がサイト共通画像になっていない`);
+  check(page.includes(OGP) && !/"image": "https:\/\/sippo-pc\.jp\/game-pc-guide\/images\/(?!ogp\.jpg)/.test(page), `${g.id}: og:image・構造化データの画像が共通の ogp.jpg ではない`);
+  const heroImg = /class="gp-hero__media">\s*<img/.test(page);
+  if (NEVER.has(g.id)) {
+    check(r.display === false, `${g.id}: 非表示維持なのに display が false ではない`);
+    for (const x of files) check(!fs.existsSync(path.join(root, "images", x)), `${g.id}: 非表示維持の画像が公開ディレクトリにある: images/${x}`);
+    check(!heroImg && page.includes("title-tile--hero"), `${g.id}: 非表示維持なのにヒーローがタイトルタイルではない`);
+  } else if (r.display) {
+    check(["A", "B"].includes(r.grade) || r.displayBasis === "operator-decision", `${g.id}: 判定${r.grade}で表示の根拠（displayBasis）が無いのに表示する設定`);
+    for (const x of files) check(fs.existsSync(path.join(root, "images", x)), `${g.id}: 表示する設定なのに画像が無い: images/${x}`);
+    check(heroImg, `${g.id}: 表示する設定なのにヒーローが画像になっていない`);
+    files.forEach((x) => allowedFiles.add(x));
+  } else {
+    for (const x of files) check(!fs.existsSync(path.join(root, "images", x)), `${g.id}: 表示しない画像が公開ディレクトリにある: images/${x}`);
+  }
 }
-for (const s of Object.values(rights.siteImages)) if (s.display) allowedFiles.add(s.file);
+for (const s2 of Object.values(rights.siteImages)) if (s2.display) allowedFiles.add(s2.file);
 const pagesToScan = [path.join(root, "index.html"), ...fs.readdirSync(path.join(root, "games")).map((f) => path.join(root, "games", f))];
+const neverFiles = new Set();
+for (const id of NEVER) { const r = rights.images[id]; const b = r.file.replace(/\.jpg$/, ""); [".jpg", ".webp", "-thumb.webp", "-mini.webp"].forEach((e) => neverFiles.add(b + e)); }
 for (const p of pagesToScan) {
   const html = fs.readFileSync(p, "utf8");
-  for (const m of html.matchAll(/images\/([a-z0-9-]+(?:-thumb)?\.(?:jpg|webp))/g)) {
+  for (const m of html.matchAll(/images\/([a-z0-9-]+(?:-thumb|-mini)?\.(?:jpg|webp))/g)) {
     check(allowedFiles.has(m[1]), `${path.basename(p)}: 表示を許可していない画像を参照: images/${m[1]}`);
+    check(!neverFiles.has(m[1]), `${path.basename(p)}: 非表示維持のタイトルの画像を参照: images/${m[1]}`);
+  }
+}
+// 一覧カード：非表示維持の7枚はタイル、それ以外は画像
+{
+  const idx = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  for (const g of games) {
+    const m = idx.match(new RegExp('<a class="game-card__link" href="games/' + (g.slug || g.id) + '\\.html">\\s*<div class="game-card__thumb">(<img|<div class="title-tile)'));
+    check(!!m, `index.html: ${g.id} のカードが見つからない`);
+    if (m) check(NEVER.has(g.id) ? m[1] !== "<img" : m[1] === "<img", `index.html: ${g.id} のカードの表示（${m[1]}）がルールと違う`);
   }
 }
 

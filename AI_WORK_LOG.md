@@ -18,6 +18,19 @@
 
 ---
 
+## 2026-10-18（6）— GAME PC GUIDE 7タイトルを除くゲーム画像の復活（未commit）
+
+- **修正目的**: 運営者の判断で、7タイトル（ff14 / cyberpunk2077 / fortnite / minecraft / gta5 / eldenring / overwatch2）を除く22タイトルの既存画像を一覧カード・ヒーロー・新作欄に戻す。7タイトルは画像なしのまま。OGP・構造化データは全ページ共通の自作 ogp.jpg のまま。
+- **変更ファイル**:
+  - 復元: `game-pc-guide/images/` に22タイトル×3（.jpg・.webp・-thumb.webp）＝66ファイル（削除前のコミット 6f3a757 から。新規取得なし）。`valorant.jpg` は中身がWebPだったためChromeで同じ画像をJPEGに変換
+  - 追加: 22タイトルの `-mini.webp`（192px幅。新作欄の96px表示×2倍密度用。既存サムネの縮小のみ）
+  - 修正: `generate-games.js`（表示ルール・srcset/sizes・OGPは常に共通）、`test-game-content.js`（非表示維持の検査）、`style.css`（カードのサムネを画像・タイルとも16:9に統一）、`sw.js`（v11、画像は成功した応答のみキャッシュ）、`data/image-rights.json`（displayPolicy・displayBasis）、`tools/post-release-checklist.md`、再生成物
+- **表示ルール**: display:true かつ（grade A/B または displayBasis "operator-decision"）の画像だけ表示。`displayPolicy.neverDisplay` の7タイトルは表示しない（生成・テストで強制、ファイルも置かない）。表示設定でもファイルが欠けていればタイル表示で生成は続ける（テストは検出）。権利の grade（C/D）は変更していない。
+- **解像度**: カードは640px版（srcsetで1200px版も候補）、ヒーローは srcset により1倍密度では640px版・高密度では1200px版、新作欄は192px版。
+- **検証**: 既存テスト11本成功、test-game-content OK（誤設定3種で検出を確認）、再生成3回一致、html-validate・CSS構文エラー0、31ページ×3幅で横はみ出し・CLS・JSエラー0、全ページ×3幅で7タイトルの画像へのリクエスト0、ヒーローのルール違反0、SW v10→v11 切り替えPASS。
+- **注意点**: 復活した22タイトルのうち apex / battlefield / valorant / lol / genshin は調査で判定D（各社ポリシー上、事業者サイトでの利用は対象外）、残り17は判定C（条件未確認）。表示は運営者の判断であり許諾を得たものではない。
+- **未対応**: commit・push・デプロイは未実施（指示どおり）。
+
 ## 2026-10-18（5）— GAME PC GUIDE 正式公開・公開後検証
 
 - **修正目的**: 2026-10-18（1）〜（4）の改修を本番（GitHub Pages）へ公開し、公開後の動作を確認する。

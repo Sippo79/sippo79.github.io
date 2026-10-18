@@ -9,7 +9,9 @@
 // v10: 全面リニューアル（style.css・script.js・index.html・games.json を更新。一覧カードを静的化し、script.js は絞り込みのみに）。
 //      生成ページの style.css / script.js / game-affiliate.js には内容ハッシュの ?v= が付く（generate-games.js）。
 //      下の CSS/JS キャッシュ優先でも、URLが変わるので公開直後に旧CSSと新HTMLが混ざらない。
-const CACHE_VERSION = 'v10';
+// v11: 7タイトルを除きゲーム画像を復活（images/*.webp・-mini.webp を追加）。v10 は画像の 404 もキャッシュしていたため、
+//      版を上げて古いキャッシュを捨て、画像は成功した応答（response.ok）だけをキャッシュするように修正。
+const CACHE_VERSION = 'v11';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 
@@ -111,7 +113,8 @@ self.addEventListener('fetch', event => {
       caches.match(request).then(cached => {
         if (cached) return cached;
         return fetch(request).then(response => {
-          caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
+          // 404 などの失敗した応答はキャッシュしない（画像を戻しても 404 が残り続けるのを防ぐ）
+          if (response.ok) caches.open(CACHE_NAME).then(cache => cache.put(request, response.clone()));
           return response;
         }).catch(() => new Response('', { status: 404 }));
       })

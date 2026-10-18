@@ -1,5 +1,5 @@
 {
-  "_readme": "ゲーム画像の権利確認の記録（2026-10-18 調査）。generate-games.js は display が true の画像だけをページに出し、それ以外はゲームの著作物を含まない「タイトルタイル」（CSSのみ）で代替する。表示を許可していない画像（C・D）は公開ディレクトリから削除済み（2026-10-18。git履歴には残る）。許諾を得たら images/ に <id>.jpg・<id>.webp・<id>-thumb.webp を置き、grade・basis・display を更新して再生成する。根拠のない許諾をここに書かないこと。",
+  "_readme": "ゲーム画像の権利確認の記録（2026-10-18 調査）と表示可否。generate-games.js は display が true で、grade が A/B か displayBasis が operator-decision の画像だけを一覧カード・ヒーローに出す（OGP・構造化データには使わない）。displayPolicy.neverDisplay のタイトルは何があっても表示しない。表示しない画像は公開ディレクトリに置かない。根拠のない許諾をここに書かないこと。",
   "checked": "2026-10-18",
   "context": "Sippo（sippo-pc.jp）はアフィリエイト広告と有料のPC相談サービスへの導線を持つ事業者のサイトであり、各社の「個人・非商用のファン活動」向け許諾の範囲には入らないものとして判定した。画像はロゴ入りの公式キービジュアルとみられるが、入手先の記録が無い（git上は 2026-06-02「Add files via upload」/ 2026-09-17 の新作追加コミットのみ。ファイル内メタデータに作成者・権利情報なし）。",
   "quotation": "著作権法第32条の引用は、目的上正当な範囲・公正な慣行（明瞭区別性・主従関係・出所明示）が必要。ヘッダーや一覧サムネイルとしての装飾的な掲載は本文で論じる対象ではなく、引用には当たりにくいと判断（最終判断は専門家への確認が望ましい）。https://laws.e-gov.go.jp/law/345AC0000000048",
@@ -14,45 +14,49 @@
       "file": "apex.jpg",
       "rightsHolder": "Electronic Arts / Respawn",
       "grade": "D",
-      "display": false,
+      "display": true,
       "basis": "EAのコンテンツポリシーは個人の利用（受動的なバナー広告のファンサイトを含む）を認めるが、商用利用は不可で、それ以外は許可申請が必要。事業者サイトでの公式アートの掲載は対象外。",
       "urls": [
         "https://help.ea.com/en/articles/security-and-rules/ea-content-policy/"
       ],
-      "verifiedBy": "検索結果の要約で確認（ページ本文は取得タイムアウト）"
+      "verifiedBy": "検索結果の要約で確認（ページ本文は取得タイムアウト）",
+      "displayBasis": "operator-decision"
     },
     "battlefield": {
       "file": "battlefield.jpg",
       "rightsHolder": "Electronic Arts",
       "grade": "D",
-      "display": false,
+      "display": true,
       "basis": "apex と同じEAのポリシー。ロゴの使用にも注意喚起あり。",
       "urls": [
         "https://help.ea.com/en/articles/security-and-rules/ea-content-policy/"
       ],
-      "verifiedBy": "検索結果の要約で確認"
+      "verifiedBy": "検索結果の要約で確認",
+      "displayBasis": "operator-decision"
     },
     "valorant": {
       "file": "valorant.jpg",
       "rightsHolder": "Riot Games",
       "grade": "D",
-      "display": false,
+      "display": true,
       "basis": "Riotの「Legal Jibber Jabber」は事業者・法人が関わるプロジェクトに書面ライセンスを要求し、ライセンスなしでのロゴ・商標の使用を禁止。画像にはロゴが入っている。",
       "urls": [
         "https://www.riotgames.com/en/legal"
       ],
-      "verifiedBy": "公式ページ本文を取得して確認"
+      "verifiedBy": "公式ページ本文を取得して確認",
+      "displayBasis": "operator-decision"
     },
     "lol": {
       "file": "lol.jpg",
       "rightsHolder": "Riot Games",
       "grade": "D",
-      "display": false,
+      "display": true,
       "basis": "valorant と同じ。画像にロゴが入っている。",
       "urls": [
         "https://www.riotgames.com/en/legal"
       ],
-      "verifiedBy": "公式ページ本文を取得して確認"
+      "verifiedBy": "公式ページ本文を取得して確認",
+      "displayBasis": "operator-decision"
     },
     "ff14": {
       "file": "ff14.jpg",
@@ -63,7 +67,8 @@
       "urls": [
         "https://support.na.square-enix.com/rule.php?id=5382&la=1&tag=authc"
       ],
-      "verifiedBy": "公式ページ本文を取得して確認（北米版）"
+      "verifiedBy": "公式ページ本文を取得して確認（北米版）",
+      "displayBasis": "never-display"
     },
     "gta5": {
       "file": "gta5.jpg",
@@ -74,7 +79,8 @@
       "urls": [
         "https://support.rockstargames.com/articles/7bNaeoMFTV0iUDGhStTXvz"
       ],
-      "verifiedBy": "検索結果の要約で確認（ページ本文は取得タイムアウト）"
+      "verifiedBy": "検索結果の要約で確認（ページ本文は取得タイムアウト）",
+      "displayBasis": "never-display"
     },
     "cyberpunk2077": {
       "file": "cyberpunk2077.jpg",
@@ -85,7 +91,8 @@
       "urls": [
         "https://www.cdprojektred.com/en/fan-content"
       ],
-      "verifiedBy": "公式ページ本文を取得して確認"
+      "verifiedBy": "公式ページ本文を取得して確認",
+      "displayBasis": "never-display"
     },
     "fortnite": {
       "file": "fortnite.jpg",
@@ -97,7 +104,8 @@
         "https://www.epicgames.com/site/fan-art-policy",
         "https://www.epicgames.com/help/c-202300000001619/c-202300000001672/can-i-use-fortnite-and-epic-games-images-or-content-on-my-website-or-for-personal-projects-a202300000017076"
       ],
-      "verifiedBy": "検索結果の要約で確認（ページ本文は403）"
+      "verifiedBy": "検索結果の要約で確認（ページ本文は403）",
+      "displayBasis": "never-display"
     },
     "minecraft": {
       "file": "minecraft.jpg",
@@ -109,7 +117,8 @@
         "https://www.minecraft.net/en-us/usage-guidelines",
         "https://www.minecraft.net/en-us/article/commercial-use-guidelines-updated"
       ],
-      "verifiedBy": "検索結果の要約で確認"
+      "verifiedBy": "検索結果の要約で確認",
+      "displayBasis": "never-display"
     },
     "eldenring": {
       "file": "eldenring.jpg",
@@ -120,18 +129,20 @@
       "urls": [
         "https://www.famitsu.com/news/202202/21252160.html"
       ],
-      "verifiedBy": "報道経由（2022年時点）"
+      "verifiedBy": "報道経由（2022年時点）",
+      "displayBasis": "never-display"
     },
     "genshin": {
       "file": "genshin.jpg",
       "rightsHolder": "HoYoverse",
       "grade": "D",
-      "display": false,
+      "display": true,
       "basis": "報道によると、ファンの二次創作は個人・法人格のない団体の非商用に限られ、法人の利用は事前の連絡・個別判断。公式画像の転載の許諾は確認できない。報道間で記述が食い違うため本文の確認が必要。",
       "urls": [
         "https://gameworldobserver.com/?p=12636"
       ],
-      "verifiedBy": "報道経由（ガイドライン本文は未取得）"
+      "verifiedBy": "報道経由（ガイドライン本文は未取得）",
+      "displayBasis": "operator-decision"
     },
     "overwatch2": {
       "file": "overwatch2.jpg",
@@ -142,176 +153,194 @@
       "urls": [
         "https://www.blizzard.com/en-us/legal/dd76b654-f2c4-4aaa-ba49-ca3122de2376/blizzard-video-policy"
       ],
-      "verifiedBy": "検索結果の要約で確認"
+      "verifiedBy": "検索結果の要約で確認",
+      "displayBasis": "never-display"
     },
     "cod": {
       "file": "cod.jpg",
       "rightsHolder": "Activision",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "Call of Dutyの公式アートのウェブ利用に関するポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "starfield": {
       "file": "starfield.jpg",
       "rightsHolder": "Bethesda Softworks（Microsoft）",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "MicrosoftのGame Content Usage Rulesは商用サイトでの宣伝利用に許可が必要で、他の商品・サービスを売るページへの掲載を禁止。ただしBethesda作品に適用されるかは確認できない（適用されるならD）。",
       "urls": [
         "https://www.xbox.com/en-US/developers/rules"
       ],
-      "verifiedBy": "公式ページ本文を取得して確認（Bethesdaへの適用は未確認）"
+      "verifiedBy": "公式ページ本文を取得して確認（Bethesdaへの適用は未確認）",
+      "displayBasis": "operator-decision"
     },
     "mhwilds": {
       "file": "mhwilds.jpg",
       "rightsHolder": "CAPCOM",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "カプコンの二次創作ガイドラインは営利目的を原則不可、動画ガイドラインは個人向けで法人は対象外。公式画像を商用サイトに転載する条件は見つからない。",
       "urls": [
         "https://www.gamebusiness.jp/article/2025/11/06/25422.html"
       ],
-      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）"
+      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）",
+      "displayBasis": "operator-decision"
     },
     "streetfighter6": {
       "file": "streetfighter6.jpg",
       "rightsHolder": "CAPCOM",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "mhwilds と同じ。",
       "urls": [
         "https://www.gamebusiness.jp/article/2025/11/06/25422.html"
       ],
-      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）"
+      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）",
+      "displayBasis": "operator-decision"
     },
     "onimusha": {
       "file": "onimusha.jpg",
       "rightsHolder": "CAPCOM",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "mhwilds と同じ。",
       "urls": [
         "https://www.gamebusiness.jp/article/2025/11/06/25422.html"
       ],
-      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）"
+      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）",
+      "displayBasis": "operator-decision"
     },
     "biohazard-requiem": {
       "file": "biohazard-requiem.jpg",
       "rightsHolder": "CAPCOM",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "mhwilds と同じ。",
       "urls": [
         "https://www.gamebusiness.jp/article/2025/11/06/25422.html"
       ],
-      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）"
+      "verifiedBy": "報道経由（カプコン公式ガイドライン本文のURLは特定できず）",
+      "displayBasis": "operator-decision"
     },
     "rainbowsixsiege": {
       "file": "rainbowsixsiege.jpg",
       "rightsHolder": "Ubisoft",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "Ubisoftの動画ポリシーは動画の収益化を認めるが、公式トレーラー等の単純な複製は不可。静止画・公式アートのウェブ掲載条件は見つからない。",
       "urls": [
         "https://www.ubisoft.com/legal/documents/videopolicy"
       ],
-      "verifiedBy": "検索結果の要約で確認"
+      "verifiedBy": "検索結果の要約で確認",
+      "displayBasis": "operator-decision"
     },
     "tarkov": {
       "file": "tarkov.jpg",
       "rightsHolder": "Battlestate Games",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "rust": {
       "file": "rust.jpg",
       "rightsHolder": "Facepunch Studios",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "ark": {
       "file": "ark.jpg",
       "rightsHolder": "Studio Wildcard",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "pubg": {
       "file": "pubg.jpg",
       "rightsHolder": "KRAFTON",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない（コミュニティガイドラインの話題のみ）。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "palworld": {
       "file": "palworld.jpg",
       "rightsHolder": "Pocketpair",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "公式のファンコンテンツ・画像利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "helldivers2": {
       "file": "helldivers2.jpg",
       "rightsHolder": "Sony Interactive Entertainment / Arrowhead",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "blackdesert": {
       "file": "blackdesert.jpg",
       "rightsHolder": "Pearl Abyss",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "クリエイター向けパートナープログラムの規定のみで、公式画像のウェブ掲載条件は見つからない。",
       "urls": [
         "https://blackdesert.pearlabyss.com/asia/en-us/Game/Partners"
       ],
-      "verifiedBy": "検索結果の要約で確認"
+      "verifiedBy": "検索結果の要約で確認",
+      "displayBasis": "operator-decision"
     },
     "arma3": {
       "file": "arma3.jpg",
       "rightsHolder": "Bohemia Interactive",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない（サーバー収益化ルールへの言及のみ）。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     },
     "wardogs": {
       "file": "wardogs.jpg",
       "rightsHolder": "Bulkhead / Team17",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "Team17のプレス＆クリエイター向けページ（キーアート・ロゴ等）がある旨の記載はあるが、利用条件は確認できない。手元の画像がそこから入手したものかも不明。",
       "urls": [
         "https://www.team17.com/press-and-creator-hub"
       ],
-      "verifiedBy": "検索結果の要約で確認（利用条件は未確認）"
+      "verifiedBy": "検索結果の要約で確認（利用条件は未確認）",
+      "displayBasis": "operator-decision"
     },
     "borderlands4": {
       "file": "borderlands4.jpg",
       "rightsHolder": "Gearbox / 2K",
       "grade": "C",
-      "display": false,
+      "display": true,
       "basis": "画像の利用ポリシーは見つからない。",
       "urls": [],
-      "verifiedBy": "調査で見つからず"
+      "verifiedBy": "調査で見つからず",
+      "displayBasis": "operator-decision"
     }
   },
   "siteImages": {
@@ -324,5 +353,20 @@
       "urls": [],
       "verifiedBy": "作成手順の記録（tools/ogp.html）"
     }
+  },
+  "displayPolicy": {
+    "decidedAt": "2026-10-18",
+    "decidedBy": "運営者（Sippo）",
+    "summary": "権利の確認状況（grade）は変えずに、運営上の判断で次の7タイトルを除く既存画像を表示に戻す。7タイトルは画像を一切使わない（非表示維持）。OGP・構造化データの画像は全ページ共通の ogp.jpg のまま。",
+    "neverDisplay": [
+      "ff14",
+      "cyberpunk2077",
+      "fortnite",
+      "minecraft",
+      "gta5",
+      "eldenring",
+      "overwatch2"
+    ],
+    "note": "grade は 2026-10-18 の調査結果のまま。displayBasis が operator-decision の画像は、許諾を確認できたものではなく運営者の判断で表示している。権利者から求めがあれば display を false にして画像を外す。"
   }
 }

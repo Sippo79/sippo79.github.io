@@ -296,20 +296,56 @@ const sizeAttr = (rel) => { const [w, h] = imageSize(rel); return `width="${w}" 
 /* ------------------------------------------------------------------ */
 /*  ゲーム画像の表示可否（data/image-rights.json）                       */
 /* ------------------------------------------------------------------ */
-//  画像は権利確認の記録で display:true（判定 A / B）のものだけを出す。
-//  それ以外はゲームの著作物を含まない「タイトルタイル」（CSSと自作の図形アイコンのみ）で代替する。
+//  画像は記録で display:true のものだけを一覧カード・ヒーローに出す。表示できるのは
+//    ・grade が A / B（許諾を確認できた）
+//    ・displayBasis が "operator-decision"（許諾は未確認だが運営者の判断で表示。2026-10-18〜）
+//  のどちらか。displayPolicy.neverDisplay のタイトルは何があっても出さない。
+//  OGP・構造化データの画像はゲーム画像を使わず、常に共通の ogp.jpg。
+//  表示しないゲームはゲームの著作物を含まない「タイトルタイル」（CSSと自作の図形アイコンのみ）で代替する。
 const rights = readJson(path.join(ROOT, "data", "image-rights.json"));
+const NEVER = new Set((rights.displayPolicy && rights.displayPolicy.neverDisplay) || []);
 const SITE_OGP = { url: `${BASE}/images/ogp.jpg`, width: 1200, height: 630 };
-function showImage(g) {
+/** 1タイトル分の画像ファイル（ヒーロー1200px・サムネ640px・ミニ192px。原本 .jpg は保管用） */
+const imageSet = (g) => {
+  const base = String(g.image).replace(/.(jpe?g|png|webp)$/i, "");
+  return { jpg: base + ".jpg", hero: base + ".webp", thumb: base + "-thumb.webp", mini: base + "-mini.webp" };
+};
+const allowedToShow = (g) => {
   const r = rights.images[g.id];
-  return !!(r && r.display === true && ["A", "B"].includes(r.grade) && fs.existsSync(path.join(ROOT, g.image)));
+  return !!(r && r.display === true && !NEVER.has(g.id) && (["A", "B"].includes(r.grade) || r.displayBasis === "operator-decision"));
+};
+/** 表示してよく、かつ画像ファイルが揃っているときだけ true（欠けていてもタイル表示で生成は続ける） */
+function showImage(g) {
+  if (!allowedToShow(g)) return false;
+  const set = imageSet(g);
+  return ["hero", "thumb", "mini"].every((k) => fs.existsSync(path.join(ROOT, set[k])));
 }
 for (const g of games) {
   const r = rights.images[g.id];
+  const set = imageSet(g);
   if (!r) fail(`image-rights.json に ${g.id} の記録がありません`);
-  else if (r.display === true && !["A", "B"].includes(r.grade)) fail(`image-rights.json: ${g.id} は判定 ${r.grade} なのに display:true`);
-  // 表示を許可していない画像（C・D）は公開ディレクトリに置かない。許諾が取れたら画像を戻し、grade・basis・display を更新する
-  else if (!r.display && fs.existsSync(path.join(ROOT, g.image))) fail(`image-rights.json: ${g.id} は表示を許可していない（判定 ${r.grade}）ので ${g.image} を公開ディレクトリから外してください`);
+  else if (NEVER.has(g.id) && r.display) fail(`image-rights.json: ${g.id} は非表示維持（neverDisplay）なのに display:true`);
+  else if (r.display === true && !allowedToShow(g)) fail(`image-rights.json: ${g.id} は判定 ${r.grade} で表示の根拠（displayBasis）が無いのに display:true`);
+  // 表示しない画像は公開ディレクトリに置かない
+  else if (!allowedToShow(g)) {
+    for (const k of Object.keys(set)) if (fs.existsSync(path.join(ROOT, set[k]))) fail(`image-rights.json: ${g.id} は表示しない画像なので ${set[k]} を公開ディレクトリから外してください`);
+  } else if (!showImage(g)) {
+    console.warn(`注意: ${g.id} は表示する設定だが画像ファイルが揃っていないため、タイル表示にしました`);
+  }
+}
+/** img 要素（srcset で表示幅に合った解像度を選ばせる） */
+function gameImg(g, prefix, kind) {
+  const set = imageSet(g);
+  if (kind === "mini") {
+    return `<img src="${prefix}${esc(set.mini)}" alt="" ${sizeAttr(set.mini)} loading="lazy" decoding="async">`;
+  }
+  const [tw] = imageSize(set.thumb);
+  const [hw] = imageSize(set.hero);
+  const srcset = `${prefix}${esc(set.thumb)} ${tw}w, ${prefix}${esc(set.hero)} ${hw}w`;
+  if (kind === "hero") {
+    return `<img src="${prefix}${esc(set.hero)}" srcset="${srcset}" sizes="(max-width: 900px) calc(100vw - 32px), 520px" alt="${esc(g.title)}のタイトル画像" ${sizeAttr(set.hero)} decoding="async" fetchpriority="high" />`;
+  }
+  return `<img src="${prefix}${esc(set.thumb)}" srcset="${srcset}" sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 900px) 50vw, 360px" alt="" ${sizeAttr(set.thumb)} loading="lazy" decoding="async">`;
 }
 
 /** ジャンルごとの図形アイコン（自作の幾何学図形。ゲームの著作物は含まない） */
@@ -346,7 +382,7 @@ function card(g, prefix, headingTag) {
   const h = headingTag || "h3";
   return `<li class="game-card" data-search="${esc(search)}" data-genre="${g.genreGroup}" data-load="${g.load}" data-budget="${band.min}" data-uses="${(g.uses || []).join(" ")}">
   <a class="game-card__link" href="${prefix}games/${slug}.html">
-    <div class="game-card__thumb">${showImage(g) ? `<img src="${prefix}${esc(thumbOf(g))}" alt="" ${sizeAttr(thumbOf(g))} loading="lazy" decoding="async">` : titleTile(g)}</div>
+    <div class="game-card__thumb">${showImage(g) ? gameImg(g, prefix, "card") : titleTile(g)}</div>
     <div class="game-card__body">
       <p class="game-card__tags"><span class="chip">${esc(g.genre)}</span>${statusChip(g)}</p>
       <${h} class="game-card__title">${esc(g.title)}</${h}>
@@ -510,7 +546,7 @@ function renderPage(g) {
       url: canonical,
       inLanguage: "ja",
       dateModified: LASTMOD,
-      image: showImage(g) ? `${BASE}/${g.image}` : SITE_OGP.url,
+      image: SITE_OGP.url,
       about: { "@type": "VideoGame", name: g.title },
       isPartOf: { "@type": "WebSite", name: "GAME PC GUIDE", url: BASE + "/" },
       publisher: { "@type": "Organization", name: "Sippo", url: SITE + "/" },
@@ -663,7 +699,6 @@ ${guide.faq.map((f) => `            <details class="faq-item">\n              <s
         </section>`;
   }
 
-  const heroImg = heroImageOf(g);
   const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -676,16 +711,16 @@ ${guide.faq.map((f) => `            <details class="faq-item">\n              <s
 
   <meta property="og:title" content="${esc(guide.seoTitle)}" />
   <meta property="og:description" content="${esc(guide.metaDescription)}" />
-  <meta property="og:image" content="${showImage(g) ? `${BASE}/${esc(g.image)}` : SITE_OGP.url}" />${showImage(g) ? "" : `
+  <meta property="og:image" content="${SITE_OGP.url}" />
   <meta property="og:image:width" content="${SITE_OGP.width}" />
-  <meta property="og:image:height" content="${SITE_OGP.height}" />`}
+  <meta property="og:image:height" content="${SITE_OGP.height}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="${canonical}" />
   <meta property="og:site_name" content="GAME PC GUIDE" />
   <meta property="og:locale" content="ja_JP" />
   <meta name="twitter:card" content="summary_large_image" />
 
-${showImage(g) ? `  <link rel="preload" as="image" href="../${esc(heroImg)}" fetchpriority="high" />
+${showImage(g) ? `  <link rel="preload" as="image" href="../${esc(imageSet(g).hero)}" imagesrcset="../${esc(imageSet(g).thumb)} ${imageSize(imageSet(g).thumb)[0]}w, ../${esc(imageSet(g).hero)} ${imageSize(imageSet(g).hero)[0]}w" imagesizes="(max-width: 900px) calc(100vw - 32px), 520px" fetchpriority="high" />
 ` : ""}  <link rel="stylesheet" href="../style.css?v=${VER.css}" />
   <link rel="stylesheet" href="/shared/nav/sippo-nav.css" />
   <link rel="stylesheet" href="/shared/affiliate/affiliate.css" />
@@ -723,7 +758,7 @@ ${header("../")}
     <section class="gp-hero">
       <div class="container gp-hero__inner">
         <div class="gp-hero__media">
-          ${showImage(g) ? `<img src="../${esc(heroImg)}" alt="${esc(g.title)}のタイトル画像" ${sizeAttr(heroImg)} decoding="async" fetchpriority="high" />` : titleTile(g, "hero")}
+          ${showImage(g) ? gameImg(g, "../", "hero") : titleTile(g, "hero")}
         </div>
         <div class="gp-hero__text">
           <p class="gp-hero__chips"><span class="chip">${esc(g.genre)}</span><span class="chip chip--load">${loadMeter(g.load)}PC負荷：${esc(g.level)}</span>${statusChip(g)}</p>
@@ -798,7 +833,7 @@ function renderIndex(src) {
   const newGames = games.filter((g) => isNew(g) || g.status === "early-access").sort((a, b) => (a.releaseDate < b.releaseDate ? 1 : -1));
   const featured = newGames
     .map(
-      (g) => `<li><a class="new-item" href="games/${slugOf(g)}.html">${showImage(g) ? `<img src="${esc(thumbOf(g))}" alt="" ${sizeAttr(thumbOf(g))} loading="lazy" decoding="async">` : titleTile(g, "mini")}<span class="new-item__body"><span class="new-item__date">${jpMonth(g.releaseDate)}${g.status === "early-access" ? " 早期アクセス開始" : g.id === "palworld" ? " 正式版" : " 発売"}</span><span class="new-item__title">${esc(g.title)}</span><span class="new-item__meta">${esc(g.level)} ／ ${esc(prices.bands[pickBuild(g).band].label)}</span></span></a></li>`
+      (g) => `<li><a class="new-item" href="games/${slugOf(g)}.html">${showImage(g) ? gameImg(g, "", "mini") : titleTile(g, "mini")}<span class="new-item__body"><span class="new-item__date">${jpMonth(g.releaseDate)}${g.status === "early-access" ? " 早期アクセス開始" : g.id === "palworld" ? " 正式版" : " 発売"}</span><span class="new-item__title">${esc(g.title)}</span><span class="new-item__meta">${esc(g.level)} ／ ${esc(prices.bands[pickBuild(g).band].label)}</span></span></a></li>`
     )
     .join("\n");
   const itemList = {

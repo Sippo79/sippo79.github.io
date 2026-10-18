@@ -1128,8 +1128,8 @@ table { border-collapse: collapse; }
 @supports not (background: color-mix(in srgb, red 10%, transparent)) {
   .title-tile { background: repeating-linear-gradient(135deg, rgba(148, 163, 184, 0.05) 0 1px, transparent 1px 14px), linear-gradient(160deg, var(--surface-3), var(--surface)); }
 }
-/* 一覧カードのタイルは、すぐ下にゲーム名があるので名前を出さず、高さも抑える */
-.game-card__thumb:has(.title-tile) { aspect-ratio: 16 / 6; }
+/* 一覧カードのタイルは、すぐ下にゲーム名があるので名前を出さない。
+   画像のカードと同じ行に並ぶので、高さは画像と同じ 16:9 のまま（2026-10-18 一部画像の復活に合わせて変更） */
 .game-card__thumb .title-tile__name,
 .game-card__thumb .title-tile__genre { display: none; }
 .game-card__thumb .title-tile__icon { top: 50%; left: 50%; right: auto; transform: translate(-50%, -50%); width: 22%; max-width: 72px; opacity: 0.7; }

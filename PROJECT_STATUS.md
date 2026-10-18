@@ -345,7 +345,8 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
 
 ### 優先度B
 - **GAME PC GUIDE の情報の定期更新**: `price-bands.json` を月1回見直す。原神（公式一次情報で最新PCスペック未確認）・黒い砂漠（日本版の動作環境未確認）は確認できたら guide.json を更新。CoDはMW4発売（2026-10-22）後に更新。
-- **GAME PC GUIDE のゲーム画像**（2026-10-18 対応済み）: 30枚を調査し C18 / D11 の画像はすべて公開ディレクトリから削除、全ゲームを画像なしのタイトルタイル表示に。OGP画像は外部素材なしで作り直した（元データ `game-pc-guide/tools/ogp.html`）。記録は `game-pc-guide/data/image-rights.json`。画像を戻すには権利者の許諾が必要。公開後は `game-pc-guide/tools/post-release-checklist.md` で旧画像URLの404とSNS・検索のキャッシュを確認する。
+- **GAME PC GUIDE のゲーム画像の一部復活**（2026-10-18・未公開）: 運営者の判断で7タイトル（ff14 / cyberpunk2077 / fortnite / minecraft / gta5 / eldenring / overwatch2）を除く22タイトルの既存画像を戻した（`image-rights.json` の displayPolicy / displayBasis "operator-decision"。grade は C/D のまま＝許諾は未確認）。commit・push 待ち。
+- **GAME PC GUIDE のゲーム画像**（2026-10-18 対応済み・上記で一部変更）: 30枚を調査し C18 / D11 の画像はすべて公開ディレクトリから削除、全ゲームを画像なしのタイトルタイル表示に。OGP画像は外部素材なしで作り直した（元データ `game-pc-guide/tools/ogp.html`）。記録は `game-pc-guide/data/image-rights.json`。画像を戻すには権利者の許諾が必要。公開後は `game-pc-guide/tools/post-release-checklist.md` で旧画像URLの404とSNS・検索のキャッシュを確認する。
 - ~~楽天アフィリエイトリンクの切れ~~ → 2026-10-18 対応済み（RTX 5090・RX 7800 XT・RX 7900 GRE・RX 7900 XT を検索フォールバックへ。RTX 5070 は再確認で正常）。月1回の `scripts/check-affiliate-links.js` は継続。
 - **ルート sw.js が他サイトのキャッシュも削除する**: activate で `CACHE_NAME` 以外を全削除するため game-pc-guide 等のキャッシュも消える（表示の新しさには影響なし。削除対象を自分の接頭辞に限定するのが望ましい）。
 - ~~ルート index.html の「GPU 28枚掲載」~~ → 2026-10-18 に65枚（GPU GUIDE の個別ページ数・gpus.json と一致）へ修正済み。GPUを増減したらルート index.html の4か所（サービスカード・説明文・統計の data-count・ロードマップ）も直す。
