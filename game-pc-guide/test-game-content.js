@@ -321,13 +321,16 @@ for (const p of pagesToScan) {
     check(!neverFiles.has(m[1]), `${path.basename(p)}: 非表示維持のタイトルの画像を参照: images/${m[1]}`);
   }
 }
-// 一覧カード：非表示維持の7枚はタイル、それ以外は画像
+// 一覧カード：表示する設定（display:true）の画像だけが画像、非表示維持・未確認（display:false）はタイル
+//   （2026-10-23〜 MW4 のように、利用条件を確認できないため最初から画像を置かないタイトルがある）
 {
   const idx = fs.readFileSync(path.join(root, "index.html"), "utf8");
   for (const g of games) {
     const m = idx.match(new RegExp('<a class="game-card__link" href="games/' + (g.slug || g.id) + '\\.html">\\s*<div class="game-card__thumb">(<img|<div class="title-tile)'));
     check(!!m, `index.html: ${g.id} のカードが見つからない`);
-    if (m) check(NEVER.has(g.id) ? m[1] !== "<img" : m[1] === "<img", `index.html: ${g.id} のカードの表示（${m[1]}）がルールと違う`);
+    const r = rights.images[g.id];
+    const shouldImg = !NEVER.has(g.id) && !!(r && r.display);
+    if (m) check(shouldImg ? m[1] === "<img" : m[1] !== "<img", `index.html: ${g.id} のカードの表示（${m[1]}）がルールと違う`);
   }
 }
 

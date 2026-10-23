@@ -12,8 +12,8 @@
     "modified": "2026-10-18"
   },
   "games/battlefield": {
-    "hash": "95d082abe5dec2ff",
-    "modified": "2026-10-18"
+    "hash": "701166846668963e",
+    "modified": "2026-10-23"
   },
   "games/biohazard-requiem": {
     "hash": "1e364f212b941bed",
@@ -28,8 +28,8 @@
     "modified": "2026-10-18"
   },
   "games/cod": {
-    "hash": "554ae16cdc6a8fbb",
-    "modified": "2026-10-18"
+    "hash": "35238059429dcfbc",
+    "modified": "2026-10-23"
   },
   "games/cyberpunk2077": {
     "hash": "3e9fd27f7565e824",
@@ -67,6 +67,10 @@
     "hash": "7f1da1671399a6a7",
     "modified": "2026-10-18"
   },
+  "games/modern-warfare-4": {
+    "hash": "1b75c81d403986d8",
+    "modified": "2026-10-23"
+  },
   "games/monster-hunter": {
     "hash": "effd9fa692609021",
     "modified": "2026-10-18"
@@ -88,8 +92,8 @@
     "modified": "2026-10-18"
   },
   "games/rainbowsixsiege": {
-    "hash": "d5900ff55baf12ee",
-    "modified": "2026-10-18"
+    "hash": "8c7068db2e1a4a94",
+    "modified": "2026-10-23"
   },
   "games/rust": {
     "hash": "60262322ca9e72f8",
@@ -112,11 +116,11 @@
     "modified": "2026-10-18"
   },
   "games/wardogs": {
-    "hash": "2116e27e6ea4057a",
-    "modified": "2026-10-18"
+    "hash": "3c8e7e2d2594dcd7",
+    "modified": "2026-10-23"
   },
   "index": {
-    "hash": "2c50cfae20a6f83f",
-    "modified": "2026-10-18"
+    "hash": "8e7371bc9843960a",
+    "modified": "2026-10-23"
   }
 }

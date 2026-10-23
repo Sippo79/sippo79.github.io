@@ -145,10 +145,15 @@ function statusChip(g) {
   return "";
 }
 
-/** 「新作」= 確認日から1年以内に発売・正式版になったタイトル（主観の人気順位は作らない） */
+/** 「新作」= 確認日から1年以内に発売・正式版になったタイトル（主観の人気順位は作らない）
+ *  確認日は「価格の確認日」と「各ページの公式スペック確認日」のうち最も新しい日。
+ *  価格の確認日より後に発売された新作（2026-10-23 の MW4 など）も、公式情報を確認した時点で新作に入る。
+ *  実行日を使わないのは、同じデータなら何度生成しても同じ出力にするため */
+let newBaseDate = null;
 function isNew(g) {
   if (!g.releaseDate) return false;
-  const days = (new Date(prices.checked) - new Date(g.releaseDate)) / 86400000;
+  if (!newBaseDate) newBaseDate = [prices.checked, ...Object.values(guides).map((x) => x.checked).filter(Boolean)].sort().pop();
+  const days = (new Date(newBaseDate) - new Date(g.releaseDate)) / 86400000;
   return days >= 0 && days <= 365;
 }
 
@@ -197,6 +202,12 @@ for (const g of games) {
     }
     if ((guide.points || []).length < 2) fail(`${slug}: ゲーム固有のポイントは2つ以上`);
   }
+  // 任意：本文の追加セクション（sections）と、シリーズ・関連ページへの案内（seeAlso）
+  for (const [i, s] of (guide.sections || []).entries()) {
+    if (!s.id || !s.title || !s.toc) fail(`${slug}: sections[${i}] に id / title / toc がありません`);
+    if (!(s.cards || []).length && !s.table && !s.alert) fail(`${slug}: sections[${i}] が空です`);
+  }
+  if (guide.seeAlso && !(guide.seeAlso.title && guide.seeAlso.href && guide.seeAlso.label)) fail(`${slug}: seeAlso に title / href / label がありません`);
   if (guide.recGpuId && !gpuById(guide.recGpuId)) {
     // GPU GUIDE に無い古いGPU（GTX 970 など）はスコア表示を出さないだけ。エラーにはしない
     guide.recGpuId = null;
@@ -424,7 +435,8 @@ function buildCards(g, guide) {
       }
       return `            <article class="build-card${isPick ? " is-pick" : ""}">
               <p class="build-label">${esc(b.name)}${isPick ? '<span class="pick-badge">迷ったらこれ</span>' : ""}</p>
-              <h3>${esc(b.target)}</h3>
+              <h3>${esc(b.target)}</h3>${b.who ? `
+              <p class="build-who"><span>こんな人に</span>${esc(b.who)}</p>` : ""}
               <dl class="build-specs">
                 <div><dt>CPU</dt><dd>${esc(b.cpu)}</dd></div>
                 <div><dt>GPU</dt><dd>${gpuHtml(b.gpu, b.gpuVram)}</dd></div>
@@ -456,6 +468,47 @@ function specTable(t) {
             </table>
           </div>
           ${t.note ? `<p class="guide-note">${esc(t.note)}</p>` : ""}`;
+}
+
+/** guide.json の sections（任意）。ゲーム固有の詳しい解説を、既存の部品（guide-point・表・注意枠）で組む */
+function extraSection(s, where) {
+  const cards = (s.cards || [])
+    .map(
+      (c) =>
+        `            <div class="guide-point">\n              <h3>${esc(c.title)}</h3>\n${c.text ? `              <p>${esc(fill(c.text, where))}</p>\n` : ""}${
+          c.list ? `              <ul>\n${c.list.map((li) => `                <li>${esc(fill(li, where))}</li>`).join("\n")}\n              </ul>\n` : ""
+        }            </div>`
+    )
+    .join("\n");
+  const alert = s.alert
+    ? `          <div class="guide-alert" role="note">
+            <p class="guide-alert-title">${esc(s.alert.title)}</p>
+${[].concat(s.alert.text).map((t) => `            <p>${esc(fill(t, where))}</p>`).join("\n")}
+          </div>`
+    : "";
+  const links = (s.links || []).length
+    ? `          <p class="guide-note">${esc(s.linksLabel || "あわせて確認")}：${s.links.map((l) => `<a href="${esc(l.href)}"${/^https?:\/\/(?!sippo-pc\.jp)/.test(l.href) ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(l.text)}</a>`).join(" ／ ")}</p>`
+    : "";
+  return `        <section class="seo-guide-section" aria-labelledby="${esc(s.id)}">
+          <div class="section-heading">
+            <p class="section-label">${esc(s.label || "GUIDE")}</p>
+            <h2 id="${esc(s.id)}">${esc(s.title)}</h2>
+            ${s.intro ? `<p>${esc(fill(s.intro, where))}</p>` : ""}
+          </div>
+${s.table ? specTable(s.table) + "\n" : ""}${cards ? `          <div class="guide-points guide-points--${s.columns === 3 ? 3 : 2}">\n${cards}\n          </div>\n` : ""}${alert ? alert + "\n" : ""}${links}
+        </section>`;
+}
+
+/** guide.json の seeAlso（任意）。シリーズの別ページなど、続けて読みたいページへの案内 */
+function seeAlsoBlock(guide) {
+  const s = guide.seeAlso;
+  if (!s) return "";
+  return `
+          <aside class="hint-box guide-seealso" aria-label="${esc(s.title)}">
+            <p class="hint-box-title">${esc(s.title)}</p>
+            ${s.text ? `<p>${esc(s.text)}</p>` : ""}
+            <p><a href="${esc(s.href)}">${esc(s.label)}</a></p>
+          </aside>`;
 }
 
 function relatedBlock(g, guide) {
@@ -573,6 +626,7 @@ function renderPage(g) {
         ["buildsTitle", "Sippoのおすすめ構成"],
         ["resolutionTitle", "FHD・WQHD・4K別の目安"],
         ["pointsTitle", `${g.title}ならではのポイント`],
+        ...(guide.sections || []).map((s) => [s.id, s.toc]),
         ["faqTitle", "よくある質問"],
       ];
 
@@ -644,7 +698,7 @@ ${body}`;
               <span class="summary-key">気をつけたいこと</span>
               <strong>${esc(g.caution)}</strong>
             </li>
-          </ul>
+          </ul>${seeAlsoBlock(guide)}
         </section>
 
         <section class="seo-guide-section" aria-labelledby="specsTitle">
@@ -685,7 +739,7 @@ ${res}
 ${guide.points.map((p) => `            <div class="guide-point">\n              <h3>${esc(p.title)}</h3>\n              <p>${esc(fill(p.text, where))}</p>\n            </div>`).join("\n")}
           </div>
         </section>
-
+${(guide.sections || []).map((s) => "\n" + extraSection(s, where)).join("\n")}
 ${affiliate}
 
         <section class="seo-guide-section" aria-labelledby="faqTitle">

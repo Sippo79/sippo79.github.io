@@ -72,7 +72,7 @@
 - **生成スクリプト**: 一部ページは PowerShell スクリプトで静的生成
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/generate-games.js`（GAME PC GUIDE。2026-10-18〜 Node化。`Generate-StaticGames.ps1` はこれを呼ぶラッパー）
-    - 本文は全29タイトル `game-pc-guide/content/<slug>/guide.json`（公式スペック・出典と確認日・解像度別目安・固有ポイント・FAQ）。GTA5のみ `legacyHtml:true` で head / top / body.html を使う。
+    - 本文は全30タイトル `game-pc-guide/content/<slug>/guide.json`（公式スペック・出典と確認日・解像度別目安・固有ポイント・FAQ。任意で追加セクション `sections`・別ページ案内 `seeAlso`）。2026-10-23 に Call of Duty: Modern Warfare 4 を個別ページ（modern-warfare-4.html）で追加し、cod.html は BO7・Warzone のシリーズページとして維持。GTA5のみ `legacyHtml:true` で head / top / body.html を使う。
     - 予算目安は `game-pc-guide/data/price-bands.json` だけで管理し、生成時に games.json へ書き戻す（本文中は `{{band:キー}}`）。
     - index.html の一覧カードは `GENERATED:*` マーカー内に静的出力（script.js は絞り込みのみ）。
     - 検証は `node game-pc-guide/test-game-content.js`（全ページ・FAQ一致・予算/VRAM整合・60fps上限タイトルの高fps表記・テンプレ文の量産・本文の比較表現と描画性能スコアの整合・画像の実寸・再生成の安定性を検査）。
@@ -490,6 +490,7 @@ GitHub Pages（本番）への反映状況。「本番反映済み」= 公開URL
 | ボタン文言の実態統一（exact=価格を見る / search=探す） | ✅ 完了（`isExactLink()` に共通化） |
 | Amazon/Yahooを商品ページ直リンクへ貼り替え | ⏳ 任意（文言は実態に合ったので急ぎではない） |
 | GAME PC GUIDE 全面アップグレード（29タイトル再調査・デザイン刷新・画像権利対応・OGP作り直し） | ✅ 本番反映済み（2026-10-18 commit 4f62e94、公開URLで全29ページ・SW v10・旧画像89件の404を確認） |
+| GAME PC GUIDE に MW4 を30タイトル目として追加（公式スペック・TPM/セキュアブート解説・CoDページの推奨GPU訂正） | ✅ 2026-10-23 main へ push（画像は運営者判断で表示） |
 | 楽天の販売終了直リンク4件を検索フォールバック化（rtx5090 / rx7800xt / rx7900gre / rx7900xt） | ✅ 本番反映済み（2026-10-18） |
 | GAME PC GUIDE 公開後のSNS・検索のキャッシュ確認 | ⏳ ユーザー側で確認（`game-pc-guide/tools/post-release-checklist.md`） |
 

@@ -18,6 +18,21 @@
 
 ---
 
+## 2026-10-23 — GAME PC GUIDE に Call of Duty: Modern Warfare 4 を30タイトル目として追加
+
+- **修正目的**: 2026-10-23発売のMW4を、既存のCoDページ（BO7・Warzone向けシリーズページ）とは別の個別ページとして追加する。CoDページに残っていたMW4の推奨GPU「RTX 3060」（Steamの表記）を、Activision公式の「RTX 3060 Ti」に合わせる。
+- **一次情報（2026-10-23確認）**: Activisionサポート「Modern Warfare 4のPCシステム要件」、Call of Duty公式ブログ（2026-09-29 PC版技術情報）、公式サイト（発売日）、Activisionサポート「Call of Duty向けのTPM 2.0およびSecure Boot」。表記の食い違い：推奨Intel CPUはサポートページ i7-8700／ブログ・Steam i7-8700K。Steamの推奨GPUは今も RTX 3060（Activisionの2ページは 3060 Ti）。ページ上で両方を注記した。
+- **変更ファイル**:
+  - 新規: `game-pc-guide/content/modern-warfare-4/guide.json`（公式スペック3段＋共通必須条件・解像度別目安・ポイント・追加セクション3つ・FAQ8件）、生成物 `games/modern-warfare-4.html`
+  - データ: `data/games.json`（MW4を末尾に追加。cod の aliases から mw4 を外し、カード文言・point を訂正）、`data/image-rights.json`（MW4＝判定C・displayBasis operator-decision で表示）、画像 `images/modern-warfare-4.jpg・.webp(1200×675)・-thumb.webp(640×360)・-mini.webp(192×108)`（運営者が用意した codMW4.webp 1200×676 を16:9に1px切り詰めて4サイズ化。元ファイルは削除）、`content/cod/guide.json`（MW4の旧Steam表と出典を削除、lead・ポイント・FAQ を訂正、MW4への案内 seeAlso、related に MW4、確認日を10-23に。BO7のSteam表記は再確認して変化なし）
+  - 仕組み: `generate-games.js`（任意項目 `sections`＝追加の解説セクション・`seeAlso`＝別ページへの案内枠・builds[].`who`＝「こんな人に」を追加。新作判定の基準日を「価格の確認日と各ページの公式スペック確認日のうち最新」に変更）、`style.css`（上記の見た目のみ）、`test-game-content.js`（一覧カードの画像判定を display 設定に合わせる）、`sw.js`（v12）
+  - 掲載数: ルート `index.html`（3か所）、`game-pc-guide/index.html` の meta description、`tools/post-release-checklist.md` を29→30
+- **構成**: ①Ryzen 5 7500F＋RTX 5060 / RX 9060 XT・16GB・fhd帯 ②Ryzen 7 7800X3D＋RTX 5070 / RX 9070・32GB・wqhd-x3d帯（推定） ③Ryzen 7 7800X3D＋RTX 5070 Ti / RX 9070 XT・32GB・high帯。迷ったらこれ＝①。fpsの数値は載せていない（未実測）。
+- **影響範囲**: 既存29ページは任意項目を使わないため、生成物はCSSの `?v=` 以外変化なし（追加前に確認済み）。CoDカードを関連欄に表示する battlefield / rainbowsixsiege / wardogs はカード文言の変更で更新日が10-23に動いた。新作欄の顔ぶれは MW4 が増えただけ（基準日の変更で既存の判定は変わらない）。
+- **検証**: test-game-content OK（30ページ・検査4,932件・注意0）、test-cross-links 63/63、test-build-profile 6,555/6,555。Chrome ヘッドレスで一覧の検索・絞り込み13パターン、MW4ページのPC幅・390px幅（横はみ出しなし）、一覧の新作欄、CoDページの案内枠を目視確認。
+- **未対応・次にやること**: 公開後は MW4 ページ・CoDページ・一覧の本番表示と SW v12 を確認する。Steamの推奨表記（RTX 3060 / i7-8700K）がActivision側に揃ったら注記を外す。
+- **別AIへの引き継ぎ注意点**: MW4の画像は利用条件を確認できていない（判定C）。表示は運営者の判断（2026-10-23）で、許諾を得たものではない。セキュアブート等の説明は「設定変更を促さない・BitLocker回復キーの注意」を崩さないこと。
+
 ## 2026-10-18（6）— GAME PC GUIDE 7タイトルを除くゲーム画像の復活
 
 - **修正目的**: 運営者の判断で、7タイトル（ff14 / cyberpunk2077 / fortnite / minecraft / gta5 / eldenring / overwatch2）を除く22タイトルの既存画像を一覧カード・ヒーロー・新作欄に戻す。7タイトルは画像なしのまま。OGP・構造化データは全ページ共通の自作 ogp.jpg のまま。

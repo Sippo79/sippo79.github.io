@@ -580,8 +580,6 @@
       "cod",
       "bo7",
       "black ops 7",
-      "mw4",
-      "modern warfare 4",
       "warzone",
       "ウォーゾーン"
     ],
@@ -595,10 +593,10 @@
     "releaseDate": "2025-11-21",
     "status": "released",
     "image": "images/cod.jpg",
-    "cardText": "BO7とWarzoneが対象。10月23日発売予定のMW4も公式推奨はRTX 3060と同水準。",
-    "description": "Call of Duty: Black Ops 7とWarzone、発売を控えたModern Warfare 4を快適に遊ぶためのPC構成を、各作品の公式スペックから解説します。",
+    "cardText": "BO7とWarzoneが対象。MW4（公式推奨RTX 3060 Ti）は個別ページで解説しています。",
+    "description": "Call of Duty: Black Ops 7とWarzoneを快適に遊ぶためのPC構成を、公式スペックから解説します。2026年10月23日発売のModern Warfare 4は個別ページで扱います。",
     "recommended": "FHD〜WQHD / 144fps以上",
-    "point": "BO7・MW4とも公式推奨はRTX 3060 / RX 6600 XT。ただしインストール容量が大きく、SSDの空き容量が意外な落とし穴です。",
+    "point": "BO7の公式推奨はRTX 3060 / RX 6600 XT（MW4はRTX 3060 Ti）。インストール容量が大きく、SSDの空き容量が意外な落とし穴です。",
     "caution": "BO7はSSDに161GBの空きが必要です（発売時点）。2TBのSSDがあると安心です。",
     "builds": [
       {
@@ -1575,5 +1573,78 @@
     "budgetMin": 22,
     "budgetMax": 45,
     "budget": "22万〜45万円前後"
+  },
+  {
+    "id": "modern-warfare-4",
+    "title": "Call of Duty: Modern Warfare 4",
+    "aliases": [
+      "mw4",
+      "modern warfare 4",
+      "モダンウォーフェア4",
+      "モダン・ウォーフェア4",
+      "モダンウォーフェア",
+      "codmw4",
+      "cod mw4",
+      "コールオブデューティ",
+      "call of duty",
+      "cod"
+    ],
+    "genre": "FPS",
+    "genreGroup": "shooter",
+    "level": "重い",
+    "load": 3,
+    "uses": [
+      "fps",
+      "quality"
+    ],
+    "releaseDate": "2026-10-23",
+    "status": "released",
+    "image": "images/modern-warfare-4.jpg",
+    "cardText": "2026年10月23日発売。公式推奨はRTX 3060 Ti（高画質・90fps目標）。PCではTPM 2.0とセキュアブートが必須。",
+    "description": "Call of Duty: Modern Warfare 4（MW4）を快適に遊ぶためのPC構成を、Activisionの公式スペック（最低・推奨・4K/レイトレーシング）から解説します。",
+    "recommended": "FHD〜WQHD / 公式目標90fps〜高fps",
+    "point": "公式推奨はRTX 3060 Ti / RX 6600 XT（マルチ高画質・90fps）。4K・高レイトレーシングはRTX 5070 Ti / RX 9070 XT・VRAM 16GBが公式の目安です。",
+    "caution": "PCで遊ぶにはTPM 2.0とセキュアブートが必須。SSDに115GBの空きも必要です。",
+    "builds": [
+      {
+        "name": "FHD・快適プレイ重視",
+        "target": "FHD 高画質",
+        "who": "高画質で遊びたい一般ユーザー。60〜144Hzのモニターで、まずは快適に遊びたい人",
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060",
+        "gpuAlt": "RX 9060 XT",
+        "memory": "16GB",
+        "band": "fhd",
+        "comment": "GPUは公式推奨のRTX 3060 Tiを描画性能スコアで少し上回るRTX 5060（58と55）。差は小さいので、公式の目安（マルチ高画質で90fps）に近い水準と考えるのが妥当です。VRAM 8GBは推奨と同じ量のため、テクスチャを最高にしたい・長く使いたいなら16GBのRX 9060 XTの方が余裕があります。メモリは公式推奨の16GBです。",
+        "price": "17万〜21万円前後"
+      },
+      {
+        "name": "FHD高fps・WQHD重視",
+        "target": "FHD 高fps / WQHD 高画質",
+        "who": "144Hz以上のモニターで対戦を重視する人、WQHDで遊びたい人",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070",
+        "gpuAlt": "RX 9070",
+        "memory": "32GB",
+        "band": "wqhd-x3d",
+        "comment": "高fpsではGPUより先にCPUが頭打ちになりやすいため、ゲームに強い3D V-Cache搭載のRyzen 7 7800X3Dを組み合わせました。RTX 5070の描画性能スコアは78で、公式推奨（55）を大きく上回ります。VRAMは12GBなので、WQHDでテクスチャを高くしたい場合や長く使う場合は16GBのRX 9070も候補です。メモリは通話・配信ソフトとの同時使用も考えて32GBにしています。",
+        "price": "29万〜36万円前後"
+      },
+      {
+        "name": "WQHD高画質・4K重視",
+        "target": "WQHD 高画質 / 4K（アップスケーリング併用）",
+        "who": "WQHDで画質を上げたい人、4Kモニターでレイトレーシングも楽しみたい人",
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "RTX 5070 Ti",
+        "gpuAlt": "RX 9070 XT",
+        "memory": "32GB",
+        "band": "high",
+        "comment": "GPU・VRAM 16GB・メモリ32GBは、公式の4K・高レイトレーシング向け要件と同じクラスです。この公式要件は4Kアップスケール（DLSS・FSRなどで低い解像度から拡大）を前提にしたもので、ネイティブ4Kでの性能を示すものではありません。CPUは公式要件のRyzen 7 3700Xより新しいゲーム向けのモデルにして、高画質でもfpsが落ち込みにくいようにしています。",
+        "price": "35万〜45万円前後"
+      }
+    ],
+    "budgetMin": 17,
+    "budgetMax": 45,
+    "budget": "17万〜45万円前後"
   }
 ]

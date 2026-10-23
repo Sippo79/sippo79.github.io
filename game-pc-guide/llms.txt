@@ -22,7 +22,7 @@
 - [Minecraft おすすめPC](https://sippo-pc.jp/game-pc-guide/games/minecraft.html): サンドボックス / PC負荷「軽い」。目安 FHD / バニラ〜影MOD。2026年7月にJava版の公式推奨が引き上げ（VRAM 6GB・メモリ16GB）。影MODはさらに重い。
 - [Escape from Tarkov おすすめPC](https://sippo-pc.jp/game-pc-guide/games/tarkov.html): FPS / PC負荷「非常に重い」。目安 FHD〜WQHD / fps安定。1.0の公式推奨はメモリ64GB・Core i7-14700F。GPUよりCPUとメモリが効くタイトル。
 - [Battlefield 6 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/battlefield.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 高fps。最新作BF6の公式推奨はRTX 3060 Ti級。TPM 2.0とセキュアブートの有効化が必須。
-- [Call of Duty おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cod.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 144fps以上。BO7とWarzoneが対象。10月23日発売予定のMW4も公式推奨はRTX 3060と同水準。
+- [Call of Duty おすすめPC](https://sippo-pc.jp/game-pc-guide/games/cod.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 144fps以上。BO7とWarzoneが対象。MW4（公式推奨RTX 3060 Ti）は個別ページで解説しています。
 - [Rust おすすめPC](https://sippo-pc.jp/game-pc-guide/games/rust.html): サバイバル / PC負荷「重い」。目安 FHD〜WQHD / fps安定。公式推奨はRTX 3060・メモリ16GB。人の多いサーバーや大型拠点ではCPUとメモリが効く。
 - [ARK: Survival Evolved / Ascended おすすめPC](https://sippo-pc.jp/game-pc-guide/games/ark.html): サバイバル / PC負荷「非常に重い」。目安 FHD〜WQHD / 中〜高設定。旧作ASEは軽め、UE5版のASAは公式推奨RTX 3080・メモリ32GBの重量級。まずどちらか確認を。
 - [原神 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/genshin.html): オープンワールド / PC負荷「軽い」。目安 FHD〜WQHD / 高画質。PC版は軽めで、入門クラスでも高画質が狙える。WQHDで綺麗に遊ぶならミドル級。
@@ -41,6 +41,7 @@
 - [WARDOGS おすすめPC](https://sippo-pc.jp/game-pc-guide/games/wardogs.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 高fps。2026年9月に早期アクセス開始。100人・3チームの大規模戦で、公式推奨はRTX 3070。
 - [バイオハザード レクイエム おすすめPC](https://sippo-pc.jp/game-pc-guide/games/biohazard-requiem.html): サバイバルホラー / PC負荷「普通」。目安 FHD〜WQHD / 高画質。公式推奨はRTX 2060 Superで「720p描画をアップスケールしてFHD 60fps」。パストレーシングは別格に重い。
 - [ボーダーランズ4 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/borderlands4.html): FPS / PC負荷「非常に重い」。目安 FHD〜WQHD / 高設定。最低でも8コアCPU・VRAM 8GBが必須。公式推奨はRTX 3080・メモリ32GBの重量級。
+- [Call of Duty: Modern Warfare 4 おすすめPC](https://sippo-pc.jp/game-pc-guide/games/modern-warfare-4.html): FPS / PC負荷「重い」。目安 FHD〜WQHD / 公式目標90fps〜高fps。2026年10月23日発売。公式推奨はRTX 3060 Ti（高画質・90fps目標）。PCではTPM 2.0とセキュアブートが必須。
 <!-- GENERATED:games END -->
 
 ## 各ゲームページの構成

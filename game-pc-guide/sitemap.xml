@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/apex.html</loc>
@@ -42,11 +42,11 @@
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/battlefield.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/cod.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/rust.html</loc>
@@ -82,7 +82,7 @@
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/rainbowsixsiege.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/starfield.html</loc>
@@ -110,7 +110,7 @@
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/wardogs.html</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/biohazard-requiem.html</loc>
@@ -119,5 +119,9 @@
   <url>
     <loc>https://sippo-pc.jp/game-pc-guide/games/borderlands4.html</loc>
     <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
+    <loc>https://sippo-pc.jp/game-pc-guide/games/modern-warfare-4.html</loc>
+    <lastmod>2026-10-23</lastmod>
   </url>
 </urlset>

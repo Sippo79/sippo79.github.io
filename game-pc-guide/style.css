@@ -881,6 +881,8 @@ table { border-collapse: collapse; }
 }
 .build-gpu-link:hover { color: var(--accent-strong); }
 .build-comment { margin: 12px 0 0; font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+.build-who { margin: -4px 0 12px; font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+.build-who span { display: inline-block; margin-right: 8px; padding: 0 8px; border-radius: var(--radius-pill); font-size: 11.5px; font-weight: 800; color: var(--sippo); background: var(--sippo-soft); }
 
 /* GPU性能スコアのバー */
 .score { margin-top: 12px; }
@@ -904,6 +906,11 @@ table { border-collapse: collapse; }
 .guide-point li { margin: 0; font-size: 14.5px; color: var(--text-muted); line-height: 1.8; }
 .guide-point ul { margin: 0; padding-left: 1.2em; }
 .guide-point li + li { margin-top: 6px; }
+.guide-point p + ul { margin-top: 8px; }
+.guide-points + .guide-note { margin-top: 16px; }
+.guide-note + .guide-points { margin-top: 16px; }
+.guide-alert p:not(.guide-alert-title) { margin: 0; color: var(--text-muted); font-size: 14.5px; }
+.guide-alert p:not(.guide-alert-title) + p { margin-top: 8px; }
 
 /* FAQ */
 .faq-list { display: grid; gap: 8px; }

@@ -341,6 +341,18 @@
       "urls": [],
       "verifiedBy": "調査で見つからず",
       "displayBasis": "operator-decision"
+    },
+    "modern-warfare-4": {
+      "file": "modern-warfare-4.jpg",
+      "rightsHolder": "Activision",
+      "grade": "C",
+      "display": true,
+      "basis": "2026-10-23 調査。公式サイト（callofduty.com/ja/modernwarfare4）にメディアギャラリーはあるが、ウェブ・商用サイトでの利用条件は記載が無く確認できない（Call of Dutyの公式アートの利用ポリシーも見つからない）。同日、運営者が用意したキービジュアル（codMW4.webp・1200×676）を、運営者の判断で表示する（他22タイトルと同じ扱い。許諾を確認したものではない）。",
+      "urls": [
+        "https://www.callofduty.com/ja/modernwarfare4"
+      ],
+      "verifiedBy": "公式サイトの本文を確認（利用条件の記載なし）。表示は運営者の判断",
+      "displayBasis": "operator-decision"
     }
   },
   "siteImages": {

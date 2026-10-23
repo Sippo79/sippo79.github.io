@@ -1,0 +1,185 @@
+{
+  "checked": "2026-10-23",
+  "seoTitle": "Modern Warfare 4（MW4）推奨スペックとおすすめPC｜RTX 3060で遊べる？144fpsに必要な構成",
+  "metaDescription": "Call of Duty: Modern Warfare 4（MW4）のPC版公式スペック（最低・推奨・4K/レイトレーシング）を一次情報から整理。RTX 3060と3060 Tiの違い、144fpsを狙う構成、TPM 2.0・セキュアブートの確認方法、FHD・WQHD・4K別のおすすめPCと予算がわかります。",
+  "lead": "Call of Duty: Modern Warfare 4（MW4）は2026年10月23日発売。Activisionが公表しているPC版の推奨GPUはRTX 3060 Ti / RX 6600 XTで、目標は「マルチプレイヤーを高画質設定・90fps」です。144fpsや4Kを狙うなら、GPUだけでなくCPUとVRAMにも余裕が必要になります。PCで遊ぶにはTPM 2.0とセキュアブートが必須なので、起動前の確認もこのページで解説します。",
+  "pick": 0,
+  "recGpuId": "rtx-3060-ti",
+  "specTables": [
+    {
+      "title": "Call of Duty: Modern Warfare 4 公式のPCシステム要件（Activision）",
+      "columns": ["最低", "推奨", "4K・高レイトレーシング"],
+      "rows": [
+        ["公式の目標", "記載なし（プレイに必要な最小スペック）", "マルチプレイヤーを高画質設定・90fps", "4Kアップスケール＋高レイトレーシング設定（fpsの記載なし）"],
+        ["OS", "Windows 10 64bit（最新アップデート）", "Windows 11 64bit（最新アップデート）", "Windows 11 64bit（最新アップデート）"],
+        ["CPU", "AMD Ryzen 5 1400 / Intel Core i5-6600", "AMD Ryzen 5 3600 / Intel Core i7-8700", "AMD Ryzen 7 3700X / Intel Core i7-10700K"],
+        ["GPU", "AMD Radeon RX 470 / NVIDIA GeForce GTX 970・1060 / Intel Arc A580", "AMD Radeon RX 6600 XT / NVIDIA GeForce RTX 3060 Ti / Intel Arc B580", "AMD Radeon RX 9070 XT / NVIDIA GeForce RTX 5070 Ti"],
+        ["VRAM", "3GB", "8GB", "16GB"],
+        ["メモリ", "8GB", "16GB", "32GB"],
+        ["ストレージ", "SSDに115GBの空き（SSD必須・発売時点）", "SSDに115GBの空き（SSD必須・発売時点）", "SSDに115GBの空き（SSD必須・発売時点）"]
+      ],
+      "note": "「4K・高レイトレーシング」は、4Kアップスケール（低い解像度で描いて4Kに拡大）と高いレイトレーシング設定で遊ぶための公式要件で、ネイティブ4Kでの性能を示すものではありません。推奨のIntel CPUは、Activisionのサポートページでは Core i7-8700、公式ブログとSteamストアでは Core i7-8700K と表記が分かれています。また、Steamストアの推奨GPUは2026年10月23日時点で RTX 3060 と表示されていますが、このページはActivisionのサポートページと公式ブログの記載（RTX 3060 Ti）に合わせています。"
+    },
+    {
+      "title": "すべてのスペックに共通する必須条件",
+      "columns": ["内容"],
+      "rows": [
+        ["セキュリティ", "TPM 2.0とセキュアブートが必須（その他のセキュリティ対策が適用される場合あり）"],
+        ["DirectX", "DirectX 12に対応していること"],
+        ["ネット回線", "ブロードバンド接続"],
+        ["Intel Arc", "Resizable BAR（リサイザブルBAR）が必要"],
+        ["CPU", "AVX命令に対応したIntel / AMD製CPUのみ対応"],
+        ["Windows", "体験版・ベータ版・Insider版のWindowsは非対応の場合あり。TPM・セキュアブートの要件ではWindows 10はバージョン22H2以降"],
+        ["ドライバー", "推奨：NVIDIA 616.56 ／ AMD 26.7.1 ／ Intel 32.0.101.8974（発売時点の公式案内）"]
+      ],
+      "note": "公式の注記どおり、各スペックは発売時点のもので、今後のアップデートで変わることがあります。必須アップデートで、空き容量が追加で必要になる場合もあります。"
+    }
+  ],
+  "sources": [
+    { "label": "Activision サポート「Modern Warfare 4のPCシステム要件」", "url": "https://support.activision.com/ja/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4" },
+    { "label": "Call of Duty公式ブログ「Modern Warfare 4 PC版トレーラー、技術アップデート情報など」（2026年9月29日）", "url": "https://www.callofduty.com/ja/blog/2026/09/call-of-duty-modern-warfare-4-pc-trailer-tech-specs-features" },
+    { "label": "Call of Duty: Modern Warfare 4 公式サイト（発売日）", "url": "https://www.callofduty.com/ja/modernwarfare4" },
+    { "label": "Activision サポート「Call of Duty向けのTPM 2.0およびSecure Boot」", "url": "https://support.activision.com/ja/articles/trusted-platform-module-and-secure-boot" },
+    { "label": "Steam ストアページ（表記の違いの確認用）", "url": "https://store.steampowered.com/app/4435490/" },
+    { "label": "Microsoft サポート「BitLocker 回復キーの検索」", "url": "https://support.microsoft.com/ja-jp/windows/security/encryption/find-your-bitlocker-recovery-key" }
+  ],
+  "resolutions": [
+    { "res": "FHD", "gpu": "RTX 5060 / RX 9060 XT（公式推奨はRTX 3060 Ti / RX 6600 XT）", "target": "高画質（公式の目安は推奨スペックで90fps）", "note": "144Hzモニターで高fpsを狙うなら、画質を下げるかひとつ上のGPUを検討します。" },
+    { "res": "WQHD", "gpu": "RTX 5070 / RX 9070", "target": "高画質、または設定を調整して高fps", "note": "VRAMに余裕を持たせたいなら16GBのRX 9070。アップスケーリングの併用も選択肢です。" },
+    { "res": "4K", "gpu": "RTX 5070 Ti / RX 9070 XT（公式の4K・高レイトレーシング要件）", "target": "4Kアップスケール＋高レイトレーシング", "note": "公式要件はアップスケール前提です。ネイティブ4Kでの性能を保証するものではありません。" }
+  ],
+  "tech": "公式にはNVIDIA DLSS 4.5・AMD FSR Redstone・Intel XeSS 3・Filmic SMAA T2Xのアップスケーリング（一部はフレーム生成）に対応し、レイトレーシングはキャンペーン・マルチプレイヤー・DMZの全モードで使えます。ゲーム内にはマルチプレイヤーを模したベンチマークツールがあり、平均FPS・CPU・GPU・入力遅延などを確認できます。購入後や設定を変えたときは、まずこれで自分のPCの数値を確かめるのが確実です。",
+  "points": [
+    { "title": "公式推奨は「高画質で90fps」の目安", "text": "MW4の推奨スペックは、マルチプレイヤーを高画質設定・90fpsで遊ぶための目安と公式に書かれています。144fps以上や4K高画質を保証するものではありません。反対に、推奨に届かないGPUでもすぐに遊べなくなるわけではなく、最低スペックはGTX 1060 / GTX 970です。自分が「どの画質で何fps欲しいか」を決めてから構成を選ぶと、買いすぎを防げます。" },
+    { "title": "TPM 2.0とセキュアブートは全スペックで必須", "text": "PC版はTPM 2.0とセキュアブートの両方が必須です。Activisionのサポートによると、要件を満たさないとMW4ではすべてのオンラインモードが制限されます。TPMの要件ではIntelは第8世代以降、AMDはRyzen 2000シリーズ以降とされており、公式の最低CPU（Core i5-6600・Ryzen 5 1400）より新しい世代です。古いPCでは、GPUより先にこの条件が壁になることがあります。" },
+    { "title": "SSDに115GBの空きが必要", "text": "最低・推奨とも「SSDに115GBの空き」が公式要件で、HDDは要件に入っていません。必須アップデートで容量が増えることもあります。BO7（発売時点161GB）やWarzoneも同じPCに入れるなら、1TBではすぐに足りなくなるため、2TBのSSDが安心です。" }
+  ],
+  "sections": [
+    {
+      "id": "rtx3060Title",
+      "toc": "RTX 3060・3060 Tiでも遊べる？",
+      "label": "GPU CHECK",
+      "title": "RTX 3060・RTX 3060 TiでMW4は遊べる？",
+      "intro": "MW4の公式推奨GPUはRTX 3060 Tiです（Activisionのサポートページ・公式ブログ）。RTX 3060とは名前が似ていますが別のGPUで、描画性能もVRAMも違います。下の数値はGPU GUIDEの描画性能スコア（実測fpsではない相対値）です。",
+      "table": {
+        "title": "RTX 3060とRTX 3060 Tiの違い",
+        "columns": ["RTX 3060", "RTX 3060 Ti"],
+        "rows": [
+          ["VRAM", "12GB", "8GB"],
+          ["性能スコア", "43", "55"],
+          ["MW4では", "最低（GTX 1060）よりは上、公式推奨（3060 Ti）よりは下", "公式推奨GPUそのもの"]
+        ],
+        "note": "性能スコアはGPU GUIDEの描画性能スコアで、DLSSなどの機能を除いたGPU同士の比較用の値です。MW4での実際のfpsは、CPU・画質設定・マップによって変わります。"
+      },
+      "cards": [
+        { "title": "RTX 3060の場合", "text": "描画性能は3060 Tiより2割ほど低い（スコア43と55）ため、公式の目安（高画質で90fps）にそのまま届くとは言いにくいと考えられます。画質を中程度に下げる、DLSSを使うといった調整が前提です。一方でVRAMは12GBあり、公式推奨の8GBを上回るので、テクスチャ品質は下げずに済む場面もあります。" },
+        { "title": "RTX 3060 Tiの場合", "text": "公式推奨そのものなので、FHD・高画質で90fpsが公式の目安です。VRAMは8GBで、推奨VRAM（8GB）とちょうど同じです。WQHDに上げたりテクスチャを最高にしたりすると、GPUの性能より先にVRAMが足りなくなることがあります。" },
+        {
+          "title": "設定で負荷を下げる順番（目安）",
+          "list": [
+            "まずゲーム内のベンチマークで、今のfpsと入力遅延を確認する",
+            "レイトレーシングを使っている場合はオフにする",
+            "DLSS（RTXの場合）やFSR・XeSSを「品質」モードから試す",
+            "影・SSR（反射）・オクルージョンなど負荷の大きい項目を1段下げる",
+            "テクスチャはVRAMの使用量を見ながら決める（VRAMに収まれば下げなくてよい）"
+          ]
+        },
+        {
+          "title": "GPUの買い替えを考えた方がよいケース",
+          "list": [
+            "144Hz以上のモニターで、画質を落とさず高fpsを保ちたい",
+            "WQHD以上の解像度で高画質にしたい",
+            "レイトレーシングも使いたい",
+            "設定を下げても、ベンチマークのfpsが目標に届かない",
+            "ただしCPUが公式最低（Core i5-6600・Ryzen 5 1400）付近の古い世代なら、GPUだけ替えても伸びにくく、TPMの要件も満たせない可能性があります。この場合はPCごとの見直しを検討してください"
+          ]
+        }
+      ],
+      "linksLabel": "GPUを比べる・今のPCを診断する",
+      "links": [
+        { "href": "https://sippo-pc.jp/gpu-guide/gpu/rtx-3060/", "text": "RTX 3060の性能（GPU GUIDE）" },
+        { "href": "https://sippo-pc.jp/gpu-guide/gpu/rtx-3060-ti/", "text": "RTX 3060 Tiの性能（GPU GUIDE）" },
+        { "href": "https://sippo-pc.jp/upgrade/", "text": "今のPCで足りるか診断する（PC UPGRADE）" }
+      ]
+    },
+    {
+      "id": "highfpsTitle",
+      "toc": "144fps以上を目指すときの考え方",
+      "label": "HIGH FPS",
+      "title": "MW4で144fps以上を目指すときに知っておきたいこと",
+      "intro": "公式が数値を示しているのは、推奨スペックで「高画質・90fps」までです。144fps以上が出るかは、GPUだけでなくCPU・解像度・画質設定のバランスで決まります。Sippoでは実測していないため、このページでは具体的なfpsの数値を載せていません。",
+      "columns": 3,
+      "cards": [
+        { "title": "CPUが重要になる理由", "text": "fpsを上げるほど、CPUが1秒間に処理するフレームの数も増えます。GPUに余裕があってもCPUの処理が追いつかないと、それ以上fpsが伸びません（CPUボトルネック）。高fps向けの構成でゲームに強いRyzen 7 7800X3Dを選んでいるのはこのためです。" },
+        { "title": "GPUとCPUのバランス", "text": "解像度を上げるとGPUの負担が増え、下げるとCPUの比重が大きくなります。FHDで高fpsならCPUも重視、WQHD・4Kで高画質ならGPU重視と考えると迷いにくくなります。片方だけ高価にしても、もう片方が足を引っ張ると価格ほどの差は出ません。" },
+        { "title": "VRAM容量", "text": "公式のVRAMの目安は推奨で8GB、4K・高レイトレーシングで16GBです。8GBのGPU（RTX 5060・3060 Tiなど）はFHDでは目安を満たしますが、WQHD以上やテクスチャ最高ではVRAMが先に不足することがあります。長く使うなら12〜16GBあると安心です。" },
+        { "title": "アップスケーリング", "text": "DLSS・FSR・XeSSは、低い解像度で描いた映像を高い解像度に拡大してfpsを稼ぐ機能です。モードによっては細部の見え方が変わるため、対戦では「品質」寄りのモードから試し、見やすさとfpsのバランスで決めるのがおすすめです。" },
+        { "title": "フレーム生成と入力遅延の違い", "text": "フレーム生成は、実際に描いたフレームの間に生成したフレームを挟んで、表示上のfpsを増やす機能です。画面は滑らかになりますが、操作への反応（入力遅延）は元のfpsに近いままで、少し増えることもあります。撃ち合いの反応を重視するなら、フレーム生成なしのfpsを基準に考えましょう。" },
+        { "title": "平均FPSと1% Lowの違い", "text": "平均FPSは全体の平均、1% Lowは遅い方から1%のフレームの値で、カクつきの目安になります。平均が高くても1% Lowが低いと、撃ち合いの瞬間に引っかかりを感じます。ベンチマークやレビューを見るときは、平均だけでなく1% Lowも確認してください。" }
+      ],
+      "linksLabel": "GPU・構成を比べる",
+      "links": [
+        { "href": "https://sippo-pc.jp/gpu-guide/", "text": "GPUの性能と価格を比べる（GPU GUIDE）" },
+        { "href": "https://sippo-pc.jp/pc-build-check/", "text": "予算からPC構成を診断する（PC BUILD CHECK）" }
+      ]
+    },
+    {
+      "id": "securityTitle",
+      "toc": "起動前に確認：TPM 2.0とセキュアブート",
+      "label": "BEFORE PLAY",
+      "title": "起動前に確認：TPM 2.0とセキュアブート",
+      "intro": "MW4をPCで遊ぶには、TPM 2.0とセキュアブートの両方が有効になっている必要があります。Windows 11のPCは多くの場合すでに有効ですが、自作PCや古いPCでは無効のことがあります。まずは「確認するだけ」の手順で状態を見てください。確認だけならPCの設定は変わりません。",
+      "cards": [
+        {
+          "title": "TPM 2.0の確認方法",
+          "list": [
+            "キーボードの「Windowsキー＋R」を押し、「tpm.msc」と入力してEnter",
+            "状態に「TPM は使用する準備ができています」と表示され、仕様バージョンが2.0ならOK",
+            "「互換性のある TPM が見つかりません」と表示されたら、UEFI（BIOS）でTPMが無効か、PCが対応していない可能性があります",
+            "TPMの要件はIntelが第8世代以降（Intel PTT）、AMDがRyzen 2000シリーズ以降（AMD fTPM）、または専用のTPMチップ"
+          ]
+        },
+        {
+          "title": "セキュアブートの確認方法",
+          "list": [
+            "「Windowsキー＋R」で「msinfo32」と入力してEnter（システム情報が開きます）",
+            "「BIOS モード」が「UEFI」、「セキュア ブートの状態」が「オン」（表示によっては「有効」）ならOK",
+            "「オフ」（「無効」）なら、PCは対応していてUEFI（BIOS）の設定で無効になっている状態です",
+            "「BIOS モード」が「レガシ」の場合は、そのままではセキュアブートを有効にできません（ディスクの変換が必要な場合があります）"
+          ]
+        }
+      ],
+      "alert": {
+        "title": "設定を変える前に必ず読んでください",
+        "text": [
+          "TPMやセキュアブートの設定はUEFI（BIOS）で変更しますが、操作を誤るとWindowsが起動しなくなることがあります。画面や項目名はマザーボードやPCメーカーで違うため、必ずメーカーのマニュアルの手順に従ってください。Activisionも、UEFI/BIOSに不慣れな場合はメーカーのサポートや専門家に相談するよう案内しています。",
+          "BIOSモードが「レガシ」のPCでは、ディスクをMBRからGPTに変換してからでないとUEFI・セキュアブートに切り替えられません。変換を誤るとデータを失ったり起動できなくなったりするおそれがあるので、事前にバックアップを取ってください。",
+          "BitLocker（デバイスの暗号化）が有効なPCでは、UEFIの設定を変えた後の起動時に回復キーの入力を求められることがあります。回復キーが分からないとWindowsに入れなくなるため、設定を変える前に回復キーを控えておいてください（Microsoftアカウントに保存されている場合は別の端末から確認できます）。",
+          "不安な場合は無理に変更せず、PCメーカーのサポートや購入店、シッポPC相談室などに相談してください。"
+        ]
+      },
+      "linksLabel": "公式の案内",
+      "links": [
+        { "href": "https://support.activision.com/ja/articles/trusted-platform-module-and-secure-boot", "text": "Activision「Call of Duty向けのTPM 2.0およびSecure Boot」" },
+        { "href": "https://support.microsoft.com/ja-jp/windows/security/encryption/find-your-bitlocker-recovery-key", "text": "Microsoft「BitLocker 回復キーの検索」" }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "RTX 3060でもMW4は遊べますか？", "a": "遊べます。公式の最低スペック（GTX 1060 / GTX 970）を大きく上回っているためです。ただし公式推奨はRTX 3060 Tiで、RTX 3060はGPU GUIDEの描画性能スコアで2割ほど低い（43と55）ため、公式の目安「高画質で90fps」を狙うなら、画質を下げるかDLSSを使う前提になると考えられます。実際のfpsはゲーム内のベンチマークで確かめるのが確実です。" },
+    { "q": "RTX 3060 Tiで144fpsは出ますか？", "a": "公式が示しているのは、推奨スペック（RTX 3060 Ti）で「マルチプレイヤーを高画質設定・90fps」という目安までです。144fpsについては公式の数値がなく、Sippoでも実測していないため「出る」とは言い切れません。画質を下げる、アップスケーリングを使うといった調整で近づけることはできますが、CPUの性能やマップ・場面によって大きく変わります。144fpsを安定させたいなら、GPUとCPUの両方に余裕のある構成を検討してください。" },
+    { "q": "RTX 3060 TiからRTX 5060に買い替えるべきですか？", "a": "MW4のためだけなら、おすすめしにくいです。GPU GUIDEの描画性能スコアは58と55で差が小さく、VRAMも同じ8GBだからです。RTX 3060（スコア43）からなら性能は上がりますが、VRAMは12GBから8GBに減ります。買い替えるなら、VRAM 16GBのRTX 5060 Ti 16GB（スコア68）やRX 9060 XT（スコア61）も比べてみてください。CPUが古い場合は、GPUだけ替えてもfpsが伸びにくいことがあります。" },
+    { "q": "メモリは16GBで足りますか？", "a": "公式推奨が16GBなので、MW4を遊ぶだけなら16GBで足ります。4K・高レイトレーシング向けの公式要件は32GBです。Discordやブラウザ、配信ソフトを同時に使う場合や、長く使う前提なら32GBにしておくと余裕があります。2026年はメモリが値上がりしているので、予算と相談して決めてください。" },
+    { "q": "SSDは必須ですか？", "a": "必須です。公式要件は最低・推奨とも「SSDに115GBの空き」で、HDDは要件に入っていません。必須アップデートで容量が増えることもあり、BO7やWarzoneも同じPCに入れるなら2TBのSSDが安心です。" },
+    { "q": "セキュアブートが無効だと起動できませんか？", "a": "公式要件ではTPM 2.0とセキュアブートの両方が必須です。Activisionのサポートによると、要件を満たさない場合、MW4ではすべてのオンラインゲームモードが制限されます。オンライン対戦が中心のゲームなので、実質的には有効にする必要があると考えてください。まずは「msinfo32」で状態を確認し、設定を変える場合はBitLockerの回復キーを控えるなど、このページの「起動前に確認」の注意を読んでから作業してください。" },
+    { "q": "WQHDでおすすめのGPUは？", "a": "SippoのおすすめはRTX 5070（VRAM 12GB）かRX 9070（VRAM 16GB）です。描画性能スコアは78と84で、公式推奨のRTX 3060 Ti（55）を大きく上回ります。実測していないため具体的なfpsは示せませんが、VRAMを重視するならRX 9070、DLSSを使いたいならRTX 5070という選び方がおすすめです。CPUにRyzen 7 7800X3Dを組み合わせた完成品で{{band:wqhd-x3d}}が目安です（{{priceChecked}}時点）。" },
+    { "q": "BO7やWarzoneと同じPCで遊べますか？", "a": "公式スペックを比べると、BO7の推奨GPUはRTX 3060、MW4はRTX 3060 Tiで、MW4の方がやや上です。推奨メモリもBO7の12GBに対してMW4は16GBです。BO7が高画質で快適なPCなら、MW4も設定の調整で遊べる可能性が高いと考えられますが、TPM 2.0とセキュアブートの要件は3作品とも共通です。" }
+  ],
+  "seeAlso": {
+    "title": "BO7・Warzoneも遊ぶなら",
+    "text": "Call of Duty: Black Ops 7とWarzoneの公式スペック・おすすめ構成は、シリーズのページにまとめています。",
+    "href": "cod.html",
+    "label": "Call of Duty（BO7・Warzone）おすすめPCを見る"
+  },
+  "related": ["cod", "battlefield", "apex", "valorant"]
+}
