@@ -72,7 +72,10 @@ const hashOf = (s) => crypto.createHash("sha256").update(s).digest("hex").slice(
 const assetVer = (file) => hashOf(fs.readFileSync(path.join(ROOT, file))).slice(0, 10);
 const VER = { css: assetVer("style.css"), js: assetVer("script.js"), aff: assetVer("game-affiliate.js") };
 /** 日本時間の今日（lastmod 用） */
-const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date());
+const NR = require("./new-release.js");
+// GAME_GUIDE_TODAY（YYYY-MM-DD）はテスト用（test-new-release.js が一時コピーで日付を固定して生成する）
+const TODAY = process.env.GAME_GUIDE_TODAY || NR.jstToday();
+if (!NR.isValidDate(TODAY)) fail(`GAME_GUIDE_TODAY「${TODAY}」が YYYY-MM-DD ではありません`);
 const DATES_PATH = path.join(ROOT, "data", "page-dates.json");
 const pageDates = fs.existsSync(DATES_PATH) ? readJson(DATES_PATH) : {};
 const LASTMOD = "__LASTMOD__";
@@ -138,24 +141,17 @@ function loadMeter(n) {
   return `<span class="load-meter load-${n}" role="img" aria-label="PC負荷 4段階中${n}（${LOAD_LABEL[n]}）">${bars}</span>`;
 }
 
-function statusChip(g) {
+/** withUntil: 一覧ページ用。script.js が掲載最終日を過ぎた「新作」チップを閲覧時に外せるよう、最終日を持たせる */
+function statusChip(g, withUntil) {
   if (g.status === "early-access") return '<span class="chip chip--ea">早期アクセス</span>';
   if (g.status === "upcoming") return '<span class="chip chip--ea">発売前</span>';
-  if (isNew(g)) return '<span class="chip chip--new">新作</span>';
+  if (isNew(g)) return `<span class="chip chip--new"${withUntil ? ` data-new-until="${NR.newUntil(g)}"` : ""}>新作</span>`;
   return "";
 }
 
-/** 「新作」= 確認日から1年以内に発売・正式版になったタイトル（主観の人気順位は作らない）
- *  確認日は「価格の確認日」と「各ページの公式スペック確認日」のうち最も新しい日。
- *  価格の確認日より後に発売された新作（2026-10-23 の MW4 など）も、公式情報を確認した時点で新作に入る。
- *  実行日を使わないのは、同じデータなら何度生成しても同じ出力にするため */
-let newBaseDate = null;
-function isNew(g) {
-  if (!g.releaseDate) return false;
-  if (!newBaseDate) newBaseDate = [prices.checked, ...Object.values(guides).map((x) => x.checked).filter(Boolean)].sort().pop();
-  const days = (new Date(newBaseDate) - new Date(g.releaseDate)) / 86400000;
-  return days >= 0 && days <= 365;
-}
+/** 「新作」= 発売日（正式版になった日）から1年以内（主観の人気順位は作らない）。判定は new-release.js。
+ *  基準は生成した日（日本時間）。価格・公式スペックの確認日やページの更新日は使わない */
+const isNew = (g) => NR.isNewRelease(g, TODAY);
 
 /* ------------------------------------------------------------------ */
 /*  データの読み込みと検証                                              */
@@ -187,6 +183,11 @@ for (const g of games) {
   if (!LOAD_LABEL[g.load]) fail(`${slug}: load は1〜4`);
   if (LOAD_LABEL[g.load] !== g.level) fail(`${slug}: level「${g.level}」と load ${g.load} が一致しません`);
   if (!GENRE_GROUPS[g.genreGroup]) fail(`${slug}: genreGroup が不正`);
+  // 新作判定に使う日付。無いのは許す（新作にならない）が、書くなら実在する YYYY-MM-DD
+  if (!["released", "early-access", "upcoming"].includes(g.status)) fail(`${slug}: status は released / early-access / upcoming のどれか`);
+  for (const k of ["releaseDate", "fullReleaseDate"]) if (g[k] != null && !NR.isValidDate(g[k])) fail(`${slug}: ${k}「${g[k]}」が YYYY-MM-DD の実在する日付ではありません`);
+  if (g.fullReleaseDate && g.releaseDate && g.fullReleaseDate < g.releaseDate) fail(`${slug}: fullReleaseDate が releaseDate より前です`);
+  if (g.fullReleaseDate && g.status !== "released") fail(`${slug}: fullReleaseDate（正式版の日）があるのに status が released ではありません`);
   if (!Array.isArray(g.builds) || !g.builds.length) fail(`${slug}: builds が空`);
   (g.builds || []).forEach((b, i) => {
     if (!prices.bands[b.band]) fail(`${slug}: builds[${i}].band「${b.band}」が price-bands.json にありません`);
@@ -395,7 +396,7 @@ function card(g, prefix, headingTag) {
   <a class="game-card__link" href="${prefix}games/${slug}.html">
     <div class="game-card__thumb">${showImage(g) ? gameImg(g, prefix, "card") : titleTile(g)}</div>
     <div class="game-card__body">
-      <p class="game-card__tags"><span class="chip">${esc(g.genre)}</span>${statusChip(g)}</p>
+      <p class="game-card__tags"><span class="chip">${esc(g.genre)}</span>${statusChip(g, prefix === "")}</p>
       <${h} class="game-card__title">${esc(g.title)}</${h}>
       <p class="game-card__text">${esc(g.cardText)}</p>
       <dl class="game-card__meta">
@@ -884,10 +885,11 @@ function replaceBlock(src, name, content, file, inline) {
 
 function renderIndex(src) {
   const cards = games.map((g) => card(g, "", "h3")).join("\n");
-  const newGames = games.filter((g) => isNew(g) || g.status === "early-access").sort((a, b) => (a.releaseDate < b.releaseDate ? 1 : -1));
+  // 新作欄。早期アクセス中以外は掲載最終日（data-new-until）を持たせ、生成し直す前に期限が来たら script.js が閲覧時に外す
+  const newGames = NR.newReleaseList(games, TODAY);
   const featured = newGames
     .map(
-      (g) => `<li><a class="new-item" href="games/${slugOf(g)}.html">${showImage(g) ? gameImg(g, "", "mini") : titleTile(g, "mini")}<span class="new-item__body"><span class="new-item__date">${jpMonth(g.releaseDate)}${g.status === "early-access" ? " 早期アクセス開始" : g.id === "palworld" ? " 正式版" : " 発売"}</span><span class="new-item__title">${esc(g.title)}</span><span class="new-item__meta">${esc(g.level)} ／ ${esc(prices.bands[pickBuild(g).band].label)}</span></span></a></li>`
+      (g) => `<li${g.status === "early-access" ? "" : ` data-new-until="${NR.newUntil(g)}"`}><a class="new-item" href="games/${slugOf(g)}.html">${showImage(g) ? gameImg(g, "", "mini") : titleTile(g, "mini")}<span class="new-item__body"><span class="new-item__date">${jpMonth(NR.releaseDateOf(g))} ${NR.releaseLabel(g)}</span><span class="new-item__title">${esc(g.title)}</span><span class="new-item__meta">${esc(g.level)} ／ ${esc(prices.bands[pickBuild(g).band].label)}</span></span></a></li>`
     )
     .join("\n");
   const itemList = {

@@ -76,6 +76,7 @@
     - 予算目安は `game-pc-guide/data/price-bands.json` だけで管理し、生成時に games.json へ書き戻す（本文中は `{{band:キー}}`）。
     - index.html の一覧カードは `GENERATED:*` マーカー内に静的出力（script.js は絞り込みのみ）。
     - 検証は `node game-pc-guide/test-game-content.js`（全ページ・FAQ一致・予算/VRAM整合・60fps上限タイトルの高fps表記・テンプレ文の量産・本文の比較表現と描画性能スコアの整合・画像の実寸・再生成の安定性を検査）。
+    - 新作・正式版の判定は `game-pc-guide/new-release.js`（発売日〔正式版の日 fullReleaseDate を優先〕と生成日〔日本時間〕だけで判定、365日間）。確認日・価格確認日は使わない。一覧ページでは script.js が掲載最終日を過ぎた表示を閲覧時に外す。回帰テストは `node game-pc-guide/test-new-release.js`。
     - sitemap の lastmod は `data/page-dates.json`（内容ハッシュ）で決まり、内容が変わったページだけ更新日が動く。CSS/JS は `?v=内容ハッシュ` 付きで参照する（SWの旧CSS混在防止）。
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
     - `gpuUpgrade` を持つGPU型番記事（2026-09-28〜、現在は rtx3060）は `upgrade/gpu-article.js` が本文を組み立てる。

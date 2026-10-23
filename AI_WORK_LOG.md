@@ -18,6 +18,20 @@
 
 ---
 
+## 2026-10-23（2）— GAME PC GUIDE 新作判定を発売日と生成日だけで行うよう修正
+
+- **修正目的**: 「新作・正式版」欄の判定が、発売日と関係のない日付（価格の確認日・全ページの公式スペック確認日の最新）を「今日」の代わりにしていた問題を解消する。
+- **修正前の問題**: 基準日＝max(価格確認日, 各 guide.json の checked)。古いゲームの確認日を更新してもそのゲーム自体は新作にならないが、基準日が暦とずれるため、確認日しだいで①新作が載らない（10/18基準でMW4が漏れた）②期限切れが残る③確認日を先の日付で書くと他の新作が早く消える④発売予定タイトルが「発売」と表示される、が起きる。静的生成のため、生成し直さないかぎり新作表示は終わらない。Palworld の「正式版」ラベルは id 名指しの特例だった。
+- **変更ファイル**:
+  - 新規 `game-pc-guide/new-release.js`（判定の本体）、`game-pc-guide/test-new-release.js`（回帰テスト95件）
+  - `generate-games.js`（判定を new-release.js に置き換え。基準日は生成日〔日本時間〕。テスト用に GAME_GUIDE_TODAY で固定できる。releaseDate / fullReleaseDate の形式・status の検査を追加。新作欄の並びは日付の新しい順・同日は登録順。新作欄と一覧カードの「新作」チップに掲載最終日 data-new-until を出力）
+  - `script.js`（一覧ページで、掲載最終日を過ぎた新作欄の項目・「新作」チップを閲覧時に外す。新作欄が空なら欄ごと隠す）
+  - `data/games.json`（Palworld の releaseDate を fullReleaseDate に移動。値 2026-07-10 は変えていない）、`sw.js`（v13）、再生成物（index.html・page-dates.json）
+- **判定基準**: 判定日＝fullReleaseDate（正式版の日）があればそれ、なければ releaseDate。当日〜365日後（両端含む・既存の期間のまま）が新作。upcoming・未来の日付・日付なしは新作にしない。不正な形式は生成を止める。early-access は従来どおり期間に関係なく新作欄に載せる（新作チップは付けない）。
+- **表示の変化**: なし（2026-10-23 時点の新作欄は修正前後とも MW4・WARDOGS・鬼武者・Palworld・バイオ レクイエム・CoD・Tarkov の7件、同じ順）。ゲーム詳細ページ30件の差分は0。
+- **検証**: test-new-release 95/95（旧ロジックに戻すと3件NGになることを確認）、test-game-content OK（4,982件）、test-cross-links 63/63、test-build-profile 6,555/6,555。Chrome で日付を固定し、2026-11-16 0:00 JST に Tarkov、11-22 に CoD、2027-10-24 に MW4 が外れることと、検索・絞り込み7パターンを確認。
+- **別AIへの引き継ぎ注意点**: 詳細ページのヒーローと関連ゲーム欄のカードの「新作」チップは、生成し直すまで残る（閲覧時に外すのは一覧ページだけ）。新しく発売されたタイトル（upcoming→released）を新作欄に出すには、データの更新と再生成が必要。早期アクセスから正式版になったら status を released にして fullReleaseDate を書く。
+
 ## 2026-10-23 — GAME PC GUIDE に Call of Duty: Modern Warfare 4 を30タイトル目として追加
 
 - **修正目的**: 2026-10-23発売のMW4を、既存のCoDページ（BO7・Warzone向けシリーズページ）とは別の個別ページとして追加する。CoDページに残っていたMW4の推奨GPU「RTX 3060」（Steamの表記）を、Activision公式の「RTX 3060 Ti」に合わせる。

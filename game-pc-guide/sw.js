@@ -12,7 +12,8 @@
 // v11: 7タイトルを除きゲーム画像を復活（images/*.webp・-mini.webp を追加）。v10 は画像の 404 もキャッシュしていたため、
 //      版を上げて古いキャッシュを捨て、画像は成功した応答（response.ok）だけをキャッシュするように修正。
 // v12: Call of Duty: Modern Warfare 4 を30タイトル目として追加（index.html・games.json・style.css を更新）。
-const CACHE_VERSION = 'v12';
+// v13: 新作判定を発売日（正式版の日）と生成日だけで行うよう修正。script.js が掲載最終日を過ぎた新作表示を閲覧時に外す。
+const CACHE_VERSION = 'v13';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 

@@ -11,6 +11,20 @@
 (function () {
   "use strict";
 
+  // 新作欄・「新作」チップの期限切れ。新作は generate-games.js が生成した日に決まるので、
+  // 生成し直す前に掲載最終日（data-new-until・日本時間）を過ぎたものは閲覧時に外す
+  (function () {
+    var today;
+    try { today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date()); } catch (e) { return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) return;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-new-until]"), function (el) {
+      if (el.getAttribute("data-new-until") < today && el.parentNode) el.parentNode.removeChild(el);
+    });
+    var section = document.getElementById("new");
+    var list = section && section.querySelector(".new-list");
+    if (list && !list.children.length) section.style.display = "none";
+  })();
+
   var form = document.getElementById("gameFilter");
   var grid = document.getElementById("gameGrid");
   if (!form || !grid) return;

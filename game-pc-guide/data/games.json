@@ -1003,7 +1003,7 @@
     "uses": [
       "quality"
     ],
-    "releaseDate": "2026-07-10",
+    "fullReleaseDate": "2026-07-10",
     "status": "released",
     "image": "images/palworld.jpg",
     "cardText": "2026年7月に正式版1.0が配信。公式推奨はRTX 3060 Ti・メモリ32GB。",
