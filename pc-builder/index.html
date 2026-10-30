@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PC BUILDER｜パーツを選んで性能・互換性をチェックする自作PCシミュレーター - シッポPC</title>
+  <meta name="description" content="CPU・GPU・マザーボード・メモリ・電源・ケースなどを選ぶと、組み立てられるか（互換性）と、ゲーム・動画編集・配信・拡張性・コスパの5角形グラフをその場で表示。2つの構成を重ねて比較でき、URLで共有もできます。">
+  <link rel="canonical" href="https://sippo-pc.jp/pc-builder/">
+
+  <!-- OGP（専用画像は未作成のため親サイト共通画像を暫定使用） -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="シッポPC">
+  <meta property="og:title" content="PC BUILDER｜パーツを選んで性能・互換性をチェック">
+  <meta property="og:description" content="好きなパーツを組み合わせると、互換性と5角形の性能グラフがすぐに分かる。2構成の比較・URL共有にも対応。">
+  <meta property="og:url" content="https://sippo-pc.jp/pc-builder/">
+  <meta property="og:image" content="https://sippo-pc.jp/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PC BUILDER｜シッポPC">
+  <meta name="twitter:description" content="パーツを選ぶと互換性と5角形の性能グラフがすぐに分かる自作PCシミュレーター。">
+  <meta name="twitter:image" content="https://sippo-pc.jp/assets/ogp.png">
+
+  <meta name="theme-color" content="#0A0E17">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
+  <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
+  <link rel="stylesheet" href="style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Sippo PC BUILDER",
+    "url": "https://sippo-pc.jp/pc-builder/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "inLanguage": "ja",
+    "description": "PCパーツを選んで互換性と性能（ゲーム・動画編集・配信・拡張性・コスパ）を確認できる自作PCシミュレーター。",
+    "isAccessibleForFree": true,
+    "isPartOf": { "@type": "WebSite", "name": "シッポPC", "url": "https://sippo-pc.jp/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "シッポPC", "item": "https://sippo-pc.jp/" },
+      { "@type": "ListItem", "position": 2, "name": "PC BUILDER", "item": "https://sippo-pc.jp/pc-builder/" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "5角形グラフの点数は実際のFPSですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。GPU GUIDEの描画性能指数やCPUのゲーム性能指数などから計算した、構成どうしを比べるための相対値です。ゲーム別のFPSは実測データが無いため表示していません。" } },
+      { "@type": "Question", "name": "「要確認」と表示されるのはなぜですか？", "acceptedAnswer": { "@type": "Answer", "text": "判定に必要な寸法・ケーブル本数・BIOSの対応などが確認できていないときに表示します。根拠が無いまま「対応」と表示しないためです。購入前にメーカーの仕様ページで確認してください。" } },
+      { "@type": "Question", "name": "表示される価格は今の販売価格ですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。Sippoの各サイトで使っている参考価格（確認日つき）です。実際の価格は販売サイトで確認してください。" } },
+      { "@type": "Question", "name": "作った構成は保存できますか？", "acceptedAnswer": { "@type": "Answer", "text": "ブラウザ内に保存できます。共有ボタンで作ったURLを開くと、別のパソコンやスマートフォンでも同じ構成を復元できます。ログインは不要です。" } },
+      { "@type": "Question", "name": "グラボ（GPU）なしでも組めますか？", "acceptedAnswer": { "@type": "Answer", "text": "内蔵GPUのあるCPU（例: Ryzen 5 5600G）なら組めます。内蔵GPUの無いCPUを選んでGPUを外すと「非対応（映像を出せない）」と表示します。" } }
+    ]
+  }
+  </script>
+
+  <!-- Google tag (gtag.js)：サイト全体で同一のGA4プロパティ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>
+</head>
+<body class="pb" data-sippo-site="pc-builder" data-sippo-theme="dark">
+  <a class="pb-skip" href="#pbApp">シミュレーターへ移動</a>
+
+  <header class="pb-header">
+    <div class="pb-header__inner">
+      <a class="pb-logo" href="/pc-builder/" aria-label="Sippo PC BUILDER トップ">
+        <img src="/assets/sippo/sippo-happy.webp" alt="" width="36" height="36" decoding="async">
+        <span class="pb-logo__text"><small>Sippo</small> PC BUILDER</span>
+      </a>
+      <nav class="pb-header__links" aria-label="ページ内リンク">
+        <a href="#guide">はじめての方へ</a>
+        <a href="#score-guide">スコアの見方</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div data-sippo-servicenav></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="pb-hero" aria-labelledby="pageTitle">
+      <div class="pb-hero__text">
+        <p class="pb-eyebrow">自作PCシミュレーター</p>
+        <h1 id="pageTitle">パーツを選ぶだけで、<span>組めるか・どれくらい速いか</span>が分かる</h1>
+        <p class="pb-hero__lead">CPU・GPU・マザーボードなどを選ぶと、互換性チェックと5角形の性能グラフがその場で更新されます。分からない値は「要確認」「評価不可」と正直に表示します。</p>
+      </div>
+      <div class="pb-presets" id="pbPresets" aria-label="組み合わせ例から始める">
+        <p class="pb-presets__label">組み合わせ例から始める <small>（Sippoの例。おすすめ順位ではありません）</small></p>
+        <div class="pb-presets__list" id="pbPresetList"></div>
+      </div>
+    </section>
+
+    <section class="pb-import" id="pbImport" hidden aria-live="polite"></section>
+
+    <div class="pb-mobile-tabs" role="tablist" aria-label="表示の切り替え">
+      <button type="button" role="tab" data-pane="parts" aria-selected="true">① パーツ</button>
+      <button type="button" role="tab" data-pane="perf" aria-selected="false">② 性能</button>
+      <button type="button" role="tab" data-pane="build" aria-selected="false">③ 構成 <span class="pb-tabbadge" id="pbTabBadge"></span></button>
+    </div>
+
+    <div class="pb-app" id="pbApp" data-pane="parts">
+      <!-- ① パーツ選択 -->
+      <section class="pb-pane pb-pane--parts" id="pane-parts" aria-labelledby="partsTitle">
+        <div class="pb-pane__head">
+          <h2 id="partsTitle">パーツを選ぶ</h2>
+          <span class="pb-editing" id="pbEditingLabel"></span>
+        </div>
+        <div class="pb-cats" id="pbCats" role="tablist" aria-label="パーツの種類"></div>
+        <div class="pb-catinfo" id="pbCatInfo"></div>
+        <div class="pb-filters">
+          <label class="pb-search">
+            <span class="visually-hidden">製品名で検索</span>
+            <input type="search" id="pbSearch" placeholder="製品名・メーカーで検索" autocomplete="off">
+          </label>
+          <div class="pb-filters__row">
+            <label><span class="visually-hidden">メーカー</span><select id="pbMaker"><option value="">すべてのメーカー</option></select></label>
+            <label><span class="visually-hidden">並べ替え</span>
+              <select id="pbSort">
+                <option value="perf">性能・容量が高い順</option>
+                <option value="priceAsc">参考価格が安い順</option>
+                <option value="priceDesc">参考価格が高い順</option>
+                <option value="newest">発売が新しい順</option>
+                <option value="name">名前順</option>
+              </select>
+            </label>
+            <label><span class="visually-hidden">参考価格の上限</span>
+              <select id="pbPriceMax">
+                <option value="">価格の上限なし</option>
+                <option value="20000">〜2万円</option>
+                <option value="50000">〜5万円</option>
+                <option value="100000">〜10万円</option>
+                <option value="200000">〜20万円</option>
+              </select>
+            </label>
+          </div>
+          <div class="pb-filters__row pb-filters__checks">
+            <label class="pb-check"><input type="checkbox" id="pbOnlyCompat"> 今の構成と組めるものだけ</label>
+            <label class="pb-check" id="pbHideUsedWrap"><input type="checkbox" id="pbHideUsed"> 中古向けGPUを隠す</label>
+          </div>
+        </div>
+        <p class="pb-count" id="pbCount" aria-live="polite"></p>
+        <ul class="pb-list" id="pbList"></ul>
+      </section>
+
+      <!-- ② 性能 -->
+      <section class="pb-pane pb-pane--perf" id="pane-perf" aria-labelledby="perfTitle">
+        <div class="pb-pane__head">
+          <h2 id="perfTitle">性能グラフ</h2>
+          <div class="pb-seg" id="pbRes" role="radiogroup" aria-label="ゲームの解像度">
+            <button type="button" role="radio" data-res="fhd" aria-checked="false">フルHD</button>
+            <button type="button" role="radio" data-res="wqhd" aria-checked="true">WQHD</button>
+            <button type="button" role="radio" data-res="4k" aria-checked="false">4K</button>
+          </div>
+        </div>
+        <div class="pb-radar" id="pbRadarWrap">
+          <svg id="pbRadar" viewBox="0 0 360 330" role="img" aria-labelledby="pbRadarTitle pbRadarDesc">
+            <title id="pbRadarTitle">構成の5角形性能グラフ</title>
+            <desc id="pbRadarDesc">ゲーム性能・動画編集性能・配信性能・拡張性・コストパフォーマンスを0〜100点で表示します。数値は下の一覧にも表示しています。</desc>
+          </svg>
+          <div class="pb-legend" id="pbLegend"></div>
+        </div>
+        <ol class="pb-axes" id="pbAxes"></ol>
+        <p class="pb-note">点数は実測FPSではなく、Sippoの性能指数と公式スペックから計算した相対値です。<a href="#score-guide">計算方法</a></p>
+
+        <div class="pb-detail">
+          <div class="pb-detail__tabs" id="pbDetailTabs" role="tablist" aria-label="詳しいグラフ"></div>
+          <div class="pb-detail__body" id="pbDetail" role="tabpanel"></div>
+        </div>
+      </section>
+
+      <!-- ③ 構成 -->
+      <section class="pb-pane pb-pane--build" id="pane-build" aria-labelledby="buildTitle">
+        <div class="pb-pane__head">
+          <h2 id="buildTitle">構成</h2>
+          <div class="pb-seg pb-seg--ab" id="pbBuildSwitch" role="radiogroup" aria-label="編集する構成"></div>
+        </div>
+        <label class="pb-name">
+          <span>構成の名前</span>
+          <input type="text" id="pbName" maxlength="40" placeholder="例：はじめてのゲーミングPC">
+        </label>
+        <div class="pb-total" id="pbTotal"></div>
+        <div class="pb-compat-summary" id="pbCompatSummary"></div>
+        <ul class="pb-selected" id="pbSelected"></ul>
+        <div class="pb-actions">
+          <button type="button" class="pb-btn pb-btn--primary" data-action="save">💾 ブラウザに保存</button>
+          <button type="button" class="pb-btn" data-action="share">🔗 共有URLをコピー</button>
+          <button type="button" class="pb-btn" data-action="saved">📂 保存した構成</button>
+          <button type="button" class="pb-btn" data-action="compare">⇄ 構成Bと比較</button>
+          <button type="button" class="pb-btn pb-btn--ghost" data-action="reset">🗑 この構成を空にする</button>
+        </div>
+        <div class="pb-preview" id="pbPreview"></div>
+        <div class="pb-compat" id="pbCompat"></div>
+        <div class="pb-shops" id="pbShops"></div>
+      </section>
+    </div>
+
+    <!-- 初心者向けガイド -->
+    <section class="pb-guide" id="guide" aria-labelledby="guideTitle">
+      <div class="pb-section-head">
+        <img src="/assets/sippo/sippo-thinking.webp" alt="" width="72" height="72" loading="lazy" decoding="async">
+        <div>
+          <p class="pb-eyebrow">BEGINNER GUIDE</p>
+          <h2 id="guideTitle">はじめての方へ：パーツの役割</h2>
+        </div>
+      </div>
+      <p>パソコンは、役割の違うパーツを組み合わせてできています。まずは <strong>CPU → GPU → マザーボード → メモリ → ストレージ → 電源 → ケース</strong> の順に選ぶと迷いにくいです。</p>
+      <dl class="pb-roles">
+        <div><dt>CPU</dt><dd>パソコン全体の計算を担当する「頭脳」。ゲームのfpsの上限や、動画の書き出し速度に効きます。</dd></div>
+        <div><dt>GPU（グラフィックボード）</dt><dd>映像を描く担当。ゲームの快適さに最も大きく効きます。製品（メーカー別のカード）によって長さや電源ケーブルが違います。</dd></div>
+        <div><dt>マザーボード</dt><dd>すべてのパーツをつなぐ土台。CPUの「ソケット」と、メモリの種類（DDR4 / DDR5）が合っている必要があります。</dd></div>
+        <div><dt>メモリ</dt><dd>作業中のデータを置く机の広さ。ゲームなら16〜32GBが目安です。</dd></div>
+        <div><dt>SSD・HDD</dt><dd>データを保存する場所。OSやゲームは速いNVMe SSDに入れるのが一般的です。</dd></div>
+        <div><dt>電源ユニット</dt><dd>各パーツに電気を送る装置。容量（W）に余裕があり、GPUの補助電源ケーブルが足りることが大切です。</dd></div>
+        <div><dt>PCケース</dt><dd>パーツを収める箱。マザーボードのサイズ、GPUの長さ、CPUクーラーの高さに上限があります。</dd></div>
+        <div><dt>CPUクーラー</dt><dd>CPUを冷やす部品。空冷（ヒートシンク＋ファン）と簡易水冷（ラジエーター）があります。</dd></div>
+        <div><dt>ケースファン</dt><dd>ケース内の空気を入れ替えるファン。付属ファンだけで足りることも多いです。</dd></div>
+      </dl>
+      <details class="pb-glossary">
+        <summary>よく出てくる用語</summary>
+        <dl>
+          <div><dt>ソケット（AM5 / LGA1700 など）</dt><dd>CPUを差し込む部分の形。CPUとマザーボードで同じでないと取り付けできません。</dd></div>
+          <div><dt>チップセット（B650 / B760 など）</dt><dd>マザーボードの機能の格。同じソケットでも、対応するCPU世代やBIOSの条件が変わります。</dd></div>
+          <div><dt>BIOS</dt><dd>マザーボードの基本ソフト。発売が新しいCPUは、マザーボードのBIOSを更新しないと起動しないことがあります。</dd></div>
+          <div><dt>フォームファクター（ATX / Micro-ATX / Mini-ITX）</dt><dd>マザーボードの大きさの規格。ケースが対応している大きさを選びます。</dd></div>
+          <div><dt>VRAM</dt><dd>GPUに載っている専用メモリ。高解像度・高画質ほど多く必要です。</dd></div>
+          <div><dt>M.2 / NVMe</dt><dd>マザーボードに直接挿す小型SSDの形と通信方式。SATAより高速です。</dd></div>
+          <div><dt>12V-2x6（16ピン）</dt><dd>最近のGPUで使われる補助電源コネクタ。電源側にケーブルが無いと変換アダプタが必要です。</dd></div>
+          <div><dt>ハードウェアエンコーダー</dt><dd>GPUに入っている動画圧縮の専用回路。配信や録画でCPUの負担を減らせます（H.264 / HEVC / AV1）。</dd></div>
+        </dl>
+      </details>
+    </section>
+
+    <section class="pb-guide" id="score-guide" aria-labelledby="scoreGuideTitle">
+      <div class="pb-section-head">
+        <div>
+          <p class="pb-eyebrow">HOW IT WORKS</p>
+          <h2 id="scoreGuideTitle">5角形グラフのスコアの見方</h2>
+        </div>
+      </div>
+      <p>どの項目も 0〜100点です。<strong>実測のFPSやベンチマーク結果ではなく、構成どうしを比べるための相対値</strong>です。材料になる値が足りないときは点数を作らず「評価不可」、一部の値が無いときや推定モデルを含むときは「参考値」と表示します。</p>
+      <div class="pb-score-cards" id="pbScoreHelp"></div>
+      <p class="pb-note">性能の材料：GPU GUIDE の描画性能指数（rasterScore）、PC UPGRADE のCPUゲーム性能指数、各パーツの公式スペック。各項目の配分は上のカードのとおりで、計算式は公開しているJavaScript（pb-score.js）と同じです。</p>
+    </section>
+
+    <section class="pb-guide" id="compat-guide" aria-labelledby="compatGuideTitle">
+      <div class="pb-section-head">
+        <div>
+          <p class="pb-eyebrow">COMPATIBILITY</p>
+          <h2 id="compatGuideTitle">互換性チェックで確認していること</h2>
+        </div>
+      </div>
+      <ul class="pb-checklist">
+        <li>CPUとマザーボードのソケット／マザーボードのCPU世代対応とBIOS条件</li>
+        <li>メモリの規格（DDR4 / DDR5）・枚数・最大容量</li>
+        <li>マザーボードとケースの大きさ（ATX / Micro-ATX / Mini-ITX）</li>
+        <li>GPUの長さ・厚さとケースの上限（前面ラジエーター時の制限も）</li>
+        <li>CPUクーラーの対応ソケット・高さ／簡易水冷ラジエーターの取り付け位置</li>
+        <li>電源容量の余裕・GPUメーカー推奨電源・GPUの補助電源コネクタ・電源の規格と奥行き</li>
+        <li>M.2スロット・SATAポート・ドライブベイ・ケースファンの取り付け数・拡張スロット</li>
+        <li>GPUなし構成で映像を出せるか（内蔵GPUの有無）</li>
+      </ul>
+      <p><span class="pb-st pb-st--ok">対応</span> 根拠となる値があり条件を満たす　<span class="pb-st pb-st--check">要確認</span> 値が不足・条件付き　<span class="pb-st pb-st--ng">非対応</span> 条件を満たさない</p>
+      <p class="pb-note">「機種未指定」のパーツは、製品を決めていない目安です。寸法やケーブル本数が決まらないため、関係するチェックは「要確認」になります。</p>
+    </section>
+
+    <section class="pb-guide" id="faq" aria-labelledby="faqTitle">
+      <div class="pb-section-head">
+        <div>
+          <p class="pb-eyebrow">FAQ</p>
+          <h2 id="faqTitle">よくある質問</h2>
+        </div>
+      </div>
+      <div class="pb-faq">
+        <details><summary>5角形グラフの点数は実際のFPSですか？</summary><p>いいえ。GPU GUIDEの描画性能指数やCPUのゲーム性能指数などから計算した、構成どうしを比べるための相対値です。ゲーム別のFPSは実測データが無いため表示していません。</p></details>
+        <details><summary>「要確認」と表示されるのはなぜですか？</summary><p>判定に必要な寸法・ケーブル本数・BIOSの対応などが確認できていないときに表示します。根拠が無いまま「対応」と表示しないためです。購入前にメーカーの仕様ページで確認してください。</p></details>
+        <details><summary>表示される価格は今の販売価格ですか？</summary><p>いいえ。Sippoの各サイトで使っている参考価格（確認日つき）です。実際の価格は販売サイトで確認してください。</p></details>
+        <details><summary>作った構成は保存できますか？</summary><p>ブラウザ内に保存できます。共有ボタンで作ったURLを開くと、別のパソコンやスマートフォンでも同じ構成を復元できます。ログインは不要です。</p></details>
+        <details><summary>グラボ（GPU）なしでも組めますか？</summary><p>内蔵GPUのあるCPU（例: Ryzen 5 5600G）なら組めます。内蔵GPUの無いCPUを選んでGPUを外すと「非対応（映像を出せない）」と表示します。</p></details>
+      </div>
+    </section>
+
+    <section class="pb-guide pb-related" aria-labelledby="relatedTitle">
+      <h2 id="relatedTitle">ほかのシッポPCサービス</h2>
+      <div class="pb-related__grid">
+        <a href="/pc-build-check/"><strong>PC BUILD CHECK</strong><small>予算・用途・解像度からおすすめ構成を診断</small></a>
+        <a href="/gpu-guide/"><strong>GPU GUIDE</strong><small>GPUの性能・価格帯を比較</small></a>
+        <a href="/game-pc-guide/"><strong>GAME PC GUIDE</strong><small>遊びたいゲームから必要スペックを逆引き</small></a>
+        <a href="/upgrade/"><strong>PC UPGRADE</strong><small>今のPCで交換すべきパーツを診断</small></a>
+        <a href="/pc-builds-hub/"><strong>PC構成投稿サイト</strong><small>みんなのPC構成を見る</small></a>
+        <a href="/pc-consult/"><strong>シッポPC相談室</strong><small>この構成で大丈夫か相談する</small></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-footer">
+    <p>当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
+    <p>互換性・性能の表示は登録データにもとづく目安です。実際の取り付け可否・性能・価格を保証するものではありません。購入前にメーカーの仕様ページをご確認ください。製品名は各社の商標です。</p>
+    <p class="pb-footer__links"><a href="/">シッポPC トップ</a> / <a href="/pc-build-check/">PC BUILD CHECK</a> / <a href="/gpu-guide/">GPU GUIDE</a> / <a href="/game-pc-guide/">GAME PC GUIDE</a> / <a href="/upgrade/">PC UPGRADE</a> / <a href="/pc-builds-hub/">PC構成投稿サイト</a> / <a href="/pc-consult/">相談室</a></p>
+    <p>© 2026 シッポPC 🐾</p>
+  </footer>
+
+  <div class="pb-toast" id="pbToast" role="status" aria-live="polite"></div>
+
+  <dialog class="pb-dialog" id="pbSavedDialog" aria-labelledby="pbSavedTitle">
+    <div class="pb-dialog__head">
+      <h2 id="pbSavedTitle">保存した構成</h2>
+      <button type="button" class="pb-icon-btn" data-close aria-label="閉じる">✕</button>
+    </div>
+    <div id="pbSavedList"></div>
+    <p class="pb-note">保存先はこのブラウザだけです。別の端末で開くには「共有URLをコピー」を使ってください。</p>
+  </dialog>
+
+  <noscript><p class="pb-noscript">PC BUILDER は JavaScript を使って動きます。JavaScript を有効にしてご利用ください。</p></noscript>
+
+  <script src="/shared/affiliate/affiliate-config.js"></script>
+  <script src="/shared/affiliate/affiliate.js"></script>
+  <script src="/shared/nav/sippo-nav.js" defer></script>
+  <!-- 既存データの再利用：CPUゲーム性能指数・GPU公式推奨電源・参考価格（PC UPGRADE）と解像度基準（GPU GUIDE） -->
+  <script src="/upgrade/upgrade-engine.js"></script>
+  <script src="/shared/gpu/gpu-target.js"></script>
+  <script src="js/pb-db.js"></script>
+  <script src="js/pb-compat.js"></script>
+  <script src="js/pb-score.js"></script>
+  <script src="js/pb-codec.js"></script>
+  <script src="js/pb-import.js"></script>
+  <script src="js/pb-charts.js"></script>
+  <script src="js/pb-app.js"></script>
+</body>
+</html>

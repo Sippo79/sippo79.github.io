@@ -23,7 +23,9 @@
 //      詳細設定・ゲーム連携）。script.js / style.css / index.html / builds.json / part-prices.json を更新し、
 //      build-profile.js を新規にキャッシュ対象へ。gpus.json / games.json もネットワーク優先に変更
 //      （他サイトのデータなので、こちらの版上げを待たずに最新を使う）。
-const CACHE_NAME = 'pc-build-check-v10';
+// v11: 診断結果に「この構成をカスタマイズする」（PC BUILDER への引き継ぎ）を追加（script.js）。
+//      共通ナビ（shared/nav/sippo-nav.js）に PC BUILDER を追加。どちらもキャッシュ対象のため版を上げる。
+const CACHE_NAME = 'pc-build-check-v11';
 
 const STATIC_ASSETS = [
   './',

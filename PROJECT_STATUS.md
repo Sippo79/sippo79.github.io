@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-09-28（/upgrade/rtx3060/ 全面強化・GPU型番記事の共通レンダラー・公式推奨電源の導入）
+最終更新: 2026-10-31（PC BUILDER 公開前の最終改善：GPU価格の gpuChips・価格の3区分・コスパの公平性・メモリ/SSD拡充。未コミット）
 
 ---
 
@@ -47,6 +47,7 @@
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
+| PC BUILDER | https://sippo-pc.jp/pc-builder/ | パーツを自由に選び、**互換性（対応／要確認／非対応）**と**5角形の性能グラフ**（ゲーム・動画編集・配信・拡張性・コスパ）で確認する自作PCシミュレーター（2026-10-30〜）。2構成の重ね比較・URL共有・ブラウザ内保存。GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE / UPGRADE / Builds Hub から構成を引き継げる。**判定・計算はページ内JS、サーバー・API不使用**。共有URL（?b=...）は canonical=/pc-builder/ で sitemap には載せない。詳細は `pc-builder/README.md` | `pc-builder/` |
 
 **URLルール**:
 - できるだけ `index.html` なしの **ディレクトリURL** に統一（例: `/pc-consult/`）。実ファイル `index.html` は残し、`/.../index.html` でもアクセス可。
@@ -58,6 +59,7 @@
   - `sitemap-main.xml`（親サイト + `/pc-consult/`）
   - `gpu-guide/sitemap.xml` / `pc-build-check/sitemap.xml` / `game-pc-guide/sitemap.xml` / `pc-builds-hub/sitemap.xml`（各子サイトが個別ページまで網羅、多くは生成スクリプト由来）
   - `upgrade/sitemap.xml`（トップ＋パーツ別7ページ＋型番別記事3ページ＝計11URL。**すべて実体のある静的HTML**。診断結果はURLを持たないため載せない）
+  - `pc-builder/sitemap.xml`（/pc-builder/ の1URLのみ。構成の共有URLは載せない）
 - 親サイト/pc-consult のURLを足すときは `sitemap-main.xml` を編集（直下 sitemap.xml はインデックスなので実URLを書かない）。
 - 直下 `robots.txt` の `Sitemap:` はインデックス1本（`https://sippo-pc.jp/sitemap.xml`）に集約。
 
@@ -126,6 +128,7 @@
     境界値（65 / 85 の前後）も回帰テストとして固定している。
     **GPU数をハードコードせず `gpus.json` の件数から期待値を導く**ので、
     GPUを足しても自動で追従する。現行GPUにCPU相性が無いと落ちる（意図的な検出）。
+  - `node pc-builder/test-pc-builder.js` … PC BUILDER（4,106件 / 2026-10-30〜）。データの健全性（出典・ID・二重管理なし）／互換性の各判定と「値が null のとき対応を返さない」／ランダム3000構成で例外・範囲外スコアなし／スコアの単調性／共有URLの往復・壊れたURL／75構成・30ゲーム・65GPU・UPGRADE・Hubからの引き継ぎ／既存サイトの導線とSEO。パーツデータの点検は `node pc-builder/validate-parts.js`（判定に使う主要仕様の不足と、未確認 null の一覧を出す）。データ更新時の検査（CPU仕様の整合・価格表の確認日と出典・古い価格・GPU価格を書かない）も同じテストに含む。
   - `node scripts/test-cross-links.js` … サイト間のGPU導線（61件 / 2026-09-03〜）。
     旧形式 `?gpu=` の残存、GPU名→id解決、遷移先の実在、生成物の要素欠落を検証する。
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
@@ -331,6 +334,8 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
 優先度: **A=早めに対応 / B=できれば対応 / C=様子見・将来対応**
 
 ### 優先度A
+- **PC BUILDER 公開前の確認**（2026-10-30 作成・同日データ拡充・未コミット）: ①実機（PC・スマホ）で目視確認 ②`node pc-builder/validate-parts.js` の「主要仕様が不足」4件（SF850 の奥行き、ケース3件のベイ数）③PC BUILD CHECK の静的75ページ（`builds/*.html`）には導線未設置（`generate-builds.ps1` の再生成は過去に事故があったため見送り。診断結果画面には設置済み）④専用OGP画像（現在は親共通 `assets/ogp.png` を暫定流用）⑤ショップ価格は未登録（`parts.json` の `shops[]`）。CPUの仕様は Wikipedia 世代別ページの製品表（版を固定・二次情報と明記）で、AMD・Intel 公式との照合は未実施。MSI・GIGABYTE・Crucial・Kingston・Seasonic・be quiet!・Noctua・NZXT・Thermaltake は公式サイトが自動取得を拒否、ASRock は本文がJS描画で読めず、製品を登録していない（迂回はしない）。
+- **PC BUILDER の参考価格**（2026-10-30〜、2026-10-31 にGPUを追加）: 価格は3区分（実売確認価格／参考中央値／参考価格〔未確認〕）で、合計とコスパには確認日つきの前2つだけを入れる。GPUチップも `prices.json` の `gpuChips`（gpus.json は変更しない）。それ以外は `pc-builder/data/prices.json`（価格.com 人気ランキング掲載の最安値を手で確認・千円単位・確認日と出典つき）。**45日（`staleAfterDays`）で「古い」表示になるので、手で更新する**（自動取得はしない）。メモリ・SSDは既存の `part-prices.json` の値が実売と大きく違うため使わない（`rules.json` の `pricing.suspendFallback`）。GPUは gpus.json の値のまま、実売との差（約1.3〜1.7倍・2026-10-30確認）を画面で注意している。
 - **実クリックの計上確認**（ユーザー側で実施）。公開後に実際にボタンを押し、
   Amazonアソシエイト / 楽天アフィリエイトの管理画面にクリックが計上されるかを一度確認する。
 - **定期的なリンク切れチェック**: 月1回程度 `node scripts/check-affiliate-links.js` を実行し、
@@ -340,9 +345,11 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
 - **PC BUILD CHECK の予算スケールが実勢とずれている**（2026-10-18 監査で確認）。両サイトとも「BTO完成品の目安」を名乗っているが、
   PC BUILD CHECK の参考価格（`shared/parts/part-prices.json`、2026-09-03）は GAME PC GUIDE の予算（`game-pc-guide/data/price-bands.json`、販売例ベース）より2万〜6万円低い。
   - 例（同じ構成をPC BUILD CHECKの計算式に通した値 → GAME PC GUIDE）: 7500F+RTX 5060+16GB 約15万 → 17万〜21万／7800X3D+RTX 5070+32GB 約25万 → 29万〜36万／7800X3D+RTX 5070 Ti+32GB 約29万 → 35万〜45万。PC BUILD CHECK の予算区分は RTX 5080 構成を30万円、RX 9070 構成を15万円に置いている。
-  - 主因: part-prices.json の DDR5 32GB 16,000円・NVMe 1TB 12,000円が、2026年夏以降の報告（Gen4 1TB 約44,000円など）と大きく違う。gpus.json の価格（例: RX 9070 XT 96,000円）も2026年8月の報告（約159,800円）より低い。
+  - 主因: part-prices.json の DDR5 32GB 16,000円・NVMe 1TB 12,000円が、2026年夏以降の報告（Gen4 1TB 約44,000円など）と大きく違う。2026-10-30 に価格.com で再確認: DDR5 32GB（16GB×2）約6.4万〜8.3万円、NVMe 1TB 約3.1万〜4.0万円、RTX 5070 約15.5万〜17万円、RX 9070 XT 約13.9万〜18.7万円（gpus.json は 11.8万・9.6万円）。gpus.json の価格（例: RX 9070 XT 96,000円）も2026年8月の報告（約159,800円）より低い。
   - 修正案（PC BUILD CHECK / GPU GUIDE 側。今回は未実施）: ① part-prices.json のメモリ・SSD単価と updated を最新相場に更新 ② gpus.json の価格を更新 ③ 予算区分ごとの構成を見直すか、予算ラベルに「パーツ価格（YYYY年M月）からの概算」と明記 ④ 将来は price-bands.json 相当を shared/ に置き両サイトで共有。
   - GAME PC GUIDE 側は本文に「PC BUILD CHECKの参考価格はパーツ価格から計算した概算のため低めに出ることがある」と明記済み。
+  - **gpus.json 価格の更新候補**（2026-10-31 価格.com ランキング掲載の最安値の中央値／最安。PC BUILDER の `prices.json` の gpuChips と同じ値）: RTX 5050 3.5万→5.8万（最安5.4万）／RTX 5060 5.7万→8.6万（7.9万）／RTX 5060 Ti 16GB 8.9万→14.9万（14.3万）／RTX 5070 11.8万→16.3万（15.5万）／RTX 5070 Ti 15.8万→24.9万（22.9万）／RTX 5080 19.8万→36.6万（33.2万）／RTX 5090 65万→134.9万（123万）／RX 7600 4.2万→5.3万（4.7万）／RX 9060 XT 16GB 5.5万→9.3万（8.5万）／RX 9070 8.8万→13.0万（12.6万）／RX 9070 XT 9.6万→16.2万（14.2万）。
+    - 影響範囲（gpus.json の price を変えた場合）: GPU GUIDE の一覧・個別65ページ（`generate-gpu-pages.js` で再生成）、PC BUILD CHECK の参考価格と予算区分（`test-build-price.js`・`test-build-profile.js` の「予算+15%以内」判定に掛かる可能性が高い＝構成の見直しが必要）、UPGRADE の価格表示、GAME PC GUIDE の価格帯説明。PC BUILDER は gpuChips を使うので影響しない。中古相場（market: used）の値は今回確認していない。
 
 ### 優先度B
 - **GAME PC GUIDE の情報の定期更新**: `price-bands.json` を月1回見直す。原神（公式一次情報で最新PCスペック未確認）・黒い砂漠（日本版の動作環境未確認）は確認できたら guide.json を更新。CoDはMW4発売（2026-10-22）後に更新。

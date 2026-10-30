@@ -263,6 +263,38 @@ function renderConsultCard(post) {
   `;
 }
 
+// PC BUILDER で投稿の構成を再現する導線（静的・外部API不使用）。
+// パーツ名は自由入力なので、PC BUILDER 側で「登録済みの製品名と完全一致したものだけ」自動で入れ、
+// それ以外は候補を出してユーザーに選んでもらう（ここでは名前を渡すだけで判定しない）。
+function renderBuilderCard(post) {
+  if (!post) return "";
+  const fields = [["cpu", post.cpu], ["gpu", post.gpu], ["ram", post.ram], ["mb", post.motherboard], ["storage", post.storage], ["case", post.case], ["psu", post.psu], ["cooler", post.cooler]];
+  const params = new URLSearchParams();
+  params.set("from", "hub");
+  let count = 0;
+  fields.forEach(([key, value]) => {
+    const v = String(value || "").trim().slice(0, 80);
+    if (v) { params.set(key, v); count += 1; }
+  });
+  if (!count) return "";
+  if (post.title) params.set("title", String(post.title).slice(0, 60));
+  const href = "/pc-builder/?" + params.toString();
+  return `
+    <aside class="consult-card builder-card" aria-label="PC BUILDERで構成を再現">
+      <div class="consult-card__icon" aria-hidden="true">🛠️</div>
+      <div class="consult-card__body">
+        <h2 class="consult-card__title">この構成を再現する・編集する</h2>
+        <p class="consult-card__desc">PC BUILDER にこの投稿のパーツを読み込み、互換性チェックと5角形の性能グラフで確認できます。パーツを入れ替えて自分用に編集することもできます。</p>
+        <ul class="consult-card__list">
+          <li>登録済みの製品と名前が一致したパーツは自動で入ります</li>
+          <li>一致しないパーツは候補から選べます</li>
+        </ul>
+      </div>
+      <a class="btn btn-primary consult-card__btn" href="${escapeHtml(href)}">PC BUILDERで開く →</a>
+    </aside>
+  `;
+}
+
 // スペックの読み替え説明（初心者向け・静的）
 /**
  * 投稿された構成に含まれるパーツの購入導線を描画する。
@@ -486,6 +518,7 @@ function renderPost(post, index = 0) {
       renderBenchmarkSection(post) +
       renderCommentSection(post) +
       renderPartsAffiliate(post) +
+      renderBuilderCard(post) +
       renderSpecGuide() +
       renderConsultCard(post) +
       renderSippoCard();

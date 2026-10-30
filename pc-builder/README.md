@@ -1,0 +1,192 @@
+# Sippo PC BUILDER（/pc-builder/）
+
+パーツを自由に選んで、**互換性（対応／要確認／非対応）** と **5角形の性能グラフ** を確認する自作PCシミュレーター。
+静的サイト（GitHub Pages）だけで動き、サーバー・外部API・ログインは使わない。
+
+- 公開URL: https://sippo-pc.jp/pc-builder/
+- テスト: `node pc-builder/test-pc-builder.js`（データ健全性・互換性・スコア・URL共有・他サイト引き継ぎ・導線）
+- データ点検: `node pc-builder/validate-parts.js`（形式エラー／判定に使う主要仕様の不足／「未確認（null）」の一覧）
+
+---
+
+## 1. ファイル構成
+
+| ファイル | 役割 |
+|---|---|
+| `index.html` | 画面・SEO（title / description / canonical / OGP / 構造化データ）・初心者ガイド・FAQ |
+| `style.css` | 見た目（色は `:root` のトークンだけ） |
+| `js/pb-db.js` | 既存データ＋`data/parts.json` を1つのパーツDBにまとめる。検索・絞り込み・並べ替え |
+| `js/pb-compat.js` | 互換性チェック（純粋関数。Nodeでもテスト可能） |
+| `js/pb-score.js` | 5角形スコアの計算（純粋関数） |
+| `js/pb-codec.js` | 構成 ⇔ 共有URL、ブラウザ内保存（localStorage） |
+| `js/pb-import.js` | 他サイトからの引き継ぎ（GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE / UPGRADE / Builds Hub） |
+| `js/pb-charts.js` | レーダー・棒グラフ・外観の模式図（SVG。ライブラリ不使用） |
+| `js/pb-app.js` | 画面の状態と操作（表示だけを担当） |
+| `data/parts.json` | GPUチップ以外のパーツ仕様と出典 |
+| `data/rules.json` | 規格・世代単位の判定ルール（チップセットの世代、エンコーダー、解像度の説明、価格の扱い `pricing`） |
+| `data/prices.json` | 参考価格（パーツを個別に買う場合の小売目安。手で確認した値・確認日・出典） |
+| `data/presets.json` | 「組み合わせ例から始める」の例（おすすめ順位ではない） |
+
+## 2. 既存データの再利用（重複管理しない）
+
+| 情報 | 唯一の情報源 |
+|---|---|
+| GPUチップの性能指数・VRAM・消費電力・世代 | `gpu-guide/gpus.json`（価格は PC BUILDER では `prices.json` の `gpuChips` を優先し、gpus.json の価格は「GPU GUIDE掲載（別基準・日付なし）」として並べて出すだけ） |
+| GPUのメーカー公式推奨電源・補助電源（リファレンス） | `upgrade/upgrade-engine.js` の `GPU_POWER_SPEC`（無いチップだけ `data/rules.json` の `gpuChipPower`） |
+| CPUのゲーム性能指数 | `upgrade/upgrade-engine.js` の `CPU_TIERS` |
+| 解像度の基準（WQHD 65 / 4K 85） | `shared/gpu/gpu-target.js` の `THRESHOLDS` |
+| フルHDの基準（42） | `upgrade-engine.js` の `RESOLUTION_TARGETS.fhd.base` |
+| GPU以外の参考価格（小売目安） | `data/prices.json`（製品 `items` ／同クラス `classes`） |
+| ↑に無いときだけ使う既存の目安 | `shared/parts/part-prices.json`（BTO構成用）・`upgrade-engine.js` の `PRICE_HINT`（日付なし）。画面にその旨を出す。`rules.json` の `pricing.suspendFallback` にあるカテゴリ（メモリ・SSD）は使わない |
+| 購入リンク | `shared/affiliate/`（商品マスター＋リンク生成。マスターに無い製品は実行時に「検索リンクだけ」で登録） |
+| サービス一覧ナビ | `shared/nav/sippo-nav.js` の `SERVICES` |
+
+`parts.json` に GPUチップや価格を書かない（テストで検出する）。GPUチップの価格は `prices.json` の `gpuChips` だけに置き、`gpus.json` は変更しない。
+
+### 参考価格の3区分と優先順位（`pb-db.js`）
+| 区分（`tier`） | 中身 | 合計・コスパ |
+|---|---|---|
+| `retail` 実売確認価格 | `prices.json` の `items`（型番が一致した製品の掲載最安値） | 入れる |
+| `median` 参考中央値 | `classes`（同じ種類・容量）／`gpuChips`（同じGPUチップ）の製品の最安値の中央値 | 入れる |
+| `reference` 参考価格（未確認） | 既存データ（`gpus.json`・`part-prices.json`＝BTO構成用・`PRICE_HINT`＝日付なし） | **入れない**（別に「参考価格だけ n点・約○万円」と表示） |
+
+- 優先順位: `items` → `classes` / `gpuChips` → 既存データ。`pricing.suspendFallback` のカテゴリ（メモリ・SSD）は既存データにも戻らず「未登録」。
+- 「有効な価格」（`price.valid`）＝ `retail` か `median` で、確認から `staleAfterDays` 以内のもの。古くなった価格は `reference` と同じ扱い。
+- グラボ製品（gpuboard）に `items` の価格があれば、その製品価格を使い、GPUチップの価格は数えない（`priceSummary` の `boardPriced`）。
+- `checkedAt` から `prices.json` の `staleAfterDays`（45日）を過ぎた価格は「確認から○日」と警告し、コスパの理由にも出す。
+- 新品GPUの価格には `pricing.notices.gpu`（実売との差）を添える。
+- 合計は「確認できた価格の合計」。参考価格だけ・未登録のパーツは「＋確認できないn点」として件数と内容を出し、未選択の必須パーツも並べる。OS・組み立て・保証は含まず、PC BUILD CHECK（BTO完成品基準）とは一致しないことを合計の下と PC BUILD CHECK からの引き継ぎ欄に書く。
+
+### 価格の更新手順（自動取得はしない）
+1. 価格比較サイトや販売店のページを手で見て、型番が一致する製品の最安値を読む（千円単位に丸める）。
+2. `prices.json` の `items` / `classes` を直し、`checkedAt` と `_meta.sources` を更新する。
+3. 相場が戻ったカテゴリは `rules.json` の `pricing.suspendFallback` から外してよい。
+4. `node pc-builder/test-pc-builder.js`。
+
+## 3. データの決まり（`data/parts.json`）
+
+- **仕様は `sources` に記録したページで実際に読めた値だけ**。読めなかった値は `null`（＝互換性は「要確認」、スコアは「評価不可」または「参考値」）。
+- 推測・記憶で値を埋めない。`null` を埋めるときは `sources` のURLと `checkedAt` も更新する。
+- CPUの仕様はメーカー公式ページが自動取得を拒否するため、Wikipedia の世代別ページ（Zen 3 / Zen 4 / Zen 5 / Alder Lake / Raptor Lake / Arrow Lake）の製品表を **版を固定したURL（`oldid=`）** で出典にしている（二次情報と明記）。表はAPIで展開したHTMLから結合セルを展開して読む（以前の一覧ページは結合セルで読み違えやすかった）。
+- 付属クーラー `boxCooler` は 名前（付属）／`false`（表で付属なし）／`null`（未確認・パッケージにより異なる）。
+- CPU_TIERS に無いCPUは、内蔵GPUの有無以外の仕様（コア・クロック・キャッシュ・電力）がすべて同じ兄弟型番を `gameTierSameAs` に書くと、その指数を使う（例: 14600K → 14600KF）。仕様が1つでも違えば使わない（`pb-db.js` の `sameCpuSilicon`）。
+- 電源の奥行き `depthMm` を入れたら、根拠を `depthNote` に書く（Corsair は寸法の軸表記が無いため、RM1000x 公式FAQの「L x W x H」の順で読んでいる）。
+- `kind: "generic"` は機種を特定しない「目安パーツ」（例: B650 マザーボード（機種未指定））。PC BUILD CHECK の構成（マザボを型番で持たない）を再現するためと、既存の価格帯データを使うためのもの。
+- 価格は直接書かない。`priceRef`（既存データの参照）か、ショップ価格を `shops: [{ shop, url, price, checkedAt }]` で持つ。**ショップ価格は `price` と `checkedAt` が揃ったときだけ表示**する。
+- 製品個別の価格が無いときは、同じクラス（例: DDR5 32GB、850W電源）の参考価格を「同クラスの参考価格」と明記して使う（`pb-db.js` の `classPrice`）。ケース・ファンなどクラスが決まらないものは価格なし。
+- グラボ製品（`gpuboard`）は `chip` に `gpus.json` の id を入れる。価格はGPUチップの参考価格に含めて数える（二重計上しない）。
+
+### 製品の追加手順
+1. メーカー公式の仕様ページを開き、値を読む（読めない値は `null`）。
+2. `sources` に `{ label, url, checkedAt, kind: "official" }` を追加。
+3. `parts` に1件追加（IDは英小文字・数字・ハイフン）。CPUは `family`、マザボは `chipset` を `rules.json` にある値で。
+4. `node pc-builder/validate-parts.js` → `node pc-builder/test-pc-builder.js`。
+5. 価格が分かれば `prices.json` に追加（上の「価格の更新手順」）。
+
+## 4. 互換性チェック（`js/pb-compat.js`）
+
+判定は3段階。**根拠となる値が `null` のとき「対応」を返さない**（テストで全項目を検証）。
+
+| チェック | 対応 | 非対応 | 要確認 |
+|---|---|---|---|
+| CPUソケット | 一致 | 不一致 | どちらかが不明 |
+| CPU対応・BIOS | マザボの対応CPU世代に含まれ、チップセット登場時点で発売済みの世代 | （ソケット不一致で判定） | 対応表に含まれるが後から出た世代（BIOS更新が必要な場合あり）／情報不足 |
+| メモリ規格 | マザボ・CPUと一致 | DDR4/DDR5 不一致 | 不明 |
+| メモリ枚数・容量 | スロット数・最大容量内 | 超過 | 不明 |
+| マザボとケースのサイズ | ケースの対応に含まれる | 含まれない | 不明 |
+| GPUの長さ・厚さ | 上限以内 | 超過 | グラボ製品未選択／不明／前面ラジエーターで上限が下がるケース |
+| クーラーの対応ソケット・高さ | 対応・上限以内 | 非対応・超過 | 不明／余裕5mm未満 |
+| 簡易水冷ラジエーター | 取り付け位置がある | 無い | 不明 |
+| 電源の規格・奥行き | 規格一致・上限以内 | 不一致・超過 | 不明／ATXケースにSFX |
+| 電源容量 | 推定負荷70%以下かつGPUメーカー推奨以上 | 推定負荷が90%超 | 70〜90%／推奨未満／消費電力が不明 |
+| GPU補助電源 | 必要なコネクタが電源にある | 足りない | 変換アダプタが必要／不明 |
+| M.2・SATA・ベイ・ファン・拡張スロット | 数が足りる | 不足 | 不明／共用ベイ・付属ファンとの兼ね合い |
+| 映像出力（GPUなし） | 内蔵GPUあり | 内蔵GPUなし | 不明 |
+| CPUクーラー未選択 | 付属クーラーが確認できる | — | 付属の有無が不明 |
+
+**推定消費電力** = CPU（AMD: TDP×1.35＝PPT、Intel: 最大ターボ電力）＋ GPU（GPU GUIDEの消費電力）＋ 50W（マザボ・メモリ・SSDなど）＋ HDD 8W/台 ＋ ファン 3W/個。
+
+## 5. 5角形スコア（`js/pb-score.js`）
+
+すべて 0〜100点。**実測FPSやベンチマーク結果ではなく、構成どうしを比べる相対値**。
+`grade` は `calc`（計算値：式どおり計算。実測ではない）/ `estimate`（参考値：推定モデルを含む・一部の値が無い）/ `na`（評価不可）。
+**評価不可は0点ではない**。レーダーでは評価不可の軸がある構成は塗りつぶさず、評価できた軸どうしの辺だけを描く（その軸で線が途切れる。`pb-charts.js`）。
+
+### ゲーム性能（解像度ごと）
+```
+GPU点 = rasterScore ÷ 解像度の基準 × 75          （基準: FHD 42 / WQHD 65 / 4K 85）
+CPU点 = CPU_TIERS ÷ CPU基準 × 75                （CPU基準: FHD 60 / WQHD 50 / 4K 40）
+ゲーム = min(GPU点, CPU点) × 0.7 + 平均 × 0.3     （低い方＝ボトルネックを重く見る）
+  × メモリ16GB未満 0.85
+  × VRAM不足（WQHD: 8GB未満 0.9 / 4K: 8GB未満 0.8・12GB未満 0.9）
+```
+- 「基準ちょうど＝75点」は gpu-target.js の「その解像度を主用途として検討できる下限」に合わせた。
+- CPU指数が無いCPUは GPU点だけの参考値。内蔵GPUは性能データが無いので評価不可。
+
+### 動画編集性能（参考値）
+```
+CPUマルチ指数 = (Pコア × SMT係数1.25 + Eコア × 0.5) × 最大クロック(GHz)
+CPUマルチ点   = 指数 ÷ (16×1.25×5.7≈114) × 100
+メモリ点      = 20 + log2(容量GB ÷ 8) × 30   （8GB=20 / 16GB=50 / 32GB=80 / 64GB=100）
+動画編集 = CPUマルチ点 × 0.55 + GPU rasterScore × 0.25 + メモリ点 × 0.20
+```
+- コア数・スレッド数・最大クロックのどれかが無いCPUは評価不可（推測しない）。
+- 世代によるIPC差を含まない推定モデルなので、常に「参考値」表示し、理由に「世代が違うCPUどうしの差は実際と違うことがある」と出す。
+- 2026-10-30 の再検証: 同じ条件で測ったベンチマークを合法的に使える出典が見つからなかった（TechPowerUp は robots.txt でデータ利用を禁止、PassMark は取得拒否）。測定条件の違う数値を混ぜないため、係数（SMT 1.25・Eコア 0.5）は変えていない。
+
+### 配信性能（参考値）
+```
+エンコーダー点 = H.264 50 + HEVC 20 + AV1 30（GPU世代単位の対応表 data/rules.json）
+  NVIDIA 38件は公式の Video Encode and Decode Support Matrix と照合済み（2026-10-30）。AMDは未照合と表示
+配信 = エンコーダー × 0.35 + ゲーム性能 × 0.30 + CPUマルチ点 × 0.20 + メモリ点 × 0.15
+```
+
+### 拡張性
+```
+メモリ最大容量(÷256GB) 20% / M.2の空き(0,1,2,3+ → 0,40,75,100) 20% / SATAの空き(1ポート25点) 10%
+拡張スロットの空き(1本50点) 10% / ケースのベイ(1個12.5点) 10% / 120mmファン取り付け数(÷10) 10%
+電源の余裕((容量−推定負荷)÷容量 が 10%→0点、50%→100点) 20%
+```
+
+### コストパフォーマンス（参考値）
+```
+性能 = (ゲーム性能 + 動画編集性能) ÷ 2   （動画編集が評価不可ならゲームのみ）
+コスパ = 性能 ÷ 参考価格(万円) ÷ 5.0 × 100   （5.0点/万円で100点）
+```
+- CPU・GPU・マザボ・メモリの参考価格が無いと評価不可。ケースなど価格未登録のパーツは合計に含めず、その旨を表示。
+- 価格は確認日つきの小売目安（GPUは GPU GUIDE の参考価格）で、現在の販売価格ではない。
+- **分母はCPU・GPU（またはグラボ製品）・マザボ・メモリの価格だけ**（2026-10-31〜）。以前は「価格の分かるパーツの合計」だったため、ケースや電源の価格が未登録の構成ほど分母が小さく点数が高く出ていた。どの構成でも同じ範囲で比べるために変更。
+- この4つのどれかに有効な価格（実売確認価格・参考中央値）が無ければ評価不可（既存の参考価格だけでは点数を作らない）。
+- ゲーム性能と動画編集の両方がそろわないと評価不可（2026-10-31〜。片方だけで計算すると内蔵GPU構成が100点になるなど、他の構成と条件がそろわない）。
+- **価格変動の影響**: 合計が ±10% / 30% / 50%（`CP_SENSITIVITY_STEPS`）変わったときの点数を価格内訳タブに表で出す。
+- 相場が上がるとコスパの点数は全体に下がる（基準 5.0 は変えていない＝相場の変化を隠さない）。
+
+共通：重みの40%を超える材料が欠けたら評価不可（`NA_MISSING_WEIGHT`）。
+
+## 6. 共有URL・保存
+
+- 形: `?b=1~cpu.ryzen77800x3d~gpu.rtx-5070~mem.<id>_2~sto.<id>.<id>_2&n=名前&r=wqhd&c=<構成B>&cn=<B名>`
+- `~` `.` `_` だけで区切るのでエスケープ不要。秘密情報は含まない。1500文字を超えると警告。
+- 知らないID・壊れた値は除外して理由を表示（古い共有URLでも開ける）。
+- 保存は `localStorage`（キー `sippo-pc-builder:saved:v1`、最大30件）。保存形式 `{ format: "sippo-pc-builder/1", id, name, savedAt, res, build: { items } }` は平らなJSONなので、将来 PC Builds Hub / Supabase に送る場合もそのまま使える。
+
+## 7. 他サイトからの引き継ぎ
+
+| 元 | URL | 内容 |
+|---|---|---|
+| GPU GUIDE（個別65ページ） | `/pc-builder/?gpuid=<id>` | GPUを入れる（`?gpu=` も受け付ける。GPU GUIDE側は旧形式検出テストと衝突しないよう `gpuid` を使う） |
+| PC BUILD CHECK（診断結果） | `?from=pcbc&build=<解像度-用途-予算man>` | builds.json からCPU・GPU・メモリ・SSD・マザボ（目安）を再現。マザボは候補も表示 |
+| GAME PC GUIDE（30ページ） | `?game=<slug>&res=` | 推奨構成のCPU・GPU。推奨構成を切り替えるボタン |
+| PC UPGRADE（診断結果） | `?from=upgrade&cgpu=&ccpu=&cmem=&cmemtype=&togpu=&res=` | 今のPC＝構成A、交換後＝構成B で重ねて比較 |
+| PC Builds Hub（投稿詳細） | `?from=hub&cpu=&gpu=&ram=&mb=&storage=&case=&psu=&cooler=&title=` | 名前が完全一致した製品だけ自動、他は候補を表示 |
+
+## 8. アフィリエイト
+
+- 共通基盤 `shared/affiliate/` をそのまま使う（APIキー不要・秘密情報なし）。
+- 商品マスターにある製品（GPU・CPUなど）はマスターのリンク。無い製品は実行時に `search-only`（アフィリエイトID付きの検索リンク）として登録する。**商品ページURLを推測で作らない**。
+- 広告表記はフッターと購入リンク欄に表示。
+- Amazon PA-API / 楽天の商品検索APIは使っていない（理由は `shared/affiliate/README.md`）。自動価格更新は未対応。
+
+## 9. 外観プレビュー
+
+ケースの形（ミドルタワー / デュアルチャンバー / Mini-ITX / mATX）、マザボの大きさ、GPUの長さ（ケース上限に対する比率）、クーラーの種類、ファン・ストレージ数で変わる **2D模式図**。「模式図（イメージ）」と明記。メーカー画像は権利確認ができていないため使っていない。画像レイヤー合成・3D化する場合は `pb-charts.js` の `preview()` を差し替える。

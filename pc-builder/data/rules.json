@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "updated": "2026-10-30",
+    "purpose": "互換性チェックとスコア計算が参照する判定ルール。製品ごとの仕様ではなく、規格・世代単位の情報を置く。"
+  },
+
+  "cpuFamilies": {
+    "_note": "CPUの世代。released は各世代の代表的な発売日（Wikipedia の表で確認した値）。BIOS判定は chipsets の nativeFamilies と比べて行う。",
+    "zen3":           { "label": "Ryzen 5000シリーズ（Zen 3）", "socket": "AM4" },
+    "zen4":           { "label": "Ryzen 7000シリーズ（Zen 4）", "socket": "AM5" },
+    "zen5":           { "label": "Ryzen 9000シリーズ（Zen 5）", "socket": "AM5" },
+    "alder":          { "label": "第12世代 Core（Alder Lake）", "socket": "LGA1700" },
+    "raptor":         { "label": "第13世代 Core（Raptor Lake）", "socket": "LGA1700" },
+    "raptor-refresh": { "label": "第14世代 Core（Raptor Lake Refresh）", "socket": "LGA1700" },
+    "arrow":          { "label": "Core Ultra 200S（Arrow Lake）", "socket": "LGA1851" }
+  },
+
+  "chipsets": {
+    "_note": "nativeFamilies = そのチップセットが登場した時点で既に発売されていたCPU世代。これ以外の世代は、マザーボード側が対応を表明していても『出荷時のBIOSが古いと起動しない場合がある』ため要確認にする（Sippo判定ルール）。発売順は Wikipedia の各CPU発売日と、各チップセット搭載マザーボードの登場時期による。",
+    "B550": { "socket": "AM4", "memoryType": "DDR4", "nativeFamilies": [], "note": "B550 の登場（2020年）は Ryzen 5000（2020年11月〜）より前。初期の B550 は Ryzen 5000 に BIOS 更新が必要な場合がある。" },
+    "B650": { "socket": "AM5", "memoryType": "DDR5", "nativeFamilies": ["zen4"], "note": "B650 は Ryzen 7000 と同時期に登場。Ryzen 9000 は出荷時期によって BIOS 更新が必要な場合がある。" },
+    "B760": { "socket": "LGA1700", "nativeFamilies": ["alder", "raptor"], "note": "B760 は第13世代と同時期（2023年1月）に登場。第14世代は出荷時期によって BIOS 更新が必要な場合がある。" },
+    "B860": { "socket": "LGA1851", "memoryType": "DDR5", "nativeFamilies": ["arrow"], "note": "B860 は Core Ultra 200S 用。" },
+    "B850": { "socket": "AM5", "memoryType": "DDR5", "nativeFamilies": ["zen4", "zen5"], "note": "B850 は 2025年1月6日に登場（Wikipedia: Socket AM5 のチップセット表）。Ryzen 9000（2024年8月〜）より後なので、Ryzen 7000 / 9000 は登場時点で対応済み。" }
+  },
+
+  "pricing": {
+    "_note": "参考価格の扱い。製品・同クラスの小売目安は data/prices.json。そこに無いときだけ既存データ（BTO構成用の part-prices.json / 日付なしの PRICE_HINT）を使う。",
+    "suspendFallback": {
+      "_note": "既存データの価格が実売と大きく違うことを確認したカテゴリ。prices.json に値が無ければ『参考価格 未登録』にする（古い価格で合計を安く見せない）。",
+      "memory": "2026-10-30 の確認で、メモリの実売は既存の参考価格（2026-09-03 時点）の約2〜5倍でした。",
+      "storage": "2026-10-30 の確認で、SSD の実売は既存の参考価格（2026-09-03 時点）の約2.5〜3倍でした。"
+    },
+    "notices": {
+      "gpu": { "checkedAt": "2026-10-30", "text": "GPUの価格は GPU GUIDE の参考価格です。2026-10-30 に価格比較サイトで確認した主要GPU（RTX 5050〜5080・RX 9060 XT〜9070 XT）の掲載最安値は、この参考価格のおよそ1.3〜1.7倍でした。購入前に販売店の価格を確認してください。" }
+    }
+  },
+
+  "encoders": {
+    "_note": "GPU世代ごとのハードウェアエンコーダー対応（H.264 / HEVC / AV1）。製品ごとではなく世代（gpus.json の series）単位の情報。出典の照合は世代単位で、個別GPUの公式ページでは確認していない（配信スコアが『参考値』になる理由）。",
+    "_source": { "label": "NVIDIA Video Encode and Decode GPU Support Matrix（エンコード表の H.264 4:2:0 / HEVC 4K 4:2:0 / AV1 4:2:0 列）", "url": "https://developer.nvidia.com/video-encode-decode-support-matrix", "checkedAt": "2026-10-30", "status": "series-level", "verifiedNote": "gpus.json の NVIDIA 38件すべてを公式表のデスクトップ行と照合し、一致を確認（2026-10-30）。AMD（RX）は公式ページを読めず未照合。" },
+    "verifiedBrands": ["NVIDIA"],
+    "bySeries": {
+      "RTX 50": ["h264", "hevc", "av1"],
+      "RTX 40": ["h264", "hevc", "av1"],
+      "RTX 30": ["h264", "hevc"],
+      "RTX 20": ["h264", "hevc"],
+      "GTX 16": ["h264", "hevc"],
+      "GTX 10": ["h264", "hevc"],
+      "RX 9000": ["h264", "hevc", "av1"],
+      "RX 7000": ["h264", "hevc", "av1"],
+      "RX 6000": ["h264", "hevc"],
+      "RX 5000": ["h264", "hevc"],
+      "RX 500": ["h264", "hevc"]
+    },
+    "byGpuId": {
+      "rx-6500-xt": []
+    }
+  },
+
+  "gpuChipPower": {
+    "_note": "upgrade/upgrade-engine.js の GPU_POWER_SPEC（NVIDIA/AMD 公式値）に無いチップだけをここに足す。重複させない。",
+    "rtx5050": { "psu": 550, "connector": "8ピン×1 または 16ピン（12V-2x6）", "source": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/", "checkedAt": "2026-10-30" }
+  },
+
+  "resolutions": {
+    "_note": "GPUの rasterScore（GPU GUIDE のサイト独自指数）で『その解像度を主用途として検討できる下限』。WQHD / 4K は shared/gpu/gpu-target.js の THRESHOLDS と同じ値を実行時に読む。FHD は upgrade-engine.js の RESOLUTION_TARGETS.fhd.base（42）を使う。",
+    "order": ["fhd", "wqhd", "4k"],
+    "labels": { "fhd": "フルHD（1920×1080）", "wqhd": "WQHD（2560×1440）", "4k": "4K（3840×2160）" }
+  }
+}

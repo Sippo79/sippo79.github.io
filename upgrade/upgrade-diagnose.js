@@ -301,6 +301,37 @@
       + '</div>';
   }
 
+  /**
+   * PC BUILDER で「今のPC」と「交換後」を重ねて比べる導線。
+   * GPUの交換を提案したときだけ出す（交換しないなら比べる意味がないため）。
+   * 渡すのは診断エンジンの内部ID（rtx3060 など）と入力値だけ。名前の解決は PC BUILDER 側で行う。
+   */
+  function renderBuilderCompare(result) {
+    var gpu = null, cpu = null;
+    result.parts.forEach(function (p) {
+      if (p.part === 'gpu') gpu = p;
+      if (p.part === 'cpu') cpu = p;
+    });
+    if (!gpu || !gpu.recommendId || !(gpu.status === 'upgrade' || gpu.status === 'consider')) return '';
+    var input = result.input || {};
+    var q = [
+      'from=upgrade',
+      'togpu=' + encodeURIComponent(gpu.recommendId),
+      gpu.currentId ? 'cgpu=' + encodeURIComponent(gpu.currentId) : '',
+      cpu && cpu.currentId ? 'ccpu=' + encodeURIComponent(cpu.currentId) : '',
+      input.memory ? 'cmem=' + encodeURIComponent(input.memory) : '',
+      input.memoryType && input.memoryType !== 'unknown' ? 'cmemtype=' + encodeURIComponent(input.memoryType) : '',
+      input.resolution ? 'res=' + encodeURIComponent(input.resolution) : '',
+    ].filter(Boolean).join('&');
+    return '<div class="u-cta" style="margin-top:26px">'
+      + '<h2>交換後のPC性能を比較する</h2>'
+      + '<p>PC BUILDER で「今のPC」と「GPUを交換した後」を5角形グラフで重ねて比べられます。'
+      + '電源やケースを選ぶと、交換後のGPUが電源容量・ケースの長さに収まるかも確認できます。</p>'
+      + '<div class="u-cta__actions">'
+      + '<a class="u-btn u-btn--primary" href="/pc-builder/?' + esc(q) + '">交換前と交換後を比べる</a>'
+      + '</div></div>';
+  }
+
   /** 結果全体を描画する */
   function render(result) {
     var html = '<h2 class="visually-hidden">診断結果</h2>';
@@ -317,6 +348,7 @@
     html += '</div>';
 
     html += renderUnknowns(result.unknowns);
+    html += renderBuilderCompare(result);
 
     // 判定に応じて次の行き先を変える。
     // 「買い替え推奨」の人に相談だけ勧めても役に立たないので、

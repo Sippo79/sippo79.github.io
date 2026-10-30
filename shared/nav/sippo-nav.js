@@ -68,6 +68,17 @@
       icon: '🧩',
     },
     {
+      id: 'pc-builder',
+      action: 'パーツを選んでPCを組む',
+      name: 'PC BUILDER',
+      short: 'PC BUILDER',
+      desc: '互換性チェックと5角形の性能グラフで自作PCをシミュレーション',
+      url: '/pc-builder/',
+      match: '/pc-builder/',
+      icon: '🛠️',
+      isNew: true,
+    },
+    {
       id: 'game-pc-guide',
       action: 'ゲームに合うPCを調べる',
       name: 'GAME PC GUIDE',

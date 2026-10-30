@@ -672,6 +672,7 @@ table { border-collapse: collapse; }
 .related-site-build .related-site-mini { color: var(--sippo); }
 .related-site-upgrade { border-top-color: var(--warn); }
 .related-site-upgrade .related-site-mini { color: var(--warn); }
+.related-site-builder { border-top-color: var(--accent); grid-column: 1 / -1; }
 .related-site-consult { border-top-color: var(--new); }
 .related-site-consult .related-site-mini { color: var(--new); }
 

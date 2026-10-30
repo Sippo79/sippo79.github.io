@@ -1,0 +1,576 @@
+{
+  "_meta": {
+    "updated": "2026-10-31",
+    "purpose": "PC BUILDER の参考価格（パーツを個別に買う場合の国内小売の目安）。手で確認した値だけを置く。",
+    "basis": "価格比較サイト（価格.com）の各カテゴリ人気ランキングに掲載された各製品の最安値を、確認日に手で読み、千円単位に丸めた値。販売価格・在庫を保証するものではない。",
+    "policy": [
+      "自動取得はしない（PROJECT_STATUS の方針：価格は手動更新のマスターで持つ）。見直したら checkedAt と sources を更新する。",
+      "items は製品そのものの価格（型番が一致したものだけ）。classes は同じ種類・容量の製品の中央値で、製品個別の価格ではない（画面に『同クラス』と出す）。",
+      "GPU（チップ）の価格は gpuChips に置く（GPU GUIDE の gpus.json は変更しない。PC BUILDER ではこちらを優先し、gpus.json の値は『GPU GUIDE掲載の参考価格』として別に表示する）。グラボ製品（gpuboard）は items に型番一致の価格があるときだけ製品価格を使い、そのときはチップの価格を数えない。",
+      "shared/parts/part-prices.json は PC BUILD CHECK の『BTO完成品基準』の価格で意味が違う。ここに無いパーツだけ、その値を『BTO構成用の目安』として表示する。"
+    ],
+    "staleAfterDays": 45,
+    "sources": {
+      "kakaku-cpu": {
+        "label": "価格.com CPU 人気売れ筋ランキング（2026/10/30更新・2026/10/23〜10/29集計）",
+        "url": "https://kakaku.com/pc/cpu/ranking_0510/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-memory": {
+        "label": "価格.com メモリー 人気売れ筋ランキング 1〜3ページ（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/pc-memory/ranking_0520/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-ssd": {
+        "label": "価格.com SSD 人気売れ筋ランキング（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/ssd/ranking_0537/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-mb": {
+        "label": "価格.com マザーボード 人気売れ筋ランキング（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/motherboard/ranking_0540/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-psu": {
+        "label": "価格.com 電源ユニット 人気売れ筋ランキング（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/power-supply/ranking_0590/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-case": {
+        "label": "価格.com PCケース 人気売れ筋ランキング（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/pc-case/ranking_0580/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-cooler": {
+        "label": "価格.com CPUクーラー 人気売れ筋ランキング（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/cpu-cooler/ranking_0512/",
+        "checkedAt": "2026-10-30"
+      },
+      "kakaku-gpu": {
+        "label": "価格.com グラフィックボード・ビデオカード 人気売れ筋ランキング 1〜5ページ（2026/10/30更新）",
+        "url": "https://kakaku.com/pc/videocard/ranking_0550/",
+        "checkedAt": "2026-10-31"
+      }
+    },
+    "tiers": {
+      "retail": "実売確認価格：型番が一致した製品の掲載最安値（items）",
+      "median": "参考中央値：同じ種類・容量（classes）または同じGPUチップ（gpuChips）の製品の最安値の中央値",
+      "reference": "既存の参考価格：gpus.json / part-prices.json（BTO構成用）/ PRICE_HINT。確認日が無い・基準が違うため、合計とコスパには入れず別に表示する"
+    }
+  },
+  "items": {
+    "ryzen55500": {
+      "value": 16000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen55600": {
+      "value": 22000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen55600g": {
+      "value": 38000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen55600x": {
+      "value": 27000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen75700x": {
+      "value": 32000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen75800x": {
+      "value": 34000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen75800x3d": {
+      "value": 72000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu",
+      "note": "通常版の掲載価格（10周年記念版とは別）"
+    },
+    "ryzen57500f": {
+      "value": 25000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen57600": {
+      "value": 26000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen57600x": {
+      "value": 28000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen77700x": {
+      "value": 37000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen77800x3d": {
+      "value": 53000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen97900": {
+      "value": 57000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen97900x": {
+      "value": 57000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen97950x": {
+      "value": 93000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen59500f": {
+      "value": 28000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen59600": {
+      "value": 33000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen59600x": {
+      "value": 35000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen79700x": {
+      "value": 44000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen79800x3d": {
+      "value": 61000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen79850x3d": {
+      "value": 70000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen99900x": {
+      "value": 64000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen99900x3d": {
+      "value": 83000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen99950x": {
+      "value": 94000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "ryzen99950x3d": {
+      "value": 104000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei512400": {
+      "value": 32000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei512400f": {
+      "value": 26000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei512600k": {
+      "value": 42000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei712700f": {
+      "value": 51000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei712700k": {
+      "value": 53000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei513400f": {
+      "value": 36000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei713700k": {
+      "value": 78000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei314100f": {
+      "value": 15000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei514400": {
+      "value": 30000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei514400f": {
+      "value": 25000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei514500": {
+      "value": 44000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei514600k": {
+      "value": 46000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei514600kf": {
+      "value": 41000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei714700f": {
+      "value": 57000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei714700k": {
+      "value": 67000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei714700kf": {
+      "value": 63000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei914900k": {
+      "value": 84000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "corei914900kf": {
+      "value": 78000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra5225f": {
+      "value": 25000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra5245k": {
+      "value": 35000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra5245kf": {
+      "value": 27000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra7265f": {
+      "value": 52000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra7265k": {
+      "value": 50000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra7265kf": {
+      "value": 42000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "coreultra9285k": {
+      "value": 94000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cpu"
+    },
+    "asus-prime-b760m-a-d4": {
+      "value": 15000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-mb"
+    },
+    "lianli-a3-matx": {
+      "value": 10000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-case"
+    },
+    "lianli-o11-vision-compact": {
+      "value": 15000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-case"
+    },
+    "lianli-o11d-mini-v2": {
+      "value": 13000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-case"
+    },
+    "corsair-nautilus-360": {
+      "value": 11000,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-cooler"
+    },
+    "cfd-w5u5600cs-16gc46f": {
+      "value": 78000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "cfd-w5u5600cs-32gc46f": {
+      "value": 164000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "corsair-cmk32gx5m2e6000c36": {
+      "value": 73000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "cfd-w5u6000cs-32gc38f": {
+      "value": 142000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "cfd-w5u6400cs-32gc38f": {
+      "value": 204000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "corsair-cmk32gx4m2e3200c16": {
+      "value": 39000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-memory"
+    },
+    "asus-prime-rx9070xt-o16g": {
+      "value": 188000,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    }
+  },
+  "classes": {
+    "_note": "キー = カテゴリ:種類:容量など。value は確認できた製品の最安値の中央値（千円単位）。n = 中央値に使った製品数。range = その最小〜最大。",
+    "memory:DDR5:32": {
+      "value": 74000,
+      "range": [64000, 83000],
+      "n": 7,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-memory",
+      "label": "DDR5 32GB（16GB×2）"
+    },
+    "memory:DDR5:64": {
+      "value": 140000,
+      "range": [134000, 174000],
+      "n": 3,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-memory",
+      "label": "DDR5 64GB（32GB×2）"
+    },
+    "memory:DDR4:16": {
+      "value": 18000,
+      "range": [18000, 18000],
+      "n": 1,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-memory",
+      "label": "DDR4 16GB（8GB×2）"
+    },
+    "memory:DDR4:32": {
+      "value": 35000,
+      "range": [35000, 35000],
+      "n": 1,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-memory",
+      "label": "DDR4 32GB（16GB×2）"
+    },
+    "storage:nvme:1000": {
+      "value": 34000,
+      "range": [31000, 40000],
+      "n": 4,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-ssd",
+      "label": "NVMe SSD 1TB",
+      "rule": "製品名に NVMe を含む内蔵SSDだけ"
+    },
+    "storage:nvme:2000": {
+      "value": 55000,
+      "range": [48000, 60000],
+      "n": 3,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-ssd",
+      "label": "NVMe SSD 2TB",
+      "rule": "製品名に NVMe を含む内蔵SSDだけ"
+    },
+    "storage:nvme:4000": {
+      "value": 99000,
+      "range": [80000, 139000],
+      "n": 3,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-ssd",
+      "label": "NVMe SSD 4TB",
+      "rule": "製品名に NVMe を含む内蔵SSDだけ"
+    },
+    "motherboard:AM4": {
+      "value": 11000,
+      "range": [7000, 14000],
+      "n": 7,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-mb",
+      "label": "AM4（B550）マザーボード"
+    },
+    "motherboard:AM5": {
+      "value": 28000,
+      "range": [13000, 40000],
+      "n": 7,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-mb",
+      "label": "AM5（B650/B850）マザーボード",
+      "rule": "Mini-ITX を除く"
+    },
+    "motherboard:LGA1700": {
+      "value": 17000,
+      "range": [10000, 35000],
+      "n": 12,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-mb",
+      "label": "LGA1700（B760）マザーボード"
+    },
+    "psu:750": {
+      "value": 11000,
+      "range": [8000, 13000],
+      "n": 4,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-psu",
+      "label": "750W 電源"
+    },
+    "psu:850": {
+      "value": 12000,
+      "range": [9000, 18000],
+      "n": 8,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-psu",
+      "label": "850W 電源"
+    },
+    "psu:1000": {
+      "value": 16000,
+      "range": [14000, 18000],
+      "n": 2,
+      "checkedAt": "2026-10-30",
+      "source": "kakaku-psu",
+      "label": "1000W 電源"
+    }
+  },
+  "gpuChips": {
+    "_note": "キー = gpu-guide/gpus.json の id。value = その GPU を載せた製品（ランキング掲載分）の最安値の中央値。low = 確認できた最も安い製品。8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は gpus.json と同じ VRAM の製品だけ、RX 9070 GRE は除外。3製品以上確認できたものだけ。",
+    "rx-9070-xt": {
+      "value": 162000,
+      "low": 142000,
+      "range": [142000, 190000],
+      "n": 16,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rx-9060-xt": {
+      "value": 93000,
+      "low": 85000,
+      "range": [85000, 100000],
+      "n": 6,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5090": {
+      "value": 1349000,
+      "low": 1230000,
+      "range": [1230000, 1852000],
+      "n": 6,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5060-ti": {
+      "value": 149000,
+      "low": 143000,
+      "range": [143000, 165000],
+      "n": 9,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5070": {
+      "value": 163000,
+      "low": 155000,
+      "range": [155000, 206000],
+      "n": 11,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5070-ti": {
+      "value": 249000,
+      "low": 229000,
+      "range": [229000, 287000],
+      "n": 16,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rx-9070": {
+      "value": 130000,
+      "low": 126000,
+      "range": [126000, 144000],
+      "n": 7,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5080": {
+      "value": 366000,
+      "low": 332000,
+      "range": [332000, 576000],
+      "n": 11,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5060": {
+      "value": 86000,
+      "low": 79000,
+      "range": [79000, 97000],
+      "n": 8,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rx-7600": {
+      "value": 53000,
+      "low": 47000,
+      "range": [47000, 60000],
+      "n": 3,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    },
+    "rtx-5050": {
+      "value": 58000,
+      "low": 54000,
+      "range": [54000, 63000],
+      "n": 3,
+      "checkedAt": "2026-10-31",
+      "source": "kakaku-gpu"
+    }
+  }
+}

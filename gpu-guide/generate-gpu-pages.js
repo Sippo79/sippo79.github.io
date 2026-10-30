@@ -573,6 +573,13 @@ function renderNextActions(gpu) {
           <p>${esc(gpu.name)}が気になったら、次はこちらが便利です。</p>
         </div>
         <div class="next-action-grid">
+          <a class="next-action-card" href="/pc-builder/?gpuid=${esc(gpu.id)}">
+            <span class="next-action-icon" aria-hidden="true">🛠️</span>
+            <span class="next-action-body">
+              <strong>このGPUを使ってPCを組む</strong>
+              <small>${esc(gpu.name)}を入れた状態で、パーツの互換性と性能グラフを確認できます（PC BUILDER）</small>
+            </span>
+          </a>
           <a class="next-action-card" href="/pc-build-check/">
             <span class="next-action-icon" aria-hidden="true">🧩</span>
             <span class="next-action-body">
@@ -929,7 +936,8 @@ function verify(root) {
     // --- クロスリンク（CPUデータの有無に関係なく必須） ---
     // 型番別アップグレード記事があるGPUは、/upgrade/ の代わりに記事へつなぐ
     const upgradeArticle = UPGRADE_ARTICLES[gpu.id.replace(/-/g, '')];
-    [['/pc-build-check/', 'PC BUILD CHECK'],
+    [['/pc-builder/?gpuid=' + gpu.id, 'PC BUILDER'],
+     ['/pc-build-check/', 'PC BUILD CHECK'],
      [upgradeArticle ? `/upgrade/${upgradeArticle.slug}/` : '/upgrade/', 'Upgrade'],
      ['/game-pc-guide/', 'GAME PC GUIDE']].forEach(([href, label]) => {
       if (html.indexOf(`href="${href}"`) < 0) problems.push(`${gpu.id}: ${label} へのリンクが無い`);

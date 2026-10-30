@@ -1418,6 +1418,7 @@ function renderResultActions(cur) {
       <button type="button" class="pb-btn" data-compare-add="${escapeHtml(cur.slug)}">＋ 比較候補に追加</button>
       <button type="button" class="pb-btn" data-share-result>🔗 この診断結果を共有</button>
       <a class="pb-btn pb-btn--ghost" href="./builds/${escapeHtml(cur.slug)}.html">この構成の詳細ページ</a>
+      <a class="pb-btn" href="/pc-builder/?from=pcbc&amp;build=${encodeURIComponent(cur.slug)}">🛠️ この構成をカスタマイズする</a>
     </div>`;
 }
 

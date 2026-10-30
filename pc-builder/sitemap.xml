@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PC BUILDER（/pc-builder/）のサイトマップ
+
+  載せるのは実体のある静的HTMLだけ。構成の共有URL（?b=... / ?gpu=... など）は
+  同じページの状態違いで canonical も /pc-builder/ のため、載せない。
+  （過去にクエリURLを載せて未登録になった経緯があるため）
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sippo-pc.jp/pc-builder/</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+</urlset>

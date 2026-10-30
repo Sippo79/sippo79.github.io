@@ -7,6 +7,7 @@
 - [GAME PC GUIDE](https://sippo-pc.jp/game-pc-guide/): ゲーム別のおすすめゲーミングPC構成と必要スペックを解説
 - [GPU GUIDE](https://sippo-pc.jp/gpu-guide/): グラフィックボード(GPU)の性能比較と選び方ガイド
 - [PC BUILD CHECK](https://sippo-pc.jp/pc-build-check/): 予算・用途・解像度から最適なPC構成を診断
+- [PC BUILDER](https://sippo-pc.jp/pc-builder/): パーツを自由に選んで、互換性（対応／要確認／非対応）と5角形の性能グラフ（ゲーム・動画編集・配信・拡張性・コスパ）を確認できる自作PCシミュレーター
 
 ## 対象ユーザー
 

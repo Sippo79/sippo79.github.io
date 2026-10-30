@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "note": "「組み合わせ例から始める」で使うSippoの組み合わせ例。おすすめ順位・人気順ではない。互換性チェックの『要確認』が出るのは、機種未指定パーツの値が無いため（隠さない）。"
+  },
+  "presets": [
+    {
+      "id": "fhd-entry",
+      "name": "フルHDで遊ぶ入門例",
+      "res": "fhd",
+      "desc": "Ryzen 5 5600 ＋ RTX 5060。AM4で費用を抑える例",
+      "items": {
+        "cpu": [{ "id": "ryzen55600" }],
+        "gpu": [{ "id": "rtx-5060" }],
+        "gpuboard": [{ "id": "asus-dual-rtx5060-o8g-evo" }],
+        "motherboard": [{ "id": "mb-generic-am4-b550-matx" }],
+        "memory": [{ "id": "mem-generic-ddr4-16" }],
+        "storage": [{ "id": "ssd-generic-nvme-1tb" }],
+        "psu": [{ "id": "corsair-rm650" }],
+        "case": [{ "id": "lianli-a3-matx" }],
+        "cooler": [{ "id": "tr-ax120rse-am" }]
+      }
+    },
+    {
+      "id": "wqhd-balance",
+      "name": "WQHDのバランス例",
+      "res": "wqhd",
+      "desc": "Ryzen 7 7800X3D ＋ RTX 5070。ゲーム重視のAM5構成",
+      "items": {
+        "cpu": [{ "id": "ryzen77800x3d" }],
+        "gpu": [{ "id": "rtx-5070" }],
+        "gpuboard": [{ "id": "asus-prime-rtx5070-12g" }],
+        "motherboard": [{ "id": "asus-tuf-b650-plus-wifi" }],
+        "memory": [{ "id": "corsair-cmk32gx5m2b6000c30" }],
+        "storage": [{ "id": "ssd-generic-nvme-2tb" }],
+        "psu": [{ "id": "corsair-rm850x" }],
+        "case": [{ "id": "lianli-lancool-216" }],
+        "cooler": [{ "id": "tr-ps120se" }]
+      }
+    },
+    {
+      "id": "creator-4k",
+      "name": "4K・配信も考える例",
+      "res": "4k",
+      "desc": "Core Ultra 9 285K ＋ RX 9070 XT ＋ 64GB",
+      "items": {
+        "cpu": [{ "id": "coreultra9285k" }],
+        "gpu": [{ "id": "rx-9070-xt" }],
+        "gpuboard": [{ "id": "asus-prime-rx9070xt-o16g" }],
+        "motherboard": [{ "id": "asus-tuf-b860-plus-wifi" }],
+        "memory": [{ "id": "corsair-cmk64gx5m2d6000z40" }],
+        "storage": [{ "id": "samsung-990evo-1tb" }, { "id": "ssd-generic-nvme-2tb" }],
+        "psu": [{ "id": "corsair-rm1000e" }],
+        "case": [{ "id": "lianli-o11-evo" }],
+        "cooler": [{ "id": "lianli-galahad2-trinity-360" }],
+        "fan": [{ "id": "corsair-rs120", "qty": 6 }]
+      }
+    },
+    {
+      "id": "igpu-office",
+      "name": "グラボなし（内蔵GPU）の例",
+      "res": "fhd",
+      "desc": "Ryzen 5 5600G の内蔵GPUで映像を出す普段使い向け",
+      "items": {
+        "cpu": [{ "id": "ryzen55600g" }],
+        "motherboard": [{ "id": "mb-generic-am4-b550-matx" }],
+        "memory": [{ "id": "mem-generic-ddr4-16" }],
+        "storage": [{ "id": "ssd-generic-nvme-1tb" }],
+        "psu": [{ "id": "psu-generic-650" }],
+        "case": [{ "id": "fractal-pop-air" }]
+      }
+    }
+  ]
+}

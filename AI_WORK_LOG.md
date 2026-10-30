@@ -18,6 +18,50 @@
 
 ---
 
+## 2026-10-31 — PC BUILDER 公開前の最終改善（GPU価格・コスパの公平性・メモリ/SSD拡充）（未コミット）
+
+- **修正目的**: 古いGPU価格でコスパが高く見える問題、評価不可が0点に見えるレーダー、メモリ・SSDの実在製品不足を解消し、公開可能な品質に近づける。
+- **変更ファイル**: `pc-builder/data/prices.json`（`gpuChips` 11チップ・型番一致の価格7件追加・価格の3区分 `_meta.tiers`）／`pc-builder/data/parts.json`（メモリ実在 4→15、NVMe SSD 1→12）／`pc-builder/js/pb-db.js`（`tier`・`valid`、GPUは gpuChips 優先・`guidePrice` 別保持）／`pc-builder/js/pb-score.js`（合計は有効な価格だけ、コスパの分母を固定・両方の性能が必要・±10/30/50%）／`pc-builder/js/pb-charts.js`（評価不可の軸で線を途切れさせる）／`pc-builder/js/pb-app.js`・`style.css`（価格の区分表示、合計の限界、BTOとの違い、購入リンクの注意、型番で検索）／`pc-builder/js/pb-import.js`（PC BUILD CHECK 引き継ぎ時の価格基準の説明）／`pc-builder/test-pc-builder.js`（3,762→4,106件）／`pc-builder/README.md`
+- **変更内容**:
+  - GPU価格: 価格.com ランキング1〜5ページ（2026-10-31確認）で、gpus.json の新品GPU 11チップの「掲載製品の最安値の中央値」を `prices.json` の `gpuChips` に登録（3製品以上のみ、GRE・VRAM違いは除外）。gpus.json は変更せず、PC BUILDER 上では「GPU GUIDE掲載 約○円（別基準・日付なし）」と並べて表示。中央値が無いGPU（主に旧世代）は「参考価格（未確認）」で合計・コスパに入れない。
+  - 価格の3区分（実売確認価格／参考中央値／参考価格〔未確認〕）を全価格に付け、合計は有効な価格だけ。古くなった価格（45日超）も合計・コスパから外す。
+  - コスパ: 分母を CPU・GPU・マザボ・メモリに固定（価格未登録のパーツが多いほど高得点になる偏りを解消）、ゲーム・動画編集の両方が必要（内蔵GPU構成が100点になる問題を解消）、有効な価格が無ければ評価不可。変更前後の比較は最終報告を参照。
+  - レーダー: 評価不可の軸があると中心まで線を引いて0点に見えていたため、塗りつぶさず評価できた軸どうしの辺だけ描くよう変更。「算出」表記を「計算値」に。
+  - メモリ11・SSD11を追加（Corsair・TEAMGROUP・CFD公式、Crucial は国内正規代理店CFD販売、KIOXIA公式）。Crucial/ KIOXIA は CFD・KIOXIA の日本語仕様表。Samsung・WD・Lexar・G.SKILL・ADATA は読めず（404/403/JS描画）登録せず。
+- **影響範囲**: PC BUILDER のみ（未公開）。gpus.json・part-prices.json・upgrade-engine.js・他サイトのファイルは変更なし（git diff 0）。PC BUILDER に Service Worker は無い。
+- **検証**: test-pc-builder 4,106/4,106、既存12本すべて成功。`scripts/check-affiliate-links.js` 58件すべて正常。ヘッドレスChrome（1440 / 375px）で全操作・6サイト引き継ぎ・不正URL・購入リンクのURL（tag=sippo79-22・楽天ID・型番検索）を確認、コンソールエラー0・横スクロールなし。
+- **未対応・次にやること**: gpus.json の価格更新（GPU GUIDE側。候補は PROJECT_STATUS）、memory/SSD の価格（型番一致は6件のみ）、AMD GPU のエンコーダー照合、実機での目視確認。
+- **別AIへの引き継ぎ注意点**: `prices.json` の gpuChips は gpus.json の id がキー。価格の `tier` と `valid` を見ずに合計・コスパを計算しない。
+
+## 2026-10-30（2）— PC BUILDER のデータ拡充・価格の扱いの見直し・評価式の再検証（未コミット）
+
+- **修正目的**: 公開前に、実在製品の仕様をそろえて「要確認」「評価不可」を減らし、古い価格で合計やコスパを安く見せないようにする。
+- **変更ファイル**: `pc-builder/data/parts.json`（CPU 29→56、マザボ実在 5→8、グラボ製品 5→7、電源実在 5→13、ケース 8→15、クーラー実在 11→13。既存の CPU 28件・電源4件・ケース3件・クーラー2件の仕様を補完）／新規 `pc-builder/data/prices.json`（小売目安の価格表）／`pc-builder/data/rules.json`（B850 チップセット、`pricing`、エンコーダーの照合記録）／`pc-builder/js/pb-db.js`（価格の優先順位・古い価格・ゲーム指数の兄弟型番借用・エンコーダー照合フラグ）／`pc-builder/js/pb-score.js`（コスパの価格変動±10%、理由の追記）／`pc-builder/js/pb-app.js`・`style.css`（価格の出典表示・「＋未登録n点」）／`pc-builder/validate-parts.js`（主要仕様の不足を別集計）／`pc-builder/test-pc-builder.js`（1,978→3,762件）／`pc-builder/README.md`
+- **変更内容**:
+  - CPU仕様: Wikipedia 世代別ページの製品表を MediaWiki API で展開し、結合セルを展開して読んだ（版を固定した `oldid` URL を出典に）。AMD・Intel 公式は自動取得できず（amd.com タイムアウト、intel.com 404リダイレクト）。CPUの主要仕様不足 24件→0件。
+  - 実在製品の追加: 公式ページで読めたものだけ（ASUS マザボ3、ASUS グラボ2、Corsair 電源5・Cooler Master・Antec・Super Flower 各1、Corsair・LIAN LI・Fractal ケース7、DeepCool・Corsair クーラー2）。MSI・GIGABYTE・Crucial・Kingston・Seasonic・be quiet!・Noctua・NZXT・Thermaltake は 403/429/WAF で読めず、迂回はしていない。ASRock は本文が空（JS描画）。
+  - 価格: 2026-10-30 に価格.com の人気ランキングを手で確認。メモリは既存の参考価格（part-prices.json 2026-09-03）の約2〜5倍、SSD 約2.5〜3倍、GPU（gpus.json）約1.3〜1.7倍。PC BUILDER は `prices.json`（製品・同クラスの小売目安、千円単位、確認日・出典つき）を優先し、メモリ・SSDは既存の目安に戻らない（未登録表示）。GPUは gpus.json が唯一の情報源のため値は変えず、実売との差の注意を表示。
+  - 評価式: 同条件のベンチマークを合法的に使える出典が無く（TechPowerUp は robots.txt で禁止、PassMark は拒否）、係数は変えていない。コスパに価格±10%時の点数・GPU価格の注意・既存目安の使用・古い価格を追加。動画編集に「世代差を含まない」注意。エンコーダー表は NVIDIA 公式表と38件照合し一致。
+- **影響範囲**: PC BUILDER のみ（未公開）。共有データ（gpus.json・part-prices.json・upgrade-engine.js）は変更していない。PC BUILDER に Service Worker は無いのでキャッシュ版上げは不要。
+- **検証**: `node pc-builder/test-pc-builder.js` 3,762/3,762。既存12本（gpu-data 75 / gpu-pages 1,643 / build-check 145 / build-profile 6,555 / build-price 349 / service-worker 45 / motion 39 / upgrade-engine 73 / gpu-article 209 / game-content OK / new-release 95 / cross-links 63）すべて成功。ヘッドレスChrome（1440 / 390 / 375px）で検索・追加・数量・削除・比較・全タブ・保存・共有・6サイトからの引き継ぎを確認、コンソールエラー0・横スクロールなし。
+- **未対応・次にやること**: ①gpus.json・part-prices.json の価格更新（PC BUILD CHECK / GPU GUIDE 側の判断）②メモリ・SSD の実在製品（Crucial・Kingston・WD は読めず）③AMD GPU のエンコーダー照合④ケース3件のベイ数・SF850 の奥行き⑤価格は45日で「古い」表示になるので、公開後も定期的に `prices.json` を手で更新。
+- **別AIへの引き継ぎ注意点**: `prices.json` は手動更新（スクレイピング基盤を作らない方針）。価格.com の数値は人気ランキング掲載の最安値で、型番が一致したものだけ `items` に入れる。`scratchpad` の一時スクリプトはリポジトリに入れていない。
+
+## 2026-10-30 — 新サービス PC BUILDER（/pc-builder/）を新規作成し、既存6サイトから導線を設置（未コミット）
+
+- **修正目的**: パーツを自由に選び、互換性（対応／要確認／非対応）と5角形の性能グラフ（ゲーム・動画編集・配信・拡張性・コスパ）で確認できる自作PCシミュレーターを追加し、既存サイトの利用者を誘導する。
+- **変更ファイル**:
+  - 新規 `pc-builder/`：`index.html` / `style.css` / `js/pb-db.js`（DB）/ `js/pb-compat.js`（互換性）/ `js/pb-score.js`（スコア）/ `js/pb-codec.js`（共有URL・保存）/ `js/pb-import.js`（引き継ぎ）/ `js/pb-charts.js`（SVGグラフ・模式図）/ `js/pb-app.js`（画面）/ `data/parts.json` / `data/rules.json` / `data/presets.json` / `sitemap.xml` / `test-pc-builder.js`（1,978件）/ `validate-parts.js` / `README.md`（計算式・判定表・データの決まり）
+  - 導線: `shared/nav/sippo-nav.js`（SERVICES に PC BUILDER）、ルート `index.html`（サービス直下にNEWカード・フッター）、`gpu-guide/generate-gpu-pages.js`＋再生成65ページ（「このGPUを使ってPCを組む」`/pc-builder/?gpuid=`）、`pc-build-check/script.js`（診断結果「この構成をカスタマイズする」）、`game-pc-guide/generate-games.js`＋`style.css`＋再生成30ページ（「このゲーム向けにPCを組む」）、`upgrade/upgrade-diagnose.js`（GPU交換を提案したとき「交換前と交換後を比べる」）、`pc-builds-hub/post.js`（「この構成を再現する・編集する」）
+  - SEO: ルート `sitemap.xml`（インデックスに pc-builder を追加）、`llms.txt`
+  - SW版上げ: `pc-build-check/sw.js` v11（script.js・shared/nav はキャッシュ優先のため）、`game-pc-guide/sw.js` v14
+- **データの方針**: GPUチップは gpus.json、CPUゲーム指数・GPU公式推奨電源・電源/クーラー価格は upgrade-engine.js、CPU/メモリ/SSD/マザボ価格は part-prices.json を参照し、parts.json には書かない。新規パーツの仕様は今回メーカー公式ページ（一部CPUは Wikipedia＝二次情報と明記）で**実際に読めた値だけ**を入れ、読めなかった値は null（互換性は「要確認」、スコアは「評価不可／参考値」）。MSI・Seasonic・be quiet!・Noctua・NZXT・Crucial・Kingston の公式サイトは自動取得が拒否・タイムアウトで確認できなかったため、それらの製品は登録していない。AMD・Intel の公式ページも読めなかったため、CPUは Wikipedia の表で読めた値だけを登録（出典は二次情報と明記）。
+- **登録数**: GPUチップ65（gpus.json）／グラボ製品5／CPU29／マザボ12（うち機種未指定7）／メモリ10（同6）／ストレージ6（同5）／電源9（同4）／ケース8／CPUクーラー13（同2）／ケースファン4／拡張1（同1）。
+- **生成物の確認**: GPU GUIDE・GAME PC GUIDE とも、変更前に再生成して差分0を確認してから生成スクリプトを修正。差分は導線カードと、既存の仕組みどおりの CSSハッシュ・更新日（page-dates.json）だけ。
+- **検証**: `node pc-builder/test-pc-builder.js` 1,978/1,978。既存テスト（test-gpu-data 75 / test-gpu-pages 1,643 / test-build-check 145 / test-build-profile 6,555 / test-build-price 349 / test-service-worker 45 / test-motion 39 / test-upgrade-engine 73 / test-gpu-article 209 / test-game-content OK / test-new-release 95 / test-cross-links 63）すべて成功。ヘッドレスChrome（CDP）で、6サイトからの導線クリック→引き継ぎ、検索・絞り込み・数量・削除・合計・A/B比較・詳細7タブ・保存・共有URL・不明ID・壊れたURL・構成名のXSS無害化、PC 1440/1280px・スマホ 390/375px で横スクロールなし・コンソールエラーなしを確認。
+- **未対応・次にやること**: 下記 PROJECT_STATUS の「PC BUILDER」課題を参照（公開前の目視確認、null 項目の公式確認、PC BUILD CHECK 静的75ページへの導線、専用OGP画像、ショップ価格の登録、外観プレビューの高度化）。
+- **別AIへの引き継ぎ注意点**: parts.json に推測値を入れない（validate-parts.js が未確認一覧を出す）。計算式・定数を変えたら README.md の式も直す。GPU GUIDE からのパラメータは `?gpuid=`（`?gpu=` は scripts/test-cross-links.js の旧形式検出に当たるため使わない）。pc-builder は自前のSWを持たない（ルートSWはネットワーク優先）。
+
 ## 2026-10-23（2）— GAME PC GUIDE 新作判定を発売日と生成日だけで行うよう修正
 
 - **修正目的**: 「新作・正式版」欄の判定が、発売日と関係のない日付（価格の確認日・全ページの公式スペック確認日の最新）を「今日」の代わりにしていた問題を解消する。

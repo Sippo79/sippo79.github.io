@@ -529,9 +529,16 @@ ${rel.map((r) => card(r, "../", "h3")).join("\n")}
 function servicesBlock(g) {
   const pick = pickBuild(g);
   const gi = findGpu(pick.gpu);
+  // PC BUILDER にはゲームと、Sippoの目安構成（pick）の解像度を渡す。構成そのものは PC BUILDER が games.json から読む
+  const pickRes = /4K/i.test(pick.target) ? "4k" : (/WQHD/i.test(pick.target) ? "wqhd" : "fhd");
   return `        <section class="next-steps" aria-labelledby="nextTitle">
           <h2 id="nextTitle" class="next-steps__title">次にやること</h2>
           <div class="related-site-grid">
+            <a href="https://sippo-pc.jp/pc-builder/?game=${encodeURIComponent(slugOf(g))}&amp;res=${pickRes}" class="related-site-button related-site-builder">
+              <span class="related-site-mini">PC BUILDER</span>
+              <span>このゲーム向けにPCを組む</span>
+              <small>${esc(g.title)}の目安構成（${esc(pick.cpu)}・${esc(pick.gpu)}）から、パーツを入れ替えて互換性と性能グラフを確認</small>
+            </a>
             <a href="https://sippo-pc.jp/upgrade/" class="related-site-button related-site-upgrade">
               <span class="related-site-mini">PC UPGRADE</span>
               <span>今のPCで足りるか確認する</span>
