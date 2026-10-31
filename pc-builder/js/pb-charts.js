@@ -36,60 +36,80 @@
   }
 
   /**
+   * 5角形グラフ。
+   *  - 基準枠（20〜100の目盛り）と5本の軸は常に描く。
+   *  - 点数のある軸どうしが隣り合う区間だけを塗る（中心・軸i・軸i+1 の三角形の集まり）。
+   *    5項目すべてあれば普通の5角形になり、評価不可（N/A）の軸がある区間は塗らない。
+   *    評価不可を0点や推測値で補って図形を閉じることはしない。
+   *  - 評価不可の軸は点線の軸と「N/A」のラベルで示す（0点と区別する）。0点は中心に点を打つ。
    * @param {SVGElement} svg
    * @param {Array} axes  [{label, a:{score,grade}, b:{score,grade}|null}]
    */
   function radar(svg, axes, hasB) {
     var n = axes.length;
     var html = '';
+    var valid = function (s) { return !!(s && isNum(s.score)); };
+    var maskA = axes.map(function (ax) { return valid(ax.a); });
+    var maskB = axes.map(function (ax) { return hasB && valid(ax.b); });
+    radarState.mask = { a: maskA, b: hasB ? maskB : null };
     [20, 40, 60, 80, 100].forEach(function (v) {
       html += '<polygon class="grid-ring' + (v === 100 ? ' grid-ring--outer' : '') + '" points="' + polyStr(axes.map(function () { return v; })) + '"/>';
     });
     axes.forEach(function (ax, i) {
       var p = pointAt(i, n, 100);
-      html += '<line class="grid-axis" x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '"/>';
+      var na = !maskA[i] && !(hasB && maskB[i]);
+      html += '<line class="grid-axis' + (na ? ' grid-axis--na' : '') + '" x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '"/>';
     });
     // 目盛りは頂点の点数表示と重ならないよう、中心のすぐ横に50だけ置く
     var p50 = pointAt(0, n, 50);
     html += '<text class="ring-label" x="' + (p50[0] + 4) + '" y="' + (p50[1] + 3) + '">50</text>';
-    // 評価不可の軸は 0点ではない。中心まで線を引くと「0点」に見えるので、
-    // 1つでも評価不可があるときは塗りつぶさず、評価できた軸どうしの辺だけを描く（その軸で線が途切れる）。
-    var maskA = axes.map(function (ax) { return !!(ax.a && isNum(ax.a.score)); });
-    var maskB = axes.map(function (ax) { return !!(ax.b && isNum(ax.b.score)); });
-    radarState.mask = { a: maskA, b: hasB ? maskB : null };
-    var gapA = maskA.some(function (m) { return !m; }), gapB = hasB && maskB.some(function (m) { return !m; });
-    html += '<polygon class="poly-b" data-poly="b" points="' + polyStr(axes.map(function () { return 0; })) + '"' + (hasB && !gapB ? '' : ' style="display:none"') + '/>';
-    html += '<path class="edge-b" data-edge="b" d=""' + (gapB ? '' : ' style="display:none"') + '/>';
-    html += '<polygon class="poly-a" data-poly="a" points="' + polyStr(axes.map(function () { return 0; })) + '"' + (gapA ? ' style="display:none"' : '') + '/>';
-    html += '<path class="edge-a" data-edge="a" d=""' + (gapA ? '' : ' style="display:none"') + '/>';
+    if (hasB) html += '<path class="fill-b" data-poly="b" d=""/><path class="edge-b" data-edge="b" d=""/>';
+    html += '<path class="fill-a" data-poly="a" d=""/><path class="edge-a" data-edge="a" d=""/>';
     axes.forEach(function (ax, i) {
       var lp = pointAt(i, n, 128);
       var anchor = Math.abs(lp[0] - CX) < 10 ? 'middle' : (lp[0] > CX ? 'start' : 'end');
       var dy = lp[1] < CY - 60 ? -6 : (lp[1] > CY + 40 ? 12 : 0);
-      // 評価不可はグラフ上では「—」（長い文字でラベルが見切れないように）。文字の説明は凡例と一覧に出す
-      var sa = ax.a && isNum(ax.a.score) ? String(ax.a.score) : '—';
-      var sb = hasB ? (ax.b && isNum(ax.b.score) ? String(ax.b.score) : '—') : '';
+      var sa = maskA[i] ? String(ax.a.score) + (ax.a.grade === 'estimate' ? '*' : '') : 'N/A';
+      var sb = hasB ? (maskB[i] ? String(ax.b.score) + (ax.b.grade === 'estimate' ? '*' : '') : 'N/A') : '';
       html += '<text class="axis-label" text-anchor="' + anchor + '" x="' + lp[0].toFixed(1) + '" y="' + (lp[1] + dy).toFixed(1) + '">' + esc(ax.label) + '</text>';
       html += '<text text-anchor="' + anchor + '" x="' + lp[0].toFixed(1) + '" y="' + (lp[1] + dy + 15).toFixed(1) + '">'
-        + '<tspan class="axis-score" fill="' + (isNum(ax.a && ax.a.score) ? 'var(--accent-2)' : 'var(--faint)') + '">' + esc(sa) + (ax.a && ax.a.grade === 'estimate' ? '*' : '') + '</tspan>'
-        + (hasB ? '<tspan class="axis-score" fill="' + (isNum(ax.b && ax.b.score) ? 'var(--b)' : 'var(--faint)') + '"> / ' + esc(sb) + '</tspan>' : '')
+        + '<tspan class="axis-score' + (maskA[i] ? '' : ' axis-score--na') + '" fill="' + (maskA[i] ? 'var(--accent-2)' : 'var(--faint)') + '">' + esc(sa) + '</tspan>'
+        + (hasB ? '<tspan class="axis-score' + (maskB[i] ? '' : ' axis-score--na') + '" fill="' + (maskB[i] ? 'var(--b)' : 'var(--faint)') + '"> / ' + esc(sb) + '</tspan>' : '')
         + '</text>';
       html += '<circle class="dot-a" data-dot="a" data-i="' + i + '" r="3.6" cx="' + CX + '" cy="' + CY + '"' + (maskA[i] ? '' : ' style="display:none"') + '/>';
       if (hasB) html += '<circle class="dot-b" data-dot="b" data-i="' + i + '" r="3.2" cx="' + CX + '" cy="' + CY + '"' + (maskB[i] ? '' : ' style="display:none"') + '/>';
-      if (!(ax.a && isNum(ax.a.score))) {
-        var np = pointAt(i, n, 8);
-        html += '<circle class="dot-na" r="5" cx="' + np[0].toFixed(1) + '" cy="' + np[1].toFixed(1) + '"/>';
+      if (!maskA[i]) {
+        // 評価不可の目印：軸の外側寄りに小さな「N/A」札（中心には置かない＝0点と紛らわしいため）
+        var np = pointAt(i, n, 62);
+        html += '<g class="na-mark" transform="translate(' + np[0].toFixed(1) + ' ' + np[1].toFixed(1) + ')"><rect x="-14" y="-8" width="28" height="16" rx="4"/><text text-anchor="middle" y="4">N/A</text></g>';
       }
     });
+    if (!maskA.some(Boolean) && !(hasB && maskB.some(Boolean))) {
+      html += '<text class="radar-empty" text-anchor="middle" x="' + CX + '" y="' + (CY + 4) + '">パーツを選ぶと表示されます</text>';
+    }
     // <title>/<desc> を残したまま中身を差し替える
     Array.prototype.slice.call(svg.querySelectorAll(':scope > :not(title):not(desc)')).forEach(function (el) { el.remove(); });
     var g = document.createElementNS(NS, 'g');
     g.innerHTML = html;
     svg.appendChild(g);
 
-    var toA = axes.map(function (ax) { return ax.a && isNum(ax.a.score) ? ax.a.score : 0; });
-    var toB = axes.map(function (ax) { return ax.b && isNum(ax.b.score) ? ax.b.score : 0; });
+    var toA = axes.map(function (ax, i) { return maskA[i] ? ax.a.score : 0; });
+    var toB = axes.map(function (ax, i) { return maskB[i] ? ax.b.score : 0; });
     animate(svg, toA, hasB ? toB : null);
+  }
+
+  /** 点数のある隣り合う軸どうしの「塗り」と「辺」のパス。評価不可の軸をまたぐ区間は描かない */
+  function radarPaths(vals, mask) {
+    var n = vals.length, fill = '', edge = '';
+    for (var j = 0; j < n; j++) {
+      var k = (j + 1) % n;
+      if (!mask[j] || !mask[k]) continue;
+      var p1 = pointAt(j, n, vals[j]), p2 = pointAt(k, n, vals[k]);
+      var a = p1[0].toFixed(1) + ',' + p1[1].toFixed(1), b = p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
+      fill += 'M' + CX + ',' + CY + 'L' + a + 'L' + b + 'Z';
+      edge += 'M' + a + 'L' + b;
+    }
+    return { fill: fill, edge: edge };
   }
 
   function animate(svg, toA, toB) {
@@ -115,25 +135,18 @@
   }
 
   function draw(svg, key, vals) {
-    var poly = svg.querySelector('[data-poly="' + key + '"]');
-    if (poly) poly.setAttribute('points', polyStr(vals));
-    var edge = svg.querySelector('[data-edge="' + key + '"]');
     var mask = radarState.mask[key];
-    if (edge && mask) {
-      var d = '';
-      for (var j = 0; j < vals.length; j++) {
-        var k = (j + 1) % vals.length;
-        if (!mask[j] || !mask[k]) continue;
-        var p1 = pointAt(j, vals.length, vals[j]), p2 = pointAt(k, vals.length, vals[k]);
-        d += 'M' + p1[0].toFixed(1) + ',' + p1[1].toFixed(1) + 'L' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
-      }
-      edge.setAttribute('d', d);
-    }
+    if (!mask) return;
+    var p = radarPaths(vals, mask);
+    var fill = svg.querySelector('[data-poly="' + key + '"]'), edge = svg.querySelector('[data-edge="' + key + '"]');
+    if (fill) fill.setAttribute('d', p.fill);
+    if (edge) edge.setAttribute('d', p.edge);
     var dots = svg.querySelectorAll('[data-dot="' + key + '"]');
     for (var i = 0; i < dots.length; i++) {
-      var p = pointAt(Number(dots[i].getAttribute('data-i')), vals.length, vals[i]);
-      dots[i].setAttribute('cx', p[0].toFixed(1));
-      dots[i].setAttribute('cy', p[1].toFixed(1));
+      var idx = Number(dots[i].getAttribute('data-i'));
+      var pt = pointAt(idx, vals.length, vals[idx]);
+      dots[i].setAttribute('cx', pt[0].toFixed(1));
+      dots[i].setAttribute('cy', pt[1].toFixed(1));
     }
   }
 
@@ -242,5 +255,6 @@
     return s;
   }
 
-  global.SippoPBCharts = { radar: radar, bars: bars, stack: stack, preview: preview, esc: esc };
+  global.SippoPBCharts = { radar: radar, bars: bars, stack: stack, preview: preview, esc: esc, _radarPaths: radarPaths };
+  if (typeof module === 'object' && module.exports) module.exports = global.SippoPBCharts;
 })(typeof window !== 'undefined' ? window : this);

@@ -323,6 +323,9 @@ const html = read('pc-builder/index.html');
 ok(/<link rel="canonical" href="https:\/\/sippo-pc\.jp\/pc-builder\/">/.test(html), 'canonical は /pc-builder/');
 ok(html.indexOf('og:image" content="https://sippo-pc.jp/assets/ogp.png"') >= 0, 'OGP画像は png');
 ok((html.match(/<h1[\s>]/g) || []).length === 1, 'h1 は1つ');
+const localAssets = html.match(/(?:src|href)="(?:js\/pb-[a-z]+\.js|style\.css)[^"]*"/g) || [];
+ok(localAssets.length >= 9 && localAssets.every((x) => /\?v=\w+/.test(x)) && new Set(localAssets.map((x) => x.match(/\?v=(\w+)/)[1])).size === 1, 'PC BUILDER の CSS・JS は同じ版番号つき（公開直後に新旧が混ざらない）');
+ok(html.indexOf('js/pb-flow.js') >= 0 && html.indexOf('js/pb-flow.js') < html.indexOf('js/pb-app.js'), 'pb-flow.js は pb-app.js より先に読む');
 ok(html.indexOf('アフィリエイト広告') >= 0, '広告表記がある');
 const sm = read('pc-builder/sitemap.xml');
 ok(sm.indexOf('<loc>https://sippo-pc.jp/pc-builder/</loc>') >= 0 && !/<loc>[^<]*\?/.test(sm), 'sitemap は正式URLだけ（クエリURLを載せない）');
@@ -451,6 +454,63 @@ ok(Score.streamScore(B({ cpu: 'ryzen77800x3d', gpu: 'rx-9070-xt', memory: 'mem-g
 const vp =JSON.parse(require('child_process').execFileSync(process.execPath, [path.join(__dirname, 'validate-parts.js'), '--json']).toString());
 eq(vp.errors.length, 0, 'validate-parts.js のエラー0件');
 ok(!vp.missingKey.cpu, 'CPUは判定に使う主要仕様がすべてそろっている');
+
+/* ------------------------------------------------------------------
+ *  8. 画面の案内（pb-flow.js）と5角形グラフの描き方（pb-charts.js）
+ * ------------------------------------------------------------------ */
+const Flow = require('./js/pb-flow.js');
+const Charts = require('./js/pb-charts.js');
+const states = (b) => Flow.categoryStates(b, db, Db.CATEGORIES, Compat.checkBuild(b, db, Db.CATEGORIES));
+// 必須・任意は構成で変わる
+eq(states(B({ cpu: 'ryzen57500f' })).gpu.need, 'required', '内蔵GPUの無いCPUではGPUが必須');
+eq(states(B({ cpu: 'ryzen55600g' })).gpu.need, 'recommended', '内蔵GPUのあるCPUではGPUは「おすすめ」（必須の数には入れない）');
+eq(Flow.nextCategory(states(B({ cpu: 'ryzen55600g' })), 'cpu'), 'gpu', '内蔵GPUのCPUでも、次はGPUを案内する（ゲーム用途を取りこぼさない）');
+eq(Flow.nextCategory(states(B({ cpu: 'ryzen55600g' })), 'cpu', { gpu: true }), 'motherboard', '「GPUなしで進む」を選んだら次はマザボ');
+eq(states(B({ cpu: 'ryzen55600' })).cooler.need, 'optional', '付属クーラーのあるCPU（5600）ではクーラーは任意');
+eq(states(B({ cpu: 'ryzen77800x3d' })).cooler.need, 'required', '付属クーラーの無いCPU（7800X3D）ではクーラーが必須');
+eq(states(B({ cpu: 'corei714700k' })).cooler.need, 'required', '付属クーラーが未確認のCPUではクーラーを必須として案内');
+eq(states(B({})).gpuboard.need, 'locked', 'GPU未選択ではグラボ製品は選べない状態');
+eq(states(B({ gpu: 'rtx-5070' })).gpuboard.need, 'optional', 'GPUを選ぶとグラボ製品は任意で選べる');
+// 状態（選択済み・要確認・非対応）
+eq(states(B({ cpu: 'ryzen57500f' })).cpu.state, 'ok', 'CPUだけなら選択済み');
+eq(states(B({ cpu: 'ryzen57500f', motherboard: 'asus-prime-b760m-a-d4' })).cpu.state, 'ng', 'ソケットが合わないと非対応');
+eq(states(B({ cpu: 'ryzen79800x3d', motherboard: 'asus-tuf-b650-plus-wifi' })).motherboard.state, 'check', 'BIOS要確認なら要確認');
+eq(states(B({})).cpu.state, 'empty', '未選択は empty');
+// 進み具合と次に選ぶカテゴリ
+const stEmpty = states(B({}));
+eq(Flow.nextCategory(stEmpty, 'cpu'), 'gpu', '空の構成でCPUを見ているときの次はGPU');
+eq(Flow.nextCategory(stEmpty, 'memory'), 'storage', '今のカテゴリより後ろの未選択を優先');
+const stDone = states(good);
+ok(Flow.progress(stDone).complete && Flow.nextCategory(stDone, 'cpu') === null, '必須がそろうと次は無し（完成）');
+const stIgpu = states(B({ cpu: 'ryzen55600g', motherboard: 'mb-generic-am4-b550-atx', memory: 'mem-generic-ddr4-32', storage: 'ssd-generic-nvme-1tb', psu: 'psu-generic-650', case: 'fractal-north' }));
+ok(Flow.progress(stIgpu).complete, '内蔵GPU・付属クーラーのCPUなら、GPUとクーラーなしで必須がそろう');
+// 製品カードの主要スペック：全パーツで例外なし・最大4項目・値が無ければ null（推測しない）
+db.list.forEach((p) => {
+  let cs; try { cs = Flow.cardSpecs(p, db); } catch (e) { cs = null; }
+  ok(Array.isArray(cs) && cs.length >= 1 && cs.length <= 4 && cs.every((x) => x.label && (x.value === null || typeof x.value === 'string')), `カードの主要スペック（${p.id}）`);
+});
+eq(Flow.cardSpecs(db.byId.ryzen77800x3d, db)[0].value, '8 / 16', 'CPUカード：コア / スレッド');
+eq(Flow.cardSpecs(withSpec('ryzen77800x3d', { cores: null }).byId.ryzen77800x3d, db)[0].value, null, '値が無い項目は「未確認」（null）で推測しない');
+// グラフの下の説明：根拠のある文だけ
+const insGood = Flow.insights(Score.scoreBuild(good, db, 'wqhd', rGood.power), 'wqhd', db.byId['rtx-5070']);
+ok(insGood.length <= 5 && insGood.every((x) => ['good', 'warn', 'info'].indexOf(x.kind) >= 0), '説明は最大5つ・種類つき');
+ok(insGood.some((x) => /75点/.test(x.text)), 'ゲーム性能が75点以上なら「検討できる目安に届いている」（基準を明記）');
+ok(!insGood.some((x) => /どんなゲームも|必ず|絶対/.test(x.text)), '裏付けのない断定をしない');
+const insIgpu = Flow.insights(Score.scoreBuild(B({ cpu: 'ryzen55600g', memory: 'mem-generic-ddr4-16' }), db, 'fhd'), 'fhd', null);
+ok(insIgpu.some((x) => x.kind === 'info' && /ゲーム性能は評価不可（N\/A）/.test(x.text)), '評価不可の項目は「N/A」と理由を説明');
+const insLowMem = Flow.insights(Score.scoreBuild(B({ cpu: 'ryzen77800x3d', gpu: 'rtx-5070', memory: { id: 'mem-generic-ddr5-16', qty: 0 } }), db, 'fhd'), 'fhd', db.byId['rtx-5070']);
+ok(Array.isArray(insLowMem), '説明の生成で例外が起きない（メモリ数量の異常値）');
+
+// 5角形：評価不可を0点で補わない・区間ごとに塗る
+const rp = Charts._radarPaths;
+const segs = (r) => (r.edge.match(/M/g) || []).length;
+eq(segs(rp([80, 70, 60, 50, 40], [true, true, true, true, true])), 5, '5項目すべて有効なら5辺（閉じた5角形）');
+eq(segs(rp([80, 70, 60, 50, 40], [true, true, true, true, false])), 3, '1項目が評価不可なら、その軸をまたぐ2辺を描かない');
+eq(segs(rp([80, 70, 60, 50, 40], [true, false, true, false, true])), 1, '複数が評価不可なら、隣り合う有効な軸どうしだけ');
+eq(rp([80, 70, 60, 50, 40], [false, false, false, false, false]).fill, '', 'すべて評価不可なら図形を描かない（枠だけ）');
+ok(/L180\.0,168\.0/.test(rp([0, 70, 60, 50, 40], [true, true, true, true, true]).edge), '実際の0点は中心に頂点を置く（評価不可とは別）');
+eq(segs(rp([80, 70, 60, 50, 40], [true, true, true, true, true])), (rp([80, 70, 60, 50, 40], [true, true, true, true, true]).fill.match(/Z/g) || []).length, '塗りは辺と同じ区間だけ');
+ok(!/NaN|undefined/.test(JSON.stringify(rp([NaN, 70, 60, 50, 40].map((x) => (Number.isFinite(x) ? x : 0)), [false, true, true, true, true]))), 'NaN が混じっても座標に NaN を出さない（無効な軸は描かない）');
 
 /* ------------------------------------------------------------------ */
 console.log(`\nPC BUILDER テスト: ${pass} 件成功 / ${fail} 件失敗`);

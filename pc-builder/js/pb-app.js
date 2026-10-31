@@ -12,8 +12,9 @@
   var doc = global.document;
   var Db = global.SippoPBDb, Compat = global.SippoPBCompat, Score = global.SippoPBScore;
   var Codec = global.SippoPBCodec, Import = global.SippoPBImport, Charts = global.SippoPBCharts;
+  var Flow = global.SippoPBFlow;
   var esc = Charts.esc;
-  if (!doc || !Db || !Compat || !Score || !Codec) return;
+  if (!doc || !Db || !Compat || !Score || !Codec || !Flow) return;
 
   var $ = function (id) { return doc.getElementById(id); };
   function isNum(v) { return typeof v === 'number' && isFinite(v); }
@@ -56,7 +57,10 @@
     active: 'A',
     res: 'wqhd',
     cat: 'cpu',
-    filters: { text: '', maker: '', sort: 'perf', priceMax: '', onlyCompat: false, hideUsed: false },
+    filters: { text: '', maker: '', spec: '', sort: 'perf', priceMax: '', compatMode: 'all', hideUsed: false },
+    flow: null,
+    skip: {},
+    listLimit: 12,
     detailTab: 'res',
     importInfo: null,
     warnings: [],
@@ -171,8 +175,9 @@
     }
     if (cat === 'gpuboard') items.gpu = [{ id: p.chip, qty: 1 }];
     track('pcb_add_part', { category: cat, part_id: id });
-    toast((S.builds.B ? '構成' + S.active + 'に' : '') + '「' + p.name + '」を入れました');
     update();
+    var nx = S.flow && S.flow.next ? catDef(S.flow.next) : null;
+    toast((S.builds.B ? '構成' + S.active + 'に' : '') + '「' + p.name + '」を入れました' + (nx && S.flow.next !== cat ? '。次は「' + nx.short + '」を選びましょう' : (S.flow && S.flow.progress.complete ? '。必須パーツがそろいました' : '')));
   }
 
   function removePart(cat, id) {
@@ -209,6 +214,7 @@
     renderBuildSwitch();
     renderBuild();
     renderPerf();
+    renderMobileBar();
     clearTimeout(urlTimer);
     urlTimer = setTimeout(syncUrl, 300);
   }
@@ -290,29 +296,152 @@
   /* ==================================================================
    *  ① パーツ選択
    * ================================================================== */
+  var STATE_LABEL = { empty: '未選択', ok: '選択済み', check: '要確認', ng: '非対応' };
+  var NEED_LABEL = { required: '必須', recommended: 'おすすめ', optional: '任意', locked: '—' };
+
+  /** カテゴリの必要度・状態・進み具合・次に選ぶカテゴリ（pb-flow.js が判定） */
+  function refreshFlow() {
+    var calc = S.calc[S.active];
+    var states = Flow.categoryStates(cur(), S.db, Db.CATEGORIES, calc ? calc.compat : null);
+    var pr = Flow.progress(states);
+    S.flow = { states: states, progress: pr, next: Flow.nextCategory(states, S.cat, S.skip) };
+    return S.flow;
+  }
+
   function renderCats() {
-    var build = cur();
+    var fl = refreshFlow(), pr = fl.progress;
+    var pct = pr.total ? Math.round(pr.done / pr.total * 100) : 0;
+    $('pbProgress').innerHTML = '<div class="pb-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + pr.total + '" aria-valuenow="' + pr.done + '" aria-label="必須パーツの進み具合"><span style="width:' + pct + '%"></span></div>'
+      + '<p>必須パーツ <b>' + pr.done + ' / ' + pr.total + '</b>' + (pr.complete ? ' <span class="pb-progress__done">そろいました</span>' : '') + '</p>';
     $('pbCats').innerHTML = Db.CATEGORIES.map(function (c) {
-      var filled = (build.items[c.id] || []).length ? 1 : 0;
-      return '<button type="button" class="pb-cat" role="tab" data-cat="' + c.id + '" aria-selected="' + (S.cat === c.id) + '" data-filled="' + filled + '" data-required="' + (c.required ? 1 : 0) + '">'
-        + '<span class="pb-cat__dot" aria-hidden="true"></span>' + esc(c.short) + (c.required ? '' : '') + '</button>';
+      var st = fl.states[c.id];
+      var badge = st.count ? STATE_LABEL[st.state] + (c.multi && st.count > 1 ? ' ' + st.count : '') : (st.need === 'required' ? '未選択' : NEED_LABEL[st.need]);
+      var isNext = fl.next === c.id && S.cat !== c.id;
+      return '<li><button type="button" class="pb-cat" role="tab" data-cat="' + c.id + '" aria-selected="' + (S.cat === c.id) + '"'
+        + ' data-state="' + (st.count ? st.state : 'empty') + '" data-need="' + st.need + '"' + (isNext ? ' data-next="1"' : '') + (st.note ? ' title="' + esc(st.note) + '"' : '') + '>'
+        + '<span class="pb-cat__icon" aria-hidden="true">' + ICONS[c.icon] + '</span>'
+        + '<span class="pb-cat__txt"><b>' + esc(c.short) + '</b><small>' + esc(st.role) + '</small></span>'
+        + '<span class="pb-cat__st">' + (isNext ? '<i class="pb-cat__next">次はここ</i>' : '') + esc(badge) + '</span>'
+        + '</button></li>';
     }).join('');
-    $('pbCatInfo').innerHTML = CAT_INFO[S.cat] || '';
+    renderStep();
     $('pbHideUsedWrap').hidden = S.cat !== 'gpu';
     var makers = Db.makersOf(S.db, S.cat);
     var sel = $('pbMaker');
     if (sel.getAttribute('data-cat') !== S.cat) {
-      sel.innerHTML = '<option value="">すべてのメーカー</option>' + makers.map(function (m) { return '<option value="' + esc(m) + '">' + esc(m) + '</option>'; }).join('');
+      sel.innerHTML = '<option value="">すべて</option>' + makers.map(function (m) { return '<option value="' + esc(m) + '">' + esc(m) + '</option>'; }).join('');
       sel.setAttribute('data-cat', S.cat);
       S.filters.maker = '';
+      var specs = SPEC_FILTERS[S.cat] || [];
+      var spSel = $('pbSpec');
+      spSel.innerHTML = '<option value="">すべて</option>' + specs.map(function (o, i) { return '<option value="' + i + '">' + esc(o.label) + '</option>'; }).join('');
+      spSel.disabled = !specs.length;
+      S.filters.spec = '';
     }
-    var lbl = $('pbEditingLabel');
-    lbl.setAttribute('data-build', S.active);
-    lbl.innerHTML = S.builds.B ? '編集中：<b>構成' + S.active + '</b>' : '';
   }
+
+  /** 中央の見出し：今選んでいるカテゴリ・役割・次へのボタン */
+  function renderStep() {
+    var def = catDef(S.cat), fl = S.flow, st = fl.states[S.cat];
+    var nextDef = fl.next ? catDef(fl.next) : null;
+    var kicker = st.need === 'required' ? '必須パーツ' : (st.need === 'recommended' ? 'おすすめのパーツ' : (st.need === 'locked' ? '前のパーツを選ぶと選べます' : '任意のパーツ'));
+    var right = '';
+    if (S.cat === 'gpu' && st.need === 'recommended' && !st.count) right += '<button type="button" class="pb-btn pb-btn--ghost" data-action="skip-gpu">GPUなしで進む</button>';
+    if (nextDef && fl.next !== S.cat) right += '<button type="button" class="pb-btn pb-btn--next" data-goto="' + fl.next + '">次へ：' + esc(nextDef.short) + ' を選ぶ →</button>';
+    else if (fl.progress.complete) right = '<span class="pb-step__done">✓ 必須パーツがそろいました。性能・互換性・価格を確認しましょう</span>';
+    $('pbStep').innerHTML = '<div class="pb-step__main"><span class="pb-step__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
+      + '<div><p class="pb-step__kicker">' + esc(kicker) + (S.builds.B ? ' <span class="pb-editing" data-build="' + S.active + '">編集中：<b>構成' + S.active + '</b></span>' : '') + '</p>'
+      + '<h2 id="partsTitle">' + esc(def.label) + '<small>｜' + esc(st.role) + '</small></h2>'
+      + (st.note ? '<p class="pb-step__note">' + esc(st.note) + '</p>' : '') + '</div></div>'
+      + (right ? '<div class="pb-step__side">' + right + '</div>' : '');
+    var info = CAT_INFO[S.cat] || '';
+    $('pbCatInfo').innerHTML = info ? '<details class="pb-catinfo__box"' + (st.count ? '' : ' open') + '><summary>このパーツは何をするもの？</summary><p>' + info + '</p></details>' : '';
+  }
+
+  /** カテゴリごとの「スペックで絞り込み」 */
+  var SPEC_FILTERS = {
+    cpu: [
+      { label: 'ソケット AM4', test: function (p) { return p.specs.socket === 'AM4'; } },
+      { label: 'ソケット AM5', test: function (p) { return p.specs.socket === 'AM5'; } },
+      { label: 'ソケット LGA1700', test: function (p) { return p.specs.socket === 'LGA1700'; } },
+      { label: 'ソケット LGA1851', test: function (p) { return p.specs.socket === 'LGA1851'; } },
+      { label: '内蔵GPUあり', test: function (p) { return !!p.specs.igpu && p.specs.igpu !== 'none'; } },
+      { label: '8コア以上', test: function (p) { return isNum(p.specs.cores) && p.specs.cores >= 8; } },
+    ],
+    gpu: [
+      { label: 'VRAM 8GB以上', test: function (p) { return isNum(p.specs.vram) && p.specs.vram >= 8; } },
+      { label: 'VRAM 12GB以上', test: function (p) { return isNum(p.specs.vram) && p.specs.vram >= 12; } },
+      { label: 'VRAM 16GB以上', test: function (p) { return isNum(p.specs.vram) && p.specs.vram >= 16; } },
+      { label: 'フルHD向け', test: function (p) { return p.specs.target === 'FHD'; } },
+      { label: 'WQHD向け', test: function (p) { return p.specs.target === 'WQHD'; } },
+      { label: '4K向け', test: function (p) { return p.specs.target === '4K'; } },
+      { label: '確認日つきの価格あり', test: function (p) { return !!(p.price && p.price.valid); } },
+    ],
+    gpuboard: [
+      { label: '長さ 250mm以下', test: function (p) { return isNum(p.specs.lengthMm) && p.specs.lengthMm <= 250; } },
+      { label: '8ピン補助電源', test: function (p) { return p.specs.pin8 > 0; } },
+      { label: '16ピン補助電源', test: function (p) { return p.specs.pin16 > 0; } },
+    ],
+    motherboard: [
+      { label: 'ソケット AM4', test: function (p) { return p.specs.socket === 'AM4'; } },
+      { label: 'ソケット AM5', test: function (p) { return p.specs.socket === 'AM5'; } },
+      { label: 'ソケット LGA1700', test: function (p) { return p.specs.socket === 'LGA1700'; } },
+      { label: 'ソケット LGA1851', test: function (p) { return p.specs.socket === 'LGA1851'; } },
+      { label: 'ATX', test: function (p) { return p.specs.formFactor === 'ATX'; } },
+      { label: 'Micro-ATX', test: function (p) { return p.specs.formFactor === 'Micro-ATX'; } },
+      { label: '無線LANあり', test: function (p) { return !!p.specs.wifi; } },
+    ],
+    memory: [
+      { label: 'DDR4', test: function (p) { return p.specs.type === 'DDR4'; } },
+      { label: 'DDR5', test: function (p) { return p.specs.type === 'DDR5'; } },
+      { label: '16GB', test: function (p) { return p.specs.capacityGB === 16; } },
+      { label: '32GB', test: function (p) { return p.specs.capacityGB === 32; } },
+      { label: '64GB', test: function (p) { return p.specs.capacityGB === 64; } },
+    ],
+    storage: [
+      { label: 'NVMe SSD', test: function (p) { return p.specs.kind === 'nvme'; } },
+      { label: 'PCIe 5.0', test: function (p) { return /PCIe 5\.0/.test(p.specs.interface || ''); } },
+      { label: '1TB', test: function (p) { return p.specs.capacityGB === 1000; } },
+      { label: '2TB', test: function (p) { return p.specs.capacityGB === 2000; } },
+      { label: '4TB', test: function (p) { return p.specs.capacityGB === 4000; } },
+      { label: 'SATA・HDD', test: function (p) { return p.specs.kind !== 'nvme'; } },
+    ],
+    psu: [
+      { label: '650W以上', test: function (p) { return p.specs.watt >= 650; } },
+      { label: '750W以上', test: function (p) { return p.specs.watt >= 750; } },
+      { label: '850W以上', test: function (p) { return p.specs.watt >= 850; } },
+      { label: '1000W以上', test: function (p) { return p.specs.watt >= 1000; } },
+      { label: '16ピン（12V-2x6）あり', test: function (p) { return p.specs.h12v2x6 > 0; } },
+    ],
+    case: [
+      { label: 'ATX対応', test: function (p) { return (p.specs.supportedMb || []).indexOf('ATX') >= 0; } },
+      { label: 'Micro-ATX対応', test: function (p) { return (p.specs.supportedMb || []).indexOf('Micro-ATX') >= 0; } },
+      { label: 'GPU 400mm以上入る', test: function (p) { return p.specs.maxGpuMm >= 400; } },
+      { label: '360mmラジエーター対応', test: function (p) { var r = p.specs.radiators || {}; return Object.keys(r).some(function (k) { return (r[k] || []).indexOf(360) >= 0; }); } },
+    ],
+    cooler: [
+      { label: '空冷', test: function (p) { return p.specs.type === 'air'; } },
+      { label: '簡易水冷', test: function (p) { return p.specs.type === 'aio'; } },
+    ],
+    fan: [
+      { label: '120mm', test: function (p) { return p.specs.sizeMm === 120; } },
+      { label: '140mm', test: function (p) { return p.specs.sizeMm === 140; } },
+    ],
+  };
 
   // 価格の種類（3つを混同しない）
   var TIER_LABEL = { retail: '実売確認価格', median: '参考中央値', reference: '参考価格（未確認）' };
+
+  /** カード用の短い価格表示（確認日・区分だけ。出典は「詳細・出典」の中） */
+  function priceCompact(p) {
+    var guide = p.guidePrice && (!p.price || p.price.basis !== p.guidePrice.basis)
+      ? '<small class="pb-price__guide">GPU GUIDE掲載 約' + yen(p.guidePrice.value) + '（別基準）</small>' : '';
+    if (!p.price || !isNum(p.price.value)) return '<div class="pb-price pb-price--none"><b>参考価格 未登録</b>' + guide + '</div>';
+    var pr = p.price;
+    var sub = pr.stale ? '確認から' + pr.ageDays + '日・合計に入れません' : (pr.tier === 'reference' ? '確認日なし・合計に入れません' : (pr.checkedAt ? pr.checkedAt + '確認' : ''));
+    return '<div class="pb-price" data-tier="' + esc(pr.tier) + '"><b>約' + yen(pr.value) + '</b><span class="pb-tier">' + esc(TIER_LABEL[pr.tier] || '') + '</span>'
+      + (sub ? '<small class="' + (pr.valid ? '' : 'pb-price__warn') + '">' + esc(sub) + '</small>' : '') + guide + '</div>';
+  }
 
   function priceHtml(p) {
     var guide = p.guidePrice && (!p.price || p.price.basis !== p.guidePrice.basis)
@@ -436,48 +565,67 @@
       return statusCache[p.id];
     }
     var gpuSel = (build.items.gpu || [])[0];
+    var specF = f.spec !== '' && SPEC_FILTERS[S.cat] ? SPEC_FILTERS[S.cat][Number(f.spec)] : null;
+    var counts = { ok: 0, check: 0, ng: 0 };
     var items = Db.query(S.db, {
       category: S.cat, text: f.text, maker: f.maker, sort: f.sort,
       priceMax: f.priceMax ? Number(f.priceMax) : null,
       hideUsed: S.cat === 'gpu' && f.hideUsed,
       filter: function (p) {
         if (S.cat === 'gpuboard' && gpuSel && p.chip !== gpuSel.id) return false;
-        if (f.onlyCompat && hasOthers) return statusOf(p).status !== 'ng';
+        if (specF && !specF.test(p)) return false;
+        if (hasOthers) {
+          var stt = statusOf(p).status;
+          counts[stt] += 1;
+          if (f.compatMode === 'hide-ng' && stt === 'ng') return false;
+          if (f.compatMode === 'ok' && stt !== 'ok') return false;
+        }
         return true;
       },
     });
     var sel = selectedIds(S.cat);
     var total = (S.db.byCategory[S.cat] || []).length;
     var note = '';
-    if (S.cat === 'gpuboard' && gpuSel) note = '（選択中のGPU「' + (part(gpuSel.id) ? part(gpuSel.id).name : '') + '」の製品だけ表示）';
-    $('pbCount').textContent = items.length + '件 / 全' + total + '件' + note;
+    if (S.cat === 'gpuboard' && gpuSel) note = '（選択中のGPU「' + (part(gpuSel.id) ? part(gpuSel.id).name : '') + '」の製品だけ）';
+    $('pbCount').innerHTML = esc(items.length + '件 / 全' + total + '件' + note)
+      + (hasOthers ? ' <span class="pb-count__st"><span class="pb-st pb-st--ok">対応 ' + counts.ok + '</span><span class="pb-st pb-st--check">要確認 ' + counts.check + '</span><span class="pb-st pb-st--ng">非対応 ' + counts.ng + '</span></span>' : ' <span class="pb-note">（他のパーツを選ぶと、組めるかどうかを表示します）</span>');
     if (!items.length) {
       $('pbList').innerHTML = '<li class="pb-msg">' + (S.cat === 'gpuboard' && gpuSel
         ? 'このGPUのメーカー別製品データはまだ登録されていません。グラボの長さ・補助電源は「要確認」として扱います。'
         : '条件に合うパーツがありません。検索語や絞り込みを変えてください。') + '</li>';
       return;
     }
-    $('pbList').innerHTML = items.map(function (p) {
+    var def = catDef(S.cat);
+    // 多いときは最初の分だけ描く（スマホで縦に長くなりすぎない・描画を速く保つ）。選択中の製品は必ず含める
+    var shown = items.slice(0, S.listLimit);
+    items.slice(S.listLimit).forEach(function (p) { if (sel.indexOf(p.id) >= 0) shown.push(p); });
+    var rest = items.length - shown.length;
+    $('pbList').innerHTML = shown.map(function (p) {
       var selected = sel.indexOf(p.id) >= 0;
       var st = hasOthers ? statusOf(p) : null;
-      var stHtml = st ? '<span class="pb-st pb-st--' + st.status + '" title="' + esc(st.reasons.map(function (r) { return r.label + '：' + r.message; }).join('\n')) + '">' + STATUS_LABEL[st.status] + '</span>' : '';
-      var tags = (p.kind === 'generic' ? '<span class="pb-tag pb-tag--generic">機種未指定</span> ' : '')
-        + (p.specs && p.specs.market === 'used' ? '<span class="pb-tag pb-tag--used">中古向け</span> ' : '');
-      var def = catDef(S.cat);
+      var tags = (p.kind === 'generic' ? '<span class="pb-tag pb-tag--generic">機種未指定</span>' : '')
+        + (p.specs && p.specs.market === 'used' ? '<span class="pb-tag pb-tag--used">中古向け</span>' : '');
+      var specs = Flow.cardSpecs(p, S.db).map(function (x) {
+        return '<div><dt>' + esc(x.label) + '</dt><dd' + (x.value == null ? ' class="is-null">未確認' : '>' + esc(x.value)) + '</dd></div>';
+      }).join('');
       var btn = selected && !def.multi
-        ? '<button type="button" class="pb-btn pb-btn--sm" data-remove="' + S.cat + '|' + esc(p.id) + '">選択中（外す）</button>'
-        : '<button type="button" class="pb-btn pb-btn--sm pb-btn--add" data-add="' + S.cat + '|' + esc(p.id) + '">' + (selected ? '＋もう1つ' : '＋ 入れる') + '</button>';
-      var reasons = st && st.status !== 'ok' ? '<div class="pb-item__more"><small>' + esc(st.reasons.slice(0, 2).map(function (r) { return r.message; }).join(' ')) + '</small></div>' : '';
-      return '<li class="pb-item" data-selected="' + (selected ? 1 : 0) + '">'
-        + '<div class="pb-item__top"><span class="pb-item__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
-        + '<div class="pb-item__main"><div class="pb-item__maker">' + esc(p.maker) + (p.model ? ' · ' + esc(p.model) : '') + (p.released ? ' · ' + esc(p.released) : '') + '</div>'
-        + '<div class="pb-item__name">' + tags + esc(p.name) + '</div>'
-        + '<div class="pb-item__specs">' + specChips(p) + '</div></div></div>'
-        + '<div class="pb-item__foot">' + priceHtml(p) + '<div class="pb-item__btns">' + stHtml + btn + '</div></div>'
-        + reasons
-        + '<details class="pb-item__more"><summary>仕様と出典</summary>' + specTable(p) + '</details>'
+        ? '<button type="button" class="pb-btn pb-btn--sel" data-remove="' + S.cat + '|' + esc(p.id) + '" aria-label="' + esc(p.name) + 'を外す">✓ 選択中（外す）</button>'
+        : '<button type="button" class="pb-btn pb-btn--pick" data-add="' + S.cat + '|' + esc(p.id) + '">' + (def.multi ? (selected ? '＋ もう1つ追加' : '＋ 追加する') : 'この製品を選ぶ') + '</button>';
+      var compat = st ? '<div class="pb-card__compat" data-status="' + st.status + '"><span class="pb-st pb-st--' + st.status + '">' + STATUS_LABEL[st.status] + '</span>'
+        + '<span>' + esc(st.status === 'ok' ? '今の構成と組み合わせられます' : (st.reasons[0] ? st.reasons[0].message : '')) + '</span></div>' : '';
+      var reasonsFull = st && st.reasons.length > 1 ? '<ul class="pb-card__reasons">' + st.reasons.map(function (r) { return '<li><b>' + esc(STATUS_LABEL[r.status]) + '</b> ' + esc(r.label) + '：' + esc(r.message) + '</li>'; }).join('') + '</ul>' : '';
+      return '<li class="pb-card" data-selected="' + (selected ? 1 : 0) + '"' + (st ? ' data-status="' + st.status + '"' : '') + '>'
+        + '<div class="pb-card__head"><span class="pb-card__icon" data-cat="' + esc(S.cat) + '" aria-hidden="true">' + ICONS[def.icon] + '</span>'
+        + '<div class="pb-card__title"><div class="pb-card__maker">' + esc(p.maker) + (p.model ? ' · ' + esc(p.model) : '') + '</div>'
+        + '<h3 class="pb-card__name">' + esc(p.name) + '</h3>' + (tags ? '<div class="pb-card__tags">' + tags + '</div>' : '') + '</div>'
+        + (selected ? '<span class="pb-card__badge">✓ 選択中</span>' : '') + '</div>'
+        + '<dl class="pb-card__specs">' + specs + '</dl>'
+        + priceCompact(p)
+        + compat
+        + '<div class="pb-card__actions">' + btn + '</div>'
+        + '<details class="pb-card__more"><summary>詳しい仕様・価格の出典</summary>' + reasonsFull + specTable(p) + '</details>'
         + '</li>';
-    }).join('');
+    }).join('') + (rest > 0 ? '<li class="pb-more"><button type="button" class="pb-btn" data-action="more">さらに表示（残り' + rest + '件）</button></li>' : '');
   }
 
   /* ==================================================================
@@ -510,16 +658,24 @@
     if (pr.rows.some(function (r) { return r.price.stale; })) notes.push('確認から時間がたった価格を含みます。');
     var extra = refNames.length + unpricedNames.length;
     var val = pr.rows.length ? '約' + man(pr.total) + (extra ? '<small class="pb-total__plus">＋確認できない' + extra + '点</small>' : '') : '—';
+    // 目立たせるのは「何が合計に入っていないか」の1行だけ。残りの注意は折りたたむ
+    var lead = missingCats.length || extra ? (missingCats.length ? '未選択：' + esc(missingCats.join('・')) : '') + (missingCats.length && extra ? '／' : '') + (extra ? '価格を確認できない' + extra + '点は含みません' : '') : '選んだパーツの確認できた価格の合計です';
     $('pbTotal').innerHTML = '<span class="pb-total__label">確認できた価格の合計' + (S.builds.B ? '（構成' + S.active + '）' : '') + (extra || missingCats.length ? '（一部のパーツだけ）' : '') + '</span>'
       + '<span class="pb-total__val">' + val + '</span>'
-      + '<span class="pb-total__note">' + notes.join(' ') + '</span>';
+      + '<span class="pb-total__note">' + lead + '</span>'
+      + '<details class="pb-total__more"><summary>この合計について（OS・組み立て費は含まない など）</summary><ul>' + notes.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul></details>';
 
-    // 互換性サマリー
+    // 互換性サマリー（概要は常に。理由は上位2件だけ、残りは詳細へ）
     var c = calc.compat;
-    var sumHtml = '<strong>互換性</strong>';
-    if (!c.results.length) sumHtml += '<span class="pb-note">2つ以上のパーツを選ぶと判定します</span>';
-    else sumHtml += '<span class="pb-st pb-st--' + c.overall + '">' + (c.overall === 'ok' ? 'すべて対応' : (c.overall === 'ng' ? '非対応あり' : '要確認あり')) + '</span>'
-      + '<span class="pb-note" style="margin:0">対応 ' + c.summary.ok + ' / 要確認 ' + c.summary.check + ' / 非対応 ' + c.summary.ng + '</span>';
+    var sumHtml = '<div class="pb-compat-summary__head"><strong>互換性</strong>';
+    if (!c.results.length) sumHtml += '<span class="pb-note">2つ以上のパーツを選ぶと判定します</span></div>';
+    else {
+      sumHtml += '<span class="pb-st pb-st--' + c.overall + '">' + (c.overall === 'ok' ? 'すべて対応' : (c.overall === 'ng' ? '非対応あり' : '要確認あり')) + '</span>'
+        + '<span class="pb-note" style="margin:0">対応 ' + c.summary.ok + ' / 要確認 ' + c.summary.check + ' / 非対応 ' + c.summary.ng + '</span></div>';
+      var top = c.results.filter(function (r) { return r.status !== 'ok'; }).slice(0, 2);
+      if (top.length) sumHtml += '<ul class="pb-compat-top">' + top.map(function (r) { return '<li data-status="' + r.status + '"><b>' + esc(r.label) + '</b>：' + esc(r.message) + '</li>'; }).join('') + '</ul>';
+      sumHtml += '<a class="pb-compat-summary__more" href="#pbCompat" data-show-pane="build">互換性の詳細（' + c.results.length + '項目）を見る</a>';
+    }
     $('pbCompatSummary').innerHTML = sumHtml;
     var badge = $('pbTabBadge');
     badge.textContent = c.summary.ng ? String(c.summary.ng) : (c.summary.check ? '!' : (c.results.length ? '✓' : ''));
@@ -529,11 +685,12 @@
     $('pbSelected').innerHTML = Db.CATEGORIES.map(function (def) {
       var arr = build.items[def.id] || [];
       if (!arr.length) {
-        if (def.id === 'gpuboard' && !(build.items.gpu || []).length) return '';
-        var hint = def.id === 'cooler' ? '（付属クーラーで使う場合は不要）' : (def.id === 'gpu' ? '（なしなら内蔵GPU）' : (def.required ? '' : '（任意）'));
-        return '<li class="pb-sel pb-sel--empty"><span class="pb-sel__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
-          + '<div><div class="pb-sel__cat">' + esc(def.label) + '</div><div class="pb-sel__name">未選択 <small class="pb-note">' + hint + '</small></div></div>'
-          + '<button type="button" class="pb-btn pb-btn--sm" data-goto="' + def.id + '">選ぶ</button></li>';
+        var fst = S.flow.states[def.id];
+        if (fst.need === 'locked') return '';
+        var req = fst.need === 'required' || fst.need === 'recommended';
+        return '<li class="pb-sel pb-sel--empty" data-need="' + fst.need + '"><span class="pb-sel__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
+          + '<div><div class="pb-sel__cat">' + esc(def.label) + '</div><div class="pb-sel__name">未選択 <small class="pb-note">' + (fst.need === 'required' ? '（必須）' : (fst.need === 'recommended' ? '（おすすめ）' : '（任意）')) + (fst.note && !req ? esc(fst.note) : '') + '</small></div></div>'
+          + '<button type="button" class="pb-btn pb-btn--sm' + (req ? ' pb-btn--pick' : '') + '" data-goto="' + def.id + '">選ぶ</button></li>';
       }
       return arr.map(function (e) {
         var p = part(e.id);
@@ -544,10 +701,11 @@
           : (def.id === 'gpuboard' ? 'GPUの参考価格に含む' : '参考価格 未登録');
         if (def.id === 'gpu' && calc.score.prices.boardPriced) price = 'グラボ製品の価格で数えています';
         var qty = def.qty ? '<span class="pb-qty"><button type="button" aria-label="' + esc(p.name) + 'を1つ減らす" data-qty="' + def.id + '|' + esc(p.id) + '|-1">−</button><span>' + (e.qty || 1) + '</span><button type="button" aria-label="' + esc(p.name) + 'を1つ増やす" data-qty="' + def.id + '|' + esc(p.id) + '|1">＋</button></span>' : '';
-        return '<li class="pb-sel"><span class="pb-sel__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
-          + '<div><div class="pb-sel__cat">' + esc(def.label) + (p.kind === 'generic' ? ' <span class="pb-tag pb-tag--generic">機種未指定</span>' : '') + '</div>'
-          + '<div class="pb-sel__name"><button type="button" data-goto="' + def.id + '">' + esc(p.name) + '</button></div>'
-          + '<div class="pb-sel__price">' + esc(price) + '</div></div>'
+        var stt = S.flow.states[def.id].state;
+        return '<li class="pb-sel" data-state="' + stt + '"><span class="pb-sel__icon" aria-hidden="true">' + ICONS[def.icon] + '</span>'
+          + '<div><div class="pb-sel__cat">' + esc(def.label) + (p.kind === 'generic' ? ' <span class="pb-tag pb-tag--generic">機種未指定</span>' : '') + (stt !== 'ok' ? ' <span class="pb-st pb-st--' + stt + '">' + STATUS_LABEL[stt] + '</span>' : '') + '</div>'
+          + '<div class="pb-sel__name"><button type="button" data-goto="' + def.id + '" title="この種類の製品を選び直す">' + esc(p.name) + '</button></div>'
+          + '<div class="pb-sel__price">' + esc(price) + ' <a class="pb-sel__buy" href="#shop-' + esc(p.id) + '" data-show-pane="build">購入先を見る</a></div></div>'
           + '<div class="pb-sel__ctrl">' + qty + '<button type="button" class="pb-icon-btn" aria-label="' + esc(p.name) + 'を外す" data-remove="' + def.id + '|' + esc(p.id) + '">✕</button></div></li>';
       }).join('');
     }).join('');
@@ -606,7 +764,7 @@
           return '<div class="pb-shop-price">' + esc(s.shop) + '：' + yen(s.price) + '（' + esc(s.checkedAt) + '確認）</div>';
         }).join('');
         if (!btns && !shopPrices) return;
-        rows.push('<div class="pb-shop-item"><div class="pb-shop-item__name">' + esc(def.short) + '：' + esc(p.name) + '</div>' + shopPrices + btns + '</div>');
+        rows.push('<div class="pb-shop-item" id="shop-' + esc(p.id) + '"><div class="pb-shop-item__name">' + esc(def.short) + '：' + esc(p.name) + '</div>' + shopPrices + btns + '</div>');
       });
     });
     if (!rows.length) {
@@ -659,7 +817,12 @@
     Charts.radar($('pbRadar'), axes, !!b);
     var nameA = S.builds.A.name || '構成A', nameB = b ? (S.builds.B.name || '構成B') : '';
     $('pbLegend').innerHTML = '<span><i></i>' + esc(nameA) + '</span>' + (b ? '<span><i class="b"></i>' + esc(nameB) + '</span>' : '')
-      + '<span>＊=参考値（推定を含む）／—=評価不可（0点ではないので線を途切れさせています）／どの点数も実測ではありません</span>' + (isEmpty(S.builds.A) ? '<span>パーツを選ぶとグラフが伸びます</span>' : '');
+      + '<span>＊=参考値（推定を含む）</span><span><i class="na"></i>N/A=評価不可（0点ではありません。その項目をまたぐ部分は塗りません）</span>';
+    var act = S.calc[S.active].score, gsel = (cur().items.gpu || [])[0];
+    var ins = Flow.insights(act, S.res, gsel ? part(gsel.id) : null);
+    $('pbInsights').innerHTML = isEmpty(cur()) ? '<li class="pb-insight" data-kind="info">パーツを選ぶと、この構成の強み・注意点を表示します。</li>'
+      : (ins.length ? ins.map(function (x) { return '<li class="pb-insight" data-kind="' + x.kind + '">' + esc(x.text) + '</li>'; }).join('') : '<li class="pb-insight" data-kind="info">今の点数から言える特徴はまだありません。パーツを足すと更新されます。</li>')
+      + (S.builds.B ? '<li class="pb-insight" data-kind="info">上の説明は編集中の構成' + S.active + 'についてです。</li>' : '');
 
     $('pbAxes').innerHTML = Score.AXES.map(function (ax) {
       var sa = a.axes[ax.id], sb = b ? b.axes[ax.id] : null;
@@ -668,8 +831,8 @@
       var label = ax.id === 'game' || ax.id === 'stream' ? ax.label + '（' + RES_LABEL[S.res] + '）' : ax.label;
       return '<li class="pb-axis"><div class="pb-axis__row"><div class="pb-axis__name">' + esc(label)
         + ' <span class="pb-grade pb-grade--' + sa.grade + '">' + GRADE_LABEL[sa.grade] + '</span></div>'
-        + '<div class="pb-axis__vals"><span class="pb-axis__val">' + (va == null ? '—' : va) + '</span>'
-        + (b ? '<span class="pb-axis__val pb-axis__val--b">' + (vb == null ? '—' : vb) + '</span>' : '')
+        + '<div class="pb-axis__vals"><span class="pb-axis__val' + (va == null ? ' is-na' : '') + '">' + (va == null ? 'N/A' : va) + '</span>'
+        + (b ? '<span class="pb-axis__val pb-axis__val--b' + (vb == null ? ' is-na' : '') + '">' + (vb == null ? 'N/A' : vb) + '</span>' : '')
         + (diff != null ? '<span class="pb-axis__diff ' + (diff > 0 ? 'up' : (diff < 0 ? 'down' : '')) + '">B' + (diff > 0 ? '+' : '') + diff + '</span>' : '')
         + '</div></div>'
         + '<div class="pb-axis__bar" aria-hidden="true"><span style="width:' + (va || 0) + '%"></span>' + (b ? '<span class="b" style="width:' + (vb || 0) + '%"></span>' : '') + '</div>'
@@ -677,6 +840,15 @@
         + '</li>';
     }).join('');
     renderDetail();
+  }
+
+  /** スマホ上部のバー：必須パーツの数・ゲーム性能・合計（覆わないよう1行に収める） */
+  function renderMobileBar() {
+    var pr = S.flow ? S.flow.progress : { done: 0, total: 0 };
+    var sc = S.calc[S.active].score;
+    $('pbMtParts').textContent = pr.done + '/' + pr.total;
+    $('pbMtPerf').textContent = isNum(sc.axes.game.score) ? 'ゲーム ' + sc.axes.game.score : '—';
+    $('pbMtBuild').textContent = sc.prices.rows.length ? '約' + man(sc.prices.total) : '—';
   }
 
   var DETAIL_TABS = [
@@ -952,7 +1124,7 @@
     var tabs = doc.querySelector('.pb-mobile-tabs');
     if (tabs && global.getComputedStyle(tabs).display !== 'none') {
       var top = $('pbApp').getBoundingClientRect().top + global.pageYOffset - tabs.offsetHeight - 70;
-      if (global.pageYOffset > top || $('pbApp').getBoundingClientRect().top > global.innerHeight * 0.6) global.scrollTo(0, Math.max(0, top));
+      if (global.pageYOffset > top || $('pbApp').getBoundingClientRect().top > global.innerHeight * 0.6) global.scrollTo({ top: Math.max(0, top), behavior: 'instant' });
     }
   }
 
@@ -963,11 +1135,26 @@
     doc.addEventListener('click', function (e) {
       var t = e.target.closest ? e.target : e.target.parentElement;
       var el;
-      if ((el = t.closest('[data-cat]')) && el.classList.contains('pb-cat')) { S.cat = el.getAttribute('data-cat'); S.filters.text = ''; $('pbSearch').value = ''; renderCats(); renderList(); return; }
+      if ((el = t.closest('[data-cat]')) && el.classList.contains('pb-cat')) { S.cat = el.getAttribute('data-cat'); S.listLimit = 12; S.filters.text = ''; $('pbSearch').value = ''; renderCats(); renderList(); return; }
       if ((el = t.closest('[data-add]'))) { var a = el.getAttribute('data-add').split('|'); addPart(a[0], a[1]); return; }
       if ((el = t.closest('[data-remove]'))) { var r = el.getAttribute('data-remove').split('|'); removePart(r[0], r[1]); return; }
       if ((el = t.closest('[data-qty]'))) { var q = el.getAttribute('data-qty').split('|'); setQty(q[0], q[1], Number(q[2])); return; }
-      if ((el = t.closest('[data-goto]'))) { S.cat = el.getAttribute('data-goto'); showPane('parts'); renderCats(); renderList(); $('pane-parts').scrollIntoView({ block: 'nearest' }); return; }
+      if ((el = t.closest('[data-goto]'))) {
+        if (el.tagName === 'A') e.preventDefault();
+        S.cat = el.getAttribute('data-goto'); S.filters.text = ''; $('pbSearch').value = ''; S.listLimit = 12;
+        showPane('parts'); renderCats(); renderList();
+        var top = $('pane-parts').getBoundingClientRect().top;
+        if (top < 0 || top > global.innerHeight * 0.7) $('pane-parts').scrollIntoView({ block: 'start' });
+        return;
+      }
+      if ((el = t.closest('[data-show-pane]'))) {
+        var href = el.getAttribute('href') || '';
+        var target = href.charAt(0) === '#' ? doc.getElementById(href.slice(1)) : null;
+        if (target) e.preventDefault();
+        showPane(el.getAttribute('data-show-pane'));
+        if (target) { target.scrollIntoView({ block: 'start', behavior: 'instant' }); try { global.history.replaceState(null, '', global.location.pathname + global.location.search + href); } catch (er) { /* 無視 */ } }
+        return;
+      }
       if ((el = t.closest('[data-res]'))) { S.res = el.getAttribute('data-res'); update(); return; }
       if ((el = t.closest('[data-build]')) && el.closest('#pbBuildSwitch')) { S.active = el.getAttribute('data-build'); update(); return; }
       if ((el = t.closest('[data-detail]'))) { S.detailTab = el.getAttribute('data-detail'); renderDetail(); return; }
@@ -984,23 +1171,26 @@
         else if (act === 'saved') openSaved();
         else if (act === 'compare') toggleCompare();
         else if (act === 'reset') { if (global.confirm('構成' + S.active + 'のパーツをすべて外しますか？')) { cur().items = {}; update(); } }
-        else if (act === 'no-gpu') { cur().items.gpu = []; cur().items.gpuboard = []; toast('GPUを外しました（内蔵GPUで映像を出す構成）'); update(); }
+        else if (act === 'no-gpu') { cur().items.gpu = []; cur().items.gpuboard = []; S.skip.gpu = true; toast('GPUを外しました（内蔵GPUで映像を出す構成）'); update(); }
+        else if (act === 'more') { S.listLimit += 24; renderList(); }
+        else if (act === 'skip-gpu') { S.skip.gpu = true; refreshFlow(); S.cat = S.flow.next || 'motherboard'; toast('GPUなしで進みます（あとから「GPU」で選べます）'); update(); }
         else if (act === 'close-import') { S.importInfo = null; S.warnings = []; renderImport(); }
       }
     });
     var searchTimer = 0;
-    $('pbSearch').addEventListener('input', function (e) { clearTimeout(searchTimer); var v = e.target.value; searchTimer = setTimeout(function () { S.filters.text = v; renderList(); }, 120); });
-    $('pbMaker').addEventListener('change', function (e) { S.filters.maker = e.target.value; renderList(); });
-    $('pbSort').addEventListener('change', function (e) { S.filters.sort = e.target.value; renderList(); });
-    $('pbPriceMax').addEventListener('change', function (e) { S.filters.priceMax = e.target.value; renderList(); });
-    $('pbOnlyCompat').addEventListener('change', function (e) { S.filters.onlyCompat = e.target.checked; renderList(); });
+    $('pbSearch').addEventListener('input', function (e) { clearTimeout(searchTimer); var v = e.target.value; searchTimer = setTimeout(function () { S.filters.text = v; S.listLimit = 12; renderList(); }, 120); });
+    $('pbMaker').addEventListener('change', function (e) { S.filters.maker = e.target.value; S.listLimit = 12; renderList(); });
+    $('pbSort').addEventListener('change', function (e) { S.filters.sort = e.target.value; S.listLimit = 12; renderList(); });
+    $('pbPriceMax').addEventListener('change', function (e) { S.filters.priceMax = e.target.value; S.listLimit = 12; renderList(); });
+    $('pbSpec').addEventListener('change', function (e) { S.filters.spec = e.target.value; S.listLimit = 12; renderList(); });
+    $('pbCompatMode').addEventListener('change', function (e) { S.filters.compatMode = e.target.value; S.listLimit = 12; renderList(); });
     $('pbHideUsed').addEventListener('change', function (e) { S.filters.hideUsed = e.target.checked; renderList(); });
     $('pbName').addEventListener('input', function (e) { cur().name = Codec.cleanName(e.target.value); clearTimeout(urlTimer); urlTimer = setTimeout(function () { syncUrl(); renderPerfLegendOnly(); }, 300); });
   }
 
   function renderPerfLegendOnly() {
     var b = S.builds.B;
-    $('pbLegend').innerHTML = '<span><i></i>' + esc(S.builds.A.name || '構成A') + '</span>' + (b ? '<span><i class="b"></i>' + esc(b.name || '構成B') + '</span>' : '') + '<span>＊=参考値（推定を含む）／—=評価不可（0点ではないので線を途切れさせています）／どの点数も実測ではありません</span>';
+    $('pbLegend').innerHTML = '<span><i></i>' + esc(S.builds.A.name || '構成A') + '</span>' + (b ? '<span><i class="b"></i>' + esc(b.name || '構成B') + '</span>' : '') + '<span>＊=参考値（推定を含む）</span><span><i class="na"></i>N/A=評価不可（0点ではありません）</span>';
   }
 
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', start);
