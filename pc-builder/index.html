@@ -32,7 +32,7 @@
 
   <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
-  <link rel="stylesheet" href="style.css?v=20261031b">
+  <link rel="stylesheet" href="style.css?v=20261101a">
 
   <script type="application/ld+json">
   {
@@ -65,7 +65,7 @@
     "mainEntity": [
       { "@type": "Question", "name": "5角形グラフの点数は実際のFPSですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。GPU GUIDEの描画性能指数やCPUのゲーム性能指数などから計算した、構成どうしを比べるための相対値です。ゲーム別のFPSは実測データが無いため表示していません。" } },
       { "@type": "Question", "name": "「要確認」と表示されるのはなぜですか？", "acceptedAnswer": { "@type": "Answer", "text": "判定に必要な寸法・ケーブル本数・BIOSの対応などが確認できていないときに表示します。根拠が無いまま「対応」と表示しないためです。購入前にメーカーの仕様ページで確認してください。" } },
-      { "@type": "Question", "name": "表示される価格は今の販売価格ですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。Sippoの各サイトで使っている参考価格（確認日つき）です。実際の価格は販売サイトで確認してください。" } },
+      { "@type": "Question", "name": "表示される価格は今の販売価格ですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。価格比較サイトで手で調べた目安です。実際の価格は販売サイトで確認してください。" } },
       { "@type": "Question", "name": "作った構成は保存できますか？", "acceptedAnswer": { "@type": "Answer", "text": "ブラウザ内に保存できます。共有ボタンで作ったURLを開くと、別のパソコンやスマートフォンでも同じ構成を復元できます。ログインは不要です。" } },
       { "@type": "Question", "name": "グラボ（GPU）なしでも組めますか？", "acceptedAnswer": { "@type": "Answer", "text": "内蔵GPUのあるCPU（例: Ryzen 5 5600G）なら組めます。内蔵GPUの無いCPUを選んでGPUを外すと「非対応（映像を出せない）」と表示します。" } }
     ]
@@ -160,8 +160,8 @@
               <label><span class="pb-filters__lbl">並べ替え</span>
                 <select id="pbSort">
                   <option value="perf">性能・容量が高い順</option>
-                  <option value="priceAsc">参考価格が安い順</option>
-                  <option value="priceDesc">参考価格が高い順</option>
+                  <option value="priceAsc">価格が安い順</option>
+                  <option value="priceDesc">価格が高い順</option>
                   <option value="newest">発売が新しい順</option>
                   <option value="name">名前順</option>
                 </select>
@@ -223,7 +223,7 @@
               <button type="button" class="pb-btn" data-action="share">🔗 共有URLをコピー</button>
               <button type="button" class="pb-btn" data-action="saved">📂 保存した構成</button>
               <button type="button" class="pb-btn" data-action="compare">⇄ 構成Bと比較</button>
-              <button type="button" class="pb-btn pb-btn--ghost" data-action="reset">🗑 この構成を空にする</button>
+              <button type="button" class="pb-btn pb-btn--ghost" data-action="reset">↺ 選んだパーツをすべて外す</button>
             </div>
           </section>
 
@@ -331,8 +331,8 @@
       <div class="pb-faq">
         <details><summary>5角形グラフの点数は実際のFPSですか？</summary><p>いいえ。GPU GUIDEの描画性能指数やCPUのゲーム性能指数などから計算した、構成どうしを比べるための相対値です。ゲーム別のFPSは実測データが無いため表示していません。</p></details>
         <details><summary>「要確認」と表示されるのはなぜですか？</summary><p>判定に必要な寸法・ケーブル本数・BIOSの対応などが確認できていないときに表示します。根拠が無いまま「対応」と表示しないためです。購入前にメーカーの仕様ページで確認してください。</p></details>
-        <details><summary>表示される価格は今の販売価格ですか？</summary><p>いいえ。価格比較サイトで手で確認した目安（確認日つき）です。型番が一致した「実売確認価格」、同じ容量・同じGPUチップの「参考中央値」、確認日の無い「参考価格（未確認）」を区別して表示し、合計とコスパには前の2つだけを使います。実際の価格は販売サイトで確認してください。</p></details>
-        <details><summary>グラフに「N/A」と出るのはなぜですか？</summary><p>その項目を計算する材料（パーツや確認日つきの価格）が足りないためです。0点ではありません。N/Aの項目は図形を閉じずに点線で示し、評価できた項目どうしの間だけを塗っています。</p></details>
+        <details><summary>表示される価格は今の販売価格ですか？</summary><p>いいえ。価格比較サイトで手で調べた目安で、いつ時点の価格かも表示しています。同じ型番の「最安値の目安」、同じ容量・同じGPUチップの製品の「同等品の相場」、いつの価格かわからない「おおまかな目安」を分けて表示し、合計とコスパには前の2つだけを使います。実際の価格は販売サイトで確認してください。</p></details>
+        <details><summary>グラフに「N/A」と出るのはなぜですか？</summary><p>その項目を計算する材料（パーツや最近調べた価格）が足りないためです。0点ではありません。N/Aの項目は図形を閉じずに点線で示し、評価できた項目どうしの間だけを塗っています。</p></details>
         <details><summary>作った構成は保存できますか？</summary><p>ブラウザ内に保存できます。共有ボタンで作ったURLを開くと、別のパソコンやスマートフォンでも同じ構成を復元できます。ログインは不要です。</p></details>
         <details><summary>グラボ（GPU）なしでも組めますか？</summary><p>内蔵GPUのあるCPU（例: Ryzen 5 5600G）なら組めます。内蔵GPUの無いCPUを選んでGPUを外すと「非対応（映像を出せない）」と表示します。</p></details>
       </div>
@@ -377,13 +377,13 @@
   <!-- 既存データの再利用：CPUゲーム性能指数・GPU公式推奨電源・参考価格（PC UPGRADE）と解像度基準（GPU GUIDE） -->
   <script src="/upgrade/upgrade-engine.js"></script>
   <script src="/shared/gpu/gpu-target.js"></script>
-  <script src="js/pb-db.js?v=20261031b"></script>
-  <script src="js/pb-compat.js?v=20261031b"></script>
-  <script src="js/pb-score.js?v=20261031b"></script>
-  <script src="js/pb-codec.js?v=20261031b"></script>
-  <script src="js/pb-import.js?v=20261031b"></script>
-  <script src="js/pb-charts.js?v=20261031b"></script>
-  <script src="js/pb-flow.js?v=20261031b"></script>
-  <script src="js/pb-app.js?v=20261031b"></script>
+  <script src="js/pb-db.js?v=20261101a"></script>
+  <script src="js/pb-compat.js?v=20261101a"></script>
+  <script src="js/pb-score.js?v=20261101a"></script>
+  <script src="js/pb-codec.js?v=20261101a"></script>
+  <script src="js/pb-import.js?v=20261101a"></script>
+  <script src="js/pb-charts.js?v=20261101a"></script>
+  <script src="js/pb-flow.js?v=20261101a"></script>
+  <script src="js/pb-app.js?v=20261101a"></script>
 </body>
 </html>

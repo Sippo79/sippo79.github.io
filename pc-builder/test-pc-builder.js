@@ -416,7 +416,7 @@ const noChipGpu = gpus.find((g) => g.market !== 'used' && !pricesJson.gpuChips[g
 if (noChipGpu) {
   const c = Score.scoreBuild(B({ ...GOOD, gpu: noChipGpu.id, gpuboard: [] }), db, 'wqhd').axes.cost;
   eq(c.grade, 'na', `確認日つきの価格が無いGPU（${noChipGpu.id}）ではコスパは評価不可`);
-  ok(c.reasons.some((r) => r.indexOf('既存の参考価格だけ') >= 0), 'その理由（既存の参考価格だけ）を表示');
+  ok(c.reasons.some((r) => r.indexOf('最近調べた価格がないパーツ') >= 0), 'その理由（最近調べた価格がない）を表示');
 }
 // グラボ製品に実売確認価格があれば、その製品価格を使い、チップの価格は数えない
 const boardBuild = B({ ...GOOD, gpu: 'rx-9070-xt', gpuboard: 'asus-prime-rx9070xt-o16g' });
@@ -510,6 +510,13 @@ eq(segs(rp([80, 70, 60, 50, 40], [true, false, true, false, true])), 1, '複数�
 eq(rp([80, 70, 60, 50, 40], [false, false, false, false, false]).fill, '', 'すべて評価不可なら図形を描かない（枠だけ）');
 ok(/L180\.0,168\.0/.test(rp([0, 70, 60, 50, 40], [true, true, true, true, true]).edge), '実際の0点は中心に頂点を置く（評価不可とは別）');
 eq(segs(rp([80, 70, 60, 50, 40], [true, true, true, true, true])), (rp([80, 70, 60, 50, 40], [true, true, true, true, true]).fill.match(/Z/g) || []).length, '塗りは辺と同じ区間だけ');
+// 画面の言葉：内部の呼び方（確認日・未確認・中央値など）を出さない／一括リセットがある
+{
+  const appSrc = read('pc-builder/js/pb-app.js');
+  const strs = (appSrc.match(/'[^'\n]*'/g) || []).join('\n') + html.replace(/<!--[\s\S]*?-->/g, '');
+  ['確認日', '日付なし', '未確認', '実売確認価格', '参考中央値', '参考価格（未確認）', '参考価格 未登録'].forEach((w) => ok(strs.indexOf(w) < 0, `画面の文言に「${w}」を出さない（わかりやすい言葉にする）`));
+  ok(/data-action="reset">[^<]*すべて外す/.test(html) && /pb-progress__reset[^']*' data-action="reset"|pb-progress__reset" data-action="reset"/.test(appSrc), '選んだパーツを一括で外すボタン（構成の下と進み具合の下）');
+}
 ok(!/NaN|undefined/.test(JSON.stringify(rp([NaN, 70, 60, 50, 40].map((x) => (Number.isFinite(x) ? x : 0)), [false, true, true, true, true]))), 'NaN が混じっても座標に NaN を出さない（無効な軸は描かない）');
 
 /* ------------------------------------------------------------------ */

@@ -308,11 +308,24 @@
     return S.flow;
   }
 
+  /** 選んだパーツをすべて外して最初（CPU）から選び直せるようにする */
+  function resetBuild() {
+    if (isEmpty(cur())) return;
+    if (!global.confirm((S.builds.B ? '構成' + S.active + 'の' : '') + '選んだパーツをすべて外しますか？')) return;
+    cur().items = {};
+    S.skip = {};
+    S.cat = 'cpu';
+    S.listLimit = 12;
+    toast('選んだパーツをすべて外しました。CPUから選び直せます');
+    update();
+  }
+
   function renderCats() {
     var fl = refreshFlow(), pr = fl.progress;
     var pct = pr.total ? Math.round(pr.done / pr.total * 100) : 0;
     $('pbProgress').innerHTML = '<div class="pb-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + pr.total + '" aria-valuenow="' + pr.done + '" aria-label="必須パーツの進み具合"><span style="width:' + pct + '%"></span></div>'
-      + '<p>必須パーツ <b>' + pr.done + ' / ' + pr.total + '</b>' + (pr.complete ? ' <span class="pb-progress__done">そろいました</span>' : '') + '</p>';
+      + '<p>必須パーツ <b>' + pr.done + ' / ' + pr.total + '</b>' + (pr.complete ? ' <span class="pb-progress__done">そろいました</span>' : '') + '</p>'
+      + (!isEmpty(cur()) ? '<button type="button" class="pb-btn pb-btn--sm pb-btn--ghost pb-progress__reset" data-action="reset">↺ 選んだパーツをすべて外す</button>' : '');
     $('pbCats').innerHTML = Db.CATEGORIES.map(function (c) {
       var st = fl.states[c.id];
       var badge = st.count ? STATE_LABEL[st.state] + (c.multi && st.count > 1 ? ' ' + st.count : '') : (st.need === 'required' ? '未選択' : NEED_LABEL[st.need]);
@@ -375,7 +388,7 @@
       { label: 'フルHD向け', test: function (p) { return p.specs.target === 'FHD'; } },
       { label: 'WQHD向け', test: function (p) { return p.specs.target === 'WQHD'; } },
       { label: '4K向け', test: function (p) { return p.specs.target === '4K'; } },
-      { label: '確認日つきの価格あり', test: function (p) { return !!(p.price && p.price.valid); } },
+      { label: '価格がわかるもの', test: function (p) { return !!(p.price && p.price.valid); } },
     ],
     gpuboard: [
       { label: '長さ 250mm以下', test: function (p) { return isNum(p.specs.lengthMm) && p.specs.lengthMm <= 250; } },
@@ -430,34 +443,44 @@
   };
 
   // 価格の種類（3つを混同しない）
-  var TIER_LABEL = { retail: '実売確認価格', median: '参考中央値', reference: '参考価格（未確認）' };
+  var TIER_LABEL = { retail: '最安値の目安', median: '同等品の相場', reference: 'おおまかな目安' };
 
-  /** カード用の短い価格表示（確認日・区分だけ。出典は「詳細・出典」の中） */
+  /** 2026-10-28 → 2026年10月28日（short なら 10月28日） */
+  function dateJa(d, short) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || '');
+    if (!m) return d || '';
+    return (short ? '' : +m[1] + '年') + (+m[2]) + '月' + (+m[3]) + '日';
+  }
+
+  /** 内部向けの「日付なし」などを画面に出さない */
+  function plainLabel(l) { return String(l || '').replace(/（日付なし）/g, '').replace(/・日付なし/g, '').replace(/参考中央値/g, '相場'); }
+
+  /** カード用の短い価格表示（いつ時点の価格か・区分だけ。出典は「詳細・出典」の中） */
   function priceCompact(p) {
     var guide = p.guidePrice && (!p.price || p.price.basis !== p.guidePrice.basis)
       ? '<small class="pb-price__guide">GPU GUIDE掲載 約' + yen(p.guidePrice.value) + '（別基準）</small>' : '';
-    if (!p.price || !isNum(p.price.value)) return '<div class="pb-price pb-price--none"><b>参考価格 未登録</b>' + guide + '</div>';
+    if (!p.price || !isNum(p.price.value)) return '<div class="pb-price pb-price--none"><b>価格情報なし</b>' + guide + '</div>';
     var pr = p.price;
-    var sub = pr.stale ? '確認から' + pr.ageDays + '日・合計に入れません' : (pr.tier === 'reference' ? '確認日なし・合計に入れません' : (pr.checkedAt ? pr.checkedAt + '確認' : ''));
+    var sub = pr.stale ? '少し前の価格のため合計に含めません' : (pr.tier === 'reference' ? '合計には含めません' : (pr.checkedAt ? dateJa(pr.checkedAt, true) + '時点' : ''));
     return '<div class="pb-price" data-tier="' + esc(pr.tier) + '"><b>約' + yen(pr.value) + '</b><span class="pb-tier">' + esc(TIER_LABEL[pr.tier] || '') + '</span>'
       + (sub ? '<small class="' + (pr.valid ? '' : 'pb-price__warn') + '">' + esc(sub) + '</small>' : '') + guide + '</div>';
   }
 
   function priceHtml(p) {
     var guide = p.guidePrice && (!p.price || p.price.basis !== p.guidePrice.basis)
-      ? '<small class="pb-price__guide">GPU GUIDE掲載 約' + yen(p.guidePrice.value) + '（別基準・日付なし）</small>' : '';
-    if (!p.price || !isNum(p.price.value)) return '<span class="pb-price pb-price--none">参考価格 未登録</span>' + guide;
-    var d = p.price.checkedAt ? '（' + esc(p.price.checkedAt) + '確認）' : '（日付なし）';
-    var warn = p.price.stale ? '<small class="pb-price__warn">確認から' + esc(p.price.ageDays) + '日たっています（合計・コスパに入れません）</small>'
-      : (p.price.tier === 'reference' ? '<small class="pb-price__warn">' + (p.price.notice ? '実売はこれより高めの傾向。' : '') + '確認日が無いため合計・コスパに入れません</small>' : '');
-    return '<span class="pb-price" data-tier="' + esc(p.price.tier) + '"><b>約' + yen(p.price.value) + '</b><small><span class="pb-tier">' + esc(TIER_LABEL[p.price.tier] || '') + '</span>' + esc(p.price.label) + d + '</small>' + warn + guide + '</span>';
+      ? '<small class="pb-price__guide">GPU GUIDE掲載 約' + yen(p.guidePrice.value) + '（別の基準）</small>' : '';
+    if (!p.price || !isNum(p.price.value)) return '<span class="pb-price pb-price--none">価格情報なし</span>' + guide;
+    var d = p.price.checkedAt ? '（' + esc(dateJa(p.price.checkedAt)) + '時点）' : '';
+    var warn = p.price.stale ? '<small class="pb-price__warn">調べてから' + esc(p.price.ageDays) + '日たった価格のため、合計・コスパには含めません</small>'
+      : (p.price.tier === 'reference' ? '<small class="pb-price__warn">' + (p.price.notice ? '実売はこれより高めの傾向です。' : '') + 'おおまかな目安のため、合計・コスパには含めません</small>' : '');
+    return '<span class="pb-price" data-tier="' + esc(p.price.tier) + '"><b>約' + yen(p.price.value) + '</b><small><span class="pb-tier">' + esc(TIER_LABEL[p.price.tier] || '') + '</span>' + esc(plainLabel(p.price.label)) + d + '</small>' + warn + guide + '</span>';
   }
 
   /** 価格の出どころを1行で（出典URLがあればリンク） */
   function priceSource(price) {
     if (!price) return '';
-    var t = esc(price.label) + (price.checkedAt ? '（' + esc(price.checkedAt) + '確認）' : '（日付なし）');
-    if (price.range) t += '・確認できた範囲 ' + yen(price.range[0]) + '〜' + yen(price.range[1]);
+    var t = esc(plainLabel(price.label)) + (price.checkedAt ? '（' + esc(dateJa(price.checkedAt)) + '時点）' : '');
+    if (price.range) t += '・価格の幅 ' + yen(price.range[0]) + '〜' + yen(price.range[1]);
     if (price.sourceUrl && /^https:\/\//.test(price.sourceUrl)) t += '・<a href="' + esc(price.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(price.sourceLabel || '出典') + '</a>';
     if (price.note) t += '・' + esc(price.note);
     if (price.notice) t += '<br>' + esc(price.notice);
@@ -474,7 +497,7 @@
       case 'cpu':
         add('', s.socket); if (isNum(s.cores)) out.push(esc(s.cores + 'コア/' + (s.threads || '?') + 'スレッド'));
         add('最大', s.boostGHz, 'GHz'); add('TDP', s.tdpW, 'W');
-        out.push(s.igpu === 'none' ? '内蔵GPUなし' : (s.igpu ? '内蔵GPUあり' : '内蔵GPU 未確認'));
+        out.push(s.igpu === 'none' ? '内蔵GPUなし' : (s.igpu ? '内蔵GPUあり' : '内蔵GPU 情報なし'));
         add('ゲーム指数', s.gameTier); break;
       case 'gpu':
         add('性能指数', s.raster); add('VRAM', s.vram, 'GB'); add('消費電力', s.powerW, 'W'); add('主用途', s.target);
@@ -498,7 +521,7 @@
         add('対応', (s.supportedMb || []).join('/')); add('GPU', s.maxGpuMm, 'mmまで'); add('クーラー', s.maxCoolerMm, 'mmまで'); add('電源', (s.psuForm || []).join('/')); break;
       case 'cooler':
         add('', s.type === 'aio' ? '簡易水冷' : '空冷'); add('高さ', s.heightMm, 'mm'); add('ラジエーター', s.radiatorMm, 'mm');
-        if (Array.isArray(s.sockets)) out.push(esc(s.sockets.join('/'))); else out.push('対応ソケット 未確認'); break;
+        if (Array.isArray(s.sockets)) out.push(esc(s.sockets.join('/'))); else out.push('対応ソケット 情報なし'); break;
       case 'fan':
         add('', s.sizeMm, 'mm'); add('最大', s.maxRpm, 'rpm'); add('', s.airflow); add('', s.noise); break;
       case 'expansion':
@@ -541,7 +564,7 @@
   function specTable(p) {
     var rows = Object.keys(p.specs || {}).filter(function (k) { return !HIDE_SPECS[k]; }).map(function (k) {
       var v = specValue(k, p.specs[k]);
-      return '<tr><th>' + esc(SPEC_LABELS[k] || k) + '</th>' + (v == null ? '<td class="is-null">未確認</td>' : '<td>' + esc(v) + '</td>') + '</tr>';
+      return '<tr><th>' + esc(SPEC_LABELS[k] || k) + '</th>' + (v == null ? '<td class="is-null">情報なし</td>' : '<td>' + esc(v) + '</td>') + '</tr>';
     }).join('');
     var src = p.source
       ? '出典：' + (p.source.url && /^https?:|^\//.test(p.source.url) ? '<a href="' + esc(p.source.url) + '" target="_blank" rel="noopener noreferrer">' + esc(p.source.label) + '</a>' : esc(p.source.label))
@@ -606,7 +629,7 @@
       var tags = (p.kind === 'generic' ? '<span class="pb-tag pb-tag--generic">機種未指定</span>' : '')
         + (p.specs && p.specs.market === 'used' ? '<span class="pb-tag pb-tag--used">中古向け</span>' : '');
       var specs = Flow.cardSpecs(p, S.db).map(function (x) {
-        return '<div><dt>' + esc(x.label) + '</dt><dd' + (x.value == null ? ' class="is-null">未確認' : '>' + esc(x.value)) + '</dd></div>';
+        return '<div><dt>' + esc(x.label) + '</dt><dd' + (x.value == null ? ' class="is-null">情報なし' : '>' + esc(x.value)) + '</dd></div>';
       }).join('');
       var btn = selected && !def.multi
         ? '<button type="button" class="pb-btn pb-btn--sel" data-remove="' + S.cat + '|' + esc(p.id) + '" aria-label="' + esc(p.name) + 'を外す">✓ 選択中（外す）</button>'
@@ -650,17 +673,17 @@
     var refNames = pr.refRows.map(function (r) { return r.name; });
     // 構成に無い必須パーツ（合計の限界として出す）
     var missingCats = Db.CATEGORIES.filter(function (d) { return d.required && !(build.items[d.id] || []).length; }).map(function (d) { return d.short; });
-    var notes = ['確認日つきの価格（実売確認価格・参考中央値）だけの合計です。現在の販売価格ではありません。'];
-    if (refNames.length) notes.push('確認日の無い参考価格だけのパーツ ' + refNames.length + '点（約' + man(pr.refTotal) + '）は合計に入れていません: ' + esc(refNames.join('、')));
-    if (unpricedNames.length) notes.push('価格未登録 ' + unpricedNames.length + '点（合計に含まない）: ' + esc(unpricedNames.join('、')));
+    var notes = ['最近調べた価格（最安値の目安・同等品の相場）だけを足した目安です。今の販売価格とは違うことがあります。'];
+    if (refNames.length) notes.push('おおまかな目安しかないパーツ ' + refNames.length + '点（約' + man(pr.refTotal) + '）は合計に含めていません: ' + esc(refNames.join('、')));
+    if (unpricedNames.length) notes.push('価格情報がないパーツ ' + unpricedNames.length + '点（合計に含めていません）: ' + esc(unpricedNames.join('、')));
     if (missingCats.length) notes.push('未選択のパーツ: ' + esc(missingCats.join('・')));
     notes.push('パーツを個別に買う場合の目安で、OS（Windows）・組み立て・保証の費用は含みません。PC BUILD CHECK の参考価格（BTO完成品の目安）とは基準が違うため一致しません。');
-    if (pr.rows.some(function (r) { return r.price.stale; })) notes.push('確認から時間がたった価格を含みます。');
+    if (pr.rows.some(function (r) { return r.price.stale; })) notes.push('調べてから時間がたった価格を含みます。');
     var extra = refNames.length + unpricedNames.length;
-    var val = pr.rows.length ? '約' + man(pr.total) + (extra ? '<small class="pb-total__plus">＋確認できない' + extra + '点</small>' : '') : '—';
+    var val = pr.rows.length ? '約' + man(pr.total) + (extra ? '<small class="pb-total__plus">＋価格がわからない' + extra + '点</small>' : '') : '—';
     // 目立たせるのは「何が合計に入っていないか」の1行だけ。残りの注意は折りたたむ
-    var lead = missingCats.length || extra ? (missingCats.length ? '未選択：' + esc(missingCats.join('・')) : '') + (missingCats.length && extra ? '／' : '') + (extra ? '価格を確認できない' + extra + '点は含みません' : '') : '選んだパーツの確認できた価格の合計です';
-    $('pbTotal').innerHTML = '<span class="pb-total__label">確認できた価格の合計' + (S.builds.B ? '（構成' + S.active + '）' : '') + (extra || missingCats.length ? '（一部のパーツだけ）' : '') + '</span>'
+    var lead = missingCats.length || extra ? (missingCats.length ? '未選択：' + esc(missingCats.join('・')) : '') + (missingCats.length && extra ? '／' : '') + (extra ? '価格がわからない' + extra + '点は含みません' : '') : '選んだパーツの価格の合計（目安）です';
+    $('pbTotal').innerHTML = '<span class="pb-total__label">価格の合計（目安）' + (S.builds.B ? '（構成' + S.active + '）' : '') + (extra || missingCats.length ? '（一部のパーツだけ）' : '') + '</span>'
       + '<span class="pb-total__val">' + val + '</span>'
       + '<span class="pb-total__note">' + lead + '</span>'
       + '<details class="pb-total__more"><summary>この合計について（OS・組み立て費は含まない など）</summary><ul>' + notes.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul></details>';
@@ -698,7 +721,7 @@
         var boardPriced = def.id === 'gpuboard' && calc.score.prices.boardPriced;
         var price = p.price && isNum(p.price.value) && (def.id !== 'gpuboard' || boardPriced)
           ? '約' + yen(p.price.value * (e.qty || 1)) + '（' + (TIER_LABEL[p.price.tier] || '') + (p.price.valid ? '' : '・合計に含まない') + '）'
-          : (def.id === 'gpuboard' ? 'GPUの参考価格に含む' : '参考価格 未登録');
+          : (def.id === 'gpuboard' ? 'GPUの価格に含む' : '価格情報なし');
         if (def.id === 'gpu' && calc.score.prices.boardPriced) price = 'グラボ製品の価格で数えています';
         var qty = def.qty ? '<span class="pb-qty"><button type="button" aria-label="' + esc(p.name) + 'を1つ減らす" data-qty="' + def.id + '|' + esc(p.id) + '|-1">−</button><span>' + (e.qty || 1) + '</span><button type="button" aria-label="' + esc(p.name) + 'を1つ増やす" data-qty="' + def.id + '|' + esc(p.id) + '|1">＋</button></span>' : '';
         var stt = S.flow.states[def.id].state;
@@ -931,24 +954,24 @@
   function priceDetail(prices, key) {
     var title = S.builds.B ? '<strong>構成' + key + '</strong> ' : '';
     var unpriced = prices.unpriced.filter(function (u) { return u.category !== 'gpuboard' || prices.boardPriced; });
-    if (!prices.rows.length && !prices.refRows.length) return '<p class="pb-msg">' + title + '参考価格のあるパーツがまだありません。</p>';
+    if (!prices.rows.length && !prices.refRows.length) return '<p class="pb-msg">' + title + '価格がわかるパーツがまだありません。</p>';
     var byCat = {};
     prices.rows.forEach(function (r) { byCat[r.category] = (byCat[r.category] || 0) + r.value; });
     var segs = Object.keys(byCat).map(function (k) { return { label: catDef(k).short, value: byCat[k], color: PRICE_COLORS[k] || PRICE_COLORS.gpu || '#94a3b8' }; });
     var cost = S.calc[key] && S.calc[key].score.axes.cost;
     var steps = cost && cost.sensitivity && cost.sensitivity.steps;
     function row(r, inTotal) {
-      return '<tr' + (inTotal ? '' : ' class="is-ref"') + '><td>' + esc(r.name) + (r.qty > 1 ? ' ×' + r.qty : '') + '</td><td class="num">' + yen(r.value) + '</td><td><b>' + esc(TIER_LABEL[r.price.tier] || '') + '</b>' + (inTotal ? '' : '（合計に含まない）') + '<br>' + priceSource(r.price) + (r.price.stale ? '<br><span class="pb-price__warn">確認から' + esc(r.price.ageDays) + '日たっています</span>' : '') + '</td></tr>';
+      return '<tr' + (inTotal ? '' : ' class="is-ref"') + '><td>' + esc(r.name) + (r.qty > 1 ? ' ×' + r.qty : '') + '</td><td class="num">' + yen(r.value) + '</td><td><b>' + esc(TIER_LABEL[r.price.tier] || '') + '</b>' + (inTotal ? '' : '（合計に含まない）') + '<br>' + priceSource(r.price) + (r.price.stale ? '<br><span class="pb-price__warn">調べてから' + esc(r.price.ageDays) + '日たった価格です</span>' : '') + '</td></tr>';
     }
-    return '<div style="margin-bottom:12px">' + title + '確認できた価格の合計 約' + man(prices.total)
-      + (prices.refRows.length || unpriced.length ? '（参考価格だけのもの・未登録のもの ' + (prices.refRows.length + unpriced.length) + '点を除く）' : '')
+    return '<div style="margin-bottom:12px">' + title + '価格の合計（目安） 約' + man(prices.total)
+      + (prices.refRows.length || unpriced.length ? '（おおまかな目安しかないもの・価格情報がないもの ' + (prices.refRows.length + unpriced.length) + '点を除く）' : '')
       + (segs.length ? Charts.stack(segs, prices.total, { aria: '価格の内訳', format: function (v) { return '約' + man(v); } }) : '')
-      + '<table class="pb-table" style="margin-top:8px"><thead><tr><th>パーツ</th><th class="num">価格</th><th>価格の種類・確認日・出典</th></tr></thead><tbody>'
+      + '<table class="pb-table" style="margin-top:8px"><thead><tr><th>パーツ</th><th class="num">価格</th><th>価格の種類・調べた日・出典</th></tr></thead><tbody>'
       + prices.rows.map(function (r) { return row(r, true); }).join('')
       + prices.refRows.map(function (r) { return row(r, false); }).join('')
-      + unpriced.map(function (u) { var why = suspendedNote(u.category); return '<tr class="is-ref"><td>' + esc(u.name) + '</td><td class="num">—</td><td>参考価格 未登録' + (why ? '（' + esc(why) + '）' : '') + '</td></tr>'; }).join('')
+      + unpriced.map(function (u) { var why = suspendedNote(u.category); return '<tr class="is-ref"><td>' + esc(u.name) + '</td><td class="num">—</td><td>価格情報なし' + (why ? '（' + esc(why) + '）' : '') + '</td></tr>'; }).join('')
       + '</tbody></table>'
-      + '<p class="pb-note">実売確認価格＝型番が一致した製品の掲載最安値。参考中央値＝同じ種類・容量（GPUは同じチップ）の製品の最安値の中央値。参考価格（未確認）＝確認日の無い既存の目安で、合計とコスパには入れません。いずれも価格比較サイトで手で確認した値で、Amazon・楽天などの販売価格ではありません。</p>'
+      + '<p class="pb-note">最安値の目安＝同じ型番の製品の、価格比較サイトでの最安値。同等品の相場＝同じ種類・容量（GPUは同じチップ）の製品の最安値の真ん中の値。おおまかな目安＝いつの価格かわからない目安で、合計とコスパには含めません。いずれも価格比較サイトで手で調べた値で、Amazon・楽天などの今の販売価格ではありません。</p>'
       + (steps ? '<table class="pb-table" style="margin-top:8px"><thead><tr><th>合計が変わったとき</th><th class="num">コスパ</th></tr></thead><tbody>'
         + steps.slice().reverse().map(function (x) { return '<tr><td>' + Math.round(x.ratio * 100) + '%上がる</td><td class="num">' + x.up + '点</td></tr>'; }).join('')
         + '<tr><td><b>いま</b></td><td class="num"><b>' + cost.score + '点</b></td></tr>'
@@ -966,9 +989,9 @@
     var build = cur();
     var alts = Score.gpuAlternatives(build, S.db, S.res, 2);
     if (!(build.items.gpu || []).length) return '<p class="pb-msg">GPUを選ぶと、予算を上下させたとき（GPUを近い価格帯に替えたとき）の違いを表示します。</p>';
-    if (!alts.length) return '<p class="pb-msg">確認日つきの価格があるGPUどうしでしか比べません。このGPU、または比べる候補に確認日つきの価格がありません。</p>';
+    if (!alts.length) return '<p class="pb-msg">最近調べた価格があるGPUどうしだけで比べています。このGPU、または比べる候補の価格がわからないため表示できません。</p>';
     var base = S.calc[S.active].score.axes.game.score;
-    return '<p class="pb-note" style="margin-top:0">GPUだけを参考価格が近い新品GPUに替えた場合の、' + RES_LABEL[S.res] + 'ゲーム性能の変化です（今：' + (isNum(base) ? base + '点' : '評価不可') + '）。</p>'
+    return '<p class="pb-note" style="margin-top:0">GPUだけを価格が近い新品GPUに替えた場合の、' + RES_LABEL[S.res] + 'ゲーム性能の変化です（今：' + (isNum(base) ? base + '点' : '評価不可') + '）。</p>'
       + '<table class="pb-table"><thead><tr><th>GPU</th><th class="num">予算の差</th><th class="num">ゲーム性能</th><th></th></tr></thead><tbody>'
       + alts.map(function (x) {
         var d = x.scoreDiff;
@@ -976,7 +999,7 @@
           + '<td class="num">' + (isNum(x.score) ? x.score + '点' : '—') + (isNum(d) ? ' <span class="' + (d > 0 ? 'up' : (d < 0 ? 'down' : '')) + '">(' + (d > 0 ? '+' : '') + d + ')</span>' : '') + '</td>'
           + '<td><button type="button" class="pb-btn pb-btn--sm" data-add="gpu|' + esc(x.id) + '">替える</button></td></tr>';
       }).join('') + '</tbody></table>'
-      + '<p class="pb-note">価格はチップ別の参考中央値（確認日つき）で比べています。確認日つきの価格が無いGPUは候補に入れていません。100点で頭打ちになるため、上位GPU同士の差は小さく見えます。</p>';
+      + '<p class="pb-note">価格はGPUチップごとの相場で比べています。価格がわからないGPUは候補に入れていません。100点で頭打ちになるため、上位GPU同士の差は小さく見えます。</p>';
   }
 
   function compareDetail() {
@@ -996,9 +1019,9 @@
     var pd = sb.prices.total - sa.prices.total;
     return '<table class="pb-table"><thead><tr><th></th><th>' + esc(A.name || '構成A') + '</th><th>' + esc(B.name || '構成B') + '</th></tr></thead><tbody>' + rows + '</tbody></table>'
       + '<table class="pb-table" style="margin-top:10px"><thead><tr><th>項目</th><th class="num">A</th><th class="num">B</th><th class="num">差（B−A）</th></tr></thead><tbody>' + axes
-      + '<tr><th>参考価格</th><td class="num">' + man(sa.prices.total) + '</td><td class="num">' + man(sb.prices.total) + '</td><td class="num ' + (pd > 0 ? 'down' : 'up') + '">' + (pd > 0 ? '+' : (pd < 0 ? '−' : '')) + man(Math.abs(pd)) + '</td></tr>'
+      + '<tr><th>価格の合計（目安）</th><td class="num">' + man(sa.prices.total) + '</td><td class="num">' + man(sb.prices.total) + '</td><td class="num ' + (pd > 0 ? 'down' : 'up') + '">' + (pd > 0 ? '+' : (pd < 0 ? '−' : '')) + man(Math.abs(pd)) + '</td></tr>'
       + '<tr><th>互換性</th><td class="num">' + STATUS_LABEL[S.calc.A.compat.overall] + '</td><td class="num">' + STATUS_LABEL[S.calc.B.compat.overall] + '</td><td></td></tr>'
-      + '</tbody></table><p class="pb-note">価格は確認日つきの価格だけの合計です（参考価格だけ・未登録のパーツは含みません）。</p>';
+      + '</tbody></table><p class="pb-note">価格は最近調べた価格だけの合計です（おおまかな目安しかないパーツ・価格情報がないパーツは含みません）。</p>';
   }
 
   /* ==================================================================
@@ -1170,7 +1193,7 @@
         else if (act === 'share') copyShare();
         else if (act === 'saved') openSaved();
         else if (act === 'compare') toggleCompare();
-        else if (act === 'reset') { if (global.confirm('構成' + S.active + 'のパーツをすべて外しますか？')) { cur().items = {}; update(); } }
+        else if (act === 'reset') resetBuild();
         else if (act === 'no-gpu') { cur().items.gpu = []; cur().items.gpuboard = []; S.skip.gpu = true; toast('GPUを外しました（内蔵GPUで映像を出す構成）'); update(); }
         else if (act === 'more') { S.listLimit += 24; renderList(); }
         else if (act === 'skip-gpu') { S.skip.gpu = true; refreshFlow(); S.cat = S.flow.next || 'motherboard'; toast('GPUなしで進みます（あとから「GPU」で選べます）'); update(); }

@@ -258,8 +258,8 @@
       var refOnly = lacking.filter(function (cat) { return prices.refRows.some(function (r) { return r.category === cat; }); });
       var none = lacking.filter(function (cat) { return refOnly.indexOf(cat) < 0; });
       var why = [];
-      if (refOnly.length) why.push('確認日つきの価格が無く、既存の参考価格だけのパーツがあります（' + refOnly.map(function (c) { return CAT_JA[c] || c; }).join('・') + '）。古い価格で点数を高く見せないため評価しません');
-      if (none.length) why.push('主要パーツの参考価格が未登録です（' + none.map(function (c) { return CAT_JA[c] || c; }).join('・') + '）');
+      if (refOnly.length) why.push('最近調べた価格がないパーツがあります（' + refOnly.map(function (c) { return CAT_JA[c] || c; }).join('・') + '）。不確かな価格で点数を出さないため評価しません');
+      if (none.length) why.push('価格がわからない主要パーツがあります（' + none.map(function (c) { return CAT_JA[c] || c; }).join('・') + '）');
       return { score: null, grade: 'na', reasons: why, prices: prices };
     }
     // 性能はゲームと動画編集の両方がそろったときだけ。片方だけで計算すると、
@@ -277,7 +277,7 @@
     var value = perf / (coreTotal / 10000);
     var reasons = ['性能 ' + round(perf) + '点 ÷ ' + need.map(function (c) { return CAT_JA[c] || c; }).join('・') + 'の価格 ' + (coreTotal / 10000).toFixed(1) + '万円（ストレージ・電源・ケースなどは含めない）'];
     var med = coreRows.filter(function (r) { return r.price.tier === 'median'; });
-    if (med.length) reasons.push('型番の価格が無いパーツは参考中央値で計算（' + med.map(function (r) { return r.name; }).join('、') + '）');
+    if (med.length) reasons.push('型番の価格がないパーツは同等品の相場で計算（' + med.map(function (r) { return r.name; }).join('、') + '）');
     // 価格変動の影響: 合計が ±10% / 30% / 50% 変わったときの点数（下がる方向は 50% まで）
     var sens = C.CP_SENSITIVITY_STEPS.map(function (k) { return { ratio: k, up: costAt(perf, coreTotal, k), down: costAt(perf, coreTotal, -k) }; });
     reasons.push('価格が10%上がると ' + sens[0].up + '点、10%下がると ' + sens[0].down + '点（30%・50%は価格内訳タブ）');
@@ -354,7 +354,7 @@
       { id: 'video', label: '動画編集性能', short: '動画編集', help: 'CPUのコア数×クロック（推定モデル）55%・GPU性能25%・メモリ容量20%。' },
       { id: 'stream', label: '配信性能', short: '配信', help: 'GPUのハードウェアエンコーダー（H.264/HEVC/AV1）35%・ゲーム性能30%・CPU20%・メモリ15%。' },
       { id: 'expand', label: '拡張性', short: '拡張性', help: 'メモリ最大容量・M.2/SATA/拡張スロットの空き・ケースのベイとファン・電源の余裕。' },
-      { id: 'cost', label: 'コストパフォーマンス', short: 'コスパ', help: '性能（ゲームと動画編集の平均）÷ CPU・GPU・マザボ・メモリの価格（万円）。5.0で100点。どの構成でも同じパーツの範囲で比べます。確認日つきの価格（実売確認価格・参考中央値）だけを使い、CPU・GPU・マザボ・メモリのどれかが確認できなければ評価不可。現在の販売価格ではありません。価格が10%・30%・50%変わったときの点数も表示します。' },
+      { id: 'cost', label: 'コストパフォーマンス', short: 'コスパ', help: '性能（ゲームと動画編集の平均）÷ CPU・GPU・マザボ・メモリの価格（万円）。5.0で100点。どの構成でも同じパーツの範囲で比べます。最近調べた価格（最安値の目安・同等品の相場）だけを使い、CPU・GPU・マザボ・メモリのどれかの価格がわからなければ評価不可。現在の販売価格ではありません。価格が10%・30%・50%変わったときの点数も表示します。' },
     ],
   };
 });
