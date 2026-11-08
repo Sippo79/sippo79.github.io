@@ -519,6 +519,49 @@ eq(segs(rp([80, 70, 60, 50, 40], [true, true, true, true, true])), (rp([80, 70, 
 }
 ok(!/NaN|undefined/.test(JSON.stringify(rp([NaN, 70, 60, 50, 40].map((x) => (Number.isFinite(x) ? x : 0)), [false, true, true, true, true]))), 'NaN が混じっても座標に NaN を出さない（無効な軸は描かない）');
 
+// 一覧カードに最初から出す仕様（2026-11-08〜）：全パーツで最大2つ・値が無ければ null（推測しない）・性能値は出さない
+db.list.forEach((p) => {
+  let cb; try { cb = Flow.cardBrief(p, db); } catch (e) { cb = null; }
+  ok(Array.isArray(cb) && cb.length >= 1 && cb.length <= 2 && cb.every((x) => x.label && (x.value === null || typeof x.value === 'string')), `カードの初期表示の仕様は1〜2つ（${p.id}）`);
+});
+eq(Flow.cardBrief(db.byId.ryzen77800x3d, db).map((x) => x.value).join(','), 'AM5', 'CPUカードの初期表示はソケットだけ（コア数・クロックは詳細へ）');
+eq(Flow.cardBrief(withSpec('ryzen77800x3d', { socket: null }).byId.ryzen77800x3d, db)[0].value, null, 'ソケットが無ければ null（推測しない）');
+ok(!Flow.cardBrief(db.byId['rtx-5070'], db).some((x) => /性能|指数|消費電力/.test(x.label)), 'GPUカードの初期表示に性能指数・消費電力を出さない（VRAMだけ）');
+ok(Flow.MISSING_ONLY && Flow.MISSING_ONLY.display && Flow.MISSING_ONLY.nocooler, '「まだ選んでいない」知らせの判定IDを画面と共有（カードの判定に入れない）');
+
+// 完成イメージ（模式図）：実在のケース形状・クーラー・グラボ製品の全組み合わせで NaN/undefined を出さない
+{
+  const shapes = ['none'].concat(Array.from(new Set(db.byCategory.case.map((x) => x.specs.shape))));
+  const coolers = [null].concat(db.byCategory.cooler);
+  const boards = [null].concat(db.byCategory.gpuboard);
+  let bad = 0, n = 0;
+  shapes.forEach((shape) => coolers.forEach((co) => boards.forEach((gb) => {
+    const cs = db.byCategory.case.find((x) => x.specs.shape === shape);
+    const svg = Charts.preview({
+      caseShape: shape, caseFans: cs ? cs.specs.includedFanCount : null, radMounts: cs ? cs.specs.radiators : null,
+      mb: true, mbForm: shape === 'itx' ? 'Mini-ITX' : 'ATX', memSlots: 4, cpu: true, cooler: co ? co.specs.type : null, radMm: co ? co.specs.radiatorMm : null,
+      gpu: true, boardSel: !!gb, gpuMm: gb ? gb.specs.lengthMm : null, caseGpuMm: cs ? cs.specs.maxGpuMm : null, gpuFans: gb ? gb.specs.fans : null, gpuSlots: gb ? gb.specs.slots : null,
+      pin16: gb ? gb.specs.pin16 : 0, pin8: gb ? gb.specs.pin8 : 0, psu: true, psuW: 850, ramModules: 2, m2: 2, sata: 2, sataKinds: ['hdd', 'sata-ssd'], fans: 3, expansion: 1, focus: 'cpu',
+    }, { id: 't' });
+    n += 1; if (/NaN|undefined|Infinity/.test(svg)) bad += 1;
+  })));
+  eq(bad, 0, `完成イメージ：ケース形状×クーラー×グラボ製品 ${n}通りで NaN/undefined を出さない`);
+}
+{
+  // GPUの長さはケース上限に対する比率で描き、上限線を引く（実データの寸法表現を保つ）
+  const svg = Charts.preview({ caseShape: 'mid', gpu: true, boardSel: true, gpuMm: 300, caseGpuMm: 400, gpuFans: 2 }, { id: 't' });
+  const g = /<rect class="gpu[^"]*" x="([\d.]+)" y="[\d.]+" width="([\d.]+)"/.exec(svg), lim = /<line class="limit" x1="([\d.]+)"/.exec(svg), br = /<rect class="bracket" x="([\d.]+)"/.exec(svg);
+  const ratio = Number(g[2]) / (Number(lim[1]) - (Number(br[1]) + 3));
+  ok(Math.abs(ratio - 0.75) < 0.01, 'GPUの長さ＝ケース上限に対する比率（300/400mm）');
+  ok(/class="gpu gpu--over/.test(Charts.preview({ caseShape: 'mid', gpu: true, boardSel: true, gpuMm: 420, caseGpuMm: 400 }, { id: 't' })), 'ケースの上限を超えるGPUは赤く表示');
+  ok(/gpu--generic/.test(Charts.preview({ caseShape: 'mid', gpu: true }, { id: 't' })) && /fan--generic/.test(Charts.preview({ caseShape: 'mid', gpu: true }, { id: 't' })), 'グラボ製品が未選択（ファン数・長さが不明）なら汎用の点線表現（具体的な形を作らない）');
+  const ids = (svg.match(/id="([^"]+)"/g) || []);
+  ok(ids.every((x) => /id="t-/.test(x)), '模式図の id は接頭辞つき（2枚描いても衝突しない）');
+  eq(Charts.radMount({ top: [240], front: [360] }, 360, 'mid').listed, 'front', 'ラジエーターはケースの対応位置（データ）から選ぶ');
+  eq(Charts.radMount({ top: [240] }, 360, 'mid').listed, null, '対応位置が無ければ「位置は確認できない」（null）');
+  ok(/mb--ng/.test(Charts.preview({ caseShape: 'itx', mb: true, mbForm: 'ATX', mbFits: false }, { id: 't' })), 'ケースの対応サイズに無いマザボは赤い点線で示す');
+}
+
 /* ------------------------------------------------------------------ */
 console.log(`\nPC BUILDER テスト: ${pass} 件成功 / ${fail} 件失敗`);
 if (fail) { failures.slice(0, 60).forEach((f) => console.log('  ✗ ' + f)); process.exit(1); }

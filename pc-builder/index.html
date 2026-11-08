@@ -32,7 +32,7 @@
 
   <link rel="stylesheet" href="/shared/affiliate/affiliate.css">
   <link rel="stylesheet" href="/shared/nav/sippo-nav.css">
-  <link rel="stylesheet" href="style.css?v=20261101a">
+  <link rel="stylesheet" href="style.css?v=20261108a">
 
   <script type="application/ld+json">
   {
@@ -119,10 +119,14 @@
     <section class="pb-import" id="pbImport" hidden aria-live="polite"></section>
 
     <!-- スマホ：画面の切り替え（上部に固定。内容に選択数・合計・互換性を出す） -->
-    <div class="pb-mobile-tabs" role="tablist" aria-label="表示の切り替え">
-      <button type="button" role="tab" data-pane="parts" aria-selected="true"><span class="pb-mt__k">パーツ</span><span class="pb-mt__v" id="pbMtParts"></span></button>
-      <button type="button" role="tab" data-pane="perf" aria-selected="false"><span class="pb-mt__k">性能</span><span class="pb-mt__v" id="pbMtPerf"></span></button>
-      <button type="button" role="tab" data-pane="build" aria-selected="false"><span class="pb-mt__k">構成 <span class="pb-tabbadge" id="pbTabBadge"></span></span><span class="pb-mt__v" id="pbMtBuild"></span></button>
+    <div class="pb-mobile-tabs">
+      <div class="pb-mobile-tabs__tabs" role="tablist" aria-label="表示の切り替え">
+        <button type="button" role="tab" data-pane="parts" aria-selected="true"><span class="pb-mt__k">パーツ</span><span class="pb-mt__v" id="pbMtParts"></span></button>
+        <button type="button" role="tab" data-pane="perf" aria-selected="false"><span class="pb-mt__k">性能</span><span class="pb-mt__v" id="pbMtPerf"></span></button>
+        <button type="button" role="tab" data-pane="build" aria-selected="false"><span class="pb-mt__k">構成 <span class="pb-tabbadge" id="pbTabBadge"></span></span><span class="pb-mt__v" id="pbMtBuild"></span></button>
+      </div>
+      <!-- 完成イメージは画面を切り替えずに開く（製品一覧のスクロール位置を保つ） -->
+      <button type="button" class="pb-mt-pv" id="pbMtPvBtn" data-action="open-preview" aria-haspopup="dialog" aria-controls="pbPreviewDialog"><span class="pb-mt__k">完成図</span><span class="pb-mt__v" id="pbMtPv">見る</span></button>
     </div>
 
     <div class="pb-wrap" id="pbApp" data-pane="parts">
@@ -141,23 +145,13 @@
           <div class="pb-step" id="pbStep"></div>
           <div class="pb-catinfo" id="pbCatInfo"></div>
           <div class="pb-filters">
-            <label class="pb-search">
-              <span class="visually-hidden">製品名で検索</span>
-              <input type="search" id="pbSearch" placeholder="製品名・型番・メーカーで検索" autocomplete="off">
-            </label>
-            <div class="pb-filters__row">
-              <label><span class="pb-filters__lbl">メーカー</span><select id="pbMaker"><option value="">すべて</option></select></label>
-              <label><span class="pb-filters__lbl">スペック</span><select id="pbSpec"><option value="">すべて</option></select></label>
-              <label><span class="pb-filters__lbl">価格</span>
-                <select id="pbPriceMax">
-                  <option value="">上限なし</option>
-                  <option value="20000">〜2万円</option>
-                  <option value="50000">〜5万円</option>
-                  <option value="100000">〜10万円</option>
-                  <option value="200000">〜20万円</option>
-                </select>
+            <div class="pb-filters__bar">
+              <label class="pb-search">
+                <span class="visually-hidden">製品名で検索</span>
+                <input type="search" id="pbSearch" placeholder="製品名・型番・メーカーで検索" autocomplete="off">
               </label>
-              <label><span class="pb-filters__lbl">並べ替え</span>
+              <label class="pb-sortbox">
+                <span class="visually-hidden">並べ替え</span>
                 <select id="pbSort">
                   <option value="perf">性能・容量が高い順</option>
                   <option value="priceAsc">価格が安い順</option>
@@ -166,24 +160,54 @@
                   <option value="name">名前順</option>
                 </select>
               </label>
-              <label><span class="pb-filters__lbl">互換性</span>
-                <select id="pbCompatMode">
-                  <option value="all">すべて表示</option>
-                  <option value="hide-ng">非対応を隠す</option>
-                  <option value="ok">対応が確認できたものだけ</option>
-                </select>
-              </label>
+              <button type="button" class="pb-btn pb-filters__toggle" id="pbFilterToggle" aria-expanded="false" aria-controls="pbFilterMore">詳細フィルター<span class="pb-filters__n" id="pbFilterN"></span></button>
             </div>
-            <div class="pb-filters__row pb-filters__checks">
-              <label class="pb-check" id="pbHideUsedWrap"><input type="checkbox" id="pbHideUsed"> 中古向けGPUを隠す</label>
+            <div class="pb-filters__more" id="pbFilterMore" hidden>
+              <div class="pb-filters__row">
+                <label><span class="pb-filters__lbl">メーカー</span><select id="pbMaker"><option value="">すべて</option></select></label>
+                <label><span class="pb-filters__lbl">スペック</span><select id="pbSpec"><option value="">すべて</option></select></label>
+                <label><span class="pb-filters__lbl">価格</span>
+                  <select id="pbPriceMax">
+                    <option value="">上限なし</option>
+                    <option value="20000">〜2万円</option>
+                    <option value="50000">〜5万円</option>
+                    <option value="100000">〜10万円</option>
+                    <option value="200000">〜20万円</option>
+                  </select>
+                </label>
+                <label><span class="pb-filters__lbl">互換性</span>
+                  <select id="pbCompatMode">
+                    <option value="all">すべて表示</option>
+                    <option value="hide-ng">非対応を隠す</option>
+                    <option value="ok">対応が確認できたものだけ</option>
+                  </select>
+                </label>
+              </div>
+              <div class="pb-filters__row pb-filters__checks">
+                <label class="pb-check" id="pbHideUsedWrap"><input type="checkbox" id="pbHideUsed"> 中古向けGPUを隠す</label>
+                <button type="button" class="pb-btn pb-btn--sm pb-btn--ghost" data-action="clear-filters">絞り込みを解除</button>
+              </div>
             </div>
           </div>
-          <p class="pb-count" id="pbCount" aria-live="polite"></p>
+          <div class="pb-listbar">
+            <p class="pb-count" id="pbCount" aria-live="polite"></p>
+            <label class="pb-switch" id="pbHideNgWrap"><input type="checkbox" id="pbHideNg" checked><span>非対応を隠す<small id="pbHideNgN"></small></span></label>
+          </div>
           <ul class="pb-list" id="pbList"></ul>
         </section>
 
         <!-- 右：今の構成・合計・互換性・5角形グラフ -->
-        <aside class="pb-side" aria-label="今の構成と性能">
+        <aside class="pb-side" aria-label="完成イメージ・性能・今の構成">
+          <section class="pb-pane pb-pane--preview" id="pane-preview" aria-labelledby="previewTitle">
+            <div class="pb-pane__head">
+              <h2 id="previewTitle">完成イメージ</h2>
+              <span class="pb-pv-tag" id="pbPvTag">模式図</span>
+            </div>
+            <div class="pb-preview" id="pbPreview"></div>
+            <div class="pb-total" id="pbTotal"></div>
+            <div class="pb-compat-summary" id="pbCompatSummary"></div>
+          </section>
+
           <section class="pb-pane pb-pane--perf" id="pane-perf" aria-labelledby="perfTitle">
             <div class="pb-pane__head">
               <h2 id="perfTitle">性能グラフ</h2>
@@ -203,11 +227,6 @@
             <ul class="pb-insights" id="pbInsights" aria-label="この構成について"></ul>
             <p class="pb-note">点数は実測FPSではなく、Sippoの性能指数と公式スペックから計算した相対値です。<a href="#pbResults">各項目の内訳</a> / <a href="#score-guide">計算方法</a></p>
           </section>
-          <section class="pb-pane pb-pane--sum" aria-label="合計と互換性">
-            <div class="pb-total" id="pbTotal"></div>
-            <div class="pb-compat-summary" id="pbCompatSummary"></div>
-          </section>
-
           <section class="pb-pane pb-pane--build" id="pane-build" aria-labelledby="buildTitle">
             <div class="pb-pane__head">
               <h2 id="buildTitle">今の構成</h2>
@@ -230,24 +249,22 @@
         </aside>
       </div>
 
-      <!-- 下：詳しい結果（性能の内訳・互換性の詳細・購入リンク・模式図） -->
+      <!-- 下：詳しい結果（性能の内訳・互換性の詳細・購入リンク） -->
       <div class="pb-results" id="pbResults">
         <section class="pb-pane pb-res pb-res--perf" aria-labelledby="axesTitle">
           <h2 id="axesTitle">性能の内訳</h2>
           <ol class="pb-axes" id="pbAxes"></ol>
-          <div class="pb-detail">
+          <details class="pb-detail" id="pbDetailBox">
+            <summary>詳しいグラフを見る<small>解像度別・CPUとGPU・消費電力・メモリ・価格内訳・予算±・A/B比較</small></summary>
             <div class="pb-detail__tabs" id="pbDetailTabs" role="tablist" aria-label="詳しいグラフ"></div>
             <div class="pb-detail__body" id="pbDetail" role="tabpanel"></div>
-          </div>
+          </details>
         </section>
         <section class="pb-pane pb-res pb-res--compat" aria-label="互換性チェックの詳細">
           <div class="pb-compat" id="pbCompat"></div>
         </section>
         <section class="pb-pane pb-res pb-res--shops" aria-label="購入リンク">
           <div class="pb-shops" id="pbShops"></div>
-        </section>
-        <section class="pb-pane pb-res pb-res--preview" aria-label="外観の模式図">
-          <div class="pb-preview" id="pbPreview"></div>
         </section>
       </div>
     </div>
@@ -261,7 +278,7 @@
           <h2 id="guideTitle">はじめての方へ：パーツの役割</h2>
         </div>
       </div>
-      <p>パソコンは、役割の違うパーツを組み合わせてできています。まずは <strong>CPU → GPU → マザーボード → メモリ → ストレージ → 電源 → ケース → CPUクーラー</strong> の順に選ぶと迷いにくいです。画面左（スマホでは上）の一覧で、選び終わったパーツと次に選ぶパーツが分かります。</p>
+      <p>パソコンは、役割の違うパーツを組み合わせてできています。まずは <strong>CPU → GPU → マザーボード → メモリ → ストレージ → 電源 → ケース → CPUクーラー</strong> の順に選ぶと迷いにくいです。画面左（スマホでは上）の一覧で、選び終わったパーツと次に選ぶパーツが分かります。選んだパーツは右（スマホでは「完成図」）の完成イメージに組み込まれていきます。</p>
       <dl class="pb-roles">
         <div><dt>CPU</dt><dd>パソコン全体の計算を担当する「頭脳」。ゲームのfpsの上限や、動画の書き出し速度に効きます。</dd></div>
         <div><dt>GPU（グラフィックボード）</dt><dd>映像を描く担当。ゲームの快適さに最も大きく効きます。製品（メーカー別のカード）によって長さや電源ケーブルが違います。</dd></div>
@@ -369,6 +386,16 @@
     <p class="pb-note">保存先はこのブラウザだけです。別の端末で開くには「共有URLをコピー」を使ってください。</p>
   </dialog>
 
+  <dialog class="pb-dialog pb-sheet" id="pbPreviewDialog" aria-labelledby="pbPvSheetTitle">
+    <div class="pb-dialog__head">
+      <h2 id="pbPvSheetTitle">完成イメージ</h2>
+      <button type="button" class="pb-icon-btn" data-close aria-label="閉じる">✕</button>
+    </div>
+    <div class="pb-preview" id="pbPreviewSheet"></div>
+    <div class="pb-sheet__sum" id="pbSheetSum"></div>
+    <button type="button" class="pb-btn pb-btn--primary pb-sheet__back" data-close>パーツ選びに戻る</button>
+  </dialog>
+
   <noscript><p class="pb-noscript">PC BUILDER は JavaScript を使って動きます。JavaScript を有効にしてご利用ください。</p></noscript>
 
   <script src="/shared/affiliate/affiliate-config.js"></script>
@@ -377,13 +404,13 @@
   <!-- 既存データの再利用：CPUゲーム性能指数・GPU公式推奨電源・参考価格（PC UPGRADE）と解像度基準（GPU GUIDE） -->
   <script src="/upgrade/upgrade-engine.js"></script>
   <script src="/shared/gpu/gpu-target.js"></script>
-  <script src="js/pb-db.js?v=20261101a"></script>
-  <script src="js/pb-compat.js?v=20261101a"></script>
-  <script src="js/pb-score.js?v=20261101a"></script>
-  <script src="js/pb-codec.js?v=20261101a"></script>
-  <script src="js/pb-import.js?v=20261101a"></script>
-  <script src="js/pb-charts.js?v=20261101a"></script>
-  <script src="js/pb-flow.js?v=20261101a"></script>
-  <script src="js/pb-app.js?v=20261101a"></script>
+  <script src="js/pb-db.js?v=20261108a"></script>
+  <script src="js/pb-compat.js?v=20261108a"></script>
+  <script src="js/pb-score.js?v=20261108a"></script>
+  <script src="js/pb-codec.js?v=20261108a"></script>
+  <script src="js/pb-import.js?v=20261108a"></script>
+  <script src="js/pb-charts.js?v=20261108a"></script>
+  <script src="js/pb-flow.js?v=20261108a"></script>
+  <script src="js/pb-app.js?v=20261108a"></script>
 </body>
 </html>

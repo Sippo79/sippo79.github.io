@@ -4,7 +4,8 @@
  *  画面に出す「案内」を決める純粋なロジック層（DOM には触れない）。
  *   - categoryStates() … 各カテゴリが 必須／任意／不要 か、今の状態（未選択・選択済み・要確認・非対応）
  *   - nextCategory()   … 次に選ぶとよいカテゴリ
- *   - cardSpecs()      … 製品カードに大きく出す主要スペック（値が無ければ「未確認」）
+ *   - cardBrief()      … 一覧のカードに最初から出す仕様（最大2つ。互換性に直結するもの）
+ *   - cardSpecs()      … 「詳細を見る」の中に出す主要スペック（値が無ければ「未確認」）
  *   - insights()       … 5角形グラフの下に出す短い説明（スコアと理由から言えることだけ）
  *  必須かどうかは構成で変わる（内蔵GPUがあればGPUは任意、付属クーラーがあればクーラーは任意）。
  * ===================================================================== */
@@ -210,5 +211,42 @@
       .sort(function (a, b) { return order[a.kind] - order[b.kind]; }).slice(0, 5);
   }
 
-  return { ROLES: ROLES, ORDER: ORDER, categoryStates: categoryStates, progress: progress, nextCategory: nextCategory, cardSpecs: cardSpecs, insights: insights };
+  /**
+   * 一覧のカードに最初から出す「選ぶときに必要な仕様」だけ（最大2つ。2026-11-08〜）。
+   * 互換性に直結する項目（ソケット・規格・サイズ）を優先し、細かい性能値は「詳細を見る」へ回す。
+   * 値が無ければ null（画面では「情報なし」）。推測で埋めない。
+   */
+  function cardBrief(p, db) {
+    var s = (p && p.specs) || {};
+    switch (p && p.category) {
+      case 'cpu': return [{ label: 'ソケット', value: v(s.socket) }];
+      case 'gpu': return [{ label: 'VRAM', value: v(s.vram, 'GB') }];
+      case 'gpuboard': return [
+        { label: '長さ', value: v(s.lengthMm, 'mm') },
+        { label: '補助電源', value: s.pin16 ? '16ピン×' + s.pin16 : (s.pin8 ? '8ピン×' + s.pin8 : (isNum(s.pin8) || isNum(s.pin16) ? 'なし' : null)) },
+      ];
+      case 'motherboard': return [
+        { label: 'ソケット', value: v(s.socket) },
+        { label: 'サイズ', value: v(s.formFactor) },
+      ];
+      case 'memory': return [
+        { label: '規格', value: v(s.type) },
+        { label: '容量', value: isNum(s.capacityGB) ? s.capacityGB + 'GB' + (isNum(s.modules) && s.modules > 1 ? '（' + (s.capacityGB / s.modules) + 'GB×' + s.modules + '）' : '') : null },
+      ];
+      case 'storage': return [
+        { label: '容量', value: cap(s.capacityGB) },
+        { label: '種類', value: s.kind === 'nvme' ? 'M.2 NVMe' : (s.kind === 'sata-ssd' ? '2.5インチ SATA' : (s.kind === 'hdd' ? '3.5インチ HDD' : null)) },
+      ];
+      case 'psu': return [{ label: '容量', value: v(s.watt, 'W') }];
+      case 'case': return [{ label: '対応サイズ', value: Array.isArray(s.supportedMb) ? s.supportedMb.join(' / ') : null }];
+      case 'cooler': return [
+        { label: '種類', value: s.type === 'aio' ? '簡易水冷' : (s.type === 'air' ? '空冷' : null) },
+      ].concat(s.type === 'aio' && isNum(s.radiatorMm) ? [{ label: 'ラジエーター', value: s.radiatorMm + 'mm' }] : []);
+      case 'fan': return [{ label: 'サイズ', value: v(s.sizeMm, 'mm') }];
+      case 'expansion': return [{ label: '使うスロット', value: s.slot === 'pcie-x1' ? 'PCIe x1' : v(s.slot) }];
+      default: return [];
+    }
+  }
+
+  return { ROLES: ROLES, ORDER: ORDER, MISSING_ONLY: MISSING_ONLY, categoryStates: categoryStates, progress: progress, nextCategory: nextCategory, cardSpecs: cardSpecs, cardBrief: cardBrief, insights: insights };
 });

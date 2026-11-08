@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-11-01（PC BUILDER に一括リセットを追加、価格まわりの表示をわかりやすい言葉に変更）
+最終更新: 2026-11-08（PC BUILDER の画面を整理：カードを1行に・詳細フィルターを折りたたみ・完成イメージ〔模式図〕を右列／スマホのシートへ移して高品質化。未コミット）
 
 ---
 
@@ -47,7 +47,7 @@
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
-| PC BUILDER | https://sippo-pc.jp/pc-builder/ | パーツを自由に選び、**互換性（対応／要確認／非対応）**と**5角形の性能グラフ**（ゲーム・動画編集・配信・拡張性・コスパ）で確認する自作PCシミュレーター（2026-10-30〜）。2構成の重ね比較・URL共有・ブラウザ内保存。GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE / UPGRADE / Builds Hub から構成を引き継げる。**判定・計算はページ内JS、サーバー・API不使用**。共有URL（?b=...）は canonical=/pc-builder/ で sitemap には載せない。詳細は `pc-builder/README.md` | `pc-builder/` |
+| PC BUILDER | https://sippo-pc.jp/pc-builder/ | パーツを自由に選び、**互換性（対応／要確認／非対応）**と**5角形の性能グラフ**（ゲーム・動画編集・配信・拡張性・コスパ）で確認する自作PCシミュレーター（2026-10-30〜）。2構成の重ね比較・URL共有・ブラウザ内保存。GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE / UPGRADE / Builds Hub から構成を引き継げる。選んだパーツは右列（スマホは「完成図」）の**完成イメージ（SVGの模式図）**に組み込まれていく（2026-11-08〜）。**判定・計算はページ内JS、サーバー・API不使用**。共有URL（?b=...）は canonical=/pc-builder/ で sitemap には載せない。詳細は `pc-builder/README.md` | `pc-builder/` |
 
 **URLルール**:
 - できるだけ `index.html` なしの **ディレクトリURL** に統一（例: `/pc-consult/`）。実ファイル `index.html` は残し、`/.../index.html` でもアクセス可。
@@ -128,7 +128,7 @@
     境界値（65 / 85 の前後）も回帰テストとして固定している。
     **GPU数をハードコードせず `gpus.json` の件数から期待値を導く**ので、
     GPUを足しても自動で追従する。現行GPUにCPU相性が無いと落ちる（意図的な検出）。
-  - `node pc-builder/test-pc-builder.js` … PC BUILDER（4,380件 / 2026-10-30〜）。データの健全性（出典・ID・二重管理なし）／互換性の各判定と「値が null のとき対応を返さない」／ランダム3000構成で例外・範囲外スコアなし／スコアの単調性／共有URLの往復・壊れたURL／75構成・30ゲーム・65GPU・UPGRADE・Hubからの引き継ぎ／既存サイトの導線とSEO。パーツデータの点検は `node pc-builder/validate-parts.js`（判定に使う主要仕様の不足と、未確認 null の一覧を出す）。データ更新時の検査（CPU仕様の整合・価格表の確認日と出典・古い価格・GPU価格を書かない）も同じテストに含む。
+  - `node pc-builder/test-pc-builder.js` … PC BUILDER（4,625件 / 2026-10-30〜）。データの健全性（出典・ID・二重管理なし）／互換性の各判定と「値が null のとき対応を返さない」／ランダム3000構成で例外・範囲外スコアなし／スコアの単調性／共有URLの往復・壊れたURL／75構成・30ゲーム・65GPU・UPGRADE・Hubからの引き継ぎ／既存サイトの導線とSEO。パーツデータの点検は `node pc-builder/validate-parts.js`（判定に使う主要仕様の不足と、未確認 null の一覧を出す）。データ更新時の検査（CPU仕様の整合・価格表の確認日と出典・古い価格・GPU価格を書かない）も同じテストに含む。
   - `node scripts/test-cross-links.js` … サイト間のGPU導線（61件 / 2026-09-03〜）。
     旧形式 `?gpu=` の残存、GPU名→id解決、遷移先の実在、生成物の要素欠落を検証する。
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
