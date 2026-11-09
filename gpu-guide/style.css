@@ -1974,3 +1974,690 @@ body {
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
+
+/* ============================================================
+   GPU個別の追加コンテンツ（content/<id>.json があるページだけ。2026-11-09〜）
+   接頭辞 gf- 。既存のカード・ヒントボックスの見た目に合わせ、
+   アニメーションは足さない。スマホで横スクロールを出さない。
+   ============================================================ */
+.gf-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.gf-verdict {
+  padding-top: 40px;
+}
+
+.gf-subhead {
+  margin: 36px 0 12px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.gf-subtext {
+  margin: 0 0 16px;
+  color: var(--brand-text-muted);
+  font-size: 14.5px;
+  line-height: 1.85;
+}
+
+.gf-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  color: #04121c;
+  background: var(--brand-gradient);
+}
+
+/* 結論：おすすめ／向かない */
+.gf-fit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gf-fit-card {
+  padding: 22px 24px;
+  border-radius: 24px;
+  border: 1px solid var(--surface-card-border);
+  background: var(--surface-card);
+}
+
+.gf-fit-card h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.gf-fit-card.is-yes {
+  border-color: rgba(94, 234, 212, 0.4);
+}
+
+.gf-fit-card.is-yes h3 span {
+  color: #5eead4;
+}
+
+.gf-fit-card.is-no {
+  border-color: rgba(255, 190, 90, 0.35);
+}
+
+.gf-fit-card.is-no h3 span {
+  color: #ffd9a0;
+}
+
+.gf-list-caution li::before {
+  content: "!";
+  color: #ffd9a0;
+}
+
+/* ひと目で分かる評価 */
+.gf-point-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gf-point {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+.gf-point-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.gf-point-head strong {
+  color: var(--brand-text);
+  font-size: 15px;
+}
+
+.gf-point-text {
+  color: var(--brand-text-muted);
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.gf-point.is-mid .gf-badge {
+  color: var(--brand-text);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.gf-point.is-warn .gf-badge {
+  color: #1a1204;
+  background: #ffd9a0;
+}
+
+/* 目次と導線 */
+.gf-toc {
+  margin: 22px 0 0;
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+.gf-toc-label {
+  margin: 0 0 8px;
+  color: var(--brand-text-subtle);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.gf-toc ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gf-toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--brand-text);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.gf-toc a:hover,
+.gf-toc a:focus-visible {
+  border-color: rgba(25, 227, 255, 0.5);
+}
+
+.gf-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 0;
+}
+
+.gf-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14.5px;
+  text-align: center;
+  text-decoration: none;
+  color: #04121c;
+  background: var(--brand-gradient);
+}
+
+.gf-cta.is-ghost {
+  color: var(--brand-text);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+
+/* 比較表（PCは4列の表、スマホは項目ごとのカード） */
+.gf-vs-wrap {
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+  overflow: hidden;
+}
+
+.gf-vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.gf-vs-table th,
+.gf-vs-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow-wrap: anywhere;
+}
+
+.gf-vs-table tbody tr:last-child th,
+.gf-vs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.gf-vs-table thead th {
+  color: var(--brand-text-subtle);
+  font-size: 12.5px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.gf-vs-table thead th:nth-child(1) { width: 19%; }
+.gf-vs-table thead th:nth-child(2),
+.gf-vs-table thead th:nth-child(3) { width: 23%; }
+
+.gf-vs-table thead a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gf-vs-table tbody th {
+  color: var(--brand-text);
+  font-weight: 800;
+}
+
+.gf-vs-table td {
+  color: var(--brand-text);
+  font-weight: 700;
+}
+
+.gf-vs-table td.is-edge {
+  background: rgba(94, 234, 212, 0.1);
+  box-shadow: inset 3px 0 0 #5eead4;
+}
+
+.gf-vs-table td.gf-vs-note {
+  color: var(--brand-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.gf-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.gf-choose {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(25, 227, 255, 0.28);
+  background: var(--hint-bg);
+}
+
+.gf-choose span {
+  color: var(--brand-text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.gf-choose strong {
+  color: var(--brand-text);
+  font-size: 16px;
+}
+
+.compare-link-card .gf-other-text {
+  margin: 10px 0 0;
+  color: var(--brand-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* 実機レビュー */
+.gf-review-badge {
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffe7b3;
+  background: rgba(255, 190, 90, 0.16);
+  border: 1px solid rgba(255, 190, 90, 0.4);
+}
+
+.gf-review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 16px;
+}
+
+.gf-dl {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.gf-dl > div {
+  display: grid;
+  grid-template-columns: minmax(84px, 32%) 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gf-dl > div:last-child {
+  border-bottom: none;
+}
+
+.gf-dl dt {
+  color: var(--brand-text-subtle);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gf-dl dd {
+  margin: 0;
+  color: var(--brand-text);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.gf-prose {
+  margin: 0 0 12px;
+  color: #dbe3f3;
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+
+.gf-review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.gf-review-list li {
+  padding: 0 0 0 14px;
+  border-left: 3px solid #5eead4;
+}
+
+.gf-review-list li.is-concern {
+  border-left-color: #ffbe5a;
+}
+
+.gf-review-list strong {
+  display: block;
+  margin: 0 0 4px;
+  color: var(--brand-text);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.gf-review-list p {
+  margin: 0;
+  color: #dbe3f3;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.gf-review-summary {
+  margin: 0;
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--hint-border);
+  background: var(--hint-bg);
+  color: var(--brand-text-dim);
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+
+/* VRAM・ローカルAI */
+.gf-tier-grid,
+.gf-cond-grid {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gf-cond-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gf-tier,
+.gf-cond-grid li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+.gf-tier strong,
+.gf-cond-grid strong {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--brand-text);
+  font-size: 16px;
+}
+
+.gf-tier span:not(.gf-badge),
+.gf-cond-grid span {
+  color: var(--brand-text-muted);
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.gf-tier.is-current {
+  border-color: rgba(25, 227, 255, 0.4);
+  background: var(--hint-bg);
+}
+
+.gf-rocm {
+  margin-top: 6px;
+}
+
+.gf-rocm .gf-dl {
+  margin: 0 0 14px;
+}
+
+/* 製品固有の仕様は枠色で区別する */
+.gf-model-product {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* FAQ */
+.gf-checklist {
+  margin: 0 0 18px;
+}
+
+.gf-faq {
+  display: grid;
+  gap: 10px;
+}
+
+.gf-faq-item {
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+.gf-faq-item summary {
+  cursor: pointer;
+  padding: 16px 20px;
+  color: var(--brand-text);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.gf-faq-item summary:focus-visible {
+  outline: 2px solid #19e3ff;
+  outline-offset: 2px;
+  border-radius: 18px;
+}
+
+.gf-faq-item p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: #dbe3f3;
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+
+/* 出典 */
+.gf-source-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.gf-source-list li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: var(--glass-low);
+}
+
+.gf-source-list a {
+  color: #19e3ff;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.gf-source-meta {
+  color: var(--brand-text-subtle);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.gf-source-note {
+  color: var(--brand-text-muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.gf-backlink a {
+  color: #19e3ff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .gf-point-grid,
+  .gf-tier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .gf-fit-grid,
+  .gf-point-grid,
+  .gf-tier-grid,
+  .gf-cond-grid,
+  .gf-review-grid,
+  .gf-choose-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gf-fit-card {
+    padding: 18px;
+  }
+
+  .gf-cta {
+    width: 100%;
+  }
+
+  .gf-backlink a {
+    white-space: normal;
+  }
+
+  /* 比較表：1項目＝1枚のカード。2つのGPUの値は横並び、補足は下に */
+  .gf-vs-wrap {
+    border: none;
+    background: none;
+    overflow: visible;
+  }
+
+  .gf-vs-table,
+  .gf-vs-table tbody {
+    display: block;
+  }
+
+  .gf-vs-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .gf-vs-table tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    margin: 0 0 10px;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    background: var(--glass-low);
+    overflow: hidden;
+  }
+
+  .gf-vs-table th,
+  .gf-vs-table td {
+    display: block;
+    padding: 10px 14px;
+    border-bottom: none;
+  }
+
+  .gf-vs-table tbody th {
+    grid-column: 1 / -1;
+    padding-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .gf-vs-table td[data-gpu]::before {
+    content: attr(data-gpu);
+    display: block;
+    margin: 0 0 2px;
+    color: var(--brand-text-subtle);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .gf-vs-table td.gf-vs-note {
+    grid-column: 1 / -1;
+    padding-top: 6px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .gf-vs-table td.gf-vs-note:empty {
+    display: none;
+  }
+
+  .gf-dl > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+/* ヒーロー内の一行結論（追加コンテンツのあるページだけ。スマホで結論が深くならないように） */
+.gf-hero-verdict {
+  margin: 18px 0 4px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--hint-border);
+  background: var(--hint-bg);
+}
+
+.gf-hero-verdict p {
+  margin: 0;
+  color: var(--brand-text-dim);
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+
+.gf-hero-verdict strong {
+  color: #5eead4;
+}
+
+.gf-hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 8px !important;
+}
+
+.gf-hero-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: #19e3ff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

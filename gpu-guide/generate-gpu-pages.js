@@ -57,6 +57,34 @@ function readJson(file) {
 const gpus = readJson(path.join(DIR, 'gpus.json'));
 const cpuRecs = readJson(path.join(DIR, 'cpu-recommendations.json'));
 
+/* 実売の参考価格（確認日・出典つき）。PC BUILDER と同じ pc-builder/data/prices.json の gpuChips。
+ * gpus.json の price は2026年6月設定の「GPU GUIDE掲載の目安」で確認日の記録が無いため、
+ * 価格差の比較や「実売の参考」はこちらだけを根拠にする（gpus.json は変更しない）。 */
+const PRICE_DATA = (() => {
+  try { return readJson(path.join(DIR, '..', 'pc-builder', 'data', 'prices.json')); }
+  catch (e) { return { _meta: { sources: {} }, gpuChips: {} }; }
+})();
+
+/* メーカー公式の推奨電源（NVIDIA / AMD）。upgrade-engine.js の GPU_POWER_SPEC が唯一の情報源。
+ * ここに値があるGPUは、消費電力からの概算ではなく公式値を表示する
+ * （概算式だと RTX 5070 Ti=750W や RX 9070=650W の公式値を下回る目安が出ていた）。 */
+const POWER_SPEC = (() => {
+  try { return require('../upgrade/upgrade-engine.js').GPU_POWER_SPEC || {}; }
+  catch (e) { return {}; }
+})();
+
+/* GPU個別の追加コンテンツ（content/<id>.json）。ある GPU だけ、購入判断用の
+ * 結論・比較・実機レビュー・FAQ などを追加で焼き込む。無いGPUは従来どおり。 */
+const CONTENT_DIR = path.join(DIR, 'content');
+const FEATURES = (() => {
+  const map = {};
+  if (!fs.existsSync(CONTENT_DIR)) return map;
+  fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.json')).forEach((f) => {
+    map[f.replace(/\.json$/, '')] = readJson(path.join(CONTENT_DIR, f));
+  });
+  return map;
+})();
+
 /* PC UPGRADE の「型番別アップグレード記事」（例: /upgrade/rtx3060/）。
  * そのGPUの記事があれば「次にできること」の交換導線を記事へ向ける。
  * キーは診断エンジンのID（gpus.json の id からハイフンを除いたもの）。
@@ -113,6 +141,23 @@ function comma(value) {
   return n === null ? '' : n.toLocaleString('ja-JP');
 }
 
+/** "2026-10-31" → "2026年10月31日" */
+function jaDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  return m ? `${Number(m[1])}年${Number(m[2])}月${Number(m[3])}日` : '';
+}
+
+/** 実売の参考価格（prices.json の gpuChips）。確認日が無いものは使わない */
+function marketPrice(id) {
+  const c = PRICE_DATA.gpuChips && PRICE_DATA.gpuChips[id];
+  return c && num(c.value) && c.checkedAt ? c : null;
+}
+
+/** メーカー公式の推奨電源（GPU_POWER_SPEC のキーは id からハイフンを除いたもの） */
+function officialPsu(gpu) {
+  return POWER_SPEC[String(gpu.id).replace(/-/g, '')] || null;
+}
+
 /* ------------------------------------------------------------------
  *  表示ロジック（gpu-detail.js と同じ基準にそろえる）
  * ------------------------------------------------------------------ */
@@ -152,7 +197,14 @@ const RES_ROWS = [
   { key: '4K', label: '4K（3840×2160）' },
 ];
 
-function resolutionVerdict(gpuTarget, rowKey) {
+/* そのGPUで使えるアップスケーラーの呼び名。
+ * ★AMDのページに「DLSS」と書かない（DLSSはGeForce RTX専用。GTXも非対応）。
+ *   FSRはメーカーを問わず使えるので、RTXは「DLSS/FSR」、それ以外は「FSR」。 */
+function upscalerOf(gpu) {
+  return gpu && gpu.brand === 'NVIDIA' && /RTX/.test(gpu.name) ? 'DLSS/FSR' : 'FSR';
+}
+
+function resolutionVerdict(gpuTarget, rowKey, gpu) {
   const have = RES_LEVEL[gpuTarget] || 1;
   const want = RES_LEVEL[rowKey];
   if (want < have) {
@@ -162,7 +214,7 @@ function resolutionVerdict(gpuTarget, rowKey) {
     return { badge: '得意', text: 'このGPUがいちばん力を発揮しやすい解像度です。' };
   }
   if (want === have + 1) {
-    return { badge: '狙える', text: '画質設定やアップスケーリング（DLSS/FSR）の調整で狙えます。' };
+    return { badge: '狙える', text: `画質設定やアップスケーリング（${upscalerOf(gpu)}）の調整で狙えます。` };
   }
   return { badge: '設定調整が必要', text: '重いゲームでは画質を下げるなどの調整が前提になります。' };
 }
@@ -220,8 +272,9 @@ function renderTags(tags) {
 
 function renderScoreBreakdown(gpu) {
   const items = [
-    ['ゲーム性能', num(gpu.rasterScore), '通常のゲームFPSの目安'],
-    ['機能', num(gpu.featureScore), 'DLSS・レイトレ・省電力など'],
+    // ★スコアは実測FPSではなく、全GPUを同じ基準で並べた相対評価（誤認させない書き方にする）
+    ['ゲーム性能', num(gpu.rasterScore), '通常のゲームでの性能の相対評価（実測FPSではない）'],
+    ['機能', num(gpu.featureScore), 'アップスケーリング・レイトレ・省電力など'],
     ['中古おすすめ', num(gpu.usedScore), '中古価格・年式・故障リスク込み'],
     ['総合', num(gpu.score), 'ゲーム性能と機能面を含めた目安'],
   ].filter(([, score]) => score !== null);
@@ -251,6 +304,19 @@ function renderSpecs(gpu) {
     return p ? `約${p}円` : '価格未設定';
   })();
 
+  // 実売の参考（確認日・出典つき）があれば併記する。掲載目安と離れていることを隠さない。
+  const market = !isUsedOriented(gpu) ? marketPrice(gpu.id) : null;
+  const priceNote = market
+    ? `GPU GUIDE掲載の目安です。実売の参考は約${comma(market.value)}円（価格.comランキング掲載製品の最安値の中央値・${jaDate(market.checkedAt)}確認）。価格は時期によって大きく変わるため、購入前に最新価格を確認してください。`
+    : '価格は時期によって変動するため、あくまで目安として見てください。';
+
+  // 推奨電源：メーカー公式値があればそれを出す（概算式は公式値を下回ることがあった）
+  const spec = officialPsu(gpu);
+  const psuValue = spec ? `${spec.psu}W以上` : powerSupply(num(gpu.power) || 0);
+  const psuNote = spec
+    ? `${gpu.brand === 'AMD' ? 'AMD' : 'NVIDIA'}公式の推奨値（GPU単体）。メーカー製カードは推奨が高い場合があるので、購入する製品の仕様も確認してください。`
+    : 'CPUや他パーツ構成によって必要な電源容量は変わります。';
+
   return `
       <section class="section">
         <div class="section-heading">
@@ -266,7 +332,7 @@ function renderSpecs(gpu) {
           <article class="gpu-info-card">
             <p class="info-label">${esc(priceLabel)}</p>
             <h3>${esc(priceValue)}</h3>
-            <p>価格は時期によって変動するため、あくまで目安として見てください。</p>
+            <p>${esc(priceNote)}</p>
           </article>
           <article class="gpu-info-card">
             <p class="info-label">消費電力目安</p>
@@ -275,8 +341,8 @@ function renderSpecs(gpu) {
           </article>
           <article class="gpu-info-card">
             <p class="info-label">推奨電源</p>
-            <h3>${esc(powerSupply(num(gpu.power) || 0))}</h3>
-            <p>CPUや他パーツ構成によって必要な電源容量は変わります。</p>
+            <h3>${esc(psuValue)}</h3>
+            <p>${esc(psuNote)}</p>
           </article>
         </div>
       </section>`;
@@ -292,7 +358,7 @@ function renderResolutionTable(gpu) {
         </div>
         <div class="gpu-res-table" role="table" aria-label="解像度ごとの目安">
           ${RES_ROWS.map((row) => {
-            const v = resolutionVerdict(gpu.target, row.key);
+            const v = resolutionVerdict(gpu.target, row.key, gpu);
             const isTarget = row.key === gpu.target;
             return `<div class="gpu-res-row${isTarget ? ' is-target' : ''}" role="row">
             <span class="gpu-res-name" role="cell">${esc(row.label)}</span>
@@ -348,7 +414,12 @@ function derivedPros(gpu, peers) {
   if (power > 0 && power <= 150) out.push(`消費電力${power}Wと控えめで、電源やケースの制約が小さい`);
 
   // 機能スコアは DLSS/レイトレ/省電力などの世代機能の評価
-  if (feature >= 90) out.push('DLSS・レイトレーシングなど最新世代の機能をひととおり使える');
+  // ★AMDのページにDLSSと書かない（以前は RX 9070 XT に「DLSS…を使える」と出ていた）
+  if (feature >= 90) {
+    out.push(gpu.brand === 'NVIDIA'
+      ? 'DLSS・レイトレーシングなど最新世代の機能をひととおり使える'
+      : 'FSR・レイトレーシングなど最新世代の機能をひととおり使える');
+  }
 
   // 価格性能比は同じ母集団の中央値と比べる
   const v = valuePerYen(gpu);
@@ -512,6 +583,7 @@ function renderGamesAndCpus(gpu, byId) {
             <div class="compare-link-grid">
               ${compareCards.join('\n              ')}
             </div>
+            <p class="gpu-extra-note">※%は当サイトのゲーム性能スコアの差で、実測FPSの差ではありません。</p>
           </article>` : ''}
         </div>
       </section>`;
@@ -540,6 +612,7 @@ function renderCpuPairing(gpu) {
             <p class="cpu-rec-bottleneck">${esc(p.bottleneck_note)}</p>
           </article>`).join('\n          ')}
         </div>
+        <p class="gpu-extra-note">※ボトルネックの説明は目安です。ゲーム・解像度・画質設定・目標fpsによって、CPUとGPUのどちらが上限になるかは変わります。</p>
       </section>`;
 }
 
@@ -621,6 +694,376 @@ function renderPurchase(gpu) {
       </section>`;
 }
 
+/* ==================================================================
+ *  GPU個別の追加コンテンツ（content/<id>.json）
+ * ==================================================================
+ *  ★文章は content/<id>.json に置き、数値は {{種類:id}} の差し込みで
+ *    gpus.json / prices.json / GPU_POWER_SPEC から引く（二重管理しない）。
+ *    解決できない差し込みがあれば例外で生成を止める（壊れた値を公開しない）。
+ *  ★content の文字列は運営者が書くHTML（リンク・強調）として扱う。
+ *    差し込む値（数値・日付・URL）だけをエスケープする。
+ * ------------------------------------------------------------------ */
+
+function gpuOf(id) {
+  const g = gpus.find((x) => x.id === id);
+  if (!g) throw new Error(`content: 存在しないGPU id「${id}」`);
+  return g;
+}
+
+function rasterRank(id) {
+  const me = num(gpuOf(id).rasterScore);
+  return gpus.filter((g) => num(g.rasterScore) > me).length + 1;
+}
+
+function fill(text) {
+  return String(text == null ? '' : text).replace(/\{\{(\w+)(?::([a-z0-9-]+))?\}\}/g, (all, kind, id) => {
+    const need = (v) => {
+      if (v === null || v === undefined || v === '' || Number.isNaN(v)) {
+        throw new Error(`content: 差し込み ${all} の値がありません`);
+      }
+      return esc(v);
+    };
+    const price = () => {
+      const p = marketPrice(id);
+      if (!p) throw new Error(`content: ${all} の価格データ（prices.json gpuChips）がありません`);
+      return p;
+    };
+    switch (kind) {
+      case 'name': return need(gpuOf(id).name);
+      case 'raster': return need(num(gpuOf(id).rasterScore));
+      case 'feature': return need(num(gpuOf(id).featureScore));
+      case 'score': return need(num(gpuOf(id).score));
+      case 'vram': return need(num(gpuOf(id).vram));
+      case 'power': return need(num(gpuOf(id).power));
+      case 'rank': return need(rasterRank(id));
+      case 'total': return need(gpus.length);
+      case 'psu': {
+        const s = officialPsu(gpuOf(id));
+        if (!s) throw new Error(`content: ${all} の公式推奨電源（GPU_POWER_SPEC）がありません`);
+        return need(s.psu);
+      }
+      case 'price': return need(`約${comma(price().value)}円`);
+      case 'priceRange': {
+        const r = price().range || [];
+        return need(r.length === 2 ? `約${comma(r[0])}〜${comma(r[1])}円` : '');
+      }
+      case 'priceN': return need(price().n);
+      case 'priceDate':
+      case 'priceDateShort': return need(jaDate(price().checkedAt));
+      case 'priceDateIso': return need(price().checkedAt);
+      case 'priceSourceUrl': {
+        const src = (PRICE_DATA._meta.sources || {})['kakaku-gpu'];
+        return need(src && src.url);
+      }
+      default: throw new Error(`content: 未知の差し込み ${all}`);
+    }
+  });
+}
+
+function stripTags(html) {
+  return String(html).replace(/<[^>]*>/g, '')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+}
+
+/** 冒頭：結論（おすすめ／向かない）・評価カード・スコアの意味・目次 */
+function renderFeatureVerdict(gpu, f) {
+  const v = f.verdict;
+  if (!v) return '';
+  return `
+      <section class="section gf-verdict" id="verdict" aria-labelledby="verdict-title">
+        <div class="section-heading">
+          <p class="section-label">VERDICT</p>
+          <h2 id="verdict-title">${fill(v.title)}</h2>
+          <p>${fill(v.lead)}</p>
+        </div>
+        <div class="gf-fit-grid">
+          <article class="gf-fit-card is-yes">
+            <h3><span aria-hidden="true">◎</span> おすすめな人</h3>
+            <ul class="gpu-list">
+              ${v.forYou.map((t) => `<li>${fill(t)}</li>`).join('\n              ')}
+            </ul>
+          </article>
+          <article class="gf-fit-card is-no">
+            <h3><span aria-hidden="true">△</span> 向かない・他も比べたい人</h3>
+            <ul class="gpu-list gf-list-caution">
+              ${v.notForYou.map((t) => `<li>${fill(t)}</li>`).join('\n              ')}
+            </ul>
+          </article>
+        </div>
+        ${hasItems(v.points) ? `<h3 class="gf-subhead">ひと目で分かる評価</h3>
+        <ul class="gf-point-grid">
+          ${v.points.map((p) => `<li class="gf-point is-${esc(p.tone || 'mid')}">
+            <span class="gf-point-head"><strong>${fill(p.label)}</strong><span class="gf-badge">${fill(p.badge)}</span></span>
+            <span class="gf-point-text">${fill(p.text)}</span>
+          </li>`).join('\n          ')}
+        </ul>` : ''}
+        ${v.scoreNote ? `<div class="hint-box">
+          <div class="hint-box-icon" aria-hidden="true">📏</div>
+          <p class="hint-box-body"><strong>スコアの意味。</strong> ${fill(v.scoreNote)}</p>
+        </div>` : ''}
+        ${hasItems(f.toc) ? `<nav class="gf-toc" aria-label="このページの目次">
+          <p class="gf-toc-label">このページの内容</p>
+          <ol>
+            ${f.toc.map((t) => `<li><a href="#${esc(t.id)}">${esc(t.label)}</a></li>`).join('\n            ')}
+          </ol>
+        </nav>` : ''}
+        <div class="gf-cta-row">
+          <a class="gf-cta" href="/pc-builder/?gpuid=${esc(gpu.id)}">${esc(gpu.name)}でPCを組んでみる（PC BUILDER）</a>
+          ${f.versus ? `<a class="gf-cta is-ghost" href="#versus">${esc(gpuOf(f.versus.targetId).name)}との違いを見る</a>` : ''}
+        </div>
+      </section>`;
+}
+
+/** 比較：RTX 5070 との表 ＋ ほかのGPUカード */
+function renderFeatureVersus(gpu, f) {
+  const vs = f.versus;
+  if (!vs) return '';
+  const b = gpuOf(vs.targetId);
+  const others = (vs.others || []).map((o) => {
+    const t = gpuOf(o.id);
+    const base = num(gpu.rasterScore);
+    const tr = num(t.rasterScore);
+    const pct = Math.round(((tr - base) / base) * 100);
+    const same = Math.abs(pct) < 3;
+    const label = same ? 'スコアほぼ同等' : `スコア差 ${pct > 0 ? '+' : ''}${pct}%`;
+    return `<a href="../${esc(t.id)}/" class="compare-link-card gf-other-card">
+              <span>${esc(t.brand)}</span>
+              <strong>${esc(t.name)}</strong>
+              <span class="compare-delta ${same ? 'is-same' : (pct > 0 ? 'is-up' : 'is-down')}">${esc(label)}（${tr} vs ${base}）</span>
+              <span class="compare-meta">VRAM ${esc(t.vram)}GB ・ ${esc(t.target)}向け</span>
+              <span class="gf-other-text">${fill(o.text)}</span>
+            </a>`;
+  });
+  return `
+      <section class="section" id="versus" aria-labelledby="versus-title">
+        <div class="section-heading">
+          <p class="section-label">COMPARE</p>
+          <h2 id="versus-title">${fill(vs.title)}</h2>
+          <p>${fill(vs.lead)}</p>
+        </div>
+        <div class="gf-vs-wrap">
+          <table class="gf-vs-table">
+            <caption class="gf-sr">${esc(gpu.name)}と${esc(b.name)}の比較</caption>
+            <thead>
+              <tr>
+                <th scope="col">項目</th>
+                <th scope="col">${esc(gpu.name)}</th>
+                <th scope="col"><a href="../${esc(b.id)}/">${esc(b.name)}</a></th>
+                <th scope="col">ポイント</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${vs.rows.map((r) => `<tr>
+                <th scope="row">${fill(r.label)}</th>
+                <td data-gpu="${esc(gpu.name)}"${r.edge === 'a' ? ' class="is-edge"' : ''}>${fill(r.a)}</td>
+                <td data-gpu="${esc(b.name)}"${r.edge === 'b' ? ' class="is-edge"' : ''}>${fill(r.b)}</td>
+                ${r.note ? `<td class="gf-vs-note">${fill(r.note)}</td>` : '<td class="gf-vs-note"></td>'}
+              </tr>`).join('\n              ')}
+            </tbody>
+          </table>
+        </div>
+        <p class="gpu-extra-note">色付きの欄は、その項目で有利になりやすい側の目印です（性能の勝敗を決めるものではありません）。公式仕様の出典と確認日はページ末尾にまとめています。</p>
+        ${hasItems(vs.choose) ? `<div class="gf-choose-grid">
+          ${vs.choose.map((c) => `<div class="gf-choose"><span>${fill(c.when)}</span><strong>→ ${fill(c.pick)}</strong></div>`).join('\n          ')}
+        </div>` : ''}
+        ${others.length ? `<h3 class="gf-subhead">${fill(vs.othersTitle)}</h3>
+        <p class="gf-subtext">${fill(vs.othersLead)}</p>
+        <div class="compare-link-grid">
+              ${others.join('\n              ')}
+        </div>` : ''}
+      </section>`;
+}
+
+/** 実機レビュー（所有者の体験。スペック比較とは独立したセクション） */
+function renderFeatureReview(gpu, f) {
+  const r = f.review;
+  if (!r) return '';
+  const items = (list, cls) => list.map((x) => `<li class="${cls}">
+              <strong>${fill(x.title)}</strong>
+              <p>${fill(x.text)}</p>
+            </li>`).join('\n            ');
+  return `
+      <section class="section gf-review" id="review" aria-labelledby="review-title">
+        <div class="section-heading">
+          <p class="section-label">OWNER REVIEW</p>
+          <h2 id="review-title">${fill(r.title)}</h2>
+          <p><span class="gf-review-badge">${fill(r.badge)}</span> ${fill(r.lead)}</p>
+        </div>
+        <div class="gf-review-grid">
+          <article class="gpu-extra-card gf-review-env">
+            <p class="info-label">使用環境</p>
+            <dl class="gf-dl">
+              ${r.env.map(([k, v]) => `<div><dt>${fill(k)}</dt><dd>${fill(v)}</dd></div>`).join('\n              ')}
+            </dl>
+          </article>
+          <article class="gpu-extra-card">
+            <p class="info-label">WHY</p>
+            <h3>${fill(r.whyTitle)}</h3>
+            ${r.why.map((p) => `<p class="gf-prose">${fill(p)}</p>`).join('\n            ')}
+          </article>
+        </div>
+        <div class="gf-review-grid">
+          <article class="gpu-extra-card">
+            <p class="info-label">GOOD</p>
+            <h3>良かった点</h3>
+            <ul class="gf-review-list">
+            ${items(r.good, 'is-good')}
+            </ul>
+          </article>
+          <article class="gpu-extra-card">
+            <p class="info-label">CONCERN</p>
+            <h3>気になった点</h3>
+            <ul class="gf-review-list">
+            ${items(r.concerns, 'is-concern')}
+            </ul>
+          </article>
+        </div>
+        <p class="gf-review-summary">${fill(r.summary)}</p>
+        <p class="gpu-extra-note">※${fill(r.disclaimer)}</p>
+      </section>`;
+}
+
+/** VRAMとローカルAI */
+function renderFeatureVramAi(gpu, f) {
+  const a = f.vramAi;
+  if (!a) return '';
+  return `
+      <section class="section" id="vram-ai" aria-labelledby="vram-ai-title">
+        <div class="section-heading">
+          <p class="section-label">VRAM / LOCAL AI</p>
+          <h2 id="vram-ai-title">${fill(a.title)}</h2>
+          <p>${fill(a.vramLead)}</p>
+        </div>
+        <ul class="gf-tier-grid">
+          ${a.tiers.map((t) => `<li class="gf-tier${t.current ? ' is-current' : ''}">
+            <strong>${fill(t.size)}${t.current ? `<span class="gf-badge">${esc(gpu.name)}</span>` : ''}</strong>
+            <span>${fill(t.text)}</span>
+          </li>`).join('\n          ')}
+        </ul>
+        <p class="gf-subtext">${fill(a.vramNote)}</p>
+        <h3 class="gf-subhead">ローカルAIで使う条件</h3>
+        <p class="gf-subtext">${fill(a.aiLead)}</p>
+        <ul class="gf-cond-grid">
+          ${a.conditions.map((c) => `<li><strong>${fill(c.title)}</strong><span>${fill(c.text)}</span></li>`).join('\n          ')}
+        </ul>
+        <article class="gpu-extra-card gf-rocm">
+          <p class="info-label">ROCm</p>
+          <h3>${fill(a.rocmTitle)}</h3>
+          <dl class="gf-dl">
+            ${a.rocm.map((x) => `<div><dt>${fill(x.os)}</dt><dd>${fill(x.text)}</dd></div>`).join('\n            ')}
+          </dl>
+          <p class="gf-prose">${fill(a.cuda)}</p>
+          <p class="gpu-extra-note">${fill(a.owner)}</p>
+        </article>
+      </section>`;
+}
+
+/** 製品モデル（GPU共通仕様と製品固有仕様を分ける） */
+function renderFeatureModel(gpu, f) {
+  const m = f.model;
+  if (!m) return '';
+  const dl = (rows) => `<dl class="gf-dl">
+              ${rows.map(([k, v]) => `<div><dt>${fill(k)}</dt><dd>${fill(v)}</dd></div>`).join('\n              ')}
+            </dl>`;
+  return `
+      <section class="section" id="model" aria-labelledby="model-title">
+        <div class="section-heading">
+          <p class="section-label">MODEL</p>
+          <h2 id="model-title">${fill(m.title)}</h2>
+          <p>${fill(m.lead)}</p>
+        </div>
+        <div class="gf-review-grid">
+          <article class="gpu-extra-card">
+            <p class="info-label">GPU共通</p>
+            <h3>${fill(m.commonTitle)}</h3>
+            ${dl(m.common)}
+          </article>
+          <article class="gpu-extra-card gf-model-product">
+            <p class="info-label">製品固有</p>
+            <h3>${fill(m.productTitle)}</h3>
+            ${dl(m.product)}
+          </article>
+        </div>
+        <div class="hint-box">
+          <div class="hint-box-icon" aria-hidden="true">🔌</div>
+          <p class="hint-box-body"><strong>推奨電源の違い。</strong> ${fill(m.psuNote)}</p>
+        </div>
+        <h3 class="gf-subhead">${fill(m.checksTitle)}</h3>
+        <ul class="gf-cond-grid">
+          ${m.checks.map((c) => `<li><strong>${fill(c.title)}</strong><span>${fill(c.text)}</span></li>`).join('\n          ')}
+        </ul>
+        <p class="gpu-extra-note">※${fill(m.note)}</p>
+      </section>`;
+}
+
+/** 購入前チェックリスト ＋ FAQ（FAQPage の構造化データと同じ内容） */
+function renderFeatureFaq(gpu, f) {
+  if (!hasItems(f.faq) && !f.checklist) return '';
+  const c = f.checklist;
+  return `
+      <section class="section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <p class="section-label">CHECK / FAQ</p>
+          <h2 id="faq-title">購入前チェックとよくある質問</h2>
+        </div>
+        ${c ? `<article class="gpu-extra-card gf-checklist">
+          <h3>${fill(c.title)}</h3>
+          <ul class="gpu-list">
+            ${c.items.map((t) => `<li>${fill(t)}</li>`).join('\n            ')}
+          </ul>
+        </article>` : ''}
+        ${hasItems(f.faq) ? `<div class="gf-faq">
+          ${f.faq.map((q) => `<details class="gf-faq-item">
+            <summary>${fill(q.q)}</summary>
+            <p>${fill(q.a)}</p>
+          </details>`).join('\n          ')}
+        </div>` : ''}
+      </section>`;
+}
+
+/** 出典と確認日 */
+function renderFeatureSources(gpu, f) {
+  if (!hasItems(f.sources)) return '';
+  return `
+      <section class="section gf-sources" id="sources" aria-labelledby="sources-title">
+        <div class="section-heading">
+          <p class="section-label">SOURCES</p>
+          <h2 id="sources-title">出典と確認日</h2>
+          <p>仕様はメーカー公式の資料で確認しています。価格・ソフトの対応状況は変わるため、購入前に最新情報を確認してください。このページの更新日：${esc(jaDate(f._meta && f._meta.updated))}</p>
+        </div>
+        <ul class="gf-source-list">
+          ${f.sources.map((s) => {
+            const checked = fill(s.checkedAt || '');
+            return `<li>
+            <a href="${fill(s.url)}" target="_blank" rel="noopener noreferrer">${fill(s.label)}</a>
+            <span class="gf-source-meta">${checked ? `${esc(jaDate(stripTags(checked)))}確認` : '自動確認できず（下記）'}</span>
+            <span class="gf-source-note">${fill(s.note)}</span>
+          </li>`;
+          }).join('\n          ')}
+        </ul>
+      </section>`;
+}
+
+/** 他GPUのページから、追加コンテンツのあるGPUページへの案内 */
+function renderFeatureBacklink(gpu) {
+  const links = Object.keys(FEATURES)
+    .filter((id) => id !== gpu.id && FEATURES[id].backlinks && FEATURES[id].backlinks[gpu.id])
+    .map((id) => {
+      const b = FEATURES[id].backlinks[gpu.id];
+      return typeof b === 'string'
+        ? { target: gpuOf(id), text: b, anchor: 'versus', label: '' }
+        : { target: gpuOf(id), text: b.text, anchor: b.anchor || 'versus', label: b.label || '' };
+    });
+  if (!links.length) return '';
+  return links.map((l) => `
+      <div class="hint-box gf-backlink">
+        <div class="hint-box-icon" aria-hidden="true">🔗</div>
+        <p class="hint-box-body"><strong>${esc(l.label || `${l.target.name}も検討中の方へ。`)}</strong> ${fill(l.text)}
+          <a href="../${esc(l.target.id)}/#${esc(l.anchor)}">${esc(l.target.name)}のページを見る →</a></p>
+      </div>`).join('');
+}
+
 /* ------------------------------------------------------------------
  *  構造化データ
  * ------------------------------------------------------------------
@@ -655,7 +1098,25 @@ function buildStructuredData(gpu, url, title, description) {
     },
   };
 
-  return [breadcrumb, article];
+  /* 追加コンテンツのあるページだけ：更新日と、画面に出しているFAQ。
+   * ★Review / AggregateRating は入れない（星評価・レビュー数は実在しない）。 */
+  const f = FEATURES[gpu.id];
+  const out = [breadcrumb, article];
+  if (f) {
+    if (f._meta && f._meta.updated) article.dateModified = f._meta.updated;
+    if (hasItems(f.faq)) {
+      out.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: f.faq.map((q) => ({
+          '@type': 'Question',
+          name: stripTags(fill(q.q)),
+          acceptedAnswer: { '@type': 'Answer', text: stripTags(fill(q.a)) },
+        })),
+      });
+    }
+  }
+  return out;
 }
 
 /* ------------------------------------------------------------------
@@ -670,10 +1131,14 @@ function peersOf(gpu) {
 
 function buildPage(gpu, byId) {
   const url = `${BASE}/gpu/${gpu.id}/`;
-  const title = buildTitle(gpu);
-  const description = buildDescription(gpu);
+  const feature = FEATURES[gpu.id] || null;
+  // 追加コンテンツのあるページは、実際の中身（比較・実機レビュー）に合わせた title / description にする
+  const title = feature && feature.seo && feature.seo.title ? stripTags(fill(feature.seo.title)) : buildTitle(gpu);
+  const description = feature && feature.seo && feature.seo.description
+    ? stripTags(fill(feature.seo.description)) : buildDescription(gpu);
   const ld = buildStructuredData(gpu, url, title, description);
   const raster = num(gpu.rasterScore) || 0;
+  const F = (fn) => (feature ? fn(gpu, feature) : '');
 
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -724,12 +1189,9 @@ function buildPage(gpu, byId) {
     gtag('config', 'G-NDQ8GTKGHC');
   </script>
 
-  <script type="application/ld+json">
-${jsonLd(ld[0])}
-  </script>
-  <script type="application/ld+json">
-${jsonLd(ld[1])}
-  </script>
+${ld.map((block) => `  <script type="application/ld+json">
+${jsonLd(block)}
+  </script>`).join('\n')}
 </head>
 <body data-sippo-theme="dark">
   <header class="site-header">
@@ -768,6 +1230,10 @@ ${jsonLd(ld[1])}
             <h1>${esc(gpu.name)}</h1>
 
             <p class="gpu-detail-lead">${esc(gpu.summary)}</p>
+${feature && feature.verdict && feature.verdict.short ? `            <div class="gf-hero-verdict">
+              <p>${fill(feature.verdict.short)}</p>
+              <p class="gf-hero-links"><a href="#verdict">向いている人・向かない人</a>${feature.versus ? `<a href="#versus">${esc(gpuOf(feature.versus.targetId).name.replace(/^(GeForce|Radeon) /, ''))}と比較</a>` : ''}${feature.review ? '<a href="#review">実機レビュー</a>' : ''}</p>
+            </div>` : ''}
 ${renderTags(gpu.tags)}
 
             <div class="gpu-score-box detail-score">
@@ -799,23 +1265,32 @@ ${gpu.releaseYear ? `              <div><dt>発売年</dt><dd>${esc(gpu.releaseY
         <div class="hint-box">
           <div class="hint-box-icon" aria-hidden="true">💡</div>
           <p class="hint-box-body">
-            <strong>スコアの見方。</strong> ゲーム性能は通常のゲームFPSの目安、機能はDLSS・レイトレ・省電力などの評価、
+            <strong>スコアの見方。</strong> どのスコアもGPU GUIDEが全GPUを同じ基準で並べた相対評価で、実測のFPSではありません。
+            ゲーム性能は通常のゲームでの性能、機能はアップスケーリング（${esc(upscalerOf(gpu))}）・レイトレ・省電力などの評価、
             中古おすすめは中古価格・年式・故障リスク込みの目安です。総合スコア（${num(gpu.score)}/100）はゲーム性能と機能面を含めた評価です。
           </p>
         </div>
 ${renderScoreNote(gpu)}
+${renderFeatureBacklink(gpu)}
       </div>
     </section>
 
     <div class="container">
+${F(renderFeatureVerdict)}
 ${renderSpecs(gpu)}
 ${renderResolutionTable(gpu)}
-${renderProsCons(gpu, peersOf(gpu))}
+${F(renderFeatureVersus)}
+${F(renderFeatureReview)}
+${F(renderFeatureVramAi)}
+${F(renderFeatureModel)}
+${feature && feature.verdict ? '' : renderProsCons(gpu, peersOf(gpu))}
 ${renderUsedSection(gpu)}
+${F(renderFeatureFaq)}
 ${renderPurchase(gpu)}
 ${renderGamesAndCpus(gpu, byId)}
 ${renderCpuPairing(gpu)}
 ${renderNextActions(gpu)}
+${F(renderFeatureSources)}
 
       <p class="gpu-detail-backlink"><a href="../../index.html" class="back-link">← GPU一覧に戻る</a></p>
     </div>
@@ -960,6 +1435,25 @@ function verify(root) {
         problems.push(`${gpu.id}: HTML に ${bad} が出ている`);
       }
     });
+
+    // --- 実在しない評価を構造化データに入れていない（全ページ） ---
+    if (/"(Review|AggregateRating)"|"aggregateRating"|"reviewRating"/.test(html)) {
+      problems.push(`${gpu.id}: 構造化データに Review / AggregateRating が入っている`);
+    }
+
+    // --- 追加コンテンツ（content/<id>.json）のあるページ ---
+    const feature = FEATURES[gpu.id];
+    if (feature) {
+      if (html.indexOf('{{') > -1) problems.push(`${gpu.id}: 未解決の差し込み {{ が残っている`);
+      (feature.toc || []).forEach((t) => {
+        if (html.indexOf(`id="${t.id}"`) < 0) problems.push(`${gpu.id}: 目次の飛び先 #${t.id} が無い`);
+      });
+      const faqLd = (html.match(/"@type": "Question"/g) || []).length;
+      const faqUi = (html.match(/<details class="gf-faq-item">/g) || []).length;
+      if (faqLd !== (feature.faq || []).length || faqUi !== faqLd) {
+        problems.push(`${gpu.id}: FAQ の画面(${faqUi})と構造化データ(${faqLd})が一致しない`);
+      }
+    }
 
     // --- 相対パス（生成先の深さ ../../ が正しいか） ---
     ['../../common.css', '../../style.css', '../../index.html'].forEach((rel) => {

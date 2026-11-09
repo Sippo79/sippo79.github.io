@@ -5,7 +5,8 @@
 // v5: GPU個別ページを静的化（/gpu-guide/gpu/<id>/）。style.css を更新したため
 //     旧キャッシュが残ると新ページが未スタイルで表示される。必ず版を上げること。
 // v6: スマホ表示の修正（ロゴ・パンくずのタップ領域）。common.css / style.css を更新。
-const CACHE_NAME = 'gpu-guide-v9';
+// v10: GPU個別ページの追加コンテンツ（RX 9070の比較・実機レビュー等）用に style.css を更新。
+const CACHE_NAME = 'gpu-guide-v10';
 
 const ASSETS_TO_CACHE = [
   './',

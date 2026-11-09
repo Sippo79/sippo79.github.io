@@ -43,7 +43,7 @@
 | シッポ親サイト | https://sippo-pc.jp/ | 各子サイトへのポータル（入口） | `/`（`index.html`） |
 | シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（申し込みはSquare決済リンク→決済完了後にGoogleフォームへ自動遷移→フォーム送信で受付完了）。**サブプラン＝1,500円 ゲーム向けPC構成・購入相談**（申し込みはココナラ商品ページ）。無料窓口は申し込み前の事前問い合わせ用 | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
-| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
+| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。**`gpu-guide/content/<id>.json` があるGPU（現在 RX 9070）は、結論・RTX 5070比較・運営者の実機レビュー・VRAM/ローカルAI・製品モデル・FAQ・出典を追加で生成する**（2026-11-09〜。文章はJSON、数値は差し込みで各情報源から）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
@@ -121,6 +121,7 @@
   - `node gpu-guide/test-gpu-pages.js` … GPU個別ページ（1,643件 / 2026-09-02〜）。
     65ページのtitle/description/H1/canonical/noindex/構造化データ/クロスリンク/
     アフィリエイト欠落/リンク切れ/sitemap整合を検証する。
+  - `node gpu-guide/test-gpu-feature.js` … GPU個別の追加コンテンツ（`gpu-guide/content/<id>.json`、現在 rx-9070。304件 / 2026-11-09〜）。追加セクションが再生成後も残る／数値が gpus.json・prices.json・GPU_POWER_SPEC と一致／実機レビューに実測値を創作していない／Review・AggregateRating なし／FAQ画面＝FAQPage／AMDページにDLSSを書かない／推奨電源が公式値／PC BUILDER `?gpuid=` 引き継ぎ／再生成の決定性。
   - `node gpu-guide/test-gpu-data.js` … GPUデータ整合性（75件 / 2026-09-03〜）。
     重複・必須欠損・スコア範囲・compare参照・解像度評価の矛盾・
     サイト全体のGPU参照が解決できるかを検証する。

@@ -18,6 +18,30 @@
 
 ---
 
+## 2026-11-09 — GPU GUIDE：RX 9070 詳細ページを購入判断ページへ強化（比較・実機レビュー・ローカルAI・Steel Legend・FAQ）
+
+- **修正目的**: RX 9070 のページがスペックとスコアの羅列で、RTX 5070 との違い・弱点・実際の使用感が分からず購入判断に使えなかった。あわせて全GPUページ共通の不整合（AMDページへのDLSS表記、公式値を下回る推奨電源、スコアをFPSと誤認させる説明、CPU相性の過度な断定）を修正。
+- **変更ファイル**: `gpu-guide/content/rx-9070.json`（新規。結論・比較・実機レビュー・VRAM/AI・Steel Legend・FAQ・出典・逆リンク）、`gpu-guide/generate-gpu-pages.js`（content 読み込み・差し込み `{{種類:id}}`・各セクション描画・FAQPage・検証追加・共通表記修正）、`gpu-guide/style.css`（`gf-` 接頭辞のスタイルを末尾追記）、`gpu-guide/sw.js`（v9→v10）、`gpu-guide/cpu-recommendations.json`（rx-9070 の6文のみ）、`gpu-guide/test-gpu-feature.js`（新規・304件）、`gpu-guide/gpu/*/index.html`（再生成65件）
+- **変更内容**:
+  - GPU個別の追加コンテンツを `content/<id>.json` に置く仕組みを追加。数値は直書きせず `{{raster:id}}` `{{psu:id}}` `{{price:id}}` などで gpus.json / `pc-builder/data/prices.json`（gpuChips・確認日つき）/ `upgrade-engine.js` の `GPU_POWER_SPEC` から引く。解決できない差し込みは例外で生成停止。
+  - RX 9070：ヒーロー直下の一行結論、結論（おすすめ／向かない）・評価カード・スコアの意味・目次・PC BUILDER導線、RTX 5070比較表（スマホはカード化）＋RX 9070 XT／RX 7800 XT／RTX 2080、独立した実機レビュー（使用環境・理由・良かった点・気になった点・計測なしの注記）、VRAMとローカルAI（ROCm の Linux/Windows 対応状況）、Steel Legend（GPU共通＝AMD公式／製品固有＝ASRock公表値を分離、650W と 700W を区別、ケース確認ポイント）、購入前チェック＋FAQ7問、出典と確認日。title/description を実態に合わせ、FAQPage（画面と同一）と dateModified を追加。Review/AggregateRating は入れない。
+  - 逆リンク：rtx-5070 / rx-9070-xt / rx-7800-xt / rtx-2080 のヒーローに RX 9070 ページへの案内を追加。
+  - 全GPU共通：スコアは相対評価で実測FPSではないと明記／機能スコアの説明を「アップスケーリング」に／解像度表と長所の DLSS 表記をブランド別（AMD・GTXはFSR）に／推奨電源は GPU_POWER_SPEC にある11GPUで公式値表示（RTX 5070 Ti 650-750W→750W 等）／gpuChips がある現行GPUの価格カードに実売の参考（確認日つき）を併記／比較カードの%とCPUボトルネック説明に注記。
+- **影響範囲**: GPU GUIDE 個別65ページの文言（上記の共通修正）。URL・canonical・sitemap（66URL）は不変。gpus.json・スコア計算・他GPUの数値は変更なし。一覧・比較・PC BUILD CHECK・UPGRADE・PC BUILDER は無変更。
+- **検証**: 既存テスト全通過（gpu-pages 1,644 / gpu-data 75 / cross-links 63 / upgrade 209+73 / pc-build-check 5本 / PC BUILDER 4,625 / game-pc-guide 2本）、新規 test-gpu-feature 304件（混入テストで fps・温度・aggregateRating・生成物直接編集を検出することを確認）、再生成の決定性、Playwright 6ページ×5幅（360〜1440）で横はみ出し・重なり・CLS・JSエラー0、FAQ開閉・目次ジャンプ、PC BUILDER `?gpuid=rx-9070` で RX 9070 が選択済み。html-validate のエラー2件は変更前と同一（既存）。
+- **未対応・次にやること**:
+  - ASRock 公式ページは自動取得不可（Incapsula）。Steel Legend の寸法・700W等は運営者提供の公表値。公開前に公式ページで目視確認を。
+  - note レビュー記事の実在URLが分かれば `content/rx-9070.json` の sources などに追加（推測URL禁止）。
+  - prices.json の gpuChips は 2026-10-31 確認。45日で古くなるので更新時に再生成。
+  - cpu-recommendations.json の他GPUにも「ボトルネックになることはなく」等の断定が約38件残る（今回は rx-9070 のみ修正し、全ページに注記を追加）。
+  - 既存：GPU一覧の360px幅で ranking-tab が12px横はみ出し／PC BUILDER 初期描画の CLS が大きい／header nav と score-breakdown の aria 指摘（いずれも変更前から）。
+- **別AIへの引き継ぎ注意点**:
+  - 生成物 `gpu-guide/gpu/<id>/index.html` を直接編集しない。RX 9070 の文章は `content/rx-9070.json`、数値は各情報源を直す。`test-gpu-feature.js` が再生成との一致を検査する。
+  - 実機レビューに実測値（fps・温度・騒音・W・AI速度）を足さない（テストで検出）。運営者の体験を一般化しない。
+  - style.css を変えたら `gpu-guide/sw.js` の CACHE_NAME を上げる。
+
+---
+
 ## 2026-11-08 — PC BUILDER の画面を整理し、完成イメージ（模式図）を右列へ移して高品質化（未コミット）
 
 - **修正目的**: 製品カードの情報が多く（1枚約330px・スペック4枠）、検索条件も常に5つ出ていて、初心者がどれを選べばよいか判断しにくかった。模式図はページ下部（PCで約3,500px下）にあり、選んでいる最中に完成形を確認できなかった。

@@ -582,28 +582,28 @@
         "tier": "コスパ重視",
         "tier_type": "budget",
         "cpu": "Ryzen 7 5700X3D",
-        "reason": "RX 9070のWQHD性能をコスパよく引き出せる構成。3D V-CacheがFPS向けフレームレートを底上げし、WQHD高画質ゲーミングを予算を抑えて実現できます。",
+        "reason": "RX 9070のWQHD性能をコスパよく活かしやすい構成。3D V-Cacheがゲームのフレームレートを支えやすく、WQHD高画質ゲーミングを予算を抑えて組めます。",
         "use_case": "WQHD高画質・FPS重視",
         "resolution": "WQHD",
-        "bottleneck_note": "WQHD環境でCPUボトルネックを抑えられ、RX 9070の性能を安定して活かせます。"
+        "bottleneck_note": "WQHDではGPU側の負荷が大きくなりやすく、CPUが足を引っ張る場面は少なめです。ただしCPU負荷の高いゲームやフルHD・高fps狙いでは、CPUが上限になることもあります。"
       },
       {
         "tier": "バランス重視",
         "tier_type": "balanced",
         "cpu": "Ryzen 7 7800X3D",
-        "reason": "RX 9070 × 7800X3DはWQHD高画質コスパ構成の最良解のひとつ。重量級ゲームでも安定したフレームレートを維持しやすく、バランス重視の人に最適です。",
+        "reason": "RX 9070 × 7800X3DはWQHD高画質を狙うバランスの良い組み合わせ。CPU負荷の高いゲームでもフレームレートを保ちやすく、AM5で今後の更新もしやすい構成です。",
         "use_case": "WQHD高画質・重量級ゲーム",
         "resolution": "WQHD",
-        "bottleneck_note": "WQHD環境ではCPUボトルネックがほぼなく、RX 9070の性能を完全に発揮できます。"
+        "bottleneck_note": "WQHDではCPUがボトルネックになる場面は少なく、RX 9070の性能を活かしやすい組み合わせです（ゲームや設定によって変わります）。"
       },
       {
         "tier": "ハイエンド向け",
         "tier_type": "high",
         "cpu": "Ryzen 7 9800X3D",
-        "reason": "最新世代3D V-Cache CPUでRX 9070の性能を限界まで引き出す最強構成。将来RX 9070 XT・RTX 5070 Tiへのアップグレード時もCPU制約なく移行できます。",
+        "reason": "最新世代の3D V-Cache CPUで、RX 9070の性能を引き出しやすい上位構成。将来RX 9070 XT・RTX 5070 Tiへ交換するときも、CPUを替えずに済む可能性が高い組み合わせです。",
         "use_case": "WQHD〜4K入門・将来性重視",
         "resolution": "WQHD〜4K入門",
-        "bottleneck_note": "このCPUがボトルネックになることはなく、次世代上位GPUへのアップグレード後も長く活躍します。"
+        "bottleneck_note": "CPU側に余裕が大きく、上位GPUへ交換したあとも使い続けやすいCPUです。"
       }
     ]
   },
