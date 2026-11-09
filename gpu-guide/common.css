@@ -553,3 +553,142 @@ a {
   }
   html { scroll-behavior: auto !important; }
 }
+
+/* ==========================================================
+   ヘッダー検索（gpu-search.js が🔍ボタンとパネルを差し込む）
+   ヘッダーは sticky なので、スクロール位置に関係なく
+   どのページからでも GPU を探せる。
+   ========================================================== */
+.gpu-qs-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(25, 227, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(25, 227, 255, 0.10);
+  color: #8eeafa;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.gpu-qs-toggle:hover,
+.gpu-qs-toggle:focus-visible,
+.gpu-qs-toggle.is-open {
+  color: #0b0f14;
+  border-color: transparent;
+  background: var(--brand-gradient);
+}
+
+.gpu-qs-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  background: rgba(9, 11, 20, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.gpu-qs-panel[hidden] { display: none; }
+
+.gpu-qs-inner { padding: 14px 0 16px; }
+
+.gpu-qs-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 0 14px;
+  border: 1px solid rgba(25, 227, 255, 0.45);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #8eeafa;
+}
+.gpu-qs-field:focus-within {
+  border-color: var(--brand-cyan);
+  box-shadow: 0 0 0 3px rgba(25, 227, 255, 0.18);
+}
+.gpu-qs-input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--brand-text);
+  /* 16px未満だと iPhone でフォーカス時に画面が拡大される */
+  font: inherit;
+  font-size: 16px;
+}
+.gpu-qs-input::placeholder { color: #8b96ad; }
+.gpu-qs-input::-webkit-search-cancel-button { display: none; }
+.gpu-qs-close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #aab6cc;
+  font-size: 16px;
+  cursor: pointer;
+}
+.gpu-qs-close:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+
+.gpu-qs-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  max-height: min(60vh, 440px);
+  overflow-y: auto;
+}
+.gpu-qs-list:empty { display: none; }
+.gpu-qs-item a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--brand-text);
+}
+.gpu-qs-item.is-active a { background: rgba(25, 227, 255, 0.12); }
+.gpu-qs-item__brand {
+  flex: none;
+  min-width: 58px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.gpu-qs-item__brand--nvidia { color: #a6f36b; background: rgba(118, 185, 0, 0.16); }
+.gpu-qs-item__brand--amd { color: #ff8a8a; background: rgba(237, 28, 36, 0.16); }
+.gpu-qs-item__name { flex: 1; min-width: 0; font-weight: 700; }
+.gpu-qs-item__meta { flex: none; color: #aab6cc; font-size: 12.5px; }
+.gpu-qs-item--compare a { color: #8eeafa; font-weight: 700; font-size: 14px; }
+.gpu-qs-empty { padding: 12px; color: #aab6cc; font-size: 14px; }
+.gpu-qs-hint { margin: 10px 2px 0; color: #aab6cc; font-size: 13px; line-height: 1.7; }
+.gpu-qs-hint[hidden] { display: none; }
+.gpu-qs-hint kbd {
+  padding: 1px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  /* スマホは虫眼鏡アイコンだけにしてヘッダーの横幅を節約 */
+  .gpu-qs-toggle { width: 38px; min-height: 38px; padding: 0; }
+  /* トップは サービスナビ＋ランキング＋比較表＋🔍 だと375px幅からはみ出すため、
+     ヒーロー直下にあるランキングへのリンクはスマホでは省く。 */
+  .header-link[href="#ranking"] { display: none; }
+  .gpu-qs-toggle__text { display: none; }
+  .gpu-qs-item__meta { display: none; }
+  .gpu-qs-list { max-height: 55vh; }
+}

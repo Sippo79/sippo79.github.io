@@ -18,6 +18,21 @@
 
 ---
 
+## 2026-11-10 — GPU GUIDE：ヘッダーに検索（🔍）を追加し、全ページからGPUを探せるように
+
+- **修正目的**: GPU名の検索欄がトップの比較表（ページ中ほど）にしか無く、使いにくかった。GPU個別ページからは検索できなかった。
+- **変更ファイル**: `gpu-guide/gpu-search.js`（新規）、`gpu-guide/common.css`（`gpu-qs-` 接頭辞のスタイルを末尾追記）、`gpu-guide/index.html` / `gpu-guide/gpu.html`（script 1行）、`gpu-guide/generate-gpu-pages.js`（script 1行）、`gpu-guide/sw.js`（v10→v11・キャッシュ対象に gpu-search.js）、`gpu-guide/gpu/*/index.html`（再生成65件）
+- **変更内容**:
+  - 固定ヘッダー（sticky）の右端に「🔍 検索」ボタン（スマホはアイコンのみ）を JS で差し込み。押すとヘッダー直下に検索パネルが開き、GPU名の一部（例: 5070 / 9070xt）で候補を最大8件表示→選ぶと `/gpu-guide/gpu/<id>/` へ移動。
+  - 表記ゆれは index.html の `?gpu=` 解決と同じ正規化（GeForce/Radeon/AMD・記号を無視）。先頭一致→スコア順。gpus.json は初回に開いたときだけ読む。
+  - トップでは候補の最後に「比較表で「○○」を絞り込む」を出し、既存の #gpuSearch に入れて比較表へスクロール（既存の比較表検索はそのまま）。
+  - キーボード: 「/」で開く、↑↓で選択、Enterで移動、Escで閉じる。パネル外クリックで閉じる。
+  - スマホ（≤520px）のトップでは、ヘッダーが375px幅からはみ出していたため（変更前から約11px超過）「ランキング」リンクを非表示に。
+- **影響範囲**: GPU GUIDE のトップ・gpu.html・個別65ページのヘッダー。URL・canonical・sitemap・本文・データは不変。
+- **検証**: test-gpu-pages 1,644 / test-gpu-feature 304 / test-gpu-data 75 すべて通過。ヘッドレスChrome（1280px・375px）でトップと RX 9070 ページを確認：候補表示・Enterで個別ページへ移動・横はみ出しなし。
+- **未対応・次にやること**: 他の子サイト（PC BUILD CHECK等）への横展開は未実施。
+- **別AIへの引き継ぎ注意点**: 個別ページへの読み込みは `generate-gpu-pages.js` のテンプレートにある。生成物を直接編集しないこと。gpu-search.js はヘッダーの `.header-nav` を前提にしている。
+
 ## 2026-11-09 — GPU GUIDE：RX 9070 詳細ページを購入判断ページへ強化（比較・実機レビュー・ローカルAI・Steel Legend・FAQ）
 
 - **修正目的**: RX 9070 のページがスペックとスコアの羅列で、RTX 5070 との違い・弱点・実際の使用感が分からず購入判断に使えなかった。あわせて全GPUページ共通の不整合（AMDページへのDLSS表記、公式値を下回る推奨電源、スコアをFPSと誤認させる説明、CPU相性の過度な断定）を修正。

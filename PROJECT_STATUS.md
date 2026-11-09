@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-11-08（PC BUILDER の画面を整理：カードを1行に・詳細フィルターを折りたたみ・完成イメージ〔模式図〕を右列／スマホのシートへ移して高品質化。未コミット）
+最終更新: 2026-11-10（GPU GUIDE の固定ヘッダーに検索ボタンを追加し、トップ・個別ページのどこからでもGPU名で検索して個別ページへ移動できるように）
 
 ---
 
@@ -43,7 +43,7 @@
 | シッポ親サイト | https://sippo-pc.jp/ | 各子サイトへのポータル（入口） | `/`（`index.html`） |
 | シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（申し込みはSquare決済リンク→決済完了後にGoogleフォームへ自動遷移→フォーム送信で受付完了）。**サブプラン＝1,500円 ゲーム向けPC構成・購入相談**（申し込みはココナラ商品ページ）。無料窓口は申し込み前の事前問い合わせ用 | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
-| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。**`gpu-guide/content/<id>.json` があるGPU（現在 RX 9070）は、結論・RTX 5070比較・運営者の実機レビュー・VRAM/ローカルAI・製品モデル・FAQ・出典を追加で生成する**（2026-11-09〜。文章はJSON、数値は差し込みで各情報源から）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
+| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。**`gpu-guide/content/<id>.json` があるGPU（現在 RX 9070）は、結論・RTX 5070比較・運営者の実機レビュー・VRAM/ローカルAI・製品モデル・FAQ・出典を追加で生成する**（2026-11-09〜。文章はJSON、数値は差し込みで各情報源から）。**ヘッダーの🔍検索（`gpu-search.js`）で全ページからGPU名を検索→個別ページへ移動できる**（2026-11-10〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |

@@ -6,7 +6,8 @@
 //     旧キャッシュが残ると新ページが未スタイルで表示される。必ず版を上げること。
 // v6: スマホ表示の修正（ロゴ・パンくずのタップ領域）。common.css / style.css を更新。
 // v10: GPU個別ページの追加コンテンツ（RX 9070の比較・実機レビュー等）用に style.css を更新。
-const CACHE_NAME = 'gpu-guide-v10';
+// v11: ヘッダー検索（gpu-search.js）を追加し common.css を更新。
+const CACHE_NAME = 'gpu-guide-v11';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -16,6 +17,7 @@ const ASSETS_TO_CACHE = [
   './style.css',
   './script.js',
   './gpu-detail.js',
+  './gpu-search.js',
   './affiliate-links.js',
   // 共通アフィリエイト基盤（サイト横断で共有。パスは絶対）
   '/shared/affiliate/affiliate-config.js',
