@@ -25,7 +25,8 @@
 //      （他サイトのデータなので、こちらの版上げを待たずに最新を使う）。
 // v11: 診断結果に「この構成をカスタマイズする」（PC BUILDER への引き継ぎ）を追加（script.js）。
 //      共通ナビ（shared/nav/sippo-nav.js）に PC BUILDER を追加。どちらもキャッシュ対象のため版を上げる。
-const CACHE_NAME = 'pc-build-check-v11';
+// v12: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え（index.html を更新）。
+const CACHE_NAME = 'pc-build-check-v12';
 
 const STATIC_ASSETS = [
   './',
@@ -42,6 +43,8 @@ const STATIC_ASSETS = [
   '/shared/affiliate/affiliate.css',
   '/shared/affiliate/affiliate-master.json',
   '/shared/affiliate/affiliate-recommend.js',
+  // GA4 共通ローダー（測定IDと送信条件。index.html の head で読む）
+  '/shared/analytics/sippo-analytics.js',
   // 共通サービスナビ（ヘッダーのサービス切り替え）
   '/shared/nav/sippo-nav.js',
   '/shared/nav/sippo-nav.css',

@@ -1180,14 +1180,8 @@ function buildPage(gpu, byId) {
   <!-- SEO -->
   <link rel="canonical" href="${esc(url)}" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-NDQ8GTKGHC');
-  </script>
+  <!-- Google Analytics 4（測定ID・送信条件は /shared/analytics/sippo-analytics.js に集約） -->
+  <script src="/shared/analytics/sippo-analytics.js"></script>
 
 ${ld.map((block) => `  <script type="application/ld+json">
 ${jsonLd(block)}
@@ -1299,7 +1293,7 @@ ${F(renderFeatureSources)}
   <footer class="site-footer">
     <div class="container">
       <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
-      <p>&copy; 2026 GPU GUIDE</p>
+      <p>&copy; 2026 GPU GUIDE ／ <a href="/privacy/">プライバシーポリシー</a></p>
     </div>
   </footer>
 

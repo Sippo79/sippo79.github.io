@@ -321,7 +321,7 @@ Amazon / 楽天はBot対策やリダイレクトがあり、HTTPステータス�
 
 ## クリック計測
 
-購入ボタンのクリックは GA4（`G-NDQ8GTKGHC`、サイト全体で同一）へ
+購入ボタンのクリックは GA4（測定ID `G-NDQ8GTKGHC`。2026-11-13〜 `shared/analytics/sippo-analytics.js` に集約、サイト全体で同一）へ
 `affiliate_click` イベントとして送られます。
 
 送信されるパラメータ：

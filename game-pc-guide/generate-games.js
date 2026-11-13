@@ -79,13 +79,29 @@ if (!NR.isValidDate(TODAY)) fail(`GAME_GUIDE_TODAY「${TODAY}」が YYYY-MM-DD �
 const DATES_PATH = path.join(ROOT, "data", "page-dates.json");
 const pageDates = fs.existsSync(DATES_PATH) ? readJson(DATES_PATH) : {};
 const LASTMOD = "__LASTMOD__";
-/** 内容ハッシュの計算から除くもの：更新日そのものと、CSS/JSの版番号 */
-const contentKey = (html) => hashOf(html.split(LASTMOD).join("").replace(/\?v=[0-9a-f]{10}/g, ""));
+/** 内容ハッシュの計算から除くもの：更新日そのものと、CSS/JSの版番号と、計測タグ（GTAG。ページ内容ではないため） */
+const contentKey = (html) => hashOf(html.split(LASTMOD).join("").split(GTAG).join("").replace(/\?v=[0-9a-f]{10}/g, ""));
+/**
+ * 互換：2026-11-13 に計測タグを共通ローダーへ置き換えたとき、lastmod を動かさないための旧方式のハッシュ。
+ * 旧ハッシュは「旧 gtag.js タグを含むHTML」で計算されている。一度再生成すれば page-dates.json は新方式に置き換わる。
+ * （LEGACY_GTAG はハッシュ計算にだけ使い、ページには出力しない）
+ */
+const LEGACY_GTAG = `  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NDQ8GTKGHC');
+  </script>`;
+const legacyKey = (html) => hashOf(html.split(LASTMOD).join("").split(GTAG).join(LEGACY_GTAG).replace(/\?v=[0-9a-f]{10}/g, ""));
 /** 内容が前回と同じなら前回の日付、変わっていれば今日 */
 function resolveDate(key, html) {
   const h = contentKey(html);
   const prev = pageDates[key];
-  const date = prev && prev.hash === h ? prev.modified : TODAY;
+  const same = prev && (prev.hash === h || prev.hash === legacyKey(html));
+  const date = same ? prev.modified : TODAY;
   pageDates[key] = { hash: h, modified: date };
   return date;
 }
@@ -252,19 +268,12 @@ const FOOTER = `  <footer class="site-footer">
     <div class="container">
       <p class="site-footer__affiliate-note">当サイトはアフィリエイト広告（Amazonアソシエイト・楽天アフィリエイト等）を利用しています。リンク先で商品を購入すると運営者に収益が発生する場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       <p class="site-footer__note">掲載している公式スペックは各ゲームの公式情報の確認日時点のものです。PCの価格は変動するため、購入前に販売店で最新の価格と構成をご確認ください。</p>
-      <p>© GAME PC GUIDE ／ <a href="https://sippo-pc.jp/">Sippo（シッポ）</a></p>
+      <p>© GAME PC GUIDE ／ <a href="https://sippo-pc.jp/">Sippo（シッポ）</a> ／ <a href="/privacy/">プライバシーポリシー</a></p>
     </div>
   </footer>`;
 
-const GTAG = `  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-NDQ8GTKGHC');
-  </script>`;
+const GTAG = `  <!-- Google Analytics 4（測定ID・送信条件は /shared/analytics/sippo-analytics.js に集約） -->
+  <script src="/shared/analytics/sippo-analytics.js"></script>`;
 
 const SW = `  <script>
     if ('serviceWorker' in navigator) {

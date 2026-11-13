@@ -119,6 +119,13 @@
 
   form.addEventListener("input", function () { apply(true); });
   form.addEventListener("change", function () { apply(true); });
+  // GA4：絞り込みの選択肢（選択式の項目だけ。自由入力の検索欄の文字は送らない）
+  form.addEventListener("change", function (e) {
+    var t = e.target;
+    if (!t || t.tagName !== "SELECT" || !window.SippoAnalytics) return;
+    var key = Object.keys(fields).filter(function (k) { return fields[k] === t; })[0];
+    if (key) window.SippoAnalytics.track("game_filter", { filter: key, value: t.value || "(all)" });
+  });
 
   var resetBtns = document.querySelectorAll("#filterReset, [data-filter-reset]");
   Array.prototype.forEach.call(resetBtns, function (b) { b.addEventListener("click", reset); });

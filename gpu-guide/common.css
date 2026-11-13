@@ -692,3 +692,6 @@ a {
   .gpu-qs-item__meta { display: none; }
   .gpu-qs-list { max-height: 55vh; }
 }
+
+/* プライバシーポリシーへのリンク（2026-11-14）：本文と同じ色のままだとリンクと分からないため下線を付ける */
+.site-footer a { text-decoration: underline; text-underline-offset: 2px; }

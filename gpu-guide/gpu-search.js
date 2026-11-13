@@ -130,7 +130,7 @@
       var meta = [];
       if (g.vram) meta.push('VRAM ' + g.vram + 'GB');
       if (g.target) meta.push(g.target + '向け');
-      currentItems.push({ type: 'gpu', href: DETAIL_URL(g.id) });
+      currentItems.push({ type: 'gpu', href: DETAIL_URL(g.id), id: g.id });
       html += '<li role="option" id="gpuQsOpt' + (currentItems.length - 1) + '" class="gpu-qs-item" data-index="' + (currentItems.length - 1) + '">' +
         '<a href="' + DETAIL_URL(escapeHtml(g.id)) + '" tabindex="-1">' +
         '<span class="gpu-qs-item__brand gpu-qs-item__brand--' + (g.brand === 'AMD' ? 'amd' : 'nvidia') + '">' + escapeHtml(g.brand === 'AMD' ? 'AMD' : 'NVIDIA') + '</span>' +
@@ -172,6 +172,8 @@
     var item = currentItems[i];
     if (!item) return;
     if (item.type === 'gpu') {
+      // GA4：選ばれたGPUのIDだけを送る（入力した文字列は送らない）
+      if (window.SippoAnalytics) window.SippoAnalytics.track('gpu_search_select', { gpu_id: item.id, source: 'header_search' });
       window.location.href = item.href;
       return;
     }

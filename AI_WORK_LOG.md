@@ -18,6 +18,118 @@
 
 ---
 
+## 2026-11-14 — 回答期限を「7日以内」に統一、キャンセル・返金と支払方法を確定、公開ゲートを運営者確認リストに分離
+
+- **修正目的**: 運営者が正式決定した販売条件（回答期限＝決済とフォーム送信の両方の完了から7日以内・暦日）に統一し、Square 側で必要な設定を明確にする。
+- **変更ファイル**: `legal/index.html`（販売価格「500円（税込）・1件」、支払方法「クレジットカード、Google Pay」、提供時期＝7日以内・暦日・翌日を1日目・例「11月2日（月）→11月9日（月）」、情報不足は速やかに追加依頼し期限を一方的に延ばさない・変更は同意を得て、キャンセル/返金6項目）、`pc-consult/index.html`（500円ボタン下を同じ条件に）、`scripts/test-legal.js`（7日・暦日・起点と例・延長しない・旧表記の全ページ検査・支払方法と確認状況の一致・公開ゲート）、新規 `scripts/release-checklist.json`（運営者が Square で確認する4項目。Pages では scripts/ ごと非配信）。
+- **支払方法の根拠**: クレジットカード＝Square 公式ヘルプ（カード決済は自動受付）。Google Pay＝運営者が決済画面で確認（運営者の申告。Claude は決済画面の2画面目を開いていない）。Apple Pay＝Square の告知（2025-11-04「自動的に有効化」）とヘルプ（設定 > 一般で切り替え）が食い違い、実際の状態は未確認のため記載していない。
+- **最終確認画面**: 消費者庁の申込み段階ガイドライン（分量・価格・支払時期/方法・提供時期・撤回/解除・申込期間）。リンク先に委ねる場合は最終確認画面に参照箇所を明確に示すこと、制限的な解約条件は画面上に明示が必要 → Square の説明文・加盟店ポリシーに要点を直接載せ、詳細は /legal/ へ（運営者が設定）。Square の決済ページ1画面目は現状「ワンコイン診断 ￥500・数量ボタン・お会計」のみ。
+- **数量**: Square の公式ヘルプに数量固定の記載なし。「支払いを受け付ける」型のリンクは消費税設定が自動適用されるため、作り直す場合は合計500円を必ず確認。数量2以上の扱いは運営者未決定（勝手に決めていない）。
+- **検証**: 全18テスト成功（test-legal 83件）。`--release` は運営者確認4件で失敗（緩めていない）。生成スクリプトの再実行で変化0件。コミット候補233ファイルに _control と秘密情報なし。/legal/ と相談室を PC・スマホで表示確認。
+- **未対応（運営者）**: release-checklist.json の4項目（Apple Pay・説明文/加盟店ポリシー・数量・合計500円）、Enforce HTTPS。
+
+## 2026-11-14 — 特商法表記の販売条件を確定（回答期限・キャンセル/返金）、公開前の最終検査（※回答期限「5営業日」は旧案。同日に「7日以内」へ変更済み＝下の記録は履歴）
+
+- **修正目的**: 運営者が決めた販売条件を /legal/ と相談室ページに反映し、公開前の残課題を検査する。
+- **変更ファイル**: `legal/index.html`（支払方法・提供時期・キャンセル/返金）、`legal/legal.css`（箇条書き）、`pc-consult/index.html`（500円ボタン下の回答期限・キャンセルの説明を表記と一致させた）、`scripts/test-legal.js`（確定条件と相談室ページとの一致を11件追加）、`_control/README.md`（非公開リポジトリでのバックアップ手順）。
+- **確定した内容**: 回答期限＝決済と相談フォームの送信が両方完了してから原則5営業日以内（土日祝日を除く）。入力不足・不備のときはメールで確認し、5営業日は必要な情報がそろった日から数える（この扱いは期限ルールから導いた文言。運営者確認を推奨）。キャンセル/返金＝送信前は原則全額、送信後の利用者都合は原則不可、期限超過・運営者都合は全額、法令上の権利は制限しない、原則 Square 経由、連絡先 sippo.pc@gmail.com。
+- **支払方法**: クレジットカードは Square 公式ヘルプで「決済リンクではカード決済は自動で受け付ける」と確認。Apple Pay・Google Pay はリンク設定ごとのオン/オフで、実際の状態は確認できず（決済ページは最初の画面だけ閲覧。「お会計」を押すと注文が作られる可能性があるため押していない）→ ページに【要確認】を1件残した。
+- **Square の決済ページ（閲覧のみで確認）**: 表示は「シッポ相談室／ワンコイン診断／￥500／数量の増減ボタン／合計はお会計時に計算されます」のみ。説明文・提供時期・キャンセル条件・/legal/ へのリンクは無い。数量を2以上にできる。
+- **Pages の除外設定**: リポジトリの workflow は GitHub 管理の pages-build-deployment（dynamic）だけ、.github/ と .nojekyll は無し＝ブランチ公開の Jekyll 3.10（pages.github.com/versions.json）でビルドされるため _config.yml の exclude が効く構成。Pages 設定 API は認証が必要で build_type は直接未確認。
+- **検証**: 全18テスト成功（test-legal 71件）。`--release` は【要確認】1件で失敗（想定どおり）。
+- **未対応・次にやること（運営者）**: ①Square の決済リンク設定で Apple Pay・Google Pay の状態を確認し legal/index.html に反映 ②Square の決済リンクに説明文（提供時期・キャンセル条件・/legal/ のURL）を追加し、数量を1に固定できるなら固定 ③「合計はお会計時に計算されます」で税・手数料が加算されないことを確認（表記は「500円・総額」）④Enforce HTTPS ⑤公開後に除外ファイルが 404 になることを確認。
+- **別AIへの引き継ぎ注意点**: 販売条件を変えるときは legal/index.html と pc-consult/index.html の両方を直し、test-legal.js の期待文言も更新する。
+
+## 2026-11-14 — 公開準備：特定商取引法に基づく表記（/legal/・未決定3項目あり）と内部ファイルの公開防止
+
+- **修正目的**: 有料相談（500円＝Square・1,500円＝ココナラ）の特商法表記を用意し、内部ファイルが GitHub Pages・公開リポジトリから出ないようにする。
+- **変更ファイル**: 新規 `legal/index.html`・`legal/legal.css`・`_config.yml`（Pages の exclude）・`scripts/test-legal.js`。変更 `pc-consult/index.html`（500円ボタン下とフッターにリンク）・`pc-consult/style.css`（.apply__legal-link）・`index.html`（フッター）・`privacy/index.html`（本文とフッター）・`sitemap-main.xml`（/legal/）・`.gitignore`（_control/ をフォルダごと除外）・`scripts/test-analytics.js`（_control が無い環境でも動く）・`_control/lib/health.js`（test-legal を追加）。
+- **特商法表記の根拠**: 消費者庁「通信販売広告について」「通信販売広告Q&A」（Q15・Q17：氏名・住所・電話番号は、請求時に遅滞なく〔電子メール等で〕提供する旨を表示し、実際に提供できる措置があれば省略可。屋号のみは不可。「遅滞なく」は申込みの意思決定に先立つ十分な余裕）。相談室ページの記載（500円・前払い・Square→フォーム・1件1回の3段階判定）、ココナラのサービスページ（1,500円・お届け日数「要相談」・有料オプション・キャンセルはココナラの安心保証）。Square の決済ページは JavaScript 描画で内容（支払方法・規約）を確認できず。
+- **未決定（運営者が決める・ページ上に【要決定】で表示）**: ①Square で使える支払方法 ②回答までの期限 ③キャンセル・返金の条件。`node scripts/test-legal.js --release` は【要決定】が残る限り失敗する（公開前のゲート）。
+- **内部ファイル**: リポジトリは公開。sippo-pc.jp で AI_WORK_LOG.md・PROJECT_STATUS.md・README.md・Supabase の手順書と SQL・.ps1 が配信されていた（200）→ `_config.yml` の exclude で配信対象外に（公開ページから参照されていないことを test-legal.js が検査）。ただし GitHub 上では引き続き読める（履歴含む）。_control/ はルート .gitignore でフォルダごと除外（未追跡のまま。管理したい場合は非公開リポジトリへ）。
+- **検証**: 全18テスト成功（test-legal 60件・--release は未決定3件で失敗＝想定どおり）。/legal/ を PC・スマホで表示確認、相談室の500円ボタン下のリンクが白地で見えない不具合を修正。コミット候補232ファイルに秘密情報なし。
+- **未対応・次にやること（運営者）**: 上記①〜③の決定と反映、請求時開示に約1週間以内で応じられる体制の確認、Square の決済ページ（最終確認画面）に価格・提供時期・キャンセル条件を表示するか /legal/ へのリンクを載せる、GitHub の Enforce HTTPS、Jekyll の exclude は公開後に URL が 404 になることを確認（ローカルに Jekyll が無く事前ビルド不可）。
+- **別AIへの引き継ぎ注意点**: 特商法表記の【要決定】を推測で埋めない。_config.yml に公開ページが使うファイルを入れない。_control/ をコミットしない（git add -f 禁止）。
+
+## 2026-11-14 — 公開前の最終総合確認（GA4・プライバシーポリシー・Sippo CONTROL）
+
+- **修正目的**: 公開前に、セキュリティ・GA4計測・プライバシーポリシー・既存サイトを横断で検証する。
+- **変更ファイル**: `.gitignore`（新規・ルート。_control/data・secrets・exports とサービスアカウント鍵の二重の除外）、`shared/analytics/sippo-analytics.js`（本番ドメインなら http でも計測。https 限定だと HTTPS 強制が未設定の現状で http の訪問が計測から漏れる＝今回の変更で生じた計測漏れの修正）、`shared/analytics/README.md`、`scripts/test-analytics.js`（http 本番・偽ドメインのケース追加）、`_control/test/test-control.js`（認証情報・管理データが git で追跡されていないこと／ルート .gitignore の検査を追加）。
+- **検証結果**:
+  - セキュリティ：リポジトリは**公開**。_control/ は未追跡で、data/・secrets/（サービスアカウント鍵・ログイン用トークンが既に置かれている）・exports/ は git の除外対象であることを確認（中身は開いていない）。Pages は Jekyll のブランチ公開で、_ 始まりのファイルは本番で 404（pc-builds-hub/_config.yml で確認）＝_control/ は配信されない。追跡予定のファイルに秘密情報なし。
+  - GA4（実ブラウザ・本番URLをローカルファイルで再現し、Google への送信は横取りして届けずに確認）：送信先は G-NDQ8GTKGHC のみ、各ページ page_view 1回・content_group 付き・# とトークン/メール除去、affiliate_click は1クリック1回（GA4 の拡張計測の click は別名で併送）、consult_cta_click / cross_service_click は正しく1回、相談室内リンクは数えない、URL 書き換え（replaceState/pushState）でページビューは増えない＝現在のプロパティでは「履歴イベントに基づくページの変更」はオフと推定、?sippo_ga=off で停止し別ページへ移動しても送信0、?sippo_ga=on で再開、http の本番でも計測、ローカルは送信0。
+  - 既存サイト：生成スクリプトを再実行しても変更が消えない（差分なし）、canonical / og:url / robots の変更なし、サイトマップの変更は /privacy/ 追加と sitemap-main の lastmod のみ、GAME PC GUIDE の lastmod は HEAD と同一。PC・スマホでフッターと /privacy/ の表示を確認。全17テスト成功。
+- **未対応・次にやること（運営者）**: ①GitHub の Settings → Pages で「Enforce HTTPS」を有効化（http://sippo-pc.jp/ が 200 のまま）②特定商取引法に基づく表示がサイトに無い（500円相談を Square で自サイトから販売しているため、要否と記載事項を確認。法的判断のため専門家・公的情報で確認）③AI_WORK_LOG.md・PROJECT_STATUS.md は sippo-pc.jp 上でも公開されている（既存の状態。秘密情報は含まないが内部の運用情報。非公開にするなら _ 始まりへの移動や Jekyll の exclude を検討）。
+- **別AIへの引き継ぎ注意点**: リポジトリは公開。commit 前に `git status` で _control/data・secrets・exports が出ていないことを確認（2重の .gitignore と test-control.js が検出）。`git add -f` は使わない。
+
+## 2026-11-14 — プライバシーポリシー（/privacy/）を新設し、全サイトのフッターからリンク
+
+- **修正目的**: GA4・アフィリエイト・アカウント機能・相談受付の情報の取り扱いを公開する（GA4 の利用規約上も告知が必要）。GPT が修正した下書き（`_control/docs/privacy-policy-draft.md`）をベースに、実装と照合して整えた。
+- **変更ファイル**: 新規 `privacy/index.html`・`privacy/privacy.css`・`privacy/privacy.js`・`scripts/test-privacy.js`。フッターへのリンク追加：親サイト index.html、pc-consult、GPU GUIDE（index・gpu.html・個別65件・generate-gpu-pages.js）、PC BUILD CHECK（index・builds 75件・generate-builds.ps1・直下の旧 generate-builds.ps1）、GAME PC GUIDE（index・game.html・30件・generate-games.js）、PC BUILDER、UPGRADE（11件・generate-pages.js）、PC Builds Hub（10件）。フッターのリンクに下線：`gpu-guide/common.css`・`pc-build-check/style.css`・`pc-builds-hub/style.css`。`sitemap-main.xml`（/privacy/ を追加）・`sitemap.xml`（sitemap-main の lastmod）。`game-pc-guide/data/page-dates.json`（ハッシュのみ）。`_control/lib/health.js`（既存テスト一覧に test-privacy を追加）。
+- **下書きからの補完（コードで確認できた事実）**: アフィリエイトは Amazon アソシエイト・楽天アフィリエイト・Yahoo!ショッピング（affiliate-master.json の3ショップ）／PC構成投稿サイトは Supabase の認証（メール＋パスワード）と profiles（表示名・アイコンURL・自己紹介）・posts（パーツ構成・画像等。承認制）・likes、投稿はマイページから削除可・アカウント削除機能は無い→問い合わせで対応／相談は Square・Google フォーム・ココナラ・X/Instagram DM（pc-consult と親サイトの導線）／問い合わせ先は sippo.pc@gmail.com（2026-11-14 運営者指定。親サイトのフッターの mailto も同じアドレスに差し替え）／計測停止は共通ローダーの ?sippo_ga=off・on（ボタンと状態表示をページに設置）／ブラウザ内保存（PC BUILDER の保存構成・PC BUILD CHECK の比較リスト・Hub のログイン状態）／外部サービス（GitHub Pages・Google Fonts・jsDelivr を追記）。
+- **SEO への配慮**: GAME PC GUIDE はフッター変更で全30ページの lastmod が今日に動いたため、page-dates.json の日付を HEAD に戻して再生成し、sitemap.xml とページ内の更新日が HEAD と同一であることを確認（フッターのリンクは内容の更新ではないため）。GPU GUIDE・UPGRADE は再生成して編集結果と完全一致。PC BUILD CHECK の ps1 は実行せず、テンプレートと75ページの一致を確認。親サイトの /script.js はトップ専用の相対パス画像を読むため /privacy/ では読まず、必要なヘッダー処理だけ privacy.js に持たせた。
+- **検証**: 既存テスト14本＋test-analytics（1,063件）＋test-privacy（60件）＋Sippo CONTROL（203件）すべて成功。フッターを持つ公開ページ200件すべてにリンク（重複なし）。Chrome で /privacy/ を PC・スマホ幅で表示（横はみ出し・JSエラーなし、計測停止ボタンで「停止中」表示に切り替わることを確認）、主要8サイトのフッターを目視確認。
+- **影響範囲**: 新規URL /privacy/ の追加と、各サイトのフッターに1リンク。既存URL・canonical・既存サイトマップのURLは不変。
+- **未対応・次にやること（運営者の確認）**: 制定日／「運営者の氏名・住所は請求時に遅滞なく回答」とする方針／相談情報の保管期間／Hub の Discord 通知を本番で使っているか／Yahoo!ショッピングのアフィリエイトの提供元（バリューコマース等）を明記するか。
+- **別AIへの引き継ぎ注意点**: 新しいページ・生成スクリプトを作るときはフッターに `<a href="/privacy/">プライバシーポリシー</a>` を入れる（test-privacy.js が全公開ページを検査）。外部サービス・計測・保存項目を増やしたらポリシー本文も直す。
+
+## 2026-11-13 — GA4 の測定IDを従来の G-NDQ8GTKGHC に戻した（G-M8SF678NH0 は使わない）
+
+- **修正目的**: 旧プロパティ（G-NDQ8GTKGHC）のデータが使えることをユーザーが確認したため、同日に行った測定IDの置き換えを取り消す。未公開のうちに戻したので、旧プロパティへの計測は途切れない。
+- **変更ファイル**: `shared/analytics/sippo-analytics.js`（MEASUREMENT_ID のみ）、`scripts/test-analytics.js`（使う/使わない測定IDを入れ替え）、説明文（`shared/analytics/README.md`・`shared/affiliate/README.md`・`PROJECT_STATUS.md`・`_control/README.md`・`_control/lib/ga4.js`・`_control/public/app.js`・`_control/test/test-control.js`）。
+- **変更内容**: 測定IDだけを戻した。共通ローダー化（全ページの head はローダー1行）・本番以外で送信しない・URLのトークン/メール除去・content_group・追加イベント（consult_cta_click・cross_service_click・gpu_search_select・game_filter）・SW の版上げ・GAME PC GUIDE の lastmod 互換はそのまま。HTML 199件・生成スクリプトは測定IDを持たないため変更なし。
+- **影響範囲**: 公開後も計測先は従来どおり G-NDQ8GTKGHC。
+- **未対応・次にやること**: GA4 管理画面の設定（拡張計測の「ブラウザの履歴イベントに基づくページの変更」オフ・カスタムディメンション・データ保持14か月）は**従来のプロパティ G-NDQ8GTKGHC に対して**行う。不要になったプロパティ（G-M8SF678NH0）は GA4 管理画面で削除してよい（サイトからは何も送っていない）。
+- **別AIへの引き継ぎ注意点**: 測定IDは `shared/analytics/sippo-analytics.js` の1か所。G-M8SF678NH0 を使わないこと（test-analytics.js が全公開ファイルで検出する）。
+
+## 2026-11-13 — GA4 の計測を共通ローダーに集約（※測定IDは同日に G-NDQ8GTKGHC へ戻した。下の記録の「置き換え」は取り消し済み）
+
+- **修正目的**: SippoPC 全体の GA4 を新しいプロパティ（測定ID G-M8SF678NH0）に切り替え、サービス単位の分析・アフィリエイト/相談導線の計測・二重計測防止・ローカル操作の除外・個人情報の非送信を整え、Sippo CONTROL で分析できるようにする。
+- **調査結果**: 既に旧ID G-NDQ8GTKGHC の gtag.js が公開HTML 206件中199件に直書きされていた（未設置7件は部品HTML・offline・ツール・rls-test・未使用の 4k-creative-30man-2.html）。依頼時に提示された貼り付けコードは gtm.js 読み込み＋config 行なしで、そのままでは計測されない形だったため使っていない。ユーザー確認のうえ旧IDは**置き換え**（併用しない）。
+- **変更ファイル**: `shared/analytics/sippo-analytics.js`（新規・測定IDはここだけ）、`shared/analytics/README.md`（新規）、公開HTML 199件（gtag.js 7〜9行 → ローダー1行）、生成スクリプト4本（gpu-guide/generate-gpu-pages.js・game-pc-guide/generate-games.js・upgrade/generate-pages.js・pc-build-check/generate-builds.ps1）＋旧コピー generate-builds.ps1、`gpu-guide/gpu-search.js`（gpu_search_select）、`game-pc-guide/script.js`（game_filter）、SW 版上げ（pc-build-check v12＋ローダーをキャッシュ対象に／gpu-guide v12／game-pc-guide v15）、`pc-build-check/test-build-profile.js`（GA4 タグ確認をローダーに変更）、`scripts/test-analytics.js`（新規）、`game-pc-guide/data/page-dates.json`（ハッシュのみ。日付は不変）、Sippo CONTROL（イベント一覧・相談誘導の集計・設定画面の説明・健康診断に test-analytics を追加）、`_control/docs/privacy-policy-draft.md`（下書き）。
+- **変更内容**:
+  - ローダー: 本番（https の sippo-pc.jp / www）だけ gtag.js を読み込み config。ローカル・http・github.io・?sippo_ga=off のブラウザでは送信しない（gtag 関数は残すので既存コードは無変更で動く）。page_view に content_group（サービスID・CONTROL と同じ判定）。page_location / page_referrer / link_url から # とトークン類クエリを除去、イベントのメールアドレス・email/password 等のキーを除去・100文字に切る。相談室へのリンク consult_cta_click・別サービスへのリンク cross_service_click をクリック委譲で計測（data-track / data-affiliate-track / 外部リンクは除外＝既存イベントと二重にならない）。二重読み込みでも1回だけ動く。
+  - GAME PC GUIDE: 計測タグを内容ハッシュから除外し、旧タグで計算済みのハッシュとも一致判定する互換を入れたため、再生成しても lastmod・sitemap は変わらない（全30ページの日付を維持）。GPU GUIDE・UPGRADE は再生成して置き換え後のファイルと完全一致を確認。PC BUILD CHECK の ps1 は過去の事故を踏まえ実行せず、テンプレートと75ページの一致を確認。
+- **検証**: 既存テスト14本すべて成功（test-service-worker は 45→47件）、`node scripts/test-analytics.js` 1,058件成功、Sippo CONTROL テスト 203件成功。ローカル配信の主要13ページを Chrome で開き、ローダー1回・サービス判定・JSエラー0・**Google への通信0件**を確認。
+- **影響範囲**: 公開後、計測先が新プロパティに変わる（旧プロパティへの送信は止まる）。見た目・機能・URL・canonical・サイトマップは不変。
+- **未対応・次にやること（ユーザー側）**: GA4 管理画面で ①拡張計測「ブラウザの履歴イベントに基づくページの変更」オフ（必須）②カスタムディメンション登録 ③データ保持14か月 ④運営者のブラウザで ?sippo_ga=off。プライバシーポリシーの公開（下書きあり）。デプロイ後の確認項目は shared/analytics/README.md と完了報告を参照。
+- **別AIへの引き継ぎ注意点**:
+  - **gtag.js のタグをページに直書きしない**。測定IDを変えるときは sippo-analytics.js だけを直し、SW 3本の版を上げる。新しいページ・生成スクリプトもローダー1行を入れる（test-analytics.js が全公開HTMLを検査し、未設置・重複を検出する）。
+  - 新しいクリック計測を足すときは SippoAnalytics.track(name, params) を使い、入力文字列・個人情報を送らない。data-track 付きリンクはローダーの導線計測から外れる。
+  - Sippo CONTROL が API で読むのは GA4 の**数字のプロパティID**（測定IDではない）。認証はサービスアカウント鍵（_control/secrets/、公開しない）。
+
+## 2026-11-13 — Sippo CONTROL（運営管理システム）を新規構築（ローカル専用・_control/）
+
+- **修正目的**: サイト全体の検索流入・技術的な状態・パーツデータの鮮度と整合性・クリック・改善履歴を一元管理し、GPT に渡す詳細レポートを出力する。人間用の簡潔な画面と GPT 用の全件データを同じ集計基盤から出し分ける。
+- **変更ファイル**: `_control/` 一式（新規。server.js / cli.js / start-control.cmd / lib/*.js 21本 / public/ 6本 / test/ 2本 / README.md / .gitignore）。**既存サイトのファイルは1つも変更していない**（PROJECT_STATUS.md と本ファイルの追記のみ）。
+- **変更内容**:
+  - 方式: GitHub Pages では認証を置けないため、**127.0.0.1 だけで待ち受けるローカルの Node サーバー**（依存パッケージなし・npm install 不要）。フォルダ名を `_` 始まりにして Jekyll の公開対象から外した。data/ secrets/ exports/ は .gitignore。
+  - 認証: 初回起動でトークン生成（secrets/access-token.txt）、起動時に1回限りのログインURLを表示。HttpOnly・SameSite=Strict のセッション、Host 検査（DNSリバインディング対策）、変更系は専用ヘッダー＋Origin 検査（CSRF対策）、CSP（インラインスクリプト・外部読み込み禁止）、ログイン失敗10回で5分ロック。
+  - データ: Search Console API（日別・ページ・クエリ・ページ×クエリ・デバイス・国、サイトマップ、URL検査）、GA4 Data API（既存イベント affiliate_click / click_square_500 / click_coconala_1500 / consult_memo_copy ほか・ページビュー）、PageSpeed Insights API。サービスアカウント（読み取り専用スコープ）で JWT を自前署名。月別 JSON 保存、取得期間の入れ替えで重複なし、未確定日・欠損日・取得条件・リクエスト数を記録、429/5xx は指数バックオフ再試行、取得前に自動バックアップ7世代。**集計に使う GSC プロパティは1つだけ**（二重集計防止）。
+  - 画面（10画面）: 全体状況（状態バナー・変化の理由の文章・KPI・推移グラフ・サービス別・要対応）／改善候補／検索分析／サービス別／健康診断／パーツデータ／クリック・収益／GPT分析出力／改善履歴・効果測定／設定。ダークテーマ・PC/スマホ対応。未接続時は「未取得」と表示し架空値を出さない。
+  - 判定: ルールベース（しきい値は設定画面で変更可）。流入減は最小件数＋z≤−2 で偶然の揺れを除外、前期間が揃わない比較はしない、クリック変化を表示回数とCTRの寄与に分解（原因は断定しない）。
+  - 健康診断: ファイル検査（206 HTML・リンク6,722本・サイトマップ189URL・JSON・canonical/noindex/title。**大文字小文字を区別**して GitHub Pages と同じ判定）、既存テスト14本の実行、ローカル Chrome/Edge で主要9ページ×PC/スマホの JS エラー検査（GA4 等の計測はブロック）、本番の HTTP 応答、外部リンク（アフィリエイトは対象外）。
+  - パーツ検査: gpus.json / prices.json / parts.json / part-prices.json / price-bands.json / guide.json / affiliate-master.json / upgrade-engine.js を読み取りのみで突き合わせ、確認日の古さ（基準日数はデータ別に設定可）とサイト間の価格・消費電力・VRAM・コア数の食い違いを表示。
+  - GPT 出力: ZIP（report.md＝GPT への分析指示・要点・問題候補・制限、README.md、manifest.json＝行数とSHA-256、data/*.json・*.csv 全件、10万行で分割）、MD 単体、JSON 単体。対象はサイト全体／サービス／ページ／検出された問題。出力前に鍵・トークン・SAアドレス・ローカル絶対パスの混入を機械検査。
+  - 改善履歴: 手動登録・JSON 取り込み（重複除外）・commit 候補表示。改善日を除いた前後 N 日（既定7/28/56）を比較し、同期間のサイト全体の変化を併記（因果関係を断定しない注記つき）。
+  - 収益: クリック数（GA4）と収益額を分離。収益は ASP 管理画面の確定額の手入力のみ（推定しない）。
+- **検証**: `node _control/test/test-control.js` 202件成功（モックの Google API でページ送り・未確定日・差分取得の重複なし・再試行・権限エラー、認証・CSRF・Host・パストラバーサル、レポートの全件性と秘密情報の非混入など）。既存テスト14本すべて成功（変更前後で同じ）。テスト用データで全10画面を Chrome の PC(1366px)・スマホ(390px) 幅で撮影し、横はみ出し・コンソールエラー・CSP 違反なしを確認。
+- **実データで見つかったこと**（本番モードで実行）:
+  - `http://sippo-pc.jp/` が https へリダイレクトされず 200（GitHub Pages の「Enforce HTTPS」を確認。2026-07-24 の調査メモと同じ）。
+  - `/pc-builds-hub/` の `images/Test1.jpg` が存在しない（onerror で no-image.svg に置き換わるため見た目は崩れない）。
+  - `shared/parts/part-prices.json` の19項目が確認日 2026-09-03 のまま（60日超）。gpus.json の価格が PC BUILDER の価格.com 中央値より30%以上低いGPUが9件（既知の課題）。RX 590・RX 6650 XT の消費電力が gpus.json と upgrade-engine.js で違う。
+  - 本番のサイトマップ193URLはすべて正常応答（中央値472ms）。主要ページで JS エラーなし。
+- **影響範囲**: 公開サイトへの影響なし（`_control/` は Jekyll により公開されない。既存の HTML/JS/JSON は未変更）。
+- **未対応・次にやること**:
+  - ユーザー側: Google Cloud でサービスアカウント作成 → `_control/secrets/google-service-account.json` に配置 → Search Console（制限付き）と GA4（閲覧者）にそのアドレスを追加 → 設定画面でプロパティを入力（手順は `_control/README.md`）。
+  - 任意: GA4 で product_id / shop / placement をカスタムディメンション登録（商品別クリック用）。
+  - 上記の実データの指摘（http→https、Test1.jpg、part-prices の更新）は CONTROL 上の「改善候補」として残してある。
+- **別AIへの引き継ぎ注意点**:
+  - `_control/` は**公開しない前提**。リポジトリ直下に `.nojekyll` を置くと `_control/` が公開されてしまう（テストで検出）。分析データ（data/ exports/）や secrets/ をコミットしない。
+  - CONTROL はリポジトリのデータを**読むだけ**。パーツデータの修正は従来どおり各サービスの生成元・データファイルで行う。
+  - 画面とレポートは同じ集計関数（`_control/lib/metrics.js` / `issues.js`）を使う。表示用に数値を別計算しないこと。
+  - 有料 AI API は使わない方針。外部送信は Google 公式 API と、ボタンで実行した本番応答・外部リンク確認だけ。
+
 ## 2026-11-10 — GPU GUIDE：ヘッダーに検索（🔍）を追加し、全ページからGPUを探せるように
 
 - **修正目的**: GPU名の検索欄がトップの比較表（ページ中ほど）にしか無く、使いにくかった。GPU個別ページからは検索できなかった。

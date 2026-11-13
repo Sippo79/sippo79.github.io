@@ -3891,3 +3891,6 @@ body.has-compare-bar .site-footer { padding-bottom: 90px; }
   /* 共通ルールは長さだけを0にするため、開始の遅延（最大0.6秒）が残って一瞬空白になる。遅延も0にする */
   *, *::before, *::after { animation-delay: 0s !important; transition-delay: 0s !important; }
 }
+
+/* プライバシーポリシーへのリンク（2026-11-14）：本文と同じ色のままだとリンクと分からないため下線を付ける */
+.site-footer a { text-decoration: underline; text-underline-offset: 2px; }

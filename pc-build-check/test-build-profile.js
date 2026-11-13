@@ -268,7 +268,8 @@ check('build-profile.js を script.js より前に読む',
   indexHtml.indexOf('src="build-profile.js"') > -1 && indexHtml.indexOf('src="build-profile.js"') < indexHtml.indexOf('src="script.js"'));
 check('build-price.js を build-profile.js より前に読む',
   indexHtml.indexOf('/shared/parts/build-price.js') < indexHtml.indexOf('src="build-profile.js"'));
-check('GA4 タグを維持', indexHtml.indexOf("gtag('config', 'G-NDQ8GTKGHC')") > -1);
+check('GA4 共通ローダーを読み込む（測定IDは shared/analytics/sippo-analytics.js に集約）',
+  indexHtml.indexOf('<script src="/shared/analytics/sippo-analytics.js"></script>') > -1 && indexHtml.indexOf('googletagmanager.com/gtag/js') === -1);
 
 /* ------------------------------------------------------------------
  *  10. 予算別診断としてのデータ品質（2026-09-24 追加）

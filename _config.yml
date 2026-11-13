@@ -1,0 +1,36 @@
+# GitHub Pages（Jekyll）の設定（2026-11-14 追加）
+# 目的：サイトの表示に使わない内部ファイル（作業ログ・設定手順・SQL・生成/テスト用スクリプト・管理ツール）を
+#       sippo-pc.jp で配信しないようにするだけ。ページのURL・表示・SEOには影響しない。
+#
+# ⚠️ このリポジトリは公開（GitHub 上で誰でも読める）。ここで除外しても GitHub 上のファイルは読める。
+#    秘密情報はそもそもコミットしない（.gitignore／_control/.gitignore）。
+# ⚠️ 公開ページから参照されているファイルをここに足さないこと（scripts/test-legal.js が検査する）。
+# ⚠️ Jekyll 3 では exclude を書くと既定の除外リストが置き換わる。既定の対象（Gemfile・node_modules・vendor 等）は
+#    このリポジトリに存在しないため影響はない。追加する場合はこの一覧に足す。
+
+exclude:
+  # 管理ツール（_ 始まりで元々配信されないが、二重の安全策として明示）
+  - _control
+  # 作業ログ・仕様・手順書
+  - AI_WORK_LOG.md
+  - PROJECT_STATUS.md
+  - README.md
+  - pc-builder/README.md
+  - shared/affiliate/README.md
+  - shared/analytics/README.md
+  - pc-builds-hub/SETUP_SUPABASE.md
+  - pc-builds-hub/NOTIFY_PENDING_SETUP.md
+  - pc-builds-hub/supabase-schema.sql
+  - pc-builds-hub/supabase-seed.sql
+  - pc-builds-hub/supabase-verify.sql
+  - pc-builds-hub/supabase-rls-optional.sql
+  - pc-builds-hub/supabase-notify-pending.sql
+  # 生成・テスト・作業用スクリプト（ブラウザでは使わない）
+  - scripts
+  - tools
+  - game-pc-guide/tools
+  - generate-builds.ps1
+  - pc-build-check/generate-builds.ps1
+  - game-pc-guide/Generate-StaticGames.ps1
+  - gpu-guide/generate-sitemap.ps1
+  - pc-builds-hub/generate-sitemap.ps1

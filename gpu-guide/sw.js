@@ -7,7 +7,8 @@
 // v6: スマホ表示の修正（ロゴ・パンくずのタップ領域）。common.css / style.css を更新。
 // v10: GPU個別ページの追加コンテンツ（RX 9070の比較・実機レビュー等）用に style.css を更新。
 // v11: ヘッダー検索（gpu-search.js）を追加し common.css を更新。
-const CACHE_NAME = 'gpu-guide-v11';
+// v12: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え、gpu-search.js に検索選択の計測を追加。
+const CACHE_NAME = 'gpu-guide-v12';
 
 const ASSETS_TO_CACHE = [
   './',

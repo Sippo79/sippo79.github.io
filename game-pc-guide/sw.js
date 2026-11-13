@@ -15,7 +15,8 @@
 // v13: 新作判定を発売日（正式版の日）と生成日だけで行うよう修正。script.js が掲載最終日を過ぎた新作表示を閲覧時に外す。
 // v14: 各ゲームページの「次にやること」に PC BUILDER（このゲーム向けにPCを組む）を追加（style.css・games/*.html を更新）。
 //      共通ナビ（shared/nav）にも PC BUILDER を追加。
-const CACHE_VERSION = 'v14';
+// v15: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え、script.js に絞り込みの計測を追加。
+const CACHE_VERSION = 'v15';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 

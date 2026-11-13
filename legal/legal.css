@@ -1,0 +1,16 @@
+/* 特定商取引法に基づく表記（/legal/）。共通の見た目は /privacy/privacy.css、ここは表と未決定表示だけ */
+.legal__table { margin: 0 0 14px; border-top: 1px solid #EFE6D6; }
+.legal__table > div { display: grid; grid-template-columns: 11.5em 1fr; gap: 6px 18px; padding: 12px 2px; border-bottom: 1px solid #EFE6D6; }
+.legal__table dt { font-weight: 800; }
+.legal__table dd { margin: 0; word-break: break-word; }
+.legal__note { font-size: .92rem; color: var(--c-ink-soft); }
+.legal__list { margin: 0 0 0 1.2em !important; list-style: disc; }
+.legal__list li { margin-bottom: 4px; }
+
+/* 運営者が決めるまでの未決定項目（公開前に必ず置き換える。scripts/test-legal.js --release が検出） */
+.legal__todo { display: inline-block; background: #FFF1C9; color: #8A5A00; border: 1px dashed #E0A800; border-radius: 6px; padding: 0 6px; font-weight: 800; }
+
+@media (max-width: 640px) {
+  .legal__table > div { grid-template-columns: 1fr; gap: 2px; padding: 12px 0; }
+  .legal__table dt { font-size: .9rem; color: var(--c-ink-soft); }
+}

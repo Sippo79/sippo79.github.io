@@ -10,15 +10,8 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#19e3ff" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-NDQ8GTKGHC');
-  </script>
+  <!-- Google Analytics 4（測定ID・送信条件は /shared/analytics/sippo-analytics.js に集約） -->
+  <script src="/shared/analytics/sippo-analytics.js"></script>
 
 </head>
 <body class="auth-page">
@@ -83,7 +76,7 @@
     </main>
 
     <footer class="page-footer">
-      &copy; 2026 PC Builds Hub. All rights reserved.
+      &copy; 2026 PC Builds Hub. All rights reserved. ／ <a href="/privacy/">プライバシーポリシー</a>
     </footer>
   </div>
 

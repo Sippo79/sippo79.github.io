@@ -3910,3 +3910,6 @@ button,
     font-size: 0.85rem;
   }
 }
+
+/* プライバシーポリシーへのリンク（2026-11-14）：本文と同じ色のままだとリンクと分からないため下線を付ける */
+.page-footer a { text-decoration: underline; text-underline-offset: 2px; }

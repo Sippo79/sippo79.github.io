@@ -902,13 +902,8 @@ function buildPage(page) {
 + articleJsonLd
 + faqJsonLd(page)
 + '\n'
-+ '  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>\n'
-+ '  <script>\n'
-+ '    window.dataLayer = window.dataLayer || [];\n'
-+ '    function gtag(){dataLayer.push(arguments);}\n'
-+ '    gtag(\'js\', new Date());\n'
-+ '    gtag(\'config\', \'G-NDQ8GTKGHC\');\n'
-+ '  </script>\n'
++ '  <!-- Google Analytics 4（測定ID・送信条件は /shared/analytics/sippo-analytics.js に集約） -->\n'
++ '  <script src="/shared/analytics/sippo-analytics.js"></script>\n'
 + '</head>\n'
 + '\n'
 + '<body data-sippo-theme="dark" data-sippo-site="upgrade">\n'
@@ -992,6 +987,7 @@ function buildPage(page) {
 + '            <li><a href="/gpu-guide/">GPU GUIDE</a></li>\n'
 + '            <li><a href="/pc-builds-hub/">PC構成投稿サイト</a></li>\n'
 + '            <li><a href="/pc-consult/">シッポPC相談室</a></li>\n'
++ '            <li><a href="/privacy/">プライバシーポリシー</a></li>\n'
 + '          </ul>\n'
 + '        </div>\n'
 + '      </div>\n'

@@ -53,15 +53,8 @@
   }
   </script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NDQ8GTKGHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-NDQ8GTKGHC');
-  </script>
+  <!-- Google Analytics 4（測定ID・送信条件は /shared/analytics/sippo-analytics.js に集約） -->
+  <script src="/shared/analytics/sippo-analytics.js"></script>
 
 </head>
 <body>
@@ -624,7 +617,10 @@
         <p class="apply__main-desc" style="margin-top:14px;margin-bottom:0">
           お支払い後、自動で相談フォームへ移動します。フォーム送信まで完了すると受付完了です。<br>
           決済時のお名前とフォームのお名前が違う場合は、フォーム内で分かるように入力してください。<br>
-          内容と決済を確認でき次第、順番に返信します。
+          料金は500円（税込）で、候補PC 1件の診断です。<br>
+          決済と相談フォームの送信が両方完了してから<strong>7日以内</strong>（土日祝日も含めて数えます）に返信します。<br>
+          診断結果をお送りする前ならキャンセル・全額返金ができます。期限内に返信できない場合も全額返金します（詳しい条件は下記の表記をご覧ください）。<br>
+          お申し込みの前に、<a href="/legal/" class="apply__legal-link">特定商取引法に基づく表記</a>（価格・支払い・提供時期・キャンセル）をご確認ください。
         </p>
       </div>
 
@@ -682,6 +678,8 @@
       <a href="#flow">相談の流れ</a>
       <a href="#notes">注意事項</a>
       <a href="#apply">申し込み</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/legal/">特定商取引法に基づく表記</a>
     </nav>
     <small class="footer__small">© 2026 シッポPC相談室 — 500円ワンコイン相談／1,500円 ゲーム向けPC構成・購入相談 受付中（申し込み前の確認は無料の事前問い合わせから）。</small>
   </div>

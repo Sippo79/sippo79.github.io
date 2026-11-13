@@ -1,0 +1,17 @@
+# このリポジトリは公開（GitHub 上で誰でも読める）。認証情報・管理データは絶対にコミットしない。
+# _control/.gitignore と同じ内容の二重の安全策（フォルダの移動・.gitignore の削除に備える）。
+
+# Sippo CONTROL（運営者専用の管理ツール）はフォルダごと公開リポジトリに入れない（2026-11-14〜）。
+# バージョン管理したい場合は、別の「非公開（private）リポジトリ」で管理する（GitHub Free でも無料）。
+_control/
+
+# 上の1行を外した場合でも、取得データ・認証情報・GPT用の出力だけは必ず除外する
+_control/data/
+_control/secrets/
+_control/exports/
+
+# Google のサービスアカウント鍵・環境変数ファイル（どの場所に置いても追跡しない）
+*service-account*.json
+*-sa-key*.json
+.env
+.env.*

@@ -1,0 +1,34 @@
+{
+  "_readme": "特定商取引法表記（/legal/）を公開する前に、運営者が Square の管理画面などで確認・設定する項目。確認したら status を書き換え、node scripts/test-legal.js --release が成功することを確認する。秘密情報は書かない（このファイルは公開リポジトリに入る）。",
+  "updated": "2026-11-14",
+  "square": {
+    "creditCard": {
+      "status": "confirmed",
+      "basis": "Square 公式ヘルプ「決済リンクの設定をカスタマイズする」：カード決済は自動的に受け付けられる"
+    },
+    "googlePay": {
+      "status": "confirmed",
+      "basis": "運営者が実際の決済画面で確認（2026-11-14 運営者の申告。Claude は決済画面の2画面目を開いていないため未検証）"
+    },
+    "applePay": {
+      "status": "unconfirmed",
+      "allowed": ["enabled", "disabled"],
+      "how": "Square データ > 支払いと注文 > リンク決済 > 設定 > 一般 > 支払い の Apple Pay の切り替えを確認。または iPhone/Mac の Safari で決済リンクを開き、Apple Pay ボタンが出るかを見る（支払いはしない）。enabled なら legal/index.html の支払方法に Apple Pay を追記する"
+    },
+    "descriptionAndPolicy": {
+      "status": "pending",
+      "allowed": ["done"],
+      "how": "決済リンクの説明文と加盟店ポリシーに、販売条件（500円税込・1件・7日以内・キャンセル/返金・/legal/ のURL）を登録し、決済画面で表示を確認する"
+    },
+    "quantity": {
+      "status": "pending",
+      "allowed": ["fixed-1", "rule-published"],
+      "how": "決済画面で数量を変更できないこと（fixed-1）を確認する。変更できる場合は、数量2以上で支払われたときの扱いを運営者が決め、legal/index.html に「数量」の扱いとして記載してから rule-published にする"
+    },
+    "chargedTotal": {
+      "status": "pending",
+      "allowed": ["verified-500"],
+      "how": "決済画面の最終的な合計が 500円（税・手数料の加算なし）であることを確認する（Square の消費税設定は「支払いを受け付ける」型のリンクに自動適用されるため）"
+    }
+  }
+}

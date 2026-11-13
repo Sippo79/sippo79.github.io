@@ -885,6 +885,9 @@ button:focus-visible,
 }
 .apply__presub-link:hover { color: #F4F0FF; }
 
+/* 500円の申込みボタン下の「特定商取引法に基づく表記」へのリンク（白いカード上なので青で下線） */
+.apply__legal-link { color: var(--c-blue-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
 .apply__back { margin-top: 14px; }
 .apply__back a {
   display: inline-block;

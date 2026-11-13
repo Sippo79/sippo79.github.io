@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-11-10（GPU GUIDE の固定ヘッダーに検索ボタンを追加し、トップ・個別ページのどこからでもGPU名で検索して個別ページへ移動できるように）
+最終更新: 2026-11-14（特定商取引法に基づく表記 /legal/ を準備〔未決定3項目〕、_config.yml で内部ファイルを Pages から除外、_control/ をリポジトリから除外）
 
 ---
 
@@ -49,6 +49,10 @@
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
 | PC BUILDER | https://sippo-pc.jp/pc-builder/ | パーツを自由に選び、**互換性（対応／要確認／非対応）**と**5角形の性能グラフ**（ゲーム・動画編集・配信・拡張性・コスパ）で確認する自作PCシミュレーター（2026-10-30〜）。2構成の重ね比較・URL共有・ブラウザ内保存。GPU GUIDE / PC BUILD CHECK / GAME PC GUIDE / UPGRADE / Builds Hub から構成を引き継げる。選んだパーツは右列（スマホは「完成図」）の**完成イメージ（SVGの模式図）**に組み込まれていく（2026-11-08〜）。**判定・計算はページ内JS、サーバー・API不使用**。共有URL（?b=...）は canonical=/pc-builder/ で sitemap には載せない。詳細は `pc-builder/README.md` | `pc-builder/` |
 
+| プライバシーポリシー | https://sippo-pc.jp/privacy/ | アクセス解析・アフィリエイト・PC構成投稿サイトのアカウント情報・相談の申し込み情報の取り扱い（2026-11-14〜）。親サイトと同じヘッダー/フッター。**全サイトのフッター（生成スクリプト4本を含む）からリンク**。このブラウザでの計測停止ボタン（?sippo_ga=off）あり。テスト `node scripts/test-privacy.js` | `privacy/` |
+| 特定商取引法に基づく表記 | https://sippo-pc.jp/legal/ | シッポPC相談室の販売条件（500円＝Square・1,500円＝ココナラ）と、氏名・住所・電話番号の請求時開示（2026-11-14〜。回答期限は決済とフォーム送信の両方の完了から7日以内〔暦日〕、キャンセルは診断送信前なら原則全額返金。支払方法はクレジットカード・Google Pay〔Apple Pay は未確認のため未記載〕）。相談室の申込みボタン下・相談室/親サイトのフッター・プライバシーポリシーからリンク。テスト `node scripts/test-legal.js`（公開前は `--release`） | `legal/` |
+| （非公開）Sippo CONTROL | 公開しない（`http://127.0.0.1:4870/` のローカル専用） | 運営管理：検索流入（GSC）・クリック（GA4）・健康診断・パーツデータ検査・改善履歴・GPT分析レポート出力（2026-11-13〜）。`_` 始まりのため GitHub Pages では公開されない。詳細は `_control/README.md` | `_control/` |
+
 **URLルール**:
 - できるだけ `index.html` なしの **ディレクトリURL** に統一（例: `/pc-consult/`）。実ファイル `index.html` は残し、`/.../index.html` でもアクセス可。
 - `canonical` / `og:url` / `sitemap.xml` は正式URL（ディレクトリURL）に合わせる。
@@ -56,7 +60,7 @@
 
 **サイトマップ構成（2026-06-30〜）**:
 - 直下 `sitemap.xml` は **サイトマップインデックス**（`<sitemapindex>`）。以下5本を束ねる:
-  - `sitemap-main.xml`（親サイト + `/pc-consult/`）
+  - `sitemap-main.xml`（親サイト + `/pc-consult/` + `/privacy/` + `/legal/`）
   - `gpu-guide/sitemap.xml` / `pc-build-check/sitemap.xml` / `game-pc-guide/sitemap.xml` / `pc-builds-hub/sitemap.xml`（各子サイトが個別ページまで網羅、多くは生成スクリプト由来）
   - `upgrade/sitemap.xml`（トップ＋パーツ別7ページ＋型番別記事3ページ＝計11URL。**すべて実体のある静的HTML**。診断結果はURLを持たないため載せない）
   - `pc-builder/sitemap.xml`（/pc-builder/ の1URLのみ。構成の共有URLは載せない）
@@ -132,6 +136,8 @@
   - `node pc-builder/test-pc-builder.js` … PC BUILDER（4,625件 / 2026-10-30〜）。データの健全性（出典・ID・二重管理なし）／互換性の各判定と「値が null のとき対応を返さない」／ランダム3000構成で例外・範囲外スコアなし／スコアの単調性／共有URLの往復・壊れたURL／75構成・30ゲーム・65GPU・UPGRADE・Hubからの引き継ぎ／既存サイトの導線とSEO。パーツデータの点検は `node pc-builder/validate-parts.js`（判定に使う主要仕様の不足と、未確認 null の一覧を出す）。データ更新時の検査（CPU仕様の整合・価格表の確認日と出典・古い価格・GPU価格を書かない）も同じテストに含む。
   - `node scripts/test-cross-links.js` … サイト間のGPU導線（61件 / 2026-09-03〜）。
     旧形式 `?gpu=` の残存、GPU名→id解決、遷移先の実在、生成物の要素欠落を検証する。
+- **アクセス解析 GA4**（`shared/analytics/`、2026-11-13〜）: 測定ID `G-NDQ8GTKGHC` と送信条件は **`shared/analytics/sippo-analytics.js` の1か所だけ**。各ページの head は `<script src="/shared/analytics/sippo-analytics.js"></script>` の1行（gtag.js を直書きしない。生成スクリプト4本も同じ）。本番 https://sippo-pc.jp 以外では送信しない／page_view に content_group（サービスID）／URLのトークン類・メールアドレスを除去／相談室へのリンク `consult_cta_click`・別サービスへのリンク `cross_service_click` を自動計測（data-track・data-affiliate-track 付きは対象外＝二重計測なし）。イベント一覧と GA4 管理画面の必須設定（拡張計測の「履歴イベントに基づくページの変更」オフ・カスタムディメンション）は `shared/analytics/README.md`。テスト `node scripts/test-analytics.js`。⚠️ ローダーを変えたら pc-build-check / gpu-guide / game-pc-guide の SW 版を上げる。
+- **運営管理ツール Sippo CONTROL**（`_control/`、2026-11-13〜）: ローカル専用の Node サーバー（依存なし・127.0.0.1のみ・トークン認証）。Search Console / GA4 Data / PageSpeed Insights の各 API（無料・サービスアカウントの読み取り専用）でデータを取り、`_control/data/`（git管理外）に保存。サイトのファイルは読むだけ。テスト `node _control/test/test-control.js`。⚠️ ルートに `.nojekyll` を置くと `_control/` が公開されるので置かない。
 - **バックエンド**: 原則なし。例外は PC構成投稿サイトの **Supabase**（次項）
 - **申し込み導線**: PC相談室の500円ワンコイン相談は **Squareの決済リンク**へ誘導。Square側で決済完了後にGoogleフォームへ自動遷移する設定が完了済み（フォーム送信まで完了して受付完了）。サイト側に決済機能・カートは実装していない（Square側の既存決済リンクへの外部遷移のみ）。無料の事前問い合わせは引き続きGoogleフォーム直リンク。
 - **アフィリエイト**: **共通基盤 `shared/affiliate/`**（2026-08-18〜）
@@ -247,7 +253,7 @@
 - **導入済みサイト**: GPU GUIDE（GPU詳細）/ GAME PC GUIDE（ゲーム別25ページ）/
   PC BUILD CHECK（診断結果＋構成詳細75ページ）/ PC Builds Hub（投稿詳細）。
   PC相談は基盤の読み込みのみで、**相談メニュー・料金・申し込み導線は変更していない**。
-- **クリック計測**: 既存GA4（`G-NDQ8GTKGHC`）に `affiliate_click` イベント。
+- **クリック計測**: GA4（測定ID `G-NDQ8GTKGHC`。`G-M8SF678NH0` は使わない〔2026-11-13 に一度切り替え、同日に戻した〕）に `affiliate_click` イベント。
   `product_id` / `product_name` / `shop` / `page` / `placement` / `link_url` / `page_path` を送る。
   `placement` で「どの位置のリンクが押されるか」を分析できる。
 - **⚠️ 守るべきルール**:
@@ -335,6 +341,12 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
 優先度: **A=早めに対応 / B=できれば対応 / C=様子見・将来対応**
 
 ### 優先度A
+- **特定商取引法に基づく表記：Square 側の運営者確認4件**（2026-11-14）: 販売条件は確定・反映済み（500円税込・1件／回答は決済とフォーム送信の両方の完了から7日以内・暦日／送信前キャンセルは原則全額返金・送信後の利用者都合は原則不可・期限超過/運営者都合は全額返金）。残りは `scripts/release-checklist.json` の ①Apple Pay の有効/無効 ②決済リンクの説明文・加盟店ポリシーに販売条件を登録 ③数量を1に固定（できなければ扱いを決めて表記）④決済画面の合計が500円。済んだら status を更新し `node scripts/test-legal.js --release` が通れば公開可。
+- **リポジトリは公開**（2026-11-14 確認）: commit したものは GitHub 上で誰でも読める（履歴含む）。sippo-pc.jp での配信はルートの `_config.yml` の exclude で作業ログ・手順書・SQL・スクリプトを除外（公開ページが参照するファイルを入れない）。`_control/` はルート .gitignore でフォルダごと除外（管理するなら非公開リポジトリへ）。
+- **GA4 の管理画面設定**（2026-11-13 共通ローダー化・ユーザー側で実施。対象は従来のプロパティ G-NDQ8GTKGHC）: ①拡張計測の「ブラウザの履歴イベントに基づくページの変更」を**オフ**（replaceState/pushState を使うページでページビューが重複するため・必須）②カスタムディメンション登録（product_id・shop・placement・from_service・to_service・gpu_id・filter）③データ保持14か月。手順は `shared/analytics/README.md`。
+- **プライバシーポリシーの公開前確認**（2026-11-14 `/privacy/` 作成・未公開。問い合わせ先は sippo.pc@gmail.com〔親サイトのフッターも同じ〕）: 制定日、運営者の氏名・住所を請求時に回答する旨、相談情報の保管期間、PC構成投稿サイトの Discord 通知の有無、Yahoo!ショッピングのアフィリエイトの提供元を運営者が確認する。内容を変えたら `node scripts/test-privacy.js`。
+- **Sippo CONTROL の Google 接続**（2026-11-13 構築・ユーザー側で実施）: サービスアカウント鍵を `_control/secrets/google-service-account.json` に置き、Search Console（制限付き）・GA4（閲覧者）に追加 → 設定画面でプロパティを入力。手順は `_control/README.md`。
+- **http:// が https:// へリダイレクトされない**（2026-11-13 CONTROL の本番応答確認で再確認）: `http://sippo-pc.jp/` が 200。GitHub Pages の Settings → Pages →「Enforce HTTPS」を確認。
 - **PC BUILDER 公開前の確認**（2026-10-30 作成・同日データ拡充・未コミット）: ①実機（PC・スマホ）で目視確認 ②`node pc-builder/validate-parts.js` の「主要仕様が不足」4件（SF850 の奥行き、ケース3件のベイ数）③PC BUILD CHECK の静的75ページ（`builds/*.html`）には導線未設置（`generate-builds.ps1` の再生成は過去に事故があったため見送り。診断結果画面には設置済み）④専用OGP画像（現在は親共通 `assets/ogp.png` を暫定流用）⑤ショップ価格は未登録（`parts.json` の `shops[]`）。CPUの仕様は Wikipedia 世代別ページの製品表（版を固定・二次情報と明記）で、AMD・Intel 公式との照合は未実施。MSI・GIGABYTE・Crucial・Kingston・Seasonic・be quiet!・Noctua・NZXT・Thermaltake は公式サイトが自動取得を拒否、ASRock は本文がJS描画で読めず、製品を登録していない（迂回はしない）。
 - **PC BUILDER の参考価格**（2026-10-30〜、2026-10-31 にGPUを追加）: 価格は3区分（実売確認価格／参考中央値／参考価格〔未確認〕）で、合計とコスパには確認日つきの前2つだけを入れる。GPUチップも `prices.json` の `gpuChips`（gpus.json は変更しない）。それ以外は `pc-builder/data/prices.json`（価格.com 人気ランキング掲載の最安値を手で確認・千円単位・確認日と出典つき）。**45日（`staleAfterDays`）で「古い」表示になるので、手で更新する**（自動取得はしない）。メモリ・SSDは既存の `part-prices.json` の値が実売と大きく違うため使わない（`rules.json` の `pricing.suspendFallback`）。GPUは gpus.json の値のまま、実売との差（約1.3〜1.7倍・2026-10-30確認）を画面で注意している。
 - **実クリックの計上確認**（ユーザー側で実施）。公開後に実際にボタンを押し、
