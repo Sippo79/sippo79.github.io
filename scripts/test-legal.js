@@ -143,8 +143,25 @@ const sq = checklist.square;
 ok('支払方法：クレジットカードを記載（Square 公式仕様で常に有効）', sq.creditCard.status === 'confirmed' && /支払方法\s*クレジットカード/.test(text));
 ok('支払方法：Google Pay の記載が確認状況と一致', (sq.googlePay.status === 'confirmed') === /Google Pay/.test(text));
 ok('支払方法：Apple Pay は確認できるまで記載しない（enabled のときだけ記載）', (sq.applePay.status === 'enabled') === /Apple Pay/.test(text));
+if (sq.applePay.status === 'enabled') {
+  ok('支払方法：Apple Pay の有効は管理画面の確認に基づく', sq.applePay.adminSetting === 'confirmed');
+  // 実機で表示を確かめるまでは、利用環境の制限を書いておく
+  if (sq.applePay.deviceDisplay !== 'verified') ok('支払方法：Apple Pay は実機未検証のため「対応環境のみ」と記載', /Apple Pay（対応環境のみ）/.test(text));
+}
 ok('支払方法：確認していない決済方法（PayPay・コンビニ・銀行振込など）を書かない', !/PayPay|コンビニ|銀行振込|Square Pay|後払い/.test(text.replace(/Square の決済ページ/g, '')));
 if (sq.quantity.status === 'rule-published') ok('数量2以上の扱いを記載', /数量/.test(text));
+// 決済リンク：相談室の500円ボタンがすべて現行リンクを指し、旧リンクが公開ファイルに残っていない
+const payUrl = sq.paymentLink.url;
+const sqHrefs = [...consult.matchAll(/href="(https:\/\/square\.link\/[^"]*)"/g)].map((m) => m[1]);
+ok('決済リンク：相談室の Square ボタンがすべて現行リンク', sqHrefs.length >= 2 && sqHrefs.every((h) => h === payUrl), sqHrefs.join(', '));
+ok('決済リンク：Square ボタンの GA4 クリック計測（data-track）を維持', (consult.match(/href="https:\/\/square\.link\/[^"]*"[^>]*data-track="click_square_500"/g) || []).length === sqHrefs.length);
+const oldPay = (sq.paymentLink.previous.match(/https:\/\/square\.link\/u\/[A-Za-z0-9]+/) || [''])[0];
+ok('決済リンク：旧リンクが公開ファイル（html/js）に残っていない', !!oldPay && (() => { const bad = []; const w = (d, rel = '') => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { if (e.name.startsWith('.') || e.name.startsWith('_') || e.name === 'node_modules') continue; const r = rel ? rel + '/' + e.name : e.name; if (e.isDirectory()) w(path.join(d, e.name), r); else if (/\.(html|js|json|xml)$/.test(e.name) && !r.startsWith('scripts/') && fs.readFileSync(path.join(d, e.name), 'utf8').includes(oldPay)) bad.push(r); } }; w(ROOT); return bad.length === 0; })());
+// 確認済みにした項目は、現行リンクで確認したものであること（リンクを替えたら確認をやり直す）
+for (const [k, v] of Object.entries(sq)) {
+  if (k === 'paymentLink' || !v.status || /unconfirmed|pending/.test(v.status)) continue;
+  if (k === 'creditCard' || k === 'googlePay' || v.allowed) ok(`確認記録：${k} は現行リンクで確認済み`, v.verifiedOn === payUrl, String(v.verifiedOn));
+}
 // 公開前ゲート：ページの未決定印と、運営者の確認がすべて済んでいること
 const pending = [];
 if (todos.length) pending.push(...todos);

@@ -18,6 +18,30 @@
 
 ---
 
+## 2026-11-14 — 特商法表記の支払方法に Apple Pay（対応環境のみ）を追加し、公開前チェックを完了
+
+- **修正目的**: 運営者が Square 管理画面で Apple Pay の有効を確認したため、/legal/ の支払方法に反映し、公開前ゲートを閉じる。
+- **変更ファイル**: `legal/index.html`（支払方法「クレジットカード、Google Pay、Apple Pay（対応環境のみ）」）、`scripts/release-checklist.json`（applePay: status=enabled、adminSetting=confirmed〔運営者の申告＋Square 設定値 apple_pay:true〕、deviceDisplay=unverified）、`scripts/test-legal.js`（enabled は管理画面確認が前提／実機未検証の間は「対応環境のみ」の記載を必須に。94件）、`PROJECT_STATUS.md`。
+- **管理画面と実機の区別**: 管理画面の有効設定＝確認済み（運営者）。Safari での Apple Pay ボタンの実機表示＝未検証（Claude・運営者とも）。
+- **検証**: `--release` 成功（94件）。全18テスト成功。Git 管理対象に _control・認証情報なし。
+- **未対応・次にやること**: 公開後、iPhone/Mac の Safari で Apple Pay ボタンの表示を確認し deviceDisplay を verified に。
+- **別AIへの引き継ぎ注意点**: deviceDisplay を verified にしても「（対応環境のみ）」は消さなくてよい（Apple Pay は Safari 等の対応環境でしか出ないため）。
+
+---
+
+## 2026-11-14 — 500円相談の Square 決済リンクを数量固定の新リンクへ切り替え、決済画面の販売条件を確認
+
+- **修正目的**: 数量を1に固定するため運営者が「支払いを受け付ける」型で作り直した新リンク（`https://square.link/u/HBIZ6W7r`）へ切り替え、公開前の Square 側確認を済ませる。
+- **変更ファイル**: `pc-consult/index.html`（500円ボタン2か所の href を新リンクへ。data-track="click_square_500"・data-location・target/rel は維持。申し込みセクションのコメントを更新）、`scripts/release-checklist.json`（paymentLink を追加。各確認に verifiedOn＝確認したリンクと根拠を記録）、`scripts/test-legal.js`（相談室の Square ボタンが全部現行リンクで GA4 計測付き／旧リンクが公開ファイルに無い／確認記録が現行リンクのもの、の検査を追加。90件）、`PROJECT_STATUS.md`。
+- **決済画面の確認（表示のみ・入力/支払いなし）**: 金額500円・明細数量1で数量欄なし・小計/注文合計 ￥500（税・手数料・チップの行なし、金額入力欄なし）・定期課金ではない（subscription_only=false）・説明文（サービス内容/500円税込/流れ/7日以内〔翌日起算・土日祝含む〕/キャンセル返金/問い合わせ/legal URL）・加盟店ポリシー「キャンセル・返金ポリシー」（確定条件と一致）・カード入力欄・Google Pay ボタン。決済後の遷移先は旧リンクと同じ Google フォーム（forms.gle/GY2qzrXtGMRTFFSv9 と KfEsjsgaL49My3gu5 は同じフォームIDに解決）。
+- **Apple Pay**: Square の設定値（digital_wallets）は apple_pay: true だが、Windows の Chrome では表示されないため実機未確認として release-checklist は unconfirmed のまま。/legal/ には記載しない。
+- **旧リンク**: `https://square.link/u/f9NW4Ctc` は Square 側で有効なまま（運営者の指示があるまで無効化しない）。サイトからの参照は0件。
+- **検証**: 全18テスト成功。`--release` は Apple Pay 1件のみで失敗（緩めていない）。生成スクリプト再実行で内容の変化なし（PC BUILD CHECK の ps1 は改行コードだけ変わるため戻した）。静的チェック 208 HTML／リンク7,009件、切れは既存の /pc-builds-hub/images/Test1.jpg のみ。PC/スマホ表示確認。公開サイトで内部ファイル（AI_WORK_LOG.md・_control・scripts・README 等）が404であることを確認。
+- **未対応（運営者）**: iPhone/Mac の Safari で Apple Pay 表示を確認 → release-checklist 更新（enabled なら /legal/ に追記）。説明文の「数量は「1」を選択してください」は数量欄がなくなったので削除推奨（任意）。
+- **別AIへの引き継ぎ注意点**: 決済リンクを替えたら release-checklist.json の paymentLink.url と各 verifiedOn を更新し、確認をやり直す（テストが照合する）。Square の加盟店ID・ロケーションID等の管理用の値は公開ファイルに書かない（短縮URLのみ使用）。
+
+---
+
 ## 2026-11-14 — 回答期限を「7日以内」に統一、キャンセル・返金と支払方法を確定、公開ゲートを運営者確認リストに分離
 
 - **修正目的**: 運営者が正式決定した販売条件（回答期限＝決済とフォーム送信の両方の完了から7日以内・暦日）に統一し、Square 側で必要な設定を明確にする。

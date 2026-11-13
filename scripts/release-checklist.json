@@ -1,34 +1,48 @@
 {
-  "_readme": "特定商取引法表記（/legal/）を公開する前に、運営者が Square の管理画面などで確認・設定する項目。確認したら status を書き換え、node scripts/test-legal.js --release が成功することを確認する。秘密情報は書かない（このファイルは公開リポジトリに入る）。",
+  "_readme": "特定商取引法表記（/legal/）を公開する前に、運営者が Square の管理画面などで確認・設定する項目。確認したら status を書き換え、node scripts/test-legal.js --release が成功することを確認する。秘密情報は書かない（このファイルは公開リポジトリに入る）。各項目の verifiedOn は、どの決済リンクで確認したか。決済リンクを替えたら、確認をやり直して verifiedOn も新しいリンクに直す（テストで照合）。",
   "updated": "2026-11-14",
   "square": {
+    "paymentLink": {
+      "url": "https://square.link/u/HBIZ6W7r",
+      "type": "支払いを受け付ける（数量を固定する目的で 2026-11-14 に作成）",
+      "previous": "https://square.link/u/f9NW4Ctc（商品を販売型・数量を変更できた。運営者の指示があるまで Square 側で無効化しない。サイトからは参照しない）"
+    },
     "creditCard": {
       "status": "confirmed",
-      "basis": "Square 公式ヘルプ「決済リンクの設定をカスタマイズする」：カード決済は自動的に受け付けられる"
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "basis": "2026-11-14 新リンクの決済画面を表示のみで確認：「支払いカード」欄（カード番号・MM/YY・CVV）が表示される。Square 公式ヘルプ「決済リンクの設定をカスタマイズする」：カード決済は自動的に受け付けられる"
     },
     "googlePay": {
       "status": "confirmed",
-      "basis": "運営者が実際の決済画面で確認（2026-11-14 運営者の申告。Claude は決済画面の2画面目を開いていないため未検証）"
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "basis": "2026-11-14 新リンクの決済画面（Windows の Chrome）で「エクスプレス会計」に Google Pay ボタンが表示されることを確認（支払いはしていない）"
     },
     "applePay": {
-      "status": "unconfirmed",
+      "status": "enabled",
       "allowed": ["enabled", "disabled"],
-      "how": "Square データ > 支払いと注文 > リンク決済 > 設定 > 一般 > 支払い の Apple Pay の切り替えを確認。または iPhone/Mac の Safari で決済リンクを開き、Apple Pay ボタンが出るかを見る（支払いはしない）。enabled なら legal/index.html の支払方法に Apple Pay を追記する"
+      "basis": "2026-11-14 運営者が Square 管理画面で Apple Pay が有効になっていることを確認（運営者の申告）。決済画面が読み込む Square の設定（digital_wallets）も apple_pay: true",
+      "adminSetting": "confirmed",
+      "deviceDisplay": "unverified",
+      "deviceDisplayNote": "iPhone/Mac の Safari で Apple Pay ボタンが実際に表示されるかは未検証（Claude・運営者とも実機で未確認）。/legal/ には「（対応環境のみ）」と書いている。公開後に実機で確認したら deviceDisplay を verified にする",
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "how": "Apple Pay は Safari でしか表示されないため、Windows の Chrome での確認では判断できない。Square データ > 支払いと注文 > リンク決済 > 設定 > 一般 > 支払い の Apple Pay の切り替えを確認するか、iPhone/Mac の Safari で https://square.link/u/HBIZ6W7r を開き、Apple Pay ボタンが出るかを見る（支払いはしない）。enabled なら legal/index.html の支払方法に Apple Pay を追記する"
     },
     "descriptionAndPolicy": {
-      "status": "pending",
-      "allowed": ["done"],
-      "how": "決済リンクの説明文と加盟店ポリシーに、販売条件（500円税込・1件・7日以内・キャンセル/返金・/legal/ のURL）を登録し、決済画面で表示を確認する"
+      "status": "done",
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "basis": "2026-11-14 新リンクの決済画面で、説明文（サービス内容・500円税込・申込みの流れ・7日以内〔翌日起算・土日祝日含む〕・キャンセル/返金・問い合わせ先・https://sippo-pc.jp/legal/）と、加盟店ポリシー「キャンセル・返金ポリシー」（7日以内・送信前は原則全額返金・送信後の利用者都合は原則不可・期限超過/運営者都合は全額返金・Square で返金・法令上の権利を制限しない・連絡先）が支払いボタンと同じ画面に表示されることを確認"
     },
     "quantity": {
-      "status": "pending",
+      "status": "fixed-1",
       "allowed": ["fixed-1", "rule-published"],
-      "how": "決済画面で数量を変更できないこと（fixed-1）を確認する。変更できる場合は、数量2以上で支払われたときの扱いを運営者が決め、legal/index.html に「数量」の扱いとして記載してから rule-published にする"
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "basis": "2026-11-14 新リンクの決済画面に数量の入力欄・増減ボタンが無いことを確認（明細の数量は 1 で固定）。旧リンクには「数量 −1+」があった"
     },
     "chargedTotal": {
-      "status": "pending",
+      "status": "verified-500",
       "allowed": ["verified-500"],
-      "how": "決済画面の最終的な合計が 500円（税・手数料の加算なし）であることを確認する（Square の消費税設定は「支払いを受け付ける」型のリンクに自動適用されるため）"
+      "verifiedOn": "https://square.link/u/HBIZ6W7r",
+      "basis": "2026-11-14 新リンクの決済画面で 小計 ￥500・注文合計 ￥500・支払いボタン「支払い ￥500」を確認。税・手数料・チップの行は無く、金額を入力する欄も無い。リンク設定上も金額 500円・チップ無効・定期課金ではない（単発）"
     }
   }
 }
