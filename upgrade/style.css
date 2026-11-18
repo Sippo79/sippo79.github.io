@@ -754,6 +754,8 @@ a.u-worry:hover {
 }
 .u-verdict__cost span { font-size: 12.5px; color: var(--u-fg-soft); }
 .u-verdict__cost strong { font-family: var(--u-mono); font-size: 21px; color: var(--u-fg); }
+/* 交換費用の合計を出さない理由（確認日の無い費用を含むとき） */
+.u-verdict__note { margin: 12px 0 0; font-size: 12.5px; line-height: 1.7; color: var(--u-fg-soft); }
 
 /* パーツ別の判定カード */
 .u-parts { display: grid; gap: 14px; }

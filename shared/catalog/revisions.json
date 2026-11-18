@@ -1,0 +1,639 @@
+{
+  "_meta": {
+    "purpose": "レコードごとのデータ更新日（dataUpdatedAt）と版（revision）。node scripts/catalog/build.js が内容のハッシュで自動更新する。手で直さない。",
+    "note": "dataUpdatedAt はデータを書き換えた日。外部の出典を確認した日は各値の checkedAt（別物）。変更内容そのものは git の履歴で追う。"
+  },
+  "records": {
+    "cpu:corei314100f": {
+      "hash": "49749d172101db0b",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei512400": {
+      "hash": "84dbf720cd264dd1",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei512400f": {
+      "hash": "444a4f4db323a6c1",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei512600k": {
+      "hash": "a072c3c6a32cfa0b",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei513400f": {
+      "hash": "85e6f6f079515bd8",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei513600k": {
+      "hash": "76470a2052e325b0",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei514400": {
+      "hash": "1d4d45e31a9bdadf",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei514400f": {
+      "hash": "205e6ead98c98a9e",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei514500": {
+      "hash": "0291661b50575972",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei514600k": {
+      "hash": "b067b5eaea7d6876",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei514600kf": {
+      "hash": "b87c5ff5e2be806d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei712700f": {
+      "hash": "bd36461bd6d91b27",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei712700k": {
+      "hash": "1a68e14072a8f863",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei713700f": {
+      "hash": "512460e27a2119f7",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei713700k": {
+      "hash": "9bf531ffcef7c212",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei714700f": {
+      "hash": "ae147563c28a4e0d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei714700k": {
+      "hash": "1c9426538d5b7fe7",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei714700kf": {
+      "hash": "f9a28b377c813e4d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei913900k": {
+      "hash": "71a04d0ffaa08837",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei914900k": {
+      "hash": "4237ff9500abbb22",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:corei914900kf": {
+      "hash": "df83a8e9390cc030",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra5225f": {
+      "hash": "e8de7c321f66d4b3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra5245k": {
+      "hash": "d21d63e0e0efc690",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra5245kf": {
+      "hash": "2e32fd7f78a8010f",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra7265f": {
+      "hash": "851152c1cff60499",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra7265k": {
+      "hash": "5e1ebd86f623dd2d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra7265kf": {
+      "hash": "59010005d519d1bd",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:coreultra9285k": {
+      "hash": "73d0a971e41aef00",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen55500": {
+      "hash": "0e40f63946e9fab4",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen55600": {
+      "hash": "7deab5233e8072d8",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen55600g": {
+      "hash": "581012ff1b6a791e",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen55600x": {
+      "hash": "8ab33b8607b1708d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen57500f": {
+      "hash": "ca60149c3c7aa7d3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen57600": {
+      "hash": "db864667537d4ea4",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen57600x": {
+      "hash": "717f5c900ced94ab",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen59500f": {
+      "hash": "6fd169ba4f8f3a91",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen59600": {
+      "hash": "cdf88c6b4a2e0fec",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen59600x": {
+      "hash": "648a010706956fce",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen75700x": {
+      "hash": "a175756afdfb7266",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen75700x3d": {
+      "hash": "d3f10e2401b43478",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen75800x": {
+      "hash": "00090af15c85c8de",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen75800x3d": {
+      "hash": "20bf44f135e98995",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen77700": {
+      "hash": "cc4f52e8fe17ed91",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen77700x": {
+      "hash": "97d03f4a31a0007b",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen77800x3d": {
+      "hash": "12435f3f1e407602",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen79700x": {
+      "hash": "28c08035cb38676d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen79800x3d": {
+      "hash": "bad46ba1df73ae97",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen79850x3d": {
+      "hash": "34c5b83aec8c7ea5",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen97900": {
+      "hash": "f9125b8ad3857d6f",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen97900x": {
+      "hash": "5f22c0a81b1e277c",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen97950x": {
+      "hash": "ace13c018224b18d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen97950x3d": {
+      "hash": "cefb6c6d41b68bc8",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen99900x": {
+      "hash": "c33655b6dfbf5204",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen99900x3d": {
+      "hash": "72ec462b488c11b7",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen99950x": {
+      "hash": "40dc9b35edad7a63",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "cpu:ryzen99950x3d": {
+      "hash": "2f3c6d729d8eaf7f",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1060-6gb": {
+      "hash": "a73151ac2a1ff154",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1070": {
+      "hash": "4f8e8f7e501151b3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1070-ti": {
+      "hash": "817621e6c7a9f71b",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1080": {
+      "hash": "59d905458fcf0b90",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1080-ti": {
+      "hash": "677ee2b386395ac5",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1650": {
+      "hash": "76d6123bfec42206",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1650-super": {
+      "hash": "39cad3b64b1b0662",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1660": {
+      "hash": "c2caf3697488aadd",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1660-super": {
+      "hash": "2d595a618e3d3564",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:gtx-1660-ti": {
+      "hash": "32bf394523216a31",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2060": {
+      "hash": "e03c33074070d9a2",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2060-super": {
+      "hash": "ea29c90a51a3a944",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2070": {
+      "hash": "065613ec4e43fef9",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2070-super": {
+      "hash": "b9cd90c7eeb922c3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2080": {
+      "hash": "a809191227400e3a",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2080-super": {
+      "hash": "fde7d2886f8df71c",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-2080-ti": {
+      "hash": "5be16ebbae28181d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3050": {
+      "hash": "b148ba26a4325392",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3060": {
+      "hash": "3180852e733aa896",
+      "revision": 2,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-3060-ti": {
+      "hash": "5978038309181b6b",
+      "revision": 2,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-3070": {
+      "hash": "9a2f2a2426d62850",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3070-ti": {
+      "hash": "8e57da432467cf85",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3080": {
+      "hash": "3483eedd177005c3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3080-ti": {
+      "hash": "f86dd5e320a6379d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3090": {
+      "hash": "8feb956b1142692d",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-3090-ti": {
+      "hash": "32010b3dc17158d6",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4060": {
+      "hash": "eadba97270aaca89",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4060-ti": {
+      "hash": "0a1279adc6f5b58f",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4070": {
+      "hash": "b37f1c2d8d144ba9",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4070-super": {
+      "hash": "e004e88097f6f8d4",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4070-ti": {
+      "hash": "9ec52cef37e18af4",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4070-ti-super": {
+      "hash": "35f5fa48e112e4b1",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4080": {
+      "hash": "b5c9cb3dbf262fad",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4080-super": {
+      "hash": "2712ae2f473030de",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-4090": {
+      "hash": "1bf30e811c56e150",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rtx-5050": {
+      "hash": "5c50b16d40b6d661",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5060": {
+      "hash": "b2b0df38162c1216",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5060-ti": {
+      "hash": "42ab634a212c3109",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5070": {
+      "hash": "e3dd680d049b90fb",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5070-ti": {
+      "hash": "310e01c36f3f0d1c",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5080": {
+      "hash": "de1915911f9ea8d1",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rtx-5090": {
+      "hash": "f34842f77a6be6a4",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rx-5500-xt": {
+      "hash": "8086be7547d97271",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-5600-xt": {
+      "hash": "c451ea79a93f46be",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-570": {
+      "hash": "f8e2d9b415fd0228",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-5700": {
+      "hash": "81eb4295203de1b5",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-5700-xt": {
+      "hash": "c8eaa5fd25cba358",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-580-8gb": {
+      "hash": "5aab40ddad9ccd20",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-590": {
+      "hash": "57eac2a0d4dfd6e0",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6500-xt": {
+      "hash": "abebf78937c97c2f",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6600": {
+      "hash": "fc137a917fc4121c",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6600-xt": {
+      "hash": "cc15ca83e46a23d5",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6650-xt": {
+      "hash": "b3b0c31d982b2e83",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6700": {
+      "hash": "27c248b3f4749e81",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6700-xt": {
+      "hash": "2dacb84e16ac32b8",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6750-xt": {
+      "hash": "7d9d6bcdeb795546",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6800": {
+      "hash": "83e189e0f86600d1",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6800-xt": {
+      "hash": "0f9c81b1211330ad",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6900-xt": {
+      "hash": "dfae40cd56def921",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-6950-xt": {
+      "hash": "212d2c36bf7f6b8b",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7600": {
+      "hash": "83dd7c6a5509902d",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rx-7600-xt": {
+      "hash": "cf57ed432d33c601",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7700-xt": {
+      "hash": "b3ad2d17bac75fba",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7800-xt": {
+      "hash": "7ec197c7b5d462c3",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7900-gre": {
+      "hash": "fe897aa639391b85",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7900-xt": {
+      "hash": "9492c7c97c463a8c",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-7900-xtx": {
+      "hash": "63baf5f99f2bf45e",
+      "revision": 1,
+      "dataUpdatedAt": "2026-11-14"
+    },
+    "gpu:rx-9060-xt": {
+      "hash": "9b9a3307b20bce8c",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rx-9070": {
+      "hash": "a466f6f1825001cc",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    },
+    "gpu:rx-9070-xt": {
+      "hash": "b40004e2b2d9b75c",
+      "revision": 3,
+      "dataUpdatedAt": "2026-11-15"
+    }
+  },
+  "removed": []
+}

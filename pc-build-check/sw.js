@@ -26,7 +26,14 @@
 // v11: 診断結果に「この構成をカスタマイズする」（PC BUILDER への引き継ぎ）を追加（script.js）。
 //      共通ナビ（shared/nav/sippo-nav.js）に PC BUILDER を追加。どちらもキャッシュ対象のため版を上げる。
 // v12: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え（index.html を更新）。
-const CACHE_NAME = 'pc-build-check-v12';
+// v13: 参考価格に価格の基準時期の注記を追加（script.js・shared/parts/build-price.js）。gpus.json に実売相場の項目を追加。
+// v14: 価格の基準が未確認のとき「〇年〇月時点の概算」と表示・予算で買えるとは限らない旨を追加（script.js・style.css・build-profile.js・shared/parts/build-price.js・part-prices.json）。
+// v15: 予算帯の名前に価格の時点を表示（index.html・script.js）。共通アフィリエイトに購入時の注意（purchaseNote）を追加。
+// v16: 共通アフィリエイトに商品カード（リンク先のメーカー名・製品名を表示）を追加（affiliate.js・affiliate.css・affiliate-master.json）。
+// v17: 共通アフィリエイトの商品カードに、楽天で発行した画像リンク（item.imageLink）をそのまま表示（affiliate.js・affiliate.css・affiliate-master.json）。
+// v18: 楽天カードのボタン文言を行き先に合わせる（商品を見る／価格を比較）・販売状態の注記・RTX 5070 Ti の発行画像（affiliate.js・affiliate.css・affiliate-master.json）。
+// v19: 楽天の画像リンクだけで紹介する製品（RTX 5070 を 12G VENTUS 2X OC、RTX 5060 を 8G VENTUS 2X OC V1 に変更し、旧モデルの価格比較ボタンを外す）（affiliate.js・affiliate.css・affiliate-master.json）。
+const CACHE_NAME = 'pc-build-check-v19';
 
 const STATIC_ASSETS = [
   './',

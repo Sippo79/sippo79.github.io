@@ -261,6 +261,7 @@
             <!-- script.jsでGPUランキングを表示 -->
           </div>
         </div>
+        <p class="ranking-price-note">「掲載価格の目安」は、価格.com人気ランキングに掲載された新品製品の最安値の中央値です（税込・送料別。確認日は各GPUのページ）。購入できる価格を保証するものではありません。「（未確認）」の価格は確認日の記録が無い目安で、コスパの順位には使っていません（掲載製品が5件未満のGPUも順位に含めません）。</p>
 
         <button type="button" id="rankingMoreBtn" class="ranking-more" aria-expanded="false" aria-controls="gpuRankingList">
           もっと見る
@@ -337,7 +338,7 @@
           </select>
 
           <select id="budgetFilter">
-            <option value="all">予算帯：すべて</option>
+            <option value="all">価格帯：すべて</option>
             <option value="under20000">1万円台まで</option>
             <option value="20000">2万円台</option>
             <option value="30000">3万円台</option>
@@ -349,7 +350,7 @@
             <option value="performance">ゲーム性能順</option>
             <option value="overall">総合スコア順</option>
             <option value="used">中古おすすめ順</option>
-            <option value="price">価格目安が安い順</option>
+            <option value="price">価格が安い順（価格を確認できたGPUを先に表示）</option>
             <option value="vram">VRAM多い順</option>
           </select>
         </div>

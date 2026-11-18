@@ -58,11 +58,6 @@
     }
   },
 
-  "gpuChipPower": {
-    "_note": "upgrade/upgrade-engine.js の GPU_POWER_SPEC（NVIDIA/AMD 公式値）に無いチップだけをここに足す。重複させない。",
-    "rtx5050": { "psu": 550, "connector": "8ピン×1 または 16ピン（12V-2x6）", "source": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/", "checkedAt": "2026-10-30" }
-  },
-
   "resolutions": {
     "_note": "GPUの rasterScore（GPU GUIDE のサイト独自指数）で『その解像度を主用途として検討できる下限』。WQHD / 4K は shared/gpu/gpu-target.js の THRESHOLDS と同じ値を実行時に読む。FHD は upgrade-engine.js の RESOLUTION_TARGETS.fhd.base（42）を使う。",
     "order": ["fhd", "wqhd", "4k"],

@@ -1,0 +1,1733 @@
+{
+  "_meta": {
+    "purpose": "GPUチップごとの「価格.com 人気売れ筋ランキング掲載製品の最安値の中央値」の取得記録。shared/catalog/gpu.json の market-median（evidence がこのファイル）の根拠。scripts/catalog/validate.js がここから中央値を再計算して照合する。",
+    "population": "ランキング1〜5ページ（200製品）に掲載され、最安値が表示された製品だけ。市場全体の相場・販売数量で重み付けした値ではない。購入できる価格を保証しない。",
+    "source": "kakaku-gpu-2026-11-15",
+    "pages": [
+      "https://kakaku.com/pc/videocard/ranking_0550/",
+      "https://kakaku.com/pc/videocard/ranking_0550/?page=2",
+      "https://kakaku.com/pc/videocard/ranking_0550/?page=3",
+      "https://kakaku.com/pc/videocard/ranking_0550/?page=4",
+      "https://kakaku.com/pc/videocard/ranking_0550/?page=5"
+    ],
+    "fetchedAt": "2026-11-15T21:34:04+09:00",
+    "rankingUpdated": "2026-11-15",
+    "rankingPeriod": "2026-11-08〜2026-11-14",
+    "timingNote": "rankingPeriod は価格.com がランキング順位を集計した期間。各製品の最安値は fetchedAt に表示されていた値（集計期間の価格ではない）。",
+    "priceConditions": "価格.comの最安値表示（税込の総額表示）。送料・在庫は含まない。",
+    "rules": [
+      "「搭載チップ」欄がチップ名と完全一致する製品だけ（RX 9070 GRE は RX 9070 と別チップ）。",
+      "VRAM を指定したチップ（RTX 5060 Ti・RX 9060 XT は 16GB）は「メモリ」欄の容量が一致する製品だけ。8GB版は除外。",
+      "最安値の表示が無い製品（在庫・販売なし）は除外。",
+      "接続が PCI Express でない製品（Thunderbolt の外付けBOX）は除外。",
+      "BTF（背面コネクタ対応マザーボード専用）・WB（水冷ブロックのみ）の製品は除外（そのまま一般的なPCに取り付けられないため）。",
+      "同じ製品ID（kakaku.com/item/Kxxxx）の重複は1件にする。",
+      "販売店限定モデル・簡易水冷一体型は含める。",
+      "中央値は価格を昇順に並べた中央（偶数件は中央2件の平均）。表示値は千円単位に四捨五入。5件未満は少数サンプル（smallSample）。"
+    ],
+    "generatedBy": "node scripts/catalog/kakaku-gpu-evidence.js"
+  },
+  "chips": {
+    "rtx-5050": {
+      "chip": "NVIDIA/GeForce RTX 5050",
+      "vramGB": null,
+      "listed": 3,
+      "sampleSize": 3,
+      "medianRaw": 64050,
+      "amount": 64000,
+      "low": 59800,
+      "high": 68000,
+      "smallSample": true,
+      "included": [
+        {
+          "rank": 51,
+          "page": 2,
+          "itemId": "K0001698728",
+          "url": "https://kakaku.com/item/K0001698728/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5050-O8G [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 64050
+        },
+        {
+          "rank": 52,
+          "page": 2,
+          "itemId": "K0001803627",
+          "url": "https://kakaku.com/item/K0001803627/",
+          "maker": "Colorful",
+          "name": "GeForce RTX 5050 Gaming DUO 8GB-V [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 59800
+        },
+        {
+          "rank": 150,
+          "page": 4,
+          "itemId": "K0001700183",
+          "url": "https://kakaku.com/item/K0001700183/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5050-O8G [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 68000
+        }
+      ],
+      "excluded": []
+    },
+    "rtx-5060": {
+      "chip": "NVIDIA/GeForce RTX 5060",
+      "vramGB": null,
+      "listed": 13,
+      "sampleSize": 13,
+      "medianRaw": 88800,
+      "amount": 89000,
+      "low": 82800,
+      "high": 98000,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 30,
+          "page": 1,
+          "itemId": "K0001722220",
+          "url": "https://kakaku.com/item/K0001722220/",
+          "maker": "Inno3D",
+          "name": "GeForce RTX 5060 LP GD5060-8GERX3LP [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0 x8/接続スロット：PCI Express x16",
+          "price": 89980
+        },
+        {
+          "rank": 41,
+          "page": 2,
+          "itemId": "K0001807452",
+          "url": "https://kakaku.com/item/K0001807452/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5060AORUS ARI-8GD [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 96800
+        },
+        {
+          "rank": 102,
+          "page": 3,
+          "itemId": "K0001721781",
+          "url": "https://kakaku.com/item/K0001721781/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5060-O8G-WHITE [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 84990
+        },
+        {
+          "rank": 113,
+          "page": 3,
+          "itemId": "K0001705933",
+          "url": "https://kakaku.com/item/K0001705933/",
+          "maker": "ASUS",
+          "name": "RTX5060-O8G-LP-BRK [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 91000
+        },
+        {
+          "rank": 118,
+          "page": 3,
+          "itemId": "K0001799863",
+          "url": "https://kakaku.com/item/K0001799863/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5060WF2MAX OCV2-8GD [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 82955
+        },
+        {
+          "rank": 121,
+          "page": 4,
+          "itemId": "K0001806164",
+          "url": "https://kakaku.com/item/K0001806164/",
+          "maker": "Colorful",
+          "name": "GeForce RTX 5060 Battle AX DUO 8GB-V [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 82800
+        },
+        {
+          "rank": 148,
+          "page": 4,
+          "itemId": "K0001689907",
+          "url": "https://kakaku.com/item/K0001689907/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5060-O8G-GAMING [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 98000
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001689912",
+          "url": "https://kakaku.com/item/K0001689912/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5060 8G VENTUS 2X OC [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0 x8/接続スロット：PCI Express x16",
+          "price": 88800
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001805459",
+          "url": "https://kakaku.com/item/K0001805459/",
+          "maker": "Palit Microsystems",
+          "name": "NE75060V19P1-GB2051L (GeForce RTX 5060 Infinity 2 OC V1 8GB) [PCIExp 8GB] ドスパラ限定モデル",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 82800
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001689913",
+          "url": "https://kakaku.com/item/K0001689913/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5060 8G VENTUS 2X OC WHITE [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0 x8/接続スロット：PCI Express x16",
+          "price": 89660
+        },
+        {
+          "rank": 192,
+          "page": 5,
+          "itemId": "K0001689909",
+          "url": "https://kakaku.com/item/K0001689909/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5060-O8G [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 94501
+        },
+        {
+          "rank": 192,
+          "page": 5,
+          "itemId": "K0001690581",
+          "url": "https://kakaku.com/item/K0001690581/",
+          "maker": "Palit Microsystems",
+          "name": "NE75060019P1-GB2063D (GeForce RTX 5060 Dual 8GB) [PCIExp 8GB] ドスパラ限定モデル",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 82800
+        },
+        {
+          "rank": 192,
+          "page": 5,
+          "itemId": "K0001689908",
+          "url": "https://kakaku.com/item/K0001689908/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5060-O8G [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 85330
+        }
+      ],
+      "excluded": []
+    },
+    "rtx-5060-ti": {
+      "chip": "NVIDIA/GeForce RTX 5060 Ti",
+      "vramGB": 16,
+      "listed": 16,
+      "sampleSize": 11,
+      "medianRaw": 158582,
+      "amount": 159000,
+      "low": 144980,
+      "high": 184800,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 4,
+          "page": 1,
+          "itemId": "K0001696163",
+          "url": "https://kakaku.com/item/K0001696163/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5060 Ti 16GB Overclocked Dual Fan VCG5060T16DFXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x8/接続スロット：PCI Express x16",
+          "price": 144980
+        },
+        {
+          "rank": 14,
+          "page": 1,
+          "itemId": "K0001711990",
+          "url": "https://kakaku.com/item/K0001711990/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5060TI-O16G-WHITE [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 168800
+        },
+        {
+          "rank": 18,
+          "page": 1,
+          "itemId": "K0001700427",
+          "url": "https://kakaku.com/item/K0001700427/",
+          "maker": "GIGABYTE",
+          "name": "GV-N506TWF2MAX OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 158800
+        },
+        {
+          "rank": 56,
+          "page": 2,
+          "itemId": "K0001686400",
+          "url": "https://kakaku.com/item/K0001686400/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5060TI-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 158582
+        },
+        {
+          "rank": 76,
+          "page": 2,
+          "itemId": "K0001686415",
+          "url": "https://kakaku.com/item/K0001686415/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5060 Ti 16G VENTUS 2X OC PLUS [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x8/接続スロット：PCI Express x16",
+          "price": 158800
+        },
+        {
+          "rank": 87,
+          "page": 3,
+          "itemId": "K0001686864",
+          "url": "https://kakaku.com/item/K0001686864/",
+          "maker": "Palit Microsystems",
+          "name": "NE7506T019T1-GB2061S (GeForce RTX 5060 Ti Infinity 3 16GB) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 148000
+        },
+        {
+          "rank": 102,
+          "page": 3,
+          "itemId": "K0001686399",
+          "url": "https://kakaku.com/item/K0001686399/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5060TI-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 158000
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001803624",
+          "url": "https://kakaku.com/item/K0001803624/",
+          "maker": "Colorful",
+          "name": "GeForce RTX 5060 Ti Gaming DUO 16GB-V [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 149800
+        },
+        {
+          "rank": 160,
+          "page": 5,
+          "itemId": "K0001686402",
+          "url": "https://kakaku.com/item/K0001686402/",
+          "maker": "GIGABYTE",
+          "name": "GV-N506TAERO OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 165200
+        },
+        {
+          "rank": 176,
+          "page": 5,
+          "itemId": "K0001686398",
+          "url": "https://kakaku.com/item/K0001686398/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5060TI-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 184800
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001807975",
+          "url": "https://kakaku.com/item/K0001807975/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5060 Ti 16GB ARGB Overclocked Triple Fan VCG5060T16TFXXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x8",
+          "price": 152800
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 73,
+          "page": 2,
+          "itemId": "K0001808508",
+          "url": "https://kakaku.com/item/K0001808508/",
+          "maker": "Palit Microsystems",
+          "name": "NE7506TH19P1-B67DR (GeForce RTX 5060 Ti RiTONA OC 8GB) [PCIExp 8GB] ドスパラ限定モデル",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 95800,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001687334",
+          "url": "https://kakaku.com/item/K0001687334/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5060TI-O8G [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 120800,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 141,
+          "page": 4,
+          "itemId": "K0001686863",
+          "url": "https://kakaku.com/item/K0001686863/",
+          "maker": "Palit Microsystems",
+          "name": "NE7506T019P1-GB2062D (GeForce RTX 5060 Ti Dual 8GB) [PCIExp 8GB] ドスパラ限定モデル",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 94780,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 192,
+          "page": 5,
+          "itemId": "K0001803625",
+          "url": "https://kakaku.com/item/K0001803625/",
+          "maker": "Colorful",
+          "name": "GeForce RTX 5060 Ti Gaming DUO 8GB-V [PCIExp 8GB]",
+          "memory": "GDDR7/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 94800,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 200,
+          "page": 5,
+          "itemId": "K0001775520",
+          "url": "https://kakaku.com/item/K0001775520/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N506TIXEB-16GD [16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "Thunderbolt 5",
+          "price": 205000,
+          "reason": "接続が PCI Express でない（Thunderbolt 5・外付けBOX）"
+        }
+      ]
+    },
+    "rtx-5070": {
+      "chip": "NVIDIA/GeForce RTX 5070",
+      "vramGB": null,
+      "listed": 13,
+      "sampleSize": 11,
+      "medianRaw": 159799,
+      "amount": 160000,
+      "low": 149800,
+      "high": 223370,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 10,
+          "page": 1,
+          "itemId": "K0001692991",
+          "url": "https://kakaku.com/item/K0001692991/",
+          "maker": "ASUS",
+          "name": "DUAL-RTX5070-O12G [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 149800
+        },
+        {
+          "rank": 36,
+          "page": 1,
+          "itemId": "K0001679747",
+          "url": "https://kakaku.com/item/K0001679747/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 12G VENTUS 2X OC [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 150482
+        },
+        {
+          "rank": 39,
+          "page": 1,
+          "itemId": "K0001683735",
+          "url": "https://kakaku.com/item/K0001683735/",
+          "maker": "Palit Microsystems",
+          "name": "NE75070019K9-GB2050S (GeForce RTX 5070 Infinity 3 12GB) [PCIExp 12GB] ドスパラ限定モデル",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 149800
+        },
+        {
+          "rank": 76,
+          "page": 2,
+          "itemId": "K0001679969",
+          "url": "https://kakaku.com/item/K0001679969/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5070EAGLEOC ICE-12GD [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 157800
+        },
+        {
+          "rank": 94,
+          "page": 3,
+          "itemId": "K0001679734",
+          "url": "https://kakaku.com/item/K0001679734/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5070-O12G-GAMING [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 198800
+        },
+        {
+          "rank": 97,
+          "page": 3,
+          "itemId": "K0001687304",
+          "url": "https://kakaku.com/item/K0001687304/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5070WF3OC-12GD [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 154800
+        },
+        {
+          "rank": 113,
+          "page": 3,
+          "itemId": "K0001679735",
+          "url": "https://kakaku.com/item/K0001679735/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5070-O12G [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 163626
+        },
+        {
+          "rank": 128,
+          "page": 4,
+          "itemId": "K0001679744",
+          "url": "https://kakaku.com/item/K0001679744/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 12G GAMING TRIO OC [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 176800
+        },
+        {
+          "rank": 160,
+          "page": 5,
+          "itemId": "K0001679968",
+          "url": "https://kakaku.com/item/K0001679968/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5070GAMING OC-12GD [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 159799
+        },
+        {
+          "rank": 164,
+          "page": 5,
+          "itemId": "K0001689698",
+          "url": "https://kakaku.com/item/K0001689698/",
+          "maker": "ASUS",
+          "name": "ROG-STRIX-RTX5070-O12G-GAMING [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 223370
+        },
+        {
+          "rank": 192,
+          "page": 5,
+          "itemId": "K0001794265",
+          "url": "https://kakaku.com/item/K0001794265/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5070AORUS IF-12GD [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": 179800
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 80,
+          "page": 3,
+          "itemId": "K0001677951",
+          "url": "https://kakaku.com/item/K0001677951/",
+          "maker": "Inno3D",
+          "name": "GeForce RTX 5070 TWIN X2 OC GD5070-12GERX2OC [PCIExp 12GB]",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 121,
+          "page": 4,
+          "itemId": "K0001768821",
+          "url": "https://kakaku.com/item/K0001768821/",
+          "maker": "Palit Microsystems",
+          "name": "NE75070S19K9-GB2050S (GeForce RTX 5070 Infinity 3 OC 12GB) [PCIExp 12GB] ドスパラ限定モデル",
+          "memory": "GDDR7/12GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        }
+      ]
+    },
+    "rtx-5070-ti": {
+      "chip": "NVIDIA/GeForce RTX 5070 Ti",
+      "vramGB": null,
+      "listed": 18,
+      "sampleSize": 15,
+      "medianRaw": 257800,
+      "amount": 258000,
+      "low": 229800,
+      "high": 302800,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 3,
+          "page": 1,
+          "itemId": "K0001696164",
+          "url": "https://kakaku.com/item/K0001696164/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5070 Ti 16GB ARGB Overclocked Triple Fan VCG5070T16TFXXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 229800
+        },
+        {
+          "rank": 13,
+          "page": 1,
+          "itemId": "K0001677696",
+          "url": "https://kakaku.com/item/K0001677696/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5070TI-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 252252
+        },
+        {
+          "rank": 20,
+          "page": 1,
+          "itemId": "K0001692367",
+          "url": "https://kakaku.com/item/K0001692367/",
+          "maker": "Palit Microsystems",
+          "name": "NE7507T019T2-GB2031U (GeForce RTX 5070 Ti GamingPro-S 16GB) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 229800
+        },
+        {
+          "rank": 23,
+          "page": 1,
+          "itemId": "K0001694582",
+          "url": "https://kakaku.com/item/K0001694582/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5070 Ti 16GB Overclocked Triple Fan VCG5070T16TFXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 237800
+        },
+        {
+          "rank": 25,
+          "page": 1,
+          "itemId": "K0001682489",
+          "url": "https://kakaku.com/item/K0001682489/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N507TAORUS M-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 278800
+        },
+        {
+          "rank": 31,
+          "page": 1,
+          "itemId": "K0001687822",
+          "url": "https://kakaku.com/item/K0001687822/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 Ti 16G GAMING TRIO OC [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 257800
+        },
+        {
+          "rank": 34,
+          "page": 1,
+          "itemId": "K0001683744",
+          "url": "https://kakaku.com/item/K0001683744/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 Ti 16G VENTUS 3X OC [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 247800
+        },
+        {
+          "rank": 49,
+          "page": 2,
+          "itemId": "K0001809621",
+          "url": "https://kakaku.com/item/K0001809621/",
+          "maker": "Colorful",
+          "name": "GeForce RTX 5070 Ti Battle AX SFF 16GB-V [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express",
+          "price": 234800
+        },
+        {
+          "rank": 54,
+          "page": 2,
+          "itemId": "K0001682488",
+          "url": "https://kakaku.com/item/K0001682488/",
+          "maker": "GIGABYTE",
+          "name": "GV-N507TAERO OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 279800
+        },
+        {
+          "rank": 56,
+          "page": 2,
+          "itemId": "K0001794264",
+          "url": "https://kakaku.com/item/K0001794264/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N507TAORUS IF-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 259800
+        },
+        {
+          "rank": 62,
+          "page": 2,
+          "itemId": "K0001677697",
+          "url": "https://kakaku.com/item/K0001677697/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5070TI-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 255800
+        },
+        {
+          "rank": 75,
+          "page": 2,
+          "itemId": "K0001689697",
+          "url": "https://kakaku.com/item/K0001689697/",
+          "maker": "ASUS",
+          "name": "ROG-STRIX-RTX5070TI-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 302800
+        },
+        {
+          "rank": 92,
+          "page": 3,
+          "itemId": "K0001715099",
+          "url": "https://kakaku.com/item/K0001715099/",
+          "maker": "ASUS",
+          "name": "PROART-RTX5070TI-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 281980
+        },
+        {
+          "rank": 128,
+          "page": 4,
+          "itemId": "K0001692990",
+          "url": "https://kakaku.com/item/K0001692990/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5070TI-O16G-WHITE-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 285655
+        },
+        {
+          "rank": 160,
+          "page": 4,
+          "itemId": "K0001793382",
+          "url": "https://kakaku.com/item/K0001793382/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5070 Ti 16GB OC SLIM VCG5070T16DFSXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 260800
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 9,
+          "page": 1,
+          "itemId": "K0001686528",
+          "url": "https://kakaku.com/item/K0001686528/",
+          "maker": "GIGABYTE",
+          "name": "GV-N507TWF3OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 11,
+          "page": 1,
+          "itemId": "K0001682487",
+          "url": "https://kakaku.com/item/K0001682487/",
+          "maker": "GIGABYTE",
+          "name": "GV-N507TEAGLE OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 67,
+          "page": 2,
+          "itemId": "K0001682485",
+          "url": "https://kakaku.com/item/K0001682485/",
+          "maker": "GIGABYTE",
+          "name": "GV-N507TGAMING OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        }
+      ]
+    },
+    "rtx-5080": {
+      "chip": "NVIDIA/GeForce RTX 5080",
+      "vramGB": null,
+      "listed": 18,
+      "sampleSize": 16,
+      "medianRaw": 369800,
+      "amount": 370000,
+      "low": 329800,
+      "high": 421018,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 6,
+          "page": 1,
+          "itemId": "K0001673756",
+          "url": "https://kakaku.com/item/K0001673756/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5080-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 333313
+        },
+        {
+          "rank": 12,
+          "page": 1,
+          "itemId": "K0001673755",
+          "url": "https://kakaku.com/item/K0001673755/",
+          "maker": "ASUS",
+          "name": "PRIME-RTX5080-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 379800
+        },
+        {
+          "rank": 22,
+          "page": 1,
+          "itemId": "K0001673757",
+          "url": "https://kakaku.com/item/K0001673757/",
+          "maker": "ASUS",
+          "name": "ROG-ASTRAL-RTX5080-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 421018
+        },
+        {
+          "rank": 37,
+          "page": 1,
+          "itemId": "K0001673988",
+          "url": "https://kakaku.com/item/K0001673988/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5080 16G GAMING TRIO OC WHITE [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 359800
+        },
+        {
+          "rank": 44,
+          "page": 2,
+          "itemId": "K0001673989",
+          "url": "https://kakaku.com/item/K0001673989/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5080 16G VENTUS 3X OC [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 339800
+        },
+        {
+          "rank": 66,
+          "page": 2,
+          "itemId": "K0001707621",
+          "url": "https://kakaku.com/item/K0001707621/",
+          "maker": "ASUS",
+          "name": "RTX5080-O16G-NOCTUA [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 385663
+        },
+        {
+          "rank": 73,
+          "page": 2,
+          "itemId": "K0001801511",
+          "url": "https://kakaku.com/item/K0001801511/",
+          "maker": "ZOTAC",
+          "name": "ZOTAC GAMING GeForce RTX 5080 SOLID CORE OC 20th Anniversary Edition ZT-B50800J2S-10P [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 347800
+        },
+        {
+          "rank": 80,
+          "page": 3,
+          "itemId": "K0001805458",
+          "url": "https://kakaku.com/item/K0001805458/",
+          "maker": "Palit Microsystems",
+          "name": "NE75080019T2-GB2035S (GeForce RTX 5080 Infinity 3 16GB) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 329800
+        },
+        {
+          "rank": 97,
+          "page": 3,
+          "itemId": "K0001715098",
+          "url": "https://kakaku.com/item/K0001715098/",
+          "maker": "ASUS",
+          "name": "PROART-RTX5080-O16G [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 391718
+        },
+        {
+          "rank": 141,
+          "page": 4,
+          "itemId": "K0001794263",
+          "url": "https://kakaku.com/item/K0001794263/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5080AORUS IF-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 394000
+        },
+        {
+          "rank": 141,
+          "page": 4,
+          "itemId": "K0001807963",
+          "url": "https://kakaku.com/item/K0001807963/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5080 16G COD MW4 EDITION OC [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 369800
+        },
+        {
+          "rank": 150,
+          "page": 4,
+          "itemId": "K0001686007",
+          "url": "https://kakaku.com/item/K0001686007/",
+          "maker": "ZOTAC",
+          "name": "ZOTAC GAMING GeForce RTX 5080 SOLID CORE OC ZT-B50800J2-10P [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 340800
+        },
+        {
+          "rank": 164,
+          "page": 5,
+          "itemId": "K0001673987",
+          "url": "https://kakaku.com/item/K0001673987/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5080 16G GAMING TRIO OC [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 379900
+        },
+        {
+          "rank": 176,
+          "page": 5,
+          "itemId": "K0001673957",
+          "url": "https://kakaku.com/item/K0001673957/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5080AERO OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 369800
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001794262",
+          "url": "https://kakaku.com/item/K0001794262/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5080AORUSIF WD-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 408001
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001673960",
+          "url": "https://kakaku.com/item/K0001673960/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5080AORUSX W-16GD [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 359800
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 5,
+          "page": 1,
+          "itemId": "K0001680318",
+          "url": "https://kakaku.com/item/K0001680318/",
+          "maker": "PNY",
+          "name": "GeForce RTX 5080 16GB ARGB Overclocked Triple Fan VCG508016TFXXPB1-O [PCIExp 16GB]",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 26,
+          "page": 1,
+          "itemId": "K0001682009",
+          "url": "https://kakaku.com/item/K0001682009/",
+          "maker": "Palit Microsystems",
+          "name": "NE75080019T2-GB2031A (GeForce RTX 5080 GamingPro 16GB) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR7/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        }
+      ]
+    },
+    "rtx-5090": {
+      "chip": "NVIDIA/GeForce RTX 5090",
+      "vramGB": null,
+      "listed": 14,
+      "sampleSize": 10,
+      "medianRaw": 1264500,
+      "amount": 1265000,
+      "low": 1048000,
+      "high": 1586800,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 2,
+          "page": 1,
+          "itemId": "K0001682006",
+          "url": "https://kakaku.com/item/K0001682006/",
+          "maker": "Palit Microsystems",
+          "name": "NE75090019R5-GB2020G (GeForce RTX 5090 GameRock 32GB) [PCIExp 32GB] ドスパラ限定モデル",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1048000
+        },
+        {
+          "rank": 8,
+          "page": 1,
+          "itemId": "K0001673758",
+          "url": "https://kakaku.com/item/K0001673758/",
+          "maker": "ASUS",
+          "name": "ROG-ASTRAL-RTX5090-O32G-GAMING [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1506800
+        },
+        {
+          "rank": 15,
+          "page": 1,
+          "itemId": "K0001673984",
+          "url": "https://kakaku.com/item/K0001673984/",
+          "maker": "MSI",
+          "name": "GeForce RTX 5090 32G VENTUS 3X OC [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1280000
+        },
+        {
+          "rank": 16,
+          "page": 1,
+          "itemId": "K0001693053",
+          "url": "https://kakaku.com/item/K0001693053/",
+          "maker": "ASUS",
+          "name": "TUF-RTX5090-O32G-GAMING [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1240000
+        },
+        {
+          "rank": 54,
+          "page": 2,
+          "itemId": "K0001674505",
+          "url": "https://kakaku.com/item/K0001674505/",
+          "maker": "Inno3D",
+          "name": "GeForce RTX 5090 X3 GD5090-32GERX3 [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 1149800
+        },
+        {
+          "rank": 80,
+          "page": 3,
+          "itemId": "K0001699505",
+          "url": "https://kakaku.com/item/K0001699505/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5090WF3OC-32GD [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1148000
+        },
+        {
+          "rank": 106,
+          "page": 3,
+          "itemId": "K0001677694",
+          "url": "https://kakaku.com/item/K0001677694/",
+          "maker": "ASUS",
+          "name": "ROG-ASTRAL-LC-RTX5090-O32G-GAMING [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1586800
+        },
+        {
+          "rank": 118,
+          "page": 3,
+          "itemId": "K0001792574",
+          "url": "https://kakaku.com/item/K0001792574/",
+          "maker": "ASUS",
+          "name": "PROART-RTX5090-O32G [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1506800
+        },
+        {
+          "rank": 121,
+          "page": 4,
+          "itemId": "K0001787992",
+          "url": "https://kakaku.com/item/K0001787992/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5090AORUS IF-32GD [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1299800
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001699504",
+          "url": "https://kakaku.com/item/K0001699504/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5090AORUSX W-32GD [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1249000
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 102,
+          "page": 3,
+          "itemId": "K0001702969",
+          "url": "https://kakaku.com/item/K0001702969/",
+          "maker": "ASUS",
+          "name": "ROG-ASTRAL-RTX5090-O32G-BTF-GAMING [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1280000,
+          "reason": "BTF（背面コネクタ対応マザーボード専用）"
+        },
+        {
+          "rank": 109,
+          "page": 3,
+          "itemId": "K0001707782",
+          "url": "https://kakaku.com/item/K0001707782/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-N5090IXEB-32GD [32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "Thunderbolt 5",
+          "price": 1349000,
+          "reason": "接続が PCI Express でない（Thunderbolt 5・外付けBOX）"
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001673954",
+          "url": "https://kakaku.com/item/K0001673954/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5090GAMING OC-32GD [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 153,
+          "page": 4,
+          "itemId": "K0001687114",
+          "url": "https://kakaku.com/item/K0001687114/",
+          "maker": "GIGABYTE",
+          "name": "GV-N5090AORUSX WB-32GD [PCIExp 32GB]",
+          "memory": "GDDR7/32GB",
+          "interface": "PCI Express 5.0",
+          "price": 1239000,
+          "reason": "WB（水冷ブロックのみ）"
+        }
+      ]
+    },
+    "rx-7600": {
+      "chip": "AMD/Radeon RX 7600",
+      "vramGB": null,
+      "listed": 4,
+      "sampleSize": 4,
+      "medianRaw": 53800.5,
+      "amount": 54000,
+      "low": 51928,
+      "high": 61980,
+      "smallSample": true,
+      "included": [
+        {
+          "rank": 64,
+          "page": 2,
+          "itemId": "K0001680201",
+          "url": "https://kakaku.com/item/K0001680201/",
+          "maker": "ASUS",
+          "name": "DUAL-RX7600-O8G-EVO [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 4.0",
+          "price": 52800
+        },
+        {
+          "rank": 121,
+          "page": 4,
+          "itemId": "K0001540016",
+          "url": "https://kakaku.com/item/K0001540016/",
+          "maker": "ASRock",
+          "name": "Radeon RX 7600 Steel Legend 8GB OC [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 4.0",
+          "price": 61980
+        },
+        {
+          "rank": 128,
+          "page": 4,
+          "itemId": "K0001540017",
+          "url": "https://kakaku.com/item/K0001540017/",
+          "maker": "ASRock",
+          "name": "Radeon RX 7600 Challenger 8GB OC [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 4.0",
+          "price": 54801
+        },
+        {
+          "rank": 153,
+          "page": 4,
+          "itemId": "K0001540012",
+          "url": "https://kakaku.com/item/K0001540012/",
+          "maker": "PowerColor",
+          "name": "PowerColor Fighter AMD Radeon RX 7600 8GB GDDR6 RX7600 8G-F [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 4.0",
+          "price": 51928
+        }
+      ],
+      "excluded": []
+    },
+    "rx-9060-xt": {
+      "chip": "AMD/Radeon RX 9060 XT",
+      "vramGB": 16,
+      "listed": 17,
+      "sampleSize": 12,
+      "medianRaw": 100490,
+      "amount": 100000,
+      "low": 96000,
+      "high": 129780,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 34,
+          "page": 1,
+          "itemId": "K0001693127",
+          "url": "https://kakaku.com/item/K0001693127/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE PURE Radeon RX 9060 XT GAMING OC 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 99980
+        },
+        {
+          "rank": 38,
+          "page": 1,
+          "itemId": "K0001692072",
+          "url": "https://kakaku.com/item/K0001692072/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9060 XT Challenger 16GB OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 96800
+        },
+        {
+          "rank": 62,
+          "page": 2,
+          "itemId": "K0001707620",
+          "url": "https://kakaku.com/item/K0001707620/",
+          "maker": "ASUS",
+          "name": "DUAL-RX9060XT-16G [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 96800
+        },
+        {
+          "rank": 80,
+          "page": 3,
+          "itemId": "K0001693172",
+          "url": "https://kakaku.com/item/K0001693172/",
+          "maker": "ASUS",
+          "name": "PRIME-RX9060XT-O16G [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 101000
+        },
+        {
+          "rank": 102,
+          "page": 3,
+          "itemId": "K0001695566",
+          "url": "https://kakaku.com/item/K0001695566/",
+          "maker": "玄人志向",
+          "name": "RD-RX9060XT-E16GB/WHITE/DF [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 96000
+        },
+        {
+          "rank": 109,
+          "page": 3,
+          "itemId": "K0001709726",
+          "url": "https://kakaku.com/item/K0001709726/",
+          "maker": "ASUS",
+          "name": "DUAL-RX9060XT-16G-WHITE (Radeon RX 9060 XT 16GB) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 96800
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001806918",
+          "url": "https://kakaku.com/item/K0001806918/",
+          "maker": "Crowxis",
+          "name": "CXA-RX9060XT-16G/DF/BK [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 124800
+        },
+        {
+          "rank": 153,
+          "page": 4,
+          "itemId": "K0001694581",
+          "url": "https://kakaku.com/item/K0001694581/",
+          "maker": "GIGABYTE",
+          "name": "GV-R9060XTGAMING OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 104800
+        },
+        {
+          "rank": 153,
+          "page": 4,
+          "itemId": "K0001693171",
+          "url": "https://kakaku.com/item/K0001693171/",
+          "maker": "ASUS",
+          "name": "TUF-RX9060XT-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 121294
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001718522",
+          "url": "https://kakaku.com/item/K0001718522/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9060 XT Challenger 16GB (RX9060XT CL 16G) [PCIExp 16GB] ドスパラ限定モデル",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 96800
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001693126",
+          "url": "https://kakaku.com/item/K0001693126/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE NITRO+ Radeon RX 9060 XT GAMING OC 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 129780
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001692070",
+          "url": "https://kakaku.com/item/K0001692070/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9060 XT Steel Legend 16GB OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 104800
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 17,
+          "page": 1,
+          "itemId": "K0001693614",
+          "url": "https://kakaku.com/item/K0001693614/",
+          "maker": "GIGABYTE",
+          "name": "GV-R9060XTGAMING OC-8GD [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 78700,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 40,
+          "page": 1,
+          "itemId": "K0001806917",
+          "url": "https://kakaku.com/item/K0001806917/",
+          "maker": "Crowxis",
+          "name": "CXA-RX9060XT-16G/DF/WH [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001693173",
+          "url": "https://kakaku.com/item/K0001693173/",
+          "maker": "ASUS",
+          "name": "PRIME-RX9060XT-O8G [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 73000,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        },
+        {
+          "rank": 141,
+          "page": 4,
+          "itemId": "K0001693234",
+          "url": "https://kakaku.com/item/K0001693234/",
+          "maker": "玄人志向",
+          "name": "RD-RX9060XT-E16GB/DF [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        },
+        {
+          "rank": 183,
+          "page": 5,
+          "itemId": "K0001806919",
+          "url": "https://kakaku.com/item/K0001806919/",
+          "maker": "Crowxis",
+          "name": "CXA-RX9060XT-8G/DF/WH [PCIExp 8GB]",
+          "memory": "GDDR6/8GB",
+          "interface": "PCI Express 5.0",
+          "price": 89790,
+          "reason": "VRAM 8GB（対象は 16GB版）"
+        }
+      ]
+    },
+    "rx-9070": {
+      "chip": "AMD/Radeon RX 9070",
+      "vramGB": null,
+      "listed": 7,
+      "sampleSize": 7,
+      "medianRaw": 135800,
+      "amount": 136000,
+      "low": 125800,
+      "high": 149800,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 21,
+          "page": 1,
+          "itemId": "K0001680011",
+          "url": "https://kakaku.com/item/K0001680011/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 Challenger 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 125800
+        },
+        {
+          "rank": 32,
+          "page": 1,
+          "itemId": "K0001679961",
+          "url": "https://kakaku.com/item/K0001679961/",
+          "maker": "ASUS",
+          "name": "TUF-RX9070-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 131111
+        },
+        {
+          "rank": 69,
+          "page": 2,
+          "itemId": "K0001698774",
+          "url": "https://kakaku.com/item/K0001698774/",
+          "maker": "Acer",
+          "name": "PREDATOR BiFrost Radeon RX 9070 OC 16GB PB-RX9070-SOC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 128800
+        },
+        {
+          "rank": 69,
+          "page": 2,
+          "itemId": "K0001680010",
+          "url": "https://kakaku.com/item/K0001680010/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 Steel Legend 16GB OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 135800
+        },
+        {
+          "rank": 97,
+          "page": 3,
+          "itemId": "K0001679956",
+          "url": "https://kakaku.com/item/K0001679956/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE PURE Radeon RX 9070 GAMING OC 16GB GDDR6 [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 135800
+        },
+        {
+          "rank": 132,
+          "page": 4,
+          "itemId": "K0001679955",
+          "url": "https://kakaku.com/item/K0001679955/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE NITRO+ Radeon RX 9070 GAMING OC 16GB GDDR6 [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 142800
+        },
+        {
+          "rank": 168,
+          "page": 5,
+          "itemId": "K0001680230",
+          "url": "https://kakaku.com/item/K0001680230/",
+          "maker": "GIGABYTE",
+          "name": "GV-R9070GAMING OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 149800
+        }
+      ],
+      "excluded": []
+    },
+    "rx-9070-xt": {
+      "chip": "AMD/Radeon RX 9070 XT",
+      "vramGB": null,
+      "listed": 15,
+      "sampleSize": 14,
+      "medianRaw": 167300,
+      "amount": 167000,
+      "low": 147999,
+      "high": 198000,
+      "smallSample": false,
+      "included": [
+        {
+          "rank": 7,
+          "page": 1,
+          "itemId": "K0001680009",
+          "url": "https://kakaku.com/item/K0001680009/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Steel Legend 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 149800
+        },
+        {
+          "rank": 19,
+          "page": 1,
+          "itemId": "K0001683328",
+          "url": "https://kakaku.com/item/K0001683328/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Steel Legend Dark 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 147999
+        },
+        {
+          "rank": 27,
+          "page": 1,
+          "itemId": "K0001680008",
+          "url": "https://kakaku.com/item/K0001680008/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Taichi 16GB OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 154800
+        },
+        {
+          "rank": 52,
+          "page": 2,
+          "itemId": "K0001764789",
+          "url": "https://kakaku.com/item/K0001764789/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Taichi White 16GB OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 164800
+        },
+        {
+          "rank": 59,
+          "page": 2,
+          "itemId": "K0001679953",
+          "url": "https://kakaku.com/item/K0001679953/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE PURE Radeon RX 9070 XT GAMING OC 16GB GDDR6 [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 154980
+        },
+        {
+          "rank": 61,
+          "page": 2,
+          "itemId": "K0001717666",
+          "url": "https://kakaku.com/item/K0001717666/",
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Challenger 16GB [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 159800
+        },
+        {
+          "rank": 67,
+          "page": 2,
+          "itemId": "K0001680191",
+          "url": "https://kakaku.com/item/K0001680191/",
+          "maker": "PowerColor",
+          "name": "PowerColor Hellhound AMD Radeon RX 9070 XT 16GB GDDR6 RX9070XT 16G-L/OC [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 149980
+        },
+        {
+          "rank": 89,
+          "page": 3,
+          "itemId": "K0001679952",
+          "url": "https://kakaku.com/item/K0001679952/",
+          "maker": "SAPPHIRE",
+          "name": "SAPPHIRE NITRO+ Radeon RX 9070 XT GAMING OC 16GB GDDR6 [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0 x16",
+          "price": 198000
+        },
+        {
+          "rank": 94,
+          "page": 3,
+          "itemId": "K0001806915",
+          "url": "https://kakaku.com/item/K0001806915/",
+          "maker": "Crowxis",
+          "name": "CXA-RX9070XT-16G/TF/BK [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 179790
+        },
+        {
+          "rank": 97,
+          "page": 3,
+          "itemId": "K0001679960",
+          "url": "https://kakaku.com/item/K0001679960/",
+          "maker": "ASUS",
+          "name": "TUF-RX9070XT-O16G-GAMING [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 179980
+        },
+        {
+          "rank": 109,
+          "page": 3,
+          "itemId": "K0001680228",
+          "url": "https://kakaku.com/item/K0001680228/",
+          "maker": "GIGABYTE",
+          "name": "AORUS GV-R9070XTAORUS E-16GD [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 191060
+        },
+        {
+          "rank": 113,
+          "page": 3,
+          "itemId": "K0001680229",
+          "url": "https://kakaku.com/item/K0001680229/",
+          "maker": "GIGABYTE",
+          "name": "GV-R9070XTGAMING OC-16GD [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 169800
+        },
+        {
+          "rank": 121,
+          "page": 4,
+          "itemId": "K0001679962",
+          "url": "https://kakaku.com/item/K0001679962/",
+          "maker": "ASUS",
+          "name": "PRIME-RX9070XT-O16G [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 169980
+        },
+        {
+          "rank": 148,
+          "page": 4,
+          "itemId": "K0001711303",
+          "url": "https://kakaku.com/item/K0001711303/",
+          "maker": "ASUS",
+          "name": "PRIME-RX9070XT-O16G-WHITE [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": 173600
+        }
+      ],
+      "excluded": [
+        {
+          "rank": 109,
+          "page": 3,
+          "itemId": "K0001680226",
+          "url": "https://kakaku.com/item/K0001680226/",
+          "maker": "玄人志向",
+          "name": "RD-RX9070XT-E16GB/TP [PCIExp 16GB]",
+          "memory": "GDDR6/16GB",
+          "interface": "PCI Express 5.0",
+          "price": null,
+          "reason": "最安値の表示なし（在庫・販売なし）"
+        }
+      ]
+    }
+  }
+}

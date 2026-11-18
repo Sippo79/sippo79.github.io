@@ -288,9 +288,14 @@
     var w = psu.specs.watt;
     var p = estimatePower(b, db);
     var gpu = first(b, db, 'gpu'), board = first(b, db, 'gpuboard');
-    var official = board && isNum(board.specs.recommendedPsuW) ? board.specs.recommendedPsuW
-      : (gpu && isNum(gpu.specs.officialPsuW) ? gpu.specs.officialPsuW : null);
-    var extra = { power: p, officialPsuW: official };
+    // 推奨電源のルール（README「電源容量」）: グラボ製品の公表値とGPUチップの公式値は前提（想定CPUなど）が違う。
+    // 両方あれば高いほうを判定に使い、どちらの値も書き換えない（過小な推奨を出さないため）。
+    var boardPsuW = board && isNum(board.specs.recommendedPsuW) ? board.specs.recommendedPsuW : null;
+    var chipPsuW = gpu && isNum(gpu.specs.officialPsuW) ? gpu.specs.officialPsuW : null;
+    var official = boardPsuW != null && chipPsuW != null ? Math.max(boardPsuW, chipPsuW) : (boardPsuW != null ? boardPsuW : chipPsuW);
+    var psuBasis = boardPsuW != null && chipPsuW != null && boardPsuW !== chipPsuW
+      ? '（GPUチップの公式推奨 ' + chipPsuW + 'W／グラボ製品の公表値 ' + boardPsuW + 'W のうち高いほう）' : '';
+    var extra = { power: p, officialPsuW: official, boardPsuW: boardPsuW, chipPsuW: chipPsuW, psuBasis: psuBasis };
     if (!isNum(w)) return res('psuwatt', '電源容量', CHECK, '電源の容量が未登録です。', ['psu'], extra);
     if (!p.complete) {
       var known = Math.round(p.totalW);
@@ -300,9 +305,9 @@
     var ratio = p.totalW / w;
     extra.ratio = ratio;
     if (ratio > POWER.NG_RATIO) return res('psuwatt', '電源容量', NG, '推定 ' + Math.round(p.totalW) + 'W に対して ' + w + 'W 電源では余裕がありません（' + Math.round(ratio * 100) + '%）。', ['psu', 'cpu', 'gpu'], extra);
-    if (official && w < official) return res('psuwatt', '電源容量', CHECK, 'GPUメーカーの推奨は ' + official + 'W 以上です（この電源は ' + w + 'W）。推定負荷は ' + Math.round(p.totalW) + 'W です。', ['psu', 'gpu', 'gpuboard'], extra);
+    if (official && w < official) return res('psuwatt', '電源容量', CHECK, 'GPUメーカーの推奨は ' + official + 'W 以上です' + psuBasis + '（この電源は ' + w + 'W）。推定負荷は ' + Math.round(p.totalW) + 'W です。', ['psu', 'gpu', 'gpuboard'], extra);
     if (ratio > POWER.CHECK_RATIO) return res('psuwatt', '電源容量', CHECK, '推定 ' + Math.round(p.totalW) + 'W / ' + w + 'W（' + Math.round(ratio * 100) + '%）。余裕が少なめです。', ['psu', 'cpu', 'gpu'], extra);
-    return res('psuwatt', '電源容量', OK, '推定 ' + Math.round(p.totalW) + 'W / ' + w + 'W（' + Math.round(ratio * 100) + '%）' + (official ? '。GPUメーカー推奨 ' + official + 'W 以上も満たしています' : '') + '。', ['psu', 'cpu', 'gpu'], extra);
+    return res('psuwatt', '電源容量', OK, '推定 ' + Math.round(p.totalW) + 'W / ' + w + 'W（' + Math.round(ratio * 100) + '%）' + (official ? '。GPUメーカー推奨 ' + official + 'W 以上' + psuBasis + 'も満たしています' : '') + '。', ['psu', 'cpu', 'gpu'], extra);
   });
 
   // 15. GPU 補助電源コネクタ

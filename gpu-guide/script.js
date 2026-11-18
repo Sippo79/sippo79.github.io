@@ -334,7 +334,6 @@ const GPU_LABELS = {
   "rtx-4060":       { text: "初心者向け",   type: "entry" },
   "rtx-4070-super": { text: "迷ったらこれ", type: "recommend" },
   "rx-9070-xt":     { text: "人気",          type: "popular" },
-  "rx-7900-gre":    { text: "コスパ◎",      type: "value" },
 };
 
 /* GPU詳細ページのURL。
@@ -388,8 +387,11 @@ const rankingConfigs = {
     label: "中古おすすめ",
     sort: (a, b) => getGpuUsedScore(b) - getGpuUsedScore(a),
   },
+  // コスパは「確認済みの掲載価格（同じ取得日・同じ集計方法）」があるGPUだけで比べる（2026-11-15〜）。
+  // 確認日の無い価格（古い目安・中古の目安）は時期も条件もそろわないため、順位を付けない。
   value: {
-    filter: (gpu) => Number(getGpuPrice(gpu)) > 0,
+    // 掲載製品が5件未満の価格（少数サンプル）は順位に使わない（確度が低いため）
+    filter: (gpu) => hasValidMarketPrice(gpu) && Number(gpu.marketPriceSampleSize) >= 5,
     score: getGpuValueScore,
     label: "コスパ",
     sort: (a, b) => getGpuValueScore(b) - getGpuValueScore(a),
@@ -539,7 +541,7 @@ function renderGpus() {
     if (sortValue === "performance") return getGpuRasterScore(b) - getGpuRasterScore(a);
     if (sortValue === "overall") return getGpuScore(b) - getGpuScore(a);
     if (sortValue === "used") return getGpuUsedScore(b) - getGpuUsedScore(a);
-    if (sortValue === "price") return a.price - b.price;
+    if (sortValue === "price") return (getGpuPrice(a) || Infinity) - (getGpuPrice(b) || Infinity);
     if (sortValue === "vram") return b.vram - a.vram;
     return 0;
   });
@@ -550,6 +552,19 @@ function renderGpus() {
         条件に合うGPUが見つかりませんでした。
       </div>
     `;
+    return;
+  }
+
+  // 価格で絞り込む・並べるときは、確認済みの掲載価格のGPUと、価格未確認（確認日の無い目安）のGPUを混ぜない。
+  // 未確認のGPUは別の見出しの下に出し、「今この価格帯で買える」とは読ませない（2026-11-15〜）。
+  if (budgetValue !== "all" || sortValue === "price") {
+    const confirmed = filteredGpus.filter((gpu) => hasValidMarketPrice(gpu));
+    const unconfirmed = filteredGpus.filter((gpu) => !hasValidMarketPrice(gpu));
+    const dates = [...new Set(confirmed.map((gpu) => gpu.marketPriceCheckedAt))].map((d) => { const [, m, day] = String(d).split("-"); return `${Number(m)}月${Number(day)}日`; });
+    const head = (title, note) => `<div class="gpu-group-heading"><h3>${title}</h3><p>${note}</p></div>`;
+    gpuGrid.innerHTML =
+      (confirmed.length ? head(`掲載価格を確認できたGPU（${confirmed.length}件）`, `価格.com人気ランキング掲載製品の価格目安（${dates.join("・")}確認）で分類しています。`) + confirmed.map(createGpuCard).join("") : "") +
+      (unconfirmed.length ? head(`価格未確認のGPU（${unconfirmed.length}件）`, "確認日の記録が無い価格の目安で分類しています。現在この価格帯で買えるかは確認できていません。") + unconfirmed.map(createGpuCard).join("") : "");
     return;
   }
 
@@ -593,7 +608,7 @@ function createGpuCard(gpu) {
         </div>
 
         <div class="gpu-spec">
-          <span>価格目安</span>
+          <span>${getGpuPriceLabel(gpu)}</span>
           <strong>${formatGpuPrice(gpu)}</strong>
         </div>
 
@@ -663,9 +678,33 @@ function getGpuUsedScore(gpu) {
   return Number.isFinite(score) ? score : NaN;
 }
 
-function getGpuPrice(gpu) {
+/* 価格は2種類（shared/catalog/config.json の representative.gpu-guide）。
+ *  - 掲載価格の目安 marketPrice … 新品GPUの、価格.com人気ランキング掲載製品の最安値の中央値（確認日つき）。有効期限 marketPriceValidUntil まで
+ *  - 価格目安（未確認） price   … 確認日の記録が無い目安（PC BUILD CHECK の BTO 計算もこれ）
+ * 表示・価格順・予算の絞り込みは「見えている価格」（有効な掲載価格 → 無ければ未確認の目安。ラベルで区別する）。
+ * コスパのランキングは有効な掲載価格があるGPUだけ（未確認の価格では順位を付けない）。 */
+function todayIso() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function hasValidMarketPrice(gpu) {
+  const m = Number(gpu.marketPrice);
+  return Number.isFinite(m) && m > 0 && !!gpu.marketPriceValidUntil && todayIso() <= gpu.marketPriceValidUntil;
+}
+
+function getGpuReferencePrice(gpu) {
   const price = Number(gpu.price ?? gpu.estimatedPrice);
   return Number.isFinite(price) && price > 0 ? price : null;
+}
+
+function getGpuPrice(gpu) {
+  return hasValidMarketPrice(gpu) ? Number(gpu.marketPrice) : getGpuReferencePrice(gpu);
+}
+
+function getGpuPriceLabel(gpu) {
+  if (gpu.market === "used") return "中古目安（未確認）";
+  return hasValidMarketPrice(gpu) ? "掲載価格の目安" : "価格目安（未確認）";
 }
 
 function formatGpuPrice(gpu) {
@@ -676,15 +715,17 @@ function formatGpuPrice(gpu) {
   }
 
   if (price >= 10000) {
-    return `約${Math.floor(price / 10000)}万円`;
+    // 切り捨てだと 8.9万円 が「約8万円」になり安く見えるため、0.1万円単位で四捨五入する
+    return `約${String(Math.round(price / 1000) / 10)}万円`;
   }
 
-  return `約${Math.floor(price / 1000) * 1000}円`;
+  return `約${Math.round(price / 1000) * 1000}円`;
 }
 
 function getGpuValueScore(gpu) {
-  const price = getGpuPrice(gpu);
-  return price ? getGpuRasterScore(gpu) / (price / 10000) : 0;
+  // 確認済みの掲載価格だけで計算する。無いGPUは NaN（ランキングに出さない・0点にもしない）
+  if (!hasValidMarketPrice(gpu)) return NaN;
+  return getGpuRasterScore(gpu) / (Number(gpu.marketPrice) / 10000);
 }
 
 function getGpuUseCase(gpu) {
@@ -713,7 +754,7 @@ function renderGpuRanking() {
   if (rankingGpus.length === 0) {
     gpuRankingList.innerHTML = `
       <div class="empty-message">
-        表示できるGPUランキングがありません。
+        ${activeRankingType === "value" ? "価格を確認できたGPUが無いため、コスパの順位は表示していません（掲載価格の更新待ち）。" : "表示できるGPUランキングがありません。"}
       </div>
     `;
     updateRankingMore(0);
@@ -774,7 +815,7 @@ function createRankingRow(gpu, index) {
         </span>
       </span>
 
-      <span class="ranking-price" data-label="目安価格">${formatGpuPrice(gpu)}</span>
+      <span class="ranking-price" data-label="${getGpuPriceLabel(gpu)}">${formatGpuPrice(gpu)}</span>
       <span class="ranking-use" data-label="用途の目安">${getGpuUseCase(gpu)}</span>
 
       <span class="ranking-meta" data-label="スペック">${getRankingMeta(gpu)}</span>

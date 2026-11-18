@@ -278,7 +278,10 @@
 
   function gpuReason(a) {
     var res = RES_LABELS[a.resolution] || "";
-    var share = a.gpuShare != null ? "構成全体の費用の約" + Math.round(a.gpuShare * 100) + "%をGPUに配分しています。" : "";
+    // 価格の基準が未確認（古い）ときは、どの時点の価格での配分かを書く（今の価格での配分と読ませない）
+    var share = a.gpuShare != null
+      ? "構成全体の費用" + (a.priceStatus && !a.priceStatus.confirmed ? "（" + a.priceStatus.when + "の価格）" : "") + "の約" + Math.round(a.gpuShare * 100) + "%をGPUに配分しています。"
+      : "";
     var text;
     switch (a.usage) {
       case "fps":
@@ -371,6 +374,7 @@
       ? BuildPrice.calculateBuildEstimate(build, { prices: c.prices, gpuList: c.gpuList })
       : null;
     var total = estimate && estimate.total ? estimate.total : null;
+    var priceStatus = c.prices ? BuildPrice.priceBasisStatus(c.prices, c.gpuList, c.now) : null;
     var partPrice = {};
     if (estimate && estimate.breakdown) {
       estimate.breakdown.forEach(function (p) { partPrice[p.key] = p.price; });
@@ -398,10 +402,15 @@
       gpuInfo: gpuInfo,
       total: total,
       priceText: total ? BuildPrice.formatEstimate(total) : null,
+      priceStatus: priceStatus,
+      priceLabel: priceStatus ? priceStatus.label : "参考価格",
+      priceShortLabel: priceStatus ? priceStatus.shortLabel : "参考価格",
+      bandLabel: priceStatus ? priceStatus.bandLabel : "予算目安",
       partPrice: partPrice,
       gpuShare: total && partPrice.gpu ? partPrice.gpu / total : null,
       cpuGpuRatio: partPrice.cpu && partPrice.gpu ? partPrice.cpu / partPrice.gpu : null,
-      valueScore: total && gpuInfo ? Number(gpuInfo.score) / (total / 10000) : null,
+      // コスパの評価は確認済みの価格でだけ行う（古い・未確認の価格で「コスパ重視型」と言わない）
+      valueScore: total && gpuInfo && priceStatus && priceStatus.confirmed ? Number(gpuInfo.score) / (total / 10000) : null,
     };
     a.gpuTargetLabel = gpuInfo ? resLabelOfLevel(resLevelOf(gpuInfo.target)) : null;
     a.fit = resolutionFit(a);

@@ -8,7 +8,8 @@
  * 診断画面（script.js）も同じモジュールを読むので、両者の数字は必ず一致する。
  *
  * 実行: node compute-prices.js
- * 出力: [{ id, total, text, overText }, ...]
+ * 出力: [{ id, total, text, overText, label, caveat, basisNote }, ...]
+ *   label / caveat / basisNote は価格の基準（いつの価格か・今の価格を確認できているか。build-price.js の priceBasisStatus）
  */
 "use strict";
 
@@ -27,17 +28,22 @@ const prices = readJson("shared/parts/part-prices.json");
 const gpuList = readJson("gpu-guide/gpus.json");
 const builds = readJson("pc-build-check/builds.json");
 
+const status = BP.priceBasisStatus(prices, gpuList);
 const rows = builds.map((build) => {
   const estimate = BP.calculateBuildEstimate(build, { prices, gpuList });
   if (!estimate || estimate.total === null) {
-    return { id: String(build.id), total: null, text: "", overText: "" };
+    return { id: String(build.id), total: null, text: "", overText: "", label: "", caveat: "", basisNote: "", bandLabel: status.bandLabel };
   }
-  const fit = BP.evaluateBudgetFit(estimate.total, build.budget);
+  const fit = BP.evaluateBudgetFit(estimate.total, build.budget, status);
   return {
     id: String(build.id),
     total: estimate.total,
     text: BP.formatEstimate(estimate.total),
     overText: fit && fit.isOver ? fit.text : "",
+    label: status.label,
+    bandLabel: status.bandLabel,
+    caveat: status.caveat || "",
+    basisNote: BP.priceBasisNote(estimate.updated),
   };
 });
 

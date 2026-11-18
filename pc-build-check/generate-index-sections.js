@@ -75,8 +75,8 @@ function renderSample() {
             <li><span>CPU</span> ${esc(a.cpu)}</li>
             <li><span>GPU</span> ${esc(a.gpu)}</li>
             <li><span>メモリ</span> ${esc(a.ram)}</li>
-            <li><span>予算</span> ${a.budgetMan}万円前後</li>${a.priceText ? `
-            <li><span>参考価格</span> ${esc(a.priceText)}</li>` : ""}
+            <li><span>${esc(a.bandLabel || "予算")}</span> ${a.budgetMan}万円前後</li>${a.priceText ? `
+            <li><span>${esc(a.priceLabel || "参考価格")}</span> ${esc(a.priceText)}</li>` : ""}
           </ul>
           <a class="hero-card-link" href="./builds/${esc(a.slug)}.html">この構成の詳細を見る →</a>
 `;
@@ -100,7 +100,7 @@ function renderPopular() {
                 <h3>${esc(b.title)}</h3>
                 <dl class="popular-build-specs">
                   <div>
-                    <dt>予算目安</dt>
+                    <dt>${esc(a.bandLabel || "予算目安")}</dt>
                     <dd>${a.budgetMan}万円前後</dd>
                   </div>
                   <div>
@@ -120,7 +120,7 @@ function renderPopular() {
                     <dd>${esc(a.ram)} / ${esc(a.storage.replace(/\s*NVMe SSD$/, ""))}</dd>
                   </div>${a.priceText ? `
                   <div>
-                    <dt>参考価格</dt>
+                    <dt>${esc(a.priceLabel || "参考価格")}</dt>
                     <dd>${esc(a.priceText)}</dd>
                   </div>` : ""}
                 </dl>

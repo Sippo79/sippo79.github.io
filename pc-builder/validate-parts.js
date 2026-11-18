@@ -6,6 +6,8 @@
  *    2. 「未確認（null）」の項目一覧               → 埋めると「要確認」が減る
  *  null を埋めるときは、必ずメーカー公式ページで値を読み、
  *  parts.json の sources にURLと確認日を書くこと（推測で埋めない）。
+ *  CPU・GPUチップは共通パーツデータ shared/catalog/ が正本（この点検にも正本の CPU を混ぜて数える。
+ *  正本そのものの検証は node scripts/catalog/validate.js）。
  *
  *  オプション: --missing だけで未確認一覧のみ / --json でJSON出力
  * ===================================================================== */
@@ -16,7 +18,13 @@ const ROOT = path.join(__dirname, '..');
 const rq = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/^﻿/, ''));
 
 const Db = require('./js/pb-db.js');
-const parts = rq('pc-builder/data/parts.json');
+const rawParts = rq('pc-builder/data/parts.json');
+// 正本（shared/catalog/）の CPU を PC BUILDER と同じ形に変換して混ぜる（pb-db.js と同じ互換アダプター）
+const catalogAdapter = require('../shared/catalog/catalog.js').builderAdapter(require('../scripts/catalog/lib.js').loadCatalog());
+const parts = Object.assign({}, rawParts, {
+  sources: Object.assign({}, catalogAdapter.partSources, rawParts.sources),
+  parts: catalogAdapter.cpuParts.concat(rawParts.parts),
+});
 const rules = rq('pc-builder/data/rules.json');
 const affiliate = rq('shared/affiliate/affiliate-master.json').products;
 const partPrices = rq('shared/parts/part-prices.json');
@@ -25,6 +33,7 @@ const engine = require('../upgrade/upgrade-engine.js');
 const errors = [];
 const seen = {};
 const ID_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
+rawParts.parts.filter((p) => p.category === 'cpu' || p.category === 'gpu').forEach((p) => errors.push(`${p.id}: CPU・GPUチップは pc-builder/data/parts.json に書かない（正本は shared/catalog/）`));
 
 parts.parts.forEach((p, i) => {
   const at = `parts[${i}] ${p.id || '(IDなし)'}`;
@@ -43,7 +52,7 @@ parts.parts.forEach((p, i) => {
     if (s.price != null && !/^\d{4}-\d{2}-\d{2}$/.test(s.checkedAt || '')) errors.push(`${at}: shops[${j}] の価格には確認日 checkedAt（YYYY-MM-DD）が必要`);
   });
   if (p.category === 'cpu' && !rules.cpuFamilies[p.family]) errors.push(`${at}: family ${p.family} が rules.json に無い`);
-  if (p.category === 'gpuboard' && !p.chip) errors.push(`${at}: chip（gpu-guide/gpus.json の id）が必要`);
+  if (p.category === 'gpuboard' && !p.chip) errors.push(`${at}: chip（shared/catalog/gpu.json の id）が必要`);
 });
 Object.entries(parts.sources).forEach(([id, s]) => {
   if (!s.url) errors.push(`sources.${id}: url が無い`);
@@ -87,7 +96,7 @@ if (process.argv.includes('--json')) {
   console.log(JSON.stringify({ errors, counts, missingKey, missing }, null, 1));
 } else {
   if (!process.argv.includes('--missing')) {
-    console.log('■ 登録数（parts.json。GPUチップは gpu-guide/gpus.json）');
+    console.log('■ 登録数（parts.json＋正本 shared/catalog/ の CPU。GPUチップは shared/catalog/gpu.json）');
     Object.entries(counts).forEach(([c, n]) => console.log(`  ${c}: ${n}`));
     console.log(errors.length ? `\n■ エラー ${errors.length} 件` : '\n■ エラー 0 件');
     errors.forEach((e) => console.log('  ✗ ' + e));

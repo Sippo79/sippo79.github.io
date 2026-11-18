@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "共通パーツデータの運用設定（価格の有効期間・代表価格の採用ルール・参照先）。shared/catalog/catalog.js と scripts/catalog/ が読む。",
+    "updated": "2026-11-14"
+  },
+  "files": {
+    "gpu": "shared/catalog/gpu.json",
+    "cpu": "shared/catalog/cpu.json",
+    "sources": "shared/catalog/sources.json",
+    "schema": "shared/catalog/schema.json"
+  },
+  "pricing": {
+    "staleAfterDays": 45,
+    "staleAfterDaysByType": {
+      "lowest": 45,
+      "market-median": 45
+    },
+    "_staleNote": "確認日（checkedAt）からこの日数を過ぎた価格は「古い（更新待ち）」。合計・コスパに入れず、画面と点検で更新待ちとして出す。確認日の無い価格は古さを判断できないため、そもそも合計に入れない。PC BUILDER の他カテゴリ（メモリ・SSDなど pc-builder/data/prices.json）も同じ日数を使う。",
+    "countableTypes": ["lowest", "market-median"],
+    "_countableNote": "合計・コスパに入れてよい価格の種類。reference（確認日なしの目安）・used-range・bto-estimate・launch-msrp は入れない。",
+    "representative": {
+      "pc-builder": {
+        "order": ["lowest", "market-median"],
+        "fallback": ["reference"],
+        "rule": "型番一致の最安値 → 同チップの実売相場 の順に、各種類で確認日が最も新しいものを代表価格にする。有効期間内のものだけ合計・コスパに入れる。どちらも無いときだけ reference を「おおまかな目安（合計に含めない）」として表示する。"
+      },
+      "gpu-guide": {
+        "order": ["market-median"],
+        "fallback": ["reference"],
+        "rule": "2026-11-15〜: 新品GPUで有効期間内の実売相場（market-median）があれば、見出しの価格は確認日・出典つきの『実売相場』。無い・期限切れのときだけ reference を『価格目安（確認日なし）』として出し、期限切れの実売相場は『更新待ち』と併記する。中古中心のGPUは used-range を『中古価格目安』として出す。gpus.json には price（reference）と marketPrice・marketPriceCheckedAt・marketPriceValidUntil を別項目で出す（用途が違うため同じ値にしない）。"
+      },
+      "upgrade": {
+        "order": ["market-median"],
+        "rule": "2026-11-15〜: UPGRADE の GPU 交換費用（PRICE_HINT の GPU 分）は upgrade-engine.js の生成ブロック GPU_PRICE（新品GPUの最新 market-median・確認日つき）。手書きしない。メモリ・SSD・電源などは手書きのまま（確認日なし）。"
+      },
+      "pc-build-check": {
+        "order": ["reference"],
+        "rule": "PC BUILD CHECK の BTO 構成価格は gpus.json の price（= reference）を使う。基準の違う実売相場に差し替えると予算区分の構成見直しが必要になるため変更しない（2026-11-15 試算: 実売相場に替えると75構成中68構成が予算+15%超。PROJECT_STATUS の既知の課題）。画面には価格の基準時期を明記する。"
+      }
+    }
+  },
+  "checks": {
+    "priceGapWarnPct": 30,
+    "_priceGapNote": "同じ製品の reference と market-median がこの割合以上離れていたら『要確認』の警告（どちらが正しいかは判定しない）。"
+  },
+  "consumers": {
+    "gpu": {
+      "vramGB": ["gpu-guide/gpus.json (vram)", "GPU GUIDE 一覧・個別ページ", "PC BUILDER（VRAM不足の補正）", "PC BUILD CHECK（gpus.json経由）", "GAME PC GUIDE（gpus.json経由）"],
+      "boardPowerW": ["gpu-guide/gpus.json (power)", "GPU GUIDE 個別ページ", "PC BUILDER 推定消費電力", "upgrade/upgrade-engine.js GPU_POWER（生成ブロック）"],
+      "recommendedSystemPowerW": ["upgrade/upgrade-engine.js GPU_POWER_SPEC（生成ブロック）", "GPU GUIDE 個別ページの推奨電源", "PC BUILDER 電源容量の判定", "UPGRADE 型番記事（/upgrade/rtx3060/ など）"],
+      "powerConnectorsReference": ["upgrade/upgrade-engine.js GPU_POWER_SPEC（生成ブロック）", "PC BUILDER 補助電源の判定", "UPGRADE 型番記事"],
+      "releaseYear": ["gpu-guide/gpus.json (releaseYear)", "GPU GUIDE"],
+      "sippoRaster": ["gpu-guide/gpus.json (rasterScore・target)", "GPU GUIDE", "PC BUILDER ゲーム性能", "PC BUILD CHECK", "GAME PC GUIDE", "UPGRADE 記事"],
+      "sippoFeature": ["gpu-guide/gpus.json (featureScore)", "GPU GUIDE", "PC BUILDER"],
+      "price:reference": ["gpu-guide/gpus.json (price)", "PC BUILD CHECK BTO構成価格", "GPU GUIDE 価格目安（有効な実売相場が無いGPUだけ）", "PC BUILDER（目安の併記）"],
+      "price:market-median": ["gpu-guide/gpus.json (marketPrice)", "GPU GUIDE 見出しの実売相場・一覧・個別ページ", "PC BUILDER 合計・コスパ", "upgrade/upgrade-engine.js GPU_PRICE（交換費用・予算判定・費用対効果）", "GPU GUIDE RX 9070 比較表"],
+      "price:used-range": ["gpu-guide/gpus.json (usedPriceMin/Max)", "GPU GUIDE 中古価格目安"]
+    },
+    "cpu": {
+      "*": ["PC BUILDER（CPUの仕様・互換性・スコア）"],
+      "cores": ["PC BUILDER", "shared/parts/part-prices.json の cpu（PC BUILD CHECK。値の一致を検証）"],
+      "threads": ["PC BUILDER", "shared/parts/part-prices.json の cpu（PC BUILD CHECK。値の一致を検証）"],
+      "price:lowest": ["PC BUILDER 合計・コスパ"]
+    }
+  }
+}

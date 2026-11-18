@@ -5,11 +5,12 @@
  *  DOM には触れない（ブラウザでも Node のテストでも同じ関数を使う）。
  *
  *  【データの出どころ（重複管理しない）】
- *   - GPUチップ          … gpu-guide/gpus.json（性能指数・VRAM・消費電力・目安価格）
- *   - GPUの公式推奨電源  … upgrade/upgrade-engine.js の GPU_POWER_SPEC
- *                           （無いチップだけ data/rules.json の gpuChipPower）
- *   - CPUのゲーム性能    … upgrade/upgrade-engine.js の CPU_TIERS
- *   - 参考価格 … pc-builder/data/prices.json（個別購入の小売目安・手動確認。GPUチップは gpuChips）
+ *   - CPU・GPUチップの仕様・価格・共通スコア … 共通パーツデータ shared/catalog/（cpu.json / gpu.json。正本）
+ *        実行時に直接読み、shared/catalog/catalog.js の builderAdapter で従来の形に変換する
+ *        （IDは正本と同じ＝共有URL・保存済み構成の互換を保つ）。
+ *   - GPUの説明文（summary） … gpu-guide/gpus.json（正本＋GPU GUIDE 固有の内容から生成された物）
+ *   - CPUのゲーム性能    … upgrade/upgrade-engine.js の CPU_TIERS（UPGRADE 独自の尺度）
+ *   - 参考価格 … CPU・GPUは正本の prices、それ以外は pc-builder/data/prices.json（個別購入の小売目安・手動確認）
  *        価格には tier を付ける: retail（実売確認価格）/ median（参考中央値）/ reference（既存の参考価格）。
  *        reference と、確認から日数がたった価格（stale）は「有効な価格」ではない（合計・コスパに入れない）。
  *        そこに無いときだけ shared/parts/part-prices.json（BTO構成用）/
@@ -169,7 +170,7 @@
       low: isNum(entry.low) ? entry.low : null,
       checkedAt: entry.checkedAt || null,
       label: label,
-      basis: 'pc-builder/data/prices.json',
+      basis: entry.basisFile || 'pc-builder/data/prices.json',
       range: Array.isArray(entry.range) ? entry.range.slice(0, 2) : null,
       note: entry.note || '',
       sourceLabel: src ? src.label : '',
@@ -183,7 +184,7 @@
     if (!price.tier) price.tier = 'reference';
     price.valid = false;
     if (!price.checkedAt) return price;
-    var days = (ctx.prices && ctx.prices._meta && ctx.prices._meta.staleAfterDays) || 45;
+    var days = ctx.staleAfterDays || (ctx.prices && ctx.prices._meta && ctx.prices._meta.staleAfterDays) || 45;
     var t = Date.parse(price.checkedAt + 'T00:00:00+09:00');
     var now = ctx.now instanceof Date ? ctx.now.getTime() : Date.now();
     if (isFinite(t)) price.ageDays = Math.floor((now - t) / 86400000);
@@ -200,13 +201,36 @@
     return SILICON_KEYS.every(function (k) { return isNum(p.specs[k]) || typeof p.specs[k] === 'string' ? p.specs[k] === o.specs[k] : false; });
   }
 
-  /** GPU GUIDE の1件を PC BUILDER のパーツ形式へ変換する */
+  /** 共通パーツデータ（shared/catalog/catalog.js）。ブラウザでは先に読み込んだ global、Node では require */
+  function catalogApi() {
+    var g = typeof globalThis !== 'undefined' ? globalThis : this;
+    if (g && g.SippoCatalog) return g.SippoCatalog;
+    if (typeof require === 'function') { try { return require('../../shared/catalog/catalog.js'); } catch (e) { /* なし */ } }
+    return null;
+  }
+
+  /**
+   * GPUの1件を PC BUILDER のパーツ形式へ変換する。
+   * 仕様・共通スコア・価格は正本（ctx.catGpu＝shared/catalog/gpu.json）、説明文だけ gpus.json（g）。
+   * 正本が無い入力（古いテスト等）では gpus.json と upgrade-engine.js の値を使う。
+   */
   function gpuFromGuide(g, ctx) {
     var key = normalizeKey(g.id);
     var engine = ctx.engine || {};
     var rules = ctx.rules || {};
-    var spec = (engine.GPU_POWER_SPEC && engine.GPU_POWER_SPEC[key]) ||
-      (rules.gpuChipPower && rules.gpuChipPower[key]) || null;
+    var cg = ctx.catGpu && ctx.catGpu[g.id];
+    if (cg) {
+      g = Object.assign({}, g, {
+        name: cg.name, brand: cg.maker, maker: cg.maker, series: cg.series,
+        market: cg.market === 'used' ? 'used' : undefined,
+        vram: cg.vram, power: cg.powerW, rasterScore: cg.raster, featureScore: cg.feature, releaseYear: cg.releaseYear,
+        price: cg.reference ? cg.reference.value : null,
+        target: ctx.gpuTarget && ctx.gpuTarget.deriveTarget ? ctx.gpuTarget.deriveTarget({ rasterScore: cg.raster }) : g.target,
+      });
+    }
+    var spec = cg
+      ? (isNum(cg.officialPsuW) ? { psu: cg.officialPsuW, connector: cg.connectorRef } : null)
+      : ((engine.GPU_POWER_SPEC && engine.GPU_POWER_SPEC[key]) || null);
     var enc = null;
     if (rules.encoders) {
       if (rules.encoders.byGpuId && rules.encoders.byGpuId[g.id]) enc = rules.encoders.byGpuId[g.id];
@@ -242,10 +266,11 @@
         tier: 'reference',
         checkedAt: null,
         label: used ? 'GPU GUIDE 中古相場の目安（日付なし）' : 'GPU GUIDE 掲載の参考価格（日付なし）',
-        basis: 'gpu-guide/gpus.json',
+        basis: cg ? 'shared/catalog/gpu.json（reference）' : 'gpu-guide/gpus.json',
         notice: !used && rules.pricing && rules.pricing.notices && rules.pricing.notices.gpu ? rules.pricing.notices.gpu.text : '',
       } : null,
       source: { label: 'GPU GUIDE（Sippo）', url: '/gpu-guide/gpu/' + g.id + '/', kind: 'sippo', checkedAt: null },
+      catalog: cg ? 'shared/catalog/gpu.json' : null,
       guideUrl: '/gpu-guide/gpu/' + g.id + '/',
       affiliateId: key,
       summary: g.summary || '',
@@ -254,10 +279,11 @@
 
   /**
    * すべての入力から DB を作る。
-   * @param {object} input { parts, gpus, partPrices, engine, rules, gpuTarget, affiliateProducts }
+   * @param {object} input { catalog, parts, gpus, partPrices, engine, rules, gpuTarget, prices }
+   *   catalog = { gpu, cpu, sources, config }（shared/catalog/ の正本。CPU・GPUの仕様と価格はここから）
    */
   function buildDb(input) {
-    var ctx = input || {};
+    var ctx = withCatalog(input || {});
     var list = [];
     var warnings = [];
     var byId = {};
@@ -364,6 +390,38 @@
       resolutionRef: { fhd: fhdBase, wqhd: thresholds.WQHD, '4k': thresholds['4K'] },
       partPricesUpdated: ctx.partPrices && ctx.partPrices._meta ? ctx.partPrices._meta.updated : null,
     };
+  }
+
+  /**
+   * 正本（shared/catalog/）を従来の入力の形に合わせて混ぜる（互換アダプター）。
+   * CPU は parts の先頭へ、CPU の最安値は prices.items、GPUチップの実売相場は prices.gpuChips、
+   * 「古い」とみなす日数は正本の config。GPU の一覧と順番は正本（listings に pc-builder があるもの）。
+   * 入力の parts / prices に同じIDがあればそちらを使う（テストで値を書き換えるため。本番の parts.json・
+   * prices.json に CPU/GPU を書くことは scripts/catalog/validate.js がエラーにする）。
+   */
+  function withCatalog(input) {
+    var C = input.catalog ? catalogApi() : null;
+    if (!C) return input;
+    var a = C.builderAdapter(input.catalog);
+    var ctx = Object.assign({}, input);
+    var parts = input.parts || { sources: {}, parts: [] };
+    ctx.parts = Object.assign({}, parts, {
+      sources: Object.assign({}, a.partSources, parts.sources || {}),
+      parts: a.cpuParts.filter(function (c) { return !(parts.parts || []).some(function (p) { return p && p.id === c.id; }); }).concat(parts.parts || []),
+    });
+    var pr = input.prices || { _meta: {}, items: {}, classes: {} };
+    var meta = pr._meta || {};
+    ctx.prices = Object.assign({}, pr, {
+      _meta: Object.assign({}, meta, { sources: Object.assign({}, a.priceSources, meta.sources || {}) }),
+      items: Object.assign({}, a.items, pr.items || {}),
+      gpuChips: Object.assign({}, a.gpuChips, pr.gpuChips || {}),
+    });
+    ctx.staleAfterDays = (meta && meta.staleAfterDays) || a.staleAfterDays;
+    ctx.catGpu = a.gpu;
+    var guide = {};
+    (input.gpus || []).forEach(function (g) { if (g && g.id) guide[g.id] = g; });
+    ctx.gpus = a.gpuIds.map(function (id) { return Object.assign({}, guide[id] || {}, { id: id, name: a.gpu[id].name }); });
+    return ctx;
   }
 
   /** 名前（表記ゆれあり）からパーツを探す。完全一致（正規化後）のみ。部分一致はしない。 */

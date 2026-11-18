@@ -690,7 +690,9 @@ function renderPriceEstimate(build) {
   // 価格が1つでも欠けたら出さない。欠けたまま合計すると必ず安く見える。
   if (!estimate || estimate.total === null) return "";
 
-  const fit = api.evaluateBudgetFit(estimate.total, build.budget);
+  // 価格の基準（いつの価格か・今の価格を確認できているか）。未確認なら「予算内」「この金額で買える」とは言わない
+  const status = api.priceBasisStatus ? api.priceBasisStatus(partPrices, gpuData) : null;
+  const fit = api.evaluateBudgetFit(estimate.total, build.budget, status);
   const overHtml = fit && fit.isOver
     ? `
       <p class="price-estimate-over">
@@ -702,11 +704,13 @@ function renderPriceEstimate(build) {
   return `
     <section class="price-estimate${fit && fit.isOver ? " price-estimate--over" : ""}">
       <div class="price-estimate-head">
-        <span class="price-estimate-label">参考価格</span>
+        <span class="price-estimate-label">${status ? status.label : "参考価格"}</span>
         <strong class="price-estimate-value">${api.formatEstimate(estimate.total)}</strong>
       </div>
       ${overHtml}
+      ${status && status.caveat ? `<p class="price-estimate-caveat">${status.caveat}</p>` : ""}
       <p class="price-estimate-note">${api.PRICE_DISCLAIMER}</p>
+      ${api.priceBasisNote ? `<p class="price-estimate-note">${api.priceBasisNote(estimate.updated)}</p>` : ""}
     </section>`;
 }
 
@@ -717,9 +721,12 @@ function renderPriceNotes(build) {
   if (!api || !partPrices || !build) return "";
   const estimate = api.calculateBuildEstimate(build, { prices: partPrices, gpuList: gpuData });
   if (!estimate || estimate.total === null) return "";
-  const fit = api.evaluateBudgetFit(estimate.total, build.budget);
+  const status = api.priceBasisStatus ? api.priceBasisStatus(partPrices, gpuData) : null;
+  const fit = api.evaluateBudgetFit(estimate.total, build.budget, status);
   if (fit && fit.isOver) return renderPriceEstimate(build);
-  return `<p class="price-estimate-note pb-price-note">${api.PRICE_DISCLAIMER}</p>`;
+  return (status && status.caveat ? `<p class="price-estimate-caveat pb-price-note">${status.caveat}</p>` : "") +
+    `<p class="price-estimate-note pb-price-note">${api.PRICE_DISCLAIMER}</p>` +
+    (api.priceBasisNote ? `<p class="price-estimate-note pb-price-note">${api.priceBasisNote(estimate.updated)}</p>` : "");
 }
 
 function renderUsedGpuNotice(gpuName) {
@@ -1091,7 +1098,7 @@ function renderSpecGrid(a, gpuGuideUrl, fitHeadline) {
     },
     { key: "memory", icon: "🗂️", label: "メモリ", value: a.ram },
     { key: "storage", icon: "⚡", label: "SSD", value: a.storage },
-    { key: "price", icon: "💴", label: "想定価格", value: a.priceText || `${a.budgetMan}万円前後`, total: a.priceText ? a.total : null, sub: a.priceText ? "参考価格（BTO完成品の目安）" : "予算の目安" },
+    { key: "price", icon: "💴", label: "想定価格", value: a.priceText || `${a.budgetMan}万円前後`, total: a.priceText ? a.total : null, sub: a.priceText ? `${a.priceLabel}・BTO完成品の目安` : "予算の目安" },
     { key: "usage", icon: "🎯", label: "用途", value: a.usageLabel },
     { key: "res", icon: "🖥️", label: "推奨解像度", value: fitHeadline, sub: `選んだ条件: ${a.resolutionLabel}` },
   ];
@@ -1174,13 +1181,13 @@ function renderDiffPanel(kind, cur, other) {
         <div class="pb-diff-col">
           <span>今の構成</span>
           <strong>${cur.budgetMan}万円前後</strong>
-          ${cur.priceText ? `<small>参考 ${escapeHtml(cur.priceText)}</small>` : ""}
+          ${cur.priceText ? `<small>${escapeHtml(cur.priceShortLabel || "参考")} ${escapeHtml(cur.priceText)}</small>` : ""}
         </div>
         <span class="pb-diff-arrow" aria-hidden="true">→</span>
         <div class="pb-diff-col is-target">
           <span>${isUp ? "5万円上げると" : "5万円下げると"}</span>
           <strong>${other.budgetMan}万円前後</strong>
-          ${other.priceText ? `<small>参考 ${escapeHtml(other.priceText)}${priceDiff ? `（${escapeHtml(priceDiff)}）` : ""}</small>` : ""}
+          ${other.priceText ? `<small>${escapeHtml(other.priceShortLabel || "参考")} ${escapeHtml(other.priceText)}${priceDiff ? `（${escapeHtml(priceDiff)}）` : ""}</small>` : ""}
         </div>
       </div>
       <p class="pb-diff-headline">${escapeHtml(exp.headline)}</p>
@@ -1259,7 +1266,7 @@ function renderTrio(cur) {
       <article class="pb-trio-card pb-trio-card--${t.role}${isCur ? " is-current" : ""}" style="--i:${i}">
         <span class="pb-trio-role">${escapeHtml(t.roleLabel)}</span>
         <strong class="pb-trio-budget">${a.budgetMan}万円前後</strong>
-        <small class="pb-trio-price">${a.priceText ? `参考 ${escapeHtml(a.priceText)}` : "&nbsp;"}</small>
+        <small class="pb-trio-price">${a.priceText ? `${escapeHtml(a.priceShortLabel || "参考")} ${escapeHtml(a.priceText)}` : "&nbsp;"}</small>
         <dl class="pb-trio-specs">
           <div class="${diffClass(a, "cpu")}"><dt>CPU</dt><dd>${escapeHtml(a.cpu)}</dd></div>
           <div class="${diffClass(a, "gpu")}"><dt>GPU</dt><dd>${escapeHtml(a.gpu)}</dd></div>
@@ -1361,7 +1368,7 @@ function renderPrefs(cur, prefKeys) {
       ? `
       <div class="pb-pref-cand">
         <p class="pb-pref-cand-head">条件に合わせるなら、この構成が近いです</p>
-        <p class="pb-pref-cand-title">${escapeHtml(cand.title)}（${cand.budgetMan}万円前後${cand.priceText ? `・参考 ${escapeHtml(cand.priceText)}` : ""}）</p>
+        <p class="pb-pref-cand-title">${escapeHtml(cand.title)}（${cand.budgetMan}万円前後${cand.priceText ? `・${escapeHtml(cand.priceShortLabel || "参考")} ${escapeHtml(cand.priceText)}` : ""}）</p>
         <p class="pb-pref-cand-spec">CPU ${escapeHtml(cand.cpu)} / GPU ${escapeHtml(cand.gpu)} / メモリ ${escapeHtml(cand.ram)} / SSD ${escapeHtml(shortStorage(cand.storage))}</p>
         <div class="pb-diff-actions">
           <button type="button" class="pb-btn pb-btn--primary" data-goto-slug="${escapeHtml(cand.slug)}" data-goto-source="prefs">この構成で診断し直す</button>
@@ -2011,8 +2018,8 @@ function renderCompareTable(slugs) {
     },
   }));
   const rows = [
-    { label: "予算", cell: (a) => `<strong>${a.budgetMan}万円前後</strong>` },
-    { label: "参考価格", cell: (a) => escapeHtml(a.priceText || "—") },
+    { label: "予算帯", cell: (a) => `<strong>${a.budgetMan}万円前後</strong>${a.bandLabel && a.bandLabel !== "予算目安" ? `<small>${escapeHtml(a.bandLabel.replace(/^予算帯/, ""))}</small>` : ""}` },
+    { label: "参考価格（概算）", cell: (a) => escapeHtml(a.priceText ? `${a.priceText}（${a.priceShortLabel || "参考"}）` : "—") },
     { label: "用途", cell: (a) => escapeHtml(a.usageLabel) },
     { label: "選んだ解像度", cell: (a) => escapeHtml(a.resolutionLabel) },
     { label: "CPU", cell: (a) => escapeHtml(a.cpu), diff: "cpu" },

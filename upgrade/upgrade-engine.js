@@ -51,33 +51,33 @@
   };
 
   /**
-   * GPUのおおよその消費電力(W)。電源容量が足りるかの判定に使う。
-   * メーカー公表のTGP/TBPを目安にした概算値。
+   * GPUボードのおおよその消費電力(W)（NVIDIA=TGP / AMD=TBP）。電源容量が足りるかの判定に使う。
+   * ★正本は shared/catalog/gpu.json の boardPowerW。下のブロックは node scripts/catalog/build.js が生成する（手で直さない）。
+   *   未確認（出典の記録なし）の値を含む。根拠は正本の各グループの basis / source を見る。
    */
+  // <GENERATED:catalog-gpu-power>
   var GPU_POWER = {
-    gtx1650: 75, gtx1650super: 100, gtx1660: 120, gtx1660super: 125, gtx1660ti: 120,
-    gtx10606gb: 120, gtx1070: 150, gtx1070ti: 180, gtx1080: 180, gtx1080ti: 250,
-    rtx2060: 160, rtx2060super: 175, rtx3050: 130,
-    rx570: 150, rx5808gb: 185, rx590: 175, rx5500xt: 130, rx5600xt: 150,
-    rx5700: 180, rx5700xt: 225, rx6500xt: 107, rx6600: 132,
-    rtx2070: 175, rtx2070super: 215, rtx3060: 170, rtx3060ti: 200,
-    rx6600xt: 160, rx6650xt: 176, rx6700: 175, rx6700xt: 230, rx7600: 165, rx7600xt: 190,
-    rtx4060: 115, rtx4060ti: 160,
-    rtx2080: 215, rtx2080super: 250, rtx2080ti: 250, rtx3070: 220, rtx3070ti: 290, rtx3080: 320,
-    rx6750xt: 250, rx6800: 250, rx6800xt: 300, rx6900xt: 300, rx6950xt: 335,
-    rx7700xt: 245, rx7800xt: 263,
-    rtx4070: 200, rtx4070super: 220, rtx5050: 130, rtx5060: 145, rtx5060ti: 180,
-    rtx3080ti: 350, rtx3090: 350, rtx3090ti: 450, rtx4070ti: 285, rtx4070tisuper: 285,
-    rtx4080: 320, rtx4080super: 320, rtx4090: 450,
+    rtx3060: 170, rtx3060ti: 200, rtx3070: 220, rtx3070ti: 290, rtx3080: 320, rtx4060: 115,
+    rtx4060ti: 160, rtx4070: 200, rtx4070super: 220, rtx4070tisuper: 285, rtx4080super: 320, rtx5050: 130,
+    rtx5060: 145, rtx5060ti: 180, rtx5070: 250, rtx5070ti: 300, rtx5080: 360, rtx5090: 575,
+    rx6600: 132, rx6700xt: 230, rx6800xt: 300, rx7600: 165, rx7700xt: 245, rx7800xt: 263,
     rx7900gre: 260, rx7900xt: 315, rx7900xtx: 355, rx9060xt: 160, rx9070: 220, rx9070xt: 304,
-    rtx5070: 250, rtx5070ti: 300, rtx5080: 360, rtx5090: 575,
+    gtx10606gb: 120, gtx1070: 150, gtx1070ti: 180, gtx1080: 180, gtx1080ti: 250, gtx1650: 75,
+    gtx1650super: 100, gtx1660: 120, gtx1660super: 125, gtx1660ti: 120, rtx2060: 160, rtx2060super: 175,
+    rtx2070: 175, rtx2070super: 215, rtx2080: 215, rtx2080super: 250, rtx2080ti: 250, rtx3050: 130,
+    rtx3080ti: 350, rtx3090: 350, rx570: 150, rx5808gb: 185, rx590: 225, rx5500xt: 130,
+    rx5600xt: 150, rx5700: 180, rx5700xt: 225, rx6500xt: 107, rx6600xt: 160, rx6650xt: 180,
+    rx6700: 175, rx6750xt: 250, rx6800: 250, rx6900xt: 300, rx6950xt: 335, rx7600xt: 190,
+    rtx3090ti: 450, rtx4070ti: 285, rtx4080: 320, rtx4090: 450,
   };
+  // </GENERATED:catalog-gpu-power>
 
   /**
-   * メーカー公式の推奨電源容量(W)と補助電源コネクタ。
-   * 出典: NVIDIA / AMD の製品仕様ページ（2026-09-28 確認）。
+   * メーカー公式のシステム推奨電源容量(W)と補助電源コネクタ（リファレンス仕様）。
    *   NVIDIA … "Required System Power (W)" / "Supplementary Power Connectors"
    *   AMD    … "Minimum PSU Recommendation" / "Additional Power Connector"
+   * ★正本は shared/catalog/gpu.json（recommendedSystemPowerW / powerConnectorsReference。出典と確認日もそこ）。
+   *   下のブロックは node scripts/catalog/build.js が basis=official の値だけを生成する（手で直さない）。
    *
    * ★judgePsu() はここに値があるGPUでは「公式値」を下回る目安を出さない。
    *   以前は概算式だけで判定していたため、RTX 5070 に 550W で足りると
@@ -85,21 +85,23 @@
    *   この表から電源の説明を生成するので、記事と診断が食い違わない。
    * ★コネクタは「リファレンス仕様」。メーカー製カードによって本数や形状
    *   （8ピン / 16ピン 12V-2x6）が違うため、表示側で必ずその旨を添える。
-   * ★推測で埋めない。公式ページで確認できたGPUだけを載せる。
    */
+  // <GENERATED:catalog-gpu-power-spec>
   var GPU_POWER_SPEC = {
     rtx3060:   { psu: 550, connector: '8ピン×1（製品により異なる）' },
-    rtx3060ti: { psu: 600, connector: '8ピン×1（製品により異なる）' },
-    rtx5060:   { psu: 550, connector: '8ピン×1 または 16ピン（12V-2x6）' },
-    rtx5060ti: { psu: 600, connector: '8ピン×1 または 16ピン（12V-2x6）' },
-    rtx5070:   { psu: 650, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6）' },
-    rtx5070ti: { psu: 750, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6）' },
-    rtx5080:   { psu: 850, connector: '8ピン×3（変換アダプタ同梱）または 16ピン（12V-2x6）' },
-    rtx5090:   { psu: 1000, connector: '8ピン×4（変換アダプタ同梱）または 16ピン（12V-2x6）' },
+    rtx3060ti: { psu: 600, connector: '8ピン×1（Founders Edition はカード側12ピン・8ピン×1からの変換アダプタ付属。製品により異なる）' },
+    rtx5050:   { psu: 550, connector: '8ピン×1 または 16ピン（12V-2x6）' },
+    rtx5060:   { psu: 550, connector: '8ピン×1 または 16ピン（12V-2x6・300W以上対応のケーブル）' },
+    rtx5060ti: { psu: 600, connector: '8ピン×1 または 16ピン（12V-2x6・300W以上対応のケーブル）' },
+    rtx5070:   { psu: 650, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6・300W以上対応のケーブル）' },
+    rtx5070ti: { psu: 750, connector: '8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6・300W以上対応のケーブル）' },
+    rtx5080:   { psu: 850, connector: '8ピン×3（変換アダプタ同梱）または 16ピン（12V-2x6・450W以上対応のケーブル）' },
+    rtx5090:   { psu: 1000, connector: '8ピン×4（変換アダプタ同梱）または 16ピン（12V-2x6・600W以上対応のケーブル）' },
     rx9060xt:  { psu: 450, connector: '8ピン×1' },
     rx9070:    { psu: 650, connector: '8ピン×2' },
-    rx9070xt:  { psu: 750, connector: '8ピン×2' },
+    rx9070xt:  { psu: 750, connector: '8ピン×2（AMDの仕様。メーカー製カードは8ピン×3の製品もある）' },
   };
+  // </GENERATED:catalog-gpu-power-spec>
 
   /**
    * CPU性能の目安（ゲーム時の相対値）。GPUのボトルネック判定に使う。
@@ -215,23 +217,46 @@
     'rx9070', 'rx9070xt', 'rtx5070ti', 'rtx5080', 'rtx5090',
   ];
 
+  /* GPUの交換費用（円）＝ 共通パーツデータの掲載価格の目安（market-median：価格.com人気ランキング掲載製品の最安値の中央値）。
+   *   チップ単位の目安で、この価格で買える保証や、実在する最安製品の価格ではない。vramGB があれば その容量の版の価格（RTX 5060 Ti・RX 9060 XT は16GB版）。
+   *   vram はチップの VRAM（GB・正本の vramGB）。目標を満たす候補どうしで安い方を選ぶとき、VRAM を減らす選び方をしないために使う。
+   * ★正本は shared/catalog/gpu.json の prices。下のブロックは node scripts/catalog/build.js が
+   *   新品で流通するGPUの最新の market-median から生成する（手で直さない）。checkedAt＝価格を確認した日。
+   *   以前は下の PRICE_HINT に手書きの値（確認日なし）を置いていたが、実売と3〜6割ずれていたため正本へ寄せた（2026-11-15）。
+   */
+  // <GENERATED:catalog-gpu-price>
+  var GPU_PRICE = {
+    rtx5050:   { price: 64000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 8 },
+    rtx5060:   { price: 89000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 8 },
+    rtx5060ti: { price: 159000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16, vramGB: 16 },
+    rtx5070:   { price: 160000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 12 },
+    rtx5070ti: { price: 258000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16 },
+    rtx5080:   { price: 370000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16 },
+    rtx5090:   { price: 1265000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 32 },
+    rx7600:    { price: 54000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 8 },
+    rx9060xt:  { price: 100000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16, vramGB: 16 },
+    rx9070:    { price: 136000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16 },
+    rx9070xt:  { price: 167000, checkedAt: '2026-11-15', validUntil: '2026-12-30', vram: 16 },
+  };
+  // </GENERATED:catalog-gpu-price>
+
   /* パーツのおおよその費用目安（円）。相場は変動するため「目安」として扱う。
    *
    * ★価格の基準：日本国内の新品実売価格の"よく見る帯"（中央値寄り）。
    *   最安値でも希望小売価格でもない。特価やセールは織り込まない。
    *   ここが実勢と乖離すると費用対効果の判定がずれるため、
    *   相場が大きく動いたときは見直すこと。
+   * ★GPU は上の GPU_PRICE（正本から生成・確認日つき）から入れる。ここに GPU の値を書かない。
+   *   メモリ・SSD・電源・クーラー・CPU は手書き（確認日なし。2026年の値上がりを反映していない：PROJECT_STATUS 既知の課題）。
    */
   var PRICE_HINT = {
-    rtx5050: 35000, rtx5060: 50000, rx9060xt: 55000, rtx5060ti: 75000,
-    rtx5070: 110000, rx9070: 110000, rx9070xt: 135000, rtx5070ti: 160000,
-    rtx5080: 230000, rtx5090: 450000,
     memory_ddr4_32: 12000, memory_ddr5_32: 16000, memory_ddr5_64: 34000,
     ssd_1tb: 12000, ssd_2tb: 20000, ssd_4tb: 40000,
     psu_650: 10000, psu_750: 14000, psu_850: 18000, psu_1000: 26000,
     cooler_air: 6000, cooler_aio: 18000,
     cpu_mid: 40000, cpu_high: 70000,
   };
+  Object.keys(GPU_PRICE).forEach(function (k) { PRICE_HINT[k] = GPU_PRICE[k].price; });
 
   /* ==================================================================
    *  2. ユーティリティ
@@ -410,6 +435,19 @@
       var aOk = a.afterRatio >= COMFORT_BANDS.comfortable;
       var bOk = b.afterRatio >= COMFORT_BANDS.comfortable;
       if (aOk !== bOk) return aOk ? -1 : 1;
+      // 目標をそのまま満たす（ideal 以上）候補どうしは安い方。設計方針「必要性能を満たす中でいちばん控えめ」。
+      // スコアだけだと ideal+0.10 までの上乗せに払う価値を高く見積もり、価格の並びによっては
+      // 目標を満たす安いGPUより過剰なGPUを選んでいた（2026-11-15、実売相場へ切り替えて判明）。
+      // ただし安い方の VRAM が少ないときは価格で決めない（安さと引き換えに VRAM を減らさない。従来どおりスコアで比べる）
+      var aIdeal = a.afterRatio >= COMFORT_BANDS.ideal;
+      var bIdeal = b.afterRatio >= COMFORT_BANDS.ideal;
+      if (aIdeal && bIdeal && a.price !== b.price) {
+        var cheap = a.price < b.price ? a : b;
+        var dear = cheap === a ? b : a;
+        var vc = GPU_PRICE[cheap.id] && GPU_PRICE[cheap.id].vram;
+        var vd = GPU_PRICE[dear.id] && GPU_PRICE[dear.id].vram;
+        if (vc && vd && vc >= vd) return a.price - b.price;
+      }
       return b.score - a.score;
     });
 
@@ -984,10 +1022,21 @@
       };
     }
 
+    // 費用の合計は「確認済みの価格」だけで出す（2026-11-15〜）。
+    // GPU は正本の掲載価格（GPU_PRICE・期限内）＝確認済み。メモリ・SSD・電源・CPU などの PRICE_HINT は確認日の無い目安なので、
+    // 1つでも含むと合計（＝今いくらかかるか）を断定しない。買い替え判定（合計20万円以上）は確認済みの分だけ＝下限で見る。
+    var unconfirmedCostParts = [];
     upgrades.forEach(function (r) {
       var price = r.priceHint || (r.recommendId && PRICE_HINT[r.recommendId]);
-      if (price) { total += price; hasEstimate = true; }
+      if (!price) return;
+      if (isConfirmedPrice(r)) { total += price; hasEstimate = true; }
+      else unconfirmedCostParts.push(r.label || r.part);
     });
+    var costUnconfirmed = unconfirmedCostParts.length > 0;
+    var costNote = costUnconfirmed
+      ? unconfirmedCostParts.join('・') + 'の費用は確認日の記録が無い目安のため、交換費用の合計は出していません'
+        + (hasEstimate ? '（価格を確認できた分は約' + Math.round(total / 10000) + '万円）' : '') + '。'
+      : null;
 
     var cpuNeedsChange = results.some(function (r) {
       return r.part === 'cpu' && r.status === 'upgrade';
@@ -1008,7 +1057,8 @@
           + 'ここまで交換すると、流用できるのはケース・電源・ストレージ程度になり、'
           + '費用も新しいPCを購入するのと大きく変わらなくなります。'
           + '保証やサポートを考えても、買い替えの方が有利な場面です。',
-        estimatedCost: hasEstimate ? total : null,
+        estimatedCost: hasEstimate && !costUnconfirmed ? total : null,
+        costNote: costNote,
         partsToChange: upgrades.length,
       };
     }
@@ -1035,7 +1085,8 @@
         detail: '必ず交換すべきパーツはありません。'
           + '下記は「replace した方が快適になる可能性がある」程度の項目です。'
           + '予算に余裕がある場合や、実際に不満を感じている場合のみ検討してください。',
-        estimatedCost: hasEstimate ? total : null,
+        estimatedCost: hasEstimate && !costUnconfirmed ? total : null,
+        costNote: costNote,
         partsToChange: 0,
       };
     }
@@ -1062,9 +1113,10 @@
           + '実質的にPCを組み直すのと変わりません。'
           + '土台となるCPU・マザーボードは古いままのため、'
           + '費用のわりに満足度が上がりにくい状態です。'
-          + (hasEstimate ? '交換費用の目安は約' + Math.round(total / 10000) + '万円で、' : '')
+          + (hasEstimate && !costUnconfirmed ? '交換費用の目安は約' + Math.round(total / 10000) + '万円で、' : '')
           + '同程度の予算で新しいPCを検討する方が有利になりやすい場面です。',
-        estimatedCost: hasEstimate ? total : null,
+        estimatedCost: hasEstimate && !costUnconfirmed ? total : null,
+        costNote: costNote,
         partsToChange: upgrades.length,
       };
     }
@@ -1076,11 +1128,12 @@
       return {
         verdict: 'replace',
         headline: 'PCの買い替えをおすすめします',
-        detail: '交換をおすすめするパーツの合計費用が約' + Math.round(total / 10000) + '万円となり、'
+        detail: (costUnconfirmed ? '価格を確認できたパーツだけで交換費用が約' : '交換をおすすめするパーツの合計費用が約') + Math.round(total / 10000) + '万円となり、'
           + 'ゲーミングPCを新しく購入する場合と大きく変わらない金額です。'
           + '新品PCであれば全体に保証が付き、パーツ同士の相性や取り付けの手間もありません。'
           + '費用が近い場合は、買い替えの方が有利になりやすい場面です。',
-        estimatedCost: total,
+        estimatedCost: costUnconfirmed ? null : total,
+        costNote: costNote,
         partsToChange: upgrades.length,
       };
     }
@@ -1092,7 +1145,8 @@
         detail: '交換をおすすめするパーツが' + upgrades.length + '点あります。'
           + '合計費用によっては、新しいPCを購入した方が結果的に満足度が高い場合があります。'
           + '下の「買い替えとの比較」で費用を確認してください。',
-        estimatedCost: hasEstimate ? total : null,
+        estimatedCost: hasEstimate && !costUnconfirmed ? total : null,
+        costNote: costNote,
         partsToChange: upgrades.length,
       };
     }
@@ -1102,10 +1156,22 @@
       headline: 'アップグレードがおすすめです',
       detail: '交換をおすすめするパーツは' + upgrades.length + '点です。'
         + 'この範囲であれば、PCを買い替えるより費用を抑えつつ'
-        + '目的を達成できる見込みです。',
-      estimatedCost: hasEstimate ? total : null,
+        + '目的を達成できる見込みです。'
+        + (costUnconfirmed ? '費用は各パーツの目安（確認日の記録が無いものを含む）を、購入前に最新価格で確認してください。' : ''),
+      estimatedCost: hasEstimate && !costUnconfirmed ? total : null,
+      costNote: costNote,
       partsToChange: upgrades.length,
     };
+  }
+
+  /** 交換費用が確認済みの価格か（GPU の掲載価格で、有効期限内のものだけ） */
+  function isConfirmedPrice(r) {
+    if (!r || r.part !== 'gpu' || r.priceHint || !r.recommendId) return false;
+    var gp = GPU_PRICE[r.recommendId];
+    if (!gp || !gp.validUntil) return false;
+    var d = new Date();
+    var today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    return today <= gp.validUntil;
   }
 
   /* ==================================================================
@@ -1328,6 +1394,7 @@
     // 型番記事（gpu-article.js）が「CPUは足りるか」の表を診断と同じ基準で作るために使う
     judgeCpu: judgeCpu,
     PRICE_HINT: PRICE_HINT,
+    GPU_PRICE: GPU_PRICE,
     RESOLUTION_TARGETS: RESOLUTION_TARGETS,
     resolveKey: resolveKey,
     normalize: normalize,

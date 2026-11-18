@@ -1,0 +1,4655 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "GPUチップ（GPUとしての仕様）の正本。メーカー別のグラボ製品（寸法・補助電源の実物）は pc-builder/data/parts.json の gpuboard。",
+    "migratedAt": "2026-11-14"
+  },
+  "products": [
+    {
+      "id": "rtx-3060",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3060",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 170,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 550,
+            "powerConnectorsReference": "8ピン×1（製品により異なる）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-3060-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 43,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 70,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 27000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3060",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 23000,
+          "max": 33000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3060",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3060-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3060 Ti",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 200,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 600,
+            "powerConnectorsReference": "8ピン×1（Founders Edition はカード側12ピン・8ピン×1からの変換アダプタ付属。製品により異なる）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-3060-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 55,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 72,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 30000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3060 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 27000,
+          "max": 38000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3060 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3070",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 220,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 62,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 73,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 35000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3070",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 32000,
+          "max": 45000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3070",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3070-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3070 Ti",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 290,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 65,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 73,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 38000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3070 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 35000,
+          "max": 50000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3070 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3080",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3080",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 10,
+            "boardPowerW": 320,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 74,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 75,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 48000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3080",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 43000,
+          "max": 65000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3080",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4060",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4060",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 115,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 45,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 86,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 52000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4060",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4060-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4060 Ti",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 160,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 56,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 87,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 56000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4060 Ti",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4070",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 200,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 70,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 90,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 72000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4070",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4070-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4070 SUPER",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 220,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 76,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 91,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 82000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4070 SUPER",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4070-ti-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4070 Ti SUPER",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 285,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 84,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 93,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 115000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4070 Ti SUPER",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-4080-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4080 SUPER",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 320,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 92,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 94,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 150000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 4080 SUPER",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5050",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5050",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 130,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 550,
+            "powerConnectorsReference": "8ピン×1 または 16ピン（12V-2x6）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5050",
+          "checkedAt": "2026-10-30",
+          "note": "旧 pc-builder/data/rules.json の gpuChipPower から移行。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 46,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null,
+          "note": "比較データが少ない暫定の推定値（scoreSource: internal_estimate）"
+        },
+        "sippoFeature": {
+          "value": 90,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 64000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5050 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 3 製品のうち集計対象 3 製品の最安値の中央値）",
+          "low": 59800,
+          "high": 68000,
+          "sampleSize": 3,
+          "medianRaw": 64050,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "集計対象が3製品と少ない。掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 58000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5050 搭載のグラフィックボード（ランキング掲載 3 製品の最安値の中央値）",
+          "low": 54000,
+          "high": 63000,
+          "sampleSize": 3,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 35000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5050",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5060",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5060",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 145,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 550,
+            "powerConnectorsReference": "8ピン×1 または 16ピン（12V-2x6・300W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5060-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 58,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 91,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 89000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5060 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 13 製品のうち集計対象 13 製品の最安値の中央値）",
+          "low": 82800,
+          "high": 98000,
+          "sampleSize": 13,
+          "medianRaw": 88800,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 86000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5060 搭載のグラフィックボード（ランキング掲載 8 製品の最安値の中央値）",
+          "low": 79000,
+          "high": 97000,
+          "sampleSize": 8,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 57000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5060",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5060-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5060 Ti",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 180,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 600,
+            "powerConnectorsReference": "8ピン×1 または 16ピン（12V-2x6・300W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5060-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 68,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 92,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 159000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5060 Ti 16GB版 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 16 製品のうち集計対象 11 製品の最安値の中央値）",
+          "vramGB": 16,
+          "low": 144980,
+          "high": 184800,
+          "sampleSize": 11,
+          "medianRaw": 158582,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "16GB版だけ（8GB版は除外）。掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 149000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5060 Ti 搭載のグラフィックボード（ランキング掲載 9 製品の最安値の中央値）",
+          "low": 143000,
+          "high": 165000,
+          "sampleSize": 9,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 89000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5060 Ti",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5070",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 250
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5070-family",
+          "checkedAt": "2026-11-09",
+          "note": "gpu-guide/content/rx-9070.json の作成時（2026-11-09）に公式ページで確認した項目"
+        },
+        {
+          "fields": {
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 650,
+            "powerConnectorsReference": "8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6・300W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5070-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: nvidia-rtx-5070-family・2026-11-09）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 78,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 94,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 160000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5070 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 13 製品のうち集計対象 11 製品の最安値の中央値）",
+          "low": 149800,
+          "high": 223370,
+          "sampleSize": 11,
+          "medianRaw": 159799,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 163000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5070 搭載のグラフィックボード（ランキング掲載 11 製品の最安値の中央値）",
+          "low": 155000,
+          "high": 206000,
+          "sampleSize": 11,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 118000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5070",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5070-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5070 Ti",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 300,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 750,
+            "powerConnectorsReference": "8ピン×2（変換アダプタ同梱）または 16ピン（12V-2x6・300W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5070-family",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 88,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 95,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 258000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5070 Ti 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 18 製品のうち集計対象 15 製品の最安値の中央値）",
+          "low": 229800,
+          "high": 302800,
+          "sampleSize": 15,
+          "medianRaw": 257800,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 249000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5070 Ti 搭載のグラフィックボード（ランキング掲載 16 製品の最安値の中央値）",
+          "low": 229000,
+          "high": 287000,
+          "sampleSize": 16,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 158000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5070 Ti",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5080",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5080",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 360,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 850,
+            "powerConnectorsReference": "8ピン×3（変換アダプタ同梱）または 16ピン（12V-2x6・450W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5080",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 96,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 97,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 370000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5080 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 18 製品のうち集計対象 16 製品の最安値の中央値）",
+          "low": 329800,
+          "high": 421018,
+          "sampleSize": 16,
+          "medianRaw": 369800,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 366000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5080 搭載のグラフィックボード（ランキング掲載 11 製品の最安値の中央値）",
+          "low": 332000,
+          "high": 576000,
+          "sampleSize": 11,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 198000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5080",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rtx-5090",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 5090",
+      "aliases": [],
+      "series": "RTX 50",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 32,
+            "boardPowerW": 575,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 1000,
+            "powerConnectorsReference": "8ピン×4（変換アダプタ同梱）または 16ピン（12V-2x6・600W以上対応のケーブル）"
+          },
+          "basis": "official",
+          "source": "nvidia-rtx-5090",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 100,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 100,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 1265000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "GeForce RTX 5090 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 14 製品のうち集計対象 10 製品の最安値の中央値）",
+          "low": 1048000,
+          "high": 1586800,
+          "sampleSize": 10,
+          "medianRaw": 1264500,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 1349000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "GeForce RTX 5090 搭載のグラフィックボード（ランキング掲載 6 製品の最安値の中央値）",
+          "low": 1230000,
+          "high": 1852000,
+          "sampleSize": 6,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 650000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 5090",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-6600",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6600",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 132,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 42,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 56,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 22000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6600",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 18000,
+          "max": 26000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6600",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6700-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6700 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 230,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 58,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 61,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 32000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6700 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 28000,
+          "max": 40000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6700 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6800-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6800 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 300,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 74,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 64,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 50000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6800 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 43000,
+          "max": 62000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6800 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-7600",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7600",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 165,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 48,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 70,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 54000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "Radeon RX 7600 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 4 製品のうち集計対象 4 製品の最安値の中央値）",
+          "low": 51928,
+          "high": 61980,
+          "sampleSize": 4,
+          "medianRaw": 53800.5,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "集計対象が4製品と少ない。掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 53000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "Radeon RX 7600 搭載のグラフィックボード（ランキング掲載 3 製品の最安値の中央値）",
+          "low": 47000,
+          "high": 60000,
+          "sampleSize": 3,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 42000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7600",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-7700-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7700 XT",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 245,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 70,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 73,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 58000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7700 XT",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-7800-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7800 XT",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 263,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 80,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 75,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 78000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7800 XT",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-7900-gre",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7900 GRE",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 260,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 84,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 76,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 80000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7900 GRE",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-7900-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7900 XT",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 20,
+            "boardPowerW": 315,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 90,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 78,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 110000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7900 XT",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-7900-xtx",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7900 XTX",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 24,
+            "boardPowerW": 355,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 94,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 79,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 135000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 7900 XTX",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-9060-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 9060 XT",
+      "aliases": [],
+      "series": "RX 9000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 160,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 450,
+            "powerConnectorsReference": "8ピン×1"
+          },
+          "basis": "official",
+          "source": "amd-rx-9060-xt",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 61,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 88,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 100000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "Radeon RX 9060 XT 16GB版 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 17 製品のうち集計対象 12 製品の最安値の中央値）",
+          "vramGB": 16,
+          "low": 96000,
+          "high": 129780,
+          "sampleSize": 12,
+          "medianRaw": 100490,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "16GB版だけ（8GB版は除外）。掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 93000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "Radeon RX 9060 XT 搭載のグラフィックボード（ランキング掲載 6 製品の最安値の中央値）",
+          "low": 85000,
+          "high": 100000,
+          "sampleSize": 6,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 55000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 9060 XT",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-9070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 9070",
+      "aliases": [],
+      "series": "RX 9000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 220
+          },
+          "basis": "official",
+          "source": "amd-rx-9070",
+          "checkedAt": "2026-11-09",
+          "note": "gpu-guide/content/rx-9070.json の作成時（2026-11-09）に公式ページで確認した項目"
+        },
+        {
+          "fields": {
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 650,
+            "powerConnectorsReference": "8ピン×2"
+          },
+          "basis": "official",
+          "source": "amd-rx-9070",
+          "checkedAt": "2026-11-09",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない）。補助電源はリファレンス仕様で、メーカー製カードは異なる場合がある。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 84,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 88,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 136000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "Radeon RX 9070 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 7 製品のうち集計対象 7 製品の最安値の中央値）",
+          "low": 125800,
+          "high": 149800,
+          "sampleSize": 7,
+          "medianRaw": 135800,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "RX 9070 GRE は別チップとして除外。掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 130000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "Radeon RX 9070 搭載のグラフィックボード（ランキング掲載 7 製品の最安値の中央値）",
+          "low": 126000,
+          "high": 144000,
+          "sampleSize": 7,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 88000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 9070",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "rx-9070-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 9070 XT",
+      "aliases": [],
+      "series": "RX 9000",
+      "market": "new",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 304,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        {
+          "fields": {
+            "recommendedSystemPowerW": 750,
+            "powerConnectorsReference": "8ピン×2（AMDの仕様。メーカー製カードは8ピン×3の製品もある）"
+          },
+          "basis": "official",
+          "source": "amd-rx-9070-xt",
+          "checkedAt": "2026-11-15",
+          "note": "メーカー公式のシステム推奨電源（GPU単体の消費電力ではない。公式が想定するCPU搭載PCが基準）。補助電源は電源ユニット側のケーブル（カード側の端子・変換アダプタはリファレンス仕様で、メーカー製カードは異なる場合がある）。2026-11-15 に出典ページで値を再確認（以前の記録: official-gpu-psu-2026-09-28・2026-09-28）。"
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 91,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 90,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "market-median",
+          "amount": 167000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-11-15",
+          "source": "kakaku-gpu-2026-11-15",
+          "target": "Radeon RX 9070 XT 搭載のグラフィックボード（価格.com人気ランキング1〜5ページ掲載 15 製品のうち集計対象 14 製品の最安値の中央値）",
+          "low": 147999,
+          "high": 198000,
+          "sampleSize": 14,
+          "medianRaw": 167300,
+          "evidence": "shared/catalog/evidence/kakaku-gpu-2026-11-15.json",
+          "note": "掲載製品の価格目安で、市場全体の相場や購入できる価格の保証ではない。新品・税込・送料別。"
+        },
+        {
+          "type": "market-median",
+          "amount": 162000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-31",
+          "source": "kakaku-gpu",
+          "target": "Radeon RX 9070 XT 搭載のグラフィックボード（ランキング掲載 16 製品の最安値の中央値）",
+          "low": 142000,
+          "high": 190000,
+          "sampleSize": 16,
+          "note": "8GB/16GB で別チップ扱いのもの（RTX 5060 Ti・RX 9060 XT）は同じ VRAM の製品だけ、RX 9070 GRE は除外。"
+        },
+        {
+          "type": "reference",
+          "amount": 96000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 9070 XT",
+          "note": "GPU GUIDE掲載の目安（2026年6月ごろ設定・確認日の記録なし）。PC BUILD CHECK のBTO構成価格の計算にも使われる。"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1060-6gb",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1060 6GB",
+      "aliases": [],
+      "series": "GTX 10",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 120,
+            "releaseYear": 2016
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 20,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 22,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 12000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1060 6GB",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 8000,
+          "max": 15000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1060 6GB",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1070",
+      "aliases": [],
+      "series": "GTX 10",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 150,
+            "releaseYear": 2016
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 30,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 26,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 15000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1070",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 11000,
+          "max": 19000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1070",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1070-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1070 Ti",
+      "aliases": [],
+      "series": "GTX 10",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 180,
+            "releaseYear": 2017
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 34,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 27,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 17000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1070 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 13000,
+          "max": 22000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1070 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1080",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1080",
+      "aliases": [],
+      "series": "GTX 10",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 180,
+            "releaseYear": 2016
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 38,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 28,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 19000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1080",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 15000,
+          "max": 25000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1080",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1080-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1080 Ti",
+      "aliases": [],
+      "series": "GTX 10",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 11,
+            "boardPowerW": 250,
+            "releaseYear": 2017
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 53,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 30,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 28000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1080 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 22000,
+          "max": 35000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1080 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1650",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1650",
+      "aliases": [],
+      "series": "GTX 16",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 4,
+            "boardPowerW": 75,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 18,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 32,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 13000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1650",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 9000,
+          "max": 16000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1650",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1650-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1650 SUPER",
+      "aliases": [],
+      "series": "GTX 16",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 4,
+            "boardPowerW": 100,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 27,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 34,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 15000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1650 SUPER",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 11000,
+          "max": 19000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1650 SUPER",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1660",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1660",
+      "aliases": [],
+      "series": "GTX 16",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 120,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 31,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 36,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 16000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 12000,
+          "max": 21000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1660-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1660 SUPER",
+      "aliases": [],
+      "series": "GTX 16",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 125,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 34,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 38,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 18000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660 SUPER",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 14000,
+          "max": 24000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660 SUPER",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "gtx-1660-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce GTX 1660 Ti",
+      "aliases": [],
+      "series": "GTX 16",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 120,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 35,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 39,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 19000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 15000,
+          "max": 25000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce GTX 1660 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2060",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2060",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 160,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 35,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 63,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 20000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2060",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 16000,
+          "max": 26000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2060",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2060-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2060 SUPER",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 175,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 42,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 65,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 24000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2060 SUPER",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 20000,
+          "max": 30000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2060 SUPER",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2070",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2070",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 175,
+            "releaseYear": 2018
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 45,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 66,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 26000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2070",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 21000,
+          "max": 32000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2070",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2070-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2070 SUPER",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 215,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 51,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 67,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 30000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2070 SUPER",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 25000,
+          "max": 38000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2070 SUPER",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2080",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2080",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 215,
+            "releaseYear": 2018
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 53,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 68,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 33000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 28000,
+          "max": 42000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2080-super",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2080 SUPER",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 250,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 56,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 69,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 36000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080 SUPER",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 30000,
+          "max": 45000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080 SUPER",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-2080-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 2080 Ti",
+      "aliases": [],
+      "series": "RTX 20",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 11,
+            "boardPowerW": 250,
+            "releaseYear": 2018
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 62,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 70,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 45000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 38000,
+          "max": 55000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 2080 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3050",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3050",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 130,
+            "releaseYear": 2022
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 27,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 68,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 20000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3050",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 15000,
+          "max": 25000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3050",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3080-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3080 Ti",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 350,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 80,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 76,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 65000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3080 Ti",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 55000,
+          "max": 80000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3080 Ti",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rtx-3090",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3090",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 24,
+            "boardPowerW": 350,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 82,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 78,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 80000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3090",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 70000,
+          "max": 110000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "GeForce RTX 3090",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-570",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 570",
+      "aliases": [],
+      "series": "RX 500",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 4,
+            "boardPowerW": 150,
+            "releaseYear": 2017
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 16,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 18,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 8000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 570",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 5000,
+          "max": 12000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 570",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-580-8gb",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 580 8GB",
+      "aliases": [],
+      "series": "RX 500",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 185,
+            "releaseYear": 2017
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 22,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 20,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 11000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 580 8GB",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 8000,
+          "max": 16000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 580 8GB",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-590",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 590",
+      "aliases": [],
+      "series": "RX 500",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "boardPowerW": 225
+          },
+          "basis": "secondary",
+          "source": "wiki-rx500",
+          "checkedAt": "2026-11-14",
+          "note": "旧 upgrade-engine.js の GPU_POWER（175W）と食い違っていたため確認。表の列は位置と前後の行で照合（見出しとの照合はできていない）。"
+        },
+        {
+          "fields": {
+            "vramGB": 8,
+            "releaseYear": 2018
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 24,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 21,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 13000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 590",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 9000,
+          "max": 18000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 590",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-5500-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 5500 XT",
+      "aliases": [],
+      "series": "RX 5000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 130,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 25,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 32,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 14000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5500 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 10000,
+          "max": 19000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5500 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-5600-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 5600 XT",
+      "aliases": [],
+      "series": "RX 5000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 6,
+            "boardPowerW": 150,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 35,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 36,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 18000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5600 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 14000,
+          "max": 24000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5600 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-5700",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 5700",
+      "aliases": [],
+      "series": "RX 5000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 180,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 42,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 38,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 22000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5700",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 17000,
+          "max": 28000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5700",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-5700-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 5700 XT",
+      "aliases": [],
+      "series": "RX 5000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 225,
+            "releaseYear": 2019
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 50,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 39,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 26000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5700 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 21000,
+          "max": 33000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 5700 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6500-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6500 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 4,
+            "boardPowerW": 107,
+            "releaseYear": 2022
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 19,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 34,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 13000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6500 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 9000,
+          "max": 16000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6500 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6600-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6600 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 8,
+            "boardPowerW": 160,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 46,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 58,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 25000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6600 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 21000,
+          "max": 32000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6600 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6650-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6650 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "boardPowerW": 180
+          },
+          "basis": "secondary",
+          "source": "wiki-rx6000",
+          "checkedAt": "2026-11-14",
+          "note": "旧 upgrade-engine.js の GPU_POWER（176W）と食い違っていたため確認。表の列は位置と前後の行で照合（見出しとの照合はできていない）。"
+        },
+        {
+          "fields": {
+            "vramGB": 8,
+            "releaseYear": 2022
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 49,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 59,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 28000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6650 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 23000,
+          "max": 35000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6650 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6700",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6700",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 10,
+            "boardPowerW": 175,
+            "releaseYear": 2021
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 53,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 60,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 30000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6700",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 25000,
+          "max": 38000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6700",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6750-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6750 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 12,
+            "boardPowerW": 250,
+            "releaseYear": 2022
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 61,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 62,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 36000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6750 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 30000,
+          "max": 45000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6750 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6800",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6800",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 250,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 68,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 63,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 45000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6800",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 38000,
+          "max": 55000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6800",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6900-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6900 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 300,
+            "releaseYear": 2020
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 79,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 64,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 60000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6900 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 50000,
+          "max": 75000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6900 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-6950-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 6950 XT",
+      "aliases": [],
+      "series": "RX 6000",
+      "market": "used",
+      "listings": [
+        "gpu-guide",
+        "pc-builder",
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": 16,
+            "boardPowerW": 335,
+            "releaseYear": 2022
+          },
+          "basis": "unverified",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      ],
+      "scores": {
+        "sippoRaster": {
+          "value": 82,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        },
+        "sippoFeature": {
+          "value": 65,
+          "version": "v1",
+          "basis": "estimated",
+          "source": "legacy-gpus-json",
+          "checkedAt": null
+        }
+      },
+      "prices": [
+        {
+          "type": "reference",
+          "amount": 68000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6950 XT",
+          "note": "GPU GUIDE掲載の中古の目安（確認日の記録なし）"
+        },
+        {
+          "type": "used-range",
+          "min": 58000,
+          "max": 85000,
+          "currency": "JPY",
+          "condition": "used",
+          "checkedAt": null,
+          "source": "legacy-gpus-json",
+          "target": "Radeon RX 6950 XT",
+          "note": "GPU GUIDE掲載の中古相場の目安（確認日の記録なし）"
+        }
+      ]
+    },
+    {
+      "id": "rx-7600-xt",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "AMD",
+      "name": "Radeon RX 7600 XT",
+      "aliases": [],
+      "series": "RX 7000",
+      "market": null,
+      "listings": [
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": null,
+            "boardPowerW": 190,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-upgrade-engine",
+          "checkedAt": null
+        }
+      ],
+      "scores": {},
+      "prices": []
+    },
+    {
+      "id": "rtx-3090-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 3090 Ti",
+      "aliases": [],
+      "series": "RTX 30",
+      "market": null,
+      "listings": [
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": null,
+            "boardPowerW": 450,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-upgrade-engine",
+          "checkedAt": null
+        }
+      ],
+      "scores": {},
+      "prices": []
+    },
+    {
+      "id": "rtx-4070-ti",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4070 Ti",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": null,
+      "listings": [
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": null,
+            "boardPowerW": 285,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-upgrade-engine",
+          "checkedAt": null
+        }
+      ],
+      "scores": {},
+      "prices": []
+    },
+    {
+      "id": "rtx-4080",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4080",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": null,
+      "listings": [
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": null,
+            "boardPowerW": 320,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-upgrade-engine",
+          "checkedAt": null
+        }
+      ],
+      "scores": {},
+      "prices": []
+    },
+    {
+      "id": "rtx-4090",
+      "category": "gpu",
+      "kind": "chip",
+      "maker": "NVIDIA",
+      "name": "GeForce RTX 4090",
+      "aliases": [],
+      "series": "RTX 40",
+      "market": null,
+      "listings": [
+        "upgrade"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "vramGB": null,
+            "boardPowerW": 450,
+            "releaseYear": null
+          },
+          "basis": "unverified",
+          "source": "legacy-upgrade-engine",
+          "checkedAt": null
+        }
+      ],
+      "scores": {},
+      "prices": []
+    }
+  ]
+}

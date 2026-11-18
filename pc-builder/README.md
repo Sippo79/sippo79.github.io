@@ -15,7 +15,7 @@
 |---|---|
 | `index.html` | 画面・SEO（title / description / canonical / OGP / 構造化データ）・初心者ガイド・FAQ |
 | `style.css` | 見た目（色は `:root` のトークンだけ） |
-| `js/pb-db.js` | 既存データ＋`data/parts.json` を1つのパーツDBにまとめる。検索・絞り込み・並べ替え |
+| `js/pb-db.js` | 共通パーツデータ（`shared/catalog/`。CPU・GPUの正本）＋既存データ＋`data/parts.json` を1つのパーツDBにまとめる。検索・絞り込み・並べ替え |
 | `js/pb-compat.js` | 互換性チェック（純粋関数。Nodeでもテスト可能） |
 | `js/pb-score.js` | 5角形スコアの計算（純粋関数） |
 | `js/pb-codec.js` | 構成 ⇔ 共有URL、ブラウザ内保存（localStorage） |
@@ -23,17 +23,18 @@
 | `js/pb-charts.js` | レーダー・棒グラフ・完成イメージ（PC内部の模式図）（SVG。ライブラリ不使用） |
 | `js/pb-flow.js` | 画面の案内（カテゴリの必須／おすすめ／任意、次に選ぶカテゴリ、カードに最初から出す仕様 `cardBrief`・詳細の主要スペック `cardSpecs`、グラフの下の説明）。純粋関数でテスト可能 |
 | `js/pb-app.js` | 画面の状態と操作（表示だけを担当） |
-| `data/parts.json` | GPUチップ以外のパーツ仕様と出典 |
+| `data/parts.json` | CPU・GPUチップ以外のパーツ仕様と出典（CPU・GPUチップは `shared/catalog/`） |
 | `data/rules.json` | 規格・世代単位の判定ルール（チップセットの世代、エンコーダー、解像度の説明、価格の扱い `pricing`） |
-| `data/prices.json` | 参考価格（パーツを個別に買う場合の小売目安。手で確認した値・確認日・出典） |
+| `data/prices.json` | CPU・GPU以外の参考価格（パーツを個別に買う場合の小売目安。手で確認した値・確認日・出典）。CPU・GPUの価格は `shared/catalog/` |
 | `data/presets.json` | 「組み合わせ例から始める」の例（おすすめ順位ではない） |
 
 ## 2. 既存データの再利用（重複管理しない）
 
 | 情報 | 唯一の情報源 |
 |---|---|
-| GPUチップの性能指数・VRAM・消費電力・世代 | `gpu-guide/gpus.json`（価格は PC BUILDER では `prices.json` の `gpuChips` を優先し、gpus.json の価格は「GPU GUIDE掲載（別基準・日付なし）」として並べて出すだけ） |
-| GPUのメーカー公式推奨電源・補助電源（リファレンス） | `upgrade/upgrade-engine.js` の `GPU_POWER_SPEC`（無いチップだけ `data/rules.json` の `gpuChipPower`） |
+| CPU・GPUチップの仕様・共通スコア（性能指数・機能評価）・価格・出典・確認日 | **共通パーツデータ `shared/catalog/`（cpu.json / gpu.json）**。実行時に直接読み、`shared/catalog/catalog.js` の `builderAdapter` で従来の形（CPU＝parts 形式、CPU価格＝items、GPU実売相場＝gpuChips）に変換する。IDは変えない。運用は `shared/catalog/README.md` |
+| GPUの説明文（summary） | `gpu-guide/gpus.json`（正本＋GPU GUIDE 固有の内容から生成） |
+| GPUのメーカー公式推奨電源・補助電源（リファレンス） | `shared/catalog/gpu.json` の `recommendedSystemPowerW`・`powerConnectorsReference`（basis=official。`upgrade-engine.js` の `GPU_POWER_SPEC` も同じ正本から生成） |
 | CPUのゲーム性能指数 | `upgrade/upgrade-engine.js` の `CPU_TIERS` |
 | 解像度の基準（WQHD 65 / 4K 85） | `shared/gpu/gpu-target.js` の `THRESHOLDS` |
 | フルHDの基準（42） | `upgrade-engine.js` の `RESOLUTION_TARGETS.fhd.base` |
@@ -42,45 +43,45 @@
 | 購入リンク | `shared/affiliate/`（商品マスター＋リンク生成。マスターに無い製品は実行時に「検索リンクだけ」で登録） |
 | サービス一覧ナビ | `shared/nav/sippo-nav.js` の `SERVICES` |
 
-`parts.json` に GPUチップや価格を書かない（テストで検出する）。GPUチップの価格は `prices.json` の `gpuChips` だけに置き、`gpus.json` は変更しない。
+`parts.json` に CPU・GPUチップや価格を書かない。`prices.json` に CPU・GPUの価格を書かない（`scripts/catalog/validate.js` と `test-pc-builder.js` が二重管理として検出する）。GPU GUIDE の価格目安（正本の `reference`）は「GPU GUIDE掲載（別基準・日付なし）」として並べて出すだけで、合計には入れない。「古い」とみなす日数は `shared/catalog/config.json` の `pricing.staleAfterDays`（全カテゴリ共通）。
 
 ### 参考価格の3区分と優先順位（`pb-db.js`）
 | 区分（`tier`） | 中身 | 合計・コスパ |
 |---|---|---|
-| `retail` 実売確認価格（画面では「最安値の目安」） | `prices.json` の `items`（型番が一致した製品の掲載最安値） | 入れる |
-| `median` 参考中央値（画面では「同等品の相場」） | `classes`（同じ種類・容量）／`gpuChips`（同じGPUチップ）の製品の最安値の中央値 | 入れる |
-| `reference` 参考価格（未確認） | 既存データ（`gpus.json`・`part-prices.json`＝BTO構成用・`PRICE_HINT`＝日付なし） | **入れない**（別に「参考価格だけ n点・約○万円」と表示） |
+| `retail` 実売確認価格（画面では「最安値の目安」） | `prices.json` の `items`（型番が一致した製品の掲載最安値。CPUは正本 `shared/catalog/cpu.json` の `lowest`） | 入れる |
+| `median` 参考中央値（画面では「同等品の相場」） | `classes`（同じ種類・容量）／GPUチップ（正本 `shared/catalog/gpu.json` の `market-median`）の製品の最安値の中央値 | 入れる |
+| `reference` 参考価格（未確認） | 既存データ（正本の `reference`＝GPU GUIDE の価格目安・`part-prices.json`＝BTO構成用・`PRICE_HINT`＝日付なし） | **入れない**（別に「参考価格だけ n点・約○万円」と表示） |
 
 - 優先順位: `items` → `classes` / `gpuChips` → 既存データ。`pricing.suspendFallback` のカテゴリ（メモリ・SSD）は既存データにも戻らず「未登録」。
 - 「有効な価格」（`price.valid`）＝ `retail` か `median` で、確認から `staleAfterDays` 以内のもの。古くなった価格は `reference` と同じ扱い。
 - グラボ製品（gpuboard）に `items` の価格があれば、その製品価格を使い、GPUチップの価格は数えない（`priceSummary` の `boardPriced`）。
-- `checkedAt` から `prices.json` の `staleAfterDays`（45日）を過ぎた価格は「確認から○日」と警告し、コスパの理由にも出す。
+- `checkedAt` から `shared/catalog/config.json` の `pricing.staleAfterDays`（45日）を過ぎた価格は「確認から○日」と警告し、コスパの理由にも出す。
 - 新品GPUの価格には `pricing.notices.gpu`（実売との差）を添える。
 - 合計は「確認できた価格の合計」。参考価格だけ・未登録のパーツは「＋確認できないn点」として件数と内容を出し、未選択の必須パーツも並べる。OS・組み立て・保証は含まず、PC BUILD CHECK（BTO完成品基準）とは一致しないことを合計の下と PC BUILD CHECK からの引き継ぎ欄に書く。
 
 ### 価格の更新手順（自動取得はしない）
 1. 価格比較サイトや販売店のページを手で見て、型番が一致する製品の最安値を読む（千円単位に丸める）。
-2. `prices.json` の `items` / `classes` を直し、`checkedAt` と `_meta.sources` を更新する。
+2. CPU・GPUは `shared/catalog/`（cpu.json / gpu.json の `prices`。手順は `shared/catalog/README.md`）、それ以外は `prices.json` の `items` / `classes` を直し、`checkedAt` と出典を更新する。
 3. 相場が戻ったカテゴリは `rules.json` の `pricing.suspendFallback` から外してよい。
-4. `node pc-builder/test-pc-builder.js`。
+4. `node scripts/catalog/build.js`（CPU・GPUを直したとき）→ `node pc-builder/test-pc-builder.js`。
 
 ## 3. データの決まり（`data/parts.json`）
 
 - **仕様は `sources` に記録したページで実際に読めた値だけ**。読めなかった値は `null`（＝互換性は「要確認」、スコアは「評価不可」または「参考値」）。
 - 推測・記憶で値を埋めない。`null` を埋めるときは `sources` のURLと `checkedAt` も更新する。
-- CPUの仕様はメーカー公式ページが自動取得を拒否するため、Wikipedia の世代別ページ（Zen 3 / Zen 4 / Zen 5 / Alder Lake / Raptor Lake / Arrow Lake）の製品表を **版を固定したURL（`oldid=`）** で出典にしている（二次情報と明記）。表はAPIで展開したHTMLから結合セルを展開して読む（以前の一覧ページは結合セルで読み違えやすかった）。
+- CPUは 2026-11-14 から共通パーツデータ `shared/catalog/cpu.json` に移した（項目・出典の決まりは同じ。`gameTierSameAs` は正本では `sameSpecsExceptIgpu`、`boxCoolerNote` は `notes.boxCooler`）。CPUの仕様はメーカー公式ページが自動取得を拒否するため、Wikipedia の世代別ページ（Zen 3 / Zen 4 / Zen 5 / Alder Lake / Raptor Lake / Arrow Lake）の製品表を **版を固定したURL（`oldid=`）** で出典にしている（二次情報と明記）。表はAPIで展開したHTMLから結合セルを展開して読む（以前の一覧ページは結合セルで読み違えやすかった）。
 - 付属クーラー `boxCooler` は 名前（付属）／`false`（表で付属なし）／`null`（未確認・パッケージにより異なる）。
 - CPU_TIERS に無いCPUは、内蔵GPUの有無以外の仕様（コア・クロック・キャッシュ・電力）がすべて同じ兄弟型番を `gameTierSameAs` に書くと、その指数を使う（例: 14600K → 14600KF）。仕様が1つでも違えば使わない（`pb-db.js` の `sameCpuSilicon`）。
 - 電源の奥行き `depthMm` を入れたら、根拠を `depthNote` に書く（Corsair は寸法の軸表記が無いため、RM1000x 公式FAQの「L x W x H」の順で読んでいる）。
 - `kind: "generic"` は機種を特定しない「目安パーツ」（例: B650 マザーボード（機種未指定））。PC BUILD CHECK の構成（マザボを型番で持たない）を再現するためと、既存の価格帯データを使うためのもの。
 - 価格は直接書かない。`priceRef`（既存データの参照）か、ショップ価格を `shops: [{ shop, url, price, checkedAt }]` で持つ。**ショップ価格は `price` と `checkedAt` が揃ったときだけ表示**する。
 - 製品個別の価格が無いときは、同じクラス（例: DDR5 32GB、850W電源）の参考価格を「同クラスの参考価格」と明記して使う（`pb-db.js` の `classPrice`）。ケース・ファンなどクラスが決まらないものは価格なし。
-- グラボ製品（`gpuboard`）は `chip` に `gpus.json` の id を入れる。価格はGPUチップの参考価格に含めて数える（二重計上しない）。
+- グラボ製品（`gpuboard`）は `chip` に `shared/catalog/gpu.json` の id を入れる（VRAM がチップと違うと検証エラー＝別チップの可能性）。価格はGPUチップの参考価格に含めて数える（二重計上しない）。
 
 ### 製品の追加手順
 1. メーカー公式の仕様ページを開き、値を読む（読めない値は `null`）。
 2. `sources` に `{ label, url, checkedAt, kind: "official" }` を追加。
-3. `parts` に1件追加（IDは英小文字・数字・ハイフン）。CPUは `family`、マザボは `chipset` を `rules.json` にある値で。
+3. `parts` に1件追加（IDは英小文字・数字・ハイフン）。マザボは `chipset` を `rules.json` にある値で。**CPU・GPUチップは `shared/catalog/` に追加する**（`shared/catalog/README.md` の 4.3）。
 4. `node pc-builder/validate-parts.js` → `node pc-builder/test-pc-builder.js`。
 5. 価格が分かれば `prices.json` に追加（上の「価格の更新手順」）。
 
@@ -104,6 +105,8 @@
 | M.2・SATA・ベイ・ファン・拡張スロット | 数が足りる | 不足 | 不明／共用ベイ・付属ファンとの兼ね合い |
 | 映像出力（GPUなし） | 内蔵GPUあり | 内蔵GPUなし | 不明 |
 | CPUクーラー未選択 | 付属クーラーが確認できる | — | 付属の有無が不明 |
+
+> **推奨電源のルール**（2026-11-15〜）: 「GPUメーカー推奨」は、グラボ製品の公表値（parts.json の `recommendedPsuW`）とGPUチップの公式値（正本 `shared/catalog/gpu.json` の `recommendedSystemPowerW`）の**両方があれば高いほう**。両者は前提（想定CPUなど）が違うため、どちらの公表値も書き換えない。例: ASUS Dual RTX 5060 Ti EVO は製品550W／NVIDIA公式600W → 600W で判定し、要確認の理由に両方を出す（`pb-compat.js` の「14. 電源容量」）。
 
 **推定消費電力** = CPU（AMD: TDP×1.35＝PPT、Intel: 最大ターボ電力）＋ GPU（GPU GUIDEの消費電力）＋ 50W（マザボ・メモリ・SSDなど）＋ HDD 8W/台 ＋ ファン 3W/個。
 

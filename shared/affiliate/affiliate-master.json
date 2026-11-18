@@ -2,7 +2,7 @@
   "_meta": {
     "description": "シッポPC 共通アフィリエイト商品マスター。全サイトがこの1ファイルを参照します。編集方法は shared/affiliate/README.md を参照。",
     "version": 5,
-    "updatedAt": "2026-08-19",
+    "updatedAt": "2026-11-18",
     "statusValues": {
       "active": "個別アフィリエイトURL（またはASIN）が設定済み。直リンクへ誘導する。直リンクが無ければ検索へフォールバック。",
       "search-only": "直リンクを使わず、アフィリエイトID付きの検索URLのみを出す（誤商品リンクにならない安全な導線）。",
@@ -14,10 +14,14 @@
     },
     "statusNotes": "status は商品全体にも、amazon / rakuten / yahoo の各ショップ単位にも書ける。ショップ側の status が優先される（例: Amazonだけ sold-out、楽天は active）。未設定は search-only 扱い。フォールバック時は keyword（未設定なら name）で検索URLを生成する。",
     "linkTypeValues": {
-      "exact": "直リンクの遷移先が商品詳細ページ。ボタン文言は「〇〇で価格を見る」。",
+      "exact": "直リンクの遷移先が商品詳細ページ。ボタン文言は「〇〇で商品を見る」（item があれば商品カード）。",
       "search": "直リンクの遷移先が検索結果ページ。ボタン文言は「〇〇で探す」。"
     },
-    "linkTypeNotes": "linkType は amazon / rakuten / yahoo の各ノードに書く。短縮URL（amzn.to / a.r10.to / yahoo.jp）は 見ただけでは遷移先が分からないため、実際に開いて確認した結果を記録する。未設定・不明な値は search 扱い（「価格を見る」と言って検索結果を開く方がユーザーを裏切るため、安全側に倒す）。売り切れ等でフォールバック中のリンクは linkType に関わらず必ず search 扱いになる。"
+    "linkTypeNotes": "linkType は amazon / rakuten / yahoo の各ノードに書く。短縮URL（amzn.to / a.r10.to / yahoo.jp）は 見ただけでは遷移先が分からないため、実際に開いて確認した結果を記録する。未設定・不明な値は search 扱い（「商品を見る」と言って検索結果を開く方がユーザーを裏切るため、安全側に倒す）。売り切れ等でフォールバック中のリンクは linkType に関わらず必ず search 扱いになる。",
+    "itemNotes": "linkType:\"exact\" の直リンクは、遷移先の具体的な製品を各ショップの item に記録する（maker / name / model / destination / checkedAt）。item がある直リンクだけが商品カード（メーカー名・製品名・型番・写真）で表示される。GPU名（例: RTX 5070）と、実際に売っている製品（例: MSI GeForce RTX 5070 12G VENTUS 2X）を区別するため。image は利用許諾を確認できた写真だけを入れる（src / width / height / source / license。提供元がリンク先を指定する場合は href）。無ければ null のまま＝写真なしのカード。",
+    "imageLinkNotes": "rakuten.item.imageLink は楽天アフィリエイトで発行した「画像のみ」（link_type=pict）の商品リンクHTML。ガイドライン（発行HTMLの変更・属性の追加削除・指定サイズ以外への変更の禁止）に従い、html は発行されたまま1文字も変えずに保存し、そのままカードの写真欄に入れる。destination は html の pc= の転送先と一致させる（テストで検証）。転送先が item の製品と同じメーカー・製品名・型番であることを確認してから登録する（OC の有無・V1 等の版違いで別モデルになるもの、訳あり品は登録しない）。一覧（compact）では表示しない。",
+    "destinationTypeNotes": "rakuten.item.destinationType はボタン（url の短縮リンク）の行き先の種類。\"item\"＝特定ショップの商品ページ →「楽天市場で商品を見る」、\"compare\"＝同一製品の複数ショップを並べた楽天の製品ページ（product.rakuten.co.jp/product/）→「楽天市場で価格を比較」。短縮リンクを差し替えたら転送先を確認して destination と一緒に更新する（テストで destination と一致を検査）。saleNote はショップが表記する販売状態（例: 並行輸入品）で、詳細カードに小さく表示する。imageLinkHeld は照合で不一致・判断不能だった発行リンクの記録（表示に使わない）。",
+    "imageOnlyNotes": "rakuten.linkType:\"image-only\" は、楽天の販売店ボタン（短縮リンク）が無く、発行画像リンク（item.imageLink）だけで製品を紹介する状態。url は空にし、検索リンクも作らない。詳細カードでは写真（発行HTMLそのまま）と「商品画像を押すと、楽天市場のショップページが開きます」の案内を出し、写真を出さない一覧（compact）では楽天を出さない。新製品の短縮リンクを発行したら url に入れ、linkType を exact に戻す（item.destination と転送先を一致させる）。previousUrl は外した旧リンクの控え（表示に使わない）。"
   },
   "products": {
     "rtx3060": {
@@ -125,7 +129,29 @@
       "rakuten": {
         "url": "https://a.r10.to/hPTDw0",
         "keyword": "GeForce RTX 3080",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 3080 VENTUS 3X 10G OC",
+          "model": "VD7358",
+          "destination": "https://item.rakuten.co.jp/palmsamerica/ayhrpsrksx/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/542219f0.e857b43b.542219f1.0524d7fd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fpalmsamerica%2Fayhrpsrksx%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/542219f0.e857b43b.542219f1.0524d7fd/?me_id=1426372&item_id=10035567&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fpalmsamerica%2Fcabinet%2Fimg_20250228%2F1%2Fayhrpsrksx_0.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/palmsamerica/ayhrpsrksx/",
+            "destinationShop": "パームスアメリカ",
+            "destinationTitle": "MSI GeForce RTX 3080 VENTUS 3X 10G OC グラフィックスボード VD7358",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番を照合"
+          },
+          "destinationType": "item",
+          "saleNote": "販売ショップの表記：個人輸入扱い・米国から発送（並行輸入品、日本語説明書なし）"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/4pmjAN",
@@ -150,7 +176,28 @@
       "rakuten": {
         "url": "https://a.r10.to/hkGGfE",
         "keyword": "GeForce RTX 4060",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 4060 VENTUS 2X BLACK 8G OC",
+          "model": "VD8560",
+          "destination": "https://product.rakuten.co.jp/product/-/781a70edc741a5815064e04199824734/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/59aabd5c.4f5c78c4.59aabd5d.9fedede2/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fecprime500%2F20261007141644_187_1c95%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/59aabd5c.4f5c78c4.59aabd5d.9fedede2/?me_id=1429519&item_id=10174112&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fecprime500%2Fcabinet%2F13798659%2F2026100401%2F20261007141644_187_1.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/ecprime500/20261007141644_187_1c95/",
+            "destinationShop": "ECプライム",
+            "destinationTitle": "MSI GeForce RTX 4060 VENTUS 2X BLACK 8G OC グラフィックスボード VD8560",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番を照合"
+          },
+          "destinationType": "compare"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/JsWemN",
@@ -173,9 +220,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hFAAqX",
+        "url": "",
         "keyword": "GeForce RTX 4060 Ti",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/hFAAqX",
+        "status": "search-only",
+        "note": "2026-11-18 直リンク先が別製品（MSI GeForce RTX 5060 Ti 8G VENTUS 2X OC PLUS）で、GeForce RTX 4060 Tiではなかったため検索に切替。正しい商品リンクを取得したら url に入れて status を外す"
       },
       "yahoo": {
         "url": "https://yahoo.jp/9iTRo9",
@@ -198,9 +247,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/h5lQoZ",
+        "url": "",
         "keyword": "GeForce RTX 4070",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/h5lQoZ",
+        "status": "search-only",
+        "note": "2026-11-18 直リンク先が別製品（MSI GeForce RTX 4070 SUPER 12G VENTUS 3X OC）で、GeForce RTX 4070ではなかったため検索に切替。正しい商品リンクを取得したら url に入れて status を外す"
       },
       "yahoo": {
         "url": "https://yahoo.jp/ifhvFWv",
@@ -225,7 +276,29 @@
       "rakuten": {
         "url": "https://a.r10.to/h5lHSz",
         "keyword": "GeForce RTX 4070 SUPER",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 4070 SUPER 12G VENTUS 3X OC",
+          "model": "",
+          "destination": "https://item.rakuten.co.jp/palmsamerica/ayshd5rkm3/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/542219f0.e857b43b.542219f1.0524d7fd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fpalmsamerica%2Fayshd5rkm3%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/542219f0.e857b43b.542219f1.0524d7fd/?me_id=1426372&item_id=10033888&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fpalmsamerica%2Fcabinet%2Fimg_20250130%2F1%2Fayshd5rkm3_0.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/palmsamerica/ayshd5rkm3/",
+            "destinationShop": "パームスアメリカ",
+            "destinationTitle": "MSI Gaming RTX 4070 Super 12G Ventus 3X OC グラフィックスカード",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番を照合"
+          },
+          "destinationType": "item",
+          "saleNote": "販売ショップの表記：個人輸入扱い・米国から発送（並行輸入品、日本語説明書なし）"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/NS8KBZ",
@@ -248,9 +321,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/h53CJ4",
+        "url": "",
         "keyword": "GeForce RTX 4070 Ti SUPER",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/h53CJ4",
+        "status": "search-only",
+        "note": "2026-11-18 直リンク先が別製品（MSI GeForce RTX 4070 Ti VENTUS 3X 12G OC（SUPERではない））で、GeForce RTX 4070 Ti SUPERではなかったため検索に切替。正しい商品リンクを取得したら url に入れて status を外す"
       },
       "yahoo": {
         "url": "https://yahoo.jp/uVFwYk",
@@ -273,9 +348,11 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hkys0x",
+        "url": "",
         "keyword": "GeForce RTX 4080 SUPER",
-        "linkType": "exact"
+        "retiredUrl": "https://a.r10.to/hkys0x",
+        "status": "search-only",
+        "note": "2026-11-18 直リンク先が別製品（MSI GeForce RTX 4080 16GB VENTUS 3X OC（SUPERではない））で、GeForce RTX 4080 SUPERではなかったため検索に切替。正しい商品リンクを取得したら url に入れて status を外す"
       },
       "yahoo": {
         "url": "https://yahoo.jp/Lsec9X",
@@ -298,16 +375,40 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hkpsZz",
+        "url": "",
         "keyword": "GeForce RTX 5060",
-        "linkType": "exact"
+        "linkType": "image-only",
+        "previousUrl": "https://a.r10.to/hkpsZz",
+        "previousNote": "2026-11-18 まで使用。転送先は楽天の製品ページ（MSI GeForce RTX 5060 8G VENTUS 2X OC、EAN 4711377344272 の価格比較）。紹介する製品を 8G VENTUS 2X OC V1（JAN 4711377460880）へ変更したため、別モデル行きのこのボタンは外した。新製品の販売店ボタン（短縮リンク）は未発行で、発行画像リンクだけで案内する。",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 5060 8G VENTUS 2X OC V1",
+          "model": "",
+          "jan": "4711377460880",
+          "destination": "https://item.rakuten.co.jp/pckoubou/m4s1p1263192/",
+          "destinationType": "item",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "発行画像リンクの転送先（パソコン工房 楽天市場店の商品ページ）で、商品名（OC V1）・商品番号 4711377460880（JAN）・8GB GDDR7・かごに追加できること・中古／訳あり／アウトレット／並行輸入の表記がないことを確認。メーカー型番はページに記載なし（「-」）のため model は空",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/542232b6.c9e1a02e.542232b7.c8a19c8b/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fpckoubou%2Fm4s1p1263192%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/542232b6.c9e1a02e.542232b7.c8a19c8b/?me_id=1213768&item_id=10312845&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fpckoubou%2Fcabinet%2F1263000%2Fm4s1p1263192-1.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/pckoubou/m4s1p1263192/",
+            "destinationShop": "パソコン工房 楽天市場店",
+            "destinationTitle": "MSI GeForce RTX 5060 8G VENTUS 2X OC V1 グラフィックスボード（8GB GDDR7、商品番号 4711377460880）",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページをブラウザで開き、メーカー・製品名・型番・容量・販売状態（新品、かごに追加できる）を照合"
+          }
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/ztV_6C",
         "linkType": "search"
       },
       "status": "active",
-      "updatedAt": "2026-08-18"
+      "updatedAt": "2026-11-18"
     },
     "rtx5060ti": {
       "name": "GeForce RTX 5060 Ti",
@@ -317,22 +418,29 @@
       "gpu": "GeForce RTX 5060 Ti",
       "aliases": [],
       "amazon": {
-        "url": "https://amzn.to/3RrYUR9",
+        "url": "",
         "asin": "",
-        "keyword": "GeForce RTX 5060 Ti",
-        "linkType": "search"
+        "keyword": "GeForce RTX 5060 Ti 16GB",
+        "linkType": "search",
+        "previousUrl": "https://amzn.to/3RrYUR9",
+        "previousNote": "2026-11-15 まで使用。遷移先は検索「rtx 5060ti」（容量の指定なし）。16GB版の価格・推奨に合わせて検索語に16GBを含める検索リンク（associateTag 付き・affiliate.js が生成）へ変更。"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hFAAgo",
-        "keyword": "GeForce RTX 5060 Ti",
-        "linkType": "exact"
+        "url": "",
+        "keyword": "GeForce RTX 5060 Ti 16GB",
+        "linkType": "search",
+        "previousUrl": "https://a.r10.to/hFAAgo",
+        "previousNote": "2026-11-15 まで使用。遷移先は特定の商品ページ（容量を確認できない）。16GB版の検索リンク（affiliateId 付き）へ変更。"
       },
       "yahoo": {
-        "url": "https://yahoo.jp/S2sFeH",
-        "linkType": "search"
+        "url": "",
+        "linkType": "search",
+        "previousUrl": "https://yahoo.jp/S2sFeH",
+        "previousNote": "2026-11-15 まで使用。遷移先は検索「RTX5060ti」（容量の指定なし）。Yahoo!は登録済みの短縮URLしか使えず16GB版の検索リンクを作れないため、16GB版の短縮URLを登録するまで表示しない。"
       },
+      "purchaseNote": "16GB版で探す検索リンクです。8GB版が表示されることもあるため、購入時に容量（16GB）を確認してください。",
       "status": "active",
-      "updatedAt": "2026-08-18"
+      "updatedAt": "2026-11-15"
     },
     "rtx5070": {
       "name": "GeForce RTX 5070",
@@ -348,16 +456,39 @@
         "linkType": "search"
       },
       "rakuten": {
-        "url": "https://a.r10.to/hkSdhv",
+        "url": "",
         "keyword": "GeForce RTX 5070",
-        "linkType": "exact"
+        "linkType": "image-only",
+        "previousUrl": "https://a.r10.to/hkSdhv",
+        "previousNote": "2026-11-18 まで使用。転送先は楽天の製品ページ（MSI GeForce RTX 5070 12G VENTUS 2X・OCなし、EAN 4711377308229 の価格比較）。紹介する製品を 12G VENTUS 2X OC（VD9071）へ変更したため、別モデル行きのこのボタンは外した。新製品の販売店ボタン（短縮リンク）は未発行で、発行画像リンクだけで案内する。",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 12G VENTUS 2X OC",
+          "model": "VD9071",
+          "destination": "https://item.rakuten.co.jp/speedwagon/10014480/",
+          "destinationType": "item",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "発行画像リンクの転送先（SPW楽天市場店の商品ページ）で、商品名・型番 VD9071・12GB GDDR7・状態「新品 正規品」・かごに追加できることを確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/59aba4ff.5706f317.59aba500.c7386e52/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fspeedwagon%2F10014480%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/59aba4ff.5706f317.59aba500.c7386e52/?me_id=1301264&item_id=10014894&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fspeedwagon%2Fcabinet%2Fsyuhenkiki%2Fimgrc0151543509.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/speedwagon/10014480/",
+            "destinationShop": "SPW楽天市場店",
+            "destinationTitle": "【新品】1週間以内発送【代引き不可】 MSI GeForce RTX 5070 12G VENTUS 2X OC グラフィックスボード VD9071（12GB GDDR7、状態: 新品 正規品）",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページをブラウザで開き、メーカー・製品名・型番・容量・販売状態（新品、かごに追加できる）を照合"
+          }
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/BRuvXb",
         "linkType": "search"
       },
       "status": "active",
-      "updatedAt": "2026-08-18"
+      "updatedAt": "2026-11-18"
     },
     "rtx5070ti": {
       "name": "GeForce RTX 5070 Ti",
@@ -375,7 +506,29 @@
       "rakuten": {
         "url": "https://a.r10.to/hPcwmv",
         "keyword": "GeForce RTX 5070 Ti",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 5070 Ti 16G VENTUS 3X PZ OC",
+          "model": "",
+          "destination": "https://item.rakuten.co.jp/americagoodvibes/aystp9rk1v/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/542219f0.e857b43b.542219f1.0524d7fd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fpalmsamerica%2Faystp9rk1v%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/542219f0.e857b43b.542219f1.0524d7fd/?me_id=1426372&item_id=10056024&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fpalmsamerica%2Fcabinet%2Fimg_20260518%2F16%2Faystp9rk1v_0.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/palmsamerica/aystp9rk1v/",
+            "destinationShop": "パームスアメリカ",
+            "destinationTitle": "msi Gaming RTX 5070 Ti 16G Ventus 3X PZ OC グラフィックスカード（16GB GDDR7、256ビット）",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番・容量・販売状態を照合"
+          },
+          "destinationType": "item",
+          "saleNote": "販売ショップの表記：個人輸入扱い・米国から発送（並行輸入品、日本語説明書なし）"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/J4_fuy",
@@ -400,7 +553,28 @@
       "rakuten": {
         "url": "https://a.r10.to/hko5fa",
         "keyword": "GeForce RTX 5080",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "MSI",
+          "name": "GeForce RTX 5080 16G VENTUS 3X OC",
+          "model": "G5080-16V3C",
+          "destination": "https://product.rakuten.co.jp/product/-/a810c201c9988809e3a6cfbe34101811/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/59aac245.92548990.59aac248.c187e03a/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Falljapan-online-shop%2F4711377309219%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/59aac245.92548990.59aac248.c187e03a/?me_id=1389839&item_id=10022311&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Falljapan-online-shop%2Fcabinet%2Fkaden%2Fimgrc0136874737.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/alljapan-online-shop/4711377309219/",
+            "destinationShop": "販売一丁目",
+            "destinationTitle": "MSI GeForce RTX 5080 16G VENTUS 3X OC グラフィックスカード VD9013（仕様欄の型番 G5080-16V3C）",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番を照合"
+          },
+          "destinationType": "compare"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/gUAiP8",
@@ -703,7 +877,28 @@
       "rakuten": {
         "url": "https://a.r10.to/h5394b",
         "keyword": "Radeon RX 9070 XT",
-        "linkType": "exact"
+        "linkType": "exact",
+        "item": {
+          "maker": "ASRock",
+          "name": "Radeon RX 9070 XT Steel Legend 16G",
+          "model": "RX9070XT SL 16G",
+          "destination": "https://product.rakuten.co.jp/product/-/7f440acbaf96a84ba31735f7cdbafe01/",
+          "checkedAt": "2026-11-18",
+          "checkedBy": "短縮リンクの転送先ページ（楽天市場）の商品名で確認",
+          "image": null,
+          "imageLink": {
+            "type": "rakuten-pict",
+            "size": "128x128",
+            "html": "<a href=\"https://hb.afl.rakuten.co.jp/ichiba/54656c4d.a1cd3386.54656c4e.90327c4f/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fshoptsukumo%2F9171262019%2F&link_type=pict&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0Iiwic2l6ZSI6IjEyOHgxMjgiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MCwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"nofollow sponsored noopener\" style=\"word-wrap:break-word;\"><img src=\"https://hbb.afl.rakuten.co.jp/hgb/54656c4d.a1cd3386.54656c4e.90327c4f/?me_id=1384756&item_id=10026520&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fshoptsukumo%2Fcabinet%2Fpc22%2F4711581490451_1.jpg%3F_ex%3D128x128&s=128x128&t=pict\" border=\"0\" style=\"margin:2px\" alt=\"\" title=\"\"></a>",
+            "destination": "https://item.rakuten.co.jp/shoptsukumo/9171262019/",
+            "destinationShop": "ツクモ 楽天市場店",
+            "destinationTitle": "ASRock Radeon RX 9070XT Steel Legend 16G（RX9070XT SL 16G）",
+            "issuedAt": "2026-11-18",
+            "checkedAt": "2026-11-18",
+            "checkedBy": "発行HTMLの転送先（pc=）の楽天商品ページで、メーカー・製品名・型番を照合"
+          },
+          "destinationType": "compare"
+        }
       },
       "yahoo": {
         "url": "https://yahoo.jp/_EQXSy",
@@ -1491,20 +1686,23 @@
       "gpu": "Radeon RX 9060 XT",
       "aliases": [],
       "amazon": {
-        "url": "https://amzn.to/4dX3w9t",
+        "url": "",
         "asin": "",
-        "keyword": "Radeon RX 9060 XT",
-        "linkType": "search"
+        "keyword": "Radeon RX 9060 XT 16GB",
+        "linkType": "search",
+        "previousUrl": "https://amzn.to/4dX3w9t",
+        "previousNote": "2026-11-15 まで使用。遷移先は検索「rx9060xt」（容量の指定なし）。16GB版の検索リンク（associateTag 付き・affiliate.js が生成）へ変更。"
       },
       "rakuten": {
         "url": "",
-        "keyword": "Radeon RX 9060 XT"
+        "keyword": "Radeon RX 9060 XT 16GB"
       },
       "yahoo": {
         "url": ""
       },
+      "purchaseNote": "16GB版で探す検索リンクです。8GB版が表示されることもあるため、購入時に容量（16GB）を確認してください。",
       "status": "active",
-      "updatedAt": "2026-08-18"
+      "updatedAt": "2026-11-15"
     },
     "rx7600xt": {
       "name": "Radeon RX 7600 XT",

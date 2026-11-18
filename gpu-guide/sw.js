@@ -8,7 +8,14 @@
 // v10: GPU個別ページの追加コンテンツ（RX 9070の比較・実機レビュー等）用に style.css を更新。
 // v11: ヘッダー検索（gpu-search.js）を追加し common.css を更新。
 // v12: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え、gpu-search.js に検索選択の計測を追加。
-const CACHE_NAME = 'gpu-guide-v12';
+// v13: 価格を実売相場（確認日つき）優先に変更（script.js・gpu-detail.js・gpus.json）。キャッシュ優先の script.js を入れ替えるため版を上げる。
+// v14: コスパの順位を確認済みの掲載価格だけに限定・価格の表示名を変更（script.js）。
+// v16: 価格での絞り込み・並べ替えで、確認済みと未確認の価格を分けて表示（script.js・style.css）。
+// v17: 共通アフィリエイトに商品カード（リンク先のメーカー名・製品名を表示）を追加（affiliate.js・affiliate.css・affiliate-master.json）。
+// v18: 共通アフィリエイトの商品カードに、楽天で発行した画像リンク（item.imageLink）をそのまま表示（affiliate.js・affiliate.css・affiliate-master.json）。
+// v19: 楽天カードのボタン文言を行き先に合わせる（商品を見る／価格を比較）・販売状態の注記・RTX 5070 Ti の発行画像（affiliate.js・affiliate.css・affiliate-master.json）。
+// v20: 楽天の画像リンクだけで紹介する製品（RTX 5070 を 12G VENTUS 2X OC、RTX 5060 を 8G VENTUS 2X OC V1 に変更し、旧モデルの価格比較ボタンを外す）（affiliate.js・affiliate.css・affiliate-master.json）。
+const CACHE_NAME = 'gpu-guide-v20';
 
 const ASSETS_TO_CACHE = [
   './',

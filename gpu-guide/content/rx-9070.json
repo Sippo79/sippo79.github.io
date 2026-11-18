@@ -3,7 +3,7 @@
     "purpose": "GPU個別ページ /gpu-guide/gpu/rx-9070/ の追加コンテンツ（購入判断用の詳細）。generate-gpu-pages.js が読み込んで静的HTMLに焼き込む。",
     "updated": "2026-11-09",
     "policy": [
-      "数値は {{...}} の差し込みで gpus.json / pc-builder/data/prices.json / upgrade-engine.js の GPU_POWER_SPEC から引く。ここに数値を直書きしない（二重管理を避ける）。例外は公式仕様の固定値（メモリ規格など）と、ASRock製品固有の公表値。",
+      "数値は {{...}} の差し込みで gpus.json / 共通パーツデータ shared/catalog/gpu.json（実売の参考価格・公式推奨電源）から引く。ここに数値を直書きしない（二重管理を避ける）。例外は公式仕様の固定値（メモリ規格など）と、ASRock製品固有の公表値。",
       "実機レビュー（review）は運営者本人が提供した事実だけを書く。FPS・温度・騒音・消費電力・AI速度の実測値は存在しないため書かない。",
       "NVIDIA／AMDのどちらかを一般化して『安定』『不安定』と書かない。旧環境との差をGPUだけの効果と断定しない。",
       "構造化データに Review / AggregateRating を入れない（実在しない評価を作らない）。FAQPage は画面に出している faq と同じ内容だけ。",

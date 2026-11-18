@@ -18,6 +18,173 @@
 
 ---
 
+## 2026-11-18（4回目）— RTX 5070・RTX 5060 の紹介製品を発行画像リンクの商品へ変更
+
+- **修正目的**: 保留していた2製品について、カードの製品を発行リンクの商品に変え、写真・案内のどちらからも書かれた製品にたどり着けるようにする。
+- **変更ファイル**: `shared/affiliate/affiliate-master.json`（rtx5070・rtx5060 の rakuten を image-only に、`_meta.imageOnlyNotes`）・`affiliate.js`（`imageOnlyItem()`、画像リンクだけのカード、`buildRakutenUrl` で image-only はボタン・検索なし）・`affiliate.css`（`.sippo-aff-item-hint`）・`README.md`・`scripts/test-affiliate-cards.js`（219件）・`pc-builder/index.html`（20261118d）・`gpu-guide/sw.js`（v20）・`game-pc-guide/sw.js`（v20）・`pc-build-check/sw.js`（v19）・`PROJECT_STATUS.md`
+- **変更内容**:
+  - 照合（2026-11-18、ブラウザで現ページ確認）: SPW楽天市場店「【新品】… MSI GeForce RTX 5070 12G VENTUS 2X OC … VD9071」状態「新品 正規品」・かごに追加可。パソコン工房「MSI GeForce RTX 5060 8G VENTUS 2X OC V1」商品番号 4711377460880・かごに追加可・中古／訳あり／並行輸入の表記なし（メーカー型番は「-」のため model は空、`jan` に記録）。
+  - 発行HTMLは前回貼付の原文（scratchpad の issued-pict-2.txt）をそのまま再利用。
+  - 旧モデル行きの楽天短縮リンク（価格比較）は `previousUrl` に退避。新製品の短縮リンクは無いので楽天ボタン・検索リンクは出さない。
+  - GPUの性能・価格帯・寸法などは変更していない（カードは製品名・型番・写真のみ）。
+- **影響範囲**: GPU GUIDE の RTX 5070／5060 詳細、upgrade の買い替え候補（full カード）。一覧（PC BUILD CHECK・PC BUILDER）では2製品の楽天リンクが消え、Amazon・Yahoo!検索のみ。
+- **未対応・次にやること**: 新製品（VD9071／OC V1）の楽天短縮リンクを発行すれば一覧にも楽天を出せる。`pc-build-check/index.html` の再生成は別作業。
+- **別AIへの引き継ぎ注意点**: スクリーンショットは `_control/exports/affiliate-card-imageonly-20261118/`。確認スクリプトは 68 OK / 0 NG。
+
+---
+
+## 2026-11-18（3回目）— 楽天商品カードの仕上げ（残り3製品の照合・ボタン文言・販売状態）
+
+- **修正目的**: 残り3製品の発行画像リンクの照合と登録、楽天ボタンの文言を実際の行き先に合わせる。
+- **変更ファイル**: `shared/affiliate/affiliate-master.json`（rtx5070ti に imageLink、全8件に destinationType、3件に saleNote、2件に imageLinkHeld、`_meta.destinationTypeNotes`）・`affiliate.js`（`destinationKind()`、ボタン文言の出し分け、saleNote 表示）・`affiliate.css`（`.sippo-aff-item-note`）・`README.md`・`scripts/test-affiliate-cards.js`（198件）・`pc-builder/js/pb-app.js`（案内文）・`pc-builder/index.html`（20261118c）・`gpu-guide/sw.js`（v19）・`game-pc-guide/sw.js`（v19）・`pc-build-check/sw.js`（v18）・`PROJECT_STATUS.md`
+- **変更内容**:
+  - RTX 5070 Ti: 転送先 palmsamerica「msi Gaming RTX 5070 Ti 16G Ventus 3X PZ OC（16GB GDDR7）」で一致 → 登録。
+  - RTX 5070: 転送先が「12G VENTUS 2X **OC** VD9071」（SPW楽天市場店）で、カードの OC なし（EAN 4711377308229）と別モデル → 保留。
+  - RTX 5060: 転送先が「8G VENTUS 2X OC **V1**」（パソコン工房、JAN 4711377460880）で、ボタン先の製品ページ（EAN 4711377344272）と JAN 不一致 → 保留。
+  - ボタン文言: 価格比較ページ（RTX 4060・5060・5070・5080・RX 9070 XT）→「楽天市場で価格を比較」、ショップ商品ページ（RTX 3080・4070 SUPER・5070 Ti）→「楽天市場で商品を見る」。リンク先・計測は不変。
+  - 販売状態: palmsamerica / americagoodvibes は「個人輸入扱い・米国から発送」→ 詳細カードに注記（一覧には出さない）。
+- **影響範囲**: 共通アフィリエイトのカード（詳細・一覧の文言）。一覧・PC BUILDER の行の高さは不変。GA4 `affiliate_click` は不変。
+- **未対応・次にやること**: RTX 5070（OC なしの 12G VENTUS 2X）・RTX 5060（JAN 4711377344272 の通常新品）の画像リンクを発行し直す。RTX 5070 Ti の写真は白いカードだが、ショップのページに色の記載がない（要目視確認）。`pc-build-check/index.html` の再生成は別作業。
+- **別AIへの引き継ぎ注意点**: 短縮リンクを差し替えたら転送先を確認して `destination` と `destinationType` を一緒に更新する。確認用スクリーンショットは `_control/exports/affiliate-card-final-20261118/`。
+
+---
+
+## 2026-11-18（2回目）— 商品カードに楽天の発行画像リンク（画像のみ）を表示
+
+- **修正目的**: GPU詳細ページの購入欄で、読者が実物の写真と型番を見て目的の商品を選べるようにする。
+- **変更ファイル**: `shared/affiliate/affiliate-master.json`（5件に `rakuten.item.imageLink`、型番3件追加、`_meta.imageLinkNotes`）・`affiliate.js`（`issuedImageLink()` で発行HTMLを検査してそのまま挿入、`bindTracking()` で外側の枠から計測、画像失敗時の処理）・`affiliate.css`（`.sippo-aff-item--issued` 列幅132px、スマホも同じ）・`README.md`・`scripts/test-affiliate-cards.js`（166件）・`gpu-guide/sw.js`（v18）・`game-pc-guide/sw.js`（v18）・`pc-build-check/sw.js`（v17）・`pc-builder/index.html`（版番号 20261118b）・`PROJECT_STATUS.md`
+- **変更内容**:
+  - 運営者が発行した「画像のみ」128×128 リンク6件の転送先（`pc=`）を楽天商品ページで照合。一致5件（RTX 3080 VD7358／RTX 4060 VENTUS 2X BLACK 8G OC VD8560／RTX 4070 SUPER 12G VENTUS 3X OC／RTX 5080 16G VENTUS 3X OC G5080-16V3C／ASRock RX 9070 XT Steel Legend 16G）を登録。
+  - RTX 5060 の1件は製品は一致するが「外箱ダメージ・未使用」の訳あり品のため保留（登録しない）。
+  - 型番を転送先ページから追加: rtx4060=VD8560、rtx5080=G5080-16V3C、rx9070xt=RX9070XT SL 16G。
+  - 発行HTMLは改変せずに挿入。画像の拡縮なし（カード側の列幅で合わせる）。一覧（compact）では非表示。
+- **影響範囲**: 共通アフィリエイトの大きいカード（GPU GUIDE 詳細など）。一覧・PC BUILDER の行の高さは不変。GA4 `affiliate_click` のイベント名・パラメータは不変（写真クリックは link_url＝画像リンクURL）。
+- **未対応・次にやること**: RTX 5070・RTX 5070 Ti の画像リンク発行、RTX 5060 は通常の新品商品で発行し直し。`pc-build-check/index.html` の再生成（作業前からの未コミット変更。今回の変更とは無関係）。
+- **別AIへの引き継ぎ注意点**: `imageLink.html` は絶対に編集しない（楽天ガイドライン）。追加手順は `shared/affiliate/README.md` の「楽天の発行画像リンク」。確認用スクリーンショットは `_control/exports/affiliate-photo-check-20261118/`（非公開）。
+
+---
+
+## 2026-11-18 — アフィリエイトの商品カード化（リンク先のメーカー名・製品名を表示）
+
+- **修正目的**: 購入ボタンを押すと「どの商品が開くか」が初心者に分からない問題の解消。
+- **変更ファイル**: `shared/affiliate/affiliate.js`（商品カード描画・`getItemCards`・写真の読み込み失敗時の処理）・`affiliate.css`（カード／一覧用1行カード／スマホ）・`affiliate-master.json`（楽天の直リンク8件に `item`、別製品だった4件を `retiredUrl` へ）・`README.md`・`scripts/test-affiliate-cards.js`（新規）・`pc-builder/js/pb-app.js`（compact 指定・案内文）・`pc-builder/index.html`（版番号 20261118a）・`gpu-guide/sw.js`（v17）・`game-pc-guide/sw.js`（v17）・`pc-build-check/sw.js`（v16）・`PROJECT_STATUS.md`
+- **変更内容**:
+  - 楽天の `exact` 直リンク12件の転送先を確認。8件は表示GPUと一致する特定製品（MSI VENTUS 7件・ASRock RX 9070 XT Steel Legend 1件）→ `item` に記録しカード表示。
+  - 4件は**別GPUの商品**（RTX 4060 Ti→MSI RTX 5060 Ti 8G、RTX 4070→MSI RTX 4070 SUPER、RTX 4070 Ti SUPER→MSI RTX 4070 Ti、RTX 4080 SUPER→MSI RTX 4080）→ `retiredUrl` に退避し検索へ。
+  - 検索リンクの文言を「RTX 5070搭載製品をAmazonで探す」「〇〇の検索結果が開きます（特定の商品ではありません）」に。直リンクは「楽天市場で商品を見る」。
+  - 写真は利用許諾付き（source・license）のみ表示する仕組みを用意。現時点で使える写真は0件。
+- **影響範囲**: 共通基盤を使う全ページ（GPU GUIDE 詳細・GAME PC GUIDE・PC BUILD CHECK・PC Builds Hub・UPGRADE・PC BUILDER）。GA4 `affiliate_click` のイベント名・パラメータは不変。
+- **未対応・次にやること**: 写真素材の入手（楽天アフィリエイトの画像付き商品リンク等）。退避した4件の正しい商品リンクの取得。`pc-build-check/index.html` が builds.json と不一致（作業前からの未コミット変更、今回は未対応）。
+- **別AIへの引き継ぎ注意点**: 直リンクを追加・変更したら、転送先の商品名を確認して `item` を付ける（無いと従来ボタン表示）。`node scripts/test-affiliate-cards.js` が製品名とGPU名の一致（SUPER/Ti/XT違い）を検査する。共通 affiliate.js/css を変えたら3サイトの SW 版を上げる。
+
+---
+
+## 2026-11-15（2回目）— 表示価格と、おすすめ・予算・コスパ判定の根拠の整合
+
+- **修正目的**: 1回目の対応後に残っていた「表示は新しい価格・評価は古い価格」「古いBTO価格で予算内に見える」「価格の根拠を再現できない」を解消する。
+- **変更ファイル**:
+  - 価格の根拠: `scripts/catalog/kakaku-gpu-evidence.js`（新規）・`shared/catalog/evidence/kakaku-gpu-2026-11-15.json`（新規）・`shared/catalog/gpu.json`・`sources.json`・`schema.json`・`README.md`・`scripts/catalog/validate.js`（取得記録から再計算して照合・対象VRAMの一致）・`lib.js`（gpus.json に marketPriceSampleSize、GPU_PRICE に vram）・`test-catalog.js`
+  - GPU GUIDE: `script.js`（コスパ順位は確認済み・5製品以上の掲載価格だけ、表示名「掲載価格の目安」「価格目安（未確認）」、根拠の無い「コスパ◎」バッジを削除）・`generate-gpu-pages.js`（同じ規則で長所・注意点、比較した価格の確認日を明記、16GB版の明記）・`index.html`・`sw.js`（v15）・`test-gpu-feature.js`、生成物（個別65ページ）
+  - UPGRADE: `upgrade-engine.js`（目標を満たす候補どうしで安い方を選ぶとき VRAM を減らさない）・`upgrade-diagnose.js`（掲載製品の中央値・保証しない旨・16GB版）・`index.html`（予算はGPU本体の価格だけ）・`test-upgrade-engine.js`（境界・価格なし・VRAM）
+  - PC BUILD CHECK: `shared/parts/build-price.js`（priceBasisStatus）・`part-prices.json`（`_meta.btoCheck`。値は不変）・`shared/parts/evidence/bto-dospara-2026-11-15.json`（新規）・`build-profile.js`・`compute-prices.js`・`compute-profiles.js`・`generate-index-sections.js`・`generate-builds.ps1`・`script.js`・`style.css`・`sw.js`（v14）・テスト2本、生成物（静的75ページ・index.html）
+  - CONTROL: `lib/issues.js`（件数を除いた安定ID・旧IDの照合）・`parts-audit.js`（key・legacyTitles）・`report.js`・`ga4-metrics.js`（同じ日数にそろえた参考比較）・`test/test-control.js`
+- **変更内容**:
+  - GPU 掲載価格: 取得HTMLから製品ごとの記録を作り再計算。外付けBOX・BTF・水冷ブロックのみを除外（RTX 5090 1,280,000→1,265,000円）。10/31 の値は記録が無く再計算できない履歴として残す。
+  - PC BUILD CHECK: ドスパラ一覧（181製品）と照合し、CPU・GPUが同じ15構成は9月時点の概算の1.25〜1.85倍。19件の値は変えず、静的75ページを含めて「9月時点の概算・この予算で購入できるとは限りません」に統一。静的ページは一時フォルダで生成→変更前コードで完全一致を確認→差分だけ反映。
+  - UPGRADE の影響切り分け（20,160ケース）: 旧価格＋旧ロジック→新価格＋旧ロジックで5,625件変化（おすすめ 5,363→3,284 はすべて価格の影響）、ロジック変更は248件（同じVRAMで目標を満たす安い候補へ）。予算超過0・より安く目標を満たす同VRAM候補の見落とし0。
+  - CONTROL: issue ID は件数を除いたキーから作り、旧ID（例 ecc781d0ea45・c6328385ac3c・タイトル変更前の 18c468819e4c）でも引ける。GA4 は今期間の末尾が未取得なら同じ日数どうしの参考比較を出す。
+- **影響範囲**: GPU GUIDE（一覧のコスパ順位は11件→9件、価格の表示名）、UPGRADE（GPU推奨248件・表示文言）、PC BUILD CHECK（全75ページ・診断画面の価格表示と構成タイプ）、CONTROL（ID・GA4比較）。全テスト成功。
+- **未対応・次にやること**: PC BUILD CHECK の予算区分と構成の見直し、UPGRADE の VRAM 条件の設計（現在は「VRAMを減らさない」だけ）、メモリ/SSD等の PRICE_HINT（確認日なし）、PC BUILDER の「同等品の相場」の表示名、アフィリエイト検索リンクが16GB版に絞られていない。
+- **別AIへの引き継ぎ注意点**: 掲載価格を更新するときは価格.comのHTMLを保存して `kakaku-gpu-evidence.js` で記録を作り、正本の値を記録に合わせる（validate.js が照合）。PC BUILD CHECK の静的ページは「一時フォルダで生成→現行と比較→差分だけ反映」の手順で。
+
+---
+
+## 2026-11-15 — CONTROL の指摘8件の調査と修正（GPU価格の共通原因・電源仕様の出典・BTO基準価格・画像・GTA5・CONTROL）
+
+- **修正目的**: Sippo CONTROL が出力した8件（18c468819e4c / a77d4bd694ce / ecc781d0ea45 / a046ed2ad828 / c6328385ac3c / 28f344e735a3 / a0ad419c5cc4 / 9e6abe23b09a）を、実不具合・仕様差・重複・外部操作待ちに分けて対応する。
+- **変更ファイル**:
+  - 正本・生成: `shared/catalog/gpu.json`・`sources.json`・`config.json`・`README.md`、`scripts/catalog/lib.js`・`validate.js`・`test-catalog.js`、生成物（`gpu-guide/gpus.json`・`upgrade/upgrade-engine.js` の生成ブロック・`shared/catalog/revisions.json`・GPU GUIDE 個別65ページ・UPGRADE 記事）
+  - GPU GUIDE: `gpu-guide/generate-gpu-pages.js`・`script.js`・`gpu-detail.js`・`index.html`・`style.css`・`sw.js`（v13）・`test-gpu-feature.js`
+  - UPGRADE: `upgrade/upgrade-engine.js`（GPU_PRICE 生成ブロック・目標を満たす候補どうしは安い方）・`upgrade-diagnose.js`・`test-upgrade-engine.js`
+  - PC BUILDER: `pc-builder/js/pb-compat.js`（推奨電源は製品値とチップ公式値の高いほう）・`index.html`（版 20261115a）・`data/prices.json`（消えていた出典 kakaku-gpu を復元）・`test-pc-builder.js`・`README.md`
+  - PC BUILD CHECK: `shared/parts/build-price.js`（priceBasisNote）・`pc-build-check/script.js`・`sw.js`（v13）・`test-build-price.js`
+  - PC BUILDS HUB: `pc-builds-hub/images/Test1.jpg`（git 履歴 ac422b2 の PC-builds-site/images/Test1.jpg から復元）
+  - GAME PC GUIDE: `game-pc-guide/content/gta5/guide.json`・`head.html`・`top.html`・`body.html` → 再生成（`games/gta5.html`・`sitemap.xml`・`data/page-dates.json`）
+  - CONTROL（ローカル）: `_control/lib/parts-audit.js`・`issues.js`・`report.js`・`metrics.js`・`ga4-metrics.js`・`public/app.js`・`test/test-control.js`
+- **変更内容**:
+  - GPU価格（18c4・ecc7・a77d は同じ原因）: 確認日なしの reference（2026年6月ごろの値）と手書き PRICE_HINT が実売より3〜6割安かった。価格.com 2026/11/15 更新ランキングで11件の market-median を再確認して追加。GPU GUIDE は有効な実売相場を見出し・meta・一覧・予算絞り込み・価格順に使い、UPGRADE の GPU 交換費用は正本から生成。reference は値を変えず、PC BUILD CHECK の BTO 計算とコスパ順位（全GPU共通の基準）に残す。
+  - 電源仕様（a046）: 9件とも NVIDIA / AMD 公式ページで値が一致。GPUごとの出典URLを登録し確認日を 2026-11-15 に（旧記録は note に残す）。補助電源に Gen 5 ケーブルの容量条件（300/450/600W以上）を追記。ASUS RTX 5060 Ti 2製品（公表550W／チップ公式600W）は公表値を保持し、PC BUILDER は高いほうで判定・両方を表示。
+  - BTO基準価格（c632）: 19件は小売相場と比べたが BTO 基準の値を検証できないため値・日付は変えず、診断画面に基準時期の注記。
+  - UPGRADE: 実売相場への切り替えで、目標を満たす安いGPUより過剰なGPUを選ぶケースが判明 → 目標を満たす候補どうしは安い方（設計方針どおり）。
+  - CONTROL: 同じ原因の指摘を rootCause / related で結ぶ、指摘ごとに検査日時（checkedAt）、periodBasis.endSource を速報値の有無で正しく、GA4 は今期間に未取得日があれば比較しない、低CTRは小さい母集団の中央値を根拠にしない、製品とチップの推奨電源差は仕様差（info）。
+- **影響範囲**: GPU GUIDE（表示価格・meta）、UPGRADE（GPU の費用・推奨。2万160ケース中 約6千ケースで推奨が変化。交換をおすすめ 5,363→3,284）、PC BUILDER（電源判定の根拠表示）、PC BUILD CHECK（注記のみ。金額・予算判定は不変）、PC BUILDS HUB（画像）、GTA5 ページ（title・description・結論ボックス・GTA6 の確認日）。テストはすべて成功。
+- **未対応・次にやること**:
+  - GitHub Pages の「Enforce HTTPS」を有効化（ユーザー操作）。
+  - PC BUILD CHECK の予算区分の見直し（BTO 計算を実売に替えると75構成中68構成が予算超過）と part-prices.json 19件の再設定。静的75ページの再生成。
+  - reference 65件・PRICE_HINT のメモリ/SSD/電源等は確認日なしのまま。GPU の market-median は 2026-12-30 で期限切れ（再確認が必要）。
+  - GTA5 の公式要件ページ（Rockstar サポート）は 2026-11-15 に取得がタイムアウトし再確認できていない（本文の値は 2026-10-14 確認）。GTA6 は 2026-11-19 発売予定のため発売後に該当節を見直す。
+- **別AIへの引き継ぎ注意点**: GPU の価格は `shared/catalog/gpu.json` だけを直し `node scripts/catalog/build.js --pages`。`gpus.json` の `price`（reference）と `marketPrice` は意味が違うので同じ値にしない。CONTROL の issue ID はタイトル（件数を含む）から作るため件数が変わると変わる。
+
+---
+
+## 2026-11-15 — Sippo CONTROL：start-control.cmd 起動時にログインURLを Edge で自動で開く
+
+- **修正目的**: 起動後にターミナルのURLを手でコピーする手間をなくす。
+- **変更ファイル**: `_control/server.js`, `_control/start-control.cmd`, `_control/README.md`
+- **変更内容**:
+  - `server.js` に `--open` オプションを追加。起動完了後、ワンタイムのログインURL（10分・1回限り）を `start "" msedge "<URL>"` で Edge に渡す。Windows 以外・URL形式不一致では何もしない。失敗時は手動で開くよう案内を表示。
+  - `start-control.cmd` は `node server.js --open %*` で起動するよう変更。
+- **影響範囲**: `_control/`（ローカル専用・非公開）のみ。`node server.js` を直接実行した場合は従来どおりブラウザを開かない。テスト 254件すべて成功。
+- **未対応・次にやること**: なし。
+- **別AIへの引き継ぎ注意点**: ブラウザを開かずに起動したいときは `node _control/server.js`（`--open` なし）を使う。
+
+---
+
+## 2026-11-14 — PCパーツ統合データ管理（shared/catalog/）：GPU・CPU の仕様・価格・出典・確認日を正本化し、GPU GUIDE・PC BUILDER・UPGRADE を共通参照に
+
+- **修正目的**: GPU・CPU の仕様・価格・性能スコアが gpus.json / pc-builder の parts.json・prices.json・rules.json / upgrade-engine.js に分散し、サイト間で値が食い違う・更新漏れが起きる状態を解消する。
+- **調査で見つかった重複・矛盾**:
+  - GPU消費電力：gpus.json と upgrade-engine.js の GPU_POWER が2件で不一致（RX 590 225W/175W、RX 6650 XT 180W/176W）。Wikipedia（二次情報・AMD公式はタイムアウトで未確認）で 225W・180W を確認。175W は中国向けの別製品 RX 590 GME の値と一致（名前が似た別製品の混同の可能性）→ 正本は 225W・180W（basis secondary）とし、UPGRADE にも反映。
+  - RTX 5050 の公式推奨電源（550W）が pc-builder/data/rules.json の gpuChipPower にだけあり、GPU GUIDE 個別ページは概算「550W-650W以上」、PC BUILDER は公式550W と食い違っていた → 正本に移し、GPU GUIDE・UPGRADE も公式550Wに統一。
+  - GPU価格が3系統（gpus.json の price＝確認日なし・PRICE_HINT＝確認日なし・prices.json gpuChips＝価格.com中央値 2026-10-31）。基準が違うため統合せず、正本で reference / market-median に種類分け。30%以上の差が9件（要確認として表示。どちらが正しいかは判定しない）。
+  - CPU仕様：parts.json と part-prices.json（cores/threads/x3d）は7件とも一致（重複は残し、一致を検証）。
+  - 性能尺度：gpus.json の rasterScore と upgrade-engine.js の GPU_TIERS は別尺度（値が違うのは意図どおり）→ 統合しない。
+- **変更ファイル**:
+  - 新規: `shared/catalog/`（gpu.json・cpu.json・sources.json・config.json・schema.json・revisions.json・catalog.js・README.md）、`gpu-guide/data/gpu-editorial.json`、`scripts/catalog/`（lib.js・build.js・validate.js・test-catalog.js）
+  - 変更: `gpu-guide/gpus.json`（生成物化。値は65件とも移行前と完全一致・キー順と改行のみ変化）、`gpu-guide/generate-gpu-pages.js`（価格・公式推奨電源を正本から）、`gpu-guide/gpu/rtx-5050/index.html`（再生成）、`gpu-guide/content/rx-9070.json`（_meta の説明のみ）、`gpu-guide/test-gpu-feature.js`、`upgrade/upgrade-engine.js`（GPU_POWER・GPU_POWER_SPEC を生成ブロック化）、`pc-builder/js/pb-db.js`（正本の互換アダプター）・`pb-app.js`（正本を直接読む）・`index.html`（catalog.js 読み込み・版番号 20261114a）、`pc-builder/data/parts.json`（CPU 56件と CPU専用の出典5件を削除）・`prices.json`（CPU価格・gpuChips・staleAfterDays を削除）・`rules.json`（gpuChipPower を削除）、`pc-builder/validate-parts.js`・`test-pc-builder.js`、`_config.yml`（shared/catalog/README.md を配信除外）、`README.md`・`PROJECT_STATUS.md`・`pc-builder/README.md`
+  - git 管理外: `_control/lib/parts-audit.js`・`views.js`・`report.js`・`public/app.js`・`test/test-control.js`（データ品質の確認を追加）
+- **変更内容**:
+  - 正本: 値を根拠ごとのまとまり（specGroups）に分け、basis（official / secondary / measured / estimated / unverified）・出典ID・確認日を持たせた。移行しただけの値は unverified・確認日 null（「本日確認済み」にしていない）。今回実際に確認した2件（RX 590・RX 6650 XT）だけ確認日 2026-11-14。
+  - 価格: 金額・通貨・新品/中古・対象・種類・確認日・出典（税込・送料は出典ごとの条件）。代表価格ルールと有効期間（45日）は config.json。価格不明は登録せず 0円にしない。
+  - PC BUILDER は shared/catalog/ を実行時に直接読む（IDは不変。移行前の全パーツID・共有URLが読めることをテスト）。GPU GUIDE・UPGRADE はビルド時反映（`node scripts/catalog/build.js`）。
+  - 検証: 致命的（ID重複・参照切れ・型/単位・不正な価格や日付・二重管理・PC BUILD CHECK との矛盾・生成物の不一致）／要確認（古い価格・出典URLなし・価格差）／把握用（未確認値）。
+  - CONTROL: パーツデータ画面に「共通パーツデータの品質」（優先順）、GPT分析出力に catalog_validation.json・catalog_issues.csv（ID・項目・現在値・出典・確認日・理由・影響先）。
+- **検証**: 全テスト成功（test-catalog 337・test-pc-builder 4751・test-gpu-feature 305・test-gpu-pages 1644・test-gpu-data 75・CONTROL 254 ほか既存すべて）。実ファイルで RTX 5070 の実売相場と消費電力を一時変更 → GPU GUIDE 個別ページ・RX 9070 比較表・gpus.json・UPGRADE・PC BUILDER すべてに反映 → 元に戻して全ファイルがテスト前とバイト一致を確認。Chrome ヘッドレスで代表9ページ×PC/スマホ幅：コンソールエラー0・読み込み失敗0・横はみ出しなし。生成処理の再実行で差分なし。
+- **影響範囲**: 表示が変わるのは GPU GUIDE の RTX 5050 個別ページ（推奨電源）と、UPGRADE 診断の RX 590・RX 6650 XT の消費電力（電源判定の目安）だけ。PC BUILD CHECK・GAME PC GUIDE は値の変更なし。
+- **未対応・次にやること**: GPU GUIDE の価格目安（reference）の見直し（PC BUILD CHECK の構成見直しとセット）／公式推奨電源9件の出典URLの記録／GPU の VRAM・消費電力・発売年の公式確認／CPU・GPU 以外のパーツの正本化（同じ形で shared/catalog/<category>.json に追加可能）。
+- **別AIへの引き継ぎ注意点**: `gpu-guide/gpus.json`・`upgrade-engine.js` の GENERATED ブロック・`shared/catalog/revisions.json` は生成物。直すのは `shared/catalog/*.json` と `gpu-guide/data/gpu-editorial.json`。手順は `shared/catalog/README.md`。公開前に `node scripts/catalog/build.js --check` と `node scripts/catalog/validate.js`。
+
+## 2026-11-14 — Sippo CONTROL：GA4 の取得条件・アクセス指標・充足率・確定日・サイトマップ・検査証拠を改善
+
+- **修正目的**: Sippo CONTROL の分析用出力（GPT 用 JSON）の不足と判定の整合性を直す。特にアフィリエイトの商品・ショップ・掲載位置が全件 `(not set)` になる原因の調査。
+- **変更ファイル**（すべて `_control/`。git 管理外）: `lib/ga4.js`（全面改修）、`lib/ga4-metrics.js`・`lib/events.js`（新規）、`lib/metrics.js`、`lib/store.js`、`lib/revenue.js`、`lib/report.js`、`lib/gsc.js`、`lib/health.js`、`lib/settings.js`、`public/app.js`、`README.md`、`test/test-control.js`。公開サイトのファイルは変更なし。
+- **調査結果（`(not set)` の原因）**: ※同日の追記で訂正：**原因は未確定**。以下は確認できた事実と仮説で、断定ではない。
+  - リポジトリと本番に配信中の `shared/affiliate/affiliate.js` に、product_id / shop / placement / link_url を送る記述がある（コードの記述確認。ブラウザでの実際の送信内容は未確認）。同じ呼び出しで送る link_url は GA4 の linkUrl に全件届いている（間接的な根拠）。
+  - GA4 のカスタム定義（3件）は登録済み。CONTROL が登録を初めて確認したのは 2026-11-14 だが、**登録日そのものは不明**（Admin API 無効）。したがって 11/10 以前のクリックが登録前だったとは断定できない。「登録前のクリックだった」は仮説の一つ（他に登録内容の誤り・本番で値が送られていない可能性）。確定には、登録確認後のクリックに有効値が入るか、DebugView で ep.product_id 等を確認する必要がある。
+  - カスタム定義付きの問い合わせは GA4 が「2026-09-13 以降のみ完全」（DATA_TRUNCATION_TYPE_PROPERTY＝データ保持期間）として古い日を返さない。90日分32件中13件しか返らなかった。
+  - 組み込みの `linkUrl` には全件値が入っている → ショップはリンク先ドメインから判定可能。
+  - 別問題として、`127.0.0.1`（ローカル確認）の計測が混入していた（今期間で73件。pcb_add_part 14件・affiliate_click 4件など）。
+- **変更内容**: GA4 を本番ホストに絞り込み・除外件数を記録／全体・日別・ページ別・流入元・ランディングページ・エンゲージメントと前期間比較を追加。ユーザー数は期間指定で取得（日別合算しない）／確定日の説明をデータソースごとの実際の最終確定日から生成し、「欠損なし」「速報値を含まない」「保持期間外を含まない」を別の状態に／Sitemaps API の非推奨 `contents[].indexed` を保存・使用せず、URL 検査ベースで未取得・一部・実測を区別／イベントの定義・取得条件・対象ホスト・計測開始日・変更日を明示し、回数・ユーザー数・成約（未取得）を分離、少数データと計測開始前の期間に注意を付けた／検査の実行状態と指摘を分け、HTTPS 転送の指摘に元の応答・転送先・確認日時を付けた。
+- **追記（同日・レビュー対応）**: GA4 の「確定済み最終日」を「推定確定最終日（処理待ち期間を除外した推定。値は後から変わりうる）」に改め、各データソースに `finalityBasis`（api / estimated）を追加。欠損（取得範囲）と確定判定を別の文に分離。アフィリエイト詳細に `causeAnalysis`（事実・確認項目ごとの verified / failed / unverified・仮説・確かめ方）を追加し、断定的な診断文を削除。本番応答確認で配信中の affiliate.js の記述を確認する処理を追加。検証スクリプトを「合格／不合格（実際に検査）」「参考表示」「未確認」に分け、再検証は 合格69・不合格0・参考表示15・未確認7。
+- **検証（初回。表示だけの項目も OK に数えていたため上の追記で訂正）**: 実データで再取得・再出力した JSON を65項目で検証しすべて OK（PV：日別合計＝ページ別合計＝期間集計 288、期間内アクティブユーザー116 ≦ 日別合計126、チャネル別セッション合計＝全体 151、有効値＋(not set)＝取得件数、linkUrl 5/5件）。テスト：CONTROL 243件・test-analytics 1071件すべて成功。
+- **影響範囲**: Sippo CONTROL（ローカル専用ツール）のみ。公開サイト・計測タグへの影響なし。
+- **未対応・次にやること**（運営者側の作業）:
+  - **http://sippo-pc.jp/ が HTTPS に転送されていない**（2026-11-14 03:18 UTC 確認：HEAD → 200、Location なし、Server: GitHub.com）。GitHub のリポジトリ設定 > Pages > 「Enforce HTTPS」をオンにする。
+  - GA4 管理画面 > データの保持 を「14か月」にする（カスタム定義付きの集計が2か月で切れるのを防ぐ。過去分は戻らない）。
+  - 次の affiliate_click 以降に product_id / shop / placement に値が入るか確認（入らなければパラメータ名の綴りとスコープを確認）。登録日を機械的に確認したい場合は Google Analytics Admin API を有効化。
+  - URL 検査（`cli.js sync inspection`）が未実行のため、サイトマップのインデックス件数は「未取得」。
+- **別AIへの引き継ぎ注意点**: GA4 の取得条件を変えたら `lib/ga4.js` の `SCHEMA` を上げる（全期間を取り直す）。イベントを追加したら `lib/events.js` の EVENT_DEFS と MEASUREMENT_CHANGES にも追記する。ユーザー数を日別データから合算しないこと。
+
 ## 2026-11-14 — 特商法表記の支払方法に Apple Pay（対応環境のみ）を追加し、公開前チェックを完了
 
 - **修正目的**: 運営者が Square 管理画面で Apple Pay の有効を確認したため、/legal/ の支払方法に反映し、公開前ゲートを閉じる。

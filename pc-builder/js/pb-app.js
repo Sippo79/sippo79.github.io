@@ -89,8 +89,14 @@
       fetchJson('data/presets.json').catch(function () { return { presets: [] }; }),
       // 価格表が読めなくても動く（その場合は既存データの目安価格だけになる）
       fetchJson('data/prices.json').catch(function () { return null; }),
+      // 共通パーツデータ（CPU・GPUの正本）。直接読むので shared/catalog/ を直せば次の読み込みから反映される
+      fetchJson('/shared/catalog/gpu.json'),
+      fetchJson('/shared/catalog/cpu.json'),
+      fetchJson('/shared/catalog/sources.json'),
+      fetchJson('/shared/catalog/config.json'),
     ]).then(function (res) {
       S.db = Db.buildDb({
+        catalog: { gpu: res[6], cpu: res[7], sources: res[8], config: res[9] },
         parts: res[0], rules: res[1], gpus: res[2], partPrices: res[3], prices: res[5],
         engine: global.SippoUpgradeEngine || null,
         gpuTarget: global.SippoGpuTarget || null,
@@ -902,7 +908,7 @@
         var p = part(e.id);
         if (!p) return;
         var affId = affiliateIdFor(p);
-        var btns = A && A.isReady && A.isReady() && affId ? A.renderAffiliateButtons(affId, { page: 'pc-builder', placement: 'build-parts', disclosure: false }) : '';
+        var btns = A && A.isReady && A.isReady() && affId ? A.renderAffiliateButtons(affId, { page: 'pc-builder', placement: 'build-parts', disclosure: false, compact: true }) : '';
         var shopPrices = (p.shops || []).filter(function (s) { return s && s.url && isNum(s.price) && s.checkedAt; }).map(function (s) {
           return '<div class="pb-shop-price">' + esc(s.shop) + '：' + yen(s.price) + '（' + esc(s.checkedAt) + '確認）</div>';
         }).join('');
@@ -913,7 +919,7 @@
     if (!rows.length) {
       html += '<p class="pb-note">パーツを選ぶと、Amazon・楽天市場などで探せるリンクを表示します。</p>';
     } else {
-      html += '<p class="pb-note">広告リンクを含みます。リンク先は各ショップの検索結果です（商品ページへ直接つながるリンクはボタンに「価格を見る」と表示）。PC BUILDER に表示している価格は価格比較サイトで確認した目安で、Amazon・楽天などの販売価格・在庫ではありません。購入前にリンク先で価格と型番を確認してください。</p>' + rows.join('');
+      html += '<p class="pb-note">広告リンクを含みます。リンクの多くは各ショップの検索結果です（特定の製品につながるリンクは、メーカー名・製品名を添えて「商品を見る」「価格を比較」と表示）。PC BUILDER に表示している価格は価格比較サイトで確認した目安で、Amazon・楽天などの販売価格・在庫ではありません。購入前にリンク先で価格と型番を確認してください。</p>' + rows.join('');
     }
     $('pbShops').innerHTML = html;
     if (A && A.bindTracking && A.isReady && A.isReady()) A.bindTracking();

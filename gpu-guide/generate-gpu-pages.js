@@ -57,21 +57,19 @@ function readJson(file) {
 const gpus = readJson(path.join(DIR, 'gpus.json'));
 const cpuRecs = readJson(path.join(DIR, 'cpu-recommendations.json'));
 
-/* 実売の参考価格（確認日・出典つき）。PC BUILDER と同じ pc-builder/data/prices.json の gpuChips。
- * gpus.json の price は2026年6月設定の「GPU GUIDE掲載の目安」で確認日の記録が無いため、
- * 価格差の比較や「実売の参考」はこちらだけを根拠にする（gpus.json は変更しない）。 */
-const PRICE_DATA = (() => {
-  try { return readJson(path.join(DIR, '..', 'pc-builder', 'data', 'prices.json')); }
-  catch (e) { return { _meta: { sources: {} }, gpuChips: {} }; }
-})();
-
-/* メーカー公式の推奨電源（NVIDIA / AMD）。upgrade-engine.js の GPU_POWER_SPEC が唯一の情報源。
- * ここに値があるGPUは、消費電力からの概算ではなく公式値を表示する
- * （概算式だと RTX 5070 Ti=750W や RX 9070=650W の公式値を下回る目安が出ていた）。 */
-const POWER_SPEC = (() => {
-  try { return require('../upgrade/upgrade-engine.js').GPU_POWER_SPEC || {}; }
-  catch (e) { return {}; }
-})();
+/* 共通パーツデータ（shared/catalog/。GPU の正本）。PC BUILDER と同じものを読む。
+ *  - 実売の参考価格（market-median：確認日・出典つき）… 価格差の比較や「実売の参考」はこれだけを根拠にする。
+ *    gpus.json の price（= 正本の reference。確認日の記録なし）は「GPU GUIDE掲載の目安」として見出しに出す。
+ *  - メーカー公式の推奨電源（recommendedSystemPowerW。basis=official のものだけ）
+ *    … 値があるGPUは、消費電力からの概算ではなく公式値を表示する
+ *      （概算式だと RTX 5070 Ti=750W や RX 9070=650W の公式値を下回る目安が出ていた）。
+ *  代表価格の採用ルールは shared/catalog/config.json の pricing.representative["gpu-guide"]。 */
+const CatalogLib = require(path.join(DIR, '..', 'scripts', 'catalog', 'lib.js'));
+const Catalog = CatalogLib.Catalog;
+const CATALOG = CatalogLib.loadCatalog();
+const CATALOG_GPU = Catalog.index(CATALOG).gpu;
+// 価格の「古い」判定の基準日（生成した日）。古くなったら「更新待ち」と書く
+const GENERATED_AT = new Date();
 
 /* GPU個別の追加コンテンツ（content/<id>.json）。ある GPU だけ、購入判断用の
  * 結論・比較・実機レビュー・FAQ などを追加で焼き込む。無いGPUは従来どおり。 */
@@ -147,15 +145,43 @@ function jaDate(iso) {
   return m ? `${Number(m[1])}年${Number(m[2])}月${Number(m[3])}日` : '';
 }
 
-/** 実売の参考価格（prices.json の gpuChips）。確認日が無いものは使わない */
+/** 実売の参考価格（正本の market-median）。確認日が無いものは使わない */
 function marketPrice(id) {
-  const c = PRICE_DATA.gpuChips && PRICE_DATA.gpuChips[id];
-  return c && num(c.value) && c.checkedAt ? c : null;
+  const rec = CATALOG_GPU[id];
+  const p = rec ? Catalog.latestOfType(rec, 'market-median') : null;
+  if (!p || !num(p.amount) || !p.checkedAt) return null;
+  const src = Catalog.source(CATALOG, p.source) || {};
+  return {
+    value: p.amount, n: p.sampleSize, vramGB: p.vramGB || null, range: num(p.low) && num(p.high) ? [p.low, p.high] : null,
+    checkedAt: p.checkedAt, sourceUrl: src.url || '', state: Catalog.priceState(p, CATALOG.config, GENERATED_AT),
+  };
 }
 
-/** メーカー公式の推奨電源（GPU_POWER_SPEC のキーは id からハイフンを除いたもの） */
+/**
+ * 見出しに出す価格（shared/catalog/config.json の representative.gpu-guide）。
+ *  新品GPUで有効期間内の実売相場（market-median）があればそれ（kind=market）。
+ *  無い・期限切れなら確認日の無い掲載目安（gpus.json の price＝reference。kind=reference）。
+ *  中古中心のGPUは呼び出し側で中古相場を出す。
+ */
+function displayPrice(gpu) {
+  const market = !isUsedOriented(gpu) ? marketPrice(gpu.id) : null;
+  if (market && !(market.state && market.state.stale)) return { kind: 'market', value: market.value, market };
+  const ref = num(gpu.price);
+  return ref ? { kind: 'reference', value: ref, market } : { kind: 'none', value: null, market };
+}
+
+/** 「〇月〇日確認」。有効期間を過ぎていれば「更新待ち」を付ける */
+function checkedText(p) {
+  return p.state && p.state.stale ? `${jaDate(p.checkedAt)}確認・確認から${p.state.ageDays}日たっているため更新待ち` : `${jaDate(p.checkedAt)}確認`;
+}
+
+/** メーカー公式の推奨電源（正本の recommendedSystemPowerW。basis=official のみ） */
 function officialPsu(gpu) {
-  return POWER_SPEC[String(gpu.id).replace(/-/g, '')] || null;
+  const rec = CATALOG_GPU[gpu.id];
+  if (!rec) return null;
+  const psu = Catalog.field(rec, 'recommendedSystemPowerW');
+  if (psu.basis !== 'official' || !num(psu.value)) return null;
+  return { psu: psu.value, connector: Catalog.field(rec, 'powerConnectorsReference').value };
 }
 
 /* ------------------------------------------------------------------
@@ -250,8 +276,12 @@ function buildDescription(gpu) {
     if (lo && hi) parts.push(`中古相場の目安は約${lo}〜${hi}円。`);
     parts.push('中古で買うときの確認ポイントもまとめています。');
   } else {
-    const p = comma(gpu.price);
-    if (p) parts.push(`価格目安は約${p}円。`);
+    const dp = displayPrice(gpu);
+    const p = comma(dp.value);
+    if (p && dp.kind === 'market') {
+      const [y, m] = dp.market.checkedAt.split('-');
+      parts.push(`掲載製品の価格目安は約${p}円（${Number(y)}年${Number(m)}月時点）。`);
+    } else if (p) parts.push(`価格目安（確認日の記録なし）は約${p}円。`);
     parts.push('解像度別の目安や相性のよいCPUも確認できます。');
   }
   return parts.join('');
@@ -293,28 +323,38 @@ function renderScoreBreakdown(gpu) {
 }
 
 function renderSpecs(gpu) {
-  const priceLabel = isUsedOriented(gpu) ? '中古価格目安' : '価格目安';
+  // 価格：新品で有効な実売相場（確認日つき）があれば見出しはそれ。無ければ確認日の無い掲載目安（displayPrice）。
+  const dp = isUsedOriented(gpu) ? null : displayPrice(gpu);
+  const priceLabel = isUsedOriented(gpu) ? '中古価格目安（未確認）' : (dp.kind === 'market' ? '掲載製品の価格目安' : '価格目安（未確認）');
   const priceValue = (() => {
     if (isUsedOriented(gpu)) {
       const lo = comma(gpu.usedPriceMin);
       const hi = comma(gpu.usedPriceMax);
       if (lo && hi) return `約${lo}〜${hi}円`;
+      const p = comma(gpu.price);
+      return p ? `約${p}円` : '価格未設定';
     }
-    const p = comma(gpu.price);
+    const p = comma(dp.value);
     return p ? `約${p}円` : '価格未設定';
   })();
 
-  // 実売の参考（確認日・出典つき）があれば併記する。掲載目安と離れていることを隠さない。
-  const market = !isUsedOriented(gpu) ? marketPrice(gpu.id) : null;
-  const priceNote = market
-    ? `GPU GUIDE掲載の目安です。実売の参考は約${comma(market.value)}円（価格.comランキング掲載製品の最安値の中央値・${jaDate(market.checkedAt)}確認）。価格は時期によって大きく変わるため、購入前に最新価格を確認してください。`
-    : '価格は時期によって変動するため、あくまで目安として見てください。';
+  let priceNote = '確認日の記録が無い目安です。価格は時期によって変動するため、購入前に最新価格を確認してください。';
+  if (isUsedOriented(gpu)) priceNote = '確認日の記録が無い中古価格の目安です。状態や時期で大きく変わるため、購入前に最新価格を確認してください。';
+  else if (dp.kind === 'market') {
+    const m = dp.market;
+    const range = m.range ? `・掲載${m.n}製品の最安値は約${comma(m.range[0])}〜${comma(m.range[1])}円` : '';
+    const variant = m.vramGB ? `${m.vramGB}GB版・` : '';
+    priceNote = `価格.com人気ランキングに掲載された${variant}新品${m.n}製品の最安値の中央値（税込・送料別${range}・${checkedText(m)}）。市場全体の相場ではなく、この価格で買えることを保証するものでもありません。購入前に最新価格を確認してください。`;
+  } else if (dp.market) {
+    // 実売相場が期限切れ：掲載目安を見出しにし、古い実売相場は「更新待ち」として併記する
+    priceNote = `確認日の記録が無い目安です。掲載製品の価格目安は約${comma(dp.market.value)}円（価格.com人気ランキング掲載製品の最安値の中央値・${checkedText(dp.market)}）。購入前に最新価格を確認してください。`;
+  }
 
   // 推奨電源：メーカー公式値があればそれを出す（概算式は公式値を下回ることがあった）
   const spec = officialPsu(gpu);
   const psuValue = spec ? `${spec.psu}W以上` : powerSupply(num(gpu.power) || 0);
   const psuNote = spec
-    ? `${gpu.brand === 'AMD' ? 'AMD' : 'NVIDIA'}公式の推奨値（GPU単体）。メーカー製カードは推奨が高い場合があるので、購入する製品の仕様も確認してください。`
+    ? `${gpu.brand === 'AMD' ? 'AMD' : 'NVIDIA'}公式のシステム推奨電源（GPU単体の消費電力ではなく、PC全体の電源容量の目安）。メーカー製カードは推奨が異なる場合があるので、購入する製品の仕様も確認してください。`
     : 'CPUや他パーツ構成によって必要な電源容量は変わります。';
 
   return `
@@ -382,21 +422,31 @@ function renderResolutionTable(gpu) {
  *    同じ母集団の中での位置づけとして事実を述べられる。
  *    「速い」「おすすめ」のような主観評価は入れない。
  *
- *  閾値は全65件の分布から決めている（コスパ中央値15.4 / 上位25%は18.1）。
+ *  2026-11-15〜 比較は確認済みの掲載価格（同じ日・同じ集計方法）があるGPUどうしだけ。5件未満なら価格の評価をしない。
  * ------------------------------------------------------------------ */
 
-/** 価格性能比（rasterScore / 万円）。価格が無ければ null */
+/** 価格性能比（rasterScore / 万円）。確認済みで有効な掲載価格（market-median）があるGPUだけ。無ければ null（2026-11-15〜）。
+ *  確認日の無い価格（古い目安・中古の目安）は時期・条件がそろわないので、価格に対する性能の評価には使わない。 */
 function valuePerYen(gpu) {
-  const price = num(gpu.price);
+  const dp = isUsedOriented(gpu) ? null : displayPrice(gpu);
+  // 掲載製品が5件未満の価格（少数サンプル）は価格に対する評価に使わない
+  const price = dp && dp.kind === 'market' && dp.market.n >= 5 ? dp.value : null;
   const raster = num(gpu.rasterScore);
   if (!price || price <= 0 || raster === null) return null;
   return raster / (price / 10000);
 }
 
+/** 比較に使った掲載価格の確認日（「11月15日」） */
+function valueDateText(gpu) {
+  const dp = displayPrice(gpu);
+  const m = /^\d{4}-(\d{2})-(\d{2})$/.exec((dp.market && dp.market.checkedAt) || '');
+  return m ? `${Number(m[1])}月${Number(m[2])}日` : '確認日';
+}
+
 /** 同じ母集団（現行 / 中古）の中でのコスパ中央値 */
 function medianValue(list) {
   const vals = list.map(valuePerYen).filter((v) => v !== null).sort((a, b) => a - b);
-  return vals.length ? vals[Math.floor(vals.length / 2)] : null;
+  return vals.length >= 5 ? vals[Math.floor(vals.length / 2)] : null;
 }
 
 function derivedPros(gpu, peers) {
@@ -425,7 +475,7 @@ function derivedPros(gpu, peers) {
   const v = valuePerYen(gpu);
   const med = medianValue(peers);
   if (v !== null && med !== null && v >= med * 1.15) {
-    out.push('同じ価格帯の中では、価格に対するゲーム性能が高め');
+    out.push(`掲載価格を確認できた現行GPUの中では、価格に対するゲーム性能が高め（${valueDateText(gpu)}の掲載価格で比較）`);
   }
   return out;
 }
@@ -448,7 +498,7 @@ function derivedCons(gpu, peers) {
   const v = valuePerYen(gpu);
   const med = medianValue(peers);
   if (v !== null && med !== null && v <= med * 0.8) {
-    out.push('価格に対するゲーム性能で見ると、下位モデルの方が割安になりやすい');
+    out.push(`掲載価格を確認できた現行GPUの中では、価格に対するゲーム性能が低め（${valueDateText(gpu)}の掲載価格で比較。下位モデルの方が割安になりやすい）`);
   }
   return out;
 }
@@ -550,7 +600,8 @@ function renderGamesAndCpus(gpu, byId) {
         const cls = Math.abs(pct) < 3 ? 'is-same' : (pct > 0 ? 'is-up' : 'is-down');
         deltaHtml = `<span class="compare-delta ${cls}">${esc(label)}</span>`;
       }
-      const priceText = comma(t.price) ? `約${comma(t.price)}円` : '価格未設定';
+      const tdp = isUsedOriented(t) ? { kind: 'reference', value: num(t.price) } : displayPrice(t);
+      const priceText = comma(tdp.value) ? `${tdp.kind === 'market' ? '掲載価格' : '目安（未確認）'} 約${comma(tdp.value)}円` : '価格未設定';
       return `<a href="../${esc(t.id)}/" class="compare-link-card">
               <span>${esc(t.brand)}</span>
               <strong>${esc(t.name)}</strong>
@@ -698,7 +749,7 @@ function renderPurchase(gpu) {
  *  GPU個別の追加コンテンツ（content/<id>.json）
  * ==================================================================
  *  ★文章は content/<id>.json に置き、数値は {{種類:id}} の差し込みで
- *    gpus.json / prices.json / GPU_POWER_SPEC から引く（二重管理しない）。
+ *    gpus.json / 共通パーツデータ shared/catalog/gpu.json（価格・公式推奨電源）から引く（二重管理しない）。
  *    解決できない差し込みがあれば例外で生成を止める（壊れた値を公開しない）。
  *  ★content の文字列は運営者が書くHTML（リンク・強調）として扱う。
  *    差し込む値（数値・日付・URL）だけをエスケープする。
@@ -725,7 +776,7 @@ function fill(text) {
     };
     const price = () => {
       const p = marketPrice(id);
-      if (!p) throw new Error(`content: ${all} の価格データ（prices.json gpuChips）がありません`);
+      if (!p) throw new Error(`content: ${all} の価格データ（shared/catalog/gpu.json の market-median）がありません`);
       return p;
     };
     switch (kind) {
@@ -739,7 +790,7 @@ function fill(text) {
       case 'total': return need(gpus.length);
       case 'psu': {
         const s = officialPsu(gpuOf(id));
-        if (!s) throw new Error(`content: ${all} の公式推奨電源（GPU_POWER_SPEC）がありません`);
+        if (!s) throw new Error(`content: ${all} の公式推奨電源（shared/catalog/gpu.json の recommendedSystemPowerW）がありません`);
         return need(s.psu);
       }
       case 'price': return need(`約${comma(price().value)}円`);
@@ -752,7 +803,7 @@ function fill(text) {
       case 'priceDateShort': return need(jaDate(price().checkedAt));
       case 'priceDateIso': return need(price().checkedAt);
       case 'priceSourceUrl': {
-        const src = (PRICE_DATA._meta.sources || {})['kakaku-gpu'];
+        const src = Catalog.source(CATALOG, 'kakaku-gpu');
         return need(src && src.url);
       }
       default: throw new Error(`content: 未知の差し込み ${all}`);

@@ -4,7 +4,7 @@
 > 詳細な各サイト解説・運用ルールは `README.md` を参照。作業履歴は `AI_WORK_LOG.md`。
 > **URL構成 / 使用技術 / Supabase関連 / デザイン方針 / 現在の課題** が変わったら必ず更新する。
 
-最終更新: 2026-11-14（特定商取引法に基づく表記 /legal/ を準備〔未決定3項目〕、_config.yml で内部ファイルを Pages から除外、_control/ をリポジトリから除外）
+最終更新: 2026-11-14（PCパーツ統合データ管理 shared/catalog/ を追加し GPU GUIDE・PC BUILDER・UPGRADE の GPU/CPU 基礎情報を正本化、特定商取引法に基づく表記 /legal/ を準備〔未決定3項目〕、_config.yml で内部ファイルを Pages から除外、_control/ をリポジトリから除外）
 
 ---
 
@@ -43,7 +43,7 @@
 | シッポ親サイト | https://sippo-pc.jp/ | 各子サイトへのポータル（入口） | `/`（`index.html`） |
 | シッポPC相談室 | https://sippo-pc.jp/pc-consult/ | PC購入前チェック・構成相談。**メイン窓口＝500円ワンコイン相談**（申し込みはSquare決済リンク→決済完了後にGoogleフォームへ自動遷移→フォーム送信で受付完了）。**サブプラン＝1,500円 ゲーム向けPC構成・購入相談**（申し込みはココナラ商品ページ）。無料窓口は申し込み前の事前問い合わせ用 | `pc-consult/` |
 | PC構成投稿サイト | https://sippo-pc.jp/pc-builds-hub/ | ユーザーのPC構成の投稿・閲覧（**Supabase連携**） | `pc-builds-hub/` |
-| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。**`gpu-guide/content/<id>.json` があるGPU（現在 RX 9070）は、結論・RTX 5070比較・運営者の実機レビュー・VRAM/ローカルAI・製品モデル・FAQ・出典を追加で生成する**（2026-11-09〜。文章はJSON、数値は差し込みで各情報源から）。**ヘッダーの🔍検索（`gpu-search.js`）で全ページからGPU名を検索→個別ページへ移動できる**（2026-11-10〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
+| GPU GUIDE | https://sippo-pc.jp/gpu-guide/ | GPU性能・価格帯・用途別の比較。**`gpus.json` は 2026-11-14 から共通パーツデータ `shared/catalog/`（仕様・価格・共通スコア）＋ `gpu-guide/data/gpu-editorial.json`（説明文・掲載順など GPU GUIDE 固有）からの生成物（`node scripts/catalog/build.js`）。****GPU個別ページは `/gpu-guide/gpu/<id>/` の静的HTML 65件**（2026-09-02〜）。**`gpu-guide/content/<id>.json` があるGPU（現在 RX 9070）は、結論・RTX 5070比較・運営者の実機レビュー・VRAM/ローカルAI・製品モデル・FAQ・出典を追加で生成する**（2026-11-09〜。文章はJSON、数値は差し込みで各情報源から）。**ヘッダーの🔍検索（`gpu-search.js`）で全ページからGPU名を検索→個別ページへ移動できる**（2026-11-10〜）。旧 `gpu.html?id=` は互換用に残す | `gpu-guide/` |
 | PC BUILD CHECK | https://sippo-pc.jp/pc-build-check/ | 予算・用途・解像度からPC構成を診断。**選んだ解像度にGPU性能が届かない場合は正直に注意書きを出す**（2026-09-02〜）。判定は `gpu-guide/gpus.json` の `target` を参照。**各構成にBTO完成品基準の「参考価格」を表示し、選んだ予算を超える場合は超過を明示する**（2026-09-04〜）。**結果に得意分野・この構成にした理由・構成タイプ・±5万円比較・近い予算3構成比較・ゲーム別目安・こだわり条件・比較リスト・URL共有を表示**（2026-09-24〜） | `pc-build-check/` |
 | GAME PC GUIDE | https://sippo-pc.jp/game-pc-guide/ | ゲーム別おすすめPC構成 | `game-pc-guide/` |
 | PCアップグレード | https://sippo-pc.jp/upgrade/ | 今のPCのどのパーツを交換すべきかを診断。買い替えとの比較まで案内。**判定は静的HTML＋ページ内JS**（結果でURLは変えない）。GPU/CPU入力は商品マスター由来のオートコンプリート。パーツ解説7ページ＋型番別記事3ページ | `upgrade/` |
@@ -75,6 +75,12 @@
 - **ホスティング**: GitHub Pages（カスタムドメイン `CNAME` = sippo-pc.jp）
 - **PWA**: 親サイトおよび一部子サイトで Service Worker (`sw.js`) / `manifest.json`
 - **データ**: 各子サイトは JSON 駆動（`gpus.json` / `builds.json` / `games/` など）
+- **共通パーツデータ（正本）**: **`shared/catalog/`**（2026-11-14〜）。GPU 70件・CPU 56件の仕様・価格・共通スコア・出典・確認日を1か所で管理する。運用は **`shared/catalog/README.md`**。
+  - `gpu.json` / `cpu.json`（製品）・`sources.json`（出典の登録簿）・`config.json`（価格の有効期間45日・代表価格ルール・影響先）・`schema.json`（項目・型・単位）。値ごとのまとまり（specGroups）に basis（official / secondary / measured / estimated / unverified）・出典・確認日（checkedAt＝外部出典を確認した日）を持つ。null＝未確認。
+  - 価格は種類（lowest / market-median / reference / used-range ほか）を分け、合計・コスパには確認日つきで有効期間内の lowest・market-median だけを使う。
+  - **PC BUILDER は実行時に直接読む**（`catalog.js` の互換アダプター。IDは不変）。**GPU GUIDE の `gpu-guide/gpus.json` は生成物**（正本＋GPU GUIDE 固有の `gpu-guide/data/gpu-editorial.json`）。**`upgrade-engine.js` の `GPU_POWER` / `GPU_POWER_SPEC` も生成ブロック**。生成・検証は `node scripts/catalog/build.js`（`--check` / `--pages`）・`node scripts/catalog/validate.js`（致命的／要確認／把握用）。
+  - ⚠️ **`gpus.json`・`upgrade-engine.js` の生成ブロック・`shared/catalog/revisions.json` を手で直さない**（validate.js が「生成物の不一致」で致命的エラーにする）。
+  - 共通化していないもの（意図的）: `shared/parts/part-prices.json` の cpu（BTO基準価格。仕様の重複3項目は一致を検証）、upgrade-engine.js の `GPU_TIERS`・`CPU_TIERS`・`PRICE_HINT`（別尺度）、CPU・GPU以外のパーツ（`pc-builder/data/`）。
 - **生成スクリプト**: 一部ページは PowerShell スクリプトで静的生成
   - `generate-builds.ps1`（PC BUILD CHECK）
   - `game-pc-guide/generate-games.js`（GAME PC GUIDE。2026-10-18〜 Node化。`Generate-StaticGames.ps1` はこれを呼ぶラッパー）
@@ -87,7 +93,7 @@
   - `upgrade/generate-pages.js`（PCアップグレードのパーツ別7ページ＋型番別記事3ページ。記事の内容は `upgrade/articles-data.js`。**生成物を直接編集しないこと**）
     - `gpuUpgrade` を持つGPU型番記事（2026-09-28〜、現在は rtx3060）は `upgrade/gpu-article.js` が本文を組み立てる。
       ◎○△×・「RTX 3060比」・CPU表・推奨電源は**診断エンジンから生成時に計算**し、記事に数値を手書きしない。
-      推奨電源は `upgrade-engine.js` の `GPU_POWER_SPEC`（NVIDIA/AMD公式値）が唯一の情報源で、診断の電源判定も同じ値を下回らない。
+      推奨電源は `upgrade-engine.js` の `GPU_POWER_SPEC`（NVIDIA/AMD公式値。2026-11-14〜 正本 `shared/catalog/gpu.json` から生成）が唯一の情報源で、診断の電源判定も同じ値を下回らない。
   - ⚠️ **generator を回す前に必ず「生成物と HEAD の差分」を確認する**。
     2026-09-02、`pc-build-check/generate-builds.ps1` 自体が古く、本番ページにあった
     アフィリエイト記述（広告表記・`affiliate.css`・各scriptタグ）を含んでいなかったため、
@@ -134,6 +140,7 @@
     **GPU数をハードコードせず `gpus.json` の件数から期待値を導く**ので、
     GPUを足しても自動で追従する。現行GPUにCPU相性が無いと落ちる（意図的な検出）。
   - `node pc-builder/test-pc-builder.js` … PC BUILDER（4,625件 / 2026-10-30〜）。データの健全性（出典・ID・二重管理なし）／互換性の各判定と「値が null のとき対応を返さない」／ランダム3000構成で例外・範囲外スコアなし／スコアの単調性／共有URLの往復・壊れたURL／75構成・30ゲーム・65GPU・UPGRADE・Hubからの引き継ぎ／既存サイトの導線とSEO。パーツデータの点検は `node pc-builder/validate-parts.js`（判定に使う主要仕様の不足と、未確認 null の一覧を出す）。データ更新時の検査（CPU仕様の整合・価格表の確認日と出典・古い価格・GPU価格を書かない）も同じテストに含む。
+  - `node scripts/catalog/test-catalog.js` … 共通パーツデータ（337件 / 2026-11-14〜）。正本の変更が GPU GUIDE（gpus.json・UPGRADE 生成ブロック）と PC BUILDER の両方に反映される／生成の再実行で差分なし／壊れたデータ（ID重複・型/単位・日付・0円や負の価格・出典・二重管理・PC BUILD CHECK との矛盾）を検出／価格不明・古い価格を合計に入れない／移行前の共有URL・全パーツIDが読める／移行で価格や仕様を「確認済み」にしていない。
   - `node scripts/test-cross-links.js` … サイト間のGPU導線（61件 / 2026-09-03〜）。
     旧形式 `?gpu=` の残存、GPU名→id解決、遷移先の実在、生成物の要素欠落を検証する。
 - **アクセス解析 GA4**（`shared/analytics/`、2026-11-13〜）: 測定ID `G-NDQ8GTKGHC` と送信条件は **`shared/analytics/sippo-analytics.js` の1か所だけ**。各ページの head は `<script src="/shared/analytics/sippo-analytics.js"></script>` の1行（gtag.js を直書きしない。生成スクリプト4本も同じ）。本番 https://sippo-pc.jp 以外では送信しない／page_view に content_group（サービスID）／URLのトークン類・メールアドレスを除去／相談室へのリンク `consult_cta_click`・別サービスへのリンク `cross_service_click` を自動計測（data-track・data-affiliate-track 付きは対象外＝二重計測なし）。イベント一覧と GA4 管理画面の必須設定（拡張計測の「履歴イベントに基づくページの変更」オフ・カスタムディメンション）は `shared/analytics/README.md`。テスト `node scripts/test-analytics.js`。⚠️ ローダーを変えたら pc-build-check / gpu-guide / game-pc-guide の SW 版を上げる。
@@ -217,6 +224,8 @@
 
 - **方式**: **実行時に外部APIを呼ばない**。アフィリエイトID付きURLをその場で組み立てる。
   - **Amazon PA-API は未使用** … 利用条件が「直近30日以内に3件以上の適格販売」。実績を作るまで使えない。
+    ※2026-11-18 追記: PA-API v5 は 2026年春に終了し **Creators API** へ移行済み。Creators API は「過去30日で10件の適格販売」＋OAuth（秘密情報はサーバー側）で、
+    画像URLの保存は24時間まで（画像そのものの保存は不可）。静的サイトのままでは使えないため未採用（使うならサーバー側で1日1回以上取り直す仕組みが必要）。
   - **楽天の商品検索APIは未使用** … 2026年の仕様変更で秘密鍵 `accessKey` が必須になり、
     静的サイト（GitHub Pages）のフロントからは安全に呼べないため。
   - 結果として **APIキーが無くてもサイトは完全に動く**。API障害の影響も受けない。
@@ -240,10 +249,27 @@
 
   フォールバック時はボタン文言が自動で「〇〇で**探す**」に変わる（商品ページと誤認させない）。
 - **`linkType`（ボタン文言の出し分け / 2026-08-18〜）**: 短縮URLの遷移先を実測して記録する。
-  `exact`（商品詳細ページ）＝「〇〇で価格を見る」/ `search`（検索結果ページ）＝「〇〇で探す」。
-  **未設定・不明は `search` 扱い**（安全側。「価格を見る」と言って検索結果を開かないため）。
+  `exact`（商品詳細ページ）＝「〇〇で商品を見る」/ `search`（検索結果ページ）＝「RTX 5070搭載製品をAmazonで探す」（一覧では「Amazonで探す」）。
+  **未設定・不明は `search` 扱い**（安全側。商品ページと言って検索結果を開かないため）。
   判定は全ショップ共通の `isExactLink()` に集約。フォールバック中は `linkType` に関わらず `search`。
-  現状の実測値: **Amazon 25件・Yahoo 20件＝すべて `search`** / **楽天 17件＝すべて `exact`**。
+  現状（2026-11-18 確認）: **Amazon・Yahoo＝すべて `search`** / **楽天の直リンク8件＝`exact`（すべて特定メーカー製品）**。
+- **商品カード（2026-11-18〜）**: `exact` の直リンクは、遷移先の製品を各ショップの `item`（`maker` / `name` / `model` / `destination` / `checkedAt` / `image`）に記録し、
+  「リンク先の商品（RTX 5070搭載の一製品）／MSI／GeForce RTX 5070 12G VENTUS 2X／楽天市場で商品を見る」のカードで出す。
+  **GPU名（ページのテーマ）と実際の製品を区別するため**。`item` の無い直リンク・検索リンクはカードにしない（写真も付けない）。
+  同じ製品（maker・name・model が一致）のリンクだけを1枚にまとめる。記事・詳細は大きいカード、一覧（`compact`）は1行カード。
+  写真（`item.image`）は**利用許諾を確認できたものだけ**（`src`〔https〕・`source`・`license` 必須。提供元がリンク先を指定するなら `href`＝ボタンと同じURLのときだけ表示）。
+  2026-11-18 時点で**写真付きは0件**（使える写真素材がリポジトリに無い）。テスト `node scripts/test-affiliate-cards.js`（製品名とGPU名の一致も検査）。
+  ★2026-11-18（2回目）、**楽天で発行した「画像のみ」128×128 の商品リンクHTMLを `item.imageLink` に原文のまま保存し、詳細ページのカードの写真欄に表示**（RTX 3080・RTX 4060・RTX 4070 SUPER・RTX 5080・RX 9070 XT の5件）。
+  発行HTMLの改変・CSSでの拡縮はしない（楽天ガイドライン）。一覧（compact）では非表示。計測は外側の枠（data-affiliate-wrap）で1回。手順は `shared/affiliate/README.md`。
+  ★2026-11-18（3回目）、RTX 5070 Ti を追加し**写真付きは6件**（RTX 3080・4060・4070 SUPER・5070 Ti・5080・RX 9070 XT）。
+  **保留2件**: RTX 5070（発行リンクが OC 版 VD9071。カードは OC なし）・RTX 5060（発行リンクが「V1」JAN 4711377460880 で、製品ページの EAN 4711377344272 と不一致）→ `item.imageLinkHeld` に理由を記録。
+  楽天ボタンの文言を行き先で出し分け（`item.destinationType`: item→「楽天市場で商品を見る」／compare→「楽天市場で価格を比較」）。
+  RTX 3080・4070 SUPER・5070 Ti のショップは「個人輸入扱い・米国から発送（並行輸入品）」→ `item.saleNote` で詳細カードに注記。
+  ★2026-11-18（4回目）、保留2件は**紹介する製品そのものを発行リンクの商品に変更**し、**写真付きは8件（楽天の直リンク・画像リンクのある全製品）**。
+  RTX 5070 → MSI GeForce RTX 5070 12G VENTUS 2X OC（VD9071・SPW楽天市場店）、RTX 5060 → MSI GeForce RTX 5060 8G VENTUS 2X OC V1（JAN 4711377460880・パソコン工房）。
+  旧モデル行きの価格比較ボタン（a.r10.to/hkSdhv・hkpsZz）は外して `previousUrl` に控え、`rakuten.linkType: "image-only"`（写真のみ・ボタンなし・「商品画像を押すと、楽天市場のショップページが開きます」）。
+  一覧・PC BUILDER ではこの2製品の楽天リンクは出ない（Amazon・Yahoo!の検索のみ）。新製品の短縮リンクを発行したら `exact` に戻す。
+  ★2026-11-18、楽天の直リンク4件が**別のGPUの商品**を指していたため `retiredUrl` に退避して検索へ切替（RTX 4060 Ti→5060 Ti / 4070→4070 SUPER / 4070 Ti SUPER→4070 Ti / 4080 SUPER→4080）。
 - **リンク切れ診断**: `node scripts/check-affiliate-links.js`。
   登録済みの直リンクを実際に叩き、`正常 / 要確認 / リンク切れ` を一覧化する。
   **マスターは自動書き換えしない**（誤判定で正常な収益リンクを止めないため）。
@@ -346,9 +372,9 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
 - **GA4 の管理画面設定**（2026-11-13 共通ローダー化・ユーザー側で実施。対象は従来のプロパティ G-NDQ8GTKGHC）: ①拡張計測の「ブラウザの履歴イベントに基づくページの変更」を**オフ**（replaceState/pushState を使うページでページビューが重複するため・必須）②カスタムディメンション登録（product_id・shop・placement・from_service・to_service・gpu_id・filter）③データ保持14か月。手順は `shared/analytics/README.md`。
 - **プライバシーポリシーの公開前確認**（2026-11-14 `/privacy/` 作成・未公開。問い合わせ先は sippo.pc@gmail.com〔親サイトのフッターも同じ〕）: 制定日、運営者の氏名・住所を請求時に回答する旨、相談情報の保管期間、PC構成投稿サイトの Discord 通知の有無、Yahoo!ショッピングのアフィリエイトの提供元を運営者が確認する。内容を変えたら `node scripts/test-privacy.js`。
 - **Sippo CONTROL の Google 接続**（2026-11-13 構築・ユーザー側で実施）: サービスアカウント鍵を `_control/secrets/google-service-account.json` に置き、Search Console（制限付き）・GA4（閲覧者）に追加 → 設定画面でプロパティを入力。手順は `_control/README.md`。
-- **http:// が https:// へリダイレクトされない**（2026-11-13 CONTROL の本番応答確認で再確認）: `http://sippo-pc.jp/` が 200。GitHub Pages の Settings → Pages →「Enforce HTTPS」を確認。
+- **http:// が https:// へリダイレクトされない**（2026-11-13 CONTROL の本番応答確認で再確認。**2026-11-15 も再現**: `http://sippo-pc.jp/`・`/gpu-guide/`・`/game-pc-guide/games/gta5.html` が HEAD/GET とも 200・Location なし、`http://www.sippo-pc.jp/` は 301 で `http://sippo-pc.jp/`（http のまま）。証明書は sippo-pc.jp・www の両方で有効〔Let's Encrypt・2027-01-12 まで〕）: `http://sippo-pc.jp/` が 200。GitHub Pages の Settings → Pages →「Enforce HTTPS」を確認。
 - **PC BUILDER 公開前の確認**（2026-10-30 作成・同日データ拡充・未コミット）: ①実機（PC・スマホ）で目視確認 ②`node pc-builder/validate-parts.js` の「主要仕様が不足」4件（SF850 の奥行き、ケース3件のベイ数）③PC BUILD CHECK の静的75ページ（`builds/*.html`）には導線未設置（`generate-builds.ps1` の再生成は過去に事故があったため見送り。診断結果画面には設置済み）④専用OGP画像（現在は親共通 `assets/ogp.png` を暫定流用）⑤ショップ価格は未登録（`parts.json` の `shops[]`）。CPUの仕様は Wikipedia 世代別ページの製品表（版を固定・二次情報と明記）で、AMD・Intel 公式との照合は未実施。MSI・GIGABYTE・Crucial・Kingston・Seasonic・be quiet!・Noctua・NZXT・Thermaltake は公式サイトが自動取得を拒否、ASRock は本文がJS描画で読めず、製品を登録していない（迂回はしない）。
-- **PC BUILDER の参考価格**（2026-10-30〜、2026-10-31 にGPUを追加）: 価格は3区分（実売確認価格／参考中央値／参考価格〔未確認〕）で、合計とコスパには確認日つきの前2つだけを入れる。GPUチップも `prices.json` の `gpuChips`（gpus.json は変更しない）。それ以外は `pc-builder/data/prices.json`（価格.com 人気ランキング掲載の最安値を手で確認・千円単位・確認日と出典つき）。**45日（`staleAfterDays`）で「古い」表示になるので、手で更新する**（自動取得はしない）。メモリ・SSDは既存の `part-prices.json` の値が実売と大きく違うため使わない（`rules.json` の `pricing.suspendFallback`）。GPUは gpus.json の値のまま、実売との差（約1.3〜1.7倍・2026-10-30確認）を画面で注意している。
+- **PC BUILDER の参考価格**（2026-10-30〜、2026-10-31 にGPUを追加）: 価格は3区分（実売確認価格／参考中央値／参考価格〔未確認〕）で、合計とコスパには確認日つきの前2つだけを入れる。CPU・GPUチップの価格は 2026-11-14 から共通パーツデータ `shared/catalog/`（cpu.json の lowest・gpu.json の market-median）。それ以外は `pc-builder/data/prices.json`（価格.com 人気ランキング掲載の最安値を手で確認・千円単位・確認日と出典つき）。**45日（`shared/catalog/config.json` の `pricing.staleAfterDays`）で「古い」表示になるので、手で更新する**（自動取得はしない）。メモリ・SSDは既存の `part-prices.json` の値が実売と大きく違うため使わない（`rules.json` の `pricing.suspendFallback`）。GPUは gpus.json の値のまま、実売との差（約1.3〜1.7倍・2026-10-30確認）を画面で注意している。
 - **実クリックの計上確認**（ユーザー側で実施）。公開後に実際にボタンを押し、
   Amazonアソシエイト / 楽天アフィリエイトの管理画面にクリックが計上されるかを一度確認する。
 - **定期的なリンク切れチェック**: 月1回程度 `node scripts/check-affiliate-links.js` を実行し、
@@ -361,7 +387,13 @@ GPU一覧に着地する」「参考価格が表示されない」が発生し�
   - 主因: part-prices.json の DDR5 32GB 16,000円・NVMe 1TB 12,000円が、2026年夏以降の報告（Gen4 1TB 約44,000円など）と大きく違う。2026-10-30 に価格.com で再確認: DDR5 32GB（16GB×2）約6.4万〜8.3万円、NVMe 1TB 約3.1万〜4.0万円、RTX 5070 約15.5万〜17万円、RX 9070 XT 約13.9万〜18.7万円（gpus.json は 11.8万・9.6万円）。gpus.json の価格（例: RX 9070 XT 96,000円）も2026年8月の報告（約159,800円）より低い。
   - 修正案（PC BUILD CHECK / GPU GUIDE 側。今回は未実施）: ① part-prices.json のメモリ・SSD単価と updated を最新相場に更新 ② gpus.json の価格を更新 ③ 予算区分ごとの構成を見直すか、予算ラベルに「パーツ価格（YYYY年M月）からの概算」と明記 ④ 将来は price-bands.json 相当を shared/ に置き両サイトで共有。
   - GAME PC GUIDE 側は本文に「PC BUILD CHECKの参考価格はパーツ価格から計算した概算のため低めに出ることがある」と明記済み。
-  - **gpus.json 価格の更新候補**（2026-10-31 価格.com ランキング掲載の最安値の中央値／最安。PC BUILDER の `prices.json` の gpuChips と同じ値）: RTX 5050 3.5万→5.8万（最安5.4万）／RTX 5060 5.7万→8.6万（7.9万）／RTX 5060 Ti 16GB 8.9万→14.9万（14.3万）／RTX 5070 11.8万→16.3万（15.5万）／RTX 5070 Ti 15.8万→24.9万（22.9万）／RTX 5080 19.8万→36.6万（33.2万）／RTX 5090 65万→134.9万（123万）／RX 7600 4.2万→5.3万（4.7万）／RX 9060 XT 16GB 5.5万→9.3万（8.5万）／RX 9070 8.8万→13.0万（12.6万）／RX 9070 XT 9.6万→16.2万（14.2万）。
+  - **2026-11-15 再確認（CONTROL の指摘 c6328385ac3c・part-prices.json の19件が60日超）**: 価格.com（2026/11/15更新）の小売は CPU 7件が BTO基準価格の −24%〜+16%（例: 7500F 24,800円 / 基準26,000円、5600 21,268円 / 16,000円）、メモリ・SSD は 2.5〜4.5倍（DDR5 32GB〔16GB×2〕中央値 72,979円 / 基準16,000円、DDR4 32GB 33,980円 / 12,000円、NVMe 1TB 29,980円 / 12,000円、2TB 49,280円 / 20,000円）。BTO基準の値を小売から機械的に作る根拠が無いため、**19件の値・確認日は変えていない（期限超過のまま）**。
+  - **2026-11-15（2回目）**: ドスパラのゲーミングPC一覧（181製品・2026-11-15 22:35取得）と75構成を照合。完全一致0、CPU・GPU一致15（いずれも販売例の方がメモリ・ストレージが少ないのに9月時点の概算の1.25〜1.85倍。RTX 5060 Ti は8GB版）、60構成は販売例なし＝未確認。記録 `shared/parts/evidence/bto-dospara-2026-11-15.json`、要約は part-prices.json の `_meta.btoCheck`（計算には使わない）。
+  - 価格の基準は `build-price.js` の `priceBasisStatus`（part-prices.json が60日以内かつGPU価格に確認日がある＝確認済み。現状は常に未確認）。未確認の間は、診断画面・**静的75ページ**・トップの構成一覧で「参考価格（2026年9月時点の概算）」「この予算で購入できるとは限りません」を表示し、予算超過は「9月時点の概算でも上回っていた」、費用配分は時点つき、「コスパ重視型」は付けない。
+  - 静的75ページは一時フォルダに複製して `generate-builds.ps1` を実行し、変更前のコードで現行ページと完全一致（76ファイル・sitemap・index）を確認してから、変更後の差分（価格の見出し・注意書き・基準注記・±5万円の時点表記・費用配分・コスパ重視型の削除26件・トップの価格ラベル）だけを反映。
+  - 未対応: 予算区分（10万〜30万円）と構成の見直し、part-prices.json 19件の再設定（BTOの販売例が増えたら照合ツールで再確認）。
+  - **GPU の掲載価格（2026-11-15 2回目）**: 取得記録 `shared/catalog/evidence/kakaku-gpu-2026-11-15.json`（製品名・URL・VRAM・価格・除外理由）から再計算。外付けBOX（Thunderbolt）・BTF・水冷ブロックのみの製品を除外して RTX 5090 は 1,280,000→1,265,000円、RTX 5060 Ti の範囲上限 205,000→184,800円（中央値は不変）。RTX 5050（3製品）・RX 7600（4製品）は少数サンプルとしてコスパの順位・評価に使わない。
+- **gpus.json 価格の更新候補**（2026-10-31 価格.com ランキング掲載の最安値の中央値／最安。正本 `shared/catalog/gpu.json` の market-median と同じ値）: RTX 5050 3.5万→5.8万（最安5.4万）／RTX 5060 5.7万→8.6万（7.9万）／RTX 5060 Ti 16GB 8.9万→14.9万（14.3万）／RTX 5070 11.8万→16.3万（15.5万）／RTX 5070 Ti 15.8万→24.9万（22.9万）／RTX 5080 19.8万→36.6万（33.2万）／RTX 5090 65万→134.9万（123万）／RX 7600 4.2万→5.3万（4.7万）／RX 9060 XT 16GB 5.5万→9.3万（8.5万）／RX 9070 8.8万→13.0万（12.6万）／RX 9070 XT 9.6万→16.2万（14.2万）。
     - 影響範囲（gpus.json の price を変えた場合）: GPU GUIDE の一覧・個別65ページ（`generate-gpu-pages.js` で再生成）、PC BUILD CHECK の参考価格と予算区分（`test-build-price.js`・`test-build-profile.js` の「予算+15%以内」判定に掛かる可能性が高い＝構成の見直しが必要）、UPGRADE の価格表示、GAME PC GUIDE の価格帯説明。PC BUILDER は gpuChips を使うので影響しない。中古相場（market: used）の値は今回確認していない。
 
 ### 優先度B
@@ -436,15 +468,13 @@ Phase 1〜8 で、診断精度・中古GPU表示・解像度基準・構成品�
 - **`rasterScore` は外部ベンチマーク由来ではなく独自指数**。Phase 5 では
   既存指数内での整合を優先し、全GPUの再採点はしていない。
   外部ベンチを取り込むなら target 閾値も併せて見直しが必要。
-- **RTX 5050 のスコアが推定値であることがデータ上区別できない**。
-  Phase 4 で回帰推定（rasterScore 46 / score 57）した値だが、
-  他64件と同じ形で入っている。`scoreSource` のようなフィールドで
-  区別できるようにするのが望ましい（既存64件を勝手に verified 扱いしないこと）。
-- **`gpu-guide/gpus.json` のGPU価格に更新日・出典のフィールドが無い**。表示は「価格目安」
-  「時期によって変動」と明記しているので誤認は招かないが、古さの判断材料が無い。
-  ※構成の参考価格マスター（`shared/parts/part-prices.json`）は 2026-09-04 に
-  `_meta.updated` と各エントリの `updated` を持たせ、テストで必須にした。
-  `gpus.json` 側にも同様のフィールドを足すかは検討の余地あり（自動取得基盤は作らない方針）。
+- **RTX 5050 のスコアが推定値**（Phase 4 の回帰推定 rasterScore 46 / score 57）。2026-11-14 から正本 `shared/catalog/gpu.json` の
+  `scores.sippoRaster.note` に「暫定の推定値」と記録し、validate.js が把握用として出す。他64件も正本では basis=estimated（Sippo独自評価）で、確認済み扱いにはしていない。
+- **GPU GUIDE の価格目安（gpus.json の price）に確認日・出典が無い**。2026-11-14 から正本で `reference`（確認日 null・出典「旧 gpus.json」）として区別し、
+  合計・コスパに入れない。実売相場（market-median）がある11件とは 30% 以上離れたものが9件（validate.js の「要確認」）。
+  **2026-11-15〜**: 価格.com（2026/11/15更新・1〜5ページ200製品）で11件の market-median を再確認して追加（10/31 の記録は履歴として残す）。GPU GUIDE は有効な実売相場があるGPUでは見出し・meta description・一覧の価格を「実売相場」（確認日つき）にし、UPGRADE の GPU 交換費用は正本から生成（`GPU_PRICE`）。reference（65件・確認日なし）は値を変えていない。
+  **残り**: reference を使い続けているのは PC BUILD CHECK の BTO 計算と、実売相場の無いGPUの GPU GUIDE 表示。BTO 計算の GPU を実売相場に替えると75構成中68構成が予算+15%超（2026-11-15 試算）になるため、予算区分の構成見直しと一緒に判断する（下の「gpus.json 価格の更新候補」）。
+- **共通パーツデータの未確認値**（2026-11-14 移行時点）: GPU の VRAM・消費電力・発売年の多く（出典の記録が無い移行値＝basis unverified）、公式推奨電源9件の出典URLは 2026-11-15 に NVIDIA / AMD の各GPU公式ページで値を再確認し登録済み、CPU の maxPowerW（AMD 28件）・boxCooler（30件）。`node scripts/catalog/validate.js` で一覧。
 - **ゲーム別FPSデータの持ち方**。現在は数値を持たないため、ゲーム名だけ出して
   「fpsはゲーム・設定・CPUで変わる」と明示している。実測値を持てるようになるまで
   数値は書かない方針を維持する。

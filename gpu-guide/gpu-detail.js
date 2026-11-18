@@ -344,9 +344,21 @@ function renderGpuDetail(gpu, cpuData = {}) {
         </article>
 
         <article class="gpu-info-card">
-          <p class="info-label">価格目安</p>
-          <h3>${gpu.price.toLocaleString()}円前後</h3>
-          <p>価格は時期によって変動するため、あくまで目安として見てください。</p>
+          ${(() => {
+            // 有効な実売相場（確認日つき）があればそれを出す。無ければ確認日の無い掲載目安（script.js と同じ規則）
+            const d = new Date();
+            const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+            const m = Number(gpu.marketPrice);
+            if (gpu.market !== "used" && Number.isFinite(m) && m > 0 && gpu.marketPriceValidUntil && today <= gpu.marketPriceValidUntil) {
+              const [y, mo, da] = String(gpu.marketPriceCheckedAt || "").split("-");
+              return `<p class="info-label">実売相場</p>
+          <h3>約${m.toLocaleString()}円</h3>
+          <p>価格.com掲載製品の最安値の中央値（新品・税込・送料別・${Number(y)}年${Number(mo)}月${Number(da)}日確認）。価格は時期によって大きく変わるため、購入前に最新価格を確認してください。</p>`;
+            }
+            return `<p class="info-label">価格目安</p>
+          <h3>${Number(gpu.price).toLocaleString()}円前後</h3>
+          <p>確認日の記録が無い目安です。価格は時期によって変動するため、購入前に最新価格を確認してください。</p>`;
+          })()}
         </article>
 
         <article class="gpu-info-card">

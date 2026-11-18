@@ -6,7 +6,7 @@
  *  content/<id>.json を持つGPUページ（2026-11-09〜 RX 9070）と、
  *  そのとき直した全GPU共通の表記を、本番の生成物に対して検証する。
  *   - 追加セクションが再生成後も残っているか（生成物の直接編集で消えないか）
- *   - 数値が唯一の情報源（gpus.json / prices.json / GPU_POWER_SPEC）と一致するか
+ *   - 数値が唯一の情報源（gpus.json / 共通パーツデータ shared/catalog/gpu.json の価格 / GPU_POWER_SPEC〔正本から生成〕）と一致するか
  *   - 実機レビューに実測値（fps・温度・騒音・消費電力の数値）を創作していないか
  *   - 構造化データに存在しない評価（Review / AggregateRating）が無いか
  *   - AMDのページに DLSS を「使える機能」として書いていないか
@@ -29,7 +29,10 @@ function readJson(file) {
 }
 
 const gpus = readJson(path.join(DIR, 'gpus.json'));
-const prices = readJson(path.join(ROOT, 'pc-builder', 'data', 'prices.json'));
+// 実売の参考価格の正本は shared/catalog/gpu.json（PC BUILDER と同じ互換アダプターで gpuChips の形にする）
+const CatalogLib = require(path.join(ROOT, 'scripts', 'catalog', 'lib.js'));
+const catalog = CatalogLib.loadCatalog();
+const prices = { gpuChips: CatalogLib.Catalog.builderAdapter(catalog).gpuChips };
 const POWER = require(path.join(ROOT, 'upgrade', 'upgrade-engine.js')).GPU_POWER_SPEC;
 const byId = {};
 gpus.forEach((g) => { byId[g.id] = g; });
@@ -155,8 +158,10 @@ featureIds.forEach((id) => {
   const p9070 = prices.gpuChips['rx-9070'];
   const p5070 = prices.gpuChips['rtx-5070'];
 
-  ok('RX 9070：比較表の参考価格 = prices.json', vs.indexOf(yen(p9070.value)) > -1 && vs.indexOf(yen(p5070.value)) > -1);
-  ok('RX 9070：比較表に価格の確認日がある', vs.indexOf('2026年10月31日確認') > -1 || vs.indexOf(p9070.checkedAt) > -1);
+  ok('RX 9070：比較表の参考価格 = 正本（shared/catalog/gpu.json）', vs.indexOf(yen(p9070.value)) > -1 && vs.indexOf(yen(p5070.value)) > -1);
+  const jaChecked = p9070.checkedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, (m, y, mo, d) => `${Number(y)}年${Number(mo)}月${Number(d)}日確認`);
+  ok('RX 9070：比較表に価格の確認日がある（正本の確認日）', vs.indexOf(jaChecked) > -1);
+  ok('RX 9070：比較表の「RX 9070の方が安め」と実際の価格が矛盾しない', p9070.value < p5070.value);
   ok('RX 9070：比較表のスコア = gpus.json', vs.indexOf(`${byId['rx-9070'].rasterScore}/100`) > -1 && vs.indexOf(`${byId['rtx-5070'].rasterScore}/100`) > -1);
   ok('RX 9070：比較表の推奨電源 = 公式値', vs.indexOf(`${POWER.rx9070.psu}W以上`) > -1 && vs.indexOf(`${POWER.rtx5070.psu}W以上`) > -1);
   ok('RX 9070：スコアは実測FPSではないと明記', section(html, 'verdict').indexOf('実測のFPSではなく') > -1);
@@ -189,13 +194,14 @@ featureIds.forEach((id) => {
   const Db = require(path.join(ROOT, 'pc-builder', 'js', 'pb-db.js'));
   const Import = require(path.join(ROOT, 'pc-builder', 'js', 'pb-import.js'));
   const db = Db.buildDb({
+    catalog,
     parts: readJson(path.join(ROOT, 'pc-builder', 'data', 'parts.json')),
     rules: readJson(path.join(ROOT, 'pc-builder', 'data', 'rules.json')),
     gpus,
     partPrices: readJson(path.join(ROOT, 'shared', 'parts', 'part-prices.json')),
     engine: require(path.join(ROOT, 'upgrade', 'upgrade-engine.js')),
     gpuTarget: require(path.join(ROOT, 'shared', 'gpu', 'gpu-target.js')),
-    prices,
+    prices: readJson(path.join(ROOT, 'pc-builder', 'data', 'prices.json')),
     now: new Date('2026-11-09T12:00:00+09:00'),
   });
   const r = Import.resolve(db, { gpuid: 'rx-9070' });
@@ -251,6 +257,21 @@ featureIds.forEach((id) => {
 })();
 
 /* ------------------------------------------------------------------ */
+/* 価格の種類と評価の根拠（2026-11-15〜） */
+{
+  const valueRe = /価格に対するゲーム性能が(高め|低め)/;
+  const withValue = gpus.filter((g) => valueRe.test(page(g.id)));
+  ok('価格に対する評価（コスパ）は確認済みの掲載価格があり、掲載製品が5件以上のGPUだけ', withValue.every((g) => Number.isFinite(g.marketPrice) && g.marketPriceCheckedAt && g.marketPriceSampleSize >= 5), withValue.filter((g) => !g.marketPrice).map((g) => g.id).join(','));
+  ok('価格に対する評価には比較した価格の確認日が書いてある', withValue.every((g) => /月\d+日の掲載価格で比較/.test(page(g.id))));
+  ok('個別ページに「実売相場」という言い方が残っていない（掲載製品の価格目安と書く）', gpus.every((g) => page(g.id).indexOf('実売相場') < 0));
+  ok('掲載価格のあるGPUは「掲載製品の価格目安」と書き、未確認の価格は「（未確認）」と書く', gpus.filter((g) => g.market !== 'used').every((g) => /掲載製品の価格目安|価格目安（未確認）/.test(page(g.id))));
+  ok('RTX 5060 Ti・RX 9060 XT の価格は16GB版と明記', ['rtx-5060-ti', 'rx-9060-xt'].every((id) => /16GB版・新品/.test(page(id))));
+  ok('掲載価格は「購入できる価格を保証しない」と明記', gpus.filter((g) => g.marketPrice).every((g) => /保証するものでもありません/.test(page(g.id))));
+  const js = fs.readFileSync(path.join(DIR, 'script.js'), 'utf8');
+  ok('一覧のコスパ順位は有効な掲載価格があるGPUだけ（script.js）', js.indexOf('filter: (gpu) => hasValidMarketPrice(gpu)') > -1 && js.indexOf('if (!hasValidMarketPrice(gpu)) return NaN;') > -1);
+  ok('一覧に価格の根拠の無い「コスパ◎」バッジが無い', js.indexOf('コスパ◎') < 0);
+}
+
 console.log('');
 console.log('  GPU GUIDE 追加コンテンツ テスト結果');
 console.log('  ----------------------------------');

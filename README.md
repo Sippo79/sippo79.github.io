@@ -54,7 +54,7 @@ PC構成診断・GPU比較・ゲーム別おすすめPC・PC構成投稿・PC購
 ├─ game-pc-guide/          # GAME PC GUIDE
 │
 ├─ assets/                 # 親サイト共通画像（マスコット sippo/、アイコン、OGP）
-├─ shared/                 # サイト横断の共有データ（affiliate/ など）
+├─ shared/                 # サイト横断の共有データ（affiliate/、catalog/＝GPU・CPUの正本 など）
 └─ tools/                  # 画像生成などの開発用 PowerShell スクリプト
 ```
 
@@ -104,7 +104,7 @@ PC構成診断・GPU比較・ゲーム別おすすめPC・PC構成投稿・PC購
 ### GPU GUIDE（`/gpu-guide/`）
 - **目的**: GPU の性能・価格帯・用途別比較。
 - **主な機能**: GPU 一覧/詳細、解像度別ランキング、相性 CPU 表示。アフィリエイトリンク対応。
-- **主なファイル**: `index.html`, `gpu.html`, `gpu-detail.js`, `script.js`, データ `gpus.json` / `cpu-recommendations.json`, `affiliate-links.js` / `affiliate-master.json`。
+- **主なファイル**: `index.html`, `gpu.html`, `gpu-detail.js`, `script.js`, データ `gpus.json`（**生成物**：共通パーツデータ `shared/catalog/` ＋ `data/gpu-editorial.json` から `node scripts/catalog/build.js` で生成。直接編集しない。手順は `shared/catalog/README.md`）/ `cpu-recommendations.json`, `affiliate-links.js` / `affiliate-master.json`。
 - **注意点**: データは JSON 駆動。`generate-sitemap.ps1` で sitemap を更新。
 
 ### PC BUILD CHECK（`/pc-build-check/`）

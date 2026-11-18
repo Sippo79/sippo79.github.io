@@ -8,8 +8,8 @@
     "modified": "2026-10-30"
   },
   "games/arma3": {
-    "hash": "b1aa9bfc0f2938ba",
-    "modified": "2026-10-30"
+    "hash": "fc9b4c85a2e6e8c9",
+    "modified": "2026-11-18"
   },
   "games/battlefield": {
     "hash": "d5b3f7cfad783bb6",
@@ -52,8 +52,8 @@
     "modified": "2026-10-30"
   },
   "games/gta5": {
-    "hash": "e85effbb67800a5f",
-    "modified": "2026-10-30"
+    "hash": "ecb663a08eed3b63",
+    "modified": "2026-11-15"
   },
   "games/helldivers2": {
     "hash": "e0c597470136fb87",
@@ -88,16 +88,16 @@
     "modified": "2026-10-30"
   },
   "games/pubg": {
-    "hash": "57ccf762c2b98bda",
-    "modified": "2026-10-30"
+    "hash": "023d0168e9dc4b7f",
+    "modified": "2026-11-18"
   },
   "games/rainbowsixsiege": {
     "hash": "8b6c6d5dd0c849cc",
     "modified": "2026-10-30"
   },
   "games/rust": {
-    "hash": "268785a0fd846afe",
-    "modified": "2026-10-30"
+    "hash": "92a8440db43b1c24",
+    "modified": "2026-11-18"
   },
   "games/starfield": {
     "hash": "d5416c512de5d599",
@@ -108,8 +108,8 @@
     "modified": "2026-10-30"
   },
   "games/tarkov": {
-    "hash": "dd54468d9934ef20",
-    "modified": "2026-10-30"
+    "hash": "9d5062a1b1a558ce",
+    "modified": "2026-11-18"
   },
   "games/valorant": {
     "hash": "969557646c7089a2",
@@ -120,7 +120,7 @@
     "modified": "2026-10-30"
   },
   "index": {
-    "hash": "25fbdb29bb2936d0",
-    "modified": "2026-10-23"
+    "hash": "94eb1d2ec34b5120",
+    "modified": "2026-11-18"
   }
 }

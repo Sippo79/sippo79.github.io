@@ -1,0 +1,192 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "出典の登録簿。確認日は出典ではなく、各値のグループ・価格ごとに持つ。",
+    "migratedAt": "2026-11-14"
+  },
+  "sources": {
+    "legacy-gpus-json": {
+      "label": "旧 gpu-guide/gpus.json（2026-11-14 に共通データへ移行。外部出典・確認日の記録なし）",
+      "url": null,
+      "kind": "legacy",
+      "publisher": "Sippo",
+      "note": "移行前のGPU GUIDEの値。どのページで確認した値かの記録が無いため「未確認」扱い。確認したら出典つきのグループへ移す。"
+    },
+    "legacy-upgrade-engine": {
+      "label": "旧 upgrade/upgrade-engine.js の GPU_POWER（2026-11-14 に移行。メーカー公表TGP/TBPを目安にした概算値とされるが出典の記録なし）",
+      "url": null,
+      "kind": "legacy",
+      "publisher": "Sippo",
+      "note": ""
+    },
+    "official-gpu-psu-2026-09-28": {
+      "label": "NVIDIA / AMD の各GPU製品仕様ページ（Required System Power / Minimum PSU Recommendation・補助電源）。GPUごとのURLは記録されていない",
+      "url": null,
+      "kind": "official",
+      "publisher": "NVIDIA / AMD",
+      "note": "旧 upgrade-engine.js の GPU_POWER_SPEC のコメント「出典: NVIDIA / AMD の製品仕様ページ（2026-09-28 確認）」から移行。2026-11-15 に各GPUの公式ページで値を再確認し、GPUごとの出典（nvidia-rtx-3060-family など）へ付け替えた。履歴として残す（現在どの値からも参照していない）。"
+    },
+    "nvidia-rtx-3060-family": {
+      "label": "GeForce RTX 3060 / 3060 Ti（NVIDIA公式・仕様表）",
+      "url": "https://www.nvidia.com/ja-jp/geforce/graphics-cards/30-series/rtx-3060-3060ti/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": "「システム電力要件 (W)」（3060 Ti 600 / 3060 550。Intel Core i9-10900K 搭載PC基準）・「補助電源コネクタ」（1x PCIe 8-pin、12ピン x1 アダプター付属）。"
+    },
+    "nvidia-rtx-5060-family": {
+      "label": "GeForce RTX 5060 ファミリー（NVIDIA公式・仕様表）",
+      "url": "https://www.nvidia.com/ja-jp/geforce/graphics-cards/50-series/rtx-5060-family/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": "「システム要件 電力 (W)」（5060 Ti 600 / 5060 550）・「必須の電源コネクタ」（PCIe 8ピン ケーブル x1 または 300W 以上の PCIe Gen 5 ケーブル x1）。"
+    },
+    "nvidia-rtx-5080": {
+      "label": "GeForce RTX 5080（NVIDIA公式・仕様表）",
+      "url": "https://www.nvidia.com/ja-jp/geforce/graphics-cards/50-series/rtx-5080/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": "「システム要件 電力 (W)」850（Ryzen 9 5900X 搭載PC基準）・「必須の電源コネクタ」（PCIe 8ピン ケーブル x3〔アダプター付属〕または 450W 以上の PCIe Gen 5 ケーブル x1）。"
+    },
+    "nvidia-rtx-5090": {
+      "label": "GeForce RTX 5090（NVIDIA公式・仕様表）",
+      "url": "https://www.nvidia.com/ja-jp/geforce/graphics-cards/50-series/rtx-5090/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": "「システム要件 電力 (W)」1000（Ryzen 9 5900X 搭載PC基準）・「必須の電源コネクタ」（PCIe 8ピン ケーブル x4〔アダプター付属〕または 600W 以上の PCIe Gen 5 ケーブル x1）。"
+    },
+    "amd-rx-9060-xt": {
+      "label": "AMD Radeon RX 9060 XT 製品仕様（AMD公式）",
+      "url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html",
+      "kind": "official",
+      "publisher": "AMD",
+      "note": "「Minimum PSU Recommendation」450W・「Additional Power Connector」1x8-Pin。"
+    },
+    "amd-rx-9070-xt": {
+      "label": "AMD Radeon RX 9070 XT 製品仕様（AMD公式）",
+      "url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070xt.html",
+      "kind": "official",
+      "publisher": "AMD",
+      "note": "「Minimum PSU Recommendation」750W・「Additional Power Connector」2x8-Pin（AMDの仕様。メーカー製カードは 3x8-Pin などの製品もある）。"
+    },
+    "nvidia-rtx-5050": {
+      "label": "GeForce RTX 5050（NVIDIA公式）",
+      "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5050/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": ""
+    },
+    "amd-rx-9070": {
+      "label": "AMD Radeon RX 9070 製品仕様（AMD公式）",
+      "url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9070.html",
+      "kind": "official",
+      "publisher": "AMD",
+      "note": "VRAM・Typical Board Power・最小推奨電源・補助電源（gpu-guide/content/rx-9070.json の出典と同じ）"
+    },
+    "nvidia-rtx-5070-family": {
+      "label": "GeForce RTX 5070 ファミリー（NVIDIA公式）",
+      "url": "https://www.nvidia.com/ja-jp/geforce/graphics-cards/50-series/rtx-5070-family/",
+      "kind": "official",
+      "publisher": "NVIDIA",
+      "note": "VRAM・Total Graphics Power・必要電源・補助電源（gpu-guide/content/rx-9070.json の出典と同じ）"
+    },
+    "wiki-rx500": {
+      "label": "Wikipedia: Radeon RX 500 series（二次情報。デスクトップ製品表の TBP 列）",
+      "url": "https://en.wikipedia.org/wiki/Radeon_RX_500_series",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": "RX 590（Polaris 30）は 225W。中国向けの別製品 RX 590 GME は 175W（名前が似た別製品）。AMD公式ページは取得がタイムアウトし未確認。"
+    },
+    "wiki-rx6000": {
+      "label": "Wikipedia: Radeon RX 6000 series（二次情報・版 1384343502 の製品表の TBP 列）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Radeon_RX_6000_series&oldid=1384343502",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": "AMD公式ページは取得がタイムアウトし未確認。"
+    },
+    "wiki-alder": {
+      "label": "Wikipedia: Alder Lake（二次情報・版 1369487491 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Alder_Lake&oldid=1369487491",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-raptor": {
+      "label": "Wikipedia: Raptor Lake（二次情報・版 1376695055 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Raptor_Lake&oldid=1376695055",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-arrow": {
+      "label": "Wikipedia: Arrow Lake（二次情報・版 1379660995 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Arrow_Lake_(microprocessor)&oldid=1379660995",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-zen3": {
+      "label": "Wikipedia: Zen 3（二次情報・版 1382434821 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Zen_3&oldid=1382434821",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-zen4": {
+      "label": "Wikipedia: Zen 4（二次情報・版 1375449466 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Zen_4&oldid=1375449466",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-zen5": {
+      "label": "Wikipedia: Zen 5（二次情報・版 1379563023 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Zen_5&oldid=1379563023",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "wiki-am5": {
+      "label": "Wikipedia: Socket AM5（チップセット表）（二次情報・版 1362595010 の製品表）",
+      "url": "https://en.wikipedia.org/w/index.php?title=Socket_AM5&oldid=1362595010",
+      "kind": "secondary",
+      "publisher": "Wikipedia",
+      "note": ""
+    },
+    "kakaku-cpu": {
+      "label": "価格.com CPU 人気売れ筋ランキング（2026/10/30更新・2026/10/23〜10/29集計）",
+      "url": "https://kakaku.com/pc/cpu/ranking_0510/",
+      "kind": "retail-listing",
+      "publisher": "価格.com",
+      "priceConditions": {
+        "taxIncluded": true,
+        "shippingIncluded": false,
+        "note": "価格.comの掲載価格（税込の総額表示）。送料はショップごとに異なり含まない。在庫・販売を保証しない。"
+      },
+      "note": ""
+    },
+    "kakaku-gpu": {
+      "label": "価格.com グラフィックボード・ビデオカード 人気売れ筋ランキング 1〜5ページ（2026/10/30更新）",
+      "url": "https://kakaku.com/pc/videocard/ranking_0550/",
+      "kind": "retail-listing",
+      "publisher": "価格.com",
+      "priceConditions": {
+        "taxIncluded": true,
+        "shippingIncluded": false,
+        "note": "価格.comの掲載価格（税込の総額表示）。送料はショップごとに異なり含まない。在庫・販売を保証しない。"
+      },
+      "note": "2026-10-31 の値（market-median）は製品ごとの取得記録が残っておらず再計算できない（履歴としてだけ残す）。"
+    },
+    "kakaku-gpu-2026-11-15": {
+      "label": "価格.com グラフィックボード・ビデオカード 人気売れ筋ランキング 1〜5ページ（2026/11/15更新・2026/11/08〜11/14集計）",
+      "url": "https://kakaku.com/pc/videocard/ranking_0550/",
+      "kind": "retail-listing",
+      "publisher": "価格.com",
+      "priceConditions": {
+        "taxIncluded": true,
+        "shippingIncluded": false,
+        "note": "価格.comの掲載価格（税込の総額表示）。送料はショップごとに異なり含まない。在庫・販売を保証しない。"
+      },
+      "note": "1〜5ページ（200製品）の取得HTMLから集計。製品ごとの価格・URL・除外理由は shared/catalog/evidence/kakaku-gpu-2026-11-15.json（scripts/catalog/kakaku-gpu-evidence.js で作成・validate.js が照合）。ランキング掲載製品の最安値の中央値で、市場全体や販売数量で重み付けした値ではない。"
+    }
+  }
+}

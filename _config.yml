@@ -18,6 +18,7 @@ exclude:
   - pc-builder/README.md
   - shared/affiliate/README.md
   - shared/analytics/README.md
+  - shared/catalog/README.md
   - pc-builds-hub/SETUP_SUPABASE.md
   - pc-builds-hub/NOTIFY_PENDING_SETUP.md
   - pc-builds-hub/supabase-schema.sql

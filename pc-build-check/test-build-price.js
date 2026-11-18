@@ -156,6 +156,34 @@ check("参考価格は「約〇万円」表記", BP.formatEstimate(238000) === "
 check("金額が出せないときは null", BP.formatEstimate(NaN) === null);
 check("価格の変動に触れている", /変動/.test(BP.PRICE_DISCLAIMER));
 check("販売価格と誤認させない断り書きがある", /販売価格ではありません/.test(BP.PRICE_DISCLAIMER));
+// 価格の基準時期（2026-11-15〜）: 古い価格で組んだ概算を「今の値段」に見せない
+{
+  const note = BP.priceBasisNote(prices._meta.updated);
+  const [y, m] = prices._meta.updated.split("-");
+  check("基準時期の注記に part-prices.json の更新年月が出る", note.indexOf(`${Number(y)}年${Number(m)}月時点`) > -1, note);
+  check("基準時期の注記で GPU 価格が確認日なしの目安だと明記する", /GPUは確認日の記録が無い目安/.test(note), note);
+  check("更新日が無いときに日付を作らない", /確認日の記録が無い時点/.test(BP.priceBasisNote(null)));
+}
+// 価格の基準が「現在の購入判断に使えるか」（2026-11-15〜）
+{
+  const gpuList = readJson("gpu-guide/gpus.json");
+  const st = BP.priceBasisStatus(prices, gpuList, new Date("2026-11-15T12:00:00+09:00"));
+  check("基準価格は未確認（GPU価格に確認日が無く、part-prices.json も60日超）", st.confirmed === false, JSON.stringify(st));
+  check("未確認のラベルは〇年〇月時点の概算", /^参考価格（\d{4}年\d{1,2}月時点の概算）$/.test(st.label), st.label);
+  check("未確認なら「この予算で購入できるとは限りません」と書く", /購入できるとは限りません/.test(st.caveat), st.caveat);
+  check("BTO販売例の確認結果（btoCheck）を注意書きに含める", !prices._meta.btoCheck || st.caveat.indexOf(prices._meta.btoCheck.summary) > -1);
+  // 確認済みの条件がそろったときだけ confirmed（GPU価格に確認日・60日以内）
+  const fresh = { ...prices, _meta: { ...prices._meta, updated: "2026-11-10" } };
+  const datedGpu = gpuList.map((g) => ({ ...g, priceCheckedAt: "2026-11-10" }));
+  check("GPU価格に確認日があり60日以内なら確認済み", BP.priceBasisStatus(fresh, datedGpu, new Date("2026-11-15")).confirmed === true);
+  check("GPU価格に確認日が無ければ、part-prices が新しくても未確認", BP.priceBasisStatus(fresh, gpuList, new Date("2026-11-15")).confirmed === false);
+  check("60日を超えたら未確認", BP.priceBasisStatus(fresh, datedGpu, new Date("2027-01-20")).confirmed === false);
+  // 未確認の基準では、予算超過を「今の値段」として言い切らない
+  const over = BP.evaluateBudgetFit(200000, 150000, st);
+  check("未確認の基準での予算超過は「時点の概算でも上回っていた」と書く", over.isOver && over.unconfirmed && /時点の価格での概算/.test(over.text) && !/上回ります。/.test(over.text), over.text);
+  const within = BP.evaluateBudgetFit(150000, 150000, st);
+  check("予算に収まる場合も「予算内」とは書かない（文言なし）", within.isOver === false && within.text === null);
+}
 
 // 予算・価格が壊れた入力で例外を投げない（診断画面を落とさない）
 check("予算が不正でも落ちない", BP.evaluateBudgetFit(200000, "abc") === null);

@@ -78,9 +78,11 @@ function part(result, partName) {
   var gpu = part(r, 'gpu');
   check('RTX 3060/WQHD144 で最上位GPUを勧めない',
     gpu.recommendId !== 'rtx5090' && gpu.recommendId !== 'rtx5080', gpu.recommendId);
-  check('RTX 3060/WQHD144 の提案は現実的な価格帯',
-    !gpu.recommendId || (E.PRICE_HINT[gpu.recommendId] || 0) <= 160000,
-    gpu.recommendId + '=' + E.PRICE_HINT[gpu.recommendId]);
+  // 「現実的な価格帯」＝上位帯（RTX 5070 Ti 以上の価格）に入らない。金額の絶対値で書くと相場の変動で意味が変わるため、
+  // 実売相場（GPU_PRICE）どうしの相対で見る（2026-11-15 に 160,000円固定から変更。推奨GPU自体は変更前と同じ rx9070xt）
+  check('RTX 3060/WQHD144 の提案は現実的な価格帯（上位帯の価格に入らない）',
+    !gpu.recommendId || (E.PRICE_HINT[gpu.recommendId] || 0) < E.PRICE_HINT.rtx5070ti,
+    gpu.recommendId + '=' + E.PRICE_HINT[gpu.recommendId] + ' / rtx5070ti=' + E.PRICE_HINT.rtx5070ti);
 })();
 
 (function () {
@@ -165,9 +167,20 @@ function part(result, partName) {
   });
   check('軽微な不足はアップグレード判定',
     r.overall.verdict === 'upgrade', r.overall.verdict);
-  check('メモリ増設のみなら費用は安い',
-    r.overall.estimatedCost !== null && r.overall.estimatedCost <= 20000,
-    String(r.overall.estimatedCost));
+  // メモリの費用は確認日の無い目安（PRICE_HINT）なので、合計は断定しない（2026-11-15〜）
+  check('確認日の無い費用（メモリ）を含むときは合計を出さない', r.overall.estimatedCost === null, String(r.overall.estimatedCost));
+  check('合計を出さない理由（確認日の記録が無い目安）を書く', /メモリ.*確認日の記録が無い目安/.test(r.overall.costNote || ''), r.overall.costNote);
+})();
+
+(function () {
+  // GPU だけの交換なら、確認済みの掲載価格で合計を出す
+  var r = E.diagnose({
+    gpu: 'GTX 1660 SUPER', cpu: 'Ryzen 7 7800X3D', memory: 32, memoryType: 'ddr5', storage: 2000, storageType: 'ssd',
+    psu: 850, resolution: 'wqhd', targetFps: 144, usage: 'heavy', budget: '200000',
+  });
+  var g = part(r, 'gpu');
+  check('GPUだけの交換では合計＝GPUの掲載価格（確認済み）', g.recommendId && r.overall.estimatedCost === E.GPU_PRICE[g.recommendId].price && !r.overall.costNote,
+    g.recommendId + ' ' + r.overall.estimatedCost + ' ' + r.overall.costNote);
 })();
 
 /* ------------------------------------------------------------------
@@ -453,17 +466,69 @@ function recPrice(result) {
 
 (function () {
   // ケースC：明確に性能不足 → はっきり交換を勧める
+  // ※予算は「目標に届くGPUが買える額」にする（2026-11-15 に価格を実売相場へ切り替え、12万円→15万円）。
   var r = E.diagnose({
     gpu: 'GTX 1660 SUPER', resolution: 'wqhd', targetFps: 144,
-    usage: 'heavy', budget: '120000',
+    usage: 'heavy', budget: '150000',
   });
   var g = part(r, 'gpu');
   check('C: GTX1660SUPERには交換を勧める',
     g.status === 'upgrade', g.status);
   check('C: 提案GPUは予算内',
-    recPrice(r) <= 120000, String(recPrice(r)));
+    recPrice(r) <= 150000, String(recPrice(r)));
   check('C: 十分な性能向上がある候補を選ぶ',
     g.ratio >= 1.5, String(g.ratio));
+})();
+
+(function () {
+  // ケースC2：予算内では目標に届かない → 予算を超えるGPUを勧めず、正直に「目標が高い可能性」を返す
+  //   旧来の手書き価格（確認日なし）では RX 9070 を 110,000円として12万円の予算内で勧めていた
+  //   （2026-11-15 の実売相場は 136,000円＝実際には予算超過）。
+  var r = E.diagnose({
+    gpu: 'GTX 1660 SUPER', resolution: 'wqhd', targetFps: 144,
+    usage: 'heavy', budget: '120000',
+  });
+  var g = part(r, 'gpu');
+  check('C2: 予算内で目標に届かないときは交換を断定しない（consider）',
+    g.status === 'consider', g.status);
+  check('C2: 予算を超えるGPUを勧めない',
+    !g.recommendId || recPrice(r) <= 120000, g.recommendId + '=' + recPrice(r));
+})();
+
+(function () {
+  // 境界・特殊ケース（2026-11-15〜）
+  var base = { gpu: 'GTX 1660 SUPER', resolution: 'fhd', targetFps: 144, usage: 'normal' };
+  var g9060 = E.GPU_PRICE.rx9060xt.price;
+  var atBudget = part(E.diagnose(Object.assign({}, base, { budget: String(g9060) })), 'gpu');
+  check('予算ちょうどの価格の候補は予算内として扱う', !atBudget.recommendId || E.PRICE_HINT[atBudget.recommendId] <= g9060, atBudget.recommendId);
+  var under = part(E.diagnose(Object.assign({}, base, { budget: '30000' })), 'gpu');
+  check('予算内に候補が無ければ交換を勧めない（keep・予算外の参考候補は別枠）', under.status === 'keep' && under.overBudgetOnly === true && !under.recommendId, under.status);
+  // 価格の無い候補は 0円・最安として扱わず、候補から外す
+  var saved = E.PRICE_HINT.rtx5050;
+  delete E.PRICE_HINT.rtx5050;
+  var noPrice = part(E.diagnose(Object.assign({}, base, { budget: '120000' })), 'gpu');
+  E.PRICE_HINT.rtx5050 = saved;
+  check('価格の無いGPUを推薦しない（0円扱いしない）', noPrice.recommendId !== 'rtx5050', noPrice.recommendId);
+  // 目標を満たす候補どうしで安い方を選ぶときも、VRAM の少ないGPUへは替えない
+  var fhd120 = part(E.diagnose({ gpu: 'GTX 1650', resolution: 'fhd', targetFps: 120, usage: 'normal' }), 'gpu');
+  check('目標を満たす候補が RX 9060 XT(16GB) と RTX 5060(8GB) のとき、安さだけで8GBへ替えない', fhd120.recommendId === 'rx9060xt', fhd120.recommendId);
+  var wq60 = part(E.diagnose({ gpu: 'GTX 1650', resolution: 'wqhd', targetFps: 60, usage: 'normal', budget: '200000' }), 'gpu');
+  check('目標を満たす同じVRAMの候補なら安い方（RX 9060 XT 16GB を RX 9070 16GB より優先）', wq60.recommendId === 'rx9060xt', wq60.recommendId);
+  // 価格がまったく同じ候補でも結果が決まる（同じ入力で同じ答え）
+  var a1 = part(E.diagnose({ gpu: 'GTX 1650', resolution: 'wqhd', targetFps: 120, usage: 'normal' }), 'gpu').recommendId;
+  var a2 = part(E.diagnose({ gpu: 'GTX 1650', resolution: 'wqhd', targetFps: 120, usage: 'normal' }), 'gpu').recommendId;
+  check('同じ入力なら同じ推薦（並びが決定的）', a1 === a2, a1 + '/' + a2);
+})();
+
+(function () {
+  // GPUの交換費用は正本（shared/catalog/gpu.json の market-median）から生成した GPU_PRICE と一致し、確認日を持つ
+  var keys = Object.keys(E.GPU_PRICE);
+  check('GPU価格: 生成ブロック GPU_PRICE に候補GPUがある', keys.length >= 10, String(keys.length));
+  var bad = keys.filter(function (k) {
+    var p = E.GPU_PRICE[k];
+    return E.PRICE_HINT[k] !== p.price || !/^\d{4}-\d{2}-\d{2}$/.test(p.checkedAt) || !/^\d{4}-\d{2}-\d{2}$/.test(p.validUntil);
+  });
+  check('GPU価格: PRICE_HINT の GPU 分は GPU_PRICE と同じ値で、確認日・有効期限を持つ', bad.length === 0, bad.join(', '));
 })();
 
 (function () {
@@ -602,6 +667,7 @@ function recPrice(result) {
   var sidegrade = [];
   var thrown = [];
   var byKey = {};
+  var idByKey = {};
 
   CURRENT.forEach(function (cur) {
     RES.forEach(function (resolution) {
@@ -634,6 +700,7 @@ function recPrice(result) {
             if (recTier / curTier < 1.15) sidegrade.push(label);
 
             byKey[cur + '|' + resolution + '|' + targetFps + '|' + usage + '|' + (budget || 'none')] = recTier;
+            idByKey[cur + '|' + resolution + '|' + targetFps + '|' + usage + '|' + (budget || 'none')] = g.recommendId;
           });
         });
       });
@@ -686,6 +753,7 @@ function recPrice(result) {
   var FM = { 60: 1.0, 120: 1.35, 144: 1.5, 240: 1.9 };
   var UW = { light: 0.75, normal: 1.0, heavy: 1.12, creative: 1.0 };
   var jump = [];
+  var jumpByPrice = [];
   CURRENT.forEach(function (cur) {
     RES.forEach(function (resolution) {
       FPS.forEach(function (fps) {
@@ -704,14 +772,26 @@ function recPrice(result) {
             // 前の予算で既に目標をほぼ満たしているのに、
             // 予算を上げただけで大幅に上位へ飛んでいないか
             if (a / req >= 0.9 && b2 / req > 1.3) {
-              jump.push(cur + ' ' + resolution + '/' + fps + '/' + usage + ' 予算' + paid[i - 1] + '→' + paid[i]);
+              // ★設計方針は「必要性能を満たす中でいちばん安いものを選ぶ」。
+              //   より安く・予算内で・目標を満たす（1.0倍以上）候補があったのに飛ばしたときだけ過剰推奨とする。
+              //   そういう候補が無い（例: 2026-11 の実売では 0.98倍の RX 9060 XT の次に目標を満たす最安が
+              //   1.32倍の RX 9070。RTX 5060 Ti 16GB はそれより高い）ときは、価格の並びによる正常な結果。
+              var bId = idByKey[cur + '|' + resolution + '|' + fps + '|' + usage + '|' + paid[i]];
+              var cheaperEnough = Object.keys(E.GPU_PRICE).filter(function (c) {
+                return TIERS[c] && PRICE[c] < PRICE[bId] && PRICE[c] <= Number(paid[i]) &&
+                  TIERS[c] / req >= 1.0 && TIERS[c] / TIERS[cur] >= 1.15 &&
+                  E.GPU_PRICE[c].vram >= E.GPU_PRICE[bId].vram; // VRAM を減らす候補は「より良い選択」として数えない
+              });
+              if (cheaperEnough.length) jump.push(cur + ' ' + resolution + '/' + fps + '/' + usage + ' 予算' + paid[i - 1] + '→' + paid[i] + '（' + bId + ' より安く目標を満たす ' + cheaperEnough.join('・') + ' を飛ばした）');
+              else jumpByPrice.push(cur + ' ' + resolution + '/' + fps + '/' + usage);
             }
           }
         });
       });
     });
   });
-  check('マトリクス: 予算増だけで過剰GPUへ飛ばない', jump.length === 0, jump.slice(0, 3).join(' / '));
+  check('マトリクス: 予算増だけで過剰GPUへ飛ばない（より安く目標を満たす候補を飛ばさない）', jump.length === 0, jump.slice(0, 3).join(' / '));
+  if (jumpByPrice.length) console.log('  （参考: 目標を満たす最安候補が1.3倍超しか無いため上位へ移ったケース ' + jumpByPrice.length + '件。価格の並びによる正常な結果）');
 
   console.log('  （推奨マトリクス ' + cases + ' ケースを検証）');
 })();

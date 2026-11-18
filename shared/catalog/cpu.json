@@ -1,0 +1,2794 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "CPUの正本（仕様・価格）。",
+    "migratedAt": "2026-11-14"
+  },
+  "products": [
+    {
+      "id": "ryzen55500",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 5500",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-04-04",
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.6,
+            "boostGHz": 4.2,
+            "l3MB": 16,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen55500"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 16000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 5500（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen55600",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 5600",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-04-04",
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.5,
+            "boostGHz": 4.4,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen55600"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 22000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 5600（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen55600g",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 5600G",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2021-04-13",
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.9,
+            "boostGHz": 4.4,
+            "l3MB": 16,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（Vega・7CU）",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen55600g"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 38000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 5600G（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen55600x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 5600X",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2020-11-05",
+            "socket": "AM4",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.7,
+            "boostGHz": 4.6,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen55600x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 27000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 5600X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen57500f",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 7500F",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-07-22",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.7,
+            "boostGHz": 5,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen57500f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 25000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 7500F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen57600",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 7600",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-01-10",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 5.1,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 26000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 7600（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen57600x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 7600X",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-09-27",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 4.7,
+            "boostGHz": 5.3,
+            "l3MB": 32,
+            "tdpW": 105,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen57600x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 28000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 7600X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen59500f",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 9500F",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-09-16",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 5,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen59500f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 28000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 9500F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen59600",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 9600",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-02-19",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 5.2,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": "Wraith Stealth"
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 33000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 9600（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen59600x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 5 9600X",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-08-08",
+            "socket": "AM5",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 3.9,
+            "boostGHz": 5.4,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen59600x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 35000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 5 9600X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen75700x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 5700X",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-04-04",
+            "socket": "AM4",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3.4,
+            "boostGHz": 4.6,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen75700x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 32000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 5700X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen75700x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 5700X3D",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-31",
+            "socket": "AM4",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3,
+            "boostGHz": 4.1,
+            "l3MB": 96,
+            "tdpW": 105,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen75700x3d"
+      },
+      "prices": []
+    },
+    {
+      "id": "ryzen75800x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 5800X",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2020-11-05",
+            "socket": "AM4",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 4.7,
+            "l3MB": 32,
+            "tdpW": 105,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen75800x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 34000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 5800X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen75800x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 5800X3D",
+      "aliases": [],
+      "family": "zen3",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-04-20",
+            "socket": "AM4",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3.4,
+            "boostGHz": 4.5,
+            "l3MB": 96,
+            "tdpW": 105,
+            "maxPowerW": null,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4"
+            ],
+            "memorySpeed": "DDR4-3200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen3",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen75800x3d"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 72000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 5800X3D（型番一致の製品の掲載最安値・千円単位に丸め）",
+          "note": "通常版の掲載価格（10周年記念版とは別）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen77700",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 7700",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-01-10",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 5.3,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "notes": {
+        "boxCooler": "付属クーラーは販売地域・パッケージで異なります（出典の表: Wraith Prism / なし）。購入する商品の表記を確認してください。"
+      },
+      "refs": {
+        "affiliateId": "ryzen77700"
+      },
+      "prices": []
+    },
+    {
+      "id": "ryzen77700x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 7700X",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-09-27",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 4.5,
+            "boostGHz": 5.4,
+            "l3MB": 32,
+            "tdpW": 105,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 37000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 7700X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen77800x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 7800X3D",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-04-06",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 4.2,
+            "boostGHz": 5,
+            "l3MB": 96,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen77800x3d"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 53000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 7800X3D（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen79700x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 9700X",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-08-08",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 3.8,
+            "boostGHz": 5.5,
+            "l3MB": 32,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen79700x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 44000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 9700X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen79800x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 9800X3D",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-11-07",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 4.7,
+            "boostGHz": 5.2,
+            "l3MB": 96,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen79800x3d"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 61000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 9800X3D（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen79850x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 7 9850X3D",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2026-01-29",
+            "socket": "AM5",
+            "cores": 8,
+            "threads": 16,
+            "pCores": 8,
+            "eCores": 0,
+            "baseGHz": 4.7,
+            "boostGHz": 5.6,
+            "l3MB": 96,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 70000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 7 9850X3D（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen97900",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 7900",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-01-10",
+            "socket": "AM5",
+            "cores": 12,
+            "threads": 24,
+            "pCores": 12,
+            "eCores": 0,
+            "baseGHz": 3.7,
+            "boostGHz": 5.4,
+            "l3MB": 64,
+            "tdpW": 65,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "notes": {
+        "boxCooler": "付属クーラーは販売地域・パッケージで異なります（出典の表: Wraith Prism / なし）。購入する商品の表記を確認してください。"
+      },
+      "refs": {
+        "affiliateId": "ryzen97900"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 57000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 7900（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen97900x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 7900X",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-09-27",
+            "socket": "AM5",
+            "cores": 12,
+            "threads": 24,
+            "pCores": 12,
+            "eCores": 0,
+            "baseGHz": 4.7,
+            "boostGHz": 5.6,
+            "l3MB": 64,
+            "tdpW": 170,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen97900x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 57000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 7900X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen97950x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 7950X",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-09-27",
+            "socket": "AM5",
+            "cores": 16,
+            "threads": 32,
+            "pCores": 16,
+            "eCores": 0,
+            "baseGHz": 4.5,
+            "boostGHz": 5.7,
+            "l3MB": 64,
+            "tdpW": 170,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen97950x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 93000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 7950X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen97950x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 7950X3D",
+      "aliases": [],
+      "family": "zen4",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-02-28",
+            "socket": "AM5",
+            "cores": 16,
+            "threads": 32,
+            "pCores": 16,
+            "eCores": 0,
+            "baseGHz": 4.2,
+            "boostGHz": 5.7,
+            "l3MB": 128,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5200",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen4",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen97950x3d"
+      },
+      "prices": []
+    },
+    {
+      "id": "ryzen99900x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 9900X",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-08-15",
+            "socket": "AM5",
+            "cores": 12,
+            "threads": 24,
+            "pCores": 12,
+            "eCores": 0,
+            "baseGHz": 4.4,
+            "boostGHz": 5.6,
+            "l3MB": 64,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen99900x"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 64000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 9900X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen99900x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 9900X3D",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-03-12",
+            "socket": "AM5",
+            "cores": 12,
+            "threads": 24,
+            "pCores": 12,
+            "eCores": 0,
+            "baseGHz": 4.4,
+            "boostGHz": 5.5,
+            "l3MB": 128,
+            "tdpW": 120,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 83000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 9900X3D（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen99950x",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 9950X",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-08-15",
+            "socket": "AM5",
+            "cores": 16,
+            "threads": 32,
+            "pCores": 16,
+            "eCores": 0,
+            "baseGHz": 4.3,
+            "boostGHz": 5.7,
+            "l3MB": 64,
+            "tdpW": 170,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 94000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 9950X（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "ryzen99950x3d",
+      "category": "cpu",
+      "maker": "AMD",
+      "name": "Ryzen 9 9950X3D",
+      "aliases": [],
+      "family": "zen5",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-03-12",
+            "socket": "AM5",
+            "cores": 16,
+            "threads": 32,
+            "pCores": 16,
+            "eCores": 0,
+            "baseGHz": 4.3,
+            "boostGHz": 5.7,
+            "l3MB": 128,
+            "tdpW": 170,
+            "maxPowerW": null,
+            "igpu": "AMD Radeon Graphics（RDNA 2・2CU）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600",
+            "boxCooler": false
+          },
+          "basis": "secondary",
+          "source": "wiki-zen5",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "ryzen99950x3d"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 104000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Ryzen 9 9950X3D（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei314100f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i3-14100F",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-08",
+            "socket": "LGA1700",
+            "cores": 4,
+            "threads": 8,
+            "pCores": 4,
+            "eCores": 0,
+            "baseGHz": 3.5,
+            "boostGHz": 4.7,
+            "l3MB": 12,
+            "tdpW": 58,
+            "maxPowerW": 110,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 15000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i3-14100F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei512400",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-12400",
+      "aliases": [],
+      "family": "alder",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": null,
+            "socket": "LGA1700",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 2.5,
+            "boostGHz": 4.4,
+            "l3MB": 18,
+            "tdpW": 65,
+            "maxPowerW": 117,
+            "igpu": "Intel UHD Graphics 730",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-alder",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei512400"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 32000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-12400（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei512400f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-12400F",
+      "aliases": [],
+      "family": "alder",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": null,
+            "socket": "LGA1700",
+            "cores": 6,
+            "threads": 12,
+            "pCores": 6,
+            "eCores": 0,
+            "baseGHz": 2.5,
+            "boostGHz": 4.4,
+            "l3MB": 18,
+            "tdpW": 65,
+            "maxPowerW": 117,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-alder",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei512400f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 26000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-12400F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei512600k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-12600K",
+      "aliases": [],
+      "family": "alder",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": null,
+            "socket": "LGA1700",
+            "cores": 10,
+            "threads": 16,
+            "pCores": 6,
+            "eCores": 4,
+            "baseGHz": 3.7,
+            "boostGHz": 4.9,
+            "l3MB": 20,
+            "tdpW": 125,
+            "maxPowerW": 150,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-alder",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei512600k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 42000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-12600K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei513400f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-13400F",
+      "aliases": [],
+      "family": "raptor",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-01-03",
+            "socket": "LGA1700",
+            "cores": 10,
+            "threads": 16,
+            "pCores": 6,
+            "eCores": 4,
+            "baseGHz": 2.5,
+            "boostGHz": 4.6,
+            "l3MB": 20,
+            "tdpW": 65,
+            "maxPowerW": 148,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei513400f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 36000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-13400F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei513600k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-13600K",
+      "aliases": [],
+      "family": "raptor",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-10-20",
+            "socket": "LGA1700",
+            "cores": 14,
+            "threads": 20,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 3.5,
+            "boostGHz": 5.1,
+            "l3MB": 24,
+            "tdpW": 125,
+            "maxPowerW": 181,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei513600k"
+      },
+      "prices": []
+    },
+    {
+      "id": "corei514400",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-14400",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-08",
+            "socket": "LGA1700",
+            "cores": 10,
+            "threads": 16,
+            "pCores": 6,
+            "eCores": 4,
+            "baseGHz": 2.5,
+            "boostGHz": 4.7,
+            "l3MB": 20,
+            "tdpW": 65,
+            "maxPowerW": 148,
+            "igpu": "Intel UHD Graphics 730",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "corei514400f",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 30000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-14400（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei514400f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-14400F",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-08",
+            "socket": "LGA1700",
+            "cores": 10,
+            "threads": 16,
+            "pCores": 6,
+            "eCores": 4,
+            "baseGHz": 2.5,
+            "boostGHz": 4.7,
+            "l3MB": 20,
+            "tdpW": 65,
+            "maxPowerW": 148,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei514400f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 25000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-14400F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei514500",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-14500",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-08",
+            "socket": "LGA1700",
+            "cores": 14,
+            "threads": 20,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 2.6,
+            "boostGHz": 5,
+            "l3MB": 24,
+            "tdpW": 65,
+            "maxPowerW": 154,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei514500"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 44000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-14500（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei514600k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-14600K",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 14,
+            "threads": 20,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 3.5,
+            "boostGHz": 5.3,
+            "l3MB": 24,
+            "tdpW": 125,
+            "maxPowerW": 181,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "corei514600kf",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 46000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-14600K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei514600kf",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i5-14600KF",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 14,
+            "threads": 20,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 3.5,
+            "boostGHz": 5.3,
+            "l3MB": 24,
+            "tdpW": 125,
+            "maxPowerW": 181,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei514600kf"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 41000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i5-14600KF（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei712700f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-12700F",
+      "aliases": [],
+      "family": "alder",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": null,
+            "socket": "LGA1700",
+            "cores": 12,
+            "threads": 20,
+            "pCores": 8,
+            "eCores": 4,
+            "baseGHz": 2.1,
+            "boostGHz": 4.9,
+            "l3MB": 25,
+            "tdpW": 65,
+            "maxPowerW": 180,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-alder",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei712700f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 51000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-12700F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei712700k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-12700K",
+      "aliases": [],
+      "family": "alder",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": null,
+            "socket": "LGA1700",
+            "cores": 12,
+            "threads": 20,
+            "pCores": 8,
+            "eCores": 4,
+            "baseGHz": 3.6,
+            "boostGHz": 5,
+            "l3MB": 25,
+            "tdpW": 125,
+            "maxPowerW": 190,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-4800",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-alder",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei712700k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 53000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-12700K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei713700f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-13700F",
+      "aliases": [],
+      "family": "raptor",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-01-03",
+            "socket": "LGA1700",
+            "cores": 16,
+            "threads": 24,
+            "pCores": 8,
+            "eCores": 8,
+            "baseGHz": 2.1,
+            "boostGHz": 5.2,
+            "l3MB": 30,
+            "tdpW": 65,
+            "maxPowerW": 219,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei713700f"
+      },
+      "prices": []
+    },
+    {
+      "id": "corei713700k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-13700K",
+      "aliases": [],
+      "family": "raptor",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-10-20",
+            "socket": "LGA1700",
+            "cores": 16,
+            "threads": 24,
+            "pCores": 8,
+            "eCores": 8,
+            "baseGHz": 3.4,
+            "boostGHz": 5.4,
+            "l3MB": 30,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei713700k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 78000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-13700K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei714700f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-14700F",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-01-08",
+            "socket": "LGA1700",
+            "cores": 20,
+            "threads": 28,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 2.1,
+            "boostGHz": 5.4,
+            "l3MB": 33,
+            "tdpW": 65,
+            "maxPowerW": 219,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei714700f"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 57000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-14700F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei714700k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-14700K",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 20,
+            "threads": 28,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 3.4,
+            "boostGHz": 5.6,
+            "l3MB": 33,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei714700k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 67000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-14700K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei714700kf",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i7-14700KF",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 20,
+            "threads": 28,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 3.4,
+            "boostGHz": 5.6,
+            "l3MB": 33,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "corei714700k",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 63000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i7-14700KF（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei913900k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i9-13900K",
+      "aliases": [],
+      "family": "raptor",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2022-10-20",
+            "socket": "LGA1700",
+            "cores": 24,
+            "threads": 32,
+            "pCores": 8,
+            "eCores": 16,
+            "baseGHz": 3,
+            "boostGHz": 5.8,
+            "l3MB": 36,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei913900k"
+      },
+      "prices": []
+    },
+    {
+      "id": "corei914900k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i9-14900K",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 24,
+            "threads": 32,
+            "pCores": 8,
+            "eCores": 16,
+            "baseGHz": 3.2,
+            "boostGHz": 6,
+            "l3MB": 36,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "Intel UHD Graphics 770",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "corei914900k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 84000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i9-14900K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "corei914900kf",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core i9-14900KF",
+      "aliases": [],
+      "family": "raptor-refresh",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2023-10-17",
+            "socket": "LGA1700",
+            "cores": 24,
+            "threads": 32,
+            "pCores": 8,
+            "eCores": 16,
+            "baseGHz": 3.2,
+            "boostGHz": 6,
+            "l3MB": 36,
+            "tdpW": 125,
+            "maxPowerW": 253,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR4",
+              "DDR5"
+            ],
+            "memorySpeed": "DDR4-3200 / DDR5-5600（2枚時）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-raptor",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "corei914900k",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 78000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core i9-14900KF（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra5225f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 5 225F",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-01-06",
+            "socket": "LGA1851",
+            "cores": 10,
+            "threads": 10,
+            "pCores": 6,
+            "eCores": 4,
+            "baseGHz": 3.3,
+            "boostGHz": 4.9,
+            "l3MB": 20,
+            "tdpW": 65,
+            "maxPowerW": 121,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 25000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 5 225F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra5245k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 5 245K",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-10-24",
+            "socket": "LGA1851",
+            "cores": 14,
+            "threads": 14,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 4.2,
+            "boostGHz": 5.2,
+            "l3MB": 24,
+            "tdpW": 125,
+            "maxPowerW": 159,
+            "igpu": "Intel Arc Graphics（Xeコア×4）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "coreultra5245k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 35000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 5 245K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra5245kf",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 5 245KF",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-10-24",
+            "socket": "LGA1851",
+            "cores": 14,
+            "threads": 14,
+            "pCores": 6,
+            "eCores": 8,
+            "baseGHz": 4.2,
+            "boostGHz": 5.2,
+            "l3MB": 24,
+            "tdpW": 125,
+            "maxPowerW": 159,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "coreultra5245k",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 27000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 5 245KF（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra7265f",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 7 265F",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2025-01-06",
+            "socket": "LGA1851",
+            "cores": 20,
+            "threads": 20,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 2.4,
+            "boostGHz": 5.2,
+            "l3MB": 30,
+            "tdpW": 65,
+            "maxPowerW": 182,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 52000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 7 265F（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra7265k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 7 265K",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-10-24",
+            "socket": "LGA1851",
+            "cores": 20,
+            "threads": 20,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 3.9,
+            "boostGHz": 5.5,
+            "l3MB": 30,
+            "tdpW": 125,
+            "maxPowerW": 250,
+            "igpu": "Intel Arc Graphics（Xeコア×4）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "coreultra7265k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 50000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 7 265K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra7265kf",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 7 265KF",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-10-24",
+            "socket": "LGA1851",
+            "cores": 20,
+            "threads": 20,
+            "pCores": 8,
+            "eCores": 12,
+            "baseGHz": 3.9,
+            "boostGHz": 5.5,
+            "l3MB": 30,
+            "tdpW": 125,
+            "maxPowerW": 250,
+            "igpu": "none",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "sameSpecsExceptIgpu": "coreultra7265k",
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 42000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 7 265KF（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    },
+    {
+      "id": "coreultra9285k",
+      "category": "cpu",
+      "maker": "Intel",
+      "name": "Core Ultra 9 285K",
+      "aliases": [],
+      "family": "arrow",
+      "listings": [
+        "pc-builder"
+      ],
+      "specGroups": [
+        {
+          "fields": {
+            "released": "2024-10-24",
+            "socket": "LGA1851",
+            "cores": 24,
+            "threads": 24,
+            "pCores": 8,
+            "eCores": 16,
+            "baseGHz": 3.7,
+            "boostGHz": 5.7,
+            "l3MB": 36,
+            "tdpW": 125,
+            "maxPowerW": 250,
+            "igpu": "Intel Arc Graphics（Xeコア×4）",
+            "memoryTypes": [
+              "DDR5"
+            ],
+            "memorySpeed": "DDR5-5600（1DPC）",
+            "boxCooler": null
+          },
+          "basis": "secondary",
+          "source": "wiki-arrow",
+          "checkedAt": "2026-10-30"
+        }
+      ],
+      "refs": {
+        "affiliateId": "coreultra9285k"
+      },
+      "prices": [
+        {
+          "type": "lowest",
+          "amount": 94000,
+          "currency": "JPY",
+          "condition": "new",
+          "checkedAt": "2026-10-30",
+          "source": "kakaku-cpu",
+          "target": "Core Ultra 9 285K（型番一致の製品の掲載最安値・千円単位に丸め）"
+        }
+      ]
+    }
+  ]
+}

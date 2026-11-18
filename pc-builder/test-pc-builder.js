@@ -16,12 +16,19 @@ const Import = require('./js/pb-import.js');
 const engine = require('../upgrade/upgrade-engine.js');
 const gpuTarget = require('../shared/gpu/gpu-target.js');
 
-const partsJson = rq('pc-builder/data/parts.json');
+// CPU・GPUチップの正本は shared/catalog/。PC BUILDER と同じ互換アダプターで従来の形に変換し、
+// parts.json / prices.json と混ぜたものを「全パーツ」としてテストで走査・書き換えする。
+const Catalog = require('../shared/catalog/catalog.js');
+const catalog = require('../scripts/catalog/lib.js').loadCatalog();
+const adapter = Catalog.builderAdapter(catalog);
+const partsRaw = rq('pc-builder/data/parts.json');
+const partsJson = { ...partsRaw, sources: { ...adapter.partSources, ...partsRaw.sources }, parts: adapter.cpuParts.concat(partsRaw.parts) };
 const rules = rq('pc-builder/data/rules.json');
 const presets = rq('pc-builder/data/presets.json').presets;
 const gpus = rq('gpu-guide/gpus.json');
 const partPrices = rq('shared/parts/part-prices.json');
-const pricesJson = rq('pc-builder/data/prices.json');
+const pricesRaw = rq('pc-builder/data/prices.json');
+const pricesJson = { ...pricesRaw, _meta: { ...pricesRaw._meta, sources: { ...adapter.priceSources, ...pricesRaw._meta.sources }, staleAfterDays: adapter.staleAfterDays }, items: { ...adapter.items, ...pricesRaw.items }, gpuChips: adapter.gpuChips };
 const affiliate = rq('shared/affiliate/affiliate-master.json').products;
 const builds = rq('pc-build-check/builds.json');
 const gamesRaw = rq('game-pc-guide/data/games.json');
@@ -40,7 +47,7 @@ function makeDb(extraParts, mutate, mutatePrices, now) {
   if (extraParts) parts.parts = parts.parts.concat(extraParts);
   if (mutate) mutate(parts);
   if (mutatePrices) mutatePrices(prices);
-  return Db.buildDb({ parts, rules, gpus, partPrices, engine, gpuTarget, prices, now: now || TEST_NOW });
+  return Db.buildDb({ catalog, parts, rules, gpus, partPrices, engine, gpuTarget, prices, now: now || TEST_NOW });
 }
 // 指定したパーツの仕様だけを書き換えた DB（「値が無ければ要確認」を実データの欠けに頼らず確かめる）
 const withSpec = (id, patch) => makeDb(null, (p) => { Object.assign(p.parts.find((x) => x.id === id).specs, patch); });
@@ -83,8 +90,23 @@ ok(!partsJson.parts.some((p) => p.category === 'gpu'), 'parts.json に GPUチッ
 eq(db.byCategory.gpu.length, gpus.length, 'GPUチップ数は gpus.json と一致');
 // エンコーダー情報：全GPUの世代が rules.json にある
 db.byCategory.gpu.forEach((g) => ok(Array.isArray(g.specs.encoder), `${g.id}: エンコーダー情報（世代 ${g.specs.series}）が rules.json に無い`));
-// GPU_POWER_SPEC と rules.gpuChipPower が重複していない
-Object.keys(rules.gpuChipPower).filter((k) => k[0] !== '_').forEach((k) => ok(!engine.GPU_POWER_SPEC[k], `gpuChipPower.${k} は upgrade-engine.js と重複`));
+// 推奨電源の公式値は正本だけ（rules.json の gpuChipPower は正本へ移した）
+ok(!('gpuChipPower' in rules), 'rules.json に gpuChipPower を書かない（正本 shared/catalog/gpu.json）');
+// CPU・GPUチップ・その価格を PC BUILDER のファイルに書かない（正本は shared/catalog/）
+ok(!partsRaw.parts.some((p) => p.category === 'cpu' || p.category === 'gpu'), 'parts.json に CPU・GPUチップを書かない');
+ok(!pricesRaw.gpuChips && !Object.keys(pricesRaw.items).some((id) => adapter.items[id] || adapter.gpu[id]), 'prices.json に CPU・GPUチップの価格を書かない');
+ok(!('staleAfterDays' in pricesRaw._meta), '「古い」とみなす日数は正本の config だけ');
+// GPU・CPU は正本の値がそのまま使われる（gpus.json を経由しない）
+db.byCategory.gpu.forEach((g) => {
+  const r = catalog.gpu.products.find((x) => x.id === g.id);
+  const s = Catalog.specs(r);
+  ok(g.specs.vram === s.vramGB && g.specs.powerW === s.boardPowerW && g.specs.raster === Catalog.score(r, 'sippoRaster') && g.specs.officialPsuW === (s.recommendedSystemPowerW ?? null), `${g.id}: 仕様が正本と一致`);
+});
+db.byCategory.cpu.forEach((c) => {
+  const r = catalog.cpu.products.find((x) => x.id === c.id);
+  ok(!!r && c.specs.cores === Catalog.specs(r).cores && c.specs.tdpW === Catalog.specs(r).tdpW && c.specs.maxPowerW === Catalog.specs(r).maxPowerW, `${c.id}: CPU仕様が正本と一致`);
+});
+eq(db.byCategory.cpu.length, catalog.cpu.products.filter((r) => Catalog.listed(r, 'pc-builder')).length, 'CPU数は正本（pc-builder 掲載分）と一致');
 // プリセットのIDが実在
 presets.forEach((p) => Object.entries(p.items).forEach(([cat, arr]) => arr.forEach((e) => {
   ok(!!db.byId[e.id], `プリセット ${p.id}: ${e.id} が存在しない`);
@@ -124,6 +146,25 @@ eq(statusOf(B({ ...GOOD, case: 'test-short-case' }), 'gpulen', dbShort), 'ng', '
 // 電源不足
 eq(statusOf(B({ cpu: 'ryzen99950x3d', gpu: 'rtx-5090', psu: 'psu-generic-650' }), 'psuwatt'), 'ng', '電源不足（9950X3D＋RTX 5090 に 650W）は非対応');
 eq(statusOf(B({ ...GOOD, psu: 'corsair-rm650' }), 'psuwatt'), 'check', 'GPUメーカー推奨（750W）未満は要確認');
+
+// 推奨電源のルール（2026-11-15〜）: グラボ製品の公表値とGPUチップの公式値の両方があれば高いほう。どちらの公表値も書き換えない
+{
+  const psuTest = (id, w) => ({ id, category: 'psu', maker: 'TEST', name: 'Test ' + w + 'W', source: 'corsair-rm650',
+    specs: { watt: w, efficiency: '80 PLUS Gold', formFactor: 'ATX', depthMm: 140, eps8: 2, pcie8: 2, h12v2x6: 0 } });
+  const dbPsu = makeDb([psuTest('test-psu-550', 550), psuTest('test-psu-600', 600)]);
+  const build5060ti = (psu) => B({ ...GOOD, gpu: 'rtx-5060-ti', gpuboard: 'asus-dual-rtx5060ti-o16g-evo', psu });
+  const wattOf = (b) => Compat.checkBuild(b, dbPsu, Db.CATEGORIES).results.find((x) => x.id === 'psuwatt');
+  const board = dbPsu.byId['asus-dual-rtx5060ti-o16g-evo'];
+  eq(board.specs.recommendedPsuW, 550, 'ASUS Dual RTX 5060 Ti EVO の公表値（550W）はそのまま保持');
+  const w550 = wattOf(build5060ti('test-psu-550'));
+  eq(w550.officialPsuW, 600, '製品550W／チップ公式600W → 判定に使う推奨は高いほうの600W（過小な推奨を出さない）');
+  eq(w550.status, 'check', '550W電源 × RTX 5060 Ti（チップ公式600W）は要確認');
+  ok(/600W/.test(w550.message || w550.text || '') && /550W/.test(w550.psuBasis || ''), '要確認の理由に、チップの公式値と製品の公表値の両方が出る');
+  const w600 = wattOf(build5060ti('test-psu-600'));
+  ok(w600.status !== 'check' || !/推奨は 600W 以上/.test(w600.message || w600.text || ''), '600W電源ならメーカー推奨の不足としては扱わない');
+  const w5070 = wattOf(B({ ...GOOD, psu: 'test-psu-600' }));
+  eq(w5070.officialPsuW, 750, '製品750W／チップ公式650W（ASUS PRIME RTX 5070）→ 高いほうの750W');
+}
 eq(statusOf(B({ ...GOOD, cpu: 'ryzen57500f' }), 'psuwatt', withSpec('ryzen57500f', { tdpW: null })), 'check', 'CPUの消費電力が未登録なら電源容量は要確認');
 
 // BIOS
@@ -220,7 +261,11 @@ let mono = true;
 ok(mono, 'GPU性能指数が上がってゲーム性能が大きく下がらない');
 const COST_BUILD = B({ cpu: 'ryzen99950x', gpu: 'rtx-5070', motherboard: 'asus-tuf-b650-plus-wifi', memory: 'mem-generic-ddr5-32' });
 eq(Score.scoreBuild(COST_BUILD, db, 'wqhd').axes.cost.grade, 'estimate', '主要パーツの価格がそろえばコスパは参考値');
-eq(Score.scoreBuild(COST_BUILD, makeDb(null, null, (pr) => { delete pr.items.ryzen99950x; }), 'wqhd').axes.cost.grade, 'na', 'CPUの参考価格が無いとコスパは評価不可');
+// CPUの価格は正本（shared/catalog/cpu.json）にある。正本の複製から価格を消して確かめる
+const catNoPrice = JSON.parse(JSON.stringify(catalog));
+catNoPrice.cpu.products.find((r) => r.id === 'ryzen99950x').prices = [];
+const pricesNoCpu = JSON.parse(JSON.stringify(pricesRaw));
+eq(Score.scoreBuild(COST_BUILD, Db.buildDb({ catalog: catNoPrice, parts: partsRaw, rules, gpus, partPrices, engine, gpuTarget, prices: pricesNoCpu, now: TEST_NOW }), 'wqhd').axes.cost.grade, 'na', 'CPUの参考価格が無いとコスパは評価不可');
 eq(Score.scoreBuild(B({ cpu: 'ryzen57600', gpu: 'rtx-5070', memory: 'mem-generic-ddr5-32' }), withSpec('ryzen57600', { cores: null, pCores: null }), 'wqhd').axes.video.grade, 'na', 'コア数が未登録のCPUは動画編集を評価不可');
 eq(Score.scoreBuild(B({ cpu: 'ryzen57600', gpu: 'rtx-5070', memory: 'mem-generic-ddr5-32' }), db, 'wqhd').axes.video.grade, 'estimate', 'コア数・クロックがそろったCPUは動画編集を参考値で評価');
 ok(Score.cpuMtIndex(withSpec('ryzen97900x', { boostGHz: null }).byId.ryzen97900x) === null, 'クロックが無いCPUのマルチ指数は null（推測しない）');
@@ -382,7 +427,8 @@ Object.entries(pricesJson.classes).filter(([k]) => k[0] !== '_').forEach(([k, c]
 });
 // 価格の優先順位と表示用の情報
 const p7800 = db.byId.ryzen77800x3d.price;
-ok(p7800.type === 'retail' && p7800.basis === 'pc-builder/data/prices.json' && /^https:/.test(p7800.sourceUrl), '製品の小売目安は prices.json から（出典URLつき）');
+ok(p7800.type === 'retail' && p7800.basis === 'shared/catalog/cpu.json' && /^https:/.test(p7800.sourceUrl), 'CPUの小売目安は正本 shared/catalog/cpu.json から（出典URLつき）');
+ok(db.byId['mem-generic-ddr5-32'].price.basis === 'pc-builder/data/prices.json', 'CPU・GPU以外の価格は従来どおり prices.json');
 eq(db.byId['mem-generic-ddr5-32'].price.value, pricesJson.classes['memory:DDR5:32'].value, 'DDR5 32GB の目安パーツは同クラスの小売目安');
 eq(db.byId['mem-generic-ddr5-32'].price.type, 'class', '同クラスの価格は class として区別');
 eq(db.byId['mem-generic-ddr5-16'].price, null, 'メモリは実売と大きく違う既存価格を使わない（同クラス価格が無ければ未登録）');

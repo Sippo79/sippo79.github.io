@@ -92,9 +92,9 @@ function renderNeighbor(kind, cur, other) {
     : "";
   return `
             <a class="pb-neighbor pb-neighbor--${kind}" href="${esc(other.slug)}.html">
-              <span class="pb-neighbor-label">${isUp ? "5万円上げると" : "5万円下げると"}（${other.budgetMan}万円前後${other.priceText ? `・参考価格 ${esc(other.priceText)}` : ""}）</span>
+              <span class="pb-neighbor-label">${isUp ? "5万円上げると" : "5万円下げると"}（${other.budgetMan}万円前後${other.priceText ? `・${esc(other.priceShortLabel || "参考価格")} ${esc(other.priceText)}` : ""}）</span>
               <strong class="pb-neighbor-head">${esc(exp.headline)}</strong>${renderChanges(exp.diff.changes)}${points}
-              <p>${esc(exp.text)}${priceDiff ? `（参考価格の差: ${esc(priceDiff)}）` : ""}</p>
+              <p>${esc(exp.text)}${priceDiff ? `（${esc(other.priceShortLabel || "参考価格")}の差: ${esc(priceDiff)}）` : ""}</p>
               <span class="pb-neighbor-link">${other.budgetMan}万円の構成を見る →</span>
             </a>`;
 }

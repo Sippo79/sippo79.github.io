@@ -1,0 +1,402 @@
+{
+  "_meta": {
+    "purpose": "PC BUILD CHECK の参考価格（BTO基準・part-prices.json 2026-09-03）が現在のBTO完成品価格と比べてどうかを確かめた記録。価格の計算には使わない（part-prices.json の値は変えていない）。",
+    "source": "ドスパラ ゲーミングPC一覧（表示件数300）",
+    "url": "https://www.dospara.co.jp/gamepc?sz=300",
+    "fetchedAt": "2026-11-15T22:35:48+09:00",
+    "conditions": "一覧の表示価格（「円〜」＝標準構成の価格。税込表示）。カスタマイズ・送料・キャンペーンは含めない。ノートPCは除外。",
+    "method": "builds.json の75構成と CPU・GPU の名前が一致する製品を探し、メモリ・ストレージも一致すれば exact、違えば cpu+gpu（差を differences に記録）。一致が複数あれば最も安い製品。",
+    "listedProducts": 181,
+    "desktopProducts": 166,
+    "result": {
+      "builds": 75,
+      "exact": 0,
+      "cpuGpu": 15,
+      "none": 60,
+      "ratioMin": 1.25,
+      "ratioMax": 1.85
+    },
+    "note": "完全に同じ構成の販売例は無かった。比較できた15構成はいずれも販売例の方がメモリ・ストレージが少ないのに、9月時点の概算の1.25〜1.85倍。RTX 5060 Ti の販売例は8GB版。60構成は同じCPU・GPUの販売例が一覧に無く未確認。"
+  },
+  "comparisons": [
+    {
+      "buildId": 6,
+      "budget": "150000",
+      "cpu": "Ryzen 5 7500F",
+      "gpu": "GeForce RTX 5060",
+      "ram": "32GB",
+      "storage": "1TB NVMe SSD",
+      "estimateSeptember": 156000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XGR5M-R56-GD Ryzen 5 7500F搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21974.html",
+        "price": 234980,
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "GeForce RTX 5060",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.51,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は1TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 9,
+      "budget": "200000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5060 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 212000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7M-R56T8G-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21095.html",
+        "price": 264980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5060 Ti 8GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.25,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）",
+        "GPUは8GB版（構成はVRAM未指定）"
+      ]
+    },
+    {
+      "buildId": 12,
+      "budget": "200000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5060 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 212000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7M-R56T8G-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21095.html",
+        "price": 264980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5060 Ti 8GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.25,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）",
+        "GPUは8GB版（構成はVRAM未指定）"
+      ]
+    },
+    {
+      "buildId": 36,
+      "budget": "150000",
+      "cpu": "Ryzen 5 7500F",
+      "gpu": "GeForce RTX 5060",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 164000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XGR5M-R56-GD Ryzen 5 7500F搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21974.html",
+        "price": 234980,
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "GeForce RTX 5060",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.43,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 37,
+      "budget": "150000",
+      "cpu": "Ryzen 5 7500F",
+      "gpu": "GeForce RTX 5060",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 164000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XGR5M-R56-GD Ryzen 5 7500F搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21974.html",
+        "price": 234980,
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "GeForce RTX 5060",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.43,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 38,
+      "budget": "150000",
+      "cpu": "Ryzen 5 7500F",
+      "gpu": "GeForce RTX 5060",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 164000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XGR5M-R56-GD Ryzen 5 7500F搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21974.html",
+        "price": 234980,
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "GeForce RTX 5060",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.43,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 44,
+      "budget": "200000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5060 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 212000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7M-R56T8G-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21095.html",
+        "price": 264980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5060 Ti 8GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.25,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）",
+        "GPUは8GB版（構成はVRAM未指定）"
+      ]
+    },
+    {
+      "buildId": 46,
+      "budget": "200000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5060 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 212000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7M-R56T8G-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21095.html",
+        "price": 264980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5060 Ti 8GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.25,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）",
+        "GPUは8GB版（構成はVRAM未指定）"
+      ]
+    },
+    {
+      "buildId": 47,
+      "budget": "200000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5060 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 212000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7M-R56T8G-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21095.html",
+        "price": 264980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5060 Ti 8GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.25,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は2TB NVMe SSD）",
+        "GPUは8GB版（構成はVRAM未指定）"
+      ]
+    },
+    {
+      "buildId": 55,
+      "budget": "300000",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "GeForce RTX 5070 Ti",
+      "ram": "64GB",
+      "storage": "4TB NVMe SSD",
+      "estimateSeptember": 335000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "ファイナルファンタジーXIV 推奨パソコン クリスタルコンフリクト リージョンチャンピオンシップ 2026 Japan 大会記念モデル GALLERIA XDR7A-R57T-GD Ryzen 7 7800X3D搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC24805.html",
+        "price": 549980,
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "GeForce RTX 5070 Ti 16GB",
+        "memory": "32GBメモリ DDR5",
+        "storage": "1TB Gen4 SSD (DRAMキャッシュ)",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.64,
+      "differences": [
+        "メモリ 32GBメモリ DDR5（構成は64GB）",
+        "ストレージ 1TB Gen4 SSD (DRAMキャッシュ)（構成は4TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 56,
+      "budget": "300000",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "GeForce RTX 5070 Ti",
+      "ram": "64GB",
+      "storage": "4TB NVMe SSD",
+      "estimateSeptember": 335000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "ファイナルファンタジーXIV 推奨パソコン クリスタルコンフリクト リージョンチャンピオンシップ 2026 Japan 大会記念モデル GALLERIA XDR7A-R57T-GD Ryzen 7 7800X3D搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC24805.html",
+        "price": 549980,
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "GeForce RTX 5070 Ti 16GB",
+        "memory": "32GBメモリ DDR5",
+        "storage": "1TB Gen4 SSD (DRAMキャッシュ)",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.64,
+      "differences": [
+        "メモリ 32GBメモリ DDR5（構成は64GB）",
+        "ストレージ 1TB Gen4 SSD (DRAMキャッシュ)（構成は4TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 60,
+      "budget": "300000",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "GeForce RTX 5070 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 297000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "ファイナルファンタジーXIV 推奨パソコン クリスタルコンフリクト リージョンチャンピオンシップ 2026 Japan 大会記念モデル GALLERIA XDR7A-R57T-GD Ryzen 7 7800X3D搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC24805.html",
+        "price": 549980,
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "GeForce RTX 5070 Ti 16GB",
+        "memory": "32GBメモリ DDR5",
+        "storage": "1TB Gen4 SSD (DRAMキャッシュ)",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.85,
+      "differences": [
+        "ストレージ 1TB Gen4 SSD (DRAMキャッシュ)（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 62,
+      "budget": "300000",
+      "cpu": "Ryzen 7 7800X3D",
+      "gpu": "GeForce RTX 5070 Ti",
+      "ram": "64GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 315000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "ファイナルファンタジーXIV 推奨パソコン クリスタルコンフリクト リージョンチャンピオンシップ 2026 Japan 大会記念モデル GALLERIA XDR7A-R57T-GD Ryzen 7 7800X3D搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC24805.html",
+        "price": 549980,
+        "cpu": "Ryzen 7 7800X3D",
+        "gpu": "GeForce RTX 5070 Ti 16GB",
+        "memory": "32GBメモリ DDR5",
+        "storage": "1TB Gen4 SSD (DRAMキャッシュ)",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.75,
+      "differences": [
+        "メモリ 32GBメモリ DDR5（構成は64GB）",
+        "ストレージ 1TB Gen4 SSD (DRAMキャッシュ)（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 68,
+      "budget": "250000",
+      "cpu": "Ryzen 7 7700",
+      "gpu": "GeForce RTX 5070 Ti",
+      "ram": "32GB",
+      "storage": "2TB NVMe SSD",
+      "estimateSeptember": 281000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XPR7A-R57T-GD Ryzen 7 7700搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC19357.html",
+        "price": 419980,
+        "cpu": "Ryzen 7 7700",
+        "gpu": "GeForce RTX 5070 Ti 16GB",
+        "memory": "16GBメモリ DDR5",
+        "storage": "1TB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.49,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 1TB Gen4 SSD（構成は2TB NVMe SSD）"
+      ]
+    },
+    {
+      "buildId": 75,
+      "budget": "150000",
+      "cpu": "Ryzen 5 7500F",
+      "gpu": "GeForce RTX 5060",
+      "ram": "32GB",
+      "storage": "1TB NVMe SSD",
+      "estimateSeptember": 156000,
+      "match": "cpu+gpu",
+      "product": {
+        "name": "GALLERIA XGR5M-R56-GD Ryzen 5 7500F搭載",
+        "url": "https://www.dospara.co.jp/TC30/MC21974.html",
+        "price": 234980,
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "GeForce RTX 5060",
+        "memory": "16GBメモリ DDR5",
+        "storage": "500GB Gen4 SSD",
+        "os": "Windows 11 Home"
+      },
+      "ratio": 1.51,
+      "differences": [
+        "メモリ 16GBメモリ DDR5（構成は32GB）",
+        "ストレージ 500GB Gen4 SSD（構成は1TB NVMe SSD）"
+      ]
+    }
+  ]
+}

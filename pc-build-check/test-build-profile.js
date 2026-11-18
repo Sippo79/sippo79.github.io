@@ -315,6 +315,25 @@ var featuredHtml = indexHtml.slice(indexHtml.indexOf('id="popular-builds"'), ind
 check('おすすめ構成に「人気」「ランキング」「〇位」の表記が無い', !/人気|ランキング|\d位/.test(featuredHtml), (featuredHtml.match(/人気|ランキング|\d位/) || [''])[0]);
 check('builds.json に popular（実測と誤解される名前）が残っていない', builds.every(function (b) { return !b.popular; }));
 
+// 価格の基準が未確認のとき（2026-11-15〜）: 古い価格で「コスパ重視型」と言わない・配分の時点を書く・静的ページにも注意書き
+(function () {
+  var fsx = require('fs');
+  var pathx = require('path');
+  var dir = pathx.join(__dirname, 'builds');
+  var noValue = builds.every(function (b) {
+    var a = P.analyze(b, { prices: prices, gpuList: gpuList });
+    return !a.priceStatus.confirmed && a.valueScore === null && !a.types.some(function (t) { return t.key === 'value'; });
+  });
+  check('未確認の価格では「コスパ重視型」を付けない（75構成）', noValue);
+  var pages = builds.map(function (b) { return fsx.readFileSync(pathx.join(dir, P.slugOf(b) + '.html'), 'utf8'); });
+  check('静的75ページすべてに「この予算で購入できるとは限りません」がある', pages.every(function (h) { return /この予算で購入できるとは限りません/.test(h); }));
+  check('静的75ページの参考価格に時点（〇年〇月時点の概算）がある', pages.every(function (h) { return /構成の参考価格（\d{4}年\d{1,2}月時点の概算）/.test(h); }));
+  check('静的75ページに「コスパ重視型」が無い', pages.every(function (h) { return h.indexOf('コスパ重視型') < 0; }));
+  check('静的75ページの費用配分に価格の時点がある', pages.every(function (h) { return h.indexOf('構成全体の費用の約') < 0; }));
+  var idx = fsx.readFileSync(pathx.join(__dirname, 'index.html'), 'utf8');
+  check('トップの構成一覧の価格ラベルも時点つき', idx.indexOf('<dt>参考価格</dt>') < 0 && /参考価格（\d{4}年\d{1,2}月時点の概算）/.test(idx));
+})();
+
 console.log('');
 console.log('  PC BUILD CHECK 構成プロフィール・一元化テスト');
 console.log('  --------------------------------------------');

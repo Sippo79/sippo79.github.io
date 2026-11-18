@@ -53,12 +53,20 @@ foreach ($g in $gpuCatalog) {
 #  （それらしい概算をPowerShell側で作ると、まさに二重管理になる）。
 $buildPrices = @{}
 $buildPriceOver = @{}
+$buildPriceLabel = @{}
+$buildPriceCaveat = @{}
+$buildPriceBasis = @{}
+$buildBandLabel = @{}
 try {
     $priceJson = & node "./compute-prices.js" 2>$null
     if ($LASTEXITCODE -eq 0 -and $priceJson) {
         foreach ($row in ($priceJson | ConvertFrom-Json)) {
             $buildPrices[[string]$row.id]    = $row.text
             $buildPriceOver[[string]$row.id] = $row.overText
+            $buildPriceLabel[[string]$row.id]  = $row.label
+            $buildPriceCaveat[[string]$row.id] = $row.caveat
+            $buildPriceBasis[[string]$row.id]  = $row.basisNote
+            $buildBandLabel[[string]$row.id]   = $row.bandLabel
         }
         Write-Host "参考価格: $($buildPrices.Count) 件を算出"
     } else {
@@ -279,6 +287,25 @@ function Build-PriceHtml($build) {
     if ([string]::IsNullOrWhiteSpace($text)) { return "" }
 
     $overText = $buildPriceOver[$key]
+    # 価格の基準（build-price.js の priceBasisStatus）。未確認なら「〇年〇月時点の概算」と、予算で買えるとは限らない旨を出す
+    $label = $buildPriceLabel[$key]
+    if ([string]::IsNullOrWhiteSpace($label)) { $label = "参考価格" }
+    $caveat = $buildPriceCaveat[$key]
+    $caveatHtml = ""
+    if (-not [string]::IsNullOrWhiteSpace($caveat)) {
+        $caveatHtml = @"
+
+        <p class="price-estimate-caveat">$caveat</p>
+"@
+    }
+    $basis = $buildPriceBasis[$key]
+    $basisHtml = ""
+    if (-not [string]::IsNullOrWhiteSpace($basis)) {
+        $basisHtml = @"
+
+        <p class="price-estimate-note">$basis</p>
+"@
+    }
     $isOver   = -not [string]::IsNullOrWhiteSpace($overText)
     $overHtml = ""
     $overCls  = ""
@@ -297,11 +324,11 @@ function Build-PriceHtml($build) {
 
       <section class="build-card price-estimate$overCls">
         <p class="section-label">Reference Price</p>
-        <h2>構成の参考価格</h2>
+        <h2>構成の$label</h2>
         <div class="price-estimate-head">
           <strong class="price-estimate-value">$text</strong>
-        </div>$overHtml
-        <p class="price-estimate-note">※価格は販売店・時期によって変動します。同等構成のBTO完成品のおおよその価格帯を示す目安で、特定商品の販売価格ではありません。</p>
+        </div>$overHtml$caveatHtml
+        <p class="price-estimate-note">※価格は販売店・時期によって変動します。同等構成のBTO完成品のおおよその価格帯を示す目安で、特定商品の販売価格ではありません。</p>$basisHtml
       </section>
 "@
 }
@@ -436,7 +463,7 @@ $sippoHeaderLink
           <li><span class="spec-key">GPU（グラボ）</span><span class="spec-val">$($build.gpu)</span></li>
           <li><span class="spec-key">メモリ</span><span class="spec-val">$($build.ram)</span></li>
           <li><span class="spec-key">ストレージ</span><span class="spec-val">$($build.storage)</span></li>
-          <li><span class="spec-key">予算目安</span><span class="spec-val spec-budget">${bgLabel}前後</span></li>
+          <li><span class="spec-key">$(if ($buildBandLabel.ContainsKey([string]$build.id) -and $buildBandLabel[[string]$build.id]) { $buildBandLabel[[string]$build.id] } else { '予算目安' })</span><span class="spec-val spec-budget">${bgLabel}前後</span></li>
         </ul>
       </section>
 $priceHtml

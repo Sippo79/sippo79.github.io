@@ -111,8 +111,198 @@
 }
 
 /* ---------------------------------------------------------------
+ *  商品カード（リンク先の製品が分かっている直リンク）
+ *  左に写真、右にメーカー名・製品名・型番、その下に販売店ボタン。
+ *  写真が無い／読み込めないときは .sippo-aff-item--noimg で文字だけの形になる。
+ * --------------------------------------------------------------- */
+.sippo-aff-items {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.sippo-aff-item {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-areas:
+    'media body'
+    'media actions';
+  gap: 10px 14px;
+  padding: 14px;
+  border: 1px solid var(--sippo-aff-border);
+  border-radius: 14px;
+  background: var(--sippo-aff-bg);
+  box-shadow: var(--sippo-aff-shadow);
+  color: var(--sippo-aff-text);
+}
+
+.sippo-aff-item--noimg {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'body'
+    'actions';
+}
+
+/* 写真枠: 正方形の白地に「全体が入る」ように縮小（引き伸ばし・切り落としをしない）。
+   横長のGPUも縦長のケースも同じ枠に収まる。 */
+.sippo-aff-item-media {
+  grid-area: media;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  padding: 6px;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.sippo-aff-item-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 楽天で発行した画像リンク（item.imageLink）。発行HTMLと指定サイズ（128×128＋margin 2px）を
+   そのまま使い、画像そのものは拡大・縮小しない。合わせるのはカード側の列幅と余白だけ。 */
+.sippo-aff-item--issued {
+  grid-template-columns: 132px minmax(0, 1fr);
+}
+
+.sippo-aff-item-media--issued {
+  aspect-ratio: auto;
+  width: 132px;
+  padding: 0;
+  line-height: 0;
+  overflow: visible;
+}
+
+/* サイト全体の img { max-width: 100% } などで縮められないようにする（大きさは発行時のまま） */
+.sippo-aff-item-media--issued img {
+  max-width: none;
+}
+
+.sippo-aff-item-body {
+  grid-area: body;
+  min-width: 0;
+}
+
+.sippo-aff-item-body p {
+  margin: 0;
+}
+
+.sippo-aff-item-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sippo-aff-muted);
+}
+
+.sippo-aff-item-maker {
+  margin-top: 6px !important;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--sippo-aff-muted);
+}
+
+/* 製品名をいちばん読みやすく。長い製品名・型番でも横スクロールさせない */
+.sippo-aff-item-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--sippo-aff-text);
+  overflow-wrap: anywhere;
+}
+
+.sippo-aff-item-model {
+  margin-top: 4px !important;
+  font-size: 0.78rem;
+  color: var(--sippo-aff-muted);
+  overflow-wrap: anywhere;
+}
+
+/* ショップが表記する販売状態（例: 並行輸入品）。目立たせすぎず、製品名の下で読める大きさに */
+.sippo-aff-item-note {
+  margin-top: 4px !important;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--sippo-aff-muted);
+  overflow-wrap: anywhere;
+}
+
+/* 画像リンクだけの製品（販売店ボタンなし）: 写真を押すと楽天市場のショップページが開くことの案内 */
+.sippo-aff-item-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--sippo-aff-muted);
+}
+
+.sippo-aff-item-model span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--sippo-aff-text);
+}
+
+.sippo-aff-item-actions {
+  grid-area: actions;
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+}
+
+.sippo-aff-subheading {
+  margin: 4px 0 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sippo-aff-muted);
+}
+
+/* ---------------------------------------------------------------
  *  コンパクト表示（PC構成の各パーツ横に並べるとき）
  * --------------------------------------------------------------- */
+/* 一覧では1行に詰める: [小さな写真] 製品名 … [ボタン] */
+.sippo-aff-compact .sippo-aff-items {
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sippo-aff-compact .sippo-aff-item {
+  grid-template-columns: 64px minmax(0, 1fr) minmax(150px, auto);
+  grid-template-areas: 'media body actions';
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.sippo-aff-compact .sippo-aff-item--noimg {
+  grid-template-columns: minmax(0, 1fr) minmax(150px, auto);
+  grid-template-areas: 'body actions';
+}
+
+.sippo-aff-compact .sippo-aff-item-media {
+  align-self: center;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.sippo-aff-compact .sippo-aff-item-name {
+  font-size: 0.92rem;
+}
+
+.sippo-aff-compact .sippo-aff-item-maker {
+  margin-top: 2px !important;
+  font-size: 0.74rem;
+}
+
+.sippo-aff-compact .sippo-aff-item-actions {
+  align-self: center;
+  grid-template-columns: 1fr;
+}
+
 .sippo-aff-compact {
   margin: 8px 0 0;
 }
@@ -178,6 +368,14 @@
   color: var(--sippo-aff-muted);
 }
 
+/* 商品ごとの購入時の注意（容量の確認など）。広告表記より少しだけ目立たせる */
+.sippo-aff-purchase-note {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
 /* ---------------------------------------------------------------
  *  スマホ
  * --------------------------------------------------------------- */
@@ -194,6 +392,44 @@
 
   .sippo-aff-btn-label {
     font-size: 0.9rem;
+  }
+
+  /* 商品カード: 写真と製品名を横に、ボタンは下に全幅で（片手で押しやすく） */
+  .sippo-aff-item,
+  .sippo-aff-compact .sippo-aff-item {
+    grid-template-columns: 88px minmax(0, 1fr);
+    grid-template-areas:
+      'media body'
+      'actions actions';
+    align-items: start;
+    padding: 12px;
+  }
+
+  .sippo-aff-compact .sippo-aff-item {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  /* 楽天の発行画像は縮めない。写真の列を132pxにして、製品名は右で折り返す */
+  .sippo-aff-item.sippo-aff-item--issued {
+    grid-template-columns: 132px minmax(0, 1fr);
+    gap: 10px 12px;
+  }
+
+  /* 写真なしは文字だけ（上のルールより後に置いて確実に上書きする） */
+  .sippo-aff-item.sippo-aff-item--noimg {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'body'
+      'actions';
+  }
+
+  .sippo-aff-item-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .sippo-aff-item .sippo-aff-btn {
+    min-height: 48px;
+    justify-content: center;
   }
 }
 

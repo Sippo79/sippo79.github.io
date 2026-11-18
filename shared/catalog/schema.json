@@ -1,0 +1,254 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "purpose": "共通パーツデータ（shared/catalog/）の項目定義。検証（scripts/catalog/validate.js）はこの定義で型・単位・範囲・必須を確認する。",
+    "howToExtend": "新しいカテゴリ（例: motherboard）を足すときは categories に項目定義を足し、shared/catalog/<category>.json を作り、config.json の files に登録する。"
+  },
+  "idPattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+  "bases": {
+    "official": "メーカー公式の公表値（公式ページで確認）",
+    "secondary": "二次情報（Wikipedia など。公式値の転載だが一次確認はしていない）",
+    "measured": "実測値（測定条件を note に書く）",
+    "estimated": "推定値・Sippo独自の評価（実測でも公式値でもない）",
+    "unverified": "未確認（出典・確認日の記録が無い移行値など）。値があっても確認済みとして扱わない"
+  },
+  "listings": {
+    "gpu-guide": "GPU GUIDE（gpu-guide/gpus.json に出力・個別ページを生成）",
+    "pc-builder": "PC BUILDER（実行時に直接読む）",
+    "upgrade": "PC UPGRADE（upgrade-engine.js の生成ブロックに出力）"
+  },
+  "categories": {
+    "gpu": {
+      "label": "GPU（チップとしての仕様）",
+      "note": "メーカー別のグラボ製品（長さ・厚さ・実物の補助電源・製品ごとの推奨電源）はここに書かない（pc-builder/data/parts.json の gpuboard）。",
+      "record": {
+        "kind": {
+          "type": "enum",
+          "values": [
+            "chip"
+          ],
+          "required": true
+        },
+        "series": {
+          "type": "string",
+          "required": true,
+          "label": "シリーズ（世代）"
+        },
+        "market": {
+          "type": "enum",
+          "values": [
+            "new",
+            "used",
+            null
+          ],
+          "required": true,
+          "label": "主な入手経路（new=新品で流通 / used=中古中心）"
+        }
+      },
+      "fields": {
+        "vramGB": {
+          "type": "number",
+          "unit": "GB",
+          "min": 1,
+          "max": 64,
+          "label": "VRAM容量"
+        },
+        "boardPowerW": {
+          "type": "number",
+          "unit": "W",
+          "min": 20,
+          "max": 1000,
+          "label": "GPUボードの消費電力（NVIDIA=TGP / AMD=TBP）",
+          "meaning": "GPUカード単体の電力。システム推奨電源（recommendedSystemPowerW）とは別の値"
+        },
+        "recommendedSystemPowerW": {
+          "type": "number",
+          "unit": "W",
+          "min": 200,
+          "max": 2000,
+          "label": "メーカー公式のシステム推奨電源容量",
+          "meaning": "PC全体に必要な電源ユニット容量の目安（NVIDIA=Required System Power / AMD=Minimum PSU Recommendation）"
+        },
+        "powerConnectorsReference": {
+          "type": "string",
+          "label": "補助電源コネクタ（リファレンス仕様）",
+          "meaning": "メーカー製カードは本数・形状が違う場合がある"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "unit": "年",
+          "min": 2010,
+          "max": 2035,
+          "label": "発売年"
+        }
+      },
+      "scores": {
+        "sippoRaster": {
+          "label": "ゲーム性能（ラスタライズ）指数",
+          "scale": "0〜100の相対値。RTX 5090=100 を上限に全GPUを同じ基準で並べた目安",
+          "basis": "Sippo独自評価（実測FPSではない）",
+          "versions": [
+            "v1"
+          ],
+          "consumers": [
+            "GPU GUIDE",
+            "PC BUILDER",
+            "PC BUILD CHECK",
+            "GAME PC GUIDE",
+            "UPGRADE記事"
+          ]
+        },
+        "sippoFeature": {
+          "label": "機能評価",
+          "scale": "0〜100の相対値（アップスケーリング・レイトレ・省電力など）",
+          "basis": "Sippo独自評価",
+          "versions": [
+            "v1"
+          ],
+          "consumers": [
+            "GPU GUIDE",
+            "PC BUILDER"
+          ]
+        }
+      }
+    },
+    "cpu": {
+      "label": "CPU",
+      "record": {
+        "family": {
+          "type": "string",
+          "required": true,
+          "label": "世代（pc-builder/data/rules.json の cpuFamilies のキー）"
+        }
+      },
+      "fields": {
+        "released": {
+          "type": "date",
+          "label": "発売日"
+        },
+        "socket": {
+          "type": "string",
+          "label": "ソケット"
+        },
+        "cores": {
+          "type": "integer",
+          "unit": "コア",
+          "min": 1,
+          "max": 128,
+          "label": "コア数"
+        },
+        "threads": {
+          "type": "integer",
+          "unit": "スレッド",
+          "min": 1,
+          "max": 256,
+          "label": "スレッド数"
+        },
+        "pCores": {
+          "type": "integer",
+          "unit": "コア",
+          "min": 0,
+          "max": 128,
+          "label": "Pコア数"
+        },
+        "eCores": {
+          "type": "integer",
+          "unit": "コア",
+          "min": 0,
+          "max": 128,
+          "label": "Eコア数"
+        },
+        "baseGHz": {
+          "type": "number",
+          "unit": "GHz",
+          "min": 0.5,
+          "max": 7,
+          "label": "ベースクロック"
+        },
+        "boostGHz": {
+          "type": "number",
+          "unit": "GHz",
+          "min": 0.5,
+          "max": 7,
+          "label": "最大クロック"
+        },
+        "l3MB": {
+          "type": "number",
+          "unit": "MB",
+          "min": 1,
+          "max": 1024,
+          "label": "L3キャッシュ"
+        },
+        "tdpW": {
+          "type": "number",
+          "unit": "W",
+          "min": 5,
+          "max": 500,
+          "label": "TDP（AMD=Default TDP / Intel=Processor Base Power）",
+          "meaning": "最大消費電力ではない"
+        },
+        "maxPowerW": {
+          "type": "number",
+          "unit": "W",
+          "min": 5,
+          "max": 500,
+          "label": "最大電力（Intel=Maximum Turbo Power）",
+          "meaning": "AMDは同じ定義の公表値が無いため null（未確認）。TDPとは別の値"
+        },
+        "igpu": {
+          "type": "string",
+          "label": "内蔵GPU（none=なし）"
+        },
+        "memoryTypes": {
+          "type": "string[]",
+          "values": [
+            "DDR4",
+            "DDR5"
+          ],
+          "label": "対応メモリ規格"
+        },
+        "memorySpeed": {
+          "type": "string",
+          "label": "対応メモリ速度"
+        },
+        "boxCooler": {
+          "type": "string|false",
+          "label": "付属クーラー（false=付属なし / null=未確認・パッケージにより異なる）"
+        }
+      },
+      "scores": {}
+    }
+  },
+  "prices": {
+    "types": {
+      "lowest": "最安値：型番が一致する製品の掲載最安値",
+      "market-median": "掲載製品の価格目安：同じチップ（VRAM指定時は同じ容量）の、価格比較サイトのランキング掲載製品の最安値の中央値（low/high/sampleSize つき）。市場全体の相場・販売数量で重み付けした値・購入できる価格の保証ではない",
+      "reference": "参考価格：社内の目安（確認日の記録が無いものを含む）。合計・コスパには使わない",
+      "launch-msrp": "発売時価格（メーカー希望小売価格）",
+      "used-range": "中古相場の範囲（min〜max）",
+      "bto-estimate": "BTO完成品に組み込んだ場合の目安"
+    },
+    "conditions": [
+      "new",
+      "used"
+    ],
+    "currencies": [
+      "JPY"
+    ],
+    "fields": {
+      "type": "必須。上の types のいずれか",
+      "amount": "金額（円・正の整数）。used-range は min / max",
+      "currency": "必須。JPY",
+      "condition": "必須。new（新品）/ used（中古）",
+      "checkedAt": "外部の出典を実際に確認した日（YYYY-MM-DD）。未確認は null",
+      "source": "必須。sources.json のID",
+      "target": "必須。対象モデル・集計範囲（どの製品の価格か）",
+      "taxIncluded / shippingIncluded": "任意。無ければ出典（sources.json の priceConditions）の条件を使う",
+      "low / high / sampleSize": "market-median の範囲と製品数",
+      "note": "任意",
+      "vramGB": "任意（market-median）。同じチップで VRAM 違いがある場合の対象容量（例: RTX 5060 Ti は 16）。チップの vramGB と一致しないとエラー",
+      "medianRaw": "任意（market-median）。千円丸め前の中央値",
+      "evidence": "任意（market-median）。製品ごとの取得記録（リポジトリ内のパス）。validate.js が記録から中央値・製品数・範囲を再計算して照合する"
+    }
+  }
+}

@@ -185,6 +185,14 @@
   display: none;
 }
 
+/* 価格の種類の注記（一覧・ランキング共通） */
+.ranking-price-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #9aa7bd;
+}
+
 .gpu-controls {
   display: flex;
   gap: 12px;
@@ -239,6 +247,24 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+}
+
+/* 価格で絞り込み・並べ替えたときのグループ見出し（確認済み／未確認を分ける） */
+.gpu-group-heading {
+  grid-column: 1 / -1;
+  margin: 8px 0 -4px;
+}
+
+.gpu-group-heading h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.gpu-group-heading p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #9aa7bd;
 }
 
 .gpu-card {

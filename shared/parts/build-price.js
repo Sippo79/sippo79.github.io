@@ -126,6 +126,50 @@
   var PRICE_DISCLAIMER =
     "※価格は販売店・時期によって変動します。同等構成のBTO完成品のおおよその価格帯を示す目安で、特定商品の販売価格ではありません。";
 
+  /**
+   * 価格の基準時期の注記（2026-11-15〜）。part-prices.json の _meta.updated（CPU・メモリ・SSD・マザボ・BTO上乗せの見直し日）を
+   * そのまま出し、GPU は確認日の記録が無い目安であることも書く。古い価格で組んだ概算を「今の値段」に見せないため。
+   * 2026-11-15 に価格.com で確認した小売相場（DDR5 32GB 約7.3万円・NVMe 1TB 約3万円など）は part-prices.json の値より大幅に高い。
+   */
+  /**
+   * 価格の基準が「現在の購入判断に使える」状態かどうか（2026-11-15〜）。
+   * 確認済み＝ part-prices.json の _meta.updated が BASIS_STALE_DAYS 以内、かつ GPU の価格に確認日がある。
+   * GPU は gpus.json の price（確認日の記録が無い reference）を使うため、現状は常に未確認になる。
+   * 未確認のときは金額を「その時点の概算」として出し、予算に収まる／この金額で買える とは言わない。
+   */
+  var BASIS_STALE_DAYS = 60;
+  function priceBasisStatus(prices, gpuList, now) {
+    var meta = (prices && prices._meta) || {};
+    var updated = meta.updated || null;
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(updated || ""));
+    var nowMs = now ? new Date(now).getTime() : Date.now();
+    var ageDays = m ? Math.floor((nowMs - Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]))) / 86400000) : null;
+    var gpuDated = Array.isArray(gpuList) && gpuList.length > 0 && gpuList.every(function (g) { return g && g.priceCheckedAt; });
+    var confirmed = ageDays !== null && ageDays <= BASIS_STALE_DAYS && gpuDated;
+    var when = m ? Number(m[1]) + "年" + Number(m[2]) + "月時点" : "確認日の記録が無い時点";
+    var check = meta.btoCheck || null;
+    return {
+      confirmed: confirmed,
+      updated: updated,
+      ageDays: ageDays,
+      when: when,
+      label: confirmed ? "参考価格" : "参考価格（" + when + "の概算）",
+      shortLabel: confirmed ? "参考価格" : when + "の概算",
+      // 予算帯（10万〜30万円前後）は構成を選んだ時点の価格による区分。未確認なら名前にその時点を出す
+      bandLabel: confirmed ? "予算目安" : "予算帯（" + when + "の価格で選定）",
+      caveat: confirmed ? null
+        : "この構成は" + when + "のパーツ価格で予算帯に合わせて選んだものです。現在の販売価格は確認できていないため、この予算で購入できるとは限りません。"
+          + (check && check.summary ? check.summary : ""),
+    };
+  }
+
+  function priceBasisNote(updated) {
+    var m = /^(\d{4})-(\d{2})-\d{2}$/.exec(String(updated || ""));
+    var when = m ? Number(m[1]) + "年" + Number(m[2]) + "月時点" : "確認日の記録が無い時点";
+    return "※パーツ価格（CPU・メモリ・SSDなどは" + when + "、GPUは確認日の記録が無い目安）をもとにした概算です。" +
+      "その後もメモリ・SSD・グラフィックボードの値上がりが続いており、現在の販売価格はこれより高いことがあります。";
+  }
+
   /* ---------- 予算との突き合わせ ---------- */
 
   // 予算選択肢は「10万円前後」という表記なので、多少の幅は想定内。
@@ -143,26 +187,32 @@
    *
    * @returns {object|null} { total, budget, diff, ratio, isOver, text }
    */
-  function evaluateBudgetFit(total, budget) {
+  function evaluateBudgetFit(total, budget, status) {
     var bd = Number(budget);
     if (!Number.isFinite(total) || !Number.isFinite(bd) || bd <= 0) return null;
     var diff = total - bd;
     var ratio = diff / bd;
     var isOver = ratio > OVER_TOLERANCE;
+    var unconfirmed = !!(status && !status.confirmed);
     return {
       total: total,
       budget: bd,
       diff: diff,
       ratio: ratio,
       isOver: isOver,
+      // 価格の基準が未確認（古い）なら、予算に収まる／収まらないを「今の値段」として言い切らない
+      unconfirmed: unconfirmed,
       // 予算を超えるときだけ文言を出す。収まっているときに
       // 「予算内です」と言い切ると、価格変動で簡単に嘘になる。
       text: isOver
-        ? "この構成の参考価格は" +
-          formatEstimate(total) +
-          "で、選んだ予算（" +
-          Math.round(bd / 10000) +
-          "万円前後）を上回ります。この条件を満たすには、もう少し予算が必要です。"
+        ? (unconfirmed
+          ? status.when + "の価格での概算（" + formatEstimate(total) + "）でも、選んだ予算（" + Math.round(bd / 10000) +
+            "万円前後）を上回っていました。現在の価格は確認できていないため、実際の差はこれより大きい可能性があります。"
+          : "この構成の参考価格は" +
+            formatEstimate(total) +
+            "で、選んだ予算（" +
+            Math.round(bd / 10000) +
+            "万円前後）を上回ります。この条件を満たすには、もう少し予算が必要です。")
         : null,
     };
   }
@@ -175,5 +225,8 @@
     normalizeGpuName: normalizeGpuName,
     OVER_TOLERANCE: OVER_TOLERANCE,
     PRICE_DISCLAIMER: PRICE_DISCLAIMER,
+    priceBasisNote: priceBasisNote,
+    priceBasisStatus: priceBasisStatus,
+    BASIS_STALE_DAYS: BASIS_STALE_DAYS,
   };
 });

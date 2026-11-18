@@ -3,35 +3,18 @@
     "id": "rtx-3060",
     "name": "GeForce RTX 3060",
     "brand": "NVIDIA",
-    "vram": 12,
-    "target": "FHD",
-    "score": 52,
-    "price": 27000,
-    "power": 170,
-    "summary": "GeForce RTX 3060はVRAM 12GB重視なら中古でも強い。FHDで長く使いやすい定番候補。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "VALORANT",
-      "Apex Legends",
-      "Fortnite",
-      "FF14"
-    ],
-    "compare": [
-      "rtx-4060",
-      "rx-6600",
-      "rtx-3060-ti"
-    ],
-    "cpus": [
-      "Ryzen 5 3600",
-      "Ryzen 5 5600",
-      "Core i5-12400F"
-    ],
     "maker": "NVIDIA",
     "series": "RTX 30",
     "generation": "RTX 30",
+    "vram": 12,
+    "target": "FHD",
     "recommendedResolution": "FHD",
+    "score": 52,
     "performanceScore": 52,
+    "price": 27000,
     "usedPriceMin": 23000,
     "usedPriceMax": 33000,
+    "power": 170,
     "releaseYear": 2021,
     "market": "used",
     "tags": [
@@ -42,6 +25,7 @@
       "まだ使える"
     ],
     "usedRecommendRank": "A",
+    "summary": "GeForce RTX 3060はVRAM 12GB重視なら中古でも強い。FHDで長く使いやすい定番候補。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "VRAM容量に余裕がある",
       "DLSS対応ゲームで軽くしやすい",
@@ -58,11 +42,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
     "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
       "FF14"
+    ],
+    "compare": [
+      "rtx-4060",
+      "rx-6600",
+      "rtx-3060-ti"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
     ],
     "rasterScore": 43,
     "featureScore": 70,
@@ -73,35 +73,18 @@
     "id": "rtx-3060-ti",
     "name": "GeForce RTX 3060 Ti",
     "brand": "NVIDIA",
-    "vram": 8,
-    "target": "FHD",
-    "score": 61,
-    "price": 30000,
-    "power": 200,
-    "summary": "GeForce RTX 3060 TiはFHD高画質からWQHD入門まで狙える。VRAM 8GBなので最新ゲームは設定調整も考える。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Apex Legends",
-      "Fortnite",
-      "FF14",
-      "CoD"
-    ],
-    "compare": [
-      "rtx-4060-ti",
-      "rtx-3070",
-      "rx-6700-xt"
-    ],
-    "cpus": [
-      "Ryzen 5 5600",
-      "Ryzen 7 5700X3D",
-      "Core i5-13400F"
-    ],
     "maker": "NVIDIA",
     "series": "RTX 30",
     "generation": "RTX 30",
+    "vram": 8,
+    "target": "FHD",
     "recommendedResolution": "FHD",
+    "score": 61,
     "performanceScore": 61,
+    "price": 30000,
     "usedPriceMin": 27000,
     "usedPriceMax": 38000,
+    "power": 200,
     "releaseYear": 2020,
     "market": "used",
     "tags": [
@@ -112,6 +95,7 @@
       "VRAM注意"
     ],
     "usedRecommendRank": "A",
+    "summary": "GeForce RTX 3060 TiはFHD高画質からWQHD入門まで狙える。VRAM 8GBなので最新ゲームは設定調整も考える。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "DLSS対応ゲームで軽くしやすい",
       "中古価格が合えば現実的な選択肢"
@@ -127,11 +111,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
     "targetGames": [
       "Apex Legends",
       "Fortnite",
       "FF14",
       "CoD"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-3070",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
     ],
     "rasterScore": 55,
     "featureScore": 72,
@@ -142,35 +142,18 @@
     "id": "rtx-3070",
     "name": "GeForce RTX 3070",
     "brand": "NVIDIA",
-    "vram": 8,
-    "target": "FHD",
-    "score": 64,
-    "price": 35000,
-    "power": 220,
-    "summary": "GeForce RTX 3070はWQHD入門として優秀。ただしVRAM 8GBが重いゲームでネックになることがある。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "Escape from Tarkov"
-    ],
-    "compare": [
-      "rtx-4060-ti",
-      "rtx-3070-ti",
-      "rx-6700-xt"
-    ],
-    "cpus": [
-      "Ryzen 5 5600",
-      "Ryzen 7 5700X3D",
-      "Core i5-13400F"
-    ],
     "maker": "NVIDIA",
     "series": "RTX 30",
     "generation": "RTX 30",
+    "vram": 8,
+    "target": "FHD",
     "recommendedResolution": "FHD",
+    "score": 64,
     "performanceScore": 64,
+    "price": 35000,
     "usedPriceMin": 32000,
     "usedPriceMax": 45000,
+    "power": 220,
     "releaseYear": 2020,
     "market": "used",
     "tags": [
@@ -181,6 +164,7 @@
       "まだ使える"
     ],
     "usedRecommendRank": "A",
+    "summary": "GeForce RTX 3070はWQHD入門として優秀。ただしVRAM 8GBが重いゲームでネックになることがある。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "DLSS対応ゲームで軽くしやすい",
       "中古価格が合えば現実的な選択肢"
@@ -196,11 +180,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-4060-ti",
+      "rtx-3070-ti",
+      "rx-6700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
     ],
     "rasterScore": 62,
     "featureScore": 73,
@@ -211,35 +211,18 @@
     "id": "rtx-3070-ti",
     "name": "GeForce RTX 3070 Ti",
     "brand": "NVIDIA",
-    "vram": 8,
-    "target": "WQHD",
-    "score": 65,
-    "price": 38000,
-    "power": 290,
-    "summary": "GeForce RTX 3070 TiはRTX 3070より少し速いが、消費電力と発熱が高め。価格差が小さい時向け。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "モンスターハンターワイルズ"
-    ],
-    "compare": [
-      "rtx-3070",
-      "rtx-4060-ti",
-      "rx-7700-xt"
-    ],
-    "cpus": [
-      "Ryzen 5 5600",
-      "Ryzen 7 5700X3D",
-      "Core i5-13400F"
-    ],
     "maker": "NVIDIA",
     "series": "RTX 30",
     "generation": "RTX 30",
+    "vram": 8,
+    "target": "WQHD",
     "recommendedResolution": "WQHD",
+    "score": 65,
     "performanceScore": 65,
+    "price": 38000,
     "usedPriceMin": 35000,
     "usedPriceMax": 50000,
+    "power": 290,
     "releaseYear": 2021,
     "market": "used",
     "tags": [
@@ -250,6 +233,7 @@
       "VRAM注意"
     ],
     "usedRecommendRank": "B",
+    "summary": "GeForce RTX 3070 TiはRTX 3070より少し速いが、消費電力と発熱が高め。価格差が小さい時向け。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "DLSS対応ゲームで軽くしやすい",
       "中古価格が合えば現実的な選択肢"
@@ -266,11 +250,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "モンスターハンターワイルズ"
+    ],
+    "compare": [
+      "rtx-3070",
+      "rtx-4060-ti",
+      "rx-7700-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
     ],
     "rasterScore": 65,
     "featureScore": 73,
@@ -281,35 +281,18 @@
     "id": "rtx-3080",
     "name": "GeForce RTX 3080",
     "brand": "NVIDIA",
-    "vram": 10,
-    "target": "WQHD",
-    "score": 72,
-    "price": 48000,
-    "power": 320,
-    "summary": "GeForce RTX 3080は性能は高いが消費電力・発熱・中古個体差に注意。状態確認が特に大切。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "FF14",
-      "重量級ゲーム"
-    ],
-    "compare": [
-      "rtx-4070",
-      "rtx-4070-super",
-      "rx-6800-xt"
-    ],
-    "cpus": [
-      "Ryzen 7 5700X3D",
-      "Ryzen 7 7800X3D",
-      "Core i5-14600KF"
-    ],
     "maker": "NVIDIA",
     "series": "RTX 30",
     "generation": "RTX 30",
+    "vram": 10,
+    "target": "WQHD",
     "recommendedResolution": "WQHD",
+    "score": 72,
     "performanceScore": 72,
+    "price": 48000,
     "usedPriceMin": 43000,
     "usedPriceMax": 65000,
+    "power": 320,
     "releaseYear": 2020,
     "market": "used",
     "tags": [
@@ -320,6 +303,7 @@
       "補助電源注意"
     ],
     "usedRecommendRank": "B",
+    "summary": "GeForce RTX 3080は性能は高いが消費電力・発熱・中古個体差に注意。状態確認が特に大切。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "DLSS対応ゲームで軽くしやすい",
       "中古価格が合えば現実的な選択肢"
@@ -335,11 +319,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
     "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "FF14",
       "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-4070",
+      "rtx-4070-super",
+      "rx-6800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
     ],
     "rasterScore": 74,
     "featureScore": 75,
@@ -350,13 +350,24 @@
     "id": "rtx-4060",
     "name": "GeForce RTX 4060",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 8,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 57,
+    "performanceScore": 57,
     "price": 52000,
     "power": 115,
     "summary": "省電力で扱いやすいフルHD向けGPU。軽めのゲームや初めてのゲーミングPCに向く。2026年はメモリ高騰と在庫減で新品価格がやや上がっている点に注意（価格は目安）。",
     "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
@@ -372,17 +383,6 @@
       "Ryzen 5 7500F",
       "Core i5-13400F"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "FHD",
-    "performanceScore": 57,
-    "targetGames": [
-      "VALORANT",
-      "Apex Legends",
-      "Fortnite",
-      "FF14"
-    ],
     "rasterScore": 45,
     "featureScore": 86,
     "usedScore": 70,
@@ -392,13 +392,24 @@
     "id": "rtx-4060-ti",
     "name": "GeForce RTX 4060 Ti",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 8,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 62,
+    "performanceScore": 62,
     "price": 56000,
     "power": 160,
     "summary": "フルHD高画質向けのミドルGPU。軽めならWQHDも狙える。新品流通は減りつつあり中古も選択肢に。VRAM 8GBは最新ゲームで設定調整したい（価格は目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Fortnite",
       "FF14",
@@ -414,17 +425,6 @@
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "FHD",
-    "performanceScore": 62,
-    "targetGames": [
-      "Apex Legends",
-      "Fortnite",
-      "FF14",
-      "CoD"
-    ],
     "rasterScore": 56,
     "featureScore": 87,
     "usedScore": 66,
@@ -434,13 +434,24 @@
     "id": "rtx-4070",
     "name": "GeForce RTX 4070",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 12,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 76,
+    "performanceScore": 76,
     "price": 72000,
     "power": 200,
     "summary": "WQHD向けのバランス型GPU。消費電力を抑えつつ画質とフレームレートを両立しやすい。後継のRTX 5070登場で新品流通は減少し中古も候補に（価格は目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
@@ -456,17 +467,6 @@
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 76,
-    "targetGames": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "Escape from Tarkov"
-    ],
     "rasterScore": 70,
     "featureScore": 90,
     "usedScore": 70,
@@ -476,13 +476,24 @@
     "id": "rtx-4070-super",
     "name": "GeForce RTX 4070 SUPER",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 12,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 80,
+    "performanceScore": 80,
     "price": 82000,
     "power": 220,
     "summary": "WQHD高画質で人気だったGPU。現在は生産終了で新品流通が減り中古中心。RTX 4070より余裕があり今でも実用十分。価格は目安・要確認（中古相場寄り）。",
     "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
@@ -498,17 +509,6 @@
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 80,
-    "targetGames": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "モンスターハンターワイルズ"
-    ],
     "rasterScore": 76,
     "featureScore": 91,
     "usedScore": 70,
@@ -518,13 +518,24 @@
     "id": "rtx-4070-ti-super",
     "name": "GeForce RTX 4070 Ti SUPER",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 16,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 87,
+    "performanceScore": 87,
     "price": 115000,
     "power": 285,
     "summary": "WQHD高画質から4K入門まで狙えた上位GPU。生産終了で新品流通は減少し中古中心。VRAM 16GBで重量級ゲームにも対応しやすい。価格は目安・要確認。",
     "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "モンスターハンターワイルズ",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "モンスターハンターワイルズ",
@@ -540,17 +551,6 @@
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 87,
-    "targetGames": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "モンスターハンターワイルズ",
-      "重量級ゲーム"
-    ],
     "rasterScore": 84,
     "featureScore": 93,
     "usedScore": 68,
@@ -560,13 +560,24 @@
     "id": "rtx-4080-super",
     "name": "GeForce RTX 4080 SUPER",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 40",
+    "generation": "RTX 40",
     "vram": 16,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 92,
+    "performanceScore": 92,
     "price": 150000,
     "power": 320,
     "summary": "4Kゲーミング向けのハイエンドGPU。生産終了で新品は品薄・中古中心。高画質設定や重量級ゲームで余裕を持ちやすい。価格は目安・要確認（メモリ高騰で中古も高め）。",
     "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "targetGames": [
       "Cyberpunk 2077",
       "Black Myth: Wukong",
       "Starfield",
@@ -582,17 +593,6 @@
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 40",
-    "generation": "RTX 40",
-    "recommendedResolution": "4K",
-    "performanceScore": 92,
-    "targetGames": [
-      "Cyberpunk 2077",
-      "Black Myth: Wukong",
-      "Starfield",
-      "4K重量級ゲーム"
-    ],
     "rasterScore": 92,
     "featureScore": 94,
     "usedScore": 62,
@@ -602,13 +602,28 @@
     "id": "rtx-5050",
     "name": "GeForce RTX 5050",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 8,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 57,
+    "performanceScore": 57,
     "price": 35000,
+    "marketPrice": 64000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 3,
     "power": 130,
     "summary": "RTX 50世代の入門モデル。フルHDで遊ぶことに絞れば費用を抑えやすく、DLSSなど最新世代の機能をひととおり使えるのが強み。VRAM 8GBなので高解像度テクスチャや重量級タイトルの最高設定には向かない。価格は需給で変動しやすいので購入前に最新価格の確認を（価格は目安）。",
     "games": [
+      "VALORANT",
+      "Fortnite",
+      "Apex Legends",
+      "原神"
+    ],
+    "targetGames": [
       "VALORANT",
       "Fortnite",
       "Apex Legends",
@@ -624,17 +639,6 @@
       "Ryzen 5 7500F",
       "Core i5-14400F"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "FHD",
-    "performanceScore": 57,
-    "targetGames": [
-      "VALORANT",
-      "Fortnite",
-      "Apex Legends",
-      "原神"
-    ],
     "rasterScore": 46,
     "featureScore": 90,
     "usedScore": 55,
@@ -645,13 +649,28 @@
     "id": "rtx-5060",
     "name": "GeForce RTX 5060",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 8,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 67,
+    "performanceScore": 67,
     "price": 57000,
+    "marketPrice": 89000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 13,
     "power": 145,
     "summary": "フルHD向けの現行ミドルクラスGPU。軽めのFPSや普段使い、価格を抑えたゲーミングPC向け。2026年はメモリ高騰で価格がやや上昇傾向（価格は目安）。",
     "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
@@ -667,17 +686,6 @@
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "FHD",
-    "performanceScore": 67,
-    "targetGames": [
-      "VALORANT",
-      "Apex Legends",
-      "Fortnite",
-      "FF14"
-    ],
     "rasterScore": 58,
     "featureScore": 91,
     "usedScore": 62,
@@ -687,13 +695,28 @@
     "id": "rtx-5060-ti",
     "name": "GeForce RTX 5060 Ti",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 16,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 75,
+    "performanceScore": 75,
     "price": 89000,
+    "marketPrice": 159000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 11,
     "power": 180,
     "summary": "フルHD高画質やWQHD入門向けの現行GPU。VRAM 16GBモデルなら長く使いやすい。メモリ高騰の影響で価格上昇・在庫変動が大きい点に注意（価格は16GB版の目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "Fortnite",
+      "FF14",
+      "CoD"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Fortnite",
       "FF14",
@@ -709,17 +732,6 @@
       "Ryzen 7 5700X3D",
       "Core i5-14400F"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 75,
-    "targetGames": [
-      "Apex Legends",
-      "Fortnite",
-      "FF14",
-      "CoD"
-    ],
     "rasterScore": 68,
     "featureScore": 92,
     "usedScore": 64,
@@ -729,13 +741,29 @@
     "id": "rtx-5070",
     "name": "GeForce RTX 5070",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 12,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 83,
+    "performanceScore": 83,
     "price": 118000,
+    "marketPrice": 160000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 11,
     "power": 250,
     "summary": "WQHDゲーミングの中心となる現行GPU。画質とフレームレートのバランスが良い。2026年はメモリ高騰で価格が大きく上がっているため、購入前に最新価格の確認を（価格は目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ",
+      "Escape from Tarkov"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
@@ -752,18 +780,6 @@
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 83,
-    "targetGames": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "モンスターハンターワイルズ",
-      "Escape from Tarkov"
-    ],
     "rasterScore": 78,
     "featureScore": 94,
     "usedScore": 62,
@@ -773,13 +789,28 @@
     "id": "rtx-5070-ti",
     "name": "GeForce RTX 5070 Ti",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 16,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 90,
+    "performanceScore": 90,
     "price": 158000,
+    "marketPrice": 258000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 15,
     "power": 300,
     "summary": "WQHD高画質や一部4Kも狙える現行上位GPU。VRAM 16GBで重めのゲームも余裕。メモリ高騰で価格上昇・在庫減の傾向があるため最新価格の確認を（価格は目安・要確認）。",
     "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Escape from Tarkov",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "Escape from Tarkov",
@@ -795,17 +826,6 @@
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "4K",
-    "performanceScore": 90,
-    "targetGames": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "Escape from Tarkov",
-      "重量級ゲーム"
-    ],
     "rasterScore": 88,
     "featureScore": 95,
     "usedScore": 60,
@@ -815,13 +835,28 @@
     "id": "rtx-5080",
     "name": "GeForce RTX 5080",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 16,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 95,
+    "performanceScore": 95,
     "price": 198000,
+    "marketPrice": 370000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 16,
     "power": 360,
     "summary": "4Kゲーミングや重量級ゲーム向けの現行ハイエンドGPU。高画質設定で快適に遊びたい人向け。2026年はメモリ高騰で価格が上昇している（価格は目安・要確認）。",
     "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "targetGames": [
       "Cyberpunk 2077",
       "Black Myth: Wukong",
       "Starfield",
@@ -837,17 +872,6 @@
       "Ryzen 9 9950X3D",
       "Core Ultra 7"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "4K",
-    "performanceScore": 95,
-    "targetGames": [
-      "Cyberpunk 2077",
-      "Black Myth: Wukong",
-      "Starfield",
-      "4K重量級ゲーム"
-    ],
     "rasterScore": 96,
     "featureScore": 97,
     "usedScore": 54,
@@ -857,13 +881,28 @@
     "id": "rtx-5090",
     "name": "GeForce RTX 5090",
     "brand": "NVIDIA",
+    "maker": "NVIDIA",
+    "series": "RTX 50",
+    "generation": "RTX 50",
     "vram": 32,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 98,
+    "performanceScore": 98,
     "price": 650000,
+    "marketPrice": 1265000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 10,
     "power": 575,
     "summary": "現行最上位クラスのGPU。4K最高画質やクリエイティブ・AI用途で最高性能を求める人向け。2026年は世界的な品薄とメモリ高騰で価格が大きく高騰中（価格は目安・要確認）。",
     "games": [
+      "Cyberpunk 2077",
+      "Black Myth: Wukong",
+      "Starfield",
+      "4K重量級ゲーム"
+    ],
+    "targetGames": [
       "Cyberpunk 2077",
       "Black Myth: Wukong",
       "Starfield",
@@ -879,17 +918,6 @@
       "Ryzen 9 9950X3D",
       "Core Ultra 9"
     ],
-    "maker": "NVIDIA",
-    "series": "RTX 50",
-    "generation": "RTX 50",
-    "recommendedResolution": "4K",
-    "performanceScore": 98,
-    "targetGames": [
-      "Cyberpunk 2077",
-      "Black Myth: Wukong",
-      "Starfield",
-      "4K重量級ゲーム"
-    ],
     "rasterScore": 100,
     "featureScore": 100,
     "usedScore": 45,
@@ -899,35 +927,18 @@
     "id": "rx-6600",
     "name": "Radeon RX 6600",
     "brand": "AMD",
-    "vram": 8,
-    "target": "FHD",
-    "score": 49,
-    "price": 22000,
-    "power": 132,
-    "summary": "Radeon RX 6600は省電力で中古FHD用として優秀。低予算で失敗しにくい有力候補。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "VALORANT",
-      "Apex Legends",
-      "Fortnite",
-      "FF14"
-    ],
-    "compare": [
-      "rtx-3060",
-      "rx-6650-xt",
-      "rx-7600"
-    ],
-    "cpus": [
-      "Ryzen 5 3600",
-      "Ryzen 5 5600",
-      "Core i5-12400F"
-    ],
     "maker": "AMD",
     "series": "RX 6000",
     "generation": "RX 6000",
+    "vram": 8,
+    "target": "FHD",
     "recommendedResolution": "FHD",
+    "score": 49,
     "performanceScore": 49,
+    "price": 22000,
     "usedPriceMin": 18000,
     "usedPriceMax": 26000,
+    "power": 132,
     "releaseYear": 2021,
     "market": "used",
     "tags": [
@@ -938,6 +949,7 @@
       "まだ使える"
     ],
     "usedRecommendRank": "S",
+    "summary": "Radeon RX 6600は省電力で中古FHD用として優秀。低予算で失敗しにくい有力候補。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "消費電力が控えめ",
       "中古価格が合えば現実的な選択肢"
@@ -953,11 +965,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
     "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
       "FF14"
+    ],
+    "compare": [
+      "rtx-3060",
+      "rx-6650-xt",
+      "rx-7600"
+    ],
+    "cpus": [
+      "Ryzen 5 3600",
+      "Ryzen 5 5600",
+      "Core i5-12400F"
     ],
     "rasterScore": 42,
     "featureScore": 56,
@@ -968,35 +996,18 @@
     "id": "rx-6700-xt",
     "name": "Radeon RX 6700 XT",
     "brand": "AMD",
-    "vram": 12,
-    "target": "FHD",
-    "score": 64,
-    "price": 32000,
-    "power": 230,
-    "summary": "Radeon RX 6700 XTは中古WQHD用としてコスパが良い。VRAM 12GBでRTX 3070よりメモリ面に余裕。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "Escape from Tarkov"
-    ],
-    "compare": [
-      "rtx-3060-ti",
-      "rtx-3070",
-      "rx-6750-xt"
-    ],
-    "cpus": [
-      "Ryzen 5 5600",
-      "Ryzen 7 5700X3D",
-      "Core i5-13400F"
-    ],
     "maker": "AMD",
     "series": "RX 6000",
     "generation": "RX 6000",
+    "vram": 12,
+    "target": "FHD",
     "recommendedResolution": "FHD",
+    "score": 64,
     "performanceScore": 64,
+    "price": 32000,
     "usedPriceMin": 28000,
     "usedPriceMax": 40000,
+    "power": 230,
     "releaseYear": 2021,
     "market": "used",
     "tags": [
@@ -1006,6 +1017,7 @@
       "まだ使える"
     ],
     "usedRecommendRank": "S",
+    "summary": "Radeon RX 6700 XTは中古WQHD用としてコスパが良い。VRAM 12GBでRTX 3070よりメモリ面に余裕。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "VRAM容量に余裕がある",
       "中古価格が合えば現実的な選択肢"
@@ -1021,11 +1033,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "Escape from Tarkov"
+    ],
     "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
       "Escape from Tarkov"
+    ],
+    "compare": [
+      "rtx-3060-ti",
+      "rtx-3070",
+      "rx-6750-xt"
+    ],
+    "cpus": [
+      "Ryzen 5 5600",
+      "Ryzen 7 5700X3D",
+      "Core i5-13400F"
     ],
     "rasterScore": 58,
     "featureScore": 61,
@@ -1036,35 +1064,18 @@
     "id": "rx-6800-xt",
     "name": "Radeon RX 6800 XT",
     "brand": "AMD",
-    "vram": 16,
-    "target": "WQHD",
-    "score": 75,
-    "price": 50000,
-    "power": 300,
-    "summary": "Radeon RX 6800 XTはWQHD高画質向けの旧世代上位Radeon。VRAM 16GBで強いが消費電力に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
-    "games": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "FF14",
-      "重量級ゲーム"
-    ],
-    "compare": [
-      "rtx-3080",
-      "rx-6800",
-      "rx-7800-xt"
-    ],
-    "cpus": [
-      "Ryzen 7 5700X3D",
-      "Ryzen 7 7800X3D",
-      "Core i5-14600KF"
-    ],
     "maker": "AMD",
     "series": "RX 6000",
     "generation": "RX 6000",
+    "vram": 16,
+    "target": "WQHD",
     "recommendedResolution": "WQHD",
+    "score": 75,
     "performanceScore": 75,
+    "price": 50000,
     "usedPriceMin": 43000,
     "usedPriceMax": 62000,
+    "power": 300,
     "releaseYear": 2020,
     "market": "used",
     "tags": [
@@ -1075,6 +1086,7 @@
       "補助電源注意"
     ],
     "usedRecommendRank": "A",
+    "summary": "Radeon RX 6800 XTはWQHD高画質向けの旧世代上位Radeon。VRAM 16GBで強いが消費電力に注意。 価格は中古相場の目安で、時期や状態によって変わります。",
     "pros": [
       "VRAM容量に余裕がある",
       "中古価格が合えば現実的な選択肢"
@@ -1090,11 +1102,27 @@
       "補助電源コネクタと電源容量を確認",
       "古いGPUは保証が短い、または無いことが多い"
     ],
+    "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
     "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "FF14",
       "重量級ゲーム"
+    ],
+    "compare": [
+      "rtx-3080",
+      "rx-6800",
+      "rx-7800-xt"
+    ],
+    "cpus": [
+      "Ryzen 7 5700X3D",
+      "Ryzen 7 7800X3D",
+      "Core i5-14600KF"
     ],
     "rasterScore": 74,
     "featureScore": 64,
@@ -1105,13 +1133,28 @@
     "id": "rx-7600",
     "name": "Radeon RX 7600",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 8,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 55,
+    "performanceScore": 55,
     "price": 42000,
+    "marketPrice": 54000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 4,
     "power": 165,
     "summary": "価格を抑えたフルHD向けの現行下位GPU。軽めのゲームや初めてのゲーミングPCに向く。2026年はメモリ高騰でやや値上がり傾向（価格は目安）。",
     "games": [
+      "VALORANT",
+      "Apex Legends",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
       "VALORANT",
       "Apex Legends",
       "Fortnite",
@@ -1127,17 +1170,6 @@
       "Ryzen 5 7500F",
       "Core i5-13400F"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "FHD",
-    "performanceScore": 55,
-    "targetGames": [
-      "VALORANT",
-      "Apex Legends",
-      "Fortnite",
-      "FF14"
-    ],
     "rasterScore": 48,
     "featureScore": 70,
     "usedScore": 66,
@@ -1147,13 +1179,24 @@
     "id": "rx-7700-xt",
     "name": "Radeon RX 7700 XT",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 12,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 73,
+    "performanceScore": 73,
     "price": 58000,
     "power": 245,
     "summary": "WQHD入門から中級向けのRadeon。コスパ重視で選びやすい。後継世代の登場で新品流通は減少傾向、中古も選択肢に（価格は目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "targetGames": [
       "Apex Legends",
       "CoD",
       "FF14",
@@ -1169,17 +1212,6 @@
       "Ryzen 5 7500F",
       "Core i5-14600KF"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 73,
-    "targetGames": [
-      "Apex Legends",
-      "CoD",
-      "FF14",
-      "モンスターハンターワイルズ"
-    ],
     "rasterScore": 70,
     "featureScore": 73,
     "usedScore": 68,
@@ -1189,13 +1221,24 @@
     "id": "rx-7800-xt",
     "name": "Radeon RX 7800 XT",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 16,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 81,
+    "performanceScore": 81,
     "price": 78000,
     "power": 263,
     "summary": "WQHD高画質向けのRadeon。VRAM 16GBで重量級ゲームにも対応しやすい。RX 9070世代の登場で新品流通は減りつつあり中古も候補に（価格は目安・要確認）。",
     "games": [
+      "Apex Legends",
+      "CoD",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "targetGames": [
       "Apex Legends",
       "CoD",
       "FF14",
@@ -1211,17 +1254,6 @@
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 81,
-    "targetGames": [
-      "Apex Legends",
-      "CoD",
-      "FF14",
-      "モンスターハンターワイルズ"
-    ],
     "rasterScore": 80,
     "featureScore": 75,
     "usedScore": 70,
@@ -1231,13 +1263,24 @@
     "id": "rx-7900-gre",
     "name": "Radeon RX 7900 GRE",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 16,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 84,
+    "performanceScore": 84,
     "price": 80000,
     "power": 260,
     "summary": "WQHD高画質で使いやすかったRadeon上位GPU。生産終了で新品流通は減少し中古中心。VRAM 16GBでコスパ重視構成にも向く。価格は目安・要確認。",
     "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "FF14",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "FF14",
@@ -1253,17 +1296,6 @@
       "Ryzen 7 5700X3D",
       "Core i5-14600KF"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 84,
-    "targetGames": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "FF14",
-      "重量級ゲーム"
-    ],
     "rasterScore": 84,
     "featureScore": 76,
     "usedScore": 68,
@@ -1273,13 +1305,24 @@
     "id": "rx-7900-xt",
     "name": "Radeon RX 7900 XT",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 20,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 89,
+    "performanceScore": 89,
     "price": 110000,
     "power": 315,
     "summary": "4K入門から高画質WQHD向けの旧世代上位Radeon。生産終了で新品は品薄・中古中心。VRAM 20GBと大容量で長く使いやすい。価格は目安・要確認。",
     "games": [
+      "Battlefield",
+      "Cyberpunk 2077",
+      "Starfield",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
       "Battlefield",
       "Cyberpunk 2077",
       "Starfield",
@@ -1295,17 +1338,6 @@
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "4K",
-    "performanceScore": 89,
-    "targetGames": [
-      "Battlefield",
-      "Cyberpunk 2077",
-      "Starfield",
-      "重量級ゲーム"
-    ],
     "rasterScore": 90,
     "featureScore": 78,
     "usedScore": 64,
@@ -1315,13 +1347,24 @@
     "id": "rx-7900-xtx",
     "name": "Radeon RX 7900 XTX",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 7000",
+    "generation": "RX 7000",
     "vram": 24,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 93,
+    "performanceScore": 93,
     "price": 135000,
     "power": 355,
     "summary": "旧世代Radeonの最上位GPU。生産終了で新品は品薄・中古中心。VRAM 24GBで4KやVRAMを多く使う用途に強い。メモリ高騰で中古も高めの傾向（価格は目安・要確認）。",
     "games": [
+      "Cyberpunk 2077",
+      "Starfield",
+      "4K重量級ゲーム",
+      "クリエイティブ用途"
+    ],
+    "targetGames": [
       "Cyberpunk 2077",
       "Starfield",
       "4K重量級ゲーム",
@@ -1337,17 +1380,6 @@
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
     ],
-    "maker": "AMD",
-    "series": "RX 7000",
-    "generation": "RX 7000",
-    "recommendedResolution": "4K",
-    "performanceScore": 93,
-    "targetGames": [
-      "Cyberpunk 2077",
-      "Starfield",
-      "4K重量級ゲーム",
-      "クリエイティブ用途"
-    ],
     "rasterScore": 94,
     "featureScore": 79,
     "usedScore": 62,
@@ -1357,13 +1389,28 @@
     "id": "rx-9060-xt",
     "name": "Radeon RX 9060 XT",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 9000",
+    "generation": "RX 9000",
     "vram": 16,
     "target": "FHD",
+    "recommendedResolution": "FHD",
     "score": 68,
+    "performanceScore": 68,
     "price": 55000,
+    "marketPrice": 100000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 12,
     "power": 160,
     "summary": "VRAM 16GBを積む現行のミドルRadeon。FHD高画質を安定して回しつつ、VRAM容量に余裕があるので高解像度テクスチャやWQHDにも手が届く。価格は需給で変動しやすいので購入前に最新価格の確認を（価格は目安）。",
     "games": [
+      "Apex Legends",
+      "VALORANT",
+      "Fortnite",
+      "FF14"
+    ],
+    "targetGames": [
       "Apex Legends",
       "VALORANT",
       "Fortnite",
@@ -1379,17 +1426,6 @@
       "Ryzen 7 7700",
       "Core i5-14400F"
     ],
-    "maker": "AMD",
-    "series": "RX 9000",
-    "generation": "RX 9000",
-    "recommendedResolution": "FHD",
-    "performanceScore": 68,
-    "targetGames": [
-      "Apex Legends",
-      "VALORANT",
-      "Fortnite",
-      "FF14"
-    ],
     "rasterScore": 61,
     "featureScore": 88,
     "usedScore": 58,
@@ -1399,13 +1435,28 @@
     "id": "rx-9070",
     "name": "Radeon RX 9070",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 9000",
+    "generation": "RX 9000",
     "vram": 16,
     "target": "WQHD",
+    "recommendedResolution": "WQHD",
     "score": 86,
+    "performanceScore": 86,
     "price": 88000,
+    "marketPrice": 136000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 7,
     "power": 220,
     "summary": "WQHD高画質向けの現行Radeon。RX 9070 XTより価格を抑えつつVRAM 16GBの余裕がある。価格は需給で変動しやすいので購入前に最新価格の確認を（価格は目安）。",
     "games": [
+      "Apex Legends",
+      "Battlefield",
+      "FF14",
+      "モンスターハンターワイルズ"
+    ],
+    "targetGames": [
       "Apex Legends",
       "Battlefield",
       "FF14",
@@ -1421,17 +1472,6 @@
       "Ryzen 7 7800X3D",
       "Core i5-14600KF"
     ],
-    "maker": "AMD",
-    "series": "RX 9000",
-    "generation": "RX 9000",
-    "recommendedResolution": "WQHD",
-    "performanceScore": 86,
-    "targetGames": [
-      "Apex Legends",
-      "Battlefield",
-      "FF14",
-      "モンスターハンターワイルズ"
-    ],
     "rasterScore": 84,
     "featureScore": 88,
     "usedScore": 64,
@@ -1441,13 +1481,28 @@
     "id": "rx-9070-xt",
     "name": "Radeon RX 9070 XT",
     "brand": "AMD",
+    "maker": "AMD",
+    "series": "RX 9000",
+    "generation": "RX 9000",
     "vram": 16,
     "target": "4K",
+    "recommendedResolution": "4K",
     "score": 91,
+    "performanceScore": 91,
     "price": 96000,
+    "marketPrice": 167000,
+    "marketPriceCheckedAt": "2026-11-15",
+    "marketPriceValidUntil": "2026-12-30",
+    "marketPriceSampleSize": 14,
     "power": 304,
     "summary": "WQHD高画質から4K入門まで狙える現行Radeon。価格と性能のバランス重視向き。発売後は値下がりも需給で変動するため、購入前に最新価格の確認を（価格は目安）。",
     "games": [
+      "Battlefield",
+      "Escape from Tarkov",
+      "Cyberpunk 2077",
+      "重量級ゲーム"
+    ],
+    "targetGames": [
       "Battlefield",
       "Escape from Tarkov",
       "Cyberpunk 2077",
@@ -1462,17 +1517,6 @@
       "Ryzen 7 7800X3D",
       "Ryzen 7 9800X3D",
       "Core Ultra 7"
-    ],
-    "maker": "AMD",
-    "series": "RX 9000",
-    "generation": "RX 9000",
-    "recommendedResolution": "4K",
-    "performanceScore": 91,
-    "targetGames": [
-      "Battlefield",
-      "Escape from Tarkov",
-      "Cyberpunk 2077",
-      "重量級ゲーム"
     ],
     "rasterScore": 91,
     "featureScore": 90,

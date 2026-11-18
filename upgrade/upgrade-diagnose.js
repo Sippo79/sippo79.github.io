@@ -141,6 +141,8 @@
         + '<strong>' + esc(cost) + '</strong>'
         + '</div>';
     }
+    // 確認日の無い費用を含むときは合計を出さず、その理由を書く（今いくらかかるかを断定しない）
+    if (overall.costNote) html += '<p class="u-verdict__note">' + esc(overall.costNote) + '</p>';
     html += '</div>';
     return html;
   }
@@ -209,8 +211,17 @@
 
       var price = p.priceHint || (Engine.PRICE_HINT && Engine.PRICE_HINT[p.recommendId]);
       if (price) {
+        // GPU は共通パーツデータの実売相場（確認日つき）。期限（validUntil）を過ぎたら「更新待ち」と書く
+        var gp = p.part === 'gpu' && Engine.GPU_PRICE ? Engine.GPU_PRICE[p.recommendId] : null;
+        var priceNote = p.part === 'gpu' ? '相場は変動します' : '確認日の記録が無い目安です。現在の価格は購入前に確認してください';
+        if (gp && gp.checkedAt) {
+          var cd = gp.checkedAt.split('-');
+          var stale = gp.validUntil && new Date().toISOString().slice(0, 10) > gp.validUntil;
+          priceNote = '価格.com人気ランキング掲載製品の最安値の中央値' + (gp.vramGB ? '（' + gp.vramGB + 'GB版）' : '') + '・' + Number(cd[1]) + '月' + Number(cd[2]) + '日時点'
+            + (stale ? '・確認から日数がたっているため更新待ち' : '') + '。この価格で買えることや最安製品を示すものではありません';
+        }
         html += '<p class="u-part__price">費用の目安 <strong>'
-          + esc(formatYen(price)) + '</strong>（相場は変動します）</p>';
+          + esc(formatYen(price)) + '</strong>（' + esc(priceNote) + '）</p>';
       }
 
       // おすすめGPUの詳細ページへ送る（GPUのときだけ・解決できたときだけ）

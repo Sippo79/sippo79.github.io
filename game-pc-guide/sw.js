@@ -16,7 +16,12 @@
 // v14: 各ゲームページの「次にやること」に PC BUILDER（このゲーム向けにPCを組む）を追加（style.css・games/*.html を更新）。
 //      共通ナビ（shared/nav）にも PC BUILDER を追加。
 // v15: GA4 を共通ローダー（/shared/analytics/sippo-analytics.js）へ置き換え、script.js に絞り込みの計測を追加。
-const CACHE_VERSION = 'v15';
+// v16: 共通アフィリエイト（affiliate.js・affiliate.css・affiliate-master.json）に購入時の注意を追加。
+// v17: 共通アフィリエイトに商品カード（リンク先のメーカー名・製品名を表示）を追加（affiliate.js・affiliate.css・affiliate-master.json）。
+// v18: 共通アフィリエイトの商品カードに、楽天で発行した画像リンク（item.imageLink）をそのまま表示（affiliate.js・affiliate.css・affiliate-master.json）。
+// v19: 楽天カードのボタン文言を行き先に合わせる（商品を見る／価格を比較）・販売状態の注記・RTX 5070 Ti の発行画像（affiliate.js・affiliate.css・affiliate-master.json）。
+// v20: 楽天の画像リンクだけで紹介する製品（RTX 5070 を 12G VENTUS 2X OC、RTX 5060 を 8G VENTUS 2X OC V1 に変更し、旧モデルの価格比較ボタンを外す）（affiliate.js・affiliate.css・affiliate-master.json）。
+const CACHE_VERSION = 'v20';
 const CACHE_NAME = `game-pc-guide-${CACHE_VERSION}`;
 const OFFLINE_URL = '/game-pc-guide/offline.html';
 
